@@ -51,7 +51,7 @@ from .conftest import (
             """
             - ['/d_recv', <SynthDef: supriya:device-dc-tester:2>]
             - ['/sync', 4]
-            - [None, [['/g_new', 1014, 1, 1002], ['/s_new', 'supriya:device-dc-tester:2', 1015, 1, 1014, 'out', 16.0]]]
+            - [None, [['/g_new', 1014, 0, 1002], ['/s_new', 'supriya:device-dc-tester:2', 1015, 1, 1014, 'out', 16.0]]]
             """,
         ),
         (
@@ -86,7 +86,7 @@ from .conftest import (
             """
             - ['/d_recv', <SynthDef: supriya:device-dc-tester:2>]
             - ['/sync', 4]
-            - [None, [['/g_new', 1014, 1, 1009], ['/s_new', 'supriya:device-dc-tester:2', 1015, 1, 1014, 'out', 18.0]]]
+            - [None, [['/g_new', 1014, 0, 1009], ['/s_new', 'supriya:device-dc-tester:2', 1015, 1, 1014, 'out', 18.0]]]
             """,
         ),
     ],

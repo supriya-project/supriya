@@ -117,6 +117,7 @@ class Mixer(
                 context=context,
                 destroy_strategy={"gate": 0},
                 name=Names.GROUP,
+                parent_node=None,
                 target_node=None,
             ),
             GroupSpec(
@@ -124,6 +125,7 @@ class Mixer(
                 component=self,
                 context=context,
                 name=Names.TRACKS,
+                parent_node=None,
                 target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
             ),
             GroupSpec(
@@ -131,6 +133,7 @@ class Mixer(
                 component=self,
                 context=context,
                 name=Names.DEVICES,
+                parent_node=None,
                 target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
             ),
             SynthSpec(
@@ -145,6 +148,7 @@ class Mixer(
                     "out": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
                 },
                 name=Names.CHANNEL_STRIP,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None, Names.SYNTHDEFS, channel_strip_synthdef.effective_name
                 ),
@@ -161,6 +165,7 @@ class Mixer(
                     ),
                 },
                 name=Names.INPUT_LEVELS,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None, Names.SYNTHDEFS, meters_synthdef.effective_name
                 ),
@@ -177,6 +182,7 @@ class Mixer(
                     ),
                 },
                 name=Names.OUTPUT_LEVELS,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None, Names.SYNTHDEFS, meters_synthdef.effective_name
                 ),
@@ -191,6 +197,7 @@ class Mixer(
                     "out": context.audio_output_bus_group,
                 },
                 name=Names.OUTPUT,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None, Names.SYNTHDEFS, patch_cable_synthdef.effective_name
                 ),
@@ -201,13 +208,22 @@ class Mixer(
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
-            await self._reconcile(context=None, deleting=True)
+            await Component._reconcile(
+                context=None,
+                deleting_components=[self],
+                reconciling_components=[self],
+                session=self.session,
+            )
 
     async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
         async with self._lock:
             self._channel_count = channel_count
             if context := self._can_allocate():
-                await self._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[self],
+                    session=self.session,
+                )
 
     def set_name(self, name: str | None = None) -> None:
         self._name = name

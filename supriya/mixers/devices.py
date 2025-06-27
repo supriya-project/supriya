@@ -22,7 +22,11 @@ class DeviceContainer(Component[C]):
         async with self._lock:
             device = self._add_device(name=name)
             if context := self._can_allocate():
-                await device._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[device],
+                    session=self.session,
+                )
             else:
                 device._reconcile_connections()
             return device
@@ -48,6 +52,17 @@ class Device(Component[DeviceContainer]):
         if not context:
             return []
         synthdef = build_device_dc_tester(self.effective_channel_count)
+        device_index: int = self.parent.devices.index(self)
+        if device_index:
+            group_add_action: AddAction = AddAction.ADD_AFTER
+            group_target: Address = Spec.get_address(
+                self.parent.devices[device_index - 1],
+                Names.NODES,
+                Names.GROUP,
+            )
+        else:
+            group_add_action = AddAction.ADD_TO_HEAD
+            group_target = Spec.get_address(self.parent, Names.NODES, Names.DEVICES)
         return [
             SynthDefSpec(
                 component=self,
@@ -56,13 +71,13 @@ class Device(Component[DeviceContainer]):
                 synthdef=synthdef,
             ),
             GroupSpec(
-                add_action=AddAction.ADD_TO_TAIL,
+                add_action=group_add_action,
                 component=self,
                 context=context,
                 destroy_strategy={"gate": 0},
                 name=Names.GROUP,
-                # TODO: Need more advanced logic here for positioning
-                target_node=Spec.get_address(self.parent, Names.NODES, Names.DEVICES),
+                parent_node=Spec.get_address(self.parent, Names.NODES, Names.DEVICES),
+                target_node=group_target,
             ),
             SynthSpec(
                 add_action=AddAction.ADD_TO_TAIL,
@@ -77,6 +92,7 @@ class Device(Component[DeviceContainer]):
                     )
                 },
                 name=Names.SYNTH,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None,
                     Names.SYNTHDEFS,

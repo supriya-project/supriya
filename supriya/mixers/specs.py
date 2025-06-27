@@ -378,6 +378,7 @@ class SynthDefSpec(Spec):
 @dataclasses.dataclass(frozen=True)
 class NodeSpec(Spec):
     add_action: AddAction
+    parent_node: Address | None
     target_node: Address | None
 
     def requires(self) -> list[Address]:
@@ -402,6 +403,7 @@ class GroupSpec(NodeSpec):
                 self.context,
                 self.name,
                 self.add_action,
+                self.parent_node,
                 self.target_node,
                 (
                     tuple(sorted(self.destroy_strategy.items()))
@@ -455,7 +457,8 @@ class GroupSpec(NodeSpec):
         if not isinstance(old_spec, GroupSpec):
             raise ValueError(old_spec)
         if (
-            self.add_action != old_spec.add_action
+            self.parent_node != old_spec.parent_node
+            or self.add_action != old_spec.add_action
             or self.target_node != old_spec.target_node
         ):
             old_artifacts.nodes[self.address].move(
@@ -486,6 +489,7 @@ class SynthSpec(NodeSpec):
                 self.context,
                 self.name,
                 self.add_action,
+                self.parent_node,
                 self.target_node,
                 tuple(sorted(self.kwargs.items())),
                 self.synthdef,
@@ -565,7 +569,8 @@ class SynthSpec(NodeSpec):
         if not isinstance(old_spec, SynthSpec):
             raise ValueError(old_spec)
         if (
-            self.add_action != old_spec.add_action
+            self.parent_node != old_spec.parent_node
+            or self.add_action != old_spec.add_action
             or self.target_node != old_spec.target_node
         ):
             old_artifacts.nodes[self.address].move(

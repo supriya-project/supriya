@@ -51,7 +51,11 @@ class TrackContainer(Component[C]):
         async with self._lock:
             track = self._add_track(name=name)
             if context := self._can_allocate():
-                await track._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[track],
+                    session=self.session,
+                )
             else:
                 track._reconcile_connections()
             return track
@@ -60,7 +64,11 @@ class TrackContainer(Component[C]):
         async with self._lock:
             track = self._group(index=index, count=count)
             if context := self._can_allocate():
-                await track._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[track],
+                    session=self.session,
+                )
             else:
                 track._reconcile_connections()
             return track
@@ -107,11 +115,13 @@ class TrackSend(Component["Track"]):
         self,
         *,
         deleting: bool = False,
-        root: Component | None = None,
+        roots: list[Component] | None = None,
     ) -> tuple[list[Component], set[Component]]:
         if self.parent is None:
             raise ValueError
-        related, deleted = super()._reconcile_connections(deleting=deleting, root=root)
+        related, deleted = super()._reconcile_connections(
+            deleting=deleting, roots=roots
+        )
         components: list[Component] = [self.parent, self.target]
         if deleting:
             self.parent._connections.pop((self, Names.INPUT), None)
@@ -165,6 +175,7 @@ class TrackSend(Component["Track"]):
                     ),
                 },
                 name=Names.SYNTH,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None,
                     Names.SYNTHDEFS,
@@ -179,7 +190,12 @@ class TrackSend(Component["Track"]):
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
-            await self._reconcile(context=None, deleting=True)
+            await Component._reconcile(
+                context=None,
+                deleting_components=[self],
+                reconciling_components=[self],
+                session=self.session,
+            )
 
     @property
     def address(self) -> Address:
@@ -296,9 +312,11 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         self,
         *,
         deleting: bool = False,
-        root: Component | None = None,
+        roots: list[Component] | None = None,
     ) -> tuple[list[Component], set[Component]]:
-        related, deleted = super()._reconcile_connections(deleting=deleting, root=root)
+        related, deleted = super()._reconcile_connections(
+            deleting=deleting, roots=roots
+        )
         old_input = self._cached_input
         old_output = self._cached_output
         if deleting:
@@ -419,6 +437,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 context=context,
                 destroy_strategy={"gate": 0},
                 name=Names.GROUP,
+                parent_node=Spec.get_address(self.parent, Names.NODES, Names.TRACKS),
                 target_node=group_target,
             ),
             GroupSpec(
@@ -426,6 +445,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 component=self,
                 context=context,
                 name=Names.TRACKS,
+                parent_node=None,
                 target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
             ),
             GroupSpec(
@@ -433,6 +453,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 component=self,
                 context=context,
                 name=Names.DEVICES,
+                parent_node=None,
                 target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
             ),
         ]
@@ -452,6 +473,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     "out": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
                 },
                 name=Names.CHANNEL_STRIP,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None, Names.SYNTHDEFS, channel_strip_synthdef.effective_name
                 ),
@@ -471,6 +493,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     ),
                 },
                 name=Names.INPUT_LEVELS,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None, Names.SYNTHDEFS, meters_synthdef.effective_name
                 ),
@@ -490,6 +513,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                     ),
                 },
                 name=Names.OUTPUT_LEVELS,
+                parent_node=None,
                 synthdef=Spec.get_address(
                     None, Names.SYNTHDEFS, meters_synthdef.effective_name
                 ),
@@ -534,6 +558,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                         ),
                         "out": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
                     },
+                    parent_node=None,
                     synthdef=Spec.get_address(
                         None,
                         Names.SYNTHDEFS,
@@ -583,6 +608,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                             Names.FEEDBACK if output_feedsback else Names.MAIN,
                         ),
                     },
+                    parent_node=None,
                     synthdef=Spec.get_address(
                         None,
                         Names.SYNTHDEFS,
@@ -618,6 +644,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                         "in_": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
                         "out": self.output,
                     },
+                    parent_node=None,
                     synthdef=Spec.get_address(
                         None,
                         Names.SYNTHDEFS,
@@ -665,6 +692,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                         ),
                         "out": Spec.get_address(self, Names.AUDIO_BUSSES, Names.MAIN),
                     },
+                    parent_node=None,
                     synthdef=Spec.get_address(
                         None,
                         Names.SYNTHDEFS,
@@ -675,6 +703,19 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
             )
         return synthdefs + busses + groups + synths
 
+    def _ungroup(self) -> list["Track"]:
+        if not self.tracks:
+            raise RuntimeError
+        if not self.parent:
+            raise RuntimeError
+        index = self.parent.tracks.index(self)
+        tracks = self.tracks[:]
+        self.parent._tracks[index + 1 : index + 1] = tracks
+        for track in tracks:
+            track._parent = self.parent
+        self._tracks[:] = []
+        return tracks
+
     async def add_send(
         self, target: TrackContainer, postfader: bool = True
     ) -> TrackSend:
@@ -684,7 +725,11 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 target=target,
             )
             if context := self._can_allocate():
-                await send._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[send],
+                    session=self.session,
+                )
             else:
                 send._reconcile_connections()
             return send
@@ -692,19 +737,32 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
     async def delete(self) -> None:
         # TODO: What are delete semantics actually?
         async with self._lock:
-            await self._reconcile(context=None, deleting=True)
+            await Component._reconcile(
+                context=None,
+                deleting_components=[self],
+                reconciling_components=[self],
+                session=self.session,
+            )
 
     async def move(self, parent: TrackContainer, index: int) -> None:
         async with self._lock:
             self._move(parent=parent, index=index)
             if context := self._can_allocate():
-                await self._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[self],
+                    session=self.session,
+                )
 
     async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
         async with self._lock:
             self._channel_count = channel_count
             if context := self._can_allocate():
-                await self._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[self],
+                    session=self.session,
+                )
 
     async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
         async with self._lock:
@@ -714,7 +772,11 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 raise RuntimeError
             self._input = input_
             if context := self._can_allocate():
-                await self._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[self],
+                    session=self.session,
+                )
             else:
                 self._reconcile_connections()
 
@@ -735,7 +797,11 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
                 raise RuntimeError
             self._output = output
             if context := self._can_allocate():
-                await self._reconcile(context=context)
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[self],
+                    session=self.session,
+                )
             else:
                 self._reconcile_connections()
 
@@ -745,7 +811,21 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
 
     async def ungroup(self) -> None:
         async with self._lock:
-            raise NotImplementedError
+            tracks = self._ungroup()
+            if context := self._can_allocate():
+                await Component._reconcile(
+                    context=context,
+                    deleting_components=[self],
+                    reconciling_components=[self, *tracks],
+                    session=self.session,
+                )
+            else:
+                await Component._reconcile(
+                    context=None,
+                    deleting_components=[self],
+                    reconciling_components=[self],
+                    session=self.session,
+                )
 
     @property
     def address(self) -> Address:

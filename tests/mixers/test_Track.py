@@ -3239,16 +3239,141 @@ async def test_Track_set_soloed(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
-    [],
+    "commands, target, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    [
+        # track without child tracks: raises
+        (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+            ],
+            "mixers[0].tracks[0]",
+            pytest.raises(RuntimeError),
+            "",
+            "",
+            "",
+        ),
+        # track with child tracks
+        (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Self"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Older Child"}),
+                ("mixers[0].tracks[0]", "add_track", {"name": "Younger Child"}),
+            ],
+            "mixers[0].tracks[0]",
+            does_not_raise,
+            """
+            --- initial
+            +++ mutation
+            @@ -1,6 +1,5 @@
+             <Session 0>
+                 <session.contexts[0]>
+                     <Mixer 1 'Mixer'>
+            -            <Track 2 'Self'>
+            -                <Track 3 'Older Child'>
+            -                <Track 4 'Younger Child'>
+            +            <Track 3 'Older Child'>
+            +            <Track 4 'Younger Child'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -1,39 +1,43 @@
+             <session.contexts[0]>
+                 NODE TREE 1000 group (mixers[1]:group)
+                     1001 group (mixers[1]:tracks)
+            -            1007 group (tracks[2]:group)
+            -                1008 group (tracks[2]:tracks)
+            -                    1014 group (tracks[3]:group)
+            -                        1015 group (tracks[3]:tracks)
+            -                        1018 supriya:meters:2 (tracks[3]:input-levels)
+            -                            in_: 20.0, out: 13.0
+            -                        1016 group (tracks[3]:devices)
+            -                        1017 supriya:channel-strip:2 (tracks[3]:channel-strip)
+            -                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            -                        1019 supriya:meters:2 (tracks[3]:output-levels)
+            -                            in_: 20.0, out: 15.0
+            -                        1020 supriya:patch-cable:2x2 (tracks[3]:output)
+            -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
+            -                    1021 group (tracks[4]:group)
+            -                        1022 group (tracks[4]:tracks)
+            -                        1025 supriya:meters:2 (tracks[4]:input-levels)
+            -                            in_: 22.0, out: 19.0
+            -                        1023 group (tracks[4]:devices)
+            -                        1024 supriya:channel-strip:2 (tracks[4]:channel-strip)
+            -                            active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
+            -                        1026 supriya:meters:2 (tracks[4]:output-levels)
+            -                            in_: 22.0, out: 21.0
+            -                        1027 supriya:patch-cable:2x2 (tracks[4]:output)
+            -                            active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 18.0
+            -                1011 supriya:meters:2 (tracks[2]:input-levels)
+            +            1007 group
+            +                1008 group
+            +                1011 supriya:meters:2
+                                 in_: 18.0, out: 7.0
+            -                1009 group (tracks[2]:devices)
+            -                1010 supriya:channel-strip:2 (tracks[2]:channel-strip)
+            -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            -                1012 supriya:meters:2 (tracks[2]:output-levels)
+            +                1009 group
+            +                1010 supriya:channel-strip:2
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
+            +                1012 supriya:meters:2
+                                 in_: 18.0, out: 9.0
+            -                1013 supriya:patch-cable:2x2 (tracks[2]:output)
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
+            +                1013 supriya:patch-cable:2x2
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+            +            1014 group (tracks[3]:group)
+            +                1015 group (tracks[3]:tracks)
+            +                1018 supriya:meters:2 (tracks[3]:input-levels)
+            +                    in_: 20.0, out: 13.0
+            +                1016 group (tracks[3]:devices)
+            +                1017 supriya:channel-strip:2 (tracks[3]:channel-strip)
+            +                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                1019 supriya:meters:2 (tracks[3]:output-levels)
+            +                    in_: 20.0, out: 15.0
+            +                1020 supriya:patch-cable:2x2
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
+            +                1028 supriya:patch-cable:2x2 (tracks[3]:output)
+            +                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            +            1021 group (tracks[4]:group)
+            +                1022 group (tracks[4]:tracks)
+            +                1025 supriya:meters:2 (tracks[4]:input-levels)
+            +                    in_: 22.0, out: 19.0
+            +                1023 group (tracks[4]:devices)
+            +                1024 supriya:channel-strip:2 (tracks[4]:channel-strip)
+            +                    active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
+            +                1026 supriya:meters:2 (tracks[4]:output-levels)
+            +                    in_: 22.0, out: 21.0
+            +                1027 supriya:patch-cable:2x2
+            +                    active: c17, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 18.0
+            +                1029 supriya:patch-cable:2x2 (tracks[4]:output)
+            +                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 16.0
+                     1004 supriya:meters:2 (mixers[1]:input-levels)
+                         in_: 16.0, out: 1.0
+                     1002 group (mixers[1]:devices)
+            """,
+            """
+            - ['/s_new', 'supriya:patch-cable:2x2', 1028, 1, 1014, 'active', 'c11', 'in_', 20.0, 'out', 16.0]
+            - ['/s_new', 'supriya:patch-cable:2x2', 1029, 1, 1021, 'active', 'c17', 'in_', 22.0, 'out', 16.0]
+            - ['/n_after', 1014, 1007]
+            - ['/n_after', 1021, 1014]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
+            - ['/n_set', 1020, 'done_action', 2.0, 'gate', 0.0]
+            - ['/n_set', 1027, 'done_action', 2.0, 'gate', 0.0]
+            """,
+        ),
+    ],
 )
 @pytest.mark.asyncio
-@pytest.mark.xfail
 async def test_Track_ungroup(
     commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_tree_diff: str,
     expected_messages: str,
+    maybe_raises,
     online: bool,
     target: str,
 ) -> None:
@@ -3260,22 +3385,22 @@ async def test_Track_ungroup(
     if online:
         await session.boot()
         await session.sync()
-        initial_tree = await debug_tree(session, annotated=False)
+        initial_tree = await debug_tree(session, numeric=True)
     target_ = session[target]
     assert isinstance(target_, Track)
     # Operation
     print("Operation")
-    with capture(session["mixers[0]"].context) as messages:
+    with maybe_raises, capture(session["mixers[0]"].context) as messages:
         await target_.ungroup()
     # Post-conditions
     print("Post-conditions")
     assert_components_diff(session, expected_components_diff, initial_components)
     if not online:
-        raise Exception
+        return
     await assert_tree_diff(
         session,
         expected_tree_diff,
         expected_initial_tree=initial_tree,
-        annotated=False,
+        numeric=True,
     )
     assert format_messages(messages) == normalize(expected_messages)

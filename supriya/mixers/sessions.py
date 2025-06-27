@@ -133,7 +133,11 @@ class Session(Component):
             context = await self._get_or_create_context(context)
             mixer = self._add_mixer(context=context, name=name)
             if self._status == BootStatus.ONLINE:
-                await mixer._reconcile(context=context)
+                await mixer._reconcile(
+                    context=context,
+                    reconciling_components=[mixer],
+                    session=self,
+                )
             return mixer
 
     async def boot(self) -> None:
@@ -151,7 +155,11 @@ class Session(Component):
                 self._boot_future.set_result(True)
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
-                        await mixer._reconcile(context=context)
+                        await Component._reconcile(
+                            context=context,
+                            reconciling_components=[mixer],
+                            session=self,
+                        )
             elif self._boot_future is not None:  # BOOTING / ONLINE
                 await self._boot_future
             else:  # NONREALTIME
@@ -195,7 +203,11 @@ class Session(Component):
                 for context, mixers in self._contexts.items():
                     for mixer in mixers:
                         with context.at():
-                            await mixer._reconcile(context=None)
+                            await Component._reconcile(
+                                context=None,
+                                reconciling_components=[mixer],
+                                session=self,
+                            )
                     self._context_artifacts[context].clear()
                 await asyncio.gather(*[context.quit() for context in self._contexts])
                 self._status = BootStatus.OFFLINE
@@ -218,7 +230,9 @@ class Session(Component):
             self._contexts[self._mixers[mixer]].remove(mixer)
             async with mixer._lock:
                 if self._status == BootStatus.ONLINE:
-                    await mixer._reconcile(context=context)
+                    await Component._reconcile(
+                        context=context, reconciling_components=[mixer], session=self
+                    )
                 self._contexts[context].append(mixer)
                 self._mixers[mixer] = context
 

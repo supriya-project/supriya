@@ -72,12 +72,12 @@ class Component(Generic[C]):
         self._disconnect_parentage()
 
     def _disconnect_connections(
-        self, root: Optional["Component"] = None
+        self, roots: Optional[list["Component"]] = None
     ) -> tuple[list["Component"], set["Component"]]:
         related: list[Component] = []
         deleted: set[Component] = set()
         for component, _ in self._connections:
-            if root in component.parentage:
+            if roots and any([root in component.parentage for root in roots]):
                 continue
             related.append(component)
             if component._notify_disconnected(self):
@@ -134,50 +134,60 @@ class Component(Generic[C]):
         """
         return False
 
+    @classmethod
     async def _reconcile(
-        self, *, context: AsyncServer | None, deleting: bool = False
+        cls,
+        *,
+        context: AsyncServer | None,
+        deleting_components: list["Component"] | None = None,
+        reconciling_components: list["Component"],
+        session: Optional["Session"],
     ) -> None:
-        if self.session is None:
-            raise ValueError
+        # validate
+        if session is None:
+            raise RuntimeError
         # setup artifacts
-        old_context_artifacts: dict[AsyncServer, Artifacts] = (
-            self.session._context_artifacts
-        )
+        old_context_artifacts: dict[AsyncServer, Artifacts] = session._context_artifacts
         new_context_artifacts: dict[AsyncServer, Artifacts] = {
             context_: Artifacts() for context_ in old_context_artifacts
         }
         if context and context not in new_context_artifacts:
             new_context_artifacts[context] = Artifacts()
-        # gather spec changes
-        spec_changes: list[SpecChange] = []
+        # setup collections
         visited_components: set[Component] = set()
         related_components: list[Component] = []
-        deleted_components: set[Component] = set([self] if deleting else [])
+        deleted_components: set[Component] = set(deleting_components or [])
+        # gather spec changes
+        spec_changes: list[SpecChange] = []
         # walk depth-first from the root
-        for component in self._walk():
-            # patch up cyclic relationships
-            related, deleted = component._reconcile_connections(
-                deleting=deleting, root=self
-            )
-            related_components.extend(related)
-            deleted_components.update(deleted)
-            # gather spec changes
-            if deleting:
-                destroy_reconciliation = (
-                    Reconciliation.DESTROY_ROOT
-                    if component is self
-                    else Reconciliation.DESTROY
+        for root in reconciling_components:
+            deleting_ = root in (deleting_components or [])
+            for component in root._walk():
+                if component in visited_components:
+                    continue
+                # patch up cyclic relationships
+                related, deleted = component._reconcile_connections(
+                    deleting=deleting_, roots=reconciling_components
                 )
-            else:
-                destroy_reconciliation = Reconciliation.DESTROY_SHALLOW
-            spec_changes.extend(
-                component._gather_spec_changes(
-                    new_context=context,
-                    old_context_artifacts=old_context_artifacts,
-                    destroy_reconciliation=destroy_reconciliation,
-                ),
-            )
-            visited_components.add(component)
+                related_components.extend(related)
+                deleted_components.update(deleted)
+                # gather spec changes
+                if deleting_:
+                    destroy_reconciliation = (
+                        Reconciliation.DESTROY_ROOT
+                        if component is root
+                        else Reconciliation.DESTROY
+                    )
+                else:
+                    destroy_reconciliation = Reconciliation.DESTROY_SHALLOW
+                spec_changes.extend(
+                    component._gather_spec_changes(
+                        new_context=None if deleting_ else context,
+                        old_context_artifacts=old_context_artifacts,
+                        destroy_reconciliation=destroy_reconciliation,
+                    ),
+                )
+                visited_components.add(component)
         # omit visited components (walk once!) and sort by graph order
         related_components = sorted(
             set([x for x in related_components if x not in visited_components]),
@@ -187,7 +197,7 @@ class Component(Generic[C]):
         for component in related_components:
             # patch up cyclic relationships
             component._reconcile_connections(
-                deleting=component in deleted_components, root=self
+                deleting=component in deleted_components, roots=reconciling_components
             )
             # gather spec changes
             spec_changes.extend(
@@ -201,7 +211,7 @@ class Component(Generic[C]):
             )
         # sort and apply spec changes
         sorted_spec_changes = SpecChange.sort(spec_changes)
-        roots = [self, *deleted_components]
+        roots = [*reconciling_components, *deleted_components]
         for context_, spec_change_groups in sorted_spec_changes.items():
             for spec_change_group in spec_change_groups:
                 spec_change_group.apply(
@@ -226,10 +236,10 @@ class Component(Generic[C]):
         self,
         *,
         deleting: bool = False,
-        root: Optional["Component"] = None,
+        roots: Optional[list["Component"]] = None,
     ) -> tuple[list["Component"], set["Component"]]:
         if deleting:
-            return self._disconnect_connections(root=root)
+            return self._disconnect_connections(roots=roots)
         return [component for component, _ in self._connections], set()
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
