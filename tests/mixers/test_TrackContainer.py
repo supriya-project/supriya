@@ -4,7 +4,15 @@ from uqbar.strings import normalize
 from supriya.mixers import Session
 from supriya.mixers.tracks import Track, TrackContainer
 
-from .conftest import assert_components_diff, assert_tree_diff, capture, format_messages
+from .conftest import (
+    apply_commands,
+    assert_components_diff,
+    assert_tree_diff,
+    capture,
+    debug_components,
+    debug_tree,
+    format_messages,
+)
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -138,12 +146,12 @@ async def test_TrackContainer_add_track(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, index, count, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    "commands, target, index, count, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
     [],
 )
 @pytest.mark.asyncio
 async def test_TrackContainer_group(
-    basic_session: tuple[Session, str, str],
+    commands: list[tuple[str | None, str, dict | None]],
     count: int,
     expected_components_diff: str,
     expected_messages: str,
@@ -155,9 +163,13 @@ async def test_TrackContainer_group(
 ) -> None:
     # Pre-conditions
     print("Pre-conditions")
-    session, initial_components, initial_tree = basic_session
+    session = Session()
+    await apply_commands(session, commands)
+    initial_components = debug_components(session)
     if online:
         await session.boot()
+        await session.sync()
+        initial_tree = await debug_tree(session, annotated=False)
     target_ = session[target]
     assert isinstance(target_, TrackContainer)
     # Operation

@@ -3239,38 +3239,43 @@ async def test_Track_set_soloed(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "expected_tree_diff, expected_messages",
-    [
-        ("", ""),
-    ],
+    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
+    [],
 )
 @pytest.mark.asyncio
 @pytest.mark.xfail
 async def test_Track_ungroup(
-    complex_session: tuple[Session, str, str],
+    commands: list[tuple[str | None, str, dict | None]],
+    expected_components_diff: str,
     expected_tree_diff: str,
     expected_messages: str,
     online: bool,
     target: str,
 ) -> None:
     # Pre-conditions
-    session, initial_components, initial_tree = complex_session
+    print("Pre-conditions")
+    session = Session()
+    await apply_commands(session, commands)
+    initial_components = debug_components(session)
     if online:
         await session.boot()
         await session.sync()
+        initial_tree = await debug_tree(session, annotated=False)
     target_ = session[target]
     assert isinstance(target_, Track)
     # Operation
+    print("Operation")
     with capture(session["mixers[0]"].context) as messages:
         await target_.ungroup()
     # Post-conditions
+    print("Post-conditions")
+    assert_components_diff(session, expected_components_diff, initial_components)
     if not online:
         raise Exception
     await assert_tree_diff(
         session,
         expected_tree_diff,
-        expected_initial_tree="""
-        """,
+        expected_initial_tree=initial_tree,
+        annotated=False,
     )
     assert format_messages(messages) == normalize(expected_messages)
-    raise Exception

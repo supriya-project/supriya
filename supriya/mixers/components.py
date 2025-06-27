@@ -178,8 +178,6 @@ class Component(Generic[C]):
                 ),
             )
             visited_components.add(component)
-        # TODO: doesn't connection reconciliation handle this?
-        related_components.extend(deleted_components)
         # omit visited components (walk once!) and sort by graph order
         related_components = sorted(
             set([x for x in related_components if x not in visited_components]),
