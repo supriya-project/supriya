@@ -27,7 +27,7 @@ async def apply_commands(
         kwargs = {}
         if command[2]:
             for key, value in command[2].items():
-                if session._PATH_REGEX.match(value):
+                if isinstance(value, str) and session._PATH_REGEX.match(value):
                     value = session[value]
                 kwargs[key] = value
         await procedure(**kwargs)
