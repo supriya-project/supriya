@@ -31,20 +31,21 @@ class TrackContainer(Component[C]):
         )
         return track
 
-    def _group(self, index: int, count: int) -> "Track":
+    def _group(self, index: int, count: int, name: str | None = None) -> "Track":
         if (session := self.session) is None:
             raise RuntimeError
         if index < 0:
-            raise ValueError(index)
+            raise RuntimeError(index)
         elif count < 1:
-            raise ValueError(count)
+            raise RuntimeError(count)
         elif (index + count) > len(self.tracks):
-            raise ValueError(index, count)
+            raise RuntimeError(index, count)
         child_tracks = self._tracks[index : index + count]
-        group_track = Track(id_=session._get_next_id(), parent=self)
-        self._tracks.insert(index, group_track)
-        for i, child_track in enumerate(child_tracks):
-            child_track._move(parent=group_track, index=i)
+        group_track = Track(id_=session._get_next_id(), name=name, parent=self)
+        group_track._tracks[:] = child_tracks
+        self._tracks[index : index + count] = [group_track]
+        for track in child_tracks:
+            track._parent = group_track
         return group_track
 
     async def add_track(self, name: str | None = None) -> "Track":
@@ -60,9 +61,9 @@ class TrackContainer(Component[C]):
                 track._reconcile_connections()
             return track
 
-    async def group(self, index: int, count: int) -> "Track":
+    async def group(self, index: int, count: int, name: str | None = None) -> "Track":
         async with self._lock:
-            track = self._group(index=index, count=count)
+            track = self._group(index=index, count=count, name=name)
             if context := self._can_allocate():
                 await Component._reconcile(
                     context=context,
@@ -118,7 +119,7 @@ class TrackSend(Component["Track"]):
         roots: list[Component] | None = None,
     ) -> tuple[list[Component], set[Component]]:
         if self.parent is None:
-            raise ValueError
+            raise RuntimeError
         related, deleted = super()._reconcile_connections(
             deleting=deleting, roots=roots
         )
