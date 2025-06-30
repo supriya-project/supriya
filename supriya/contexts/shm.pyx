@@ -8,13 +8,6 @@ from .shm cimport server_shared_memory_client
 cdef class ServerSHM:
     """
     Server shared memory interface.
-
-    Currently supports reading control busses only.
-
-    .. warning::
-
-       Not supported on Windows.
-
     """
     cdef server_shared_memory_client* client
     cdef unsigned int bus_count
@@ -58,3 +51,16 @@ cdef class ServerSHM:
                 self.client.set_control_bus(bus_index, value_)
             return
         raise ValueError(item, value)
+
+    def read_scope_buffer(self, unsigned int index) -> tuple[int, list[float]]:
+        reader = self.client.get_scope_buffer_reader(index)
+        if not reader.valid():
+            raise RuntimeError
+        cdef unsigned int available_frames = 0
+        reader.pull(available_frames)
+        data = reader.data()
+        pydata = []
+        for i in range(8192):
+            pydata.append(data[i])
+        return available_frames, pydata
+
