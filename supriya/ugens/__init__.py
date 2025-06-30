@@ -42,7 +42,7 @@ from .beq import (
     BLowShelf,
     BPeakEQ,
 )
-from .bufio import BufRd, BufWr, ClearBuf, LocalBuf, MaxLocalBufs, PlayBuf, RecordBuf
+from .bufio import BufRd, BufWr, ClearBuf, LocalBuf, MaxLocalBufs, PlayBuf, RecordBuf, ScopeOut, ScopeOut2
 from .chaos import (
     CuspL,
     CuspN,
