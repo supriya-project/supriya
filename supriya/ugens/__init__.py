@@ -42,7 +42,17 @@ from .beq import (
     BLowShelf,
     BPeakEQ,
 )
-from .bufio import BufRd, BufWr, ClearBuf, LocalBuf, MaxLocalBufs, PlayBuf, RecordBuf, ScopeOut, ScopeOut2
+from .bufio import (
+    BufRd,
+    BufWr,
+    ClearBuf,
+    LocalBuf,
+    MaxLocalBufs,
+    PlayBuf,
+    RecordBuf,
+    ScopeOut,
+    ScopeOut2,
+)
 from .chaos import (
     CuspL,
     CuspN,
@@ -658,6 +668,8 @@ __all__ = [
     "Sanitize",
     "Saw",
     "Schmidt",
+    "ScopeOut",
+    "ScopeOut2",
     "Select",
     "SendPeakRMS",
     "SendReply",

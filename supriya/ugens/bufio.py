@@ -229,6 +229,7 @@ class ScopeOut(UGen):
         <ScopeOut.ar()[0]>
 
     """
+
     buffer_id = param()
     source = param(unexpanded=True)
 
@@ -251,6 +252,7 @@ class ScopeOut2(UGen):
         <ScopeOut2.ar()[0]>
 
     """
+
     scope_id = param()
     max_frames = param(4096)
     scope_frames = param(4096)
