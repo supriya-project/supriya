@@ -221,7 +221,7 @@ class ScopeOut(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0, channel_count=2)
-        >>> scope_out = ScopeOut.ar(
+        >>> scope_out = supriya.ugens.ScopeOut.ar(
         ...     source=source,
         ...     buffer_id=0,
         ... )
@@ -242,7 +242,7 @@ class ScopeOut2(UGen):
     ::
 
         >>> source = supriya.ugens.In.ar(bus=0, channel_count=2)
-        >>> scope_out_2 = ScopeOut2.ar(
+        >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
         ...     source=source,
         ...     scope_id=0,
         ...     max_frames=8192,
