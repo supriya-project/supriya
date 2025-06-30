@@ -217,11 +217,11 @@ class Context(metaclass=abc.ABCMeta):
         self._name: str | None = name
         self._node_id_allocator = NodeIdAllocator()
         self._options: Options = self._get_options(options, **kwargs)
+        self._scope_buffer_allocator: BlockAllocator | None = None
         self._sync_id: int = 0
         self._sync_id_minimum: int = 0
         self._sync_id_maximum: int = 32 << 26
         self._thread_local = threading.local()
-        self._setup_allocators()
 
     ### SPECIAL METHODS ###
 
@@ -373,7 +373,7 @@ class Context(metaclass=abc.ABCMeta):
     def _resolve_node(self, node: Node | SupportsInt | None) -> int:
         raise NotImplementedError
 
-    def _setup_allocators(self) -> None:
+    def _setup_allocators(self, owned: bool = False) -> None:
         # audio buses
         audio_bus_minimum, audio_bus_maximum = self.options.get_audio_bus_ids(
             self.client_id
@@ -396,6 +396,10 @@ class Context(metaclass=abc.ABCMeta):
         # node IDs
         self._node_id_allocator = NodeIdAllocator(
             initial_node_id=self.options.initial_node_id, client_id=self.client_id
+        )
+        # scope buffers
+        self._scope_buffer_allocator = (
+            BlockAllocator(heap_minimum=0, heap_maximum=128) if owned else None
         )
         # sync IDs
         self._sync_id_minimum, self._sync_id_maximum = self.options.get_sync_ids(

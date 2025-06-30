@@ -44,6 +44,7 @@ class Score(Context):
         super().__init__(options=options, **kwargs)
         self._boot_status: BootStatus = BootStatus.ONLINE
         self._requests: dict[float, list[Requestable]] = {}
+        self._setup_allocators()
 
     ### CLASS METHODS ###
 
