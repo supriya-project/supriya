@@ -211,3 +211,49 @@ class RecordBuf(UGen):
     trigger = param(1.0)
     done_action = param(DoneAction(0))
     source = param(unexpanded=True)
+
+
+@ugen(ar=True, kr=True)
+class ScopeOut(UGen):
+    """
+    Utility UGen for scope output on remote servers.
+
+    ::
+
+        >>> source = supriya.ugens.In.ar(bus=0, channel_count=2)
+        >>> scope_out = supriya.ugens.ScopeOut.ar(
+        ...     source=source,
+        ...     buffer_id=0,
+        ... )
+        >>> scope_out
+        <ScopeOut.ar()[0]>
+
+    """
+
+    buffer_id = param()
+    source = param(unexpanded=True)
+
+
+@ugen(ar=True, kr=True)
+class ScopeOut2(UGen):
+    """
+    Utility UGen for scope output on local servers.
+
+    ::
+
+        >>> source = supriya.ugens.In.ar(bus=0, channel_count=2)
+        >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
+        ...     source=source,
+        ...     scope_id=0,
+        ...     max_frames=8192,
+        ...     scope_frames=2048,
+        ... )
+        >>> scope_out_2
+        <ScopeOut2.ar()[0]>
+
+    """
+
+    scope_id = param()
+    max_frames = param(4096)
+    scope_frames = param(4096)
+    source = param(unexpanded=True)
