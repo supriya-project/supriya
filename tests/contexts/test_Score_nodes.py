@@ -1,9 +1,6 @@
 import pytest
 
-from supriya import default
-from supriya.assets.synthdefs import test_two_voice
-from supriya.contexts.nonrealtime import Score
-from supriya.osc import OscBundle, OscMessage
+from supriya import OscBundle, OscMessage, Score, SynthDef, default
 from supriya.ugens import compile_synthdefs
 
 
@@ -48,7 +45,7 @@ def test_add_group(context: Score) -> None:
             synth.add_group(add_action="ADD_TO_TAIL")
 
 
-def test_add_synth(context: Score) -> None:
+def test_add_synth(context: Score, two_voice_synthdef: SynthDef) -> None:
     def compiled(*synthdefs):
         return compile_synthdefs(*synthdefs)
 
@@ -58,7 +55,7 @@ def test_add_synth(context: Score) -> None:
         bus_c = context.add_bus("CONTROL")
         synth = context.add_synth(default)
         context.add_synth(default, frequency=bus_a, amplitude="c0", pan=0.25, out=0)
-        context.add_synth(test_two_voice, frequencies=(123, 456))
+        context.add_synth(two_voice_synthdef, frequencies=(123, 456))
     with context.at(1.23):
         context.add_synth(default, add_action="ADD_AFTER", target_node=synth)
         context.add_synth(
@@ -84,7 +81,7 @@ def test_add_synth(context: Score) -> None:
                 ),
                 OscMessage(
                     "/s_new",
-                    "test_two_voice",
+                    "test:two-voice",
                     1002,
                     0,
                     0,
