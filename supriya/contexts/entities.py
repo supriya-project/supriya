@@ -974,6 +974,27 @@ class RootNode(Group):
 
 
 @dataclasses.dataclass(frozen=True)
+class ScopeBuffer(ContextObject):
+    r"""
+    A scope buffer.
+
+    For use with the ``ScopeOut2`` UGen for powering shared-memory scopes and
+    spectrograms.
+
+    :param context: The context object's context.
+    :param id\_: The context object's context ID.
+    """
+
+    def free(self) -> None:
+        """
+        Free the buffer group.
+
+        Emit ``/b_free`` requests.
+        """
+        self.context.free_scope_buffer(self)
+
+
+@dataclasses.dataclass(frozen=True)
 class Synth(Node):
     r"""
     A synth node.

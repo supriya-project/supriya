@@ -11,6 +11,7 @@ from .entities import (
     ContextObject,
     Group,
     Node,
+    ScopeBuffer,
     Synth,
 )
 from .nonrealtime import Score
@@ -31,6 +32,7 @@ __all__ = [
     "ContextObject",
     "Group",
     "Node",
+    "ScopeBuffer",
     "Score",
     "Server",
     "Synth",
