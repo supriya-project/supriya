@@ -9,7 +9,8 @@ from typing import AsyncGenerator
 import pytest
 import pytest_asyncio
 
-from supriya import assets, default
+import supriya
+from supriya import default
 from supriya.contexts.errors import MomentClosed
 from supriya.contexts.realtime import AsyncServer, Server
 from supriya.contexts.responses import BufferInfo
@@ -24,7 +25,7 @@ async def get(x):
 
 @pytest.fixture
 def audio_paths() -> list[Path]:
-    return sorted((Path(assets.__path__[0]) / "audio" / "birds").glob("*.wav"))
+    return sorted((Path(supriya.__path__[0]) / "samples").glob("bird*.wav"))
 
 
 @pytest.fixture(autouse=True)

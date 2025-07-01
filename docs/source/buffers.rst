@@ -82,7 +82,7 @@ Creation from files
 
 Let's locate a soundfile::
 
-    >>> file_path = supriya.assets_path / "audio/birds/birds-01.wav"
+    >>> file_path = supriya.samples_path / "birds-01.wav"
 
 Allocate a buffer from a soundfile by passing a value to ``file_path`` when
 using :py:meth:`~supriya.contexts.realtime.Server.add_buffer`::
