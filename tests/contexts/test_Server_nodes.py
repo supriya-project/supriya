@@ -6,12 +6,9 @@ import pytest
 import pytest_asyncio
 from uqbar.strings import normalize
 
-from supriya import default
-from supriya.assets.synthdefs import test_two_voice
-from supriya.contexts.realtime import AsyncServer, Server
+from supriya import AsyncServer, OscBundle, OscMessage, Server, SynthDef, default
 from supriya.contexts.responses import NodeInfo
 from supriya.enums import NodeAction
-from supriya.osc import OscBundle, OscMessage
 
 
 async def get(x):
@@ -155,15 +152,17 @@ async def test_add_group(context: AsyncServer | Server) -> None:
 
 
 @pytest.mark.asyncio
-async def test_add_synth(context: AsyncServer | Server) -> None:
-    context.add_synthdefs(default, test_two_voice)
+async def test_add_synth(
+    context: AsyncServer | Server, two_voice_synthdef: SynthDef
+) -> None:
+    context.add_synthdefs(default, two_voice_synthdef)
     await get(context.sync())
     with context.osc_protocol.capture() as transcript:
         bus_a = context.add_bus("AUDIO")
         bus_c = context.add_bus("CONTROL")
         synth = context.add_synth(default)
         context.add_synth(default, frequency=bus_a, amplitude="c0", pan=0.25, out=0)
-        context.add_synth(test_two_voice, frequencies=(123, 456))
+        context.add_synth(two_voice_synthdef, frequencies=(123, 456))
         with context.at(1.23):
             context.add_synth(default, add_action="ADD_AFTER", target_node=synth)
             context.add_synth(
@@ -186,7 +185,7 @@ async def test_add_synth(context: AsyncServer | Server) -> None:
         ),
         OscMessage(
             "/s_new",
-            "test_two_voice",
+            "test:two-voice",
             1002,
             0,
             1,
