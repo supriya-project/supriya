@@ -29,7 +29,7 @@ def _build_link_audio_synthdef(channel_count: int) -> SynthDef:
         )
         source = InFeedback.ar(bus=builder["in_"], channel_count=channel_count)
         Out.ar(bus=builder["out"], source=source * envgen)
-    return builder.build(name=f"system_link_audio_{channel_count}")
+    return builder.build(name=f"supriya:link-ar:{channel_count}")
 
 
 def _build_link_control_synthdef(channel_count: int) -> SynthDef:
@@ -50,7 +50,7 @@ def _build_link_control_synthdef(channel_count: int) -> SynthDef:
         )
         input_ = In.kr(bus=builder["in_"], channel_count=channel_count)
         Out.kr(bus=builder["out"], source=input_ * envelope)
-    return builder.build(name=f"system_link_control_{channel_count}")
+    return builder.build(name=f"supriya:link-kr:{channel_count}")
 
 
 system_link_audio_1 = _build_link_audio_synthdef(1)

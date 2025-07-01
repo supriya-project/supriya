@@ -51,7 +51,7 @@ def _build_default_synthdef() -> SynthDef:
             source=low_pass * linen * builder["amplitude"], position=builder["pan"]
         )
         OffsetOut.ar(bus=builder["out"], source=pan)
-    return builder.build(name="default")
+    return builder.build(name="supriya:default")
 
 
 default = _build_default_synthdef()
