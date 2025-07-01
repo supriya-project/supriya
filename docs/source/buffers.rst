@@ -82,7 +82,7 @@ Creation from files
 
 Let's locate a soundfile::
 
-    >>> file_path = supriya.assets_path / "audio/birds/birds-01.wav"
+    >>> file_path = supriya.samples_path / "birds-01.wav"
 
 Allocate a buffer from a soundfile by passing a value to ``file_path`` when
 using :py:meth:`~supriya.contexts.realtime.Server.add_buffer`::
@@ -110,7 +110,7 @@ allocate a buffer from the middle of that soundfile, plot it and play it::
 
 Let's grab another soundfile, this time an octophonic one::
 
-    >>> file_path = supriya.assets_path / "audio/sine_440hz_44100sr_16bit_octo.wav"
+    >>> file_path = supriya.samples_path / "sine_440hz_44100sr_16bit_octo.wav"
 
 Allocating a buffer from this soundfile shows it contains eight channels::
 

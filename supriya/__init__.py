@@ -60,7 +60,7 @@ if not (
     except IOError:
         pass
 
-assets_path = Path(__file__).parent / "assets"
+samples_path = Path(__file__).parent / "samples"
 
 
 __all__ = [

@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from supriya import assets
+import supriya
 from supriya.contexts.errors import MomentClosed
 from supriya.contexts.nonrealtime import Score
 from supriya.osc import OscBundle, OscMessage
@@ -11,7 +11,7 @@ from supriya.osc import OscBundle, OscMessage
 
 @pytest.fixture
 def audio_paths() -> list[Path]:
-    return sorted((Path(assets.__path__[0]) / "audio" / "birds").glob("*.wav"))
+    return sorted((Path(supriya.__path__[0]) / "samples").glob("bird*.wav"))
 
 
 @pytest.fixture(autouse=True)

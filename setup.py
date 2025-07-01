@@ -39,8 +39,7 @@ extensions = [
 if __name__ == "__main__":
     setup(
         ext_modules=cythonize(extensions),
-        packages=find_packages(include=["supriya", "supriya.*"])
-        + ["supriya.assets.audio", "supriya.assets.audio.birds"],
+        packages=find_packages(include=["supriya", "supriya.*"]) + ["supriya.samples"],
         version=read_version(),
         package_data={"supriya": ["py.typed"]},
     )

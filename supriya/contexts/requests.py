@@ -24,8 +24,9 @@ from ..ugens import SynthDef, compile_synthdefs
 from .responses import Response
 
 if TYPE_CHECKING:
+    import supriya.contexts.realtime
+
     from .contexts.core import Context
-    from .contexts.realtime import AsyncServer, Server
 
 
 logger = logging.getLogger(__name__)
@@ -50,7 +51,9 @@ class Requestable(ABC):
 
     ### PUBLIC METHODS ###
 
-    def communicate(self, server: "Server", timeout: float = 1.0) -> Response | None:
+    def communicate(
+        self, server: "supriya.contexts.realtime.Server", timeout: float = 1.0
+    ) -> Response | None:
         (
             success_pattern,
             failure_pattern,
@@ -70,7 +73,7 @@ class Requestable(ABC):
         return future.result(timeout=timeout)
 
     async def communicate_async(
-        self, server: "AsyncServer", timeout: float = 1.0
+        self, server: "supriya.contexts.realtime.AsyncServer", timeout: float = 1.0
     ) -> Response | None:
         (
             success_pattern,

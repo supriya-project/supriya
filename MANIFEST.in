@@ -13,7 +13,7 @@ recursive-include docs *
 recursive-include supriya *.py
 recursive-include supriya *.pxd
 recursive-include supriya *.pyx
-recursive-include supriya/assets *
+recursive-include supriya/samples *.wav
 recursive-include tests *
 recursive-include vendor *
 
