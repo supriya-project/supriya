@@ -14,6 +14,7 @@ from supriya import (
     Group,
     OscBundle,
     OscMessage,
+    ScopeBuffer,
     Server,
     ServerLifecycleEvent,
     default,
@@ -42,6 +43,19 @@ async def context(request) -> AsyncGenerator[AsyncServer | Server, None]:
     context.add_synthdefs(default)
     await get(context.sync())
     yield context
+
+
+@pytest.mark.asyncio
+async def test_ScopeBuffer(context: AsyncServer | Server) -> None:
+    with context.osc_protocol.capture() as transcript:
+        scope_buffer = context.add_scope_buffer()
+    assert transcript.filtered(received=False, status=False) == []
+    assert isinstance(scope_buffer, ScopeBuffer)
+    assert scope_buffer.context is context
+    assert scope_buffer.id_ == 0
+    with context.osc_protocol.capture() as transcript:
+        scope_buffer.free()
+    assert transcript.filtered(received=False, status=False) == []
 
 
 @pytest.mark.asyncio

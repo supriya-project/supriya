@@ -1123,7 +1123,7 @@ class AsyncServer(BaseServer):
             await self._setup_notifications()
             self._contexts.add(self)
             self._osc_protocol.activate_healthcheck()
-            self._setup_allocators()
+            self._setup_allocators(owned=self._is_owner)
             if self._client_id == 0:
                 self._setup_system()
                 await self.sync()
@@ -1608,7 +1608,7 @@ class AsyncServer(BaseServer):
             self.free_all_synthdefs()
         await self.sync()
         self._teardown_state()
-        self._setup_allocators()
+        self._setup_allocators(owned=self._is_owner)
         self._setup_system()
         await self.sync()
         return self

@@ -46,6 +46,7 @@ from .entities import (
     Group,
     Node,
     RootNode,
+    ScopeBuffer,
     Synth,
 )
 from .errors import AllocationError, ContextError, InvalidCalculationRate, MomentClosed
@@ -285,6 +286,8 @@ class Context(metaclass=abc.ABCMeta):
                 id_ = self._control_bus_allocator.allocate(count)
             else:
                 raise ValueError(calculation_rate)
+        elif type_ is ScopeBuffer and self._scope_buffer_allocator:
+            id_ = self._scope_buffer_allocator.allocate(count)
         else:
             raise ValueError(type_)
         if id_ is None:
@@ -329,6 +332,8 @@ class Context(metaclass=abc.ABCMeta):
                 return self._audio_bus_allocator
             elif calculation_rate is CalculationRate.CONTROL:
                 return self._control_bus_allocator
+        if type_ is ScopeBuffer and self._scope_buffer_allocator:
+            return self._scope_buffer_allocator
         raise ValueError
 
     def _get_moment(self) -> Moment | None:
@@ -590,6 +595,14 @@ class Context(metaclass=abc.ABCMeta):
             request = NewGroup(items=items)
         self._add_requests(request)
         return Group(context=self, id_=id_, parallel=parallel)
+
+    def add_scope_buffer(self) -> ScopeBuffer:
+        """
+        Add a new scope buffer to the context.
+        """
+        self._validate_can_request()
+        id_ = self._allocate_id(ScopeBuffer)
+        return ScopeBuffer(context=self, id_=id_)
 
     def add_synth(
         self,
@@ -883,6 +896,15 @@ class Context(metaclass=abc.ABCMeta):
             has_gate=isinstance(node, Synth) and "gate" in node.synthdef.parameters,
         )
         self._add_requests(request)
+
+    def free_scope_buffer(self, scope_buffer: ScopeBuffer) -> None:
+        """
+        Free a scope buffer.
+
+        :param scope_buffer: The scope buffer to free.
+        """
+        self._validate_can_request()
+        self._free_id(ScopeBuffer, scope_buffer.id_)
 
     def free_synthdefs(self, *synthdefs: SynthDef) -> None:
         """
