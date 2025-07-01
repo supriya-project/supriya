@@ -127,3 +127,6 @@ testpaths = [
 [tool.ruff]
 extend-include = ["*.ipynb"]
 line-length = 88
+
+[tool.setuptools.package-data]
+supriya = ["*.pxd", "*.pyx"]
