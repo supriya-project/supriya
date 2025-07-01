@@ -52,9 +52,13 @@ cdef class ServerSHM:
             return
         raise ValueError(item, value)
 
+    def describe_scope_buffer(self, unsigned int index) -> tuple[int, int]:
+        if not (reader := self.client.get_scope_buffer_reader(index)).valid():
+            raise RuntimeError
+        return reader.channels(), reader.max_frames()
+
     def read_scope_buffer(self, unsigned int index) -> tuple[int, list[float]]:
-        reader = self.client.get_scope_buffer_reader(index)
-        if not reader.valid():
+        if not (reader := self.client.get_scope_buffer_reader(index)).valid():
             raise RuntimeError
         cdef unsigned int available_frames = 0
         reader.pull(available_frames)
@@ -63,4 +67,3 @@ cdef class ServerSHM:
         for i in range(8192):
             pydata.append(data[i])
         return available_frames, pydata
-
