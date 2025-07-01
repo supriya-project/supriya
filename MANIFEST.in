@@ -1,6 +1,5 @@
 global-exclude *.pyc
 
-include .flake8
 include CODE_OF_CONDUCT.md
 include LICENSE
 include MANIFEST.in

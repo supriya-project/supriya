@@ -1,5 +1,5 @@
 # cython: language_level=3
-# distutils: language = c++
+# distutils: language=c++
 
 from .entities import Bus, BusGroup
 from .shm cimport server_shared_memory_client
@@ -53,12 +53,14 @@ cdef class ServerSHM:
         raise ValueError(item, value)
 
     def describe_scope_buffer(self, unsigned int index) -> tuple[int, int]:
-        if not (reader := self.client.get_scope_buffer_reader(index)).valid():
+        reader = self.client.get_scope_buffer_reader(index)
+        if not reader.valid():
             raise RuntimeError
         return reader.channels(), reader.max_frames()
 
     def read_scope_buffer(self, unsigned int index) -> tuple[int, list[float]]:
-        if not (reader := self.client.get_scope_buffer_reader(index)).valid():
+        reader = self.client.get_scope_buffer_reader(index)
+        if not reader.valid():
             raise RuntimeError
         cdef unsigned int available_frames = 0
         reader.pull(available_frames)

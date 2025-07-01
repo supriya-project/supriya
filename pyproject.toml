@@ -128,5 +128,5 @@ testpaths = [
 extend-include = ["*.ipynb"]
 line-length = 88
 
-[tools.setuptools.package-data]
+[tool.setuptools.package-data]
 supriya = ["*.pxd", "*.pyx"]
