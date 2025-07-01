@@ -68,10 +68,10 @@ def test_add_synth(context: Score) -> None:
         OscBundle(
             contents=(
                 OscMessage("/d_recv", compiled(default)),
-                OscMessage("/s_new", "default", 1000, 0, 0),
+                OscMessage("/s_new", "supriya:default", 1000, 0, 0),
                 OscMessage(
                     "/s_new",
-                    "default",
+                    "supriya:default",
                     1001,
                     0,
                     0,
@@ -96,10 +96,10 @@ def test_add_synth(context: Score) -> None:
         ),
         OscBundle(
             contents=(
-                OscMessage("/s_new", "default", 1003, 3, 1000),
+                OscMessage("/s_new", "supriya:default", 1003, 3, 1000),
                 OscMessage(
                     "/s_new",
-                    "default",
+                    "supriya:default",
                     1004,
                     0,
                     0,
@@ -138,8 +138,8 @@ def test_free_group_children(context: Score) -> None:
         OscBundle(
             contents=(
                 OscMessage("/g_new", 1000, 0, 0, 1001, 0, 1000),
-                OscMessage("/s_new", "default", 1002, 0, 1000),
-                OscMessage("/s_new", "default", 1003, 0, 1001),
+                OscMessage("/s_new", "supriya:default", 1002, 0, 1000),
+                OscMessage("/s_new", "supriya:default", 1003, 0, 1001),
                 OscMessage("/g_freeAll", 1000),
                 OscMessage("/g_deepFree", 1000),
             ),
@@ -158,7 +158,7 @@ def test_free_node(context: Score) -> None:
         OscBundle(
             contents=(
                 OscMessage("/g_new", 1000, 0, 0),
-                OscMessage("/s_new", "default", 1001, 0, 0),
+                OscMessage("/s_new", "supriya:default", 1001, 0, 0),
                 OscMessage("/n_free", 1000),
                 OscMessage("/n_set", 1001, "gate", 0),
             ),
@@ -176,7 +176,7 @@ def test_map_node(context: Score) -> None:
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(
-                OscMessage("/s_new", "default", 1000, 0, 0),
+                OscMessage("/s_new", "supriya:default", 1000, 0, 0),
                 OscMessage("/n_map", 1000, "amplitude", 0, "pan", -1),
                 OscMessage("/n_mapa", 1000, "frequency", 16),
             ),
@@ -197,7 +197,7 @@ def test_move_node(context: Score) -> None:
         OscBundle(
             contents=(
                 OscMessage("/g_new", 1000, 0, 0),
-                OscMessage("/s_new", "default", 1001, 0, 0),
+                OscMessage("/s_new", "supriya:default", 1001, 0, 0),
                 OscMessage("/n_after", 1000, 1001),
                 OscMessage("/n_before", 1001, 1000),
                 OscMessage("/g_tail", 1000, 1001),

@@ -170,10 +170,10 @@ async def test_add_synth(context: AsyncServer | Server) -> None:
                 default, frequency=bus_c.map_symbol(), amplitude="a16", pan=0.25, out=0
             )
     assert transcript.filtered(received=False, status=False) == [
-        OscMessage("/s_new", "default", 1000, 0, 1),
+        OscMessage("/s_new", "supriya:default", 1000, 0, 1),
         OscMessage(
             "/s_new",
-            "default",
+            "supriya:default",
             1001,
             0,
             1,
@@ -195,10 +195,10 @@ async def test_add_synth(context: AsyncServer | Server) -> None:
         ),
         OscBundle(
             contents=(
-                OscMessage("/s_new", "default", 1003, 3, 1000),
+                OscMessage("/s_new", "supriya:default", 1003, 3, 1000),
                 OscMessage(
                     "/s_new",
-                    "default",
+                    "supriya:default",
                     1004,
                     0,
                     1,
@@ -233,10 +233,10 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
         NODE TREE 0 group
             1 group
                 1000 group
-                    1002 default
+                    1002 supriya:default
                         amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
                     1001 group
-                        1003 default
+                        1003 supriya:default
                             amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
         """
     )
@@ -262,10 +262,10 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
         NODE TREE 0 group
             1 group
                 1000 group
-                    1005 default
+                    1005 supriya:default
                         amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
                     1004 group
-                        1006 default
+                        1006 supriya:default
                             amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
         """
     )

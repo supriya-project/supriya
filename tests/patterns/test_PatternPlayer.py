@@ -475,10 +475,10 @@ async def test_callback_async(mocker) -> None:
             1.0,
             3.5,
             """
-            - [1.0, [['/s_new', 'default', 1000, 0, 0, 'frequency', 444.0]]]
+            - [1.0, [['/s_new', 'supriya:default', 1000, 0, 0, 'frequency', 444.0]]]
             - [3.0, [['/n_set', 1000, 'gate', 0.0]]]
-            - [5.0, [['/s_new', 'default', 1001, 0, 0, 'frequency', 666.0]]]
-            - [7.0, [['/s_new', 'default', 1002, 0, 0, 'frequency', 777.0], ['/n_set', 1001, 'gate', 0.0]]]
+            - [5.0, [['/s_new', 'supriya:default', 1001, 0, 0, 'frequency', 666.0]]]
+            - [7.0, [['/s_new', 'supriya:default', 1002, 0, 0, 'frequency', 777.0], ['/n_set', 1001, 'gate', 0.0]]]
             - [8.0, [['/n_set', 1002, 'gate', 0.0]]]
             """,
         ),
@@ -490,10 +490,10 @@ async def test_callback_async(mocker) -> None:
             1.0,
             3.5,
             """
-            - [1.0, [['/s_new', 'default', 1000, 0, 0, 'frequency', 444.0]]]
+            - [1.0, [['/s_new', 'supriya:default', 1000, 0, 0, 'frequency', 444.0]]]
             - [3.0, [['/n_set', 1000, 'frequency', 555.0]]]
             - [5.0, [['/n_set', 1000, 'gate', 0.0]]]
-            - [7.0, [['/s_new', 'default', 1001, 0, 0, 'frequency', 777.0]]]
+            - [7.0, [['/s_new', 'supriya:default', 1001, 0, 0, 'frequency', 777.0]]]
             - [8.0, [['/n_set', 1001, 'gate', 0.0]]]
             """,
         ),
@@ -512,10 +512,10 @@ async def test_callback_async(mocker) -> None:
             - [1.0,
                [['/g_new', 1000, 0, 0, 1001, 0, 1000],
                 ['/s_new', 'system_link_audio_1', 1002, 3, 1001, 'fade_time', 0.25],
-                ['/s_new', 'default', 1003, 0, 1001, 'frequency', 444.0, 'out', 16.0]]]
+                ['/s_new', 'supriya:default', 1003, 0, 1001, 'frequency', 444.0, 'out', 16.0]]]
             - [3.0, [['/n_set', 1003, 'frequency', 555.0, 'out', 16.0]]]
             - [5.0, [['/n_set', 1003, 'gate', 0.0]]]
-            - [7.0, [['/s_new', 'default', 1004, 0, 1001, 'frequency', 777.0, 'out', 16.0]]]
+            - [7.0, [['/s_new', 'supriya:default', 1004, 0, 1001, 'frequency', 777.0, 'out', 16.0]]]
             - [8.0, [['/n_set', 1004, 'gate', 0.0], ['/n_set', 1002, 'gate', 0.0]]]
             - [8.5, [['/n_free', 1001], ['/n_free', 1000]]]
             """,
