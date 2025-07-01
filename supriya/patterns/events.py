@@ -5,11 +5,10 @@ from uuid import UUID
 
 from uqbar.objects import get_repr, get_vars, new
 
-from ..assets.synthdefs.default import default
 from ..contexts import BusGroup, Context, ContextObject, Node
 from ..enums import AddAction, CalculationRate
 from ..typing import AddActionLike, CalculationRateLike
-from ..ugens import SynthDef
+from ..ugens import SynthDef, default
 from ..utils import expand
 
 

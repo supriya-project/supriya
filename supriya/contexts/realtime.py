@@ -23,7 +23,6 @@ from typing import (
     cast,
 )
 
-from ..assets.synthdefs import system_synthdefs
 from ..enums import (
     BootStatus,
     CalculationRate,
@@ -49,7 +48,7 @@ from ..osc import (
 )
 from ..scsynth import AsyncProcessProtocol, Options, ThreadedProcessProtocol
 from ..typing import ServerLifecycleEventLike, SupportsOsc
-from ..ugens import SynthDef
+from ..ugens import SYSTEM_SYNTHDEFS
 from .core import Context
 from .entities import (
     Buffer,
@@ -354,11 +353,9 @@ class BaseServer(Context):
         with self.at():
             for i in range(self._maximum_logins):
                 self.add_group(permanent=True, add_action="ADD_TO_TAIL", target_node=0)
-        for name in dir(system_synthdefs):
-            synthdef = getattr(system_synthdefs, name)
-            if isinstance(synthdef, SynthDef):
-                with self.at():
-                    self.add_synthdefs(synthdef)
+        for synthdef in SYSTEM_SYNTHDEFS:
+            with self.at():
+                self.add_synthdefs(synthdef)
 
     def _teardown_shared_memory(self) -> None:
         self._shared_memory = None

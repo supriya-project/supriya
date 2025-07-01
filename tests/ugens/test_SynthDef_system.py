@@ -4,8 +4,8 @@ import platform
 import pytest
 from uqbar.strings import normalize
 
-from supriya.assets.synthdefs import system_link_audio_1, system_link_audio_2
 from supriya.ugens import SuperColliderSynthDef, decompile_synthdef
+from supriya.ugens.system import system_link_audio_1, system_link_audio_2
 
 
 def test_system_link_audio_1_supriya() -> None:

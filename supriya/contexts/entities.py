@@ -17,11 +17,10 @@ from typing import (
     overload,
 )
 
-from ..assets.synthdefs.default import default
 from ..enums import AddAction, CalculationRate
 from ..io import PlayMemo
 from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsRender
-from ..ugens import SynthDef
+from ..ugens import SynthDef, default
 from .errors import ContextError, InvalidCalculationRate, InvalidMoment
 from .responses import BufferInfo, NodeInfo, QueryTreeGroup
 

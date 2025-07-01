@@ -20,9 +20,9 @@ from supriya import (
     default,
     scsynth,
 )
-from supriya.assets import synthdefs
 from supriya.contexts.responses import StatusInfo, VersionInfo
 from supriya.exceptions import ServerOffline
+from supriya.ugens import SYSTEM_SYNTHDEFS
 
 
 async def get(x):
@@ -1210,43 +1210,7 @@ async def test_reboot(context: AsyncServer | Server) -> None:
         OscMessage("/quit"),
         OscMessage("/notify", 1),
         OscMessage("/g_new", 1, 1, 0),
-        *(
-            OscMessage("/d_recv", synthdef.compile())
-            for synthdef in [
-                synthdefs.system_link_audio_1,
-                synthdefs.system_link_audio_10,
-                synthdefs.system_link_audio_11,
-                synthdefs.system_link_audio_12,
-                synthdefs.system_link_audio_13,
-                synthdefs.system_link_audio_14,
-                synthdefs.system_link_audio_15,
-                synthdefs.system_link_audio_16,
-                synthdefs.system_link_audio_2,
-                synthdefs.system_link_audio_3,
-                synthdefs.system_link_audio_4,
-                synthdefs.system_link_audio_5,
-                synthdefs.system_link_audio_6,
-                synthdefs.system_link_audio_7,
-                synthdefs.system_link_audio_8,
-                synthdefs.system_link_audio_9,
-                synthdefs.system_link_control_1,
-                synthdefs.system_link_control_10,
-                synthdefs.system_link_control_11,
-                synthdefs.system_link_control_12,
-                synthdefs.system_link_control_13,
-                synthdefs.system_link_control_14,
-                synthdefs.system_link_control_15,
-                synthdefs.system_link_control_16,
-                synthdefs.system_link_control_2,
-                synthdefs.system_link_control_3,
-                synthdefs.system_link_control_4,
-                synthdefs.system_link_control_5,
-                synthdefs.system_link_control_6,
-                synthdefs.system_link_control_7,
-                synthdefs.system_link_control_8,
-                synthdefs.system_link_control_9,
-            ]
-        ),
+        *(OscMessage("/d_recv", synthdef.compile()) for synthdef in SYSTEM_SYNTHDEFS),
         OscMessage("/sync", 0),
     ]
 
@@ -1285,43 +1249,7 @@ async def test_reset(context: AsyncServer | Server) -> None:
         ),
         OscMessage("/sync", 2),
         OscMessage("/g_new", 1, 1, 0),
-        *(
-            OscMessage("/d_recv", synthdef.compile())
-            for synthdef in [
-                synthdefs.system_link_audio_1,
-                synthdefs.system_link_audio_10,
-                synthdefs.system_link_audio_11,
-                synthdefs.system_link_audio_12,
-                synthdefs.system_link_audio_13,
-                synthdefs.system_link_audio_14,
-                synthdefs.system_link_audio_15,
-                synthdefs.system_link_audio_16,
-                synthdefs.system_link_audio_2,
-                synthdefs.system_link_audio_3,
-                synthdefs.system_link_audio_4,
-                synthdefs.system_link_audio_5,
-                synthdefs.system_link_audio_6,
-                synthdefs.system_link_audio_7,
-                synthdefs.system_link_audio_8,
-                synthdefs.system_link_audio_9,
-                synthdefs.system_link_control_1,
-                synthdefs.system_link_control_10,
-                synthdefs.system_link_control_11,
-                synthdefs.system_link_control_12,
-                synthdefs.system_link_control_13,
-                synthdefs.system_link_control_14,
-                synthdefs.system_link_control_15,
-                synthdefs.system_link_control_16,
-                synthdefs.system_link_control_2,
-                synthdefs.system_link_control_3,
-                synthdefs.system_link_control_4,
-                synthdefs.system_link_control_5,
-                synthdefs.system_link_control_6,
-                synthdefs.system_link_control_7,
-                synthdefs.system_link_control_8,
-                synthdefs.system_link_control_9,
-            ]
-        ),
+        *(OscMessage("/d_recv", synthdef.compile()) for synthdef in SYSTEM_SYNTHDEFS),
         OscMessage("/sync", 0),
     ]
 
