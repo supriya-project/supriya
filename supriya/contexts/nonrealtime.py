@@ -254,4 +254,4 @@ class Score(Context):
         Load all system synthdefs.
         """
         with self.at(0):
-            self.add_synthdefs(*SYSTEM_SYNTHDEFS)
+            self.add_synthdefs(*SYSTEM_SYNTHDEFS.values())

@@ -353,7 +353,7 @@ class BaseServer(Context):
         with self.at():
             for i in range(self._maximum_logins):
                 self.add_group(permanent=True, add_action="ADD_TO_TAIL", target_node=0)
-        for synthdef in SYSTEM_SYNTHDEFS:
+        for synthdef in SYSTEM_SYNTHDEFS.values():
             with self.at():
                 self.add_synthdefs(synthdef)
 

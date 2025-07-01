@@ -1,7 +1,6 @@
 import pytest
 
 from supriya import AddAction, CalculationRate
-from supriya.assets import synthdefs
 from supriya.patterns import (
     BusAllocateEvent,
     BusFreeEvent,
@@ -20,6 +19,7 @@ from supriya.patterns import (
 from supriya.patterns.testutils import MockUUID as M
 from supriya.patterns.testutils import run_pattern_test
 from supriya.typing import CalculationRateLike
+from supriya.ugens import system
 
 
 @pytest.mark.parametrize(
@@ -46,7 +46,7 @@ from supriya.typing import CalculationRateLike
                             amplitude=1.0,
                             fade_time=0.0,
                             in_=M("A"),
-                            synthdef=synthdefs.system_link_audio_2,
+                            synthdef=system.system_link_audio_2,
                             target_node=M("B"),
                         ),
                     ]
@@ -80,7 +80,7 @@ from supriya.typing import CalculationRateLike
                             amplitude=1.0,
                             fade_time=0.25,
                             in_=M("A"),
-                            synthdef=synthdefs.system_link_audio_2,
+                            synthdef=system.system_link_audio_2,
                             target_node=M("B"),
                         ),
                     ]
@@ -119,7 +119,7 @@ from supriya.typing import CalculationRateLike
                             amplitude=1.0,
                             fade_time=0.25,
                             in_=M("A"),
-                            synthdef=synthdefs.system_link_audio_2,
+                            synthdef=system.system_link_audio_2,
                             target_node=M("B"),
                         ),
                     ]
@@ -139,7 +139,7 @@ from supriya.typing import CalculationRateLike
                             fade_time=0.25,
                             in_=M("D"),
                             out=M("A"),
-                            synthdef=synthdefs.system_link_audio_2,
+                            synthdef=system.system_link_audio_2,
                             target_node=M("E"),
                         ),
                     ]
@@ -191,7 +191,7 @@ from supriya.typing import CalculationRateLike
                         GroupAllocateEvent(M("B")),
                         SynthAllocateEvent(
                             M("C"),
-                            synthdefs.system_link_audio_2,
+                            system.system_link_audio_2,
                             add_action=AddAction.ADD_AFTER,
                             amplitude=1.0,
                             fade_time=0.25,
@@ -212,7 +212,7 @@ from supriya.typing import CalculationRateLike
                                 GroupAllocateEvent(M("E"), target_node=M("B")),
                                 SynthAllocateEvent(
                                     M("F"),
-                                    synthdefs.system_link_audio_2,
+                                    system.system_link_audio_2,
                                     add_action=AddAction.ADD_AFTER,
                                     amplitude=1.0,
                                     fade_time=0.25,
@@ -239,7 +239,7 @@ from supriya.typing import CalculationRateLike
                                 GroupAllocateEvent(M("I"), target_node=M("B")),
                                 SynthAllocateEvent(
                                     M("J"),
-                                    synthdefs.system_link_audio_2,
+                                    system.system_link_audio_2,
                                     add_action=AddAction.ADD_AFTER,
                                     amplitude=1.0,
                                     fade_time=0.25,

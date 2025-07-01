@@ -1210,7 +1210,10 @@ async def test_reboot(context: AsyncServer | Server) -> None:
         OscMessage("/quit"),
         OscMessage("/notify", 1),
         OscMessage("/g_new", 1, 1, 0),
-        *(OscMessage("/d_recv", synthdef.compile()) for synthdef in SYSTEM_SYNTHDEFS),
+        *(
+            OscMessage("/d_recv", synthdef.compile())
+            for synthdef in SYSTEM_SYNTHDEFS.values()
+        ),
         OscMessage("/sync", 0),
     ]
 
@@ -1249,7 +1252,10 @@ async def test_reset(context: AsyncServer | Server) -> None:
         ),
         OscMessage("/sync", 2),
         OscMessage("/g_new", 1, 1, 0),
-        *(OscMessage("/d_recv", synthdef.compile()) for synthdef in SYSTEM_SYNTHDEFS),
+        *(
+            OscMessage("/d_recv", synthdef.compile())
+            for synthdef in SYSTEM_SYNTHDEFS.values()
+        ),
         OscMessage("/sync", 0),
     ]
 
