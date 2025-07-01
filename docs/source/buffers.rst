@@ -110,7 +110,7 @@ allocate a buffer from the middle of that soundfile, plot it and play it::
 
 Let's grab another soundfile, this time an octophonic one::
 
-    >>> file_path = supriya.assets_path / "audio/sine_440hz_44100sr_16bit_octo.wav"
+    >>> file_path = supriya.samples_path / "sine_440hz_44100sr_16bit_octo.wav"
 
 Allocating a buffer from this soundfile shows it contains eight channels::
 
