@@ -655,7 +655,6 @@ __all__ = [
     "Rand",
     "RandID",
     "RandSeed",
-    "Range",
     "RecordBuf",
     "ReplaceOut",
     "Ringz",
