@@ -12,7 +12,7 @@ def test_system_link_audio_1_supriya() -> None:
     assert normalize(str(system_link_audio_1)) == normalize(
         """
         synthdef:
-            name: system_link_audio_1
+            name: supriya:link-ar:1
             ugens:
             -   Control.kr:
                     done_action: 2.0
@@ -56,7 +56,7 @@ def test_system_link_audio_1_supriya() -> None:
 def test_system_link_audio_1_bytes() -> None:
     py_compiled = system_link_audio_1.compile()
     assert py_compiled == (
-        b"SCgf\x00\x00\x00\x02\x00\x01\x13system_link_audio_1\x00\x00\x00\x05\x00\x00"
+        b"SCgf\x00\x00\x00\x02\x00\x01\x11supriya:link-ar:1\x00\x00\x00\x05\x00\x00"
         b"\x00\x00?\x80\x00\x00@\x00\x00\x00\xc2\xc6\x00\x00@@\x00\x00\x00\x00"
         b"\x00\x05@\x00\x00\x00<\xa3\xd7\n?\x80\x00\x00A\x80\x00\x00\x00\x00"
         b"\x00\x00\x00\x00\x00\x05\x0bdone_action\x00\x00\x00\x00\tfade_time"
@@ -159,7 +159,7 @@ def test_system_link_audio_2_supriya() -> None:
     assert normalize(str(system_link_audio_2)) == normalize(
         """
         synthdef:
-            name: system_link_audio_2
+            name: supriya:link-ar:2
             ugens:
             -   Control.kr:
                     done_action: 2.0
@@ -207,7 +207,7 @@ def test_system_link_audio_2_supriya() -> None:
 def test_system_link_audio_2_bytes() -> None:
     py_compiled = system_link_audio_2.compile()
     assert py_compiled == (
-        b"SCgf\x00\x00\x00\x02\x00\x01\x13system_link_audio_2\x00\x00\x00\x05\x00\x00"
+        b"SCgf\x00\x00\x00\x02\x00\x01\x11supriya:link-ar:2\x00\x00\x00\x05\x00\x00"
         b"\x00\x00?\x80\x00\x00@\x00\x00\x00\xc2\xc6\x00\x00@@\x00\x00\x00\x00"
         b"\x00\x05@\x00\x00\x00<\xa3\xd7\n?\x80\x00\x00A\x80\x00\x00\x00\x00"
         b"\x00\x00\x00\x00\x00\x05\x0bdone_action\x00\x00\x00\x00\tfade_time"

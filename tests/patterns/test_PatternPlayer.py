@@ -511,7 +511,7 @@ async def test_callback_async(mocker) -> None:
             """
             - [1.0,
                [['/g_new', 1000, 0, 0, 1001, 0, 1000],
-                ['/s_new', 'system_link_audio_1', 1002, 3, 1001, 'fade_time', 0.25],
+                ['/s_new', 'supriya:link-ar:1', 1002, 3, 1001, 'fade_time', 0.25],
                 ['/s_new', 'supriya:default', 1003, 0, 1001, 'frequency', 444.0, 'out', 16.0]]]
             - [3.0, [['/n_set', 1003, 'frequency', 555.0, 'out', 16.0]]]
             - [5.0, [['/n_set', 1003, 'gate', 0.0]]]
