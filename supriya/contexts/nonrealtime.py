@@ -16,12 +16,11 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Iterator, SupportsInt, Type
 
-from ..assets.synthdefs import system_synthdefs
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
 from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
-from ..ugens import SynthDef
+from ..ugens import SYSTEM_SYNTHDEFS
 from .core import Context
 from .entities import ContextObject, Node
 from .errors import ContextError
@@ -254,10 +253,5 @@ class Score(Context):
         """
         Load all system synthdefs.
         """
-        synthdefs = []
-        for name in dir(system_synthdefs):
-            synthdef = getattr(system_synthdefs, name)
-            if isinstance(synthdef, SynthDef):
-                synthdefs.append(synthdef)
         with self.at(0):
-            self.add_synthdefs(*synthdefs)
+            self.add_synthdefs(*SYSTEM_SYNTHDEFS.values())

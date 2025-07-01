@@ -4,11 +4,10 @@ from uuid import uuid4
 
 from uqbar.objects import get_vars, new
 
-from supriya.assets import synthdefs
 from supriya.enums import CalculationRate
 
 from ..typing import CalculationRateLike, UUIDDict
-from ..ugens import SynthDef
+from ..ugens import SYSTEM_SYNTHDEFS, SynthDef, default
 from .events import (
     BusAllocateEvent,
     BusFreeEvent,
@@ -53,7 +52,7 @@ class BusPattern(Pattern[Event]):
         if hasattr(expr, "target_node") and expr.target_node is None:
             updates["target_node"] = state["group"]
         if hasattr(expr, "synthdef"):
-            synthdef = getattr(expr, "synthdef") or synthdefs.default
+            synthdef = getattr(expr, "synthdef") or default
             parameter_names = synthdef.parameters
             for name in ("in_", "out"):
                 if name in parameter_names and kwargs.get(name) is None:
@@ -68,8 +67,8 @@ class BusPattern(Pattern[Event]):
     def _setup_peripherals(self, state: UUIDDict | None) -> tuple[Event, Event]:
         if state is None:
             raise RuntimeError
-        rate = self._calculation_rate.name.lower()
-        link_synthdef_name = f"system_link_{rate}_{self._channel_count}"
+        token = self._calculation_rate.token
+        link_synthdef_name = f"supriya:link-{token}:{self._channel_count}"
         starts = [
             BusAllocateEvent(
                 calculation_rate=self._calculation_rate,
@@ -82,7 +81,7 @@ class BusPattern(Pattern[Event]):
                 amplitude=1.0,
                 fade_time=self._release_time,
                 in_=state["bus"],
-                synthdef=getattr(synthdefs, link_synthdef_name),
+                synthdef=SYSTEM_SYNTHDEFS[link_synthdef_name],
                 target_node=state["group"],
                 id_=state["link"],
             ),
@@ -283,7 +282,7 @@ class PinPattern(Pattern[Event]):
         if self._target_node is not None and hasattr(expr, "target_node"):
             updates["target_node"] = expr.target_node or self._target_node
         if self._target_bus is not None and hasattr(expr, "synthdef"):
-            synthdef = getattr(expr, "synthdef") or synthdefs.default
+            synthdef = getattr(expr, "synthdef") or default
             parameter_names = synthdef.parameters
             for name in ("in_", "out"):
                 if name in parameter_names and kwargs.get(name) is None:

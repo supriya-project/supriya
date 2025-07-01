@@ -3,7 +3,6 @@ from pathlib import Path
 import platformdirs
 
 from ._version import __version__, __version_info__
-from .assets.synthdefs import default
 from .clocks import (
     AsyncClock,
     AsyncOfflineClock,
@@ -49,6 +48,7 @@ from .ugens import (
     UGen,
     UGenOperable,
     UGenVector,
+    default,
     synthdef,
 )
 

@@ -4,9 +4,8 @@ from uuid import UUID, uuid4
 import pytest
 from pytest_mock import MockerFixture
 
-from supriya import AddAction, CalculationRate
-from supriya.assets.synthdefs import default
-from supriya.contexts import BusGroup, ContextObject, Server, Synth
+from supriya import AddAction, CalculationRate, Server, Synth, default
+from supriya.contexts import BusGroup, ContextObject
 from supriya.patterns.events import BusAllocateEvent, Event, NoteEvent, Priority
 
 id_ = uuid4()

@@ -331,6 +331,7 @@ from .pv import (
 )
 from .reverb import FreeVerb
 from .safety import CheckBadValues, Sanitize
+from .system import SYSTEM_SYNTHDEFS, default
 from .triggers import (
     Clip,
     Fold,
@@ -380,6 +381,7 @@ __all__ = [
     "RHPF",
     "RLPF",
     "SOS",
+    "SYSTEM_SYNTHDEFS",
     "AllpassC",
     "AllpassL",
     "AllpassN",
@@ -725,6 +727,7 @@ __all__ = [
     "compile_synthdefs",
     "decompile_synthdef",
     "decompile_synthdefs",
+    "default",
     "param",
     "synthdef",
     "ugen",

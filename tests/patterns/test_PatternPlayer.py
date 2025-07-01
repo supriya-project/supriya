@@ -6,10 +6,18 @@ import pytest
 from pytest_mock import MockerFixture
 from uqbar.strings import normalize
 
-from supriya import AddAction, CalculationRate
-from supriya.assets.synthdefs import default, system_link_audio_1
+from supriya import (
+    AddAction,
+    AsyncServer,
+    BusGroup,
+    CalculationRate,
+    Context,
+    Group,
+    Score,
+    Server,
+    Synth,
+)
 from supriya.clocks import AsyncOfflineClock, OfflineClock
-from supriya.contexts import AsyncServer, BusGroup, Context, Group, Score, Server, Synth
 from supriya.contexts.requests import NewGroup
 from supriya.osc.utils import format_messages
 from supriya.patterns import (
@@ -24,6 +32,7 @@ from supriya.patterns import (
     SequencePattern,
 )
 from supriya.patterns.events import NoteEvent, Priority, StartEvent, StopEvent
+from supriya.ugens.system import default, system_link_audio_1
 
 
 @pytest.mark.parametrize(
