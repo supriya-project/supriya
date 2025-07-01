@@ -101,7 +101,6 @@ html_theme_options = {
     "site_url": "https://supriya-project.github.io/supriya/",
     "repo_url": "https://github.com/supriya-project/supriya/",
     "repo_name": "supriya",
-    "repo_type": "github",
     "edit_uri": "blob/main/docs",
     "globaltoc_collapse": False,
     "features": [
