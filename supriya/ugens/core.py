@@ -10,6 +10,7 @@ import tempfile
 import threading
 import uuid
 from enum import Enum
+from itertools import zip_longest
 from pathlib import Path
 from types import MappingProxyType
 from typing import (
@@ -43,7 +44,7 @@ from ..enums import (
     SignalRange,
     UnaryOperator,
 )
-from ..typing import CalculationRateLike, Default, Missing, ParameterRateLike
+from ..typing import MISSING, CalculationRateLike, Default, Missing, ParameterRateLike
 from ..utils import flatten, iterate_nwise
 
 
@@ -290,7 +291,7 @@ def _process_class(
 
 
 def param(
-    default: Default | Missing | float | None = Missing(),
+    default: Default | Missing | float | None = MISSING,
     *,
     check: Check = Check.NONE,
     unexpanded: bool = False,
@@ -5286,7 +5287,7 @@ class Parameter(UGen):
         *,
         name: str | None = None,
         value: float | Sequence[float],
-        rate: ParameterRate = ParameterRate.CONTROL,
+        rate: ParameterRateLike = ParameterRate.CONTROL,
         lag: float | None = None,
     ) -> None:
         if isinstance(value, SupportsFloat):
@@ -5455,9 +5456,11 @@ class SynthDef:
         """
 
         def connect_nodes(ugen_node_mapping: dict[UGen, Node]) -> None:
-            for ugen in self.ugens:
-                tail_node = ugen_node_mapping[ugen]
-                for i, input_ in enumerate(ugen.inputs):
+            for ugen, tail_node in ugen_node_mapping.items():
+                # Don't graph synthetic inputs (e.g. MaxLocalBufs -> LocalBuf)
+                # because these inputs don't actually exist.
+                # Use the shortest length of input keys vs inputs.
+                for i, (_, input_) in enumerate(zip(ugen._input_keys, ugen._inputs)):
                     if not isinstance(input_, OutputProxy):
                         continue
                     tail_field = tail_node["inputs"][i]
@@ -5477,21 +5480,22 @@ class SynthDef:
                 return None
             input_group = RecordGroup(name="inputs")
             for i, (input_key, input_) in enumerate(
-                zip(ugen._input_keys, ugen._inputs)
+                zip_longest(ugen._input_keys, ugen._inputs)
             ):
-                input_name = (
-                    input_key
-                    if isinstance(input_key, str)
-                    else f"{input_key[0]}[{input_key[1]}]"
-                )
+                if input_ is None:
+                    raise ValueError
+                elif input_key is None:
+                    continue
+                if isinstance(input_key, str):
+                    input_name = input_key
+                elif isinstance(input_key, tuple):
+                    input_name = f"{input_key[0]}[{input_key[1]}]"
                 if isinstance(input_, float):
                     label = f"{input_name}:\\n{input_}"
                 else:
                     label = input_name
                 input_group.append(
-                    RecordField(
-                        label=label or None, name=f"ugen_{ugen_index}_input_{i}"
-                    )
+                    RecordField(label=label, name=f"ugen_{ugen_index}_input_{i}")
                 )
             return input_group
 
@@ -5579,10 +5583,7 @@ class SynthDef:
             )
 
         graph = Graph(name=f"synthdef_{self.effective_name}")
-        for node in sorted(
-            (ugen_node_mapping := create_ugen_node_mapping()).values(),
-            key=lambda x: x.name,
-        ):
+        for node in (ugen_node_mapping := create_ugen_node_mapping()).values():
             graph.append(node)
         connect_nodes(ugen_node_mapping)
         style_graph(graph)
@@ -5635,13 +5636,18 @@ class SynthDef:
                     else:
                         for i, value in enumerate(parameter.value):
                             inputs[f"{parameter.name}[{i}]"] = str(value)
+            # Don't graph synthetic inputs (e.g. MaxLocalBufs -> LocalBuf)
+            # because these inputs don't actually exist.
+            # Use the shortest length of input keys vs inputs.
             for input_key, input_ in zip(ugen._input_keys, ugen._inputs):
                 if isinstance(input_key, str):
                     input_name = input_key
                     if input_key in ugen._unexpanded_keys:
                         input_name += "[0]"
-                else:
+                elif isinstance(input_key, tuple):
                     input_name = f"{input_key[0]}[{input_key[1]}]"
+                else:
+                    raise ValueError(input_key)
                 if isinstance(input_, float):
                     input_value = str(input_)
                 else:
