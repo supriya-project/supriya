@@ -30,8 +30,8 @@ def test_sphinx_book_html(caplog, app, status, warning, rm_dirs):
     assert not warning.getvalue().strip()
     image_path = pathlib.Path(app.outdir) / "_images"
     expected_file_names = [
-        "score-88e23b7768211102a91b77d76c2962369815ef80b33eca97a2e26352df3ca9e8.aiff",
-        "score-88e23b7768211102a91b77d76c2962369815ef80b33eca97a2e26352df3ca9e8.osc",
+        "score-0c3a86ac039b84ca308975d210f0245607074cc97d76fcc5999aea0174460d0a.aiff",
+        "score-0c3a86ac039b84ca308975d210f0245607074cc97d76fcc5999aea0174460d0a.osc",
     ]
     if platform.system() != "Windows":
         expected_file_names.extend(
