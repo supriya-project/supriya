@@ -7,12 +7,12 @@ from uqbar.strings import normalize
 from supriya import SynthDef
 from supriya.ugens import SuperColliderSynthDef, decompile_synthdef
 from supriya.ugens.system import (
-    spectroscope_lin_1,
-    spectroscope_lin_shm_1,
-    spectroscope_log_1,
-    spectroscope_log_shm_2,
-    stethoscope_audio_1,
-    stethoscope_control_2,
+    amplitude_scope_audio_1,
+    amplitude_scope_control_2,
+    frequency_scope_lin_1,
+    frequency_scope_lin_shm_1,
+    frequency_scope_log_1,
+    frequency_scope_log_shm_2,
     system_link_audio_1,
     system_link_audio_2,
 )
@@ -112,10 +112,10 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            stethoscope_audio_1,
+            amplitude_scope_audio_1,
             """
             synthdef:
-                name: supriya:stethoscope-ar:1
+                name: supriya:amp-scope-ar:1
                 ugens:
                 -   Control.kr:
                         in_: 0.0
@@ -132,10 +132,10 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            stethoscope_control_2,
+            amplitude_scope_control_2,
             """
             synthdef:
-                name: supriya:stethoscope-kr:2
+                name: supriya:amp-scope-kr:2
                 ugens:
                 -   Control.kr:
                         in_: 0.0
@@ -157,10 +157,10 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            spectroscope_lin_1,
+            frequency_scope_lin_1,
             """
             synthdef:
-                name: supriya:spectroscope-lin:1
+                name: supriya:freq-scope-lin:1
                 ugens:
                 -   Control.ir:
                         fft_buffer_size: 2048.0
@@ -242,10 +242,10 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            spectroscope_log_1,
+            frequency_scope_log_1,
             """
             synthdef:
-                name: supriya:spectroscope-log:1
+                name: supriya:freq-scope-log:1
                 ugens:
                 -   Control.ir:
                         fft_buffer_size: 2048.0
@@ -327,10 +327,10 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            spectroscope_lin_shm_1,
+            frequency_scope_lin_shm_1,
             """
             synthdef:
-                name: supriya:spectroscope-lin-shm:1
+                name: supriya:freq-scope-lin-shm:1
                 ugens:
                 -   Control.ir:
                         fft_buffer_size: 2048.0
@@ -417,10 +417,10 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            spectroscope_log_shm_2,
+            frequency_scope_log_shm_2,
             """
             synthdef:
-                name: supriya:spectroscope-log-shm:2
+                name: supriya:freq-scope-log-shm:2
                 ugens:
                 -   Control.ir:
                         fft_buffer_size: 2048.0
