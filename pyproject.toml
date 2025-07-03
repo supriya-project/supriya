@@ -78,14 +78,8 @@ repository = "https://github.com/supriya-project/supriya"
 [tool.cibuildwheel]
 build = "cp310-* cp311-* cp312-* cp313-*"
 test-command = [
-  "python -c 'from supriya.contexts import shm; print(shm.__file__)'",
-  "python -c 'from supriya.utils._intervals import IntervalTreeDriverEx'",
-]
-
-[tool.cibuildwheel.windows]
-test-command = [
-  # Can't get ServerSHM to build on Windows due to date_time library requirement.
   # Only double-quotes work on Windows.
+  'python -c "from supriya.contexts import shm; print(shm.__file__)"',
   'python -c "from supriya.utils._intervals import IntervalTreeDriverEx"',
 ]
 
