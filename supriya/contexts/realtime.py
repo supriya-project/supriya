@@ -402,6 +402,7 @@ class BaseServer(Context):
         self,
         bus: Bus,
         add_action: AddActionLike = AddAction.ADD_TO_TAIL,
+        fft_size: int = 4096,
         frequency_mode: Literal["linear", "logarithmic"] = "linear",
         rate: int = 4,
         target_node: Node | None = None,
@@ -413,6 +414,7 @@ class BaseServer(Context):
             add_action=add_action,
             bus=bus,
             context=self,
+            fft_size=fft_size,
             frequency_mode=frequency_mode,
             rate=rate,
             target_node=target_node,
@@ -446,9 +448,9 @@ class BaseServer(Context):
         :param callback: The callback to unregister.
         """
         for event in callback.events:
-            if callback in (
-                callbacks := self._lifecycle_event_callbacks.get(event, [])
-            ):
+            if event not in self._lifecycle_event_callbacks:
+                continue
+            if callback in (callbacks := self._lifecycle_event_callbacks[event]):
                 callbacks.remove(callback)
             if not callbacks:
                 self._lifecycle_event_callbacks.pop(event)
