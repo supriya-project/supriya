@@ -1670,7 +1670,7 @@ class ReceiveSynthDefs(Request):
 
     ::
 
-        >>> from supriya import default
+        >>> from supriya import OscMessage, default
         >>> from supriya.contexts.requests import NewSynth, ReceiveSynthDefs
         >>> request = ReceiveSynthDefs(
         ...     synthdefs=[default],
