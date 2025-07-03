@@ -1133,13 +1133,13 @@ async def test_query_tree(context: AsyncServer | Server) -> None:
             1 group
                 1001 group
                     1003 supriya:default
-                        amplitude: 0.1, frequency: 222.0, gate: 1.0, pan: 0.5, out: 0.0
+                        out: 0.0, amplitude: 0.1, frequency: 222.0, gate: 1.0, pan: 0.5
                     1004 supriya:default
-                        amplitude: 0.1, frequency: 333.0, gate: 1.0, pan: 0.5, out: 0.0
+                        out: 0.0, amplitude: 0.1, frequency: 333.0, gate: 1.0, pan: 0.5
                     1005 group
                 1000 group
                     1002 supriya:default
-                        amplitude: 0.1, frequency: 111.0, gate: 1.0, pan: 0.5, out: 0.0
+                        out 0.0, amplitude: 0.1, frequency: 111.0, gate: 1.0, pan: 0.5
         """
     )
     # unsync
