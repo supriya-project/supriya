@@ -59,11 +59,6 @@ class BaseScope:
             if self.context._shared_memory is None:
                 raise ValueError
             self.scope_buffer = self.context.add_scope_buffer()
-            self.channel_count, self.max_frames = (
-                self.context._shared_memory.describe_scope_buffer(
-                    int(self.scope_buffer)
-                )
-            )
             synthdef = self._get_synthdef()
             with self.context.at():
                 with self.context.add_synthdefs(synthdef):
@@ -91,6 +86,9 @@ class BaseScope:
             raise ValueError
         elif self.scope_buffer is None:
             raise ValueError
+        self.channel_count, self.max_frames = (
+            self.context._shared_memory.describe_scope_buffer(int(self.scope_buffer))
+        )
         return self.context._shared_memory.read_scope_buffer(int(self.scope_buffer))
 
     def stop(self) -> None:
@@ -107,7 +105,10 @@ class BaseScope:
                     pass
                 self.synth = None
             if self.scope_buffer:
-                self.scope_buffer.free()
+                try:
+                    self.scope_buffer.free()
+                except ServerOffline:
+                    pass
                 self.scope_buffer = None
             if self.lifecycle_callback:
                 self.context.unregister_lifecycle_callback(self.lifecycle_callback)
