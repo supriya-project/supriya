@@ -16,6 +16,7 @@ from typing import (
     Awaitable,
     Callable,
     Iterable,
+    Literal,
     NamedTuple,
     Sequence,
     SupportsInt,
@@ -24,6 +25,7 @@ from typing import (
 )
 
 from ..enums import (
+    AddAction,
     BootStatus,
     CalculationRate,
     ServerLifecycleEvent,
@@ -47,12 +49,13 @@ from ..osc import (
     ThreadedOscProtocol,
 )
 from ..scsynth import AsyncProcessProtocol, Options, ThreadedProcessProtocol
-from ..typing import ServerLifecycleEventLike, SupportsOsc
+from ..typing import AddActionLike, ServerLifecycleEventLike, SupportsOsc
 from ..ugens import SYSTEM_SYNTHDEFS
 from .core import Context
 from .entities import (
     Buffer,
     Bus,
+    BusGroup,
     ContextObject,
     Group,
     Node,
@@ -92,6 +95,7 @@ from .responses import (
     StatusInfo,
     VersionInfo,
 )
+from .scopes import AmplitudeScope, FrequencyScope
 from .shm import ServerSHM
 
 logger = logging.getLogger(__name__)
@@ -376,6 +380,48 @@ class BaseServer(Context):
 
     ### PUBLIC METHODS ###
 
+    def add_amplitude_scope(
+        self,
+        bus: Bus | BusGroup,
+        add_action: AddActionLike = AddAction.ADD_TO_TAIL,
+        target_node: Node | None = None,
+    ) -> AmplitudeScope:
+        """
+        Add an amplitude scope.
+        """
+        scope = AmplitudeScope(
+            add_action=add_action,
+            bus=bus,
+            context=self,
+            target_node=target_node,
+        )
+        scope.play()
+        return scope
+
+    def add_frequency_scope(
+        self,
+        bus: Bus,
+        add_action: AddActionLike = AddAction.ADD_TO_TAIL,
+        fft_size: int = 4096,
+        frequency_mode: Literal["linear", "logarithmic"] = "linear",
+        rate: int = 4,
+        target_node: Node | None = None,
+    ) -> FrequencyScope:
+        """
+        Add a frequency scope.
+        """
+        scope = FrequencyScope(
+            add_action=add_action,
+            bus=bus,
+            context=self,
+            fft_size=fft_size,
+            frequency_mode=frequency_mode,
+            rate=rate,
+            target_node=target_node,
+        )
+        scope.play()
+        return scope
+
     def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         """
         Send a message to the execution context.
@@ -402,9 +448,9 @@ class BaseServer(Context):
         :param callback: The callback to unregister.
         """
         for event in callback.events:
-            if callback in (
-                callbacks := self._lifecycle_event_callbacks.get(event, [])
-            ):
+            if event not in self._lifecycle_event_callbacks:
+                continue
+            if callback in (callbacks := self._lifecycle_event_callbacks[event]):
                 callbacks.remove(callback)
             if not callbacks:
                 self._lifecycle_event_callbacks.pop(event)
