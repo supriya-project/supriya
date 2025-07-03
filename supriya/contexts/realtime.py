@@ -16,6 +16,7 @@ from typing import (
     Awaitable,
     Callable,
     Iterable,
+    Literal,
     NamedTuple,
     Sequence,
     SupportsInt,
@@ -24,6 +25,7 @@ from typing import (
 )
 
 from ..enums import (
+    AddAction,
     BootStatus,
     CalculationRate,
     ServerLifecycleEvent,
@@ -47,12 +49,13 @@ from ..osc import (
     ThreadedOscProtocol,
 )
 from ..scsynth import AsyncProcessProtocol, Options, ThreadedProcessProtocol
-from ..typing import ServerLifecycleEventLike, SupportsOsc
+from ..typing import AddActionLike, ServerLifecycleEventLike, SupportsOsc
 from ..ugens import SYSTEM_SYNTHDEFS
 from .core import Context
 from .entities import (
     Buffer,
     Bus,
+    BusGroup,
     ContextObject,
     Group,
     Node,
@@ -92,6 +95,7 @@ from .responses import (
     StatusInfo,
     VersionInfo,
 )
+from .scopes import AmplitudeScope, FrequencyScope
 from .shm import ServerSHM
 
 logger = logging.getLogger(__name__)
@@ -375,6 +379,46 @@ class BaseServer(Context):
         pass  # Floats and None are OK in RT
 
     ### PUBLIC METHODS ###
+
+    def add_amplitude_scope(
+        self,
+        bus: Bus | BusGroup,
+        add_action: AddActionLike = AddAction.ADD_TO_TAIL,
+        target_node: Node | None = None,
+    ) -> AmplitudeScope:
+        """
+        Add an amplitude scope.
+        """
+        scope = AmplitudeScope(
+            add_action=add_action,
+            bus=bus,
+            context=self,
+            target_node=target_node,
+        )
+        scope.play()
+        return scope
+
+    def add_frequency_scope(
+        self,
+        bus: Bus,
+        add_action: AddActionLike = AddAction.ADD_TO_TAIL,
+        frequency_mode: Literal["linear", "logarithmic"] = "linear",
+        rate: int = 4,
+        target_node: Node | None = None,
+    ) -> FrequencyScope:
+        """
+        Add a frequency scope.
+        """
+        scope = FrequencyScope(
+            add_action=add_action,
+            bus=bus,
+            context=self,
+            frequency_mode=frequency_mode,
+            rate=rate,
+            target_node=target_node,
+        )
+        scope.play()
+        return scope
 
     def send(self, message: SequenceABC | SupportsOsc | str) -> None:
         """
