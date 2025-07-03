@@ -162,21 +162,36 @@ from supriya.ugens.system import (
             synthdef:
                 name: supriya:spectroscope-lin:1
                 ugens:
-                -   Control.kr:
-                        db_factor: 0.02
-                        in_: 0.0
-                -   In.ar:
-                        bus: Control.kr[1:in_]
                 -   Control.ir:
                         fft_buffer_size: 2048.0
                         rate: 4.0
                         scope_id: 0.0
+                -   UnaryOpUGen(RECIPROCAL).ir:
+                        source: Control.ir[0:fft_buffer_size]
+                -   BinaryOpUGen(MULTIPLICATION).ir/0:
+                        left: Control.ir[1:rate]
+                        right: UnaryOpUGen(RECIPROCAL).ir[0]
+                -   BinaryOpUGen(SUBTRACTION).ir/0:
+                        left: 1.0
+                        right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
+                -   Control.kr:
+                        db_factor: 0.02
+                        in_: 0.0
                 -   MaxLocalBufs.ir:
                         maximum: 1.0
                 -   LocalBuf.ir:
                         channel_count: 1.0
                         frame_count: Control.ir[0:fft_buffer_size]
-                        (anonymous): MaxLocalBufs.ir[0]
+                -   BufSamples.ir:
+                        buffer_id: LocalBuf.ir[0]
+                -   BinaryOpUGen(SUBTRACTION).ir/1:
+                        left: BufSamples.ir[0]
+                        right: 2.0
+                -   BinaryOpUGen(MULTIPLICATION).ir/1:
+                        left: BinaryOpUGen(SUBTRACTION).ir/1[0]
+                        right: 0.5
+                -   In.ar:
+                        bus: Control.kr[1:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
                         source: In.ar[0]
@@ -187,25 +202,6 @@ from supriya.ugens.system import (
                 -   PV_MagSmear.kr:
                         pv_chain: FFT.kr[0]
                         bins: 1.0
-                -   UnaryOpUGen(RECIPROCAL).ir:
-                        source: Control.ir[0:fft_buffer_size]
-                -   BinaryOpUGen(MULTIPLICATION).ir/0:
-                        left: Control.ir[1:rate]
-                        right: UnaryOpUGen(RECIPROCAL).ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir/0:
-                        left: 1.0
-                        right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
-                -   BufSamples.ir:
-                        buffer_id: LocalBuf.ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir/1:
-                        left: BufSamples.ir[0]
-                        right: 2.0
-                -   BinaryOpUGen(MULTIPLICATION).ir/1:
-                        left: BinaryOpUGen(SUBTRACTION).ir/1[0]
-                        right: 0.5
-                -   BinaryOpUGen(ADDITION).ir:
-                        left: BinaryOpUGen(MULTIPLICATION).ir/1[0]
-                        right: 2.0
                 -   BufDur.ir:
                         buffer_id: LocalBuf.ir[0]
                 -   BinaryOpUGen(FLOAT_DIVISION).ir:
@@ -214,6 +210,9 @@ from supriya.ugens.system import (
                 -   LFSaw.ar:
                         frequency: BinaryOpUGen(FLOAT_DIVISION).ir[0]
                         initial_phase: BinaryOpUGen(SUBTRACTION).ir/0[0]
+                -   BinaryOpUGen(ADDITION).ir:
+                        left: BinaryOpUGen(MULTIPLICATION).ir/1[0]
+                        right: 2.0
                 -   MulAdd.ar:
                         source: LFSaw.ar[0]
                         multiplier: BinaryOpUGen(MULTIPLICATION).ir/1[0]
@@ -248,21 +247,33 @@ from supriya.ugens.system import (
             synthdef:
                 name: supriya:spectroscope-log:1
                 ugens:
-                -   Control.kr:
-                        db_factor: 0.02
-                        in_: 0.0
-                -   In.ar:
-                        bus: Control.kr[1:in_]
                 -   Control.ir:
                         fft_buffer_size: 2048.0
                         rate: 4.0
                         scope_id: 0.0
+                -   UnaryOpUGen(RECIPROCAL).ir:
+                        source: Control.ir[0:fft_buffer_size]
+                -   BinaryOpUGen(MULTIPLICATION).ir/0:
+                        left: Control.ir[1:rate]
+                        right: UnaryOpUGen(RECIPROCAL).ir[0]
+                -   BinaryOpUGen(SUBTRACTION).ir:
+                        left: 1.0
+                        right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
+                -   Control.kr:
+                        db_factor: 0.02
+                        in_: 0.0
                 -   MaxLocalBufs.ir:
                         maximum: 1.0
                 -   LocalBuf.ir:
                         channel_count: 1.0
                         frame_count: Control.ir[0:fft_buffer_size]
-                        (anonymous): MaxLocalBufs.ir[0]
+                -   BufSamples.ir:
+                        buffer_id: LocalBuf.ir[0]
+                -   BinaryOpUGen(MULTIPLICATION).ir/1:
+                        left: BufSamples.ir[0]
+                        right: 0.5
+                -   In.ar:
+                        bus: Control.kr[1:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
                         source: In.ar[0]
@@ -273,19 +284,6 @@ from supriya.ugens.system import (
                 -   PV_MagSmear.kr:
                         pv_chain: FFT.kr[0]
                         bins: 1.0
-                -   UnaryOpUGen(RECIPROCAL).ir:
-                        source: Control.ir[0:fft_buffer_size]
-                -   BinaryOpUGen(MULTIPLICATION).ir/0:
-                        left: Control.ir[1:rate]
-                        right: UnaryOpUGen(RECIPROCAL).ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir:
-                        left: 1.0
-                        right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
-                -   BufSamples.ir:
-                        buffer_id: LocalBuf.ir[0]
-                -   BinaryOpUGen(MULTIPLICATION).ir/1:
-                        left: BufSamples.ir[0]
-                        right: 0.5
                 -   BufDur.ir:
                         buffer_id: LocalBuf.ir[0]
                 -   BinaryOpUGen(FLOAT_DIVISION).ir:
@@ -334,21 +332,36 @@ from supriya.ugens.system import (
             synthdef:
                 name: supriya:spectroscope-lin-shm:1
                 ugens:
-                -   Control.kr:
-                        db_factor: 0.02
-                        in_: 0.0
-                -   In.ar:
-                        bus: Control.kr[1:in_]
                 -   Control.ir:
                         fft_buffer_size: 2048.0
                         rate: 4.0
                         scope_id: 0.0
+                -   UnaryOpUGen(RECIPROCAL).ir:
+                        source: Control.ir[0:fft_buffer_size]
+                -   BinaryOpUGen(MULTIPLICATION).ir/0:
+                        left: Control.ir[1:rate]
+                        right: UnaryOpUGen(RECIPROCAL).ir[0]
+                -   BinaryOpUGen(SUBTRACTION).ir/0:
+                        left: 1.0
+                        right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
+                -   Control.kr:
+                        db_factor: 0.02
+                        in_: 0.0
                 -   MaxLocalBufs.ir:
                         maximum: 1.0
                 -   LocalBuf.ir:
                         channel_count: 1.0
                         frame_count: Control.ir[0:fft_buffer_size]
-                        (anonymous): MaxLocalBufs.ir[0]
+                -   BufSamples.ir:
+                        buffer_id: LocalBuf.ir[0]
+                -   BinaryOpUGen(SUBTRACTION).ir/1:
+                        left: BufSamples.ir[0]
+                        right: 2.0
+                -   BinaryOpUGen(MULTIPLICATION).ir/1:
+                        left: BinaryOpUGen(SUBTRACTION).ir/1[0]
+                        right: 0.5
+                -   In.ar:
+                        bus: Control.kr[1:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
                         source: In.ar[0]
@@ -359,25 +372,6 @@ from supriya.ugens.system import (
                 -   PV_MagSmear.kr:
                         pv_chain: FFT.kr[0]
                         bins: 1.0
-                -   UnaryOpUGen(RECIPROCAL).ir:
-                        source: Control.ir[0:fft_buffer_size]
-                -   BinaryOpUGen(MULTIPLICATION).ir/0:
-                        left: Control.ir[1:rate]
-                        right: UnaryOpUGen(RECIPROCAL).ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir/0:
-                        left: 1.0
-                        right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
-                -   BufSamples.ir:
-                        buffer_id: LocalBuf.ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir/1:
-                        left: BufSamples.ir[0]
-                        right: 2.0
-                -   BinaryOpUGen(MULTIPLICATION).ir/1:
-                        left: BinaryOpUGen(SUBTRACTION).ir/1[0]
-                        right: 0.5
-                -   BinaryOpUGen(ADDITION).ir:
-                        left: BinaryOpUGen(MULTIPLICATION).ir/1[0]
-                        right: 2.0
                 -   BufDur.ir:
                         buffer_id: LocalBuf.ir[0]
                 -   BinaryOpUGen(FLOAT_DIVISION).ir/0:
@@ -386,6 +380,9 @@ from supriya.ugens.system import (
                 -   LFSaw.ar:
                         frequency: BinaryOpUGen(FLOAT_DIVISION).ir/0[0]
                         initial_phase: BinaryOpUGen(SUBTRACTION).ir/0[0]
+                -   BinaryOpUGen(ADDITION).ir:
+                        left: BinaryOpUGen(MULTIPLICATION).ir/1[0]
+                        right: 2.0
                 -   MulAdd.ar:
                         source: LFSaw.ar[0]
                         multiplier: BinaryOpUGen(MULTIPLICATION).ir/1[0]
@@ -425,21 +422,33 @@ from supriya.ugens.system import (
             synthdef:
                 name: supriya:spectroscope-log-shm:2
                 ugens:
-                -   Control.kr:
-                        db_factor: 0.02
-                        in_: 0.0
-                -   In.ar:
-                        bus: Control.kr[1:in_]
                 -   Control.ir:
                         fft_buffer_size: 2048.0
                         rate: 4.0
                         scope_id: 0.0
+                -   UnaryOpUGen(RECIPROCAL).ir:
+                        source: Control.ir[0:fft_buffer_size]
+                -   BinaryOpUGen(MULTIPLICATION).ir/0:
+                        left: Control.ir[1:rate]
+                        right: UnaryOpUGen(RECIPROCAL).ir[0]
+                -   BinaryOpUGen(SUBTRACTION).ir:
+                        left: 1.0
+                        right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
+                -   Control.kr:
+                        db_factor: 0.02
+                        in_: 0.0
                 -   MaxLocalBufs.ir:
                         maximum: 1.0
                 -   LocalBuf.ir:
                         channel_count: 1.0
                         frame_count: Control.ir[0:fft_buffer_size]
-                        (anonymous): MaxLocalBufs.ir[0]
+                -   BufSamples.ir:
+                        buffer_id: LocalBuf.ir[0]
+                -   BinaryOpUGen(MULTIPLICATION).ir/1:
+                        left: BufSamples.ir[0]
+                        right: 0.5
+                -   In.ar:
+                        bus: Control.kr[1:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
                         source: In.ar[0]
@@ -450,19 +459,6 @@ from supriya.ugens.system import (
                 -   PV_MagSmear.kr:
                         pv_chain: FFT.kr[0]
                         bins: 1.0
-                -   UnaryOpUGen(RECIPROCAL).ir:
-                        source: Control.ir[0:fft_buffer_size]
-                -   BinaryOpUGen(MULTIPLICATION).ir/0:
-                        left: Control.ir[1:rate]
-                        right: UnaryOpUGen(RECIPROCAL).ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir:
-                        left: 1.0
-                        right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
-                -   BufSamples.ir:
-                        buffer_id: LocalBuf.ir[0]
-                -   BinaryOpUGen(MULTIPLICATION).ir/1:
-                        left: BufSamples.ir[0]
-                        right: 0.5
                 -   BufDur.ir:
                         buffer_id: LocalBuf.ir[0]
                 -   BinaryOpUGen(FLOAT_DIVISION).ir/0:
