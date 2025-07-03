@@ -767,6 +767,10 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
+                    -   Control.ir:
+                            out: 0.0
+                    -   In.ar:
+                            bus: Control.ir[0:out]
                     -   Control.kr:
                             gate: 1.0
                     -   Linen.kr:
@@ -775,10 +779,6 @@ class SynthDefFactory:
                             sustain_level: 1.0
                             release_time: 0.02
                             done_action: 2.0
-                    -   Control.ir:
-                            out: 0.0
-                    -   In.ar:
-                            bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1315,12 +1315,12 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.kr:
-                            mix: 0.0
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
+                    -   Control.kr:
+                            mix: 0.0
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1365,12 +1365,12 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.kr:
-                            level: 1.0
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
                             bus: Control.ir[0:out]
+                    -   Control.kr:
+                            level: 1.0
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1479,8 +1479,6 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.kr:
-                            level: 1.0
                     -   Control.ir:
                             duration: 1.0
                             out: 0.0
@@ -1491,11 +1489,13 @@ class SynthDefFactory:
                             done_action: 2.0
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
+                    -   In.ar:
+                            bus: Control.ir[1:out]
+                    -   Control.kr:
+                            level: 1.0
                     -   BinaryOpUGen(MULTIPLICATION).kr:
                             left: UnaryOpUGen(HANNING_WINDOW).kr[0]
                             right: Control.kr[0:level]
-                    -   In.ar:
-                            bus: Control.ir[1:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1540,8 +1540,6 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.kr:
-                            level: 1.0
                     -   Control.ir:
                             duration: 1.0
                             out: 0.0
@@ -1552,14 +1550,16 @@ class SynthDefFactory:
                             done_action: 2.0
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
-                    -   BinaryOpUGen(MULTIPLICATION).kr:
-                            left: UnaryOpUGen(HANNING_WINDOW).kr[0]
-                            right: Control.kr[0:level]
                     -   In.ar:
                             bus: Control.ir[1:out]
                     -   BinaryOpUGen(MULTIPLICATION).ar:
                             left: In.ar[0]
                             right: UnaryOpUGen(HANNING_WINDOW).kr[0]
+                    -   Control.kr:
+                            level: 1.0
+                    -   BinaryOpUGen(MULTIPLICATION).kr:
+                            left: UnaryOpUGen(HANNING_WINDOW).kr[0]
+                            right: Control.kr[0:level]
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
@@ -1706,6 +1706,28 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
+                    -   Control.ir:
+                            out: 0.0
+                    -   In.ar:
+                            bus: Control.ir[0:out]
+                    -   LPF.ar/0:
+                            source: In.ar[0]
+                            frequency: 300.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/0:
+                            left: In.ar[0]
+                            right: LPF.ar/0[0]
+                    -   LPF.ar/1:
+                            source: BinaryOpUGen(SUBTRACTION).ar/0[0]
+                            frequency: 1200.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/1:
+                            left: BinaryOpUGen(SUBTRACTION).ar/0[0]
+                            right: LPF.ar/1[0]
+                    -   LPF.ar/2:
+                            source: BinaryOpUGen(SUBTRACTION).ar/1[0]
+                            frequency: 9600.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/2:
+                            left: BinaryOpUGen(SUBTRACTION).ar/1[0]
+                            right: LPF.ar/2[0]
                     -   Control.kr:
                             band_1_clamp_time: 0.01
                             band_1_postgain: 0.0
@@ -1738,127 +1760,105 @@ class SynthDefFactory:
                             mix: 0.0
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/0:
                             source: Control.kr[2:band_1_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/1:
-                            source: Control.kr[6:band_1_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/2:
-                            source: Control.kr[1:band_1_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/3:
-                            source: Control.kr[9:band_2_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/4:
-                            source: Control.kr[13:band_2_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/5:
-                            source: Control.kr[8:band_2_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/6:
-                            source: Control.kr[16:band_3_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/7:
-                            source: Control.kr[20:band_3_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/8:
-                            source: Control.kr[15:band_3_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/9:
-                            source: Control.kr[23:band_4_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/10:
-                            source: Control.kr[27:band_4_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/11:
-                            source: Control.kr[22:band_4_postgain]
-                    -   Control.ir:
-                            out: 0.0
-                    -   In.ar:
-                            bus: Control.ir[0:out]
-                    -   LPF.ar/0:
-                            source: In.ar[0]
-                            frequency: 300.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/0:
-                            left: In.ar[0]
-                            right: LPF.ar/0[0]
-                    -   LPF.ar/1:
-                            source: BinaryOpUGen(SUBTRACTION).ar/0[0]
-                            frequency: 1200.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/1:
-                            left: BinaryOpUGen(SUBTRACTION).ar/0[0]
-                            right: LPF.ar/1[0]
-                    -   LPF.ar/2:
-                            source: BinaryOpUGen(SUBTRACTION).ar/1[0]
-                            frequency: 9600.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/2:
-                            left: BinaryOpUGen(SUBTRACTION).ar/1[0]
-                            right: LPF.ar/2[0]
                     -   BinaryOpUGen(MULTIPLICATION).ar/0:
-                            left: BinaryOpUGen(SUBTRACTION).ar/2[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/9[0]
+                            left: LPF.ar/0[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/0[0]
                     -   DelayN.ar/0:
                             source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                            maximum_delay_time: Control.kr[21:band_4_clamp_time]
-                            delay_time: Control.kr[21:band_4_clamp_time]
+                            maximum_delay_time: Control.kr[0:band_1_clamp_time]
+                            delay_time: Control.kr[0:band_1_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/1:
+                            source: Control.kr[6:band_1_threshold]
                     -   Compander.ar/0:
                             source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                             control: DelayN.ar/0[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/10[0]
-                            slope_below: Control.kr[26:band_4_slope_below]
-                            slope_above: Control.kr[25:band_4_slope_above]
-                            clamp_time: Control.kr[21:band_4_clamp_time]
-                            relax_time: Control.kr[24:band_4_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/1:
-                            left: Compander.ar/0[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/11[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/2:
-                            left: LPF.ar/2[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/6[0]
-                    -   DelayN.ar/1:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                            maximum_delay_time: Control.kr[14:band_3_clamp_time]
-                            delay_time: Control.kr[14:band_3_clamp_time]
-                    -   Compander.ar/1:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                            control: DelayN.ar/1[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/7[0]
-                            slope_below: Control.kr[19:band_3_slope_below]
-                            slope_above: Control.kr[18:band_3_slope_above]
-                            clamp_time: Control.kr[14:band_3_clamp_time]
-                            relax_time: Control.kr[17:band_3_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/3:
-                            left: Compander.ar/1[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/8[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/4:
-                            left: LPF.ar/1[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/3[0]
-                    -   DelayN.ar/2:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
-                            maximum_delay_time: Control.kr[7:band_2_clamp_time]
-                            delay_time: Control.kr[7:band_2_clamp_time]
-                    -   Compander.ar/2:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
-                            control: DelayN.ar/2[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/4[0]
-                            slope_below: Control.kr[12:band_2_slope_below]
-                            slope_above: Control.kr[11:band_2_slope_above]
-                            clamp_time: Control.kr[7:band_2_clamp_time]
-                            relax_time: Control.kr[10:band_2_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/5:
-                            left: Compander.ar/2[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/5[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/6:
-                            left: LPF.ar/0[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/0[0]
-                    -   DelayN.ar/3:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
-                            maximum_delay_time: Control.kr[0:band_1_clamp_time]
-                            delay_time: Control.kr[0:band_1_clamp_time]
-                    -   Compander.ar/3:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
-                            control: DelayN.ar/3[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/1[0]
                             slope_below: Control.kr[5:band_1_slope_below]
                             slope_above: Control.kr[4:band_1_slope_above]
                             clamp_time: Control.kr[0:band_1_clamp_time]
                             relax_time: Control.kr[3:band_1_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/2:
+                            source: Control.kr[1:band_1_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                            left: Compander.ar/0[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/2[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/3:
+                            source: Control.kr[9:band_2_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/2:
+                            left: LPF.ar/1[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/3[0]
+                    -   DelayN.ar/1:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
+                            maximum_delay_time: Control.kr[7:band_2_clamp_time]
+                            delay_time: Control.kr[7:band_2_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/4:
+                            source: Control.kr[13:band_2_threshold]
+                    -   Compander.ar/1:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
+                            control: DelayN.ar/1[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/4[0]
+                            slope_below: Control.kr[12:band_2_slope_below]
+                            slope_above: Control.kr[11:band_2_slope_above]
+                            clamp_time: Control.kr[7:band_2_clamp_time]
+                            relax_time: Control.kr[10:band_2_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/5:
+                            source: Control.kr[8:band_2_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/3:
+                            left: Compander.ar/1[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/5[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/6:
+                            source: Control.kr[16:band_3_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/4:
+                            left: LPF.ar/2[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/6[0]
+                    -   DelayN.ar/2:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
+                            maximum_delay_time: Control.kr[14:band_3_clamp_time]
+                            delay_time: Control.kr[14:band_3_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/7:
+                            source: Control.kr[20:band_3_threshold]
+                    -   Compander.ar/2:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
+                            control: DelayN.ar/2[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/7[0]
+                            slope_below: Control.kr[19:band_3_slope_below]
+                            slope_above: Control.kr[18:band_3_slope_above]
+                            clamp_time: Control.kr[14:band_3_clamp_time]
+                            relax_time: Control.kr[17:band_3_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/8:
+                            source: Control.kr[15:band_3_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/5:
+                            left: Compander.ar/2[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/8[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/9:
+                            source: Control.kr[23:band_4_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/6:
+                            left: BinaryOpUGen(SUBTRACTION).ar/2[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/9[0]
+                    -   DelayN.ar/3:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
+                            maximum_delay_time: Control.kr[21:band_4_clamp_time]
+                            delay_time: Control.kr[21:band_4_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/10:
+                            source: Control.kr[27:band_4_threshold]
+                    -   Compander.ar/3:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
+                            control: DelayN.ar/3[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/10[0]
+                            slope_below: Control.kr[26:band_4_slope_below]
+                            slope_above: Control.kr[25:band_4_slope_above]
+                            clamp_time: Control.kr[21:band_4_clamp_time]
+                            relax_time: Control.kr[24:band_4_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/11:
+                            source: Control.kr[22:band_4_postgain]
                     -   BinaryOpUGen(MULTIPLICATION).ar/7:
                             left: Compander.ar/3[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/2[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/11[0]
                     -   Sum4.ar:
-                            input_one: BinaryOpUGen(MULTIPLICATION).ar/7[0]
-                            input_two: BinaryOpUGen(MULTIPLICATION).ar/5[0]
-                            input_three: BinaryOpUGen(MULTIPLICATION).ar/3[0]
-                            input_four: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                            input_one: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                            input_two: BinaryOpUGen(MULTIPLICATION).ar/3[0]
+                            input_three: BinaryOpUGen(MULTIPLICATION).ar/5[0]
+                            input_four: BinaryOpUGen(MULTIPLICATION).ar/7[0]
                     -   XOut.ar:
                             bus: Control.ir[0:out]
                             crossfade: Control.kr[28:mix]
@@ -1881,6 +1881,52 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
+                    -   Control.ir:
+                            out: 0.0
+                    -   In.ar:
+                            bus: Control.ir[0:out]
+                    -   LPF.ar/0:
+                            source: In.ar[0]
+                            frequency: 150.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/0:
+                            left: In.ar[0]
+                            right: LPF.ar/0[0]
+                    -   LPF.ar/1:
+                            source: BinaryOpUGen(SUBTRACTION).ar/0[0]
+                            frequency: 300.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/1:
+                            left: BinaryOpUGen(SUBTRACTION).ar/0[0]
+                            right: LPF.ar/1[0]
+                    -   LPF.ar/2:
+                            source: BinaryOpUGen(SUBTRACTION).ar/1[0]
+                            frequency: 600.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/2:
+                            left: BinaryOpUGen(SUBTRACTION).ar/1[0]
+                            right: LPF.ar/2[0]
+                    -   LPF.ar/3:
+                            source: BinaryOpUGen(SUBTRACTION).ar/2[0]
+                            frequency: 1200.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/3:
+                            left: BinaryOpUGen(SUBTRACTION).ar/2[0]
+                            right: LPF.ar/3[0]
+                    -   LPF.ar/4:
+                            source: BinaryOpUGen(SUBTRACTION).ar/3[0]
+                            frequency: 2400.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/4:
+                            left: BinaryOpUGen(SUBTRACTION).ar/3[0]
+                            right: LPF.ar/4[0]
+                    -   LPF.ar/5:
+                            source: BinaryOpUGen(SUBTRACTION).ar/4[0]
+                            frequency: 4800.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/5:
+                            left: BinaryOpUGen(SUBTRACTION).ar/4[0]
+                            right: LPF.ar/5[0]
+                    -   LPF.ar/6:
+                            source: BinaryOpUGen(SUBTRACTION).ar/5[0]
+                            frequency: 9600.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/6:
+                            left: BinaryOpUGen(SUBTRACTION).ar/5[0]
+                            right: LPF.ar/6[0]
                     -   Control.kr:
                             band_1_clamp_time: 0.01
                             band_1_postgain: 0.0
@@ -1941,255 +1987,209 @@ class SynthDefFactory:
                             mix: 0.0
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/0:
                             source: Control.kr[2:band_1_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/1:
-                            source: Control.kr[6:band_1_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/2:
-                            source: Control.kr[1:band_1_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/3:
-                            source: Control.kr[9:band_2_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/4:
-                            source: Control.kr[13:band_2_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/5:
-                            source: Control.kr[8:band_2_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/6:
-                            source: Control.kr[16:band_3_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/7:
-                            source: Control.kr[20:band_3_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/8:
-                            source: Control.kr[15:band_3_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/9:
-                            source: Control.kr[23:band_4_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/10:
-                            source: Control.kr[27:band_4_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/11:
-                            source: Control.kr[22:band_4_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/12:
-                            source: Control.kr[30:band_5_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/13:
-                            source: Control.kr[34:band_5_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/14:
-                            source: Control.kr[29:band_5_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/15:
-                            source: Control.kr[37:band_6_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/16:
-                            source: Control.kr[41:band_6_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/17:
-                            source: Control.kr[36:band_6_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/18:
-                            source: Control.kr[44:band_7_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/19:
-                            source: Control.kr[48:band_7_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/20:
-                            source: Control.kr[43:band_7_postgain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/21:
-                            source: Control.kr[51:band_8_pregain]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/22:
-                            source: Control.kr[55:band_8_threshold]
-                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/23:
-                            source: Control.kr[50:band_8_postgain]
-                    -   Control.ir:
-                            out: 0.0
-                    -   In.ar:
-                            bus: Control.ir[0:out]
-                    -   LPF.ar/0:
-                            source: In.ar[0]
-                            frequency: 150.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/0:
-                            left: In.ar[0]
-                            right: LPF.ar/0[0]
-                    -   LPF.ar/1:
-                            source: BinaryOpUGen(SUBTRACTION).ar/0[0]
-                            frequency: 300.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/1:
-                            left: BinaryOpUGen(SUBTRACTION).ar/0[0]
-                            right: LPF.ar/1[0]
-                    -   LPF.ar/2:
-                            source: BinaryOpUGen(SUBTRACTION).ar/1[0]
-                            frequency: 600.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/2:
-                            left: BinaryOpUGen(SUBTRACTION).ar/1[0]
-                            right: LPF.ar/2[0]
-                    -   LPF.ar/3:
-                            source: BinaryOpUGen(SUBTRACTION).ar/2[0]
-                            frequency: 1200.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/3:
-                            left: BinaryOpUGen(SUBTRACTION).ar/2[0]
-                            right: LPF.ar/3[0]
-                    -   LPF.ar/4:
-                            source: BinaryOpUGen(SUBTRACTION).ar/3[0]
-                            frequency: 2400.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/4:
-                            left: BinaryOpUGen(SUBTRACTION).ar/3[0]
-                            right: LPF.ar/4[0]
-                    -   LPF.ar/5:
-                            source: BinaryOpUGen(SUBTRACTION).ar/4[0]
-                            frequency: 4800.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/5:
-                            left: BinaryOpUGen(SUBTRACTION).ar/4[0]
-                            right: LPF.ar/5[0]
-                    -   LPF.ar/6:
-                            source: BinaryOpUGen(SUBTRACTION).ar/5[0]
-                            frequency: 9600.0
-                    -   BinaryOpUGen(SUBTRACTION).ar/6:
-                            left: BinaryOpUGen(SUBTRACTION).ar/5[0]
-                            right: LPF.ar/6[0]
                     -   BinaryOpUGen(MULTIPLICATION).ar/0:
-                            left: BinaryOpUGen(SUBTRACTION).ar/6[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/21[0]
+                            left: LPF.ar/0[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/0[0]
                     -   DelayN.ar/0:
                             source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                            maximum_delay_time: Control.kr[49:band_8_clamp_time]
-                            delay_time: Control.kr[49:band_8_clamp_time]
+                            maximum_delay_time: Control.kr[0:band_1_clamp_time]
+                            delay_time: Control.kr[0:band_1_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/1:
+                            source: Control.kr[6:band_1_threshold]
                     -   Compander.ar/0:
                             source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                             control: DelayN.ar/0[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/22[0]
-                            slope_below: Control.kr[54:band_8_slope_below]
-                            slope_above: Control.kr[53:band_8_slope_above]
-                            clamp_time: Control.kr[49:band_8_clamp_time]
-                            relax_time: Control.kr[52:band_8_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/1:
-                            left: Compander.ar/0[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/23[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/2:
-                            left: LPF.ar/6[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/18[0]
-                    -   DelayN.ar/1:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                            maximum_delay_time: Control.kr[42:band_7_clamp_time]
-                            delay_time: Control.kr[42:band_7_clamp_time]
-                    -   Compander.ar/1:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                            control: DelayN.ar/1[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/19[0]
-                            slope_below: Control.kr[47:band_7_slope_below]
-                            slope_above: Control.kr[46:band_7_slope_above]
-                            clamp_time: Control.kr[42:band_7_clamp_time]
-                            relax_time: Control.kr[45:band_7_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/3:
-                            left: Compander.ar/1[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/20[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/4:
-                            left: LPF.ar/5[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/15[0]
-                    -   DelayN.ar/2:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
-                            maximum_delay_time: Control.kr[35:band_6_clamp_time]
-                            delay_time: Control.kr[35:band_6_clamp_time]
-                    -   Compander.ar/2:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
-                            control: DelayN.ar/2[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/16[0]
-                            slope_below: Control.kr[40:band_6_slope_below]
-                            slope_above: Control.kr[39:band_6_slope_above]
-                            clamp_time: Control.kr[35:band_6_clamp_time]
-                            relax_time: Control.kr[38:band_6_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/5:
-                            left: Compander.ar/2[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/17[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/6:
-                            left: LPF.ar/4[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/12[0]
-                    -   DelayN.ar/3:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
-                            maximum_delay_time: Control.kr[28:band_5_clamp_time]
-                            delay_time: Control.kr[28:band_5_clamp_time]
-                    -   Compander.ar/3:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
-                            control: DelayN.ar/3[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/13[0]
-                            slope_below: Control.kr[33:band_5_slope_below]
-                            slope_above: Control.kr[32:band_5_slope_above]
-                            clamp_time: Control.kr[28:band_5_clamp_time]
-                            relax_time: Control.kr[31:band_5_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/7:
-                            left: Compander.ar/3[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/14[0]
-                    -   Sum4.ar/0:
-                            input_one: BinaryOpUGen(MULTIPLICATION).ar/7[0]
-                            input_two: BinaryOpUGen(MULTIPLICATION).ar/5[0]
-                            input_three: BinaryOpUGen(MULTIPLICATION).ar/3[0]
-                            input_four: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/8:
-                            left: LPF.ar/3[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/9[0]
-                    -   DelayN.ar/4:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/8[0]
-                            maximum_delay_time: Control.kr[21:band_4_clamp_time]
-                            delay_time: Control.kr[21:band_4_clamp_time]
-                    -   Compander.ar/4:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/8[0]
-                            control: DelayN.ar/4[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/10[0]
-                            slope_below: Control.kr[26:band_4_slope_below]
-                            slope_above: Control.kr[25:band_4_slope_above]
-                            clamp_time: Control.kr[21:band_4_clamp_time]
-                            relax_time: Control.kr[24:band_4_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/9:
-                            left: Compander.ar/4[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/11[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/10:
-                            left: LPF.ar/2[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/6[0]
-                    -   DelayN.ar/5:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/10[0]
-                            maximum_delay_time: Control.kr[14:band_3_clamp_time]
-                            delay_time: Control.kr[14:band_3_clamp_time]
-                    -   Compander.ar/5:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/10[0]
-                            control: DelayN.ar/5[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/7[0]
-                            slope_below: Control.kr[19:band_3_slope_below]
-                            slope_above: Control.kr[18:band_3_slope_above]
-                            clamp_time: Control.kr[14:band_3_clamp_time]
-                            relax_time: Control.kr[17:band_3_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/11:
-                            left: Compander.ar/5[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/8[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/12:
-                            left: LPF.ar/1[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/3[0]
-                    -   DelayN.ar/6:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/12[0]
-                            maximum_delay_time: Control.kr[7:band_2_clamp_time]
-                            delay_time: Control.kr[7:band_2_clamp_time]
-                    -   Compander.ar/6:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/12[0]
-                            control: DelayN.ar/6[0]
-                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/4[0]
-                            slope_below: Control.kr[12:band_2_slope_below]
-                            slope_above: Control.kr[11:band_2_slope_above]
-                            clamp_time: Control.kr[7:band_2_clamp_time]
-                            relax_time: Control.kr[10:band_2_relax_time]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/13:
-                            left: Compander.ar/6[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/5[0]
-                    -   BinaryOpUGen(MULTIPLICATION).ar/14:
-                            left: LPF.ar/0[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/0[0]
-                    -   DelayN.ar/7:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/14[0]
-                            maximum_delay_time: Control.kr[0:band_1_clamp_time]
-                            delay_time: Control.kr[0:band_1_clamp_time]
-                    -   Compander.ar/7:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/14[0]
-                            control: DelayN.ar/7[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/1[0]
                             slope_below: Control.kr[5:band_1_slope_below]
                             slope_above: Control.kr[4:band_1_slope_above]
                             clamp_time: Control.kr[0:band_1_clamp_time]
                             relax_time: Control.kr[3:band_1_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/2:
+                            source: Control.kr[1:band_1_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                            left: Compander.ar/0[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/2[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/3:
+                            source: Control.kr[9:band_2_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/2:
+                            left: LPF.ar/1[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/3[0]
+                    -   DelayN.ar/1:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
+                            maximum_delay_time: Control.kr[7:band_2_clamp_time]
+                            delay_time: Control.kr[7:band_2_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/4:
+                            source: Control.kr[13:band_2_threshold]
+                    -   Compander.ar/1:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
+                            control: DelayN.ar/1[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/4[0]
+                            slope_below: Control.kr[12:band_2_slope_below]
+                            slope_above: Control.kr[11:band_2_slope_above]
+                            clamp_time: Control.kr[7:band_2_clamp_time]
+                            relax_time: Control.kr[10:band_2_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/5:
+                            source: Control.kr[8:band_2_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/3:
+                            left: Compander.ar/1[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/5[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/6:
+                            source: Control.kr[16:band_3_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/4:
+                            left: LPF.ar/2[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/6[0]
+                    -   DelayN.ar/2:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
+                            maximum_delay_time: Control.kr[14:band_3_clamp_time]
+                            delay_time: Control.kr[14:band_3_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/7:
+                            source: Control.kr[20:band_3_threshold]
+                    -   Compander.ar/2:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
+                            control: DelayN.ar/2[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/7[0]
+                            slope_below: Control.kr[19:band_3_slope_below]
+                            slope_above: Control.kr[18:band_3_slope_above]
+                            clamp_time: Control.kr[14:band_3_clamp_time]
+                            relax_time: Control.kr[17:band_3_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/8:
+                            source: Control.kr[15:band_3_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/5:
+                            left: Compander.ar/2[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/8[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/9:
+                            source: Control.kr[23:band_4_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/6:
+                            left: LPF.ar/3[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/9[0]
+                    -   DelayN.ar/3:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
+                            maximum_delay_time: Control.kr[21:band_4_clamp_time]
+                            delay_time: Control.kr[21:band_4_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/10:
+                            source: Control.kr[27:band_4_threshold]
+                    -   Compander.ar/3:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
+                            control: DelayN.ar/3[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/10[0]
+                            slope_below: Control.kr[26:band_4_slope_below]
+                            slope_above: Control.kr[25:band_4_slope_above]
+                            clamp_time: Control.kr[21:band_4_clamp_time]
+                            relax_time: Control.kr[24:band_4_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/11:
+                            source: Control.kr[22:band_4_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/7:
+                            left: Compander.ar/3[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/11[0]
+                    -   Sum4.ar/0:
+                            input_one: BinaryOpUGen(MULTIPLICATION).ar/1[0]
+                            input_two: BinaryOpUGen(MULTIPLICATION).ar/3[0]
+                            input_three: BinaryOpUGen(MULTIPLICATION).ar/5[0]
+                            input_four: BinaryOpUGen(MULTIPLICATION).ar/7[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/12:
+                            source: Control.kr[30:band_5_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/8:
+                            left: LPF.ar/4[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/12[0]
+                    -   DelayN.ar/4:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/8[0]
+                            maximum_delay_time: Control.kr[28:band_5_clamp_time]
+                            delay_time: Control.kr[28:band_5_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/13:
+                            source: Control.kr[34:band_5_threshold]
+                    -   Compander.ar/4:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/8[0]
+                            control: DelayN.ar/4[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/13[0]
+                            slope_below: Control.kr[33:band_5_slope_below]
+                            slope_above: Control.kr[32:band_5_slope_above]
+                            clamp_time: Control.kr[28:band_5_clamp_time]
+                            relax_time: Control.kr[31:band_5_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/14:
+                            source: Control.kr[29:band_5_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/9:
+                            left: Compander.ar/4[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/14[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/15:
+                            source: Control.kr[37:band_6_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/10:
+                            left: LPF.ar/5[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/15[0]
+                    -   DelayN.ar/5:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/10[0]
+                            maximum_delay_time: Control.kr[35:band_6_clamp_time]
+                            delay_time: Control.kr[35:band_6_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/16:
+                            source: Control.kr[41:band_6_threshold]
+                    -   Compander.ar/5:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/10[0]
+                            control: DelayN.ar/5[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/16[0]
+                            slope_below: Control.kr[40:band_6_slope_below]
+                            slope_above: Control.kr[39:band_6_slope_above]
+                            clamp_time: Control.kr[35:band_6_clamp_time]
+                            relax_time: Control.kr[38:band_6_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/17:
+                            source: Control.kr[36:band_6_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/11:
+                            left: Compander.ar/5[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/17[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/18:
+                            source: Control.kr[44:band_7_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/12:
+                            left: LPF.ar/6[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/18[0]
+                    -   DelayN.ar/6:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/12[0]
+                            maximum_delay_time: Control.kr[42:band_7_clamp_time]
+                            delay_time: Control.kr[42:band_7_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/19:
+                            source: Control.kr[48:band_7_threshold]
+                    -   Compander.ar/6:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/12[0]
+                            control: DelayN.ar/6[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/19[0]
+                            slope_below: Control.kr[47:band_7_slope_below]
+                            slope_above: Control.kr[46:band_7_slope_above]
+                            clamp_time: Control.kr[42:band_7_clamp_time]
+                            relax_time: Control.kr[45:band_7_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/20:
+                            source: Control.kr[43:band_7_postgain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/13:
+                            left: Compander.ar/6[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/20[0]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/21:
+                            source: Control.kr[51:band_8_pregain]
+                    -   BinaryOpUGen(MULTIPLICATION).ar/14:
+                            left: BinaryOpUGen(SUBTRACTION).ar/6[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/21[0]
+                    -   DelayN.ar/7:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/14[0]
+                            maximum_delay_time: Control.kr[49:band_8_clamp_time]
+                            delay_time: Control.kr[49:band_8_clamp_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/22:
+                            source: Control.kr[55:band_8_threshold]
+                    -   Compander.ar/7:
+                            source: BinaryOpUGen(MULTIPLICATION).ar/14[0]
+                            control: DelayN.ar/7[0]
+                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/22[0]
+                            slope_below: Control.kr[54:band_8_slope_below]
+                            slope_above: Control.kr[53:band_8_slope_above]
+                            clamp_time: Control.kr[49:band_8_clamp_time]
+                            relax_time: Control.kr[52:band_8_relax_time]
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/23:
+                            source: Control.kr[50:band_8_postgain]
                     -   BinaryOpUGen(MULTIPLICATION).ar/15:
                             left: Compander.ar/7[0]
-                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/2[0]
+                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/23[0]
                     -   Sum4.ar/1:
-                            input_one: BinaryOpUGen(MULTIPLICATION).ar/15[0]
-                            input_two: BinaryOpUGen(MULTIPLICATION).ar/13[0]
-                            input_three: BinaryOpUGen(MULTIPLICATION).ar/11[0]
-                            input_four: BinaryOpUGen(MULTIPLICATION).ar/9[0]
+                            input_one: BinaryOpUGen(MULTIPLICATION).ar/9[0]
+                            input_two: BinaryOpUGen(MULTIPLICATION).ar/11[0]
+                            input_three: BinaryOpUGen(MULTIPLICATION).ar/13[0]
+                            input_four: BinaryOpUGen(MULTIPLICATION).ar/15[0]
                     -   BinaryOpUGen(ADDITION).ar:
-                            left: Sum4.ar/1[0]
-                            right: Sum4.ar/0[0]
+                            left: Sum4.ar/0[0]
+                            right: Sum4.ar/1[0]
                     -   XOut.ar:
                             bus: Control.ir[0:out]
                             crossfade: Control.kr[56:mix]
@@ -2500,8 +2500,6 @@ class SynthDefFactory:
                 synthdef:
                     name: ...
                     ugens:
-                    -   Control.kr:
-                            level: 1.0
                     -   Control.ir:
                             duration: 1.0
                             out: 0.0
@@ -2514,6 +2512,8 @@ class SynthDefFactory:
                             source: Line.kr[0]
                     -   In.ar:
                             bus: Control.ir[1:out]
+                    -   Control.kr:
+                            level: 1.0
                     -   ExpRand.ir/0:
                             minimum: 0.01
                             maximum: 0.1
