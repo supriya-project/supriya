@@ -72,3 +72,21 @@ bufio
    .. autoproperty:: run
    .. autoproperty:: source
    .. autoproperty:: trigger
+
+.. autoclass:: ScopeOut
+   :show-inheritance:
+
+   .. automethod:: ar
+   .. automethod:: kr
+   .. autoproperty:: buffer_id
+   .. autoproperty:: source
+
+.. autoclass:: ScopeOut2
+   :show-inheritance:
+
+   .. automethod:: ar
+   .. automethod:: kr
+   .. autoproperty:: max_frames
+   .. autoproperty:: scope_frames
+   .. autoproperty:: scope_id
+   .. autoproperty:: source

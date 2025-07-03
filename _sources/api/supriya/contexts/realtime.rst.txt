@@ -41,6 +41,8 @@ realtime
    :show-inheritance:
 
    .. automethod:: __contains__
+   .. automethod:: add_amplitude_scope
+   .. automethod:: add_frequency_scope
    .. automethod:: send
    .. automethod:: set_latency
    .. automethod:: unregister_lifecycle_callback

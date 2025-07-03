@@ -1350,6 +1350,30 @@
   
   
     <li class="md-nav__item">
+      <a href="api/supriya/contexts/scopes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scopes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="api/supriya/contexts/shm.html" class="md-nav__link">
         
   
@@ -3429,7 +3453,7 @@ terminal:</p>
 <span class="gp">... </span>        <span class="n">synth</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
 <span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span>
-<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1000, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1000, synthdef=&lt;SynthDef: supriya:default&gt;)</span>
 </code></pre></div>
 </div>
 <p>The <a class="reference internal" href="glossary.html#term-repr" title="repr (glossary term)"><span class="xref std std-term">repr</span></a> shows the synths’s type (<code class="docutils literal notranslate"><span class="pre">Synth</span></code>), its <a class="reference internal" href="glossary.html#term-ID-node" title="ID, node (glossary term)"><span class="xref std std-term">ID</span></a>
@@ -3499,8 +3523,8 @@ how the reverberation kicks in when you instantiate the second synth:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
-<span class="go">        1000 default</span>
-<span class="go">            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0</span>
+<span class="go">        1000 supriya:default</span>
+<span class="go">            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -3594,7 +3618,7 @@ upon it.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">synth_a</span><span class="o">.</span><span class="n">parentage</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">node</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1001, synthdef=&lt;SynthDef: supriya:default&gt;)</span>
 <span class="go">Group(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1000, parallel=False)</span>
 <span class="go">Group(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1, parallel=False)</span>
 <span class="go">RootNode(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=0, parallel=False)</span>
@@ -3604,9 +3628,9 @@ upon it.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">node</span>
 <span class="gp">... </span>
-<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1003, synthdef=&lt;SynthDef: default&gt;)</span>
-<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1002, synthdef=&lt;SynthDef: default&gt;)</span>
-<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1001, synthdef=&lt;SynthDef: default&gt;)</span>
+<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1003, synthdef=&lt;SynthDef: supriya:default&gt;)</span>
+<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1002, synthdef=&lt;SynthDef: supriya:default&gt;)</span>
+<span class="go">Synth(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1001, synthdef=&lt;SynthDef: supriya:default&gt;)</span>
 </code></pre></div>
 </div>
 <h3 id="querying-controls">Querying controls<a class="headerlink" href="#querying-controls" title="Link to this heading">¶</a></h3>

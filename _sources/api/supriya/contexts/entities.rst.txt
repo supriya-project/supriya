@@ -107,6 +107,12 @@ entities
    .. automethod:: __post_init__
    .. automethod:: __replace__
 
+.. autoclass:: ScopeBuffer
+   :show-inheritance:
+
+   .. automethod:: __replace__
+   .. automethod:: free
+
 .. autoclass:: Synth
    :show-inheritance:
 

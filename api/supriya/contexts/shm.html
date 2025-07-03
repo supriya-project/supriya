@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="responses.html">
+        <link rel="prev" href="scopes.html">
       
       
         <link rel="next" href="../conversions.html">
@@ -1163,6 +1163,30 @@
                 
   
   
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scopes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scopes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
     
@@ -1257,6 +1281,30 @@
     
     <span class="md-ellipsis">
       <span title="supriya.contexts.shm.ServerSHM.__setitem__ (Python method) — Set self[key] to value.">__<wbr>setitem__<wbr></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.contexts.shm.ServerSHM.describe_scope_buffer" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="supriya.contexts.shm.ServerSHM.describe_scope_buffer (Python method)">describe_<wbr>scope_<wbr>buffer</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.contexts.shm.ServerSHM.read_scope_buffer" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="supriya.contexts.shm.ServerSHM.read_scope_buffer (Python method)">read_<wbr>scope_<wbr>buffer</span>
     </span>
   </a>
   
@@ -3040,6 +3088,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#supriya.contexts.shm.ServerSHM.describe_scope_buffer" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="supriya.contexts.shm.ServerSHM.describe_scope_buffer (Python method)">describe_<wbr>scope_<wbr>buffer</span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supriya.contexts.shm.ServerSHM.read_scope_buffer" class="md-nav__link">
+    
+      <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span>
+    
+    <span class="md-ellipsis">
+      <span title="supriya.contexts.shm.ServerSHM.read_scope_buffer (Python method)">read_<wbr>scope_<wbr>buffer</span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3070,11 +3142,6 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ServerSHM</span></span><a class="headerlink" href="#supriya.contexts.shm.ServerSHM" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Server shared memory interface.</p>
-<p>Currently supports reading control busses only.</p>
-<div class="warning admonition">
-<p class="admonition-title">Warning</p>
-<p>Not supported on Windows.</p>
-</div>
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="supriya.contexts.shm.ServerSHM.__delitem__">
 <span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#supriya.contexts.shm.ServerSHM.__delitem__" title="supriya.contexts.shm.ServerSHM.__delitem__.key (Python parameter)"><span class="n"><span class="pre">key</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.contexts.shm.ServerSHM.__delitem__" title="Link to this definition">¶</a></dt>
@@ -3092,6 +3159,16 @@
 <span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#supriya.contexts.shm.ServerSHM.__setitem__" title="supriya.contexts.shm.ServerSHM.__setitem__.key (Python parameter)"><span class="n"><span class="pre">key</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#supriya.contexts.shm.ServerSHM.__setitem__" title="supriya.contexts.shm.ServerSHM.__setitem__.value (Python parameter)"><span class="n"><span class="pre">value</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em></span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.contexts.shm.ServerSHM.__setitem__" title="Link to this definition">¶</a></dt>
 <dd><p>Set self[key] to value.</p>
 </dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.contexts.shm.ServerSHM.describe_scope_buffer">
+<span class="sig-name descname"><span class="pre">describe_scope_buffer</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#supriya.contexts.shm.ServerSHM.describe_scope_buffer" title="supriya.contexts.shm.ServerSHM.describe_scope_buffer.index (Python parameter)"><span class="n"><span class="pre">index</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.contexts.shm.ServerSHM.describe_scope_buffer" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method objdesc">
+<dt class="sig sig-object highlight py" id="supriya.contexts.shm.ServerSHM.read_scope_buffer">
+<span class="sig-name descname"><span class="pre">read_scope_buffer</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#supriya.contexts.shm.ServerSHM.read_scope_buffer" title="supriya.contexts.shm.ServerSHM.read_scope_buffer.index (Python parameter)"><span class="n"><span class="pre">index</span></span></a></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span></span><a class="headerlink" href="#supriya.contexts.shm.ServerSHM.read_scope_buffer" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

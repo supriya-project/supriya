@@ -13,3 +13,5 @@ shm
    .. automethod:: __delitem__
    .. automethod:: __getitem__
    .. automethod:: __setitem__
+   .. automethod:: describe_scope_buffer
+   .. automethod:: read_scope_buffer

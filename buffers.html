@@ -1436,6 +1436,30 @@
   
   
     <li class="md-nav__item">
+      <a href="api/supriya/contexts/scopes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scopes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="api/supriya/contexts/shm.html" class="md-nav__link">
         
   
@@ -3487,7 +3511,7 @@ pool simultaneously.</p>
 </div>
 <h3 id="creation-from-files">Creation from files<a class="headerlink" href="#creation-from-files" title="Link to this heading">¶</a></h3>
 <p>Let’s locate a soundfile:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">assets_path</span> <span class="o">/</span> <span class="s2">&quot;audio/birds/birds-01.wav&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">samples_path</span> <span class="o">/</span> <span class="s2">&quot;birds-01.wav&quot;</span>
 </code></pre></div>
 </div>
 <p>Allocate a buffer from a soundfile by passing a value to <code class="docutils literal notranslate"><span class="pre">file_path</span></code> when
@@ -3522,18 +3546,18 @@ allocate a buffer from the middle of that soundfile, plot it and play it:</p>
 <audio controls src="_images/audio-23707e52afa1fda6fa4b9346fbfe92d0b2780611fe0d27fae653257e3867fcda.mp3">
     Your browser does not support the <code>audio</code> element.
 </audio><p>Let’s grab another soundfile, this time an octophonic one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">assets_path</span> <span class="o">/</span> <span class="s2">&quot;audio/sine_440hz_44100sr_16bit_octo.wav&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">samples_path</span> <span class="o">/</span> <span class="s2">&quot;sine_440hz_44100sr_16bit_octo.wav&quot;</span>
 </code></pre></div>
 </div>
 <p>Allocating a buffer from this soundfile shows it contains eight channels:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=7, completion=Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=7, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=7, completion=Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=7, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/samples/sine_440hz_44100sr_16bit_octo.wav&#39;), starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <p>We can allocate a buffer from a subset of those channels by passing the number
 of channels to grab via the <code class="docutils literal notranslate"><span class="pre">channel_count</span></code> parameter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=8, completion=Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBufferChannel(buffer_id=8, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/sine_440hz_44100sr_16bit_octo.wav&#39;), channel_indices=[0, 1], starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=8, completion=Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBufferChannel(buffer_id=8, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/samples/sine_440hz_44100sr_16bit_octo.wav&#39;), channel_indices=[0, 1], starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <div class="todo info admonition" id="id1">
@@ -3543,7 +3567,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Link to this heading">¶</a></h3>
 <p>Free a buffer with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<span class="go">Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(FreeBuffer(buffer_id=Buffer(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=6, completion=Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=6, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/assets/audio/birds/birds-01.wav&#39;), starting_frame=16545, frame_count=8192, on_completion=None), ...)]), requests=[])), on_completion=None), ...)]), requests=[])</span>
+<span class="go">Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(FreeBuffer(buffer_id=Buffer(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=6, completion=Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=6, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/samples/birds-01.wav&#39;), starting_frame=16545, frame_count=8192, on_completion=None), ...)]), requests=[])), on_completion=None), ...)]), requests=[])</span>
 </code></pre></div>
 </div>
 <p>Free a buffer group with:</p>

@@ -1,0 +1,22 @@
+.. _supriya--contexts--scopes:
+
+scopes
+======
+
+.. automodule:: supriya.contexts.scopes
+
+.. currentmodule:: supriya.contexts.scopes
+
+.. autoclass:: AmplitudeScope
+   :show-inheritance:
+
+
+.. autoclass:: BaseScope
+   :show-inheritance:
+
+   .. automethod:: play
+   .. automethod:: read
+   .. automethod:: stop
+
+.. autoclass:: FrequencyScope
+   :show-inheritance:
