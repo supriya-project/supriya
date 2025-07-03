@@ -233,10 +233,10 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
             1 group
                 1000 group
                     1002 supriya:default
-                        amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1001 group
                         1003 supriya:default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
     # /g_freeAll
@@ -262,10 +262,10 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
             1 group
                 1000 group
                     1005 supriya:default
-                        amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1004 group
                         1006 supriya:default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
     # /g_deepFree

@@ -21,13 +21,13 @@ def test_QueryTreeGroup_annotate() -> None:
             1 group
                 1000 group
                     1002 supriya:default
-                        amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1001 group
                         1005 group
                         1004 supriya:default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                         1003 supriya:default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
     assert str(tree.annotate({})) == normalize(
@@ -36,13 +36,13 @@ def test_QueryTreeGroup_annotate() -> None:
             1 group
                 1000 group
                     1002 supriya:default
-                        amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1001 group
                         1005 group
                         1004 supriya:default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                         1003 supriya:default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
     assert str(
@@ -61,12 +61,12 @@ def test_QueryTreeGroup_annotate() -> None:
             1 group (default group)
                 1000 group (mixer)
                     1002 supriya:default
-                        amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                     1001 group
                         1005 group (grandchild)
                         1004 supriya:default
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
                         1003 supriya:default (synth)
-                            amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5, out: 0.0
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )

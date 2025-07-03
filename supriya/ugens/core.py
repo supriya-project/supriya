@@ -5784,7 +5784,7 @@ class SynthDefBuilder:
         controls: list[Control] = []
         control_mapping: dict[OutputProxy, OutputProxy] = {}
         starting_control_index = 0
-        for parameter_rate in ParameterRate:
+        for parameter_rate in sorted(ParameterRate):
             if not (filtered_parameters := parameter_mapping.get(parameter_rate, [])):
                 continue
             if parameter_rate == ParameterRate.SCALAR:

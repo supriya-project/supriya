@@ -34,6 +34,18 @@ def context() -> Score:
     return context
 
 
+HASHES = [
+    "5b07512abbcdd4d5b41209007897606e7775614d77a701cd9319412ed60ad4b9",
+    "002481bceb377fbae290121c7013d935fe7f7da9d31a4dbf0591656570386483",
+    "0cd77ffdd61b7c16797fb12e17d8e9ce10ceeaf726ecd09822f47c90350d52e8",
+    "bf01598980d868e00d7d82a0090a3e691dec0f5e6d54d18c688463ca6aa2925f",
+    "0ed76eb72244131f2d17d40aabe9d641bc630ac399c63aac83d2c5bce21ef03e",
+    "5b07512abbcdd4d5b41209007897606e7775614d77a701cd9319412ed60ad4b9",
+    "a81e6e39461983b37bfd23189e5c85da0aa72a29bf8ffd4a6fe287514fa2a677",
+    "5b07512abbcdd4d5b41209007897606e7775614d77a701cd9319412ed60ad4b9",
+]
+
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     ", ".join(
@@ -48,48 +60,42 @@ def context() -> Score:
     [
         (
             lambda path: dict(),
-            lambda path: output_path
-            / "score-e286c01caf6513600e6bc8ff491dea22e1e0366284ea8a96545215fb78267b20.aiff",
+            lambda path: output_path / f"score-{HASHES[0]}.aiff",
             8,
             3.0,
             44100,
         ),
         (
             lambda path: dict(duration=1.5),
-            lambda path: output_path
-            / "score-175ec72a18d7f3af4deced81962f9244849ba6edf5b52c7e781cd420ddbe4221.aiff",
+            lambda path: output_path / f"score-{HASHES[1]}.aiff",
             8,
             1.5,
             44100,
         ),
         (
             lambda path: dict(output_bus_channel_count=2, duration=2.5),
-            lambda path: output_path
-            / "score-826392767c60fea2986c21a58b91ba1137c5c5be66a4d4501a1b644fcf4d3ba9.aiff",
+            lambda path: output_path / f"score-{HASHES[2]}.aiff",
             2,
             2.5,
             44100,
         ),
         (
             lambda path: dict(output_bus_channel_count=2, duration=3.0),
-            lambda path: output_path
-            / "score-abf2f776bee43fea071b05ae8bdc93a0882e17280ae84acaa4f8cdacef4a78cc.aiff",
+            lambda path: output_path / f"score-{HASHES[3]}.aiff",
             2,
             3.0,
             44100,
         ),
         (
             lambda path: dict(output_bus_channel_count=2, duration=3.5),
-            lambda path: output_path
-            / "score-4d2ac6a4683a40532c2c5b52bca90fc93096dbdb1c998ac889cd0b13245d4470.aiff",
+            lambda path: output_path / f"score-{HASHES[4]}.aiff",
             2,
             3.5,
             44100,
         ),
         (
             lambda path: dict(render_directory_path=path),
-            lambda path: output_path
-            / "score-e286c01caf6513600e6bc8ff491dea22e1e0366284ea8a96545215fb78267b20.aiff",
+            lambda path: output_path / f"score-{HASHES[5]}.aiff",
             8,
             3.0,
             44100,
@@ -103,8 +109,7 @@ def context() -> Score:
         ),
         (
             lambda path: dict(sample_rate=48000),
-            lambda path: output_path
-            / "score-c23d78bb9b542c7d30e2c3e213bedd33a6193ab1112d3b4a4cd5e5894f40179b.aiff",
+            lambda path: output_path / f"score-{HASHES[6]}.aiff",
             8,
             3.0,
             48000,
@@ -147,10 +152,7 @@ async def test_render(
 
 
 def test___render__(context: Score) -> None:
-    expected_path = (
-        output_path
-        / "score-e286c01caf6513600e6bc8ff491dea22e1e0366284ea8a96545215fb78267b20.aiff"
-    )
+    expected_path = output_path / f"score-{HASHES[7]}.aiff"
     if expected_path.exists():
         expected_path.unlink()
     actual_path, actual_exit_code = render(context)
