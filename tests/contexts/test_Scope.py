@@ -1,5 +1,5 @@
 import time
-from typing import Generator
+from typing import Generator, Literal
 
 import pytest
 from uqbar.strings import normalize
@@ -82,14 +82,16 @@ def test_amplitude_scope(
         time.sleep(0.1)
     assert any([entry[0] for entry in results])
     assert all([any(entry[1]) for entry in results if entry[0]])
+    scope.stop()
 
 
 @pytest.mark.parametrize(
-    "bus_index, fft_size, expected_tree",
+    "bus_index, fft_size, frequency_mode, expected_tree",
     [
         (
             0,
             4096,
+            "linear",
             """
             NODE TREE 0 group
                 1 group
@@ -99,9 +101,11 @@ def test_amplitude_scope(
                     fft_buffer_size: 4096.0, rate: 4.0, scope_id: 0.0, db_factor: 0.02, in_: 0.0
             """,
         ),
+        # this one is "silent" because there's no output on the bus
         (
             4,
             8192,
+            "linear",
             """
             NODE TREE 0 group
                 1 group
@@ -111,6 +115,19 @@ def test_amplitude_scope(
                     fft_buffer_size: 8192.0, rate: 4.0, scope_id: 0.0, db_factor: 0.02, in_: 4.0
             """,
         ),
+        (
+            0,
+            4096,
+            "logarithmic",
+            """
+            NODE TREE 0 group
+                1 group
+                    1000 test:sine
+                        frequency: 440.0, out: 0.0
+                1001 supriya:freq-scope-log-shm:1
+                    fft_buffer_size: 4096.0, rate: 4.0, scope_id: 0.0, db_factor: 0.02, in_: 0.0
+            """,
+        ),
     ],
 )
 def test_frequency_scope(
@@ -118,10 +135,15 @@ def test_frequency_scope(
     context: Server,
     expected_tree: str,
     fft_size: int,
+    frequency_mode: Literal["linear", "logarithmic"],
     synthdef: SynthDef,
 ) -> None:
     bus_group = context.audio_output_bus_group
-    scope = context.add_frequency_scope(bus=bus_group[bus_index], fft_size=fft_size)
+    scope = context.add_frequency_scope(
+        bus=bus_group[bus_index],
+        fft_size=fft_size,
+        frequency_mode=frequency_mode,
+    )
     context.sync()
     assert str(context.query_tree()) == normalize(expected_tree)
     results: list[tuple[int, list[float]]] = []
@@ -134,3 +156,4 @@ def test_frequency_scope(
         time.sleep(0.1)
     assert any([entry[0] for entry in results])
     assert all([any(entry[1]) for entry in results if entry[0]])
+    scope.stop()
