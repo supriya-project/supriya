@@ -1,6 +1,7 @@
 from typing import Any
 
 from ..enums import CalculationRate, DoneAction
+from ..typing import DEFAULT, Default
 from .core import UGen, param, ugen
 
 
@@ -255,5 +256,12 @@ class ScopeOut2(UGen):
 
     scope_id = param()
     max_frames = param(4096)
-    scope_frames = param(4096)
+    scope_frames = param(DEFAULT)
     source = param(unexpanded=True)
+
+    def _postprocess_kwargs(
+        self, *, calculation_rate: CalculationRate, **kwargs
+    ) -> tuple[CalculationRate, dict[str, Any]]:
+        if isinstance(kwargs["scope_frames"], Default):
+            kwargs["scope_frames"] = kwargs["max_frames"]
+        return calculation_rate, kwargs

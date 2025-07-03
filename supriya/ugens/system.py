@@ -1,17 +1,31 @@
-from ..enums import DoneAction, EnvelopeShape, ParameterRate
+from typing import Literal
+
+from ..enums import CalculationRate, DoneAction, EnvelopeShape, ParameterRate
 from . import (
+    FFT,
+    K2A,
     LPF,
+    BufDur,
+    BufRd,
+    BufSamples,
     Envelope,
     EnvGen,
     In,
     InFeedback,
+    LFSaw,
     Linen,
+    LocalBuf,
     Mix,
+    MulAdd,
     OffsetOut,
     Out,
     Pan2,
     Parameter,
+    PV_Div,
+    PV_MagSmear,
     Rand,
+    ScopeOut,
+    ScopeOut2,
     SynthDef,
     SynthDefBuilder,
     VarSaw,
@@ -102,6 +116,140 @@ def _build_link_control_synthdef(channel_count: int) -> SynthDef:
     return builder.build(name=f"supriya:link-kr:{channel_count}")
 
 
+def _build_spectroscope_synthdef(
+    channel_mode: Literal["mono", "stereo"] = "mono",
+    frequency_mode: Literal["linear", "logarithmic"] = "linear",
+    use_shared_memory: bool = True,
+) -> SynthDef:
+    with SynthDefBuilder(
+        in_=0,
+        fft_buffer_size=Parameter(value=2048, rate="SCALAR"),
+        scope_id=Parameter(value=0, rate="SCALAR"),
+        rate=Parameter(value=4, rate="SCALAR"),
+        db_factor=0.02,
+    ) as builder:
+        phase = 1 - (builder["rate"] * builder["fft_buffer_size"].reciprocal())
+
+        fft_buffer_id = LocalBuf.ir(frame_count=builder["fft_buffer_size"])
+
+        if frequency_mode == "linear":
+            sample_count = (BufSamples.ir(buffer_id=fft_buffer_id) - 2) * 0.5
+        else:
+            sample_count = BufSamples.ir(buffer_id=fft_buffer_id) * 0.5
+
+        source = In.ar(channel_count=1, bus=builder["in_"])
+
+        pv_chain = FFT.kr(
+            buffer_id=fft_buffer_id,
+            hop=0.75,
+            source=source,
+            window_type=1,
+        )
+
+        if frequency_mode == "stereo":
+            source_2 = In.ar(
+                bus=builder.add_parameter(name="in2", value=0),
+                channel_count=1,
+            )
+            fft_buffer_id_2 = LocalBuf.ir(frame_count=builder["fft_buffer_size"])
+            pv_chain_2 = FFT.kr(
+                buffer_id=fft_buffer_id_2,
+                hop=0.75,
+                source=source_2,
+                window_type=1,
+            )
+            pv_chain = PV_Div(pv_chain_a=pv_chain_2, pv_chain_b=pv_chain)
+
+        pv_chain = PV_MagSmear.kr(bins=1, pv_chain=pv_chain)
+
+        if frequency_mode == "linear":
+            phasor = MulAdd.new(
+                source=LFSaw.ar(
+                    frequency=builder["rate"] / BufDur.ir(buffer_id=fft_buffer_id),
+                    initial_phase=phase,
+                ),
+                multiplier=sample_count,
+                addend=sample_count + 2,
+            )
+        else:
+            phasor = (
+                sample_count
+                ** (
+                    MulAdd.new(
+                        source=LFSaw.ar(
+                            frequency=builder["rate"]
+                            / BufDur.ir(buffer_id=fft_buffer_id),
+                            initial_phase=phase,
+                        ),
+                        multiplier=0.5,
+                        addend=0.5,
+                    )
+                )
+            ) * 2
+        phasor = phasor.round(2)
+
+        scope_source = (
+            (
+                BufRd.ar(
+                    buffer_id=fft_buffer_id,
+                    channel_count=1,
+                    interpolation=1,
+                    loop=1,
+                    phase=phasor,
+                )
+                * 0.00285
+            ).amplitude_to_db()
+            * builder["db_factor"]
+        ) + 1
+
+        if not use_shared_memory:
+            ScopeOut.ar(
+                buffer_id=builder["scope_id"],
+                source=scope_source,
+            )
+        else:
+            ScopeOut2.ar(
+                scope_id=builder["scope_id"],
+                source=scope_source,
+                max_frames=builder["fft_buffer_size"] / builder["rate"],
+            )
+    name = "supriya:spectroscope"
+    name += "-lin" if frequency_mode == "linear" else "-log"
+    name += "-shm" if use_shared_memory else ""
+    name += ":2" if channel_mode == "stereo" else ":1"
+    return builder.build(name=name)
+
+
+def _build_stethoscope_synthdef(channel_count: int, rate: CalculationRate) -> SynthDef:
+    with SynthDefBuilder(
+        in_=0,
+        max_frames=4096,
+        scope_frames=4096,
+        scope_id=0,
+    ) as builder:
+        if rate is CalculationRate.AUDIO:
+            source = In.ar(
+                bus=builder["in_"],
+                channel_count=channel_count,
+            )
+        elif rate is CalculationRate.CONTROL:
+            source = K2A.ar(
+                source=In.kr(
+                    bus=builder["in_"],
+                    channel_count=channel_count,
+                ),
+            )
+        else:
+            raise ValueError(rate)
+        ScopeOut2.ar(
+            max_frames=builder["max_frames"],
+            scope_frames=builder["scope_frames"],
+            scope_id=builder["scope_id"],
+            source=source,
+        )
+    return builder.build(name=f"supriya:stethoscope-{rate.token}:{channel_count}")
+
+
 # default synthdef
 default = _build_default_synthdef()
 
@@ -141,8 +289,122 @@ system_link_control_14 = _build_link_control_synthdef(14)
 system_link_control_15 = _build_link_control_synthdef(15)
 system_link_control_16 = _build_link_control_synthdef(16)
 
+# spectroscope synthdefs
+spectroscope_lin_1 = _build_spectroscope_synthdef(
+    channel_mode="mono", frequency_mode="linear", use_shared_memory=False
+)
+spectroscope_lin_2 = _build_spectroscope_synthdef(
+    channel_mode="stereo", frequency_mode="linear", use_shared_memory=False
+)
+spectroscope_lin_shm_1 = _build_spectroscope_synthdef(
+    channel_mode="mono", frequency_mode="linear", use_shared_memory=True
+)
+spectroscope_lin_shm_2 = _build_spectroscope_synthdef(
+    channel_mode="stereo", frequency_mode="linear", use_shared_memory=True
+)
+spectroscope_log_1 = _build_spectroscope_synthdef(
+    channel_mode="mono", frequency_mode="logarithmic", use_shared_memory=False
+)
+spectroscope_log_2 = _build_spectroscope_synthdef(
+    channel_mode="stereo", frequency_mode="logarithmic", use_shared_memory=False
+)
+spectroscope_log_shm_1 = _build_spectroscope_synthdef(
+    channel_mode="mono", frequency_mode="logarithmic", use_shared_memory=True
+)
+spectroscope_log_shm_2 = _build_spectroscope_synthdef(
+    channel_mode="stereo", frequency_mode="logarithmic", use_shared_memory=True
+)
+
+# audio-rate stethoscope synthdefs
+stethoscope_audio_1 = _build_stethoscope_synthdef(1, CalculationRate.AUDIO)
+stethoscope_audio_2 = _build_stethoscope_synthdef(2, CalculationRate.AUDIO)
+stethoscope_audio_3 = _build_stethoscope_synthdef(3, CalculationRate.AUDIO)
+stethoscope_audio_4 = _build_stethoscope_synthdef(4, CalculationRate.AUDIO)
+stethoscope_audio_5 = _build_stethoscope_synthdef(5, CalculationRate.AUDIO)
+stethoscope_audio_6 = _build_stethoscope_synthdef(6, CalculationRate.AUDIO)
+stethoscope_audio_7 = _build_stethoscope_synthdef(7, CalculationRate.AUDIO)
+stethoscope_audio_8 = _build_stethoscope_synthdef(8, CalculationRate.AUDIO)
+stethoscope_audio_9 = _build_stethoscope_synthdef(9, CalculationRate.AUDIO)
+stethoscope_audio_10 = _build_stethoscope_synthdef(10, CalculationRate.AUDIO)
+stethoscope_audio_11 = _build_stethoscope_synthdef(11, CalculationRate.AUDIO)
+stethoscope_audio_12 = _build_stethoscope_synthdef(12, CalculationRate.AUDIO)
+stethoscope_audio_13 = _build_stethoscope_synthdef(13, CalculationRate.AUDIO)
+stethoscope_audio_14 = _build_stethoscope_synthdef(14, CalculationRate.AUDIO)
+stethoscope_audio_15 = _build_stethoscope_synthdef(15, CalculationRate.AUDIO)
+stethoscope_audio_15 = _build_stethoscope_synthdef(16, CalculationRate.AUDIO)
+
+# control-rate stethoscope synthdefs
+stethoscope_control_1 = _build_stethoscope_synthdef(1, CalculationRate.CONTROL)
+stethoscope_control_2 = _build_stethoscope_synthdef(2, CalculationRate.CONTROL)
+stethoscope_control_3 = _build_stethoscope_synthdef(3, CalculationRate.CONTROL)
+stethoscope_control_4 = _build_stethoscope_synthdef(4, CalculationRate.CONTROL)
+stethoscope_control_5 = _build_stethoscope_synthdef(5, CalculationRate.CONTROL)
+stethoscope_control_6 = _build_stethoscope_synthdef(6, CalculationRate.CONTROL)
+stethoscope_control_7 = _build_stethoscope_synthdef(7, CalculationRate.CONTROL)
+stethoscope_control_8 = _build_stethoscope_synthdef(8, CalculationRate.CONTROL)
+stethoscope_control_9 = _build_stethoscope_synthdef(9, CalculationRate.CONTROL)
+stethoscope_control_10 = _build_stethoscope_synthdef(10, CalculationRate.CONTROL)
+stethoscope_control_11 = _build_stethoscope_synthdef(11, CalculationRate.CONTROL)
+stethoscope_control_12 = _build_stethoscope_synthdef(12, CalculationRate.CONTROL)
+stethoscope_control_13 = _build_stethoscope_synthdef(13, CalculationRate.CONTROL)
+stethoscope_control_14 = _build_stethoscope_synthdef(14, CalculationRate.CONTROL)
+stethoscope_control_15 = _build_stethoscope_synthdef(15, CalculationRate.CONTROL)
+stethoscope_control_15 = _build_stethoscope_synthdef(16, CalculationRate.CONTROL)
+
+SPECTROSCOPE_SYNTHDEFS: dict[str, SynthDef] = {
+    synthdef.effective_name: synthdef
+    for synthdef in [
+        spectroscope_lin_1,
+        spectroscope_lin_2,
+        spectroscope_log_1,
+        spectroscope_log_2,
+        spectroscope_lin_shm_1,
+        spectroscope_lin_shm_2,
+        spectroscope_log_shm_1,
+        spectroscope_log_shm_2,
+    ]
+}
+
+STETHOSCOPE_SYNTHDEFS: dict[str, SynthDef] = {
+    synthdef.effective_name: synthdef
+    for synthdef in [
+        stethoscope_audio_1,
+        stethoscope_audio_2,
+        stethoscope_audio_3,
+        stethoscope_audio_4,
+        stethoscope_audio_5,
+        stethoscope_audio_6,
+        stethoscope_audio_7,
+        stethoscope_audio_8,
+        stethoscope_audio_9,
+        stethoscope_audio_10,
+        stethoscope_audio_11,
+        stethoscope_audio_12,
+        stethoscope_audio_13,
+        stethoscope_audio_14,
+        stethoscope_audio_15,
+        stethoscope_audio_15,
+        stethoscope_control_1,
+        stethoscope_control_2,
+        stethoscope_control_3,
+        stethoscope_control_4,
+        stethoscope_control_5,
+        stethoscope_control_6,
+        stethoscope_control_7,
+        stethoscope_control_8,
+        stethoscope_control_9,
+        stethoscope_control_10,
+        stethoscope_control_11,
+        stethoscope_control_12,
+        stethoscope_control_13,
+        stethoscope_control_14,
+        stethoscope_control_15,
+        stethoscope_control_15,
+    ]
+}
+
 SYSTEM_SYNTHDEFS: dict[str, SynthDef] = {
-    synthdef.name: synthdef
+    synthdef.effective_name: synthdef
     for synthdef in [
         system_link_audio_1,
         system_link_audio_2,
@@ -177,10 +439,11 @@ SYSTEM_SYNTHDEFS: dict[str, SynthDef] = {
         system_link_control_15,
         system_link_control_16,
     ]
-    if synthdef.name  # Appease MyPy
 }
 
 __all__ = [
+    "SPECTROSCOPE_SYNTHDEFS",
+    "STETHOSCOPE_SYNTHDEFS",
     "SYSTEM_SYNTHDEFS",
     "default",
 ]

@@ -1,9 +1,20 @@
-from typing import Any, Sequence
+from typing import Any, Sequence, SupportsInt, Union
 
 from .. import utils
 from ..enums import CalculationRate
+from ..typing import CalculationRateLike
 from ..utils import flatten
-from .core import PseudoUGen, UGen, UGenScalar, UGenVector, param, ugen
+from .core import (
+    PseudoUGen,
+    UGen,
+    UGenOperable,
+    UGenScalar,
+    UGenScalarInput,
+    UGenVector,
+    UGenVectorInput,
+    param,
+    ugen,
+)
 
 
 class Mix(PseudoUGen):
@@ -341,12 +352,14 @@ class MulAdd(UGen):
     @classmethod
     def _new_single(
         cls,
-        addend=None,
-        multiplier=None,
-        calculation_rate=None,
-        source=None,
-        special_index=None,
-    ):
+        *,
+        addend=0,
+        multiplier=0,
+        source=0,
+        calculation_rate: CalculationRateLike = None,
+        special_index: SupportsInt = 0,
+        **kwargs: Union["UGenScalarInput", "UGenVectorInput"],
+    ) -> UGenOperable:
         def _inputs_are_valid(source, multiplier, addend):
             if CalculationRate.from_expr(source) == CalculationRate.AUDIO:
                 return True
