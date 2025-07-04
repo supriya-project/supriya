@@ -158,16 +158,12 @@ def _build_frequency_scope_synthdef(
         fft_buffer_size=Parameter(value=2048, rate="SCALAR"),
         scope_id=Parameter(value=0, rate="SCALAR"),
         rate=Parameter(value=4, rate="SCALAR"),
-        db_factor=0.02,
     ) as builder:
         phase = 1 - (builder["rate"] * builder["fft_buffer_size"].reciprocal())
 
         fft_buffer_id = LocalBuf.ir(frame_count=builder["fft_buffer_size"])
 
-        if frequency_mode == "linear":
-            sample_count = (BufSamples.ir(buffer_id=fft_buffer_id) - 2) * 0.5
-        else:
-            sample_count = BufSamples.ir(buffer_id=fft_buffer_id) * 0.5
+        sample_count = BufSamples.ir(buffer_id=fft_buffer_id) * 0.5
 
         source = In.ar(channel_count=1, bus=builder["in_"])
 
@@ -201,7 +197,7 @@ def _build_frequency_scope_synthdef(
                     initial_phase=phase,
                 ),
                 multiplier=sample_count,
-                addend=sample_count + 2,
+                addend=sample_count,
             )
         else:
             phasor = (
@@ -221,18 +217,15 @@ def _build_frequency_scope_synthdef(
         phasor = phasor.round(2)
 
         scope_source = (
-            (
-                BufRd.ar(
-                    buffer_id=fft_buffer_id,
-                    channel_count=1,
-                    interpolation=1,
-                    loop=1,
-                    phase=phasor,
-                )
-                * 0.00285
-            ).amplitude_to_db()
-            * builder["db_factor"]
-        ) + 1
+            BufRd.ar(
+                buffer_id=fft_buffer_id,
+                channel_count=1,
+                interpolation=1,
+                loop=1,
+                phase=phasor,
+            )
+            / builder["fft_buffer_size"]
+        ).amplitude_to_db()
 
         if not use_shared_memory:
             ScopeOut.ar(

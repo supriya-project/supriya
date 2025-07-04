@@ -98,7 +98,7 @@ def test_amplitude_scope(
                     1000 test:sine
                         frequency: 440.0, out: 0.0
                 1001 supriya:freq-scope-lin-shm:1
-                    fft_buffer_size: 4096.0, rate: 4.0, scope_id: 0.0, db_factor: 0.02, in_: 0.0
+                    fft_buffer_size: 4096.0, rate: 4.0, scope_id: 0.0, in_: 0.0
             """,
         ),
         # this one is "silent" because there's no output on the bus
@@ -112,7 +112,7 @@ def test_amplitude_scope(
                     1000 test:sine
                         frequency: 440.0, out: 0.0
                 1001 supriya:freq-scope-lin-shm:1
-                    fft_buffer_size: 8192.0, rate: 4.0, scope_id: 0.0, db_factor: 0.02, in_: 4.0
+                    fft_buffer_size: 8192.0, rate: 4.0, scope_id: 0.0, in_: 4.0
             """,
         ),
         (
@@ -125,7 +125,7 @@ def test_amplitude_scope(
                     1000 test:sine
                         frequency: 440.0, out: 0.0
                 1001 supriya:freq-scope-log-shm:1
-                    fft_buffer_size: 4096.0, rate: 4.0, scope_id: 0.0, db_factor: 0.02, in_: 0.0
+                    fft_buffer_size: 4096.0, rate: 4.0, scope_id: 0.0, in_: 0.0
             """,
         ),
     ],
