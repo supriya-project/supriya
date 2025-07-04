@@ -55,6 +55,7 @@ from supriya.ugens.system import (
                         envelope[10]: 3.0
                         envelope[11]: 0.0
                 -   InFeedback.ar:
+                        channel_count: 1
                         bus: Control.kr[3:in_]
                 -   BinaryOpUGen(MULTIPLICATION).ar:
                         left: InFeedback.ar[0]
@@ -98,6 +99,7 @@ from supriya.ugens.system import (
                         envelope[10]: 3.0
                         envelope[11]: 0.0
                 -   InFeedback.ar:
+                        channel_count: 2
                         bus: Control.kr[3:in_]
                 -   BinaryOpUGen(MULTIPLICATION).ar/0:
                         left: InFeedback.ar[0]
@@ -123,6 +125,7 @@ from supriya.ugens.system import (
                         scope_frames: 4096.0
                         scope_id: 0.0
                 -   In.ar:
+                        channel_count: 1
                         bus: Control.kr[0:in_]
                 -   ScopeOut2.ar:
                         scope_id: Control.kr[3:scope_id]
@@ -143,6 +146,7 @@ from supriya.ugens.system import (
                         scope_frames: 4096.0
                         scope_id: 0.0
                 -   In.kr:
+                        channel_count: 2
                         bus: Control.kr[0:in_]
                 -   K2A.ar/0:
                         source: In.kr[0]
@@ -191,6 +195,7 @@ from supriya.ugens.system import (
                         left: BinaryOpUGen(SUBTRACTION).ir/1[0]
                         right: 0.5
                 -   In.ar:
+                        channel_count: 1
                         bus: Control.kr[1:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
@@ -221,6 +226,7 @@ from supriya.ugens.system import (
                         left: MulAdd.ar[0]
                         right: 2.0
                 -   BufRd.ar:
+                        channel_count: 1
                         buffer_id: LocalBuf.ir[0]
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
@@ -273,6 +279,7 @@ from supriya.ugens.system import (
                         left: BufSamples.ir[0]
                         right: 0.5
                 -   In.ar:
+                        channel_count: 1
                         bus: Control.kr[1:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
@@ -306,6 +313,7 @@ from supriya.ugens.system import (
                         left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                         right: 2.0
                 -   BufRd.ar:
+                        channel_count: 1
                         buffer_id: LocalBuf.ir[0]
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
@@ -361,6 +369,7 @@ from supriya.ugens.system import (
                         left: BinaryOpUGen(SUBTRACTION).ir/1[0]
                         right: 0.5
                 -   In.ar:
+                        channel_count: 1
                         bus: Control.kr[1:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
@@ -391,6 +400,7 @@ from supriya.ugens.system import (
                         left: MulAdd.ar[0]
                         right: 2.0
                 -   BufRd.ar:
+                        channel_count: 1
                         buffer_id: LocalBuf.ir[0]
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
@@ -448,6 +458,7 @@ from supriya.ugens.system import (
                         left: BufSamples.ir[0]
                         right: 0.5
                 -   In.ar:
+                        channel_count: 1
                         bus: Control.kr[1:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
@@ -481,6 +492,7 @@ from supriya.ugens.system import (
                         left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                         right: 2.0
                 -   BufRd.ar:
+                        channel_count: 1
                         buffer_id: LocalBuf.ir[0]
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
@@ -546,6 +558,7 @@ def test_supriya(
                         source: BinaryOpUGen(MULTIPLICATION).kr/0[0]
                         lag_time: Control.kr[4:lag]
                 -   InFeedback.ar:
+                        channel_count: 1
                         bus: Control.kr[1:in]
                 -   Control.kr:
                         gate: 1.0
@@ -608,6 +621,7 @@ def test_supriya(
                         source: BinaryOpUGen(MULTIPLICATION).kr/0[0]
                         lag_time: Control.kr[4:lag]
                 -   InFeedback.ar:
+                        channel_count: 2
                         bus: Control.kr[1:in]
                 -   Control.kr:
                         gate: 1.0
@@ -701,6 +715,7 @@ def test_supriya(
                         left: BinaryOpUGen(SUBTRACTION).ir/1[0]
                         right: 0.5
                 -   In.ar:
+                        channel_count: 1
                         bus: Control.kr[0:in]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
@@ -731,6 +746,7 @@ def test_supriya(
                         left: MulAdd.ar/0[0]
                         right: 2.0
                 -   BufRd.ar:
+                        channel_count: 1
                         buffer_id: LocalBuf.ir[0]
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
