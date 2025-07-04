@@ -203,6 +203,7 @@ class Mix(PseudoUGen):
                     -   LFNoise2.kr:
                             frequency: 500.0
                     -   PanAz.ar/0:
+                            channel_count: 4
                             source: SinOsc.ar/0[0]
                             position: LFNoise2.kr[0]
                             amplitude: 1.0
@@ -212,6 +213,7 @@ class Mix(PseudoUGen):
                             frequency: 660.0
                             phase: 0.0
                     -   PanAz.ar/1:
+                            channel_count: 4
                             source: SinOsc.ar/1[0]
                             position: LFNoise2.kr[0]
                             amplitude: 1.0
@@ -221,6 +223,7 @@ class Mix(PseudoUGen):
                             frequency: 880.0
                             phase: 0.0
                     -   PanAz.ar/2:
+                            channel_count: 4
                             source: SinOsc.ar/2[0]
                             position: LFNoise2.kr[0]
                             amplitude: 1.0
@@ -269,6 +272,7 @@ class Mix(PseudoUGen):
                     -   LFNoise2.kr:
                             frequency: 500.0
                     -   PanAz.ar/0:
+                            channel_count: 4
                             source: SinOsc.ar/0[0]
                             position: LFNoise2.kr[0]
                             amplitude: 1.0
@@ -283,6 +287,7 @@ class Mix(PseudoUGen):
                             frequency: 660.0
                             phase: 0.0
                     -   PanAz.ar/1:
+                            channel_count: 4
                             source: SinOsc.ar/1[0]
                             position: LFNoise2.kr[0]
                             amplitude: 1.0
@@ -297,6 +302,7 @@ class Mix(PseudoUGen):
                             frequency: 880.0
                             phase: 0.0
                     -   PanAz.ar/2:
+                            channel_count: 4
                             source: SinOsc.ar/2[0]
                             position: LFNoise2.kr[0]
                             amplitude: 1.0

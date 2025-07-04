@@ -116,6 +116,7 @@ class Changed(PseudoUGen):
             name: ...
             ugens:
             -   In.ar:
+                    channel_count: 1
                     bus: 0.0
             -   HPZ1.ar:
                     source: In.ar[0]
@@ -149,6 +150,7 @@ class Changed(PseudoUGen):
                 name: ...
                 ugens:
                 -   In.ar:
+                        channel_count: 1
                         bus: 0.0
                 -   HPZ1.ar:
                         source: In.ar[0]
@@ -183,6 +185,7 @@ class Changed(PseudoUGen):
                 name: ...
                 ugens:
                 -   In.ar:
+                        channel_count: 1
                         bus: 0.0
                 -   HPZ1.kr:
                         source: In.ar[0]

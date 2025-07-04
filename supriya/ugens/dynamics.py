@@ -77,6 +77,7 @@ class CompanderD(PseudoUGen):
                     name: ...
                     ugens:
                     -   In.ar:
+                            channel_count: 1
                             bus: 0.0
                     -   DelayN.ar:
                             source: In.ar[0]

@@ -79,6 +79,7 @@ def test_format(
             name: MFCCTest
             ugens:
             -   In.ar:
+                    channel_count: 1
                     bus: 0.0
             -   MaxLocalBufs.ir:
                     maximum: 1.0
