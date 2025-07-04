@@ -5627,6 +5627,8 @@ class SynthDef:
             ugen_names[ugen] = name
         for ugen in self.ugens:
             inputs: dict[str, str] = {}
+            if "channel_count" in inspect.signature(ugen.__init__).parameters:
+                inputs["channel_count"] = len(ugen)
             if isinstance(ugen, Control):
                 for parameter in ugen.parameters:
                     if parameter.name is None:
