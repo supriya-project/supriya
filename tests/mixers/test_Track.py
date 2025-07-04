@@ -5,6 +5,7 @@ from uqbar.strings import normalize
 
 from supriya import BusGroup
 from supriya.mixers import Session
+from supriya.mixers.devices import Device
 from supriya.mixers.tracks import Track, TrackContainer, TrackSend
 from supriya.typing import DEFAULT, Default
 from supriya.ugens.system import get_lag_time
@@ -2687,7 +2688,7 @@ async def test_Track_set_muted(
     # Pre-conditions
     session, _, _ = complex_session
     if online:
-        await session.mixers[0].tracks[0].tracks[0].tracks[0].add_device()
+        await session.mixers[0].tracks[0].tracks[0].tracks[0].add_device(Device)
         await session.mixers[0].tracks[1].sends[0].delete()
         await session.boot()
         await session.sync()
@@ -3497,7 +3498,7 @@ async def test_Track_set_soloed(
     # Pre-conditions
     session, initial_components, initial_tree = complex_session
     if online:
-        await session.mixers[0].tracks[0].tracks[0].tracks[0].add_device()
+        await session.mixers[0].tracks[0].tracks[0].tracks[0].add_device(Device)
         await session.mixers[0].tracks[1].sends[0].delete()
         await session.boot()
         await session.sync()

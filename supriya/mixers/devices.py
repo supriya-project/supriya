@@ -1,3 +1,5 @@
+from typing import Type
+
 from ..contexts import AsyncServer
 from ..enums import AddAction, DoneAction
 from .components import C, Component
@@ -10,17 +12,21 @@ class DeviceContainer(Component[C]):
     def __init__(self) -> None:
         self._devices: list[Device] = []
 
-    def _add_device(self, name: str | None = None) -> "Device":
+    def _add_device(
+        self, device_class: Type["Device"], name: str | None = None
+    ) -> "Device":
         if (session := self.session) is None:
             raise RuntimeError
         self._devices.append(
-            device := Device(id_=session._get_next_id(), name=name, parent=self)
+            device := device_class(id_=session._get_next_id(), name=name, parent=self)
         )
         return device
 
-    async def add_device(self, name: str | None = None) -> "Device":
+    async def add_device(
+        self, device_class: Type["Device"], name: str | None = None
+    ) -> "Device":
         async with self._lock:
-            device = self._add_device(name=name)
+            device = self._add_device(device_class=device_class, name=name)
             if context := self._can_allocate():
                 await Component._reconcile(
                     context=context,
@@ -45,6 +51,32 @@ class Device(Component[DeviceContainer]):
         parent: DeviceContainer | None = None,
     ) -> None:
         Component.__init__(self, id_=id_, name=name, parent=parent)
+
+    def _disconnect_parentage(self) -> None:
+        if (parent := self._parent) is not None and self in parent._devices:
+            parent._devices.remove(self)
+        super()._disconnect_parentage()
+
+    def _move(self, *, parent: DeviceContainer, index: int) -> None:
+        # Validate if moving is possible
+        if self.mixer is not parent.mixer:
+            raise RuntimeError
+        elif self in parent.parentage:
+            raise RuntimeError
+        elif index < 0:
+            raise RuntimeError
+        elif index and index >= len(parent.devices):
+            raise RuntimeError
+        # Reconfigure parentage and bail if this is a no-op
+        old_parent, old_index = self._parent, 0
+        if old_parent is not None:
+            old_index = old_parent._devices.index(self)
+        if old_parent is parent and old_index == index:
+            return  # Bail
+        if old_parent is not None:
+            old_parent._devices.remove(self)
+        self._parent = parent
+        parent._devices.insert(index, self)
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         if not self.parent:
@@ -101,6 +133,25 @@ class Device(Component[DeviceContainer]):
                 target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
             ),
         ]
+
+    async def delete(self) -> None:
+        async with self._lock:
+            await Component._reconcile(
+                context=None,
+                deleting_components=[self],
+                reconciling_components=[self],
+                session=self.session,
+            )
+
+    async def move(self, parent: DeviceContainer, index: int) -> None:
+        async with self._lock:
+            self._move(parent=parent, index=index)
+            if context := self._can_allocate():
+                await Component._reconcile(
+                    context=context,
+                    reconciling_components=[self],
+                    session=self.session,
+                )
 
     @property
     def address(self) -> Address:

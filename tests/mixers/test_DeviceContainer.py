@@ -115,7 +115,7 @@ async def test_Track_add_device(
     # Operation
     print("Operation")
     with capture(session["mixers[0]"].context) as messages:
-        device = await target_.add_device()
+        device = await target_.add_device(Device)
     # Post-conditions
     print("Post-conditions")
     assert isinstance(device, Device)
