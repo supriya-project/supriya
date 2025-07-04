@@ -42,12 +42,16 @@ class OscProtocolAlreadyConnected(Exception):
 
 
 class OscCallback(NamedTuple):
+    protocol: "OscProtocol"
     pattern: tuple[str | int | float, ...]
     procedure: Callable
     failure_pattern: tuple[float | int | str, ...] | None = None
     once: bool = False
     args: tuple | None = None
     kwargs: dict | None = None
+
+    def unregister(self) -> None:
+        self.protocol.unregister(self)
 
 
 @dataclasses.dataclass
@@ -266,6 +270,7 @@ class OscProtocol:
             f"registering pattern: {pattern!r}"
         )
         return OscCallback(
+            protocol=self,
             pattern=tuple(pattern),
             failure_pattern=failure_pattern,
             procedure=procedure,

@@ -13,9 +13,11 @@ from supriya import (
     AsyncServer,
     Group,
     OscBundle,
+    OscCallback,
     OscMessage,
     ScopeBuffer,
     Server,
+    ServerLifecycleCallback,
     ServerLifecycleEvent,
     default,
     scsynth,
@@ -1218,16 +1220,28 @@ async def test_reboot(context: AsyncServer | Server) -> None:
     ]
 
 
-@pytest.mark.xfail
 @pytest.mark.asyncio
 async def test_register_lifecycle_callback(context: AsyncServer | Server) -> None:
-    raise Exception
+    def procedure(event: ServerLifecycleEvent) -> None:
+        events.append(event)
+
+    events: list[ServerLifecycleEvent] = []
+    callback = context.register_lifecycle_callback(ServerLifecycleEvent.QUIT, procedure)
+    assert isinstance(callback, ServerLifecycleCallback)
+    await get(context.quit())
+    assert events == [ServerLifecycleEvent.QUIT]
 
 
-@pytest.mark.xfail
 @pytest.mark.asyncio
 async def test_register_osc_callback(context: AsyncServer | Server) -> None:
-    raise Exception
+    def procedure(osc_message: OscMessage) -> None:
+        osc_messages.append(osc_message)
+
+    osc_messages: list[OscMessage] = []
+    callback = context.register_osc_callback("/synced", procedure)
+    assert isinstance(callback, OscCallback)
+    await get(context.sync())
+    assert osc_messages == [OscMessage("/synced", 2)]
 
 
 @pytest.mark.asyncio
@@ -1283,13 +1297,27 @@ async def test_sync(context: AsyncServer | Server) -> None:
         await get(context.sync())
 
 
-@pytest.mark.xfail
 @pytest.mark.asyncio
 async def test_unregister_lifecycle_callback(context: AsyncServer | Server) -> None:
-    raise Exception
+    def procedure(event: ServerLifecycleEvent) -> None:
+        events.append(event)
+
+    events: list[ServerLifecycleEvent] = []
+    callback = context.register_lifecycle_callback(ServerLifecycleEvent.QUIT, procedure)
+    assert isinstance(callback, ServerLifecycleCallback)
+    callback.unregister()
+    await get(context.quit())
+    assert events == []
 
 
-@pytest.mark.xfail
 @pytest.mark.asyncio
 async def test_unregister_osc_callback(context: AsyncServer | Server) -> None:
-    raise Exception
+    def procedure(osc_message: OscMessage) -> None:
+        osc_messages.append(osc_message)
+
+    osc_messages: list[OscMessage] = []
+    callback = context.register_osc_callback("/synced", procedure)
+    assert isinstance(callback, OscCallback)
+    callback.unregister()
+    await get(context.sync())
+    assert osc_messages == []

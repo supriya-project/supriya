@@ -119,11 +119,15 @@ DEFAULT_HEALTHCHECK = HealthCheck(
 
 
 class ServerLifecycleCallback(NamedTuple):
+    context: "BaseServer"
     events: tuple[ServerLifecycleEvent, ...]
     procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None]
     once: bool = False
     args: tuple | None = None
     kwargs: dict | None = None
+
+    def unregister(self) -> None:
+        self.context.unregister_lifecycle_callback(self)
 
 
 class BaseServer(Context):
@@ -305,6 +309,7 @@ class BaseServer(Context):
         else:
             events.append(ServerLifecycleEvent.from_expr(event))
         callback = ServerLifecycleCallback(
+            context=self,
             events=tuple(sorted(events)),
             procedure=procedure,
             once=once,
