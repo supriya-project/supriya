@@ -63,6 +63,7 @@ class SynthDefFactory:
                 -   Control.ir:
                         out: 0.0
                 -   In.ar:
+                        channel_count: 1
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
                         minimum: 0.01
@@ -106,6 +107,7 @@ class SynthDefFactory:
                 -   Control.ir:
                         out: 0.0
                 -   In.ar:
+                        channel_count: 1
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
                         minimum: 0.01
@@ -171,6 +173,7 @@ class SynthDefFactory:
                 -   Control.ir:
                         out: 0.0
                 -   In.ar:
+                        channel_count: 2
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
                         minimum: 0.01
@@ -429,6 +432,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 4
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -507,6 +511,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 3
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -615,8 +620,10 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   LocalIn.ar:
+                            channel_count: 1
                             default[0]: 0.0
                     -   BinaryOpUGen(ADDITION).ar:
                             left: In.ar[0]
@@ -674,8 +681,10 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   LocalIn.ar:
+                            channel_count: 1
                             default[0]: 0.0
                     -   BinaryOpUGen(ADDITION).ar:
                             left: In.ar[0]
@@ -770,6 +779,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   Control.kr:
                             gate: 1.0
@@ -865,6 +875,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -966,6 +977,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -1013,6 +1025,7 @@ class SynthDefFactory:
                             in_: 0.0
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:in_]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -1067,6 +1080,7 @@ class SynthDefFactory:
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[1:out]
                     -   BinaryOpUGen(MULTIPLICATION).ar:
                             left: In.ar[0]
@@ -1126,6 +1140,7 @@ class SynthDefFactory:
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[1:out]
                     -   BinaryOpUGen(MULTIPLICATION).ar/0:
                             left: In.ar[0]
@@ -1215,6 +1230,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -1269,6 +1285,7 @@ class SynthDefFactory:
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[1:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -1318,6 +1335,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   Control.kr:
                             mix: 0.0
@@ -1368,6 +1386,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   Control.kr:
                             level: 1.0
@@ -1431,6 +1450,7 @@ class SynthDefFactory:
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[1:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -1490,6 +1510,7 @@ class SynthDefFactory:
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[1:out]
                     -   Control.kr:
                             level: 1.0
@@ -1551,6 +1572,7 @@ class SynthDefFactory:
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[1:out]
                     -   BinaryOpUGen(MULTIPLICATION).ar:
                             left: In.ar[0]
@@ -1709,6 +1731,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   LPF.ar/0:
                             source: In.ar[0]
@@ -1884,6 +1907,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   LPF.ar/0:
                             source: In.ar[0]
@@ -2252,6 +2276,7 @@ class SynthDefFactory:
                     -   RandID.ir:
                             rand_id: Control.ir[1:rand_id]
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -2359,6 +2384,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -2449,6 +2475,7 @@ class SynthDefFactory:
                     -   Control.ir:
                             out: 0.0
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
                             minimum: 0.01
@@ -2511,6 +2538,7 @@ class SynthDefFactory:
                     -   UnaryOpUGen(HANNING_WINDOW).kr:
                             source: Line.kr[0]
                     -   In.ar:
+                            channel_count: 1
                             bus: Control.ir[1:out]
                     -   Control.kr:
                             level: 1.0

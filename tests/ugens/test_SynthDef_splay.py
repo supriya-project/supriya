@@ -57,6 +57,7 @@ def test_Splay_01_sclang(server: Server) -> None:
                     left: Control.kr[1:level]
                     right: 0.4472135901451111
             -   In.ar:
+                    channel_count: 5
                     bus: 0.0
             -   Pan2.ar/0:
                     source: In.ar[0]
@@ -151,6 +152,7 @@ def test_Splay_01_supriya(server: Server) -> None:
                     left: Control.kr[1:level]
                     right: 0.4472135954999579
             -   In.ar:
+                    channel_count: 5
                     bus: 0.0
             -   Pan2.ar/0:
                     source: In.ar[0]
@@ -261,6 +263,7 @@ def test_Splay_02_sclang(server: Server) -> None:
                     left: Control.kr[1:level]
                     right: 0.4472135901451111
             -   In.ar:
+                    channel_count: 5
                     bus: 0.0
             -   Pan2.ar/0:
                     source: In.ar[0]
@@ -423,6 +426,7 @@ def test_Splay_02_supriya(server: Server) -> None:
                     left: Control.kr[0:level]
                     right: 0.4472135954999579
             -   In.ar:
+                    channel_count: 5
                     bus: 0.0
             -   Pan2.ar/0:
                     source: In.ar[0]
