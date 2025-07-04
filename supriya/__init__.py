@@ -25,6 +25,7 @@ from .contexts import (
     ScopeBuffer,
     Score,
     Server,
+    ServerLifecycleCallback,
     Synth,
 )
 from .enums import (  # noqa
@@ -93,6 +94,7 @@ __all__ = [
     "ScopeBuffer",
     "Score",
     "Server",
+    "ServerLifecycleCallback",
     "ServerLifecycleEvent",
     "ServerShutdownEvent",
     "Synth",

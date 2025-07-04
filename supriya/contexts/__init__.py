@@ -19,6 +19,7 @@ from .realtime import (
     AsyncServer,
     BaseServer,
     Server,
+    ServerLifecycleCallback,
 )
 
 __all__ = [
@@ -35,5 +36,6 @@ __all__ = [
     "ScopeBuffer",
     "Score",
     "Server",
+    "ServerLifecycleCallback",
     "Synth",
 ]
