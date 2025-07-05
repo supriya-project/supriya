@@ -606,7 +606,7 @@ async def test_Track_add_send(
         expected_messages=expected_messages,
         expected_tree_diff=expected_tree_diff,
         online=online,
-    ) as (session, initial_components, initial_tree):
+    ) as session:
         send_from_ = session[send_from]
         send_to_ = session[send_to]
         assert isinstance(send_from_, Track)
@@ -1123,7 +1123,7 @@ async def test_Track_delete(
         expected_messages=expected_messages,
         expected_tree_diff=expected_tree_diff,
         online=online,
-    ) as (session, initial_components, initial_tree):
+    ) as session:
         target_ = session[target]
         assert isinstance(target_, Track)
         parent_ = target_.parent
@@ -1753,7 +1753,7 @@ async def test_Track_move(
         expected_messages=expected_messages,
         expected_tree_diff=expected_tree_diff,
         online=online,
-    ) as (session, initial_components, initial_tree):
+    ) as session:
         target_ = session[target]
         parent_ = session[parent]
         old_parent = target_.parent
@@ -2045,7 +2045,7 @@ async def test_Track_set_channel_count(
         expected_messages=expected_messages,
         expected_tree_diff=expected_tree_diff,
         online=online,
-    ) as (session, initial_components, initial_tree):
+    ) as session:
         with maybe_raises:
             await apply_commands(session, actions)
 
@@ -2544,7 +2544,7 @@ async def test_Track_set_input(
         expected_messages=expected_messages,
         expected_tree_diff=expected_tree_diff,
         online=online,
-    ) as (session, initial_components, initial_tree):
+    ) as session:
         input_to_ = session[input_to]
         input_from_: BusGroup | Track | None = None
         assert isinstance(input_to_, Track)

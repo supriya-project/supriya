@@ -118,7 +118,7 @@ async def test_Mixer_delete(
         expected_messages=expected_messages,
         expected_tree_diff=expected_tree_diff,
         online=online,
-    ) as (session, initial_components, initial_tree):
+    ) as session:
         target_ = session[target]
         assert isinstance(target_, Mixer)
         await target_.delete()

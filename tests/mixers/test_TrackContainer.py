@@ -123,7 +123,7 @@ async def test_TrackContainer_add_track(
         expected_messages=expected_messages,
         expected_tree_diff=expected_tree_diff,
         online=online,
-    ) as (session, initial_components, initial_tree):
+    ) as session:
         target_ = session[target]
         assert isinstance(target_, TrackContainer)
         track = await target_.add_track(name="Child Track")
@@ -423,7 +423,7 @@ async def test_TrackContainer_group(
         expected_messages=expected_messages,
         expected_tree_diff=expected_tree_diff,
         online=online,
-    ) as (session, initial_components, initial_tree):
+    ) as session:
         raised = True
         group_track: Track | None = None
         with maybe_raises:

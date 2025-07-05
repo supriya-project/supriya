@@ -157,9 +157,9 @@ async def run_test(
     commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str = "",
     expected_messages: str = "",
-    expected_tree_diff: str,
+    expected_tree_diff: str = "",
     online: bool,
-) -> AsyncGenerator[tuple[Session, str, str], None]:
+) -> AsyncGenerator[Session, None]:
     print("Pre-conditions")
     session = Session()
     await apply_commands(session, commands)
@@ -172,7 +172,7 @@ async def run_test(
         print(initial_tree)
     print("Operation")
     with capture(session.contexts[0]) as messages:
-        yield session, initial_components, initial_tree
+        yield session
     print("Post-conditions")
     assert_components_diff(session, expected_components_diff, initial_components)
     if not online:
