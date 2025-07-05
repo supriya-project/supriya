@@ -1,35 +1,31 @@
 import pytest
-from uqbar.strings import normalize
 
-from supriya.mixers import Session
 from supriya.mixers.tracks import Track, TrackContainer
 
 from .conftest import (
-    apply_commands,
-    assert_components_diff,
-    assert_tree_diff,
-    capture,
-    debug_components,
-    debug_tree,
     does_not_raise,
-    format_messages,
+    run_test,
 )
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "target, expected_components_diff, expected_tree_diff, expected_messages",
+    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
     [
         (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+            ],
             "mixers[0]",
             """
             --- initial
             +++ mutation
             @@ -2,3 +2,4 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
-            +            <Track 3 'Z'>
+                     <Mixer 1 'Mixer'>
+                         <Track 2 'Track'>
+            +            <Track 3 'Child Track'>
             """,
             """
             --- initial
@@ -64,15 +60,19 @@ from .conftest import (
             """,
         ),
         (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+            ],
             "mixers[0].tracks[0]",
             """
             --- initial
             +++ mutation
             @@ -2,3 +2,4 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
-            +                <Track 3 'Z'>
+                     <Mixer 1 'Mixer'>
+                         <Track 2 'Track'>
+            +                <Track 3 'Child Track'>
             """,
             """
             --- initial
@@ -110,39 +110,27 @@ from .conftest import (
 )
 @pytest.mark.asyncio
 async def test_TrackContainer_add_track(
-    basic_session: tuple[Session, str, str],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
     online: bool,
     target: str,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session, initial_components, initial_tree = basic_session
-    if online:
-        await session.boot()
-    target_ = session[target]
-    assert isinstance(target_, TrackContainer)
-    # Operation
-    print("Operation")
-    with capture(session["mixers[0]"].context) as messages:
-        track = await target_.add_track(name="Z")
-    # Post-conditions
-    print("Post-conditions")
+    async with run_test(
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        target_ = session[target]
+        assert isinstance(target_, TrackContainer)
+        track = await target_.add_track(name="Child Track")
     assert isinstance(track, Track)
     assert track in target_.tracks
     assert track.parent is target_
     assert target_.tracks[-1] is track
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-    )
-    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -428,26 +416,23 @@ async def test_TrackContainer_group(
     online: bool,
     target: str,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session = Session()
-    await apply_commands(session, commands)
-    initial_components = debug_components(session)
-    if online:
-        await session.boot()
-        await session.sync()
-        initial_tree = await debug_tree(session, annotation="numeric")
-    target_ = session[target]
-    assert isinstance(target_, TrackContainer)
-    # Operation
-    print("Operation")
-    raised = True
-    group_track: Track | None = None
-    with maybe_raises, capture(session["mixers[0]"].context) as messages:
-        group_track = await target_.group(index=index, count=count, name="Group Track")
-        raised = False
-    # Post-conditions
-    print("Post-conditions")
+    async with run_test(
+        annotation="numeric",
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        raised = True
+        group_track: Track | None = None
+        with maybe_raises:
+            target_ = session[target]
+            assert isinstance(target_, TrackContainer)
+            group_track = await target_.group(
+                index=index, count=count, name="Group Track"
+            )
+            raised = False
     if raised:
         assert group_track is None
     else:
@@ -455,13 +440,3 @@ async def test_TrackContainer_group(
         assert group_track in target_.tracks
         assert group_track.parent is target_
         assert target_.tracks[index] is group_track
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-        annotation="numeric",
-    )
-    assert format_messages(messages) == normalize(expected_messages)

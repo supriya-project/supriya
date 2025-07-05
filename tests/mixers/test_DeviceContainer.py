@@ -1,18 +1,8 @@
 import pytest
-from uqbar.strings import normalize
 
-from supriya.mixers import Session
 from supriya.mixers.devices import Device, DeviceContainer
 
-from .conftest import (
-    apply_commands,
-    assert_components_diff,
-    assert_tree_diff,
-    capture,
-    debug_components,
-    debug_tree,
-    format_messages,
-)
+from .conftest import run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -100,34 +90,17 @@ async def test_Track_add_device(
     online: bool,
     target: str,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session = Session()
-    await apply_commands(session, commands)
-    initial_components = debug_components(session)
-    if online:
-        await session.boot()
-        await session.sync()
-        initial_tree = await debug_tree(session)
-        print(initial_tree)
-    target_ = session[target]
-    assert isinstance(target_, DeviceContainer)
-    # Operation
-    print("Operation")
-    with capture(session["mixers[0]"].context) as messages:
+    async with run_test(
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        target_ = session[target]
+        assert isinstance(target_, DeviceContainer)
         device = await target_.add_device(Device)
-    # Post-conditions
-    print("Post-conditions")
     assert isinstance(device, Device)
     assert device in target_.devices
     assert device.parent is target_
     assert target_.devices[0] is device
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-    )
-    assert format_messages(messages) == normalize(expected_messages)

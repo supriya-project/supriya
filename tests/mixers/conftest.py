@@ -3,14 +3,14 @@ import difflib
 import os
 import platform
 import pprint
-from typing import Generator, Literal
+from typing import AsyncGenerator, Generator, Literal
 
 import pytest
 import pytest_asyncio
 from pytest_mock import MockerFixture
 from uqbar.strings import normalize
 
-from supriya import AsyncServer, OscBundle, OscMessage
+from supriya import AsyncServer, BootStatus, OscBundle, OscMessage
 from supriya.mixers import Session
 from supriya.ugens import decompile_synthdefs
 
@@ -38,7 +38,7 @@ def capture(
     context: AsyncServer | None,
 ) -> Generator[list[OscBundle | OscMessage], None, None]:
     entries: list[OscBundle | OscMessage] = []
-    if context is None:
+    if not context or context.boot_status != BootStatus.ONLINE:
         yield entries
     else:
         with context.osc_protocol.capture() as transcript:
@@ -148,6 +148,42 @@ async def assert_tree_diff(
 
 
 does_not_raise = contextlib.nullcontext()
+
+
+@contextlib.asynccontextmanager
+async def run_test(
+    *,
+    annotation: Literal["nested", "numeric"] | None = "nested",
+    commands: list[tuple[str | None, str, dict | None]],
+    expected_components_diff: str,
+    expected_messages: str,
+    expected_tree_diff: str,
+    online: bool,
+) -> AsyncGenerator[tuple[Session, str, str], None]:
+    print("Pre-conditions")
+    session = Session()
+    await apply_commands(session, commands)
+    initial_tree: str = ""
+    initial_components = debug_components(session)
+    if online:
+        await session.boot()
+        await session.sync()
+        initial_tree = await debug_tree(session, annotation=annotation)
+        print(initial_tree)
+    print("Operation")
+    with capture(session.contexts[0]) as messages:
+        yield session, initial_components, initial_tree
+    print("Post-conditions")
+    assert_components_diff(session, expected_components_diff, initial_components)
+    if not online:
+        return
+    await assert_tree_diff(
+        session,
+        expected_tree_diff,
+        expected_initial_tree=initial_tree,
+        annotation=annotation,
+    )
+    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest_asyncio.fixture
