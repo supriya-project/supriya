@@ -1,18 +1,8 @@
 import pytest
-from uqbar.strings import normalize
 
-from supriya.mixers import Session
 from supriya.mixers.mixers import Mixer
 
-from .conftest import (
-    apply_commands,
-    assert_components_diff,
-    assert_tree_diff,
-    capture,
-    debug_components,
-    debug_tree,
-    format_messages,
-)
+from .conftest import run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -121,39 +111,22 @@ async def test_Mixer_delete(
     online: bool,
     target: str,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session = Session()
-    await apply_commands(session, commands)
-    initial_components = debug_components(session)
-    if online:
-        await session.boot()
-        await session.sync()
-        initial_tree = await debug_tree(session, annotation=None)
-        print(initial_tree)
-    target_ = session[target]
-    assert isinstance(target_, Mixer)
-    # Operation
-    print("Operation")
-    with capture(target_.context) as messages:
+    async with run_test(
+        annotation=None,
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        target_ = session[target]
+        assert isinstance(target_, Mixer)
         await target_.delete()
-    # Post-conditions
-    print("Post-conditions")
-    assert target_ not in session.mixers
-    assert target_.parent is None
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
     # N.B. The diff looks like the mixer immediately disappeared, but it hasn't.
     #      Session.dump_tree() just queries each mixer's group node, and
     #      because the mixer doesn't exist from the session's perspective, it
     #      doesn't query that group anymore.  We do this to save horizontal
     #      space, but querying the underlying context directly would show the
     #      nodes are still there, although about to be released.
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-        annotation=None,
-    )
-    assert format_messages(messages) == normalize(expected_messages)
+    assert target_ not in session.mixers
+    assert target_.parent is None

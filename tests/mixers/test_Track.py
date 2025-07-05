@@ -19,6 +19,7 @@ from .conftest import (
     debug_tree,
     does_not_raise,
     format_messages,
+    run_test,
 )
 
 
@@ -599,43 +600,28 @@ async def test_Track_add_send(
     send_from: str,
     send_to: str,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session = Session()
-    await apply_commands(session, commands)
-    initial_components = debug_components(session)
-    if online:
-        await session.boot()
-        await session.sync()
-        initial_tree = await debug_tree(session)
-        print(initial_tree)
-    send_from_ = session[send_from]
-    send_to_ = session[send_to]
-    assert isinstance(send_from_, Track)
-    assert isinstance(send_to_, TrackContainer)
-    send: TrackSend | None = None
-    # Operation
-    print("Operation")
-    with maybe_raises, capture(session["mixers[0]"].context) as messages:
-        send = await send_from_.add_send(postfader=postfader, target=send_to_)
-    # Post-conditions
-    print("Post-conditions")
-    if send is not None:
-        assert isinstance(send, TrackSend)
-        assert send in send_from_.sends
-        assert send.parent is send_from_
-        assert send.postfader == postfader
-        assert send.target is send_to_
-        assert send_from_.sends[-1] is send
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
+    async with run_test(
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        send_from_ = session[send_from]
+        send_to_ = session[send_to]
+        assert isinstance(send_from_, Track)
+        assert isinstance(send_to_, TrackContainer)
+        send: TrackSend | None = None
+        with maybe_raises:
+            send = await send_from_.add_send(postfader=postfader, target=send_to_)
+    if send is None:
         return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-    )
-    assert format_messages(messages) == normalize(expected_messages)
+    assert isinstance(send, TrackSend)
+    assert send in send_from_.sends
+    assert send.parent is send_from_
+    assert send.postfader == postfader
+    assert send.target is send_to_
+    assert send_from_.sends[-1] is send
 
 
 @pytest.mark.parametrize("online", [False, True])
