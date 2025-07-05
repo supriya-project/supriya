@@ -115,7 +115,9 @@ class Device(Component[DeviceContainer]):
                 add_action=AddAction.ADD_TO_TAIL,
                 component=self,
                 context=context,
-                destroy_strategy={"done_action": DoneAction.FREE_SYNTH},
+                destroy_strategy={
+                    "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                },
                 kwargs={
                     "out": Spec.get_address(
                         self.parent,

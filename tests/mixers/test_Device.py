@@ -2,15 +2,50 @@ import pytest
 
 from supriya.mixers.devices import Device, DeviceContainer
 
-from .conftest import (
-    run_test,
-)
+from .conftest import run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
-    [],
+    [
+        (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_device", {"device_class": Device, "name": "Self"}),
+            ],
+            "mixers[0].devices[0]",
+            """
+            --- initial
+            +++ mutation
+            @@ -1,4 +1,3 @@
+             <Session 0>
+                 <session.contexts[0]>
+                     <Mixer 1 'Mixer'>
+            -            <Device 2 'Self'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,9 +4,9 @@
+                     1004 supriya:meters:2 (mixers[1]:input-levels)
+                         in_: 16.0, out: 1.0
+                     1002 group (mixers[1]:devices)
+            -            1007 group (devices[2]:group)
+            -                1008 supriya:device-dc-tester:2 (devices[2]:synth)
+            -                    active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0, out: 16.0
+            +            1007 group
+            +                1008 supriya:device-dc-tester:2
+            +                    active: 1.0, dc: 1.0, done_action: 14.0, gate: 0.0, out: 16.0
+                     1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
+                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
+                     1005 supriya:meters:2 (mixers[1]:output-levels)
+            """,
+            """
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1008, 'done_action', 14.0]]]
+            """,
+        ),
+    ],
 )
 @pytest.mark.asyncio
 async def test_Device_delete(
