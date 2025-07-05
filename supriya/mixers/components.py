@@ -352,15 +352,3 @@ class Component(Generic[C]):
             if isinstance(component, Session):
                 return component
         return None
-
-    @property
-    def short_address(self) -> str:
-        address = self.address
-        for from_, to_ in [
-            ("session.", ""),
-            ("tracks", "t"),
-            ("devices", "d"),
-            ("mixers", "m"),
-        ]:
-            address = address.replace(from_, to_)
-        return address

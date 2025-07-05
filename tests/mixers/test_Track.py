@@ -1,14 +1,11 @@
 import pytest
 
 from supriya import BusGroup
+from supriya.mixers.constants import ChannelCount
 from supriya.mixers.tracks import Track, TrackContainer, TrackSend
 from supriya.typing import DEFAULT, Default
 
-from .conftest import (
-    apply_commands,
-    does_not_raise,
-    run_test,
-)
+from .conftest import does_not_raise, run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -1762,7 +1759,7 @@ async def test_Track_move(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, actions, maybe_raises, expected_tree_diff, expected_messages",
+    "commands, target, channel_count, maybe_raises, expected_tree_diff, expected_messages",
     [
         # 0
         # track: set channel count to 2
@@ -1772,9 +1769,8 @@ async def test_Track_move(
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            [
-                ("mixers[0].tracks[0]", "set_channel_count", {"channel_count": 2}),
-            ],
+            "mixers[0].tracks[0]",
+            2,
             does_not_raise,
             "",
             "",
@@ -1787,9 +1783,8 @@ async def test_Track_move(
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            [
-                ("mixers[0].tracks[0]", "set_channel_count", {"channel_count": 4}),
-            ],
+            "mixers[0].tracks[0]",
+            4,
             does_not_raise,
             """
             --- initial
@@ -1851,9 +1846,8 @@ async def test_Track_move(
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            [
-                ("mixers[0].tracks[0]", "set_channel_count", {"channel_count": 4}),
-            ],
+            "mixers[0].tracks[0]",
+            4,
             does_not_raise,
             """
             --- initial
@@ -1954,9 +1948,8 @@ async def test_Track_move(
                     {"channel_count": 2},
                 ),
             ],
-            [
-                ("mixers[0].tracks[0]", "set_channel_count", {"channel_count": 4}),
-            ],
+            "mixers[0].tracks[0]",
+            4,
             does_not_raise,
             """
             --- initial
@@ -2021,12 +2014,13 @@ async def test_Track_move(
 )
 @pytest.mark.asyncio
 async def test_Track_set_channel_count(
-    actions: list[tuple[str | None, str, dict | None]],
+    channel_count: ChannelCount | Default,
     commands: list[tuple[str | None, str, dict | None]],
     expected_messages: str,
     expected_tree_diff: str,
     maybe_raises,
     online: bool,
+    target: str,
 ) -> None:
     async with run_test(
         commands=commands,
@@ -2034,8 +2028,11 @@ async def test_Track_set_channel_count(
         expected_tree_diff=expected_tree_diff,
         online=online,
     ) as session:
+        target_ = session[target]
+        assert isinstance(target_, Track)
         with maybe_raises:
-            await apply_commands(session, actions)
+            await target_.set_channel_count(channel_count=channel_count)
+    assert target_.channel_count == channel_count
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -2608,7 +2605,7 @@ async def test_Track_set_muted(
         pass
     assert [
         (
-            track.short_address,
+            track.numeric_address,
             tuple(round(x, 6) for x in track.output_levels),
             track.is_active,
         )
@@ -3385,7 +3382,7 @@ async def test_Track_set_soloed(
         pass
     assert [
         (
-            track.short_address,
+            track.numeric_address,
             tuple(round(x, 6) for x in track.output_levels),
             track.is_active,
         )
