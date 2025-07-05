@@ -292,8 +292,8 @@ async def complex_session() -> tuple[Session, str, str]:
     await mixer_two.add_track(name="D")
     # add sends
     # TODO: Reimplement these
-    await track_one.add_send(track_two)
-    await track_two.add_send(track_one_one)
+    await track_one.add_send(target=track_two)
+    await track_two.add_send(target=track_one_one)
     with capture(session.contexts[0]) as messages:
         await session.boot()
     # record initial tree

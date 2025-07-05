@@ -262,6 +262,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
     def _add_send(
         self,
         *,
+        name: str | None = None,
         postfader: bool = True,
         target: TrackContainer,
     ) -> TrackSend:
@@ -272,6 +273,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         self._sends.append(
             send := TrackSend(
                 id_=session._get_next_id(),
+                name=name,
                 parent=self,
                 postfader=postfader,
                 target=target,
@@ -723,10 +725,15 @@ class Track(DeviceContainer[TrackContainer], TrackContainer[TrackContainer]):
         return tracks
 
     async def add_send(
-        self, target: TrackContainer, postfader: bool = True
+        self,
+        *,
+        name: str | None = None,
+        postfader: bool = True,
+        target: TrackContainer,
     ) -> TrackSend:
         async with self._lock:
             send = self._add_send(
+                name=name,
                 postfader=postfader,
                 target=target,
             )
