@@ -157,7 +157,7 @@ async def run_test(
     commands: list[tuple[str | None, str, dict | None]] | None = None,
     context_index: int = 0,
     expected_components_diff: str = "",
-    expected_messages: str = "",
+    expected_messages: str | None = "",
     expected_tree_diff: str | None = "",
     online: bool,
 ) -> AsyncGenerator[Session, None]:
@@ -191,7 +191,8 @@ async def run_test(
             expected_initial_tree=initial_tree,
             annotation=annotation,
         )
-    assert format_messages(messages) == normalize(expected_messages)
+    if expected_messages is not None:
+        assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest_asyncio.fixture
