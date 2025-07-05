@@ -17,7 +17,7 @@ async def test_Component_connections_01():
     mixer = await session.add_mixer()
     track_one = await mixer.add_track()
     track_two = await mixer.add_track()
-    send = await track_one.add_send(track_two)
+    send = await track_one.add_send(target=track_two)
     await session.boot()
     # Operation
     with capture(session.contexts[0]) as messages:
@@ -39,7 +39,7 @@ async def test_Component_connections_02():
     mixer = await session.add_mixer()
     track_one = await mixer.add_track()
     track_two = await mixer.add_track()
-    await track_one.add_send(track_two)
+    await track_one.add_send(target=track_two)
     await session.boot()
     initial_tree = await debug_tree(session, annotation=None)
     # Operation
@@ -62,7 +62,7 @@ async def test_Component_connections_03():
     mixer = await session.add_mixer()
     track_one = await mixer.add_track()
     track_two = await mixer.add_track()
-    await track_one.add_send(track_two)
+    await track_one.add_send(target=track_two)
     await session.boot()
     initial_tree = await debug_tree(session, annotation=None)
     # Operation
