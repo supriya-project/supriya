@@ -30,6 +30,7 @@ from .contexts import (
 )
 from .enums import (  # noqa
     AddAction,
+    BootStatus,
     CalculationRate,
     DoneAction,
     HeaderFormat,
@@ -71,6 +72,7 @@ __all__ = [
     "AsyncServer",
     "BaseClock",
     "BaseServer",
+    "BootStatus",
     "Buffer",
     "BufferGroup",
     "Bus",
