@@ -1116,37 +1116,21 @@ async def test_Track_delete(
     online: bool,
     target: str,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session = Session()
-    await apply_commands(session, commands)
-    initial_components = debug_components(session)
-    if online:
-        await session.boot()
-        await session.sync()
-        initial_tree = await debug_tree(session, annotation=None)
-    target_ = session[target]
-    assert isinstance(target_, Track)
-    parent_ = target_.parent
-    # Operation
-    print("Operation")
-    with capture(session["mixers[0]"].context) as messages:
+    async with run_test(
+        annotation=None,
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        target_ = session[target]
+        assert isinstance(target_, Track)
+        parent_ = target_.parent
         await target_.delete()
-    # Post-conditions
-    print("Post-conditions")
     assert parent_
     assert target_ not in parent_.children
     assert target_.parent is None
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-        annotation=None,
-    )
-    assert format_messages(messages) == normalize(expected_messages)
 
 
 # @pytest.mark.parametrize("online", [False, True])
@@ -1762,45 +1746,30 @@ async def test_Track_move(
     target: str,
     online: bool = True,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session = Session()
-    await apply_commands(session, commands)
-    initial_components = debug_components(session)
-    if online:
-        await session.boot()
-        await session.sync()
-        initial_tree = await debug_tree(session, annotation="numeric")
-    target_ = session[target]
-    parent_ = session[parent]
-    old_parent = target_.parent
-    assert isinstance(old_parent, TrackContainer)
-    assert isinstance(parent_, TrackContainer)
-    assert isinstance(target_, Track)
-    # Operation
-    print("Operation")
-    raised = True
-    with maybe_raises, capture(session["mixers[0]"].context) as messages:
-        await target_.move(index=index, parent=parent_)
-        raised = False
-    # Post-conditions
-    print("Post-conditions")
+    async with run_test(
+        annotation="numeric",
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        target_ = session[target]
+        parent_ = session[parent]
+        old_parent = target_.parent
+        assert isinstance(old_parent, TrackContainer)
+        assert isinstance(parent_, TrackContainer)
+        assert isinstance(target_, Track)
+        raised = True
+        with maybe_raises:
+            await target_.move(index=index, parent=parent_)
+            raised = False
     assert target_.graph_order == expected_graph_order
     if not raised:
         assert target_.parent is parent_
         assert target_ in parent_.tracks
         if parent_ is not old_parent:
             assert target_ not in old_parent.tracks
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-        annotation="numeric",
-    )
-    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -2071,28 +2040,14 @@ async def test_Track_set_channel_count(
     maybe_raises,
     online: bool,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session = Session()
-    await apply_commands(session, commands)
-    if online:
-        await session.boot()
-        await session.sync()
-        initial_tree = await debug_tree(session)
-    # Operation
-    print("Operation")
-    with maybe_raises, capture(session["mixers[0]"].context) as messages:
-        await apply_commands(session, actions)
-    # Post-conditions
-    print("Post-conditions")
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-    )
-    assert format_messages(messages) == normalize(expected_messages)
+    async with run_test(
+        commands=commands,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        with maybe_raises:
+            await apply_commands(session, actions)
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -2583,47 +2538,32 @@ async def test_Track_set_input(
     maybe_raises,
     online: bool,
 ) -> None:
-    # Pre-conditions
-    print("Pre-conditions")
-    session = Session()
-    await apply_commands(session, commands)
-    initial_components = debug_components(session)
-    if online:
-        await session.boot()
-        await session.sync()
-        initial_tree = await debug_tree(session)
-        # print(initial_tree)
-    input_to_ = session[input_to]
-    input_from_: BusGroup | Track | None = None
-    assert isinstance(input_to_, Track)
-    if isinstance(input_from, str):
-        input_from_component = session[input_from]
-        assert isinstance(input_from_component, Track)
-        input_from_ = input_from_component
-    # TODO: Because the context could be null, we need the "promise" of a bus group.
-    # elif isinstance(target, tuple):
-    #     index, count = target
-    #     target_ = BusGroup(
-    #         context=session["mixers[0]"].context,
-    #         calculation_rate=CalculationRate.AUDIO,
-    #         id_=index,
-    #         count=count,
-    #     )
-    # Operation
-    print("Operation")
-    with maybe_raises, capture(session["mixers[0]"].context) as messages:
-        await input_to_.set_input(input_from_)
-    # Post-conditions
-    print("Post-conditions")
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-    )
-    assert format_messages(messages) == normalize(expected_messages)
+    async with run_test(
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as (session, initial_components, initial_tree):
+        input_to_ = session[input_to]
+        input_from_: BusGroup | Track | None = None
+        assert isinstance(input_to_, Track)
+        if isinstance(input_from, str):
+            input_from_component = session[input_from]
+            assert isinstance(input_from_component, Track)
+            input_from_ = input_from_component
+        # TODO: Because the context could be null, we need the "promise" of a bus group.
+        # elif isinstance(target, tuple):
+        #     index, count = target
+        #     target_ = BusGroup(
+        #         context=session["mixers[0]"].context,
+        #         calculation_rate=CalculationRate.AUDIO,
+        #         id_=index,
+        #         count=count,
+        #     )
+        # Operation
+        with maybe_raises:
+            await input_to_.set_input(input_from_)
 
 
 @pytest.mark.parametrize("online", [False, True])

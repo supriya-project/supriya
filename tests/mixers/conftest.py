@@ -155,8 +155,8 @@ async def run_test(
     *,
     annotation: Literal["nested", "numeric"] | None = "nested",
     commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: str,
-    expected_messages: str,
+    expected_components_diff: str = "",
+    expected_messages: str = "",
     expected_tree_diff: str,
     online: bool,
 ) -> AsyncGenerator[tuple[Session, str, str], None]:
