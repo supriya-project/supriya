@@ -1,90 +1,97 @@
 import pytest
-from uqbar.strings import normalize
 
 from supriya.enums import BootStatus
 from supriya.mixers import Session
+from supriya.osc import find_free_port
+from supriya.scsynth import Options
 
 from .conftest import (
     assert_components_diff,
     assert_tree_diff,
-    capture,
     debug_components,
     debug_tree,
-    format_messages,
+    run_test,
 )
 
 
 @pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "commands, expected_components_diff, expected_tree_diff",
+    [
+        (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+            ],
+            """
+            --- initial
+            +++ mutation
+            @@ -2,3 +2,4 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'Mixer'>
+                         <Track 2 'Track'>
+            +    <session.contexts[1]>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -21,3 +21,4 @@
+                         in_: 16.0, out: 3.0
+                     1006 supriya:patch-cable:2x2 (session.mixers[0]:output)
+                         active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
+            +<session.contexts[1]>
+            """,
+        ),
+    ],
+)
 @pytest.mark.asyncio
 async def test_Session_add_context(
-    basic_session: tuple[Session, str, str],
+    commands: list[tuple[str | None, str, dict | None]],
+    expected_components_diff: str,
+    expected_tree_diff: str,
     online: bool,
 ) -> None:
-    # Pre-conditions
-    session, initial_components, initial_tree = basic_session
-    if online:
-        await session.boot()
-    assert len(session.contexts) == 1
-    # Operation
-    context = await session.add_context()
-    # Post-conditions
+    async with run_test(
+        commands=commands,
+        expected_components_diff=expected_components_diff,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as session:
+        assert len(session.contexts) == 1
+        # unique port ensure unique context index in debug_components
+        context = await session.add_context(Options(port=find_free_port()))
     assert len(session.contexts) == 2
     assert context in session.contexts
     assert context.boot_status == session.status
-    assert_components_diff(
-        session,
-        """
-        --- initial
-        +++ mutation
-        @@ -2,3 +2,4 @@
-             <session.contexts[0]>
-                 <Mixer 1 'P'>
-                     <Track 2 'A'>
-        +    <session.contexts[1]>
-        """,
-        initial_components,
-    )
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        """
-        --- initial
-        +++ mutation
-        @@ -21,3 +21,4 @@
-                     in_: 16.0, out: 3.0
-                 1006 supriya:patch-cable:2x2 (session.mixers[0]:output)
-                     active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
-        +<session.contexts[1]>
-        """,
-        initial_tree,
-    )
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "reuse_context, expected_components_diff, expected_tree_diff, expected_messages",
+    "commands, reuse_context, expected_components_diff, expected_tree_diff, expected_messages",
     [
         (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                (None, "add_context", {"options": Options(port=find_free_port())}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+            ],
             False,
             """
             --- initial
             +++ mutation
-            @@ -2,3 +2,5 @@
-                 <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
-            +    <session.contexts[1]>
+            @@ -3,3 +3,4 @@
+                     <Mixer 1 'Mixer'>
+                         <Track 2 'Track'>
+                 <session.contexts[1]>
             +        <Mixer 3>
             """,
             """
             --- initial
             +++ mutation
-            @@ -21,3 +21,15 @@
-                         in_: 16.0, out: 3.0
+            @@ -22,3 +22,14 @@
                      1006 supriya:patch-cable:2x2 (session.mixers[0]:output)
                          active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
-            +<session.contexts[1]>
+             <session.contexts[1]>
             +    NODE TREE 1000 group (session.mixers[1]:group)
             +        1001 group (session.mixers[1]:tracks)
             +        1004 supriya:meters:2 (session.mixers[1]:input-levels)
@@ -101,7 +108,7 @@ async def test_Session_add_context(
             - ['/d_recv', <SynthDef: supriya:channel-strip:2>]
             - ['/d_recv', <SynthDef: supriya:meters:2>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2>]
-            - ['/sync', 1]
+            - ['/sync', 2]
             - [None, [['/c_set', 0, 0.0], ['/c_fill', 1, 2, 0.0, 3, 2, 0.0]]]
             - [None,
                [['/g_new', 1000, 0, 1, 1001, 0, 1000, 1002, 1, 1000],
@@ -112,21 +119,26 @@ async def test_Session_add_context(
             """,
         ),
         (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                (None, "add_context", {"options": Options(port=find_free_port())}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+            ],
             True,
             """
             --- initial
             +++ mutation
-            @@ -2,3 +2,5 @@
+            @@ -2,4 +2,5 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
+                     <Mixer 1 'Mixer'>
+                         <Track 2 'Track'>
             +        <Mixer 3>
-            +    <session.contexts[1]>
+                 <session.contexts[1]>
             """,
             """
             --- initial
             +++ mutation
-            @@ -21,3 +21,15 @@
+            @@ -21,4 +21,15 @@
                          in_: 16.0, out: 3.0
                      1006 supriya:patch-cable:2x2 (session.mixers[0]:output)
                          active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
@@ -141,7 +153,7 @@ async def test_Session_add_context(
             +            in_: 20.0, out: 14.0
             +        1020 supriya:patch-cable:2x2 (session.mixers[1]:output)
             +            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
-            +<session.contexts[1]>
+             <session.contexts[1]>
             """,
             """
             - [None, [['/c_set', 11, 0.0], ['/c_fill', 12, 2, 0.0, 14, 2, 0.0]]]
@@ -157,59 +169,45 @@ async def test_Session_add_context(
 )
 @pytest.mark.asyncio
 async def test_Session_add_mixer(
-    basic_session: tuple[Session, str, str],
+    commands: list[tuple[str | None, str, dict | None]],
     expected_components_diff: str,
     expected_messages: str,
     expected_tree_diff: str,
     online: bool,
     reuse_context: bool,
 ) -> None:
-    # Pre-conditions
-    session, initial_components, initial_tree = basic_session
-    if online:
-        await session.boot()
-    await session.add_context()
-    assert len(session.mixers) == 1
-    # Operation
-    with capture(
-        session.contexts[0] if reuse_context else session.contexts[1]
-    ) as messages:
+    async with run_test(
+        commands=commands,
+        context_index=0 if reuse_context else 1,
+        expected_components_diff=expected_components_diff,
+        expected_messages=expected_messages,
+        expected_tree_diff=expected_tree_diff,
+        online=online,
+    ) as session:
+        assert len(session.contexts) == 2
+        assert len(session.mixers) == 1
         await session.add_mixer(context=None if reuse_context else session.contexts[1])
-    # Post-conditions
     assert len(session.mixers) == 2
-    assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
-    await assert_tree_diff(
-        session,
-        expected_tree_diff,
-        expected_initial_tree=initial_tree,
-    )
-    assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "commands",
+    [
+        [
+            (None, "add_mixer", {"name": "Mixer"}),
+            ("mixers[0]", "add_track", {"name": "Track"}),
+        ],
+    ],
+)
 @pytest.mark.asyncio
 async def test_Session_boot(
-    basic_session: tuple[Session, str, str],
+    commands: list[tuple[str | None, str, dict | None]],
     online: bool,
 ) -> None:
-    # Pre-conditions
-    session, initial_components, initial_tree = basic_session
-    assert session.status == BootStatus.OFFLINE
-    if online:
-        await session.boot()
-        assert session.status == BootStatus.ONLINE
-    # Operation
-    await session.boot()  # idempotent
-    # Post-conditions
+    async with run_test(commands=commands, online=online) as session:
+        await session.boot()  # idempotent
     assert session.status == BootStatus.ONLINE
-    assert_components_diff(session, "", initial_components)
-    await assert_tree_diff(
-        session,
-        "",
-        expected_initial_tree=initial_tree,
-    )
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -224,8 +222,8 @@ async def test_Session_boot(
             @@ -1,5 +1,2 @@
              <Session 0>
                  <session.contexts[0]>
-            -        <Mixer 1 'P'>
-            -            <Track 2 'A'>
+            -        <Mixer 1 'Mixer'>
+            -            <Track 2 'Track'>
             -    <session.contexts[1]>
             """,
             """
@@ -265,8 +263,8 @@ async def test_Session_boot(
             +++ mutation
             @@ -2,4 +2,3 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
+                     <Mixer 1 'Mixer'>
+                         <Track 2 'Track'>
             -    <session.contexts[1]>
             """,
             """
@@ -311,22 +309,44 @@ async def test_Session_delete_context(
 
 
 @pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "commands, expected_messages",
+    [
+        (
+            [
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+            ],
+            """
+            - [None,
+               [['/n_set', 1003, 'done_action', 2.0, 'gate', 0.0],
+                ['/n_free', 1004],
+                ['/n_free', 1005],
+                ['/n_set', 1006, 'done_action', 2.0, 'gate', 0.0]]]
+            - [None,
+               [['/n_set', 1010, 'done_action', 2.0, 'gate', 0.0],
+                ['/n_free', 1011],
+                ['/n_free', 1012],
+                ['/n_set', 1013, 'done_action', 2.0, 'gate', 0.0]]]
+            - ['/quit']
+            """,
+        ),
+    ],
+)
 @pytest.mark.asyncio
 async def test_Session_quit(
-    basic_session: tuple[Session, str, str],
+    commands: list[tuple[str | None, str, dict | None]],
+    expected_messages: str,
     online: bool,
 ) -> None:
-    # Pre-conditions
-    session, initial_components, _ = basic_session
+    async with run_test(
+        commands=commands,
+        expected_messages=expected_messages,
+        expected_tree_diff=None,
+        online=online,
+    ) as session:
+        await session.quit()  # idempotent
     assert session.status == BootStatus.OFFLINE
-    if online:
-        await session.boot()
-        assert session.status == BootStatus.ONLINE
-    # Operation
-    await session.quit()
-    # Post-conditions
-    assert session.status == BootStatus.OFFLINE
-    assert_components_diff(session, "", initial_components)
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -343,11 +363,11 @@ async def test_Session_quit(
             @@ -1,6 +1,6 @@
              <Session 0>
                  <session.contexts[0]>
-            +        <Mixer 3 'Q'>
+            +        <Mixer 3 'Mixer Two'>
             +    <session.contexts[1]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
-            -        <Mixer 3 'Q'>
+                     <Mixer 1 'Mixer'>
+                         <Track 2 'Track'>
+            -        <Mixer 3 'Mixer Two'>
             -    <session.contexts[1]>
             """,
             """
@@ -397,10 +417,10 @@ async def test_Session_quit(
             +++ mutation
             @@ -2,5 +2,5 @@
                  <session.contexts[0]>
-                     <Mixer 1 'P'>
-                         <Track 2 'A'>
+                     <Mixer 1 'Mixer'>
+                         <Track 2 'Track'>
             +    <session.contexts[1]>
-                     <Mixer 3 'Q'>
+                     <Mixer 3 'Mixer Two'>
             -    <session.contexts[1]>
             """,
             """
@@ -448,7 +468,7 @@ async def test_Session_set_mixer_context(
 ) -> None:
     # Pre-conditions
     session, _, _ = basic_session
-    await session.add_mixer(name="Q")
+    await session.add_mixer(name="Mixer Two")
     await session.add_context()
     assert len(session.contexts) == 2
     assert len(session.mixers) == 2
