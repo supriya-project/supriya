@@ -3366,6 +3366,7 @@
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -3407,6 +3408,7 @@
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -3470,6 +3472,7 @@
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 2</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -3558,6 +3561,7 @@
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 4</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -3633,6 +3637,7 @@
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 3</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -3730,8 +3735,10 @@ functions.</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   LocalIn.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            default[0]: 0.0</span>
 <span class="go">    -   BinaryOpUGen(ADDITION).ar:</span>
 <span class="go">            left: In.ar[0]</span>
@@ -3786,8 +3793,10 @@ function:</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   LocalIn.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            default[0]: 0.0</span>
 <span class="go">    -   BinaryOpUGen(ADDITION).ar:</span>
 <span class="go">            left: In.ar[0]</span>
@@ -3872,6 +3881,7 @@ function:</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   Control.kr:</span>
 <span class="go">            gate: 1.0</span>
@@ -3958,6 +3968,7 @@ function:</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -4052,6 +4063,7 @@ function:</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -4096,6 +4108,7 @@ function:</p>
 <span class="go">            in_: 0.0</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:in_]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -4147,6 +4160,7 @@ function:</p>
 <span class="go">    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
 <span class="go">            source: Line.kr[0]</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[1:out]</span>
 <span class="go">    -   BinaryOpUGen(MULTIPLICATION).ar:</span>
 <span class="go">            left: In.ar[0]</span>
@@ -4203,6 +4217,7 @@ the windowing signal:</p>
 <span class="go">    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
 <span class="go">            source: Line.kr[0]</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[1:out]</span>
 <span class="go">    -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
 <span class="go">            left: In.ar[0]</span>
@@ -4281,6 +4296,7 @@ the windowing signal:</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -4332,6 +4348,7 @@ the windowing signal:</p>
 <span class="go">    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
 <span class="go">            source: Line.kr[0]</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[1:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -4378,6 +4395,7 @@ the windowing signal:</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   Control.kr:</span>
 <span class="go">            mix: 0.0</span>
@@ -4425,6 +4443,7 @@ control:</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   Control.kr:</span>
 <span class="go">            level: 1.0</span>
@@ -4485,6 +4504,7 @@ the windowing signal to control the mix:</p>
 <span class="go">    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
 <span class="go">            source: Line.kr[0]</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[1:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -4541,6 +4561,7 @@ the windowing signal to control the mix:</p>
 <span class="go">    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
 <span class="go">            source: Line.kr[0]</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[1:out]</span>
 <span class="go">    -   Control.kr:</span>
 <span class="go">            level: 1.0</span>
@@ -4599,6 +4620,7 @@ the windowing signal:</p>
 <span class="go">    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
 <span class="go">            source: Line.kr[0]</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[1:out]</span>
 <span class="go">    -   BinaryOpUGen(MULTIPLICATION).ar:</span>
 <span class="go">            left: In.ar[0]</span>
@@ -4729,6 +4751,7 @@ frequency bands split at <code class="docutils literal notranslate"><span class=
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   LPF.ar/0:</span>
 <span class="go">            source: In.ar[0]</span>
@@ -4901,6 +4924,7 @@ bands during the build stage:</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   LPF.ar/0:</span>
 <span class="go">            source: In.ar[0]</span>
@@ -5266,6 +5290,7 @@ bands during the build stage:</p>
 <span class="go">    -   RandID.ir:</span>
 <span class="go">            rand_id: Control.ir[1:rand_id]</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -5360,6 +5385,7 @@ parameter block functions</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -5443,6 +5469,7 @@ parameter block functions</p>
 <span class="go">    -   Control.ir:</span>
 <span class="go">            out: 0.0</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[0:out]</span>
 <span class="go">    -   ExpRand.ir/0:</span>
 <span class="go">            minimum: 0.01</span>
@@ -5502,6 +5529,7 @@ parameter block functions</p>
 <span class="go">    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
 <span class="go">            source: Line.kr[0]</span>
 <span class="go">    -   In.ar:</span>
+<span class="go">            channel_count: 1</span>
 <span class="go">            bus: Control.ir[1:out]</span>
 <span class="go">    -   Control.kr:</span>
 <span class="go">            level: 1.0</span>
