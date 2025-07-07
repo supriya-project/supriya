@@ -175,11 +175,10 @@ from supriya.ugens.system import (
                 -   BinaryOpUGen(MULTIPLICATION).ir/0:
                         left: Control.ir[1:rate]
                         right: UnaryOpUGen(RECIPROCAL).ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir/0:
+                -   BinaryOpUGen(SUBTRACTION).ir:
                         left: 1.0
                         right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
                 -   Control.kr:
-                        db_factor: 0.02
                         in_: 0.0
                 -   MaxLocalBufs.ir:
                         maximum: 1.0
@@ -188,15 +187,12 @@ from supriya.ugens.system import (
                         frame_count: Control.ir[0:fft_buffer_size]
                 -   BufSamples.ir:
                         buffer_id: LocalBuf.ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir/1:
-                        left: BufSamples.ir[0]
-                        right: 2.0
                 -   BinaryOpUGen(MULTIPLICATION).ir/1:
-                        left: BinaryOpUGen(SUBTRACTION).ir/1[0]
+                        left: BufSamples.ir[0]
                         right: 0.5
                 -   In.ar:
                         channel_count: 1
-                        bus: Control.kr[1:in_]
+                        bus: Control.kr[0:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
                         source: In.ar[0]
@@ -214,14 +210,11 @@ from supriya.ugens.system import (
                         right: BufDur.ir[0]
                 -   LFSaw.ar:
                         frequency: BinaryOpUGen(FLOAT_DIVISION).ir[0]
-                        initial_phase: BinaryOpUGen(SUBTRACTION).ir/0[0]
-                -   BinaryOpUGen(ADDITION).ir:
-                        left: BinaryOpUGen(MULTIPLICATION).ir/1[0]
-                        right: 2.0
+                        initial_phase: BinaryOpUGen(SUBTRACTION).ir[0]
                 -   MulAdd.ar:
                         source: LFSaw.ar[0]
                         multiplier: BinaryOpUGen(MULTIPLICATION).ir/1[0]
-                        addend: BinaryOpUGen(ADDITION).ir[0]
+                        addend: BinaryOpUGen(MULTIPLICATION).ir/1[0]
                 -   BinaryOpUGen(ROUND).ar:
                         left: MulAdd.ar[0]
                         right: 2.0
@@ -231,20 +224,14 @@ from supriya.ugens.system import (
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
                         interpolation: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                -   BinaryOpUGen(FLOAT_DIVISION).ar:
                         left: BufRd.ar[0]
-                        right: 0.00285
+                        right: Control.ir[0:fft_buffer_size]
                 -   UnaryOpUGen(AMPLITUDE_TO_DB).ar:
-                        source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/1:
-                        left: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
-                        right: Control.kr[0:db_factor]
-                -   BinaryOpUGen(ADDITION).ar:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                        right: 1.0
+                        source: BinaryOpUGen(FLOAT_DIVISION).ar[0]
                 -   ScopeOut.ar:
                         buffer_id: Control.ir[2:scope_id]
-                        source[0]: BinaryOpUGen(ADDITION).ar[0]
+                        source[0]: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
             """,
         ),
         (
@@ -266,7 +253,6 @@ from supriya.ugens.system import (
                         left: 1.0
                         right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
                 -   Control.kr:
-                        db_factor: 0.02
                         in_: 0.0
                 -   MaxLocalBufs.ir:
                         maximum: 1.0
@@ -280,7 +266,7 @@ from supriya.ugens.system import (
                         right: 0.5
                 -   In.ar:
                         channel_count: 1
-                        bus: Control.kr[1:in_]
+                        bus: Control.kr[0:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
                         source: In.ar[0]
@@ -306,11 +292,11 @@ from supriya.ugens.system import (
                 -   BinaryOpUGen(POWER).ar:
                         left: BinaryOpUGen(MULTIPLICATION).ir/1[0]
                         right: MulAdd.ar[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                -   BinaryOpUGen(MULTIPLICATION).ar:
                         left: BinaryOpUGen(POWER).ar[0]
                         right: 2.0
                 -   BinaryOpUGen(ROUND).ar:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                        left: BinaryOpUGen(MULTIPLICATION).ar[0]
                         right: 2.0
                 -   BufRd.ar:
                         channel_count: 1
@@ -318,20 +304,14 @@ from supriya.ugens.system import (
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
                         interpolation: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                -   BinaryOpUGen(FLOAT_DIVISION).ar:
                         left: BufRd.ar[0]
-                        right: 0.00285
+                        right: Control.ir[0:fft_buffer_size]
                 -   UnaryOpUGen(AMPLITUDE_TO_DB).ar:
-                        source: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/2:
-                        left: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
-                        right: Control.kr[0:db_factor]
-                -   BinaryOpUGen(ADDITION).ar:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                        right: 1.0
+                        source: BinaryOpUGen(FLOAT_DIVISION).ar[0]
                 -   ScopeOut.ar:
                         buffer_id: Control.ir[2:scope_id]
-                        source[0]: BinaryOpUGen(ADDITION).ar[0]
+                        source[0]: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
             """,
         ),
         (
@@ -349,11 +329,10 @@ from supriya.ugens.system import (
                 -   BinaryOpUGen(MULTIPLICATION).ir/0:
                         left: Control.ir[1:rate]
                         right: UnaryOpUGen(RECIPROCAL).ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir/0:
+                -   BinaryOpUGen(SUBTRACTION).ir:
                         left: 1.0
                         right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
                 -   Control.kr:
-                        db_factor: 0.02
                         in_: 0.0
                 -   MaxLocalBufs.ir:
                         maximum: 1.0
@@ -362,15 +341,12 @@ from supriya.ugens.system import (
                         frame_count: Control.ir[0:fft_buffer_size]
                 -   BufSamples.ir:
                         buffer_id: LocalBuf.ir[0]
-                -   BinaryOpUGen(SUBTRACTION).ir/1:
-                        left: BufSamples.ir[0]
-                        right: 2.0
                 -   BinaryOpUGen(MULTIPLICATION).ir/1:
-                        left: BinaryOpUGen(SUBTRACTION).ir/1[0]
+                        left: BufSamples.ir[0]
                         right: 0.5
                 -   In.ar:
                         channel_count: 1
-                        bus: Control.kr[1:in_]
+                        bus: Control.kr[0:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
                         source: In.ar[0]
@@ -388,14 +364,11 @@ from supriya.ugens.system import (
                         right: BufDur.ir[0]
                 -   LFSaw.ar:
                         frequency: BinaryOpUGen(FLOAT_DIVISION).ir/0[0]
-                        initial_phase: BinaryOpUGen(SUBTRACTION).ir/0[0]
-                -   BinaryOpUGen(ADDITION).ir:
-                        left: BinaryOpUGen(MULTIPLICATION).ir/1[0]
-                        right: 2.0
+                        initial_phase: BinaryOpUGen(SUBTRACTION).ir[0]
                 -   MulAdd.ar:
                         source: LFSaw.ar[0]
                         multiplier: BinaryOpUGen(MULTIPLICATION).ir/1[0]
-                        addend: BinaryOpUGen(ADDITION).ir[0]
+                        addend: BinaryOpUGen(MULTIPLICATION).ir/1[0]
                 -   BinaryOpUGen(ROUND).ar:
                         left: MulAdd.ar[0]
                         right: 2.0
@@ -405,17 +378,11 @@ from supriya.ugens.system import (
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
                         interpolation: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                -   BinaryOpUGen(FLOAT_DIVISION).ar:
                         left: BufRd.ar[0]
-                        right: 0.00285
+                        right: Control.ir[0:fft_buffer_size]
                 -   UnaryOpUGen(AMPLITUDE_TO_DB).ar:
-                        source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/1:
-                        left: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
-                        right: Control.kr[0:db_factor]
-                -   BinaryOpUGen(ADDITION).ar:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                        right: 1.0
+                        source: BinaryOpUGen(FLOAT_DIVISION).ar[0]
                 -   BinaryOpUGen(FLOAT_DIVISION).ir/1:
                         left: Control.ir[0:fft_buffer_size]
                         right: Control.ir[1:rate]
@@ -423,7 +390,7 @@ from supriya.ugens.system import (
                         scope_id: Control.ir[2:scope_id]
                         max_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
                         scope_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
-                        source[0]: BinaryOpUGen(ADDITION).ar[0]
+                        source[0]: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
             """,
         ),
         (
@@ -445,7 +412,6 @@ from supriya.ugens.system import (
                         left: 1.0
                         right: BinaryOpUGen(MULTIPLICATION).ir/0[0]
                 -   Control.kr:
-                        db_factor: 0.02
                         in_: 0.0
                 -   MaxLocalBufs.ir:
                         maximum: 1.0
@@ -459,7 +425,7 @@ from supriya.ugens.system import (
                         right: 0.5
                 -   In.ar:
                         channel_count: 1
-                        bus: Control.kr[1:in_]
+                        bus: Control.kr[0:in_]
                 -   FFT.kr:
                         buffer_id: LocalBuf.ir[0]
                         source: In.ar[0]
@@ -485,11 +451,11 @@ from supriya.ugens.system import (
                 -   BinaryOpUGen(POWER).ar:
                         left: BinaryOpUGen(MULTIPLICATION).ir/1[0]
                         right: MulAdd.ar[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                -   BinaryOpUGen(MULTIPLICATION).ar:
                         left: BinaryOpUGen(POWER).ar[0]
                         right: 2.0
                 -   BinaryOpUGen(ROUND).ar:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
+                        left: BinaryOpUGen(MULTIPLICATION).ar[0]
                         right: 2.0
                 -   BufRd.ar:
                         channel_count: 1
@@ -497,17 +463,11 @@ from supriya.ugens.system import (
                         phase: BinaryOpUGen(ROUND).ar[0]
                         loop: 1.0
                         interpolation: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                -   BinaryOpUGen(FLOAT_DIVISION).ar:
                         left: BufRd.ar[0]
-                        right: 0.00285
+                        right: Control.ir[0:fft_buffer_size]
                 -   UnaryOpUGen(AMPLITUDE_TO_DB).ar:
-                        source: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/2:
-                        left: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
-                        right: Control.kr[0:db_factor]
-                -   BinaryOpUGen(ADDITION).ar:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                        right: 1.0
+                        source: BinaryOpUGen(FLOAT_DIVISION).ar[0]
                 -   BinaryOpUGen(FLOAT_DIVISION).ir/1:
                         left: Control.ir[0:fft_buffer_size]
                         right: Control.ir[1:rate]
@@ -515,7 +475,7 @@ from supriya.ugens.system import (
                         scope_id: Control.ir[2:scope_id]
                         max_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
                         scope_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
-                        source[0]: BinaryOpUGen(ADDITION).ar[0]
+                        source[0]: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
             """,
         ),
     ],
