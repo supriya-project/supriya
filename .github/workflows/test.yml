@@ -92,7 +92,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-13]
+        os: [ubuntu-latest, windows-latest, macos-15]
     steps:
     - uses: actions/checkout@v4
     - name: Build wheels
@@ -107,7 +107,6 @@ jobs:
         os: [ubuntu-latest]
         python-version: ["3.10", "3.11", "3.12", "3.13"]
         include:
-        # supercollider 3.13 doesn't want to build on macos-13 or higher
         - os: macos-15
           python-version: "3.13"
         - os: windows-latest
