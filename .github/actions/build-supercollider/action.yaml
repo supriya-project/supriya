@@ -24,3 +24,6 @@ runs:
         origin: ${{ inputs.origin }}
     - if: runner.os == 'Windows'
       uses: ./.github/actions/build-supercollider-windows
+      with:
+        branch: ${{ inputs.branch }}
+        origin: ${{ inputs.origin }}
