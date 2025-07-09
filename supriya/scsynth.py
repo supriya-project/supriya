@@ -5,6 +5,7 @@ import enum
 import logging
 import os
 import platform
+import re
 import shlex
 import subprocess
 import threading
@@ -262,22 +263,54 @@ class LineStatus(enum.IntEnum):
 
 
 class Capture:
-    def __init__(self, process_protocol: "ProcessProtocol") -> None:
-        self.process_protocol = process_protocol
+    def __init__(
+        self,
+        *,
+        future: FutureLike[bool] | None = None,
+        process_protocol: "ProcessProtocol",
+        start_pattern: str | None = None,
+        stop_pattern: str | None = None,
+    ) -> None:
+        self.future = future
         self.lines: list[str] = []
+        self.process_protocol = process_protocol
+        self.start_pattern = re.compile(start_pattern) if start_pattern else None
+        self.stop_pattern = re.compile(stop_pattern) if stop_pattern else None
 
     def __enter__(self) -> "Capture":
+        self.capturing = self.start_pattern is None
         self.process_protocol.captures.add(self)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback) -> None:
         self.process_protocol.captures.remove(self)
+        self.capturing = False
+        if self.future and not self.future.done():
+            self.future.set_result(False)
 
     def __iter__(self) -> Iterator[str]:
         return iter(self.lines)
 
     def __len__(self) -> int:
         return len(self.lines)
+
+    def capture(self, line: str) -> None:
+        should_capture = False
+        if self.capturing:
+            if self.stop_pattern and self.stop_pattern.match(line):
+                self.capturing = False
+                if self.future:
+                    self.future.set_result(True)
+            should_capture = True
+        elif (
+            self.start_pattern
+            and self.start_pattern.match(line)
+            and (not self.future or not self.future.done())
+        ):
+            self.capturing = True
+            should_capture = True
+        if should_capture:
+            self.lines.append(line)
 
 
 class ProcessProtocol:
@@ -332,7 +365,7 @@ class ProcessProtocol:
             text, _, self.buffer_ = text.rpartition("\n")
             for line in text.splitlines():
                 for capture in self.captures:
-                    capture.lines.append(line)
+                    capture.capture(line)
                 line_status = self._parse_line(line)
                 if line_status == LineStatus.READY:
                     boot_future.set_result(True)
@@ -379,8 +412,19 @@ class ProcessProtocol:
         self.status = BootStatus.QUITTING
         return True
 
-    def capture(self) -> Capture:
-        return Capture(self)
+    def capture(
+        self,
+        *,
+        future: FutureLike[bool] | None = None,
+        start_pattern: str | None = None,
+        stop_pattern: str | None = None,
+    ) -> Capture:
+        return Capture(
+            future=future,
+            process_protocol=self,
+            start_pattern=start_pattern,
+            stop_pattern=stop_pattern,
+        )
 
 
 class ThreadedProcessProtocol(ProcessProtocol):
