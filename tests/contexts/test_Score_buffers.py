@@ -4,9 +4,8 @@ from pathlib import Path
 import pytest
 
 import supriya
+from supriya import OscBundle, OscMessage, Score
 from supriya.contexts.errors import MomentClosed
-from supriya.contexts.nonrealtime import Score
-from supriya.osc import OscBundle, OscMessage
 
 
 @pytest.fixture

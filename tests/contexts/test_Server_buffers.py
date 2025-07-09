@@ -10,11 +10,14 @@ import pytest
 import pytest_asyncio
 
 import supriya
-from supriya import default
+from supriya import AsyncServer, Buffer, OscBundle, OscMessage, Server, default
 from supriya.contexts.errors import MomentClosed
-from supriya.contexts.realtime import AsyncServer, Server
 from supriya.contexts.responses import BufferInfo
-from supriya.osc import OscBundle, OscMessage
+
+TIMEOUT_EXCEPTIONS = (
+    concurrent.futures.TimeoutError,
+    asyncio.exceptions.TimeoutError,
+)
 
 
 async def get(x):
@@ -299,17 +302,19 @@ def test_generate_buffer(context: AsyncServer | Server) -> None:
 
 @pytest.mark.asyncio
 async def test_get_buffer(context: AsyncServer | Server) -> None:
+    # actually allocate a buffer
     buffer = context.add_buffer(channel_count=1, frame_count=512)
-    exception_classes = (
-        concurrent.futures.TimeoutError,
-        asyncio.exceptions.TimeoutError,
-    )
+    # create a fake buffer reference that has not been allocated
+    nonexistent_buffer = Buffer(context=context, id_=buffer.id_ + 1)
+    # fail to query the nonexistent buffer
     with warnings.catch_warnings(record=True) as w:
-        with pytest.raises(exception_classes):
-            await get(buffer.get(1024))
+        with pytest.raises(TIMEOUT_EXCEPTIONS):
+            await get(nonexistent_buffer.get(1024))
         assert len(w) == 1
         assert str(w[-1].message) == "/b_get index out of range"
+    # guarantee the allocated buffer exists
     await get(context.sync())
+    # successfully query the allocated buffer
     with context.osc_protocol.capture() as transcript:
         assert await get(buffer.get(1, 2, 3)) == {1: 0.0, 2: 0.0, 3: 0.0}  # sync
         assert await get(buffer.get(1, sync=False)) is None  # unsync
@@ -321,17 +326,19 @@ async def test_get_buffer(context: AsyncServer | Server) -> None:
 
 @pytest.mark.asyncio
 async def test_get_buffer_range(context: AsyncServer | Server) -> None:
+    # actually allocate a buffer
     buffer = context.add_buffer(channel_count=1, frame_count=512)
-    exception_classes = (
-        concurrent.futures.TimeoutError,
-        asyncio.exceptions.TimeoutError,
-    )
+    # create a fake buffer reference that has not been allocated
+    nonexistent_buffer = Buffer(context=context, id_=buffer.id_ + 1)
+    # fail to query the nonexistent buffer
     with warnings.catch_warnings(record=True) as w:
-        with pytest.raises(exception_classes):
-            await get(context.get_buffer_range(buffer, 1, 3))  # no such buffer exists
+        with pytest.raises(TIMEOUT_EXCEPTIONS):
+            await get(nonexistent_buffer.get_range(1, 3))  # no such buffer exists
         assert len(w) == 1
         assert str(w[-1].message) == "/b_getn index out of range"
+    # guarantee the allocated buffer exists
     await get(context.sync())
+    # successfully query the allocated buffer
     with context.osc_protocol.capture() as transcript:
         assert await get(buffer.get_range(1, 3)) == (0.0, 0.0, 0.0)  # sync
         assert await get(buffer.get_range(1, 3, sync=False)) is None  # unsync

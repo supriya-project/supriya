@@ -2,9 +2,8 @@ import logging
 
 import pytest
 
+from supriya import OscBundle, OscMessage, Score
 from supriya.contexts.errors import ContextError, InvalidCalculationRate
-from supriya.contexts.nonrealtime import Score
-from supriya.osc import OscBundle, OscMessage
 
 
 @pytest.fixture(autouse=True)

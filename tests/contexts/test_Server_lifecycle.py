@@ -8,13 +8,14 @@ from typing import Literal, Type
 import pytest
 from pytest import MonkeyPatch
 
-from supriya.contexts.realtime import (
-    DEFAULT_HEALTHCHECK,
+from supriya import (
     AsyncServer,
+    BootStatus,
     Server,
     ServerLifecycleEvent,
+    find_free_port,
 )
-from supriya.enums import BootStatus
+from supriya.contexts.realtime import DEFAULT_HEALTHCHECK
 from supriya.exceptions import (
     OwnedServerShutdown,
     ServerCannotBoot,
@@ -22,7 +23,6 @@ from supriya.exceptions import (
     TooManyClients,
     UnownedServerShutdown,
 )
-from supriya.osc import find_free_port
 from supriya.scsynth import kill
 
 supernova = pytest.param(
