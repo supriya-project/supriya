@@ -10,8 +10,8 @@ on:
   - cron: "0 0 * * 0"
 
 env:
-  SC_ORIGIN: https://github.com/supercollider/supercollider.git
-  SC_BRANCH: develop
+  SC_ORIGIN: https://github.com/josephine-wolf-oberholtzer/supercollider.git
+  SC_BRANCH: g-dumpTree-end-delimiter
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
