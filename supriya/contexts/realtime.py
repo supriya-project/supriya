@@ -5,11 +5,8 @@ Tools for interacting with realtime execution contexts.
 import asyncio
 import concurrent.futures
 import logging
-import os
-import platform
 import shlex
 import threading
-import time
 import warnings
 from collections.abc import Sequence as SequenceABC
 from typing import (
@@ -736,16 +733,20 @@ class Server(BaseServer):
             with the current request context.
         """
         self._validate_can_request()
-        request = DumpTree(items=[(group or self.root_node, bool(include_controls))])
+        node = group or self.root_node
+        request = DumpTree(items=[(node, bool(include_controls))])
         if sync:
-            with self.process_protocol.capture() as transcript:
-                request.communicate(server=self)
-                # TODO: We need an end-delimiter for /g_dumpTree
-                if platform.system() == "Windows" and os.environ.get("CI"):
-                    time.sleep(0.05)
-                self.sync(timeout=10.0)
-                return QueryTreeGroup.from_string("\n".join(transcript.lines))
-        self._add_requests(request)
+            future: concurrent.futures.Future[bool] = concurrent.futures.Future()
+            with self.process_protocol.capture(
+                future=future,
+                start_pattern=f"^NODE TREE Group {node.id_}$",
+                stop_pattern=f"^END NODE TREE Group {node.id_}$",
+            ) as transcript:
+                self.send(request)
+                future.result(timeout=1.0)
+            return QueryTreeGroup.from_string("\n".join(transcript.lines))
+        else:
+            self._add_requests(request)
         return None
 
     def get_buffer(
@@ -1346,15 +1347,18 @@ class AsyncServer(BaseServer):
             with the current request context.
         """
         self._validate_can_request()
-        request = DumpTree(items=[(group or self.root_node, bool(include_controls))])
+        node = group or self.root_node
+        request = DumpTree(items=[(node, bool(include_controls))])
         if sync:
-            with self.process_protocol.capture() as transcript:
-                await request.communicate_async(server=self)
-                # TODO: We need an end-delimiter for /g_dumpTree
-                if platform.system() == "Windows" and os.environ.get("CI"):
-                    await asyncio.sleep(0.05)
-                await self.sync(timeout=10.0)
-                return QueryTreeGroup.from_string("\n".join(transcript.lines))
+            future: asyncio.Future[bool] = asyncio.get_running_loop().create_future()
+            with self.process_protocol.capture(
+                future=future,
+                start_pattern=f"^NODE TREE Group {node.id_}$",
+                stop_pattern=f"^END NODE TREE Group {node.id_}$",
+            ) as transcript:
+                self.send(request)
+                await asyncio.wait_for(future, timeout=1.0)
+            return QueryTreeGroup.from_string("\n".join(transcript.lines))
         self._add_requests(request)
         return None
 

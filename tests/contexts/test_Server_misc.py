@@ -2,7 +2,6 @@ import asyncio
 import logging
 import re
 import subprocess
-import sys
 from typing import AsyncGenerator
 
 import pytest
@@ -76,23 +75,21 @@ async def test_default_group(context: AsyncServer | Server) -> None:
     assert context.default_group.id_ == context.client_id + 1
 
 
-# Under 3.10/11 we often see the server not receive the sync response,
-# so this will time-out.
-@pytest.mark.flaky(reruns=5, conditions=sys.version_info[:2] in [(3, 10), (3, 11)])
 @pytest.mark.asyncio
 async def test_dump_tree(context: AsyncServer | Server) -> None:
+    # a simple node tree
     with context.osc_protocol.capture() as transcript:
         tree = await get(context.dump_tree())
-        assert str(tree) == normalize(
-            """
-            NODE TREE 0 group
-                1 group
-            """
-        )
-        assert transcript.filtered(received=False, status=False) == [
-            OscMessage("/g_dumpTree", 0, 1),
-            OscMessage("/sync", 2),
-        ]
+    assert str(tree) == normalize(
+        """
+        NODE TREE 0 group
+            1 group
+        """
+    )
+    assert transcript.filtered(received=False, status=False) == [
+        OscMessage("/g_dumpTree", 0, 1),
+    ]
+    # a large node tree
     for i in range(500):
         context.add_synth(default, amplitude=0.5, frequency=(i * 11) + 20)
     with context.osc_protocol.capture() as transcript:
