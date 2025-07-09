@@ -4,8 +4,7 @@ import platform
 
 import pytest
 
-from supriya import default, output_path, render
-from supriya.contexts.nonrealtime import Score
+from supriya import Score, default, output_path, render
 
 # 3.13 would exit with 0
 # develop as of 2025/02/11 exits with -11 (why??)

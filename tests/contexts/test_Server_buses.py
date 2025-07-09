@@ -5,10 +5,8 @@ from typing import AsyncGenerator
 import pytest
 import pytest_asyncio
 
-from supriya import default
+from supriya import AsyncServer, OscMessage, Server, default
 from supriya.contexts.errors import InvalidCalculationRate
-from supriya.contexts.realtime import AsyncServer, Server
-from supriya.osc import OscMessage
 
 
 async def get(x):
