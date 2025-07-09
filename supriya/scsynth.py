@@ -236,8 +236,16 @@ def find(scsynth_path=None):
             [Path("/usr/bin/" + executable), Path("/usr/local/bin/" + executable)]
         )
     elif system == "Darwin":
-        paths.append(
-            Path("/Applications/SuperCollider.app/Contents/Resources/" + executable)
+        paths.extend(
+            [
+                Path(
+                    "/Applications/SuperCollider.app/Contents/Resources/" + executable
+                ),
+                Path(
+                    "/Applications/SuperCollider/SuperCollider.app/Contents/Resources/"
+                    + executable
+                ),
+            ]
         )
     elif system == "Windows":
         paths.extend(
