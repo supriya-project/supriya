@@ -715,7 +715,7 @@ class Node(ContextObject):
         """
         return self.context.free_node(self, force=force)
 
-    def map(self, **settings: Bus | None) -> None:
+    def map(self, **settings: Bus | str | None) -> None:
         """
         Map the node's controls to buses.
 
