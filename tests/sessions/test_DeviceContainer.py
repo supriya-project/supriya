@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.mixers.devices import Device, DeviceContainer
+from supriya.sessions import Device, DeviceContainer
 
 from .conftest import run_test
 

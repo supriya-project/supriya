@@ -1,8 +1,7 @@
 import pytest
 
-from supriya.mixers import Session
-from supriya.mixers.components import Component
-from supriya.mixers.specs import Spec
+from supriya.sessions import Session, Component
+from supriya.sessions.specs import Spec
 
 
 @pytest.mark.parametrize(

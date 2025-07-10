@@ -1,8 +1,8 @@
 import pytest
 
 from supriya import BusGroup
-from supriya.mixers.constants import ChannelCount
-from supriya.mixers.tracks import Track, TrackContainer, TrackSend
+from supriya.sessions import Track, TrackContainer, TrackSend
+from supriya.sessions.constants import ChannelCount
 from supriya.typing import DEFAULT, Default
 
 from .conftest import apply_commands, does_not_raise, run_test

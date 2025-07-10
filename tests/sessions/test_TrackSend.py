@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.mixers.tracks import TrackSend
+from supriya.sessions import TrackSend
 
 from .conftest import run_test
 

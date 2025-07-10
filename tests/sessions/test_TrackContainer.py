@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.mixers.tracks import Track, TrackContainer
+from supriya.sessions import Track, TrackContainer
 
 from .conftest import (
     does_not_raise,

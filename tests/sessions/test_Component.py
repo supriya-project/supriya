@@ -1,7 +1,7 @@
 import pytest
 from uqbar.strings import normalize
 
-from supriya.mixers import Session
+from supriya.sessions import Session
 
 from .conftest import (
     capture,

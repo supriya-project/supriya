@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.mixers.devices import Device, DeviceContainer
+from supriya.sessions import Device, DeviceContainer
 
 from .conftest import does_not_raise, run_test
 

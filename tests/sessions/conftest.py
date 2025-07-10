@@ -11,7 +11,7 @@ from pytest import MonkeyPatch
 from uqbar.strings import normalize
 
 from supriya import AsyncServer, BootStatus, OscBundle, OscMessage
-from supriya.mixers import Session
+from supriya.sessions import Session
 from supriya.ugens import decompile_synthdefs, system
 
 

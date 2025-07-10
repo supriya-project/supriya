@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.mixers.mixers import Mixer
+from supriya.sessions import Mixer
 
 from .conftest import does_not_raise, run_test
 
