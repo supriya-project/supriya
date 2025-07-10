@@ -26,6 +26,12 @@ if TYPE_CHECKING:
 
 
 class TrackContainer(Component[Union["Session", "TrackContainer"]]):
+    """
+    A container for track components.
+
+    Supports adding tracks and grouping them.
+    """
+
     def __init__(self) -> None:
         self._tracks: list[Track] = []
         self._soloed_tracks: set[Track] = set()
@@ -84,6 +90,9 @@ class TrackContainer(Component[Union["Session", "TrackContainer"]]):
         return group_track
 
     async def add_track(self, name: str | None = None) -> "Track":
+        """
+        Add a new track to the track container.
+        """
         async with self._lock:
             track = self._add_track(name=name)
             await Component._reconcile(
@@ -94,6 +103,9 @@ class TrackContainer(Component[Union["Session", "TrackContainer"]]):
             return track
 
     async def group(self, index: int, count: int, name: str | None = None) -> "Track":
+        """
+        Group one or more tracks in the track container as subtracks of a new track.
+        """
         async with self._lock:
             track = self._group(index=index, count=count, name=name)
             await Component._reconcile(
@@ -105,10 +117,20 @@ class TrackContainer(Component[Union["Session", "TrackContainer"]]):
 
     @property
     def tracks(self) -> list["Track"]:
+        """
+        Get the track container's tracks.
+        """
         return self._tracks[:]
 
 
 class TrackSend(Component["Track"]):
+    """
+    A track send
+
+    Sends audio from one track to another track container (e.g. another track
+    or mixer).
+    """
+
     def __init__(
         self,
         *,
@@ -137,6 +159,15 @@ class TrackSend(Component["Track"]):
         if (parent := self._parent) is not None and self in parent._sends:
             parent._sends.remove(self)
         super()._disconnect_parentage()
+
+    def _get_nested_address(self) -> Address:
+        if self.parent is None:
+            return "sends[?]"
+        index = self.parent.sends.index(self)
+        return f"{self.parent.address}.sends[{index}]"
+
+    def _get_numeric_address(self) -> Address:
+        return f"sends[{self._id}]"
 
     def _notify_disconnected(self, connection: "Component") -> bool:
         return connection is self._target
@@ -218,6 +249,9 @@ class TrackSend(Component["Track"]):
         ]
 
     async def delete(self) -> None:
+        """
+        Delete the send.
+        """
         async with self._lock:
             await Component._reconcile(
                 context=None,
@@ -227,31 +261,26 @@ class TrackSend(Component["Track"]):
             )
 
     @property
-    def address(self) -> Address:
-        if self.parent is None:
-            return "sends[?]"
-        index = self.parent.sends.index(self)
-        return f"{self.parent.address}.sends[{index}]"
-
-    @property
     def feedback_graph_order(self) -> tuple[int, ...]:
         """
-        Graph order for sake of feedback calculations.
+        Get the send's graph order for sake of feedback calculations.
         """
         if self.parent is None:
             raise RuntimeError
         return self.parent.graph_order
 
     @property
-    def numeric_address(self) -> Address:
-        return f"sends[{self._id}]"
-
-    @property
     def postfader(self) -> bool:
+        """
+        Get the send's pre/post-fader status.
+        """
         return self._postfader
 
     @property
     def target(self) -> TrackContainer:
+        """
+        Get the send's target track container.
+        """
         return self._target
 
 
@@ -345,6 +374,15 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             old_parent._unsolo_tracks(tracks=self._soloed_tracks)
             parent._solo_tracks(tracks=self._soloed_tracks)
             self._parent = parent
+
+    def _get_nested_address(self) -> Address:
+        if self.parent is None:
+            return "tracks[?]"
+        index = self.parent.tracks.index(self)
+        return f"{self.parent.address}.tracks[{index}]"
+
+    def _get_numeric_address(self) -> Address:
+        return f"tracks[{self._id}]"
 
     def _notify_disconnected(self, connection: "Component") -> bool:
         if connection is self._input:
@@ -807,6 +845,9 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
         postfader: bool = True,
         target: TrackContainer,
     ) -> TrackSend:
+        """
+        Add a send to the track.
+        """
         async with self._lock:
             send = self._add_send(
                 name=name,
@@ -821,6 +862,9 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             return send
 
     async def delete(self) -> None:
+        """
+        Delete the track.
+        """
         async with self._lock:
             await Component._reconcile(
                 context=None,
@@ -830,6 +874,10 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             )
 
     async def move(self, parent: TrackContainer, index: int) -> None:
+        """
+        Move the track to another track container and/or index in a track
+        container.
+        """
         async with self._lock:
             self._move(parent=parent, index=index)
             await Component._reconcile(
@@ -839,6 +887,9 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             )
 
     async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
+        """
+        Set the tracks's channel count.
+        """
         async with self._lock:
             self._channel_count = channel_count
             await Component._reconcile(
@@ -848,6 +899,9 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             )
 
     async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
+        """
+        Set the track's audio input source.
+        """
         async with self._lock:
             if input_ is self:
                 raise RuntimeError
@@ -861,17 +915,26 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             )
 
     async def set_muted(self, muted: bool) -> None:
+        """
+        Set the track's mute status.
+        """
         async with self._lock:
             self._set_muted(muted=muted)
             if self._reconcile_activation():
                 self._apply_activation()
 
     def set_name(self, name: str | None = None) -> None:
+        """
+        Set the track's name.
+        """
         self._name = name
 
     async def set_output(
         self, output: Union[BusGroup, Default, TrackContainer] | None
     ) -> None:
+        """
+        Set the track's audio output destination.
+        """
         async with self._lock:
             if output is self:
                 raise RuntimeError
@@ -885,11 +948,21 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             )
 
     async def set_soloed(self, soloed: bool, exclusive: bool = True) -> None:
+        """
+        Set the track's solo status.
+
+        If soloing, unsolo any other soloed tracks unless ``exclusive`` has been set to ``False``.
+        """
         async with self._lock:
             if session := self._set_soloed(soloed=soloed, exclusive=exclusive):
                 session._update_track_activation()
 
     async def ungroup(self) -> None:
+        """
+        Ungroup the track.
+
+        Replace the track in its parent with the group track's children.
+        """
         async with self._lock:
             tracks = self._ungroup()
             await Component._reconcile(
@@ -900,48 +973,68 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             )
 
     @property
-    def address(self) -> Address:
-        if self.parent is None:
-            return "tracks[?]"
-        index = self.parent.tracks.index(self)
-        return f"{self.parent.address}.tracks[{index}]"
-
-    @property
     def children(self) -> list[Component]:
+        """
+        Get the track's child components.
+        """
         return [*self._tracks, *self._devices, *self._sends]
 
     @property
     def input(self) -> Union[BusGroup, "Track"] | None:
+        """
+        Get the track's audio input source.
+        """
         return self._input
 
     @property
     def input_levels(self) -> list[float]:
+        """
+        Get the track's current input levels.
+
+        Read from server shared memory.
+        """
         raise NotImplementedError
 
     @property
     def is_active(self) -> bool:
+        """
+        Get the track's active status, as computed from its mute and solo states.
+        """
         return self._is_active
 
     @property
     def is_muted(self) -> bool:
+        """
+        Get the track's mute status.
+        """
         return self._is_muted
 
     @property
     def is_soloed(self) -> bool:
+        """
+        Get the track's solo status.
+        """
         return self._is_soloed
 
     @property
-    def numeric_address(self) -> Address:
-        return f"tracks[{self._id}]"
-
-    @property
     def output(self) -> Union[BusGroup, Default, TrackContainer] | None:
+        """
+        Get the track's audio output destination.
+        """
         return self._output
 
     @property
     def output_levels(self) -> list[float]:
+        """
+        Get the track's current output levels.
+
+        Read from server shared memory.
+        """
         raise NotImplementedError
 
     @property
     def sends(self) -> list[TrackSend]:
+        """
+        Get the track's track sends.
+        """
         return [*self._sends]

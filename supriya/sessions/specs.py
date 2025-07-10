@@ -15,6 +15,10 @@ if TYPE_CHECKING:
 
 @dataclasses.dataclass
 class Artifacts:
+    """
+    Utility for associating context entities with addresses.
+    """
+
     audio_busses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
     buffers: dict[Address, Buffer] = dataclasses.field(default_factory=dict)
     control_busses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
@@ -23,6 +27,9 @@ class Artifacts:
     hashes: dict[Address, int] = dataclasses.field(default_factory=dict)
 
     def clear(self) -> None:
+        """
+        Clear the artifacts.
+        """
         self.audio_busses.clear()
         self.buffers.clear()
         self.control_busses.clear()
@@ -31,6 +38,9 @@ class Artifacts:
         self.hashes.clear()
 
     def merge(self, other: "Artifacts") -> None:
+        """
+        Merge ``other`` artifacts in this one, overriding any existing addresses.
+        """
         self.audio_busses.update(other.audio_busses)
         self.buffers.update(other.buffers)
         self.control_busses.update(other.control_busses)
@@ -41,6 +51,12 @@ class Artifacts:
 
 @dataclasses.dataclass(frozen=True)
 class Spec:
+    """
+    Base class for specifying the desired state of a context entity, and for
+    implementing the logic to bring the current state of that entitiy into line
+    with the desired state.
+    """
+
     component: "Component"
     context: AsyncServer
     name: str
@@ -195,6 +211,10 @@ class Spec:
 
 @dataclasses.dataclass(frozen=True)
 class BufferSpec(Spec):
+    """
+    Specification for a buffer context entity.
+    """
+
     channel_count: int
     count: int
 
@@ -247,6 +267,10 @@ class BufferSpec(Spec):
 
 @dataclasses.dataclass(frozen=True)
 class BusSpec(Spec):
+    """
+    Specification for a bus context entity.
+    """
+
     calculation_rate: CalculationRate
     channel_count: int
     default: float = dataclasses.field(compare=False, default=0.0)
@@ -329,6 +353,10 @@ class BusSpec(Spec):
 
 @dataclasses.dataclass(frozen=True)
 class SynthDefSpec(Spec):
+    """
+    Specification for a SynthDef context entity.
+    """
+
     synthdef: SynthDef
 
     def __hash__(self) -> int:
@@ -377,6 +405,12 @@ class SynthDefSpec(Spec):
 
 @dataclasses.dataclass(frozen=True)
 class NodeSpec(Spec):
+    """
+    Specification for a node context entity.
+
+    GroupSpec and SynthSpec inherit from this.
+    """
+
     add_action: AddAction
     parent_node: Address | None
     target_node: Address | None
@@ -393,6 +427,10 @@ class NodeSpec(Spec):
 
 @dataclasses.dataclass(frozen=True)
 class GroupSpec(NodeSpec):
+    """
+    Specification for a group context entity.
+    """
+
     destroy_strategy: dict[str, float] | None = None
 
     def __hash__(self) -> int:
@@ -477,6 +515,10 @@ class GroupSpec(NodeSpec):
 
 @dataclasses.dataclass(frozen=True)
 class SynthSpec(NodeSpec):
+    """
+    Specification for a synth context entity.
+    """
+
     kwargs: dict[str, Address | BusGroup | float]
     synthdef: Address
     destroy_strategy: dict[str, float] | None = None
@@ -622,6 +664,10 @@ class SynthSpec(NodeSpec):
 
 @dataclasses.dataclass
 class SpecChange:
+    """
+    Utility for pairing an old context entity specification with a new one.
+    """
+
     address: Address
     component: "Component"
     context: AsyncServer
@@ -886,6 +932,11 @@ class SpecChange:
 
 @dataclasses.dataclass
 class SpecChangeGroup:
+    """
+    Utility for grouping specification changes together when applying them
+    against a synthesis context.
+    """
+
     reconciliation: Reconciliation
     spec_changes: list[SpecChange]
     group: bool = True

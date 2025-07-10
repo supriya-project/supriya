@@ -1,3 +1,7 @@
+"""
+Affordances for building DAW-like applications.
+"""
+
 from .components import Component
 from .devices import Device, DeviceContainer
 from .mixers import Mixer

@@ -30,6 +30,13 @@ class Mixer(
     DeviceContainer["Session"],
     TrackContainer,
 ):
+    """
+    A mixer component.
+
+    Provides a container for devices and tracks running on a single synthesis
+    context, although multiple mixers can run on the same context.
+    """
+
     def __init__(
         self,
         *,
@@ -50,6 +57,15 @@ class Mixer(
         ):
             mixers.remove(self)
         super()._disconnect_parentage()
+
+    def _get_nested_address(self) -> Address:
+        if self.session is None:
+            return "mixers[?]"
+        index = self.session.mixers.index(self)
+        return f"session.mixers[{index}]"
+
+    def _get_numeric_address(self) -> Address:
+        return f"mixers[{self._id}]"
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         if not context:
@@ -212,6 +228,9 @@ class Mixer(
         ]
 
     async def delete(self) -> None:
+        """
+        Delete the mixer.
+        """
         async with self._lock:
             await Component._reconcile(
                 context=None,
@@ -221,6 +240,9 @@ class Mixer(
             )
 
     async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
+        """
+        Set the mixer's channel count.
+        """
         async with self._lock:
             self._channel_count = channel_count
             await Component._reconcile(
@@ -230,26 +252,23 @@ class Mixer(
             )
 
     def set_name(self, name: str | None = None) -> None:
+        """
+        Set the mixer's name.
+        """
         self._name = name
 
     @property
-    def address(self) -> Address:
-        if self.session is None:
-            return "mixers[?]"
-        index = self.session.mixers.index(self)
-        return f"session.mixers[{index}]"
-
-    @property
     def children(self) -> list[Component]:
-        # return [*self._tracks, *self._devices]
+        """
+        Get the mixer's child components.
+        """
         return [*self._tracks, *self._devices]
 
     @property
     def context(self) -> AsyncServer | None:
+        """
+        Get the component's ``Context``, if any.
+        """
         if self.parent is None:
             return None
         return self.parent._mixers[self]
-
-    @property
-    def numeric_address(self) -> Address:
-        return f"mixers[{self._id}]"

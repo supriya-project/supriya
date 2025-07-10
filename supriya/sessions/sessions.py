@@ -26,9 +26,7 @@ logger = logging.getLogger(__name__)
 #       instead.
 class Session(Component):
     """
-    Top-level object.
-
-    Contains one transport.
+    The top-level session component.
 
     Contains one or more contexts.
 
@@ -105,9 +103,15 @@ class Session(Component):
         self._mixers[mixer] = context
         return mixer
 
+    def _get_nested_address(self) -> Address:
+        return "session"
+
     def _get_next_id(self) -> int:
         self._next_id = (next_id := self._next_id) + 1
         return next_id
+
+    def _get_numeric_address(self) -> Address:
+        return "session"
 
     async def _get_or_create_context(
         self, context: AsyncServer | None = None
@@ -162,6 +166,9 @@ class Session(Component):
                     track._apply_activation()
 
     async def add_context(self, options: Options | None = None) -> AsyncServer:
+        """
+        Add a synthesis context to the session.
+        """
         async with self._lock:
             context = self._add_context(options)
             if self._status == BootStatus.ONLINE:
@@ -171,6 +178,9 @@ class Session(Component):
     async def add_mixer(
         self, context: AsyncServer | None = None, name: str | None = None
     ) -> "Mixer":
+        """
+        Add a mixer to the session.
+        """
         async with self._lock:
             context = await self._get_or_create_context(context)
             mixer = self._add_mixer(context=context, name=name)
@@ -182,6 +192,11 @@ class Session(Component):
             return mixer
 
     async def boot(self) -> None:
+        """
+        Boot the session.
+
+        Boots all contexts, and reconciles all mixers against them.
+        """
         async with self._lock:
             # reset state
             # guard against concurrent boot / quits
@@ -207,12 +222,20 @@ class Session(Component):
                 raise Exception(self._status)
 
     async def delete_context(self, context: AsyncServer) -> None:
+        """
+        Delete a synthesis context from the session.
+
+        Delete any mixers associated with that context.
+        """
         async with self._lock:
             for mixer in self._contexts.pop(context):
                 await mixer.delete()
             await context.quit()
 
     def dump_components(self) -> str:
+        """
+        Dump the sessions's component tree as a string representation.
+        """
         indent = "    "
         parts = [repr(self)]
         for context, mixers in self._contexts.items():
@@ -224,6 +247,9 @@ class Session(Component):
     async def dump_tree(
         self, annotation: Literal["nested", "numeric"] | None = "nested"
     ) -> str:
+        """
+        Dump the sessions's node tree, optionally annotated, as a string representation.
+        """
         if self.status != BootStatus.ONLINE:
             raise RuntimeError
         parts: list[str] = []
@@ -235,6 +261,11 @@ class Session(Component):
         return "\n".join(parts)
 
     async def quit(self) -> None:
+        """
+        Quit the session.
+
+        Quit all running synthesis contexts.
+        """
         async with self._lock:
             # guard against concurrent boot / quits
             if self._status == BootStatus.ONLINE:
@@ -261,6 +292,9 @@ class Session(Component):
                 raise Exception(self._status)
 
     async def set_mixer_context(self, mixer: "Mixer", context: AsyncServer) -> None:
+        """
+        Set a mixer's associated synthesis context.
+        """
         async with self._lock:
             if mixer not in self._mixers:
                 raise ValueError(mixer)
@@ -278,26 +312,37 @@ class Session(Component):
                 self._mixers[mixer] = context
 
     async def sync(self) -> None:
+        """
+        Sync all synthesis contexts.
+        """
         if self._status != BootStatus.ONLINE:
             raise RuntimeError
         await asyncio.gather(*[context.sync() for context in self.contexts])
 
     @property
-    def address(self) -> Address:
-        return "session"
-
-    @property
     def children(self) -> list[Component]:
+        """
+        Get the session's children.
+        """
         return list(self._mixers)
 
     @property
     def contexts(self) -> list[AsyncServer]:
+        """
+        Get the session's contexts.
+        """
         return list(self._contexts)
 
     @property
     def mixers(self) -> list["Mixer"]:
+        """
+        Get the session's mixers.
+        """
         return list(self._mixers)
 
     @property
     def status(self) -> BootStatus:
+        """
+        Get the boot status of the session.
+        """
         return self._status

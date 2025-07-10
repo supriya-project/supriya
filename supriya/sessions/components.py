@@ -1,5 +1,4 @@
 import asyncio
-import time
 from typing import (
     TYPE_CHECKING,
     Awaitable,
@@ -39,6 +38,12 @@ if TYPE_CHECKING:
 
 
 class Component(Generic[C]):
+    """
+    The base class from which all components in a ``Session`` inherit.
+
+    Provides tree-traversal, debugging, and state reconciliation logic.
+    """
+
     def __init__(
         self,
         *,
@@ -108,12 +113,22 @@ class Component(Generic[C]):
             destroy_reconciliation=destroy_reconciliation,
         )
 
+    def _get_nested_address(self) -> str:
+        raise NotImplementedError
+
+    def _get_numeric_address(self) -> str:
+        raise NotImplementedError
+
     def _iterate_parentage(self) -> Iterator["Component"]:
         component = self
         while component.parent is not None:
             yield component
             component = component.parent
         yield component
+
+    @property
+    def _nonrecursive_repr(self) -> str:
+        return repr(self)
 
     def _notify_disconnected(self, connection: "Component") -> bool:
         """
@@ -137,8 +152,6 @@ class Component(Generic[C]):
         reconciling_components: list["Component"],
         session: Optional["Session"],
     ) -> None:
-        print("RECONCILING")
-        start_time = time.time()
         # validate session
         if session is None:
             raise RuntimeError
@@ -209,7 +222,6 @@ class Component(Generic[C]):
                 ),
             )
 
-        print(f"    GATHERED SPECS IN {round(time.time() - start_time, 6)} SECONDS")
         # sort and apply spec changes
         sorted_spec_changes = SpecChange.sort(spec_changes)
         roots = [*reconciling_components, *deleted_components]
@@ -236,9 +248,6 @@ class Component(Generic[C]):
             component._delete()
         # update track activation, post deletion, as soloed tracks may have been deleted
         session._update_track_activation()
-        print(
-            f"    RECONCILED IN {round(time.time() - start_time, 6)} SECONDS WITH {synced=}"
-        )
 
     def _reconcile_connections(
         self,
@@ -260,11 +269,17 @@ class Component(Generic[C]):
             yield from child._walk(component_class)
 
     def dump_components(self) -> str:
+        """
+        Dump the component's component tree as a string representation.
+        """
         return "\n".join(self._dump_components())
 
     async def dump_tree(
         self, annotation: Literal["nested", "numeric"] | None = "nested"
     ) -> str:
+        """
+        Dump the component's node tree, optionally annotated, as a string representation.
+        """
         if self.session and self.session.status != BootStatus.ONLINE:
             raise RuntimeError
         tree = await cast(
@@ -284,27 +299,44 @@ class Component(Generic[C]):
         return str(tree)
 
     @property
-    def _nonrecursive_repr(self) -> str:
-        return repr(self)
-
-    @property
     def address(self) -> Address:
-        raise NotImplementedError
+        """
+        Get the component's "nested" string address.
+
+        Guaranteed to be unique, but may change if the structure of the
+        component tree changes.
+        """
+        return self._get_nested_address()
 
     @property
     def channel_count(self) -> ChannelCount | Default:
+        """
+        Get the component's explicit channel count.
+        """
         return self._channel_count
 
     @property
     def children(self) -> list["Component"]:
+        """
+        The component's child components.
+        """
         return []
 
     @property
     def context(self) -> AsyncServer | None:
+        """
+        Get the component's ``Context``, if any.
+        """
         return self._context
 
     @property
     def effective_channel_count(self) -> ChannelCount:
+        """
+        Get the component's implicit channel count.
+
+        If the component's explicit channel count is ``Default``, inherit from
+        the next non-default channel count in the component's parentage.
+        """
         for component in self._iterate_parentage():
             if isinstance(channel_count := component.channel_count, int):
                 return channel_count
@@ -313,12 +345,15 @@ class Component(Generic[C]):
     @property
     def feedback_graph_order(self) -> tuple[int, ...]:
         """
-        Graph order for sake of feedback calculations.
+        Get the component's graph order for sake of feedback calculations.
         """
         return self.graph_order
 
     @property
     def graph_order(self) -> tuple[int, ...]:
+        """
+        Get the component's graph order.
+        """
         # TODO: Cache this
         graph_order = []
         for parent, child in iterate_nwise(reversed(list(self._iterate_parentage()))):
@@ -327,6 +362,9 @@ class Component(Generic[C]):
 
     @property
     def mixer(self) -> Optional["Mixer"]:
+        """
+        Get the component's ``Mixer``, if any.
+        """
         # TODO: Cache this
         from .mixers import Mixer
 
@@ -337,23 +375,41 @@ class Component(Generic[C]):
 
     @property
     def name(self) -> str | None:
+        """
+        Get the component's name.
+        """
         return self._name
 
     @property
     def numeric_address(self) -> Address:
-        raise NotImplementedError
+        """
+        Get the component's "numeric" string address.
+
+        Guaranteed to be unique and stable across structural mutations.
+        """
+        return self._get_numeric_address()
 
     @property
     def parent(self) -> C | None:
+        """
+        Get the component's parent component, if any.
+        """
         return self._parent
 
     @property
     def parentage(self) -> list["Component"]:
+        """
+        Get the component's proper parentage, e.g. the component, its parent, its
+        parent's parent, etc.
+        """
         # TODO: Cache this
         return list(self._iterate_parentage())
 
     @property
     def session(self) -> Optional["Session"]:
+        """
+        Get the component's ``Session``, if any.
+        """
         # TODO: Cache this
         from .sessions import Session
 

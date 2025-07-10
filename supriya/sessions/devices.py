@@ -9,6 +9,12 @@ from .synthdefs import build_device_dc_tester
 
 
 class DeviceContainer(Component[C]):
+    """
+    A container for device components.
+
+    Supports adding devices and grouping them.
+    """
+
     def __init__(self) -> None:
         self._devices: list[Device] = []
 
@@ -25,6 +31,9 @@ class DeviceContainer(Component[C]):
     async def add_device(
         self, device_class: Type["Device"], name: str | None = None
     ) -> "Device":
+        """
+        Add a new device to the device container.
+        """
         async with self._lock:
             device = self._add_device(device_class=device_class, name=name)
             await Component._reconcile(
@@ -36,10 +45,20 @@ class DeviceContainer(Component[C]):
 
     @property
     def devices(self) -> list["Device"]:
+        """
+        Get the device container's devices.
+        """
         return self._devices[:]
 
 
 class Device(Component[DeviceContainer]):
+    """
+    A device component.
+
+    Base class for implementing control devices (e.g. MIDI manipulation), audio
+    effects, and instruments.
+    """
+
     def __init__(
         self,
         *,
@@ -53,6 +72,15 @@ class Device(Component[DeviceContainer]):
         if (parent := self._parent) is not None and self in parent._devices:
             parent._devices.remove(self)
         super()._disconnect_parentage()
+
+    def _get_nested_address(self) -> Address:
+        if self.parent is None:
+            return "devices[?]"
+        index = self.parent.devices.index(self)
+        return f"{self.parent.address}.devices[{index}]"
+
+    def _get_numeric_address(self) -> Address:
+        return f"devices[{self._id}]"
 
     def _move(self, *, parent: DeviceContainer, index: int) -> None:
         # Validate if moving is possible
@@ -134,6 +162,9 @@ class Device(Component[DeviceContainer]):
         ]
 
     async def delete(self) -> None:
+        """
+        Delete the device.
+        """
         async with self._lock:
             await Component._reconcile(
                 context=None,
@@ -143,6 +174,10 @@ class Device(Component[DeviceContainer]):
             )
 
     async def move(self, parent: DeviceContainer, index: int) -> None:
+        """
+        Move the device to another device container and/or index in a device
+        container.
+        """
         async with self._lock:
             self._move(parent=parent, index=index)
             await Component._reconcile(
@@ -150,14 +185,3 @@ class Device(Component[DeviceContainer]):
                 reconciling_components=[self],
                 session=self.session,
             )
-
-    @property
-    def address(self) -> Address:
-        if self.parent is None:
-            return "devices[?]"
-        index = self.parent.devices.index(self)
-        return f"{self.parent.address}.devices[{index}]"
-
-    @property
-    def numeric_address(self) -> Address:
-        return f"devices[{self._id}]"
