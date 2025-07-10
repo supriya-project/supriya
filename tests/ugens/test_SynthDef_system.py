@@ -1,32 +1,20 @@
 import os
 import platform
+from typing import Callable
 
 import pytest
 from uqbar.strings import normalize
 
 from supriya import SynthDef
-from supriya.ugens import SuperColliderSynthDef, decompile_synthdef
-from supriya.ugens.system import (
-    amplitude_scope_audio_1,
-    amplitude_scope_control_2,
-    build_channel_strip_synthdef,
-    build_meters_synthdef,
-    build_patch_cable_synthdef,
-    frequency_scope_lin_1,
-    frequency_scope_lin_shm_1,
-    frequency_scope_log_1,
-    frequency_scope_log_shm_2,
-    system_link_audio_1,
-    system_link_audio_2,
-)
+from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
 
 
 @pytest.mark.parametrize(
     "synthdef, expected_str",
     [
         (
-            system_link_audio_1,
-            """
+            lambda: system.system_link_audio_1,
+            lambda: """
             synthdef:
                 name: supriya:link-ar:1
                 ugens:
@@ -69,8 +57,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            system_link_audio_2,
-            """
+            lambda: system.system_link_audio_2,
+            lambda: """
             synthdef:
                 name: supriya:link-ar:2
                 ugens:
@@ -117,8 +105,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            amplitude_scope_audio_1,
-            """
+            lambda: system.amplitude_scope_audio_1,
+            lambda: """
             synthdef:
                 name: supriya:amp-scope-ar:1
                 ugens:
@@ -138,8 +126,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            amplitude_scope_control_2,
-            """
+            lambda: system.amplitude_scope_control_2,
+            lambda: """
             synthdef:
                 name: supriya:amp-scope-kr:2
                 ugens:
@@ -164,8 +152,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            frequency_scope_lin_1,
-            """
+            lambda: system.frequency_scope_lin_1,
+            lambda: """
             synthdef:
                 name: supriya:freq-scope-lin:1
                 ugens:
@@ -238,8 +226,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            frequency_scope_log_1,
-            """
+            lambda: system.frequency_scope_log_1,
+            lambda: """
             synthdef:
                 name: supriya:freq-scope-log:1
                 ugens:
@@ -318,8 +306,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            frequency_scope_lin_shm_1,
-            """
+            lambda: system.frequency_scope_lin_shm_1,
+            lambda: """
             synthdef:
                 name: supriya:freq-scope-lin-shm:1
                 ugens:
@@ -397,8 +385,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            frequency_scope_log_shm_2,
-            """
+            lambda: system.frequency_scope_log_shm_2,
+            lambda: """
             synthdef:
                 name: supriya:freq-scope-log-shm:2
                 ugens:
@@ -482,8 +470,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            build_channel_strip_synthdef(2),
-            """
+            lambda: system.build_channel_strip_synthdef(2),
+            lambda: f"""
             synthdef:
                 name: supriya:channel-strip:2
                 ugens:
@@ -495,7 +483,7 @@ from supriya.ugens.system import (
                         out: 0.0
                         lags[0]: 0.0
                         lags[1]: 0.0
-                        lags[2]: 0.05
+                        lags[2]: {system.LAG_TIME}
                         lags[3]: 0.0
                         lags[4]: 0.0
                 -   In.ar:
@@ -503,15 +491,15 @@ from supriya.ugens.system import (
                         bus: LagControl.kr[4:out]
                 -   Linen.kr/0:
                         gate: LagControl.kr[0:active]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: 0.0
                 -   Linen.kr/1:
                         gate: LagControl.kr[3:gate]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: LagControl.kr[1:done_action]
                 -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
                         source: LagControl.kr[2:gain]
@@ -540,8 +528,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            build_meters_synthdef(2),
-            """
+            lambda: system.build_meters_synthdef(2),
+            lambda: """
             synthdef:
                 name: supriya:meters:2
                 ugens:
@@ -566,8 +554,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            build_patch_cable_synthdef(2, 2),
-            """
+            lambda: system.build_patch_cable_synthdef(2, 2),
+            lambda: f"""
             synthdef:
                 name: supriya:patch-cable:2x2
                 ugens:
@@ -583,15 +571,15 @@ from supriya.ugens.system import (
                         bus: Control.kr[4:in_]
                 -   Linen.kr/0:
                         gate: Control.kr[0:active]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: 0.0
                 -   Linen.kr/1:
                         gate: Control.kr[3:gate]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: Control.kr[1:done_action]
                 -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
                         source: Control.kr[2:gain]
@@ -614,8 +602,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            build_patch_cable_synthdef(2, 2, feedback=True),
-            """
+            lambda: system.build_patch_cable_synthdef(2, 2, feedback=True),
+            lambda: f"""
             synthdef:
                 name: supriya:fb-patch-cable:2x2
                 ugens:
@@ -631,15 +619,15 @@ from supriya.ugens.system import (
                         bus: Control.kr[4:in_]
                 -   Linen.kr/0:
                         gate: Control.kr[0:active]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: 0.0
                 -   Linen.kr/1:
                         gate: Control.kr[3:gate]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: Control.kr[1:done_action]
                 -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
                         source: Control.kr[2:gain]
@@ -662,8 +650,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            build_patch_cable_synthdef(4, 1),
-            """
+            lambda: system.build_patch_cable_synthdef(4, 1),
+            lambda: f"""
             synthdef:
                 name: supriya:patch-cable:4x1
                 ugens:
@@ -687,15 +675,15 @@ from supriya.ugens.system import (
                         right: 4.0
                 -   Linen.kr/0:
                         gate: Control.kr[0:active]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: 0.0
                 -   Linen.kr/1:
                         gate: Control.kr[3:gate]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: Control.kr[1:done_action]
                 -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
                         source: Control.kr[2:gain]
@@ -714,8 +702,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            build_patch_cable_synthdef(1, 4),
-            """
+            lambda: system.build_patch_cable_synthdef(1, 4),
+            lambda: f"""
             synthdef:
                 name: supriya:patch-cable:1x4
                 ugens:
@@ -731,15 +719,15 @@ from supriya.ugens.system import (
                         bus: Control.kr[4:in_]
                 -   Linen.kr/0:
                         gate: Control.kr[0:active]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: 0.0
                 -   Linen.kr/1:
                         gate: Control.kr[3:gate]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: Control.kr[1:done_action]
                 -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
                         source: Control.kr[2:gain]
@@ -761,8 +749,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            build_patch_cable_synthdef(2, 4),
-            """
+            lambda: system.build_patch_cable_synthdef(2, 4),
+            lambda: f"""
             synthdef:
                 name: supriya:patch-cable:2x4
                 ugens:
@@ -778,15 +766,15 @@ from supriya.ugens.system import (
                         bus: Control.kr[4:in_]
                 -   Linen.kr/0:
                         gate: Control.kr[0:active]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: 0.0
                 -   Linen.kr/1:
                         gate: Control.kr[3:gate]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: Control.kr[1:done_action]
                 -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
                         source: Control.kr[2:gain]
@@ -859,8 +847,8 @@ from supriya.ugens.system import (
             """,
         ),
         (
-            build_patch_cable_synthdef(4, 2),
-            """
+            lambda: system.build_patch_cable_synthdef(4, 2),
+            lambda: f"""
             synthdef:
                 name: supriya:patch-cable:4x2
                 ugens:
@@ -914,15 +902,15 @@ from supriya.ugens.system import (
                         input_four: PanAz.ar/3[1]
                 -   Linen.kr/0:
                         gate: Control.kr[0:active]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: 0.0
                 -   Linen.kr/1:
                         gate: Control.kr[3:gate]
-                        attack_time: 0.05
+                        attack_time: {system.LAG_TIME}
                         sustain_level: 1.0
-                        release_time: 0.05
+                        release_time: {system.LAG_TIME}
                         done_action: Control.kr[1:done_action]
                 -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
                         source: Control.kr[2:gain]
@@ -947,10 +935,14 @@ from supriya.ugens.system import (
     ],
 )
 def test_supriya(
-    synthdef: SynthDef,
-    expected_str: str,
+    synthdef: Callable[[], SynthDef],
+    expected_str: Callable[[], str],
 ) -> None:
-    assert normalize(str(synthdef)) == normalize(expected_str)
+    # We need to defer evaluation of both the SynthDef and expected string in
+    # order to ensure that the system LAG_TIME property can be patched, if
+    # necessary, _before_ both of them are evaluated. Windows is very slow
+    # under GHA CI, so we make release times extra long there.
+    assert normalize(str(synthdef())) == normalize(expected_str())
 
 
 @pytest.mark.parametrize(

@@ -12,7 +12,14 @@ def _fallback_sclang_path():
     if system == "Linux":
         paths.extend([Path("/usr/bin/sclang"), Path("/usr/local/bin/sclang")])
     elif system == "Darwin":
-        paths.append(Path("/Applications/SuperCollider.app/Contents/MacOS/sclang"))
+        paths.extend(
+            [
+                Path("/Applications/SuperCollider.app/Contents/MacOS/sclang"),
+                Path(
+                    "/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/sclang"
+                ),
+            ]
+        )
     elif system == "Windows":
         paths.extend(Path(r"C:\Program Files").glob(r"SuperCollider*\sclang.exe"))
     for path in paths:

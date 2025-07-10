@@ -1,18 +1,14 @@
 import contextlib
 import difflib
-import os
-import platform
 import pprint
 from typing import AsyncGenerator, Generator, Literal
 
-import pytest
 import pytest_asyncio
-from pytest import MonkeyPatch
 from uqbar.strings import normalize
 
 from supriya import AsyncServer, BootStatus, OscBundle, OscMessage
 from supriya.sessions import Session
-from supriya.ugens import decompile_synthdefs, system
+from supriya.ugens import decompile_synthdefs
 
 
 async def apply_commands(
@@ -321,9 +317,3 @@ async def basic_session() -> tuple[Session, str, str]:
     # for component in session._walk():
     #     print(component.address, component.graph_order)
     return session, initial_components, initial_tree
-
-
-@pytest.fixture(autouse=True)
-def lag_time(monkeypatch: MonkeyPatch):
-    if platform.system() == "Windows" and os.environ.get("CI"):
-        monkeypatch.setattr(system, "LAG_TIME", 0.25)
