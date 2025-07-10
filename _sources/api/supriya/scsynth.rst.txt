@@ -33,6 +33,7 @@ scsynth
    .. automethod:: __exit__
    .. automethod:: __iter__
    .. automethod:: __len__
+   .. automethod:: capture
 
 .. autoclass:: LineStatus
    :show-inheritance:
