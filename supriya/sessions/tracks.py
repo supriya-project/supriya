@@ -131,6 +131,8 @@ class TrackSend(Component["Track"]):
     or mixer).
     """
 
+    # TODO: Test signal routing.
+
     def __init__(
         self,
         *,
@@ -285,6 +287,10 @@ class TrackSend(Component["Track"]):
 
 
 class Track(DeviceContainer[TrackContainer], TrackContainer):
+    """
+    A track component.
+    """
+
     def __init__(
         self,
         *,
@@ -918,6 +924,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
         """
         Set the track's mute status.
         """
+        # TODO: Test this.
         async with self._lock:
             self._set_muted(muted=muted)
             if self._reconcile_activation():
@@ -993,7 +1000,14 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
 
         Read from server shared memory.
         """
-        raise NotImplementedError
+        # TODO: Test this.
+        if not self.context:
+            raise RuntimeError
+        elif not self.context._shared_memory:
+            raise RuntimeError
+        return self.context._shared_memory[
+            self._artifacts.control_busses[Names.INPUT_LEVELS]
+        ]
 
     @property
     def is_active(self) -> bool:
@@ -1030,7 +1044,14 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
 
         Read from server shared memory.
         """
-        raise NotImplementedError
+        # TODO: Test this.
+        if not self.context:
+            raise RuntimeError
+        elif not self.context._shared_memory:
+            raise RuntimeError
+        return self.context._shared_memory[
+            self._artifacts.control_busses[Names.OUTPUT_LEVELS]
+        ]
 
     @property
     def sends(self) -> list[TrackSend]:

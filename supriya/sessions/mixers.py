@@ -272,3 +272,35 @@ class Mixer(
         if self.parent is None:
             return None
         return self.parent._mixers[self]
+
+    @property
+    def input_levels(self) -> list[float]:
+        """
+        Get the mixers's current input levels.
+
+        Read from server shared memory.
+        """
+        # TODO: Test this.
+        if not self.context:
+            raise RuntimeError
+        elif not self.context._shared_memory:
+            raise RuntimeError
+        return self.context._shared_memory[
+            self._artifacts.control_busses[Names.INPUT_LEVELS]
+        ]
+
+    @property
+    def output_levels(self) -> list[float]:
+        """
+        Get the mixers's current output levels.
+
+        Read from server shared memory.
+        """
+        # TODO: Test this.
+        if not self.context:
+            raise RuntimeError
+        elif not self.context._shared_memory:
+            raise RuntimeError
+        return self.context._shared_memory[
+            self._artifacts.control_busses[Names.OUTPUT_LEVELS]
+        ]

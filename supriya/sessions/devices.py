@@ -137,6 +137,10 @@ class Device(Component[DeviceContainer]):
 
 
 class TestDevice(Device):
+    """
+    A device for testing signal routing.
+    """
+
     def _build_synthdef(self, channel_count: ChannelCount = 2) -> SynthDef:
         with SynthDefBuilder(
             active=1,
