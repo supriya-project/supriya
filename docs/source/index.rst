@@ -152,6 +152,7 @@ Quit the server::
     osc
     clocks
     patterns
+    sessions
 
 .. toctree::
     :caption: API Reference

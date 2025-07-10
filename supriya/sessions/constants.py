@@ -51,7 +51,7 @@ class Reconciliation(StrEnum):
     There are multiple types of ``DESTROY`` because the reconciliation needs to
     know if component destruction is happening against the root of a subtree,
     or an inner node or leaf, e.g. only the top-most group needs to get a
-    ``[/n_set, <node-id>, gate, 0]` message because the synthesis server will
+    ``[/n_set, <node-id>, gate, 0]`` message because the synthesis server will
     propagate that to child nodes server-side.
     """
 
