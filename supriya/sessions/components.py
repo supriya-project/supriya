@@ -1,4 +1,5 @@
 import asyncio
+import time
 from typing import (
     TYPE_CHECKING,
     Awaitable,
@@ -136,6 +137,7 @@ class Component(Generic[C]):
         reconciling_components: list["Component"],
         session: Optional["Session"],
     ) -> None:
+        start_time = time.time()
         # validate session
         if session is None:
             raise RuntimeError
@@ -229,6 +231,8 @@ class Component(Generic[C]):
             component._delete()
         # update track activation
         session._update_track_activation()
+        stop_time = time.time()
+        print(f"RECONCILED IN {stop_time - start_time} seconds")
 
     def _reconcile_connections(
         self,
