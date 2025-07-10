@@ -322,7 +322,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
         return f"{repr_[:-1]}{input_}{output}>"
 
     def _apply_activation(self) -> None:
-        if (active_bus := self._artifacts.control_busses.get(Names.ACTIVE)) is None:
+        if (active_bus := self._artifacts.control_buses.get(Names.ACTIVE)) is None:
             return
         active_bus.set(float(self._is_active))
 
@@ -490,7 +490,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
                 synthdef=meters_synthdef,
             ),
         ]
-        busses: list[Spec] = [
+        buses: list[Spec] = [
             BusSpec(
                 calculation_rate=CalculationRate.AUDIO,
                 channel_count=self.effective_channel_count,
@@ -779,7 +779,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
                     synthdef=feedback_patch_cable_synthdef,
                 )
             )
-            busses.append(
+            buses.append(
                 BusSpec(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=self.effective_channel_count,
@@ -813,7 +813,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
                     target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
                 )
             )
-        return synthdefs + busses + groups + synths
+        return synthdefs + buses + groups + synths
 
     def _set_muted(self, *, muted: bool) -> None:
         self._is_muted = bool(muted)
@@ -1006,7 +1006,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
         elif not self.context._shared_memory:
             raise RuntimeError
         return self.context._shared_memory[
-            self._artifacts.control_busses[Names.INPUT_LEVELS]
+            self._artifacts.control_buses[Names.INPUT_LEVELS]
         ]
 
     @property
@@ -1050,7 +1050,7 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
         elif not self.context._shared_memory:
             raise RuntimeError
         return self.context._shared_memory[
-            self._artifacts.control_busses[Names.OUTPUT_LEVELS]
+            self._artifacts.control_buses[Names.OUTPUT_LEVELS]
         ]
 
     @property

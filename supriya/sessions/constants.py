@@ -25,10 +25,10 @@ class Names(StrEnum):
     """
 
     ACTIVE = "active"
-    AUDIO_BUSSES = "audio-busses"
+    AUDIO_BUSSES = "audio-buses"
     BUFFERS = "buffers"
     CHANNEL_STRIP = "channel-strip"
-    CONTROL_BUSSES = "control-busses"
+    CONTROL_BUSSES = "control-buses"
     DEVICES = "devices"
     FEEDBACK = "feedback"
     GAIN = "gain"

@@ -286,7 +286,7 @@ class Mixer(
         elif not self.context._shared_memory:
             raise RuntimeError
         return self.context._shared_memory[
-            self._artifacts.control_busses[Names.INPUT_LEVELS]
+            self._artifacts.control_buses[Names.INPUT_LEVELS]
         ]
 
     @property
@@ -302,5 +302,5 @@ class Mixer(
         elif not self.context._shared_memory:
             raise RuntimeError
         return self.context._shared_memory[
-            self._artifacts.control_busses[Names.OUTPUT_LEVELS]
+            self._artifacts.control_buses[Names.OUTPUT_LEVELS]
         ]

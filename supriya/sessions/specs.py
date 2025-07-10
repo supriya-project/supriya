@@ -19,9 +19,9 @@ class Artifacts:
     Utility for associating context entities with addresses.
     """
 
-    audio_busses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
+    audio_buses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
     buffers: dict[Address, Buffer] = dataclasses.field(default_factory=dict)
-    control_busses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
+    control_buses: dict[Address, BusGroup] = dataclasses.field(default_factory=dict)
     nodes: dict[Address, Node] = dataclasses.field(default_factory=dict)
     synthdefs: dict[Address, SynthDef] = dataclasses.field(default_factory=dict)
     hashes: dict[Address, int] = dataclasses.field(default_factory=dict)
@@ -30,9 +30,9 @@ class Artifacts:
         """
         Clear the artifacts.
         """
-        self.audio_busses.clear()
+        self.audio_buses.clear()
         self.buffers.clear()
-        self.control_busses.clear()
+        self.control_buses.clear()
         self.nodes.clear()
         self.synthdefs.clear()
         self.hashes.clear()
@@ -41,9 +41,9 @@ class Artifacts:
         """
         Merge ``other`` artifacts in this one, overriding any existing addresses.
         """
-        self.audio_busses.update(other.audio_busses)
+        self.audio_buses.update(other.audio_buses)
         self.buffers.update(other.buffers)
-        self.control_busses.update(other.control_busses)
+        self.control_buses.update(other.control_buses)
         self.nodes.update(other.nodes)
         self.synthdefs.update(other.synthdefs)
         self.hashes.update(other.hashes)
@@ -143,10 +143,10 @@ class Spec:
         old_artifacts: Artifacts,
     ) -> BusGroup:
         return ChainMap(
-            new_artifacts.audio_busses,
-            new_artifacts.control_busses,
-            old_artifacts.audio_busses,
-            old_artifacts.control_busses,
+            new_artifacts.audio_buses,
+            new_artifacts.control_buses,
+            old_artifacts.audio_buses,
+            old_artifacts.control_buses,
         )[address]
 
     def resolve_kwargs(
@@ -298,16 +298,16 @@ class BusSpec(Spec):
                 calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
-            new_artifacts.audio_busses[self.address] = bus_group
-            self.component._artifacts.audio_busses[self.name] = bus_group
+            new_artifacts.audio_buses[self.address] = bus_group
+            self.component._artifacts.audio_buses[self.name] = bus_group
         elif self.calculation_rate == CalculationRate.CONTROL:
             bus_group = self.context.add_bus_group(
                 calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
             bus_group.set(self.default)
-            new_artifacts.control_busses[self.address] = bus_group
-            self.component._artifacts.control_busses[self.name] = bus_group
+            new_artifacts.control_buses[self.address] = bus_group
+            self.component._artifacts.control_buses[self.name] = bus_group
         else:
             raise ValueError
         self.component._artifacts.hashes[self.address] = hash(self)
@@ -319,15 +319,15 @@ class BusSpec(Spec):
     ) -> None:
         hashes = self.component._artifacts.hashes
         if self.calculation_rate == CalculationRate.AUDIO:
-            busses = self.component._artifacts.audio_busses
-            old_busses = old_artifacts.audio_busses
+            buses = self.component._artifacts.audio_buses
+            old_buses = old_artifacts.audio_buses
         elif self.calculation_rate == CalculationRate.CONTROL:
-            busses = self.component._artifacts.control_busses
-            old_busses = old_artifacts.control_busses
+            buses = self.component._artifacts.control_buses
+            old_buses = old_artifacts.control_buses
         if hashes[self.address] == hash(self):
-            busses.pop(self.name)
+            buses.pop(self.name)
             hashes.pop(self.address)
-        old_busses.pop(self.address).free()
+        old_buses.pop(self.address).free()
 
     def mutate(
         self,
@@ -814,7 +814,7 @@ class SpecChange:
         ) -> list[SpecChangeGroup]:
             spec_change_groups: list[SpecChangeGroup] = []
             buffers: dict[Component, list[SpecChange]] = {}
-            busses: dict[Component, list[SpecChange]] = {}
+            buses: dict[Component, list[SpecChange]] = {}
             synthdefs: list[SpecChange] = []
             ordered_nodes: dict[Address, SpecChange] = {}
             unordered_nodes: deque[tuple[SpecChange, set[Address]]] = deque()
@@ -824,7 +824,7 @@ class SpecChange:
                 if isinstance(spec, BufferSpec):
                     buffers.setdefault(spec.component, []).append(spec_change)
                 elif isinstance(spec, BusSpec):
-                    busses.setdefault(spec.component, []).append(spec_change)
+                    buses.setdefault(spec.component, []).append(spec_change)
                 elif isinstance(spec, SynthDefSpec):
                     synthdefs.append(spec_change)
                 elif isinstance(spec, NodeSpec):
@@ -860,7 +860,7 @@ class SpecChange:
                         sync=True,
                     )
                 )
-            for group in busses.values():
+            for group in buses.values():
                 spec_change_groups.append(
                     SpecChangeGroup(
                         group=True,
