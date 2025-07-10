@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.sessions import Device, DeviceContainer
+from supriya.sessions import Device, DeviceContainer, TestDevice
 
 from .conftest import does_not_raise, run_test
 
@@ -12,7 +12,11 @@ from .conftest import does_not_raise, run_test
         (
             [
                 (None, "add_mixer", {"name": "Mixer"}),
-                ("mixers[0]", "add_device", {"device_class": Device, "name": "Self"}),
+                (
+                    "mixers[0]",
+                    "add_device",
+                    {"device_class": TestDevice, "name": "Self"},
+                ),
             ],
             "mixers[0].devices[0]",
             """
@@ -22,7 +26,7 @@ from .conftest import does_not_raise, run_test
              <Session 0>
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
-            -            <Device 2 'Self'>
+            -            <TestDevice 2 'Self'>
             """,
             """
             --- initial
@@ -83,7 +87,11 @@ async def test_Device_delete(
             [
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
-                ("mixers[0]", "add_device", {"device_class": Device, "name": "Self"}),
+                (
+                    "mixers[0]",
+                    "add_device",
+                    {"device_class": TestDevice, "name": "Self"},
+                ),
             ],
             "mixers[0].devices[0]",
             "mixers[1]",
@@ -100,7 +108,11 @@ async def test_Device_delete(
             [
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
-                ("mixers[0]", "add_device", {"device_class": Device, "name": "Self"}),
+                (
+                    "mixers[0]",
+                    "add_device",
+                    {"device_class": TestDevice, "name": "Self"},
+                ),
             ],
             "mixers[0].devices[0]",
             "mixers[0].tracks[0]",
@@ -114,8 +126,8 @@ async def test_Device_delete(
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
                          <Track 2 'Track'>
-            -            <Device 3 'Self'>
-            +                <Device 3 'Self'>
+            -            <TestDevice 3 'Self'>
+            +                <TestDevice 3 'Self'>
             """,
             """
             --- initial
@@ -157,9 +169,13 @@ async def test_Device_delete(
                 (
                     "mixers[0]",
                     "add_device",
-                    {"device_class": Device, "name": "Older Sibling"},
+                    {"device_class": TestDevice, "name": "Older Sibling"},
                 ),
-                ("mixers[0]", "add_device", {"device_class": Device, "name": "Self"}),
+                (
+                    "mixers[0]",
+                    "add_device",
+                    {"device_class": TestDevice, "name": "Self"},
+                ),
             ],
             "mixers[0].devices[1]",
             "mixers[0]",
@@ -173,9 +189,9 @@ async def test_Device_delete(
              <Session 0>
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
-            +            <Device 3 'Self'>
-                         <Device 2 'Older Sibling'>
-            -            <Device 3 'Self'>
+            +            <TestDevice 3 'Self'>
+                         <TestDevice 2 'Older Sibling'>
+            -            <TestDevice 3 'Self'>
             """,
             """
             --- initial
@@ -205,11 +221,15 @@ async def test_Device_delete(
         (
             [
                 (None, "add_mixer", {"name": "Mixer"}),
-                ("mixers[0]", "add_device", {"device_class": Device, "name": "Self"}),
                 (
                     "mixers[0]",
                     "add_device",
-                    {"device_class": Device, "name": "Younger Sibling"},
+                    {"device_class": TestDevice, "name": "Self"},
+                ),
+                (
+                    "mixers[0]",
+                    "add_device",
+                    {"device_class": TestDevice, "name": "Younger Sibling"},
                 ),
             ],
             "mixers[0].devices[0]",
@@ -224,9 +244,9 @@ async def test_Device_delete(
              <Session 0>
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
-            +            <Device 3 'Younger Sibling'>
-                         <Device 2 'Self'>
-            -            <Device 3 'Younger Sibling'>
+            +            <TestDevice 3 'Younger Sibling'>
+                         <TestDevice 2 'Self'>
+            -            <TestDevice 3 'Younger Sibling'>
             """,
             """
             --- initial

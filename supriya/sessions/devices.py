@@ -2,10 +2,17 @@ from typing import Type
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, DoneAction
+from ..ugens import (
+    DC,
+    Linen,
+    Out,
+    SynthDef,
+    SynthDefBuilder,
+    system,
+)
 from .components import C, Component
-from .constants import Address, Names
+from .constants import Address, ChannelCount, Names
 from .specs import GroupSpec, Spec, SynthDefSpec, SynthSpec
-from .synthdefs import build_device_dc_tester
 
 
 class DeviceContainer(Component[C]):
@@ -103,12 +110,63 @@ class Device(Component[DeviceContainer]):
         self._parent = parent
         parent._devices.insert(index, self)
 
+    async def delete(self) -> None:
+        """
+        Delete the device.
+        """
+        async with self._lock:
+            await Component._reconcile(
+                context=None,
+                deleting_components=[self],
+                reconciling_components=[self],
+                session=self.session,
+            )
+
+    async def move(self, parent: DeviceContainer, index: int) -> None:
+        """
+        Move the device to another device container and/or index in a device
+        container.
+        """
+        async with self._lock:
+            self._move(parent=parent, index=index)
+            await Component._reconcile(
+                context=self.context,
+                reconciling_components=[self],
+                session=self.session,
+            )
+
+
+class TestDevice(Device):
+    def _build_synthdef(self, channel_count: ChannelCount = 2) -> SynthDef:
+        with SynthDefBuilder(
+            active=1,
+            dc=1,
+            done_action=DoneAction.FREE_SYNTH,
+            gate=1,
+            out=0,
+        ) as builder:
+            active_gate = Linen.kr(
+                attack_time=system.LAG_TIME,
+                gate=builder["active"],
+                release_time=system.LAG_TIME,
+            )
+            free_gate = Linen.kr(
+                attack_time=system.LAG_TIME,
+                done_action=builder["done_action"],
+                gate=builder["gate"],
+                release_time=system.LAG_TIME,
+            )
+            source = DC.ar(source=builder["dc"])
+            source *= active_gate * free_gate
+            Out.ar(bus=builder["out"], source=[source] * channel_count)
+        return builder.build(f"supriya:device-dc-tester:{channel_count}")
+
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         if not self.parent:
             raise RuntimeError
         if not context:
             return []
-        synthdef = build_device_dc_tester(self.effective_channel_count)
+        synthdef = self._build_synthdef(self.effective_channel_count)
         device_index: int = self.parent.devices.index(self)
         if device_index:
             group_add_action: AddAction = AddAction.ADD_AFTER
@@ -160,28 +218,3 @@ class Device(Component[DeviceContainer]):
                 target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
             ),
         ]
-
-    async def delete(self) -> None:
-        """
-        Delete the device.
-        """
-        async with self._lock:
-            await Component._reconcile(
-                context=None,
-                deleting_components=[self],
-                reconciling_components=[self],
-                session=self.session,
-            )
-
-    async def move(self, parent: DeviceContainer, index: int) -> None:
-        """
-        Move the device to another device container and/or index in a device
-        container.
-        """
-        async with self._lock:
-            self._move(parent=parent, index=index)
-            await Component._reconcile(
-                context=self.context,
-                reconciling_components=[self],
-                session=self.session,
-            )

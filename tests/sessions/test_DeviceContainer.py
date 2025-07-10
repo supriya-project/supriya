@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.sessions import Device, DeviceContainer
+from supriya.sessions import DeviceContainer, TestDevice
 
 from .conftest import run_test
 
@@ -22,7 +22,7 @@ from .conftest import run_test
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
                          <Track 2 'Track'>
-            +            <Device 3>
+            +            <TestDevice 3>
             """,
             """
             --- initial
@@ -57,7 +57,7 @@ from .conftest import run_test
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
                          <Track 2 'Track'>
-            +                <Device 3>
+            +                <TestDevice 3>
             """,
             """
             --- initial
@@ -99,8 +99,8 @@ async def test_Track_add_device(
     ) as session:
         target_ = session[target]
         assert isinstance(target_, DeviceContainer)
-        device = await target_.add_device(Device)
-    assert isinstance(device, Device)
+        device = await target_.add_device(TestDevice)
+    assert isinstance(device, TestDevice)
     assert device in target_.devices
     assert device.parent is target_
     assert target_.devices[0] is device
