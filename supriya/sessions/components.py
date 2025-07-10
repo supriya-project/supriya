@@ -137,6 +137,7 @@ class Component(Generic[C]):
         reconciling_components: list["Component"],
         session: Optional["Session"],
     ) -> None:
+        print("RECONCILING")
         start_time = time.time()
         # validate session
         if session is None:
@@ -207,9 +208,12 @@ class Component(Generic[C]):
                     destroy_reconciliation=Reconciliation.DESTROY_SHALLOW,
                 ),
             )
+
+        print(f"    GATHERED SPECS IN {round(time.time() - start_time, 6)} SECONDS")
         # sort and apply spec changes
         sorted_spec_changes = SpecChange.sort(spec_changes)
         roots = [*reconciling_components, *deleted_components]
+        synced: bool = False
         for context_, spec_change_groups in sorted_spec_changes.items():
             for spec_change_group in spec_change_groups:
                 spec_change_group.apply(
@@ -221,6 +225,7 @@ class Component(Generic[C]):
                 )
                 if spec_change_group.sync:
                     await context_.sync()
+                    synced = True
         # merge artifacts
         for context_ in set(old_context_artifacts) | set(new_context_artifacts):
             old_context_artifacts[context_].merge(new_context_artifacts[context_])
@@ -229,10 +234,11 @@ class Component(Generic[C]):
             deleted_components, key=lambda x: x.graph_order, reverse=True
         ):
             component._delete()
-        # update track activation
+        # update track activation, post deletion, as soloed tracks may have been deleted
         session._update_track_activation()
-        stop_time = time.time()
-        print(f"RECONCILED IN {stop_time - start_time} seconds")
+        print(
+            f"    RECONCILED IN {round(time.time() - start_time, 6)} SECONDS WITH {synced=}"
+        )
 
     def _reconcile_connections(
         self,
