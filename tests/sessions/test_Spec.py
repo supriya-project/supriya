@@ -1,6 +1,6 @@
 import pytest
 
-from supriya.sessions import Session, Component
+from supriya.sessions import Component, Session
 from supriya.sessions.specs import Spec
 
 
