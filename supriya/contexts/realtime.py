@@ -790,7 +790,9 @@ class Server(BaseServer):
         self._add_requests(request)
         return None
 
-    def get_bus(self, bus: Bus, sync: bool = True) -> float | None:
+    def get_bus(
+        self, bus: Bus, sync: bool = True, use_shared_memory: bool = False
+    ) -> float | None:
         """
         Get a control bus value.
 
@@ -799,11 +801,14 @@ class Server(BaseServer):
         :param bus: The control bus whose value to get.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
+        :param use_shared_memory: If true and ``sync=True``, use the shared memory interface.
         """
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        request = GetControlBus(bus_ids=[bus.id_])
+        request = GetControlBus(bus_ids=[int(bus)])
         if sync:
+            if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+                return shared_memory[int(bus)]
             return cast(GetControlBusInfo, request.communicate(server=self)).items[0][
                 -1
             ]
@@ -811,7 +816,7 @@ class Server(BaseServer):
         return None
 
     def get_bus_range(
-        self, bus: Bus, count: int, sync: bool = True
+        self, bus: Bus, count: int, sync: bool = True, use_shared_memory: bool = False
     ) -> Sequence[float] | None:
         """
         Get a range of control bus values.
@@ -822,11 +827,14 @@ class Server(BaseServer):
         :param count: The number of contiguous buses whose values to get.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
+        :param use_shared_memory: If true and ``sync=True``, use the shared memory interface.
         """
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        request = GetControlBusRange(items=[(bus.id_, count)])
+        request = GetControlBusRange(items=[(int(bus), count)])
         if sync:
+            if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+                return shared_memory[int(bus) : int(bus) + count]
             return cast(GetControlBusRangeInfo, request.communicate(server=self)).items[
                 0
             ][-1]
@@ -1405,7 +1413,9 @@ class AsyncServer(BaseServer):
         self._add_requests(request)
         return None
 
-    async def get_bus(self, bus: Bus, sync: bool = True) -> float | None:
+    async def get_bus(
+        self, bus: Bus, sync: bool = True, use_shared_memory: bool = False
+    ) -> float | None:
         """
         Get a control bus value.
 
@@ -1414,11 +1424,14 @@ class AsyncServer(BaseServer):
         :param bus: The control bus whose value to get.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
+        :param use_shared_memory: If true and ``sync=True``, use the shared memory interface.
         """
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        request = GetControlBus(bus_ids=[bus.id_])
+        request = GetControlBus(bus_ids=[int(bus)])
         if sync:
+            if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+                return shared_memory[int(bus)]
             return cast(
                 GetControlBusInfo, await request.communicate_async(server=self)
             ).items[0][-1]
@@ -1426,7 +1439,7 @@ class AsyncServer(BaseServer):
         return None
 
     async def get_bus_range(
-        self, bus: Bus, count: int, sync: bool = True
+        self, bus: Bus, count: int, sync: bool = True, use_shared_memory: bool = False
     ) -> Sequence[float] | None:
         """
         Get a range of control bus values.
@@ -1437,11 +1450,14 @@ class AsyncServer(BaseServer):
         :param count: The number of contiguous buses whose values to get.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
+        :param use_shared_memory: If true and ``sync=True``, use the shared memory interface.
         """
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        request = GetControlBusRange(items=[(bus.id_, count)])
+        request = GetControlBusRange(items=[(int(bus), count)])
         if sync:
+            if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+                return shared_memory[int(bus) : int(bus) + count]
             return cast(
                 GetControlBusRangeInfo, await request.communicate_async(server=self)
             ).items[0][-1]

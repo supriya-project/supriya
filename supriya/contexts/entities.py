@@ -468,7 +468,7 @@ class Bus(ContextObject):
 
     calculation_rate: CalculationRate
 
-    def fill(self, count: int, value: float) -> None:
+    def fill(self, count: int, value: float, use_shared_memory: bool = False) -> None:
         """
         Fill contiguous buses with a single value, starting with this bus.
 
@@ -476,8 +476,12 @@ class Bus(ContextObject):
 
         :param count: The number of buses to fill.
         :param value: The value to fill with.
+        :param use_shared_memory: If true, use the shared memory interface.
+            Skips bundling the request in any open moment.
         """
-        self.context.fill_bus_range(self, count, value)
+        self.context.fill_bus_range(
+            self, count, value, use_shared_memory=use_shared_memory
+        )
 
     def free(self) -> None:
         """
@@ -487,7 +491,9 @@ class Bus(ContextObject):
         """
         self.context.free_bus(self)
 
-    def get(self, sync: bool = True) -> Awaitable[float | None] | float | None:
+    def get(
+        self, sync: bool = True, use_shared_memory: bool = False
+    ) -> Awaitable[float | None] | float | None:
         """
         Get the control bus' value.
 
@@ -495,15 +501,18 @@ class Bus(ContextObject):
 
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
+        :param use_shared_memory: If true and ``sync=True``, use the shared memory interface.
         """
         from .realtime import AsyncServer, Server
 
         if not isinstance(self.context, (AsyncServer, Server)):
             raise ContextError
-        return self.context.get_bus(self, sync=sync)
+        return self.context.get_bus(
+            self, sync=sync, use_shared_memory=use_shared_memory
+        )
 
     def get_range(
-        self, count: int, sync: bool = True
+        self, count: int, sync: bool = True, use_shared_memory: bool = False
     ) -> Awaitable[Sequence[float] | None] | Sequence[float] | None:
         """
         Get a range of control bus values.
@@ -513,12 +522,15 @@ class Bus(ContextObject):
         :param count: The number of contiguous buses whose values to get.
         :param sync: If true, communicate the request immediately. Otherwise bundle it
             with the current request context.
+        :param use_shared_memory: If true and ``sync=True``, use the shared memory interface.
         """
         from .realtime import AsyncServer, Server
 
         if not isinstance(self.context, (AsyncServer, Server)):
             raise ContextError
-        return self.context.get_bus_range(self, count, sync=sync)
+        return self.context.get_bus_range(
+            self, count, sync=sync, use_shared_memory=use_shared_memory
+        )
 
     def map_symbol(self) -> str:
         """
@@ -530,25 +542,31 @@ class Bus(ContextObject):
             return f"c{self.id_}"
         raise InvalidCalculationRate
 
-    def set(self, value: float) -> None:
+    def set(self, value: float, use_shared_memory: bool = False) -> None:
         """
         Set the control bus's value.
 
         Emit ``/c_set`` requests.
 
         :param value: The value to set the control bus to.
+        :param use_shared_memory: If true, use the shared memory interface.
+            Skips bundling the request in any open moment.
         """
-        self.context.set_bus(self, value)
+        self.context.set_bus(self, value, use_shared_memory=use_shared_memory)
 
-    def set_range(self, values: Sequence[float]) -> None:
+    def set_range(
+        self, values: Sequence[float], use_shared_memory: bool = False
+    ) -> None:
         """
         Set a range of control buses.
 
         Emit ``/c_setn`` requests.
 
         :param values: The values to write.
+        :param use_shared_memory: If true, use the shared memory interface.
+            Skips bundling the request in any open moment.
         """
-        self.context.set_bus_range(self, values)
+        self.context.set_bus_range(self, values, use_shared_memory=use_shared_memory)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -602,7 +620,7 @@ class BusGroup(ContextObject):
         self.context.free_bus_group(self)
 
     def get(
-        self, sync: bool = True
+        self, sync: bool = True, use_shared_memory: bool = False
     ) -> Awaitable[Sequence[float] | None] | Sequence[float] | None:
         """
         Get the control bus group's values.
@@ -616,7 +634,9 @@ class BusGroup(ContextObject):
 
         if not isinstance(self.context, (AsyncServer, Server)):
             raise ContextError
-        return self.context.get_bus_range(bus=self[0], count=len(self), sync=sync)
+        return self.context.get_bus_range(
+            bus=self[0], count=len(self), sync=sync, use_shared_memory=use_shared_memory
+        )
 
     def map_symbol(self) -> str:
         """
@@ -628,21 +648,34 @@ class BusGroup(ContextObject):
             return f"c{self.id_}"
         raise InvalidCalculationRate
 
-    def set(self, values: float | Sequence[float]) -> None:
+    def set(
+        self, values: float | Sequence[float], use_shared_memory: bool = False
+    ) -> None:
         """
         Set a range of control buses.
 
         Emit ``/c_setn`` or ``/c_fill`` requests.
 
         :param values: The values to write. If a float is passed, use that as a fill.
+        :param use_shared_memory: If true, use the shared memory interface.
+            Skips bundling the request in any open moment.
         """
         if isinstance(values, float):
             if len(self) == 1:
-                self.context.set_bus(bus=self[0], value=values)
+                self.context.set_bus(
+                    bus=self[0], value=values, use_shared_memory=use_shared_memory
+                )
             else:
-                self.context.fill_bus_range(bus=self[0], count=len(self), value=values)
+                self.context.fill_bus_range(
+                    bus=self[0],
+                    count=len(self),
+                    value=values,
+                    use_shared_memory=use_shared_memory,
+                )
         else:
-            self.context.set_bus_range(bus=self[0], values=values)
+            self.context.set_bus_range(
+                bus=self[0], values=values, use_shared_memory=use_shared_memory
+            )
 
 
 @dataclasses.dataclass(frozen=True)
