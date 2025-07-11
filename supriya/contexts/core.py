@@ -780,7 +780,9 @@ class Context(metaclass=abc.ABCMeta):
         )
         self._add_requests(request)
 
-    def fill_bus_range(self, bus: Bus, count: int, value: float) -> None:
+    def fill_bus_range(
+        self, bus: Bus, count: int, value: float, use_shared_memory: bool = False
+    ) -> None:
         """
         Fill a contiguous range of buses with a single value.
 
@@ -788,11 +790,16 @@ class Context(metaclass=abc.ABCMeta):
 
         :param count: The number of buses to fill.
         :param value: The value to fill with.
+        :param use_shared_memory: If true, use the shared memory interface.
+            Skip bundling the request in any open moment.
         """
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        request = FillControlBusRange(items=[(bus.id_, count, value)])
+        if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+            shared_memory[int(bus) : int(bus) + count] = [value] * count
+            return
+        request = FillControlBusRange(items=[(int(bus), count, value)])
         self._add_requests(request)
 
     def free_buffer(
@@ -1232,7 +1239,7 @@ class Context(metaclass=abc.ABCMeta):
         request = SetBufferRange(buffer_id=buffer, items=[(index, values)])
         self._add_requests(request)
 
-    def set_bus(self, bus: Bus, value: float) -> None:
+    def set_bus(self, bus: Bus, value: float, use_shared_memory: bool = False) -> None:
         """
         set a control bus to a value.
 
@@ -1240,14 +1247,21 @@ class Context(metaclass=abc.ABCMeta):
 
         :param bus: The control bus to set.
         :param value: The value to set the control bus to.
+        :param use_shared_memory: If true, use the shared memory interface.
+            Skip bundling the request in any open moment.
         """
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        request = SetControlBus(items=[(bus.id_, value)])
+        if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+            shared_memory[int(bus)] = value
+            return
+        request = SetControlBus(items=[(int(bus), value)])
         self._add_requests(request)
 
-    def set_bus_range(self, bus: Bus, values: Sequence[float]) -> None:
+    def set_bus_range(
+        self, bus: Bus, values: Sequence[float], use_shared_memory: bool = False
+    ) -> None:
         """
         set a range of control buses.
 
@@ -1255,11 +1269,16 @@ class Context(metaclass=abc.ABCMeta):
 
         :param bus: The bus to start writing at.
         :param values: The values to write.
+        :param use_shared_memory: If true, use the shared memory interface.
+            Skip bundling the request in any open moment.
         """
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        request = SetControlBusRange(items=[(bus.id_, values)])
+        if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+            shared_memory[int(bus) : int(bus) + len(values)] = values
+            return
+        request = SetControlBusRange(items=[(int(bus), values)])
         self._add_requests(request)
 
     def set_node(
