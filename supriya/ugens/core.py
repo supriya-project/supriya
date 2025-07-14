@@ -5763,8 +5763,11 @@ class SynthDefBuilder:
     def __exit__(self, exc_type, exc_value, traceback):
         self._active_builders.pop()
 
-    def __getitem__(self, item: str) -> Parameter:
-        return self._parameters[item]
+    def __getitem__(self, item: str) -> OutputProxy | Parameter:
+        parameter = self._parameters[item]
+        if len(parameter) == 1:
+            return parameter[0]
+        return parameter
 
     def _add_ugen(self, ugen: UGen):
         if ugen._uuid != self._uuid:
@@ -5979,7 +5982,7 @@ class SynthDefBuilder:
         value: float | Sequence[float],
         rate: ParameterRateLike | None = ParameterRate.CONTROL,
         lag: float | None = None,
-    ) -> Parameter:
+    ) -> OutputProxy | Parameter:
         if name in self._parameters:
             raise ValueError(name, value)
         with self:
@@ -5987,6 +5990,8 @@ class SynthDefBuilder:
                 lag=lag, name=name, rate=ParameterRate.from_expr(rate), value=value
             )
         self._parameters[name] = parameter
+        if len(parameter) == 1:
+            return parameter[0]
         return parameter
 
     def build(self, name: str | None = None, optimize: bool = True) -> SynthDef:

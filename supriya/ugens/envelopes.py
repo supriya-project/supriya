@@ -2,8 +2,8 @@ import math
 from typing import TYPE_CHECKING, Sequence
 
 from .. import utils
-from ..enums import DoneAction, EnvelopeShape
-from .core import Parameter, UGen, UGenOperable, UGenVector, param, ugen
+from ..enums import EnvelopeShape
+from .core import UGen, UGenOperable, UGenVector, param, ugen
 
 if TYPE_CHECKING:
     import numpy
@@ -427,8 +427,6 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
     ):
-        if not isinstance(done_action, Parameter):
-            done_action = DoneAction.from_expr(done_action)
         return super(EnvGen, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
