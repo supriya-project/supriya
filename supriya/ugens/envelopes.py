@@ -1,9 +1,10 @@
 import math
-from typing import TYPE_CHECKING, Sequence
+from typing import TYPE_CHECKING, Sequence, SupportsFloat, cast
 
 from .. import utils
-from ..enums import DoneAction, EnvelopeShape
-from .core import Parameter, UGen, UGenOperable, UGenVector, param, ugen
+from ..enums import EnvelopeShape
+from ..utils import expand_deep
+from .core import OutputProxy, UGen, UGenOperable, UGenVector, param, ugen
 
 if TYPE_CHECKING:
     import numpy
@@ -47,23 +48,29 @@ class Envelope:
         self._release_node = release_node
         self._loop_node = loop_node
         self._offset = offset
-        self._initial_amplitude: UGenOperable | float = (
+        self._initial_amplitude: UGenOperable | float = self._flatten(
             float(amplitudes[0])
             if not isinstance(amplitudes[0], UGenOperable)
             else amplitudes[0]
         )
         self._amplitudes: tuple[UGenOperable | float, ...] = tuple(
-            float(amplitude) if not isinstance(amplitude, UGenOperable) else amplitude
+            self._flatten(
+                float(amplitude)
+                if not isinstance(amplitude, UGenOperable)
+                else amplitude
+            )
             for amplitude in amplitudes[1:]
         )
         self._durations: tuple[UGenOperable | float, ...] = tuple(
-            float(duration) if not isinstance(duration, UGenOperable) else duration
+            self._flatten(
+                float(duration) if not isinstance(duration, UGenOperable) else duration
+            )
             for duration in durations
         )
         curves_: list[EnvelopeShape | UGenOperable | float] = []
         for x in curves:
             if isinstance(x, (EnvelopeShape, UGenOperable)):
-                curves_.append(x)
+                curves_.append(self._flatten(x))
             elif isinstance(x, str) or x is None:
                 curves_.append(EnvelopeShape.from_expr(x))
             else:
@@ -81,6 +88,16 @@ class Envelope:
             raise ValueError(duration)
         array = self.to_array(length=int(44100 * duration))
         return numpy.array([array, [0.0] * len(array)]), 44100.0
+
+    @staticmethod
+    def _flatten(item: UGenOperable | float) -> UGenOperable | float:
+        if isinstance(item, (float, int)):
+            return item
+        elif isinstance(item, OutputProxy):
+            return item
+        elif isinstance(item, UGen) and len(item) == 1:
+            return item[0]
+        return item
 
     @classmethod
     def adsr(
@@ -270,7 +287,13 @@ class Envelope:
                 shape = int(EnvelopeShape.CUSTOM)
             result.append(shape)
             result.append(curve)
-        return UGenVector(*result)
+        expanded = [
+            UGenVector(*cast(Sequence[SupportsFloat | UGenOperable], x))
+            for x in expand_deep(result)  # type: ignore
+        ]
+        if len(expanded) == 1:
+            return expanded[0]
+        return UGenVector(*expanded)
 
     def serialize_interpolated(self) -> UGenVector:
         result: list[UGenOperable | float] = []
@@ -288,7 +311,13 @@ class Envelope:
             result.append(shape)
             result.append(curve)
             result.append(amplitude)
-        return UGenVector(*result)
+        expanded = [
+            UGenVector(*cast(Sequence[SupportsFloat | UGenOperable], x))
+            for x in expand_deep(result)  # type: ignore
+        ]
+        if len(expanded) == 1:
+            return expanded[0]
+        return UGenVector(*expanded)
 
     def to_array(self, length: int = 1024) -> list[float]:
         """
@@ -427,12 +456,10 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
     ):
-        if not isinstance(done_action, Parameter):
-            done_action = DoneAction.from_expr(done_action)
         return super(EnvGen, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
-            envelope=(envelope or Envelope()).serialize(),
+            envelope=envelope,
             gate=gate,
             level_bias=level_bias,
             level_scale=level_scale,

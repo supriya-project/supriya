@@ -11,6 +11,7 @@ from typing import (
 
 T = TypeVar("T")
 IT = Iterable[Union[T, "IT"]]
+ST = list[Union[T, "ST"]]
 
 
 class Expander(Generic[T]):
@@ -51,6 +52,35 @@ def expand(
     only: Iterable[str] | None = None,
 ) -> list[dict[str, Union[T, Sequence[T]]]]:
     return Expander[T]()(mapping, unexpanded, only)
+
+
+def expand_deep(item: list[ST]) -> list[list[ST]]:
+    size = 1
+    for x in item:
+        if isinstance(x, Sequence):
+            size = max(len(x), size)
+    should_recurse = False
+    sequences: list[list[ST]] = [[] for _ in range(size)]
+    assert len(sequences) == size
+    for x in item:
+        for i in range(size):
+            v: ST
+            if isinstance(x, Sequence):
+                v = x[i % len(x)]
+                if isinstance(v, Sequence):
+                    if len(v) > 1:
+                        should_recurse = True
+                    else:
+                        v = v[0]
+            else:
+                v = x
+            sequences[i].append(v)
+    if should_recurse:
+        for j in reversed(range(size)):
+            sequences[j : j + 1] = expand_deep(sequences[j])
+    for sequence in sequences:
+        assert all(not isinstance(x, Sequence) for x in sequence)
+    return sequences
 
 
 def flatten(
