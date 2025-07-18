@@ -36,19 +36,6 @@ docstrfmt: ## Reformat via docstrfmt
 docstrfmt-check: ## Check docstring syntax via docstrfmt
 	docstrfmt --check --no-docstring-trailing-line supriya/
 
-gh-pages: docs-clean ## Build and publish documentation to GitHub
-	rm -Rf gh-pages/
-	git clone $(origin) gh-pages/
-	cd gh-pages/ && \
-		git checkout gh-pages || git checkout --orphan gh-pages
-	rsync -rtv --del --exclude=.git docs/build/html/ gh-pages/
-	cd gh-pages && \
-		touch .nojekyll && \
-		git add --all . && \
-		git commit --allow-empty -m "Update docs" && \
-		git push -u origin gh-pages
-	rm -Rf gh-pages/
-
 lint: reformat ruff-lint mypy ## Run all linters
 
 mypy: ## Type-check via mypy

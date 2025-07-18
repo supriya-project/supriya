@@ -429,7 +429,7 @@ async def test_TrackContainer_group(
         with maybe_raises:
             target_ = session[target]
             assert isinstance(target_, TrackContainer)
-            group_track = await target_.group(
+            group_track = await target_.group_tracks(
                 index=index, count=count, name="Group Track"
             )
             raised = False

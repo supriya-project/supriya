@@ -46,7 +46,6 @@ class Session(Component):
         Component.__init__(self, id_=0)
         self._boot_future: asyncio.Future | None = None
         self._channel_count: ChannelCount = 2
-        self._clock = AsyncClock()
         self._context_artifacts: dict[AsyncServer, Artifacts] = {}
         self._contexts: dict[AsyncServer, list[Mixer]] = {}
         self._lock = asyncio.Lock()
@@ -76,7 +75,7 @@ class Session(Component):
         return item
 
     def __repr__(self) -> str:
-        return f"<{type(self).__name__} {self._id}>"
+        return f"<{type(self).__name__} {self._id} {self._status}>"
 
     def _add_context(self, options: Options | None = None) -> AsyncServer:
         context = AsyncServer(options)
@@ -181,7 +180,7 @@ class Session(Component):
             )
             return mixer
 
-    async def boot(self) -> None:
+    async def boot(self) -> "Session":
         """
         Boot the session.
 
@@ -210,6 +209,7 @@ class Session(Component):
                 await self._boot_future
             else:  # NONREALTIME
                 raise Exception(self._status)
+        return self
 
     async def delete_context(self, context: AsyncServer) -> None:
         """
@@ -256,7 +256,7 @@ class Session(Component):
                     parts.append(f"    {line}")
         return "\n".join(parts)
 
-    async def quit(self) -> None:
+    async def quit(self) -> "Session":
         """
         Quit the session.
 
@@ -286,6 +286,7 @@ class Session(Component):
                 return
             else:  # NONREALTIME
                 raise Exception(self._status)
+        return self
 
     async def set_mixer_context(self, mixer: "Mixer", context: AsyncServer) -> None:
         """
