@@ -6,6 +6,7 @@ import supriya
 ### SPHINX ###
 
 extensions = [
+    "sphinx_toolbox.more_autodoc.typevars",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.graphviz",
@@ -53,6 +54,7 @@ todo_include_todos = True
 ### UQBAR API ###
 
 uqbar_api_member_documenter_classes = [
+    "supriya.ext.book.TypeVarDocumenter",
     "uqbar.apis.FunctionDocumenter",
     "uqbar.apis.ImmaterialClassDocumenter",
 ]
