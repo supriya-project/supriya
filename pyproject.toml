@@ -45,6 +45,7 @@ docs = [
   "mypy",
   "soxr",
   "sphinx",
+  "sphinx-copybutton",
   "sphinx-immaterial",
   "sphinxext-opengraph",
   "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
