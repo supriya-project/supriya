@@ -35,6 +35,7 @@ extensions = [
     "sphinx.ext.graphviz",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
+    "sphinx_copybutton",
     "sphinxext.opengraph",
     "uqbar.sphinx.api",
     "uqbar.sphinx.book",

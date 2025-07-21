@@ -46,6 +46,7 @@ docs = [
   "matplotlib",
   "mypy",
   "sphinx",
+  "sphinx-copybutton",
   "sphinx-immaterial",
   "sphinx-toolbox",
   "sphinxext-opengraph",
