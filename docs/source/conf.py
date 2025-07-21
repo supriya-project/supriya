@@ -11,7 +11,6 @@ extensions = [
     "sphinx.ext.graphviz",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
-    # "sphinx.ext.viewcode",
     "sphinxext.opengraph",
     "uqbar.sphinx.api",
     "uqbar.sphinx.book",
@@ -69,12 +68,10 @@ uqbar_book_console_setup = ["import supriya"]
 uqbar_book_console_teardown = """\
 import asyncio
 
-async def shutdown():
-    for server in tuple(supriya.Server._contexts):
-        if asyncio.iscoroutine(result := server._shutdown()):
-            await result
+for server in tuple(supriya.Server._contexts):
+    if asyncio.iscoroutine(result := server._shutdown()):
+        await result
 
-asyncio.run(shutdown())
 """.splitlines()
 uqbar_book_extensions = [
     "uqbar.book.extensions.GraphExtension",
@@ -104,15 +101,8 @@ html_theme_options = {
     "edit_uri": "blob/main/docs",
     "globaltoc_collapse": False,
     "features": [
-        # "header.autohide",
-        # "navigation.expand",
-        # "navigation.instant",
-        # "navigation.sections",
         "navigation.tabs",
         "navigation.top",
-        # "search.highlight",
-        # "search.share",
-        # "toc.integrate",
     ],
     "palette": [
         {
