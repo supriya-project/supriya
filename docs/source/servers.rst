@@ -348,10 +348,6 @@ methods are async as well.
 
 ::
 
-    >>> import asyncio
-
-::
-
     >>> async def main():
     ...     # Instantiate an async server
     ...     print(async_server := supriya.AsyncServer())
@@ -367,7 +363,13 @@ methods are async as well.
 
 ::
 
-    >>> asyncio.run(main())
+    >>> await main()
+
+.. note::
+
+    Supriya's documentation allows top-level ``await`` constructs, but
+    depending on where you're running async code, you may need to wrap it in a
+    call to ``asyncio.run(...)`` or similar.
 
 Use :py:class:`~supriya.contexts.realtime.AsyncServer` with
 :py:class:`~supriya.clocks.asynchronous.AsyncClock` to integrate with
