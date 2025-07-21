@@ -5,12 +5,14 @@ import logging
 import pathlib
 import pickle
 import textwrap
+import typing
 import warnings
 
 import librosa.display
 import matplotlib.axes  # noqa
 import matplotlib.pyplot as plt
 from docutils.nodes import FixedTextElement, General, SkipNode
+from uqbar.apis.documenters import MemberDocumenter
 from uqbar.book.extensions import Extension
 from uqbar.strings import normalize
 
@@ -169,3 +171,16 @@ class PlotExtension(Extension):
         result = PlotExtension.template.format(file_path=relative_file_path)
         self.body.append(result)
         raise SkipNode
+
+
+class TypeVarDocumenter(MemberDocumenter):
+    """
+    A TypeVar documenter.
+    """
+
+    def __str__(self) -> str:
+        return ".. autotypevar:: {}".format(getattr(self.client, "__name__"))
+
+    @classmethod
+    def validate_client(cls, client: object, module_path: str) -> bool:
+        return isinstance(client, typing.TypeVar) and client.__module__ == module_path

@@ -46,6 +46,7 @@ docs = [
   "soxr",
   "sphinx",
   "sphinx-immaterial",
+  "sphinx-toolbox",
   "sphinxext-opengraph",
   "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
   "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
