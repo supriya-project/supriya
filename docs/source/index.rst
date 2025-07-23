@@ -156,6 +156,7 @@ Quit the server::
     tutorials/clocks
     tutorials/patterns
     tutorials/extensions
+    tutorials/sessions
 
 .. toctree::
     :caption: Examples
