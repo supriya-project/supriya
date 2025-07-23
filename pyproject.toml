@@ -45,6 +45,7 @@ docs = [
   "mypy",
   "soxr",
   "sphinx",
+  "sphinx-copybutton",
   "sphinx-immaterial",
   "sphinx-toolbox",
   "sphinxext-opengraph",

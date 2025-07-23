@@ -12,11 +12,12 @@ extensions = [
     "sphinx.ext.graphviz",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
+    "sphinx_copybutton",
+    "sphinx_immaterial",
     "sphinxext.opengraph",
     "uqbar.sphinx.api",
     "uqbar.sphinx.book",
     "uqbar.sphinx.inheritance",
-    "sphinx_immaterial",
 ]
 
 add_module_names = False
