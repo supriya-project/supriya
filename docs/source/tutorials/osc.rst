@@ -1,6 +1,10 @@
 Open Sound Control
 ==================
 
+.. editorial::
+
+    Did I mention that I hate OSC? Oh well!
+
 - what is osc
 - anatomy of an osc message
 

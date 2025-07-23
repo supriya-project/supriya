@@ -4,13 +4,10 @@ import time
 
 import supriya
 
-# A C-major chord
-FREQUENCIES = [261.63, 329.63, 392.00]
 
-
-def play_synths(
-    context: supriya.Context, frequencies: list[float]
-) -> list[supriya.Synth]:
+def play_synths(context: supriya.Context) -> list[supriya.Synth]:
+    # Define a C-major chord in Hertz
+    frequencies = [261.63, 329.63, 392.00]
     # Create an empty list to store synths in:
     synths: list[supriya.Synth] = []
     # Add the default synthdef to the server and open a "completion" context
@@ -38,7 +35,7 @@ def run_threaded() -> None:
     # Start an OSC bundle to run immediately:
     with server.at():
         # Start playing the synths
-        synths = play_synths(context=server, frequencies=FREQUENCIES)
+        synths = play_synths(context=server)
     # Let the notes play for 4 seconds:
     time.sleep(4)
     # Loop over the synths and free them:
@@ -55,7 +52,7 @@ async def run_async() -> None:
     # Start an OSC bundle to run immediately:
     with server.at():
         # Start playing the synths:
-        synths = play_synths(context=server, frequencies=FREQUENCIES)
+        synths = play_synths(context=server)
     # Let the notes play for 4 seconds:
     await asyncio.sleep(4)
     # Loop over the synths and free them:
@@ -72,7 +69,7 @@ def run_nonrealtime() -> None:
     # Start an OSC bundle to run at 0 seconds:
     with score.at(0):
         # Start playing the synths:
-        synths = play_synths(context=score, frequencies=FREQUENCIES)
+        synths = play_synths(context=score)
     # Start an OSC bundle to run at 4 seconds:
     with score.at(4):
         # Loop over the synths and free them:

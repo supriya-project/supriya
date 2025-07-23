@@ -1,0 +1,15 @@
+.. md-tab-set::
+
+    .. md-tab-item:: From PyPI
+
+        .. code-block:: bash
+
+            $ pip install supriya[docs]
+
+    .. md-tab-item:: From source
+
+        .. code-block:: bash
+
+            $ git clone https://github.com/supriya-project/supriya.git 
+            $ cd supriya
+            supriya$ pip install -e .[docs]

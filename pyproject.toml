@@ -24,6 +24,7 @@ classifiers = [
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 dependencies = [
+  "backports.strenum; python_version < '3.11'",
   "platformdirs >= 4.0.0",
   "psutil",
   "uqbar >= 0.9.0",
