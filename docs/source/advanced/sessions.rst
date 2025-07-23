@@ -1,15 +1,17 @@
 :icon: octicons/beaker-16
 
-.. warning::
+Sessions
+========
 
-   Labs feature.
+.. important::
+
+   This is a provisional, *labs* feature.
+
+   Sessions will likely change extensively over the coming months and years.
 
 .. self-criticism::
 
    Under construction.
-
-Sessions
-========
 
 Supriya's Sessions provide higher-level affordances for building DAW-like
 applications, such as mixing boards, trackers, live performance environments,
