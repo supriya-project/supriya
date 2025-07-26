@@ -80,7 +80,7 @@ async def test_dump_tree(context: AsyncServer | Server) -> None:
     # a simple node tree
     with context.osc_protocol.capture() as transcript:
         tree = await get(context.dump_tree())
-    assert str(tree) == normalize(
+    assert normalize(str(tree)) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -94,7 +94,7 @@ async def test_dump_tree(context: AsyncServer | Server) -> None:
         context.add_synth(default, amplitude=0.5, frequency=(i * 11) + 20)
     with context.osc_protocol.capture() as transcript:
         tree = await get(context.dump_tree())
-    assert str(tree) == normalize(
+    assert normalize(str(tree)) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -1126,7 +1126,7 @@ async def test_query_tree(context: AsyncServer | Server) -> None:
     assert transcript.filtered(received=False, status=False) == [
         OscMessage("/g_queryTree", 0, 1)
     ]
-    assert str(tree) == normalize(
+    assert normalize(str(tree)) == normalize(
         """
         NODE TREE 0 group
             1 group

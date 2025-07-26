@@ -365,12 +365,13 @@ class QueryTreeSynth(QueryTreeNode):
     annotation: str | None = None
 
     def __format__(self, format_spec: str) -> str:
-        return "\n".join(
-            self._get_str_format_pieces(unindexed=format_spec == "unindexed")
+        return (
+            "\n".join(self._get_str_format_pieces(unindexed=format_spec == "unindexed"))
+            + "\n"
         )
 
     def __str__(self) -> str:
-        return "\n".join(self._get_str_format_pieces())
+        return "\n".join(self._get_str_format_pieces()) + "\n"
 
     def _get_str_format_pieces(self, unindexed: bool = False) -> list[str]:
         result = []
@@ -392,12 +393,16 @@ class QueryTreeGroup(QueryTreeNode):
     ### SPECIAL METHODS ###
 
     def __format__(self, format_spec: str) -> str:
-        return "NODE TREE " + "\n".join(
-            self._get_str_format_pieces(unindexed=format_spec == "unindexed")
+        return (
+            "NODE TREE "
+            + "\n".join(
+                self._get_str_format_pieces(unindexed=format_spec == "unindexed")
+            )
+            + "\n"
         )
 
     def __str__(self) -> str:
-        return "NODE TREE " + "\n".join(self._get_str_format_pieces())
+        return "NODE TREE " + "\n".join(self._get_str_format_pieces()) + "\n"
 
     ### PRIVATE METHODS ###
 
