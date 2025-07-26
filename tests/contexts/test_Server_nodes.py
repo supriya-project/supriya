@@ -227,7 +227,7 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
     parent = grandparent.add_group()
     grandparent.add_synth(default)
     parent.add_synth(default)
-    assert str(await get(context.query_tree())) == normalize(
+    assert normalize(str(await get(context.query_tree()))) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -245,7 +245,7 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
     assert transcript.filtered(received=False, status=False) == [
         OscMessage("/g_freeAll", 1000)
     ]
-    assert str(await get(context.query_tree())) == normalize(
+    assert normalize(str(await get(context.query_tree()))) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -256,7 +256,7 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
     parent = grandparent.add_group()
     grandparent.add_synth(default)
     parent.add_synth(default)
-    assert str(await get(context.query_tree())) == normalize(
+    assert normalize(str(await get(context.query_tree()))) == normalize(
         """
         NODE TREE 0 group
             1 group
@@ -274,7 +274,7 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
     assert transcript.filtered(received=False, status=False) == [
         OscMessage("/g_deepFree", 1000)
     ]
-    assert str(await get(context.query_tree())) == normalize(
+    assert normalize(str(await get(context.query_tree()))) == normalize(
         """
         NODE TREE 0 group
             1 group

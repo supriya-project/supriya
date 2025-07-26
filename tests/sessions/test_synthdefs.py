@@ -80,7 +80,7 @@ async def test_free_channel_strip(
             group = server.add_group()
             synth = group.add_synth(synthdef=build_channel_strip_synthdef(2))
     await server.sync()
-    initial_tree = str(await server.query_tree())
+    initial_tree = normalize(str(await server.query_tree()))
     with server.at():
         synth.set(done_action=done_action)
         synth.free()
@@ -142,7 +142,7 @@ async def test_free_patch_cable(
             group = server.add_group()
             synth = group.add_synth(synthdef=build_patch_cable_synthdef(2, 2))
     await server.sync()
-    initial_tree = str(await server.query_tree())
+    initial_tree = normalize(str(await server.query_tree()))
     with server.at():
         synth.set(done_action=done_action)
         synth.free()
