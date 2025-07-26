@@ -30,26 +30,13 @@ Quickstart
 1. Get Supriya
 ``````````````
 
-.. md-tab-set::
-
-    .. md-tab-item:: From PyPI
-
-        ::
-
-            pip install supriya
-
-    .. md-tab-item:: From source
-
-        ::
-
-            git clone https://github.com/supriya-project/supriya.git
-            cd supriya
-            pip install -e .
+.. include:: /includes/install.txt
 
 .. note::
 
-    Consult our installation instructions for detailed help on getting Supriya,
-    setting it up, and installing any additional dependencies like `Graphviz`_.
+    Consult our :doc:`installation instructions </introduction/installation>`
+    for detailed help on getting Supriya, setting it up, and installing any
+    additional dependencies like `Graphviz`_.
 
 2. Get SuperCollider
 ````````````````````

@@ -59,12 +59,16 @@ rst_epilog = """
 .. _Python: https://www.python.org/
 .. _Sphinx: https://www.sphinx-doc.org/
 .. _SuperCollider: http://supercollider.github.io/
-.. _Supriya: https://github.com/supriya-project/supriya
 .. _aiohttp: https://docs.aiohttp.org/
+.. _black: https://black.readthedocs.io/en/stable/
+.. _flake8: https://flake8.pycqa.org/en/latest/
+.. _isort: https://pycqa.github.io/isort/
 .. _libsndfile: http://www.mega-nerd.com/libsndfile/
 .. _mypy: https://mypy-lang.org/
 .. _pip: https://pip.pypa.io/en/stable/
 .. _pymonome: https://github.com/artfwo/pymonome
+.. _pytest-asyncio: https://pytest-asyncio.readthedocs.io/en/stable/
+.. _pytest-cov: https://pytest-cov.readthedocs.io/en/latest/
 .. _pytest: https://docs.pytest.org/en/stable/
 .. _python-prompt-toolkit: https://python-prompt-toolkit.readthedocs.io/
 .. _python-rtmidi: https://github.com/SpotlightKid/python-rtmidi
@@ -193,5 +197,10 @@ sphinx_immaterial_custom_admonitions = [
         "name": "editorial",
         "color": (236, 64, 11),
         "icon": "fontawesome/solid/face-tired",
+    },
+    {
+        "name": "self-criticism",
+        "color": (236, 64, 11),
+        "icon": "fontawesome/regular/face-grin-beam-sweat",
     },
 ]
