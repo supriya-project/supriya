@@ -1,0 +1,8 @@
+Extensions
+==========
+
+Jupyter Notebooks
+-----------------
+
+Sphinx
+------

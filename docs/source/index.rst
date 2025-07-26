@@ -3,10 +3,6 @@
 Supriya (|release|)
 ===================
 
-.. attention::
-
-   Documentation is under construction. Stand by.
-
 :term:`Supriya` is a :term:`Python` API for :term:`SuperCollider`.
 
 Supriya lets you:
@@ -34,26 +30,13 @@ Quickstart
 1. Get Supriya
 ``````````````
 
-.. md-tab-set::
-
-    .. md-tab-item:: From PyPI
-
-        ::
-
-            pip install supriya
-
-    .. md-tab-item:: From source
-
-        ::
-
-            git clone https://github.com/supriya-project/supriya.git
-            cd supriya
-            pip install -e .
+.. include:: /includes/install.txt
 
 .. note::
 
-    Consult our installation instructions for detailed help on getting Supriya,
-    setting it up, and installing any additional dependencies like `Graphviz`_.
+    Consult our :doc:`installation instructions </introduction/installation>`
+    for detailed help on getting Supriya, setting it up, and installing any
+    additional dependencies like `Graphviz`_.
 
 2. Get SuperCollider
 ````````````````````
@@ -133,25 +116,52 @@ Quit the server::
     >>> server.quit()
 
 .. toctree::
-    :caption: Getting Started
+    :caption: Introduction
     :hidden:
 
-    installation
+    introduction/installation
+    introduction/concepts.rst
 
 .. toctree::
-    :caption: Tutorials
+    :caption: Core tutorials
     :hidden:
 
-    contexts
-    servers
-    scores
-    nodes
-    buses
-    buffers
-    synthdefs
-    osc
-    clocks
-    patterns
+    tutorials/index
+    tutorials/contexts
+    tutorials/servers
+    tutorials/scores
+    tutorials/nodes
+    tutorials/buses
+    tutorials/buffers
+    tutorials/synthdefs
+    tutorials/osc
+
+..  toctree::
+    :caption: Advanced tutorials
+    :hidden:
+
+    tutorials/clocks
+    tutorials/patterns
+    tutorials/extensions
+    tutorials/sessions
+
+.. toctree::
+    :caption: Examples
+    :hidden:
+
+    examples/index
+    examples/hello_world
+    examples/hello_world_contexts
+    examples/hello_world_debugged
+
+.. toctree::
+    :caption: For developers
+    :hidden:
+
+    developers/index
+    developers/testing
+    developers/documenting
+    developers/releasing
 
 .. toctree::
     :caption: API Reference
@@ -161,24 +171,7 @@ Quit the server::
     api/supriya/index
 
 .. toctree::
-    :caption: Appendix
+    :caption: Appendices
     :hidden:
 
-    glossary
-
-..  _Cython: https://cython.org/
-..  _GitHub: https://github.com/supriya-project/supriya
-..  _Graphviz: http://graphviz.org/
-..  _Homebrew: http://brew.sh/
-..  _IPython: https://ipython.org/
-..  _PyPI: https://pypi.python.org/pypi
-..  _Python: https://www.python.org/
-..  _Sphinx: https://www.sphinx-doc.org/en/master/
-..  _SuperCollider: http://supercollider.github.io/
-..  _Supriya: https://github.com/supriya-project/supriya
-..  _libsndfile: http://www.mega-nerd.com/libsndfile/
-..  _pip: https://pip.pypa.io/en/stable/
-..  _python-rtmidi: https://github.com/SpotlightKid/python-rtmidi
-..  _virtualenv: https://readthedocs.org/projects/virtualenv/
-..  _virtualenvwrapper: https://virtualenvwrapper.readthedocs.org/en/latest/
-..  _wavefile: https://pypi.python.org/pypi/wavefile/
+    appendices/glossary
