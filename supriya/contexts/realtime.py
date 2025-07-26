@@ -29,6 +29,7 @@ from ..enums import (
     ServerShutdownEvent,
 )
 from ..exceptions import (
+    InvalidCalculationRate,
     OwnedServerShutdown,
     ServerCannotBoot,
     ServerOffline,
@@ -58,7 +59,6 @@ from .entities import (
     Node,
     Synth,
 )
-from .errors import InvalidCalculationRate
 from .requests import (
     DumpTree,
     GetBuffer,
@@ -374,7 +374,7 @@ class BaseServer(Context):
 
     def _validate_can_request(self) -> None:
         if self._boot_status not in (BootStatus.BOOTING, BootStatus.ONLINE):
-            raise ServerOffline("Server already offline!")
+            raise ServerOffline("Server offline!")
         pass  # Otherwise always OK to request in RT
 
     def _validate_moment_timestamp(self, seconds: float | None) -> None:
@@ -431,7 +431,7 @@ class BaseServer(Context):
         :param message: The message to send.
         """
         if self._boot_status == BootStatus.OFFLINE:
-            raise ServerOffline("Server already offline!")
+            raise ServerOffline("Server offline!")
         osc_protocol: OscProtocol = getattr(self, "_osc_protocol")
         osc_protocol.send(message)
 

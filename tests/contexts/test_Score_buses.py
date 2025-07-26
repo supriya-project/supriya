@@ -3,7 +3,7 @@ import logging
 import pytest
 
 from supriya import OscBundle, OscMessage, Score
-from supriya.contexts.errors import ContextError, InvalidCalculationRate
+from supriya.exceptions import ContextError, InvalidCalculationRate
 
 
 @pytest.fixture(autouse=True)

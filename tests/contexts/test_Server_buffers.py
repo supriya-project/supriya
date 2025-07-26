@@ -11,8 +11,8 @@ import pytest_asyncio
 
 import supriya
 from supriya import AsyncServer, Buffer, OscBundle, OscMessage, Server, default
-from supriya.contexts.errors import MomentClosed
 from supriya.contexts.responses import BufferInfo
+from supriya.exceptions import MomentClosed
 
 TIMEOUT_EXCEPTIONS = (
     concurrent.futures.TimeoutError,
