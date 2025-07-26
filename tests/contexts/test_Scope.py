@@ -71,7 +71,7 @@ def test_amplitude_scope(
         )
     scope = context.add_amplitude_scope(bus=buses)
     context.sync()
-    assert str(context.query_tree()) == normalize(expected_tree)
+    assert normalize(str(context.query_tree())) == normalize(expected_tree)
     results: list[tuple[int, list[float]]] = []
     for i in range(10):
         available_frames, data = scope.read()
@@ -145,7 +145,7 @@ def test_frequency_scope(
         frequency_mode=frequency_mode,
     )
     context.sync()
-    assert str(context.query_tree()) == normalize(expected_tree)
+    assert normalize(str(context.query_tree())) == normalize(expected_tree)
     results: list[tuple[int, list[float]]] = []
     for i in range(10):
         available_frames, data = scope.read()
