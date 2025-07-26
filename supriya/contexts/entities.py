@@ -18,10 +18,10 @@ from typing import (
 )
 
 from ..enums import AddAction, CalculationRate
+from ..exceptions import ContextError, InvalidCalculationRate, InvalidMoment
 from ..io import PlayMemo
 from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsRender
 from ..ugens import SynthDef, default
-from .errors import ContextError, InvalidCalculationRate, InvalidMoment
 from .responses import BufferInfo, NodeInfo, QueryTreeGroup
 
 if TYPE_CHECKING:

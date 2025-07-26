@@ -27,6 +27,12 @@ from typing import (
 from uqbar.objects import new
 
 from ..enums import AddAction, BootStatus, CalculationRate
+from ..exceptions import (
+    AllocationError,
+    ContextError,
+    InvalidCalculationRate,
+    MomentClosed,
+)
 from ..scsynth import Options
 from ..typing import (
     AddActionLike,
@@ -49,7 +55,6 @@ from .entities import (
     ScopeBuffer,
     Synth,
 )
-from .errors import AllocationError, ContextError, InvalidCalculationRate, MomentClosed
 from .requests import (
     AllocateBuffer,
     AllocateReadBuffer,

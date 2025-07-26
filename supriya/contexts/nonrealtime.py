@@ -17,13 +17,13 @@ from tempfile import TemporaryDirectory
 from typing import Iterator, SupportsInt, Type
 
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
+from ..exceptions import ContextError
 from ..osc import OscBundle
 from ..scsynth import AsyncNonrealtimeProcessProtocol, Options
 from ..typing import HeaderFormatLike, SampleFormatLike, SupportsOsc
 from ..ugens import SYSTEM_SYNTHDEFS
 from .core import Context
 from .entities import ContextObject, Node
-from .errors import ContextError
 from .requests import DoNothing, Requestable, RequestBundle
 
 logger = logging.getLogger(__name__)

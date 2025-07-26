@@ -3,51 +3,23 @@ Exceptions.
 """
 
 
-class AlreadyAllocated(Exception):
+class AllocationError(Exception):
     pass
 
 
-class NotAllocated(Exception):
+class ContextError(Exception):
     pass
 
 
-class BufferAlreadyAllocated(AlreadyAllocated):
+class InvalidCalculationRate(ContextError):
     pass
 
 
-class BufferNotAllocated(NotAllocated):
+class InvalidMoment(ContextError):
     pass
 
 
-class BusAlreadyAllocated(AlreadyAllocated):
-    pass
-
-
-class BusNotAllocated(NotAllocated):
-    pass
-
-
-class IncompatibleRate(Exception):
-    pass
-
-
-class NodeAlreadyAllocated(AlreadyAllocated):
-    pass
-
-
-class NodeNotAllocated(NotAllocated):
-    pass
-
-
-class NonrealtimeOutputMissing(Exception):
-    pass
-
-
-class NonrealtimeRenderError(Exception):
-    pass
-
-
-class RequestTimeout(Exception):
+class MomentClosed(ContextError):
     pass
 
 

@@ -6,7 +6,7 @@ import pytest
 import pytest_asyncio
 
 from supriya import AsyncServer, OscMessage, Server, default
-from supriya.contexts.errors import InvalidCalculationRate
+from supriya.exceptions import InvalidCalculationRate
 
 
 async def get(x):

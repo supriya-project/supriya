@@ -5,7 +5,7 @@ import pytest
 
 import supriya
 from supriya import OscBundle, OscMessage, Score
-from supriya.contexts.errors import MomentClosed
+from supriya.exceptions import MomentClosed
 
 
 @pytest.fixture

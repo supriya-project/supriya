@@ -7,7 +7,7 @@ import pytest
 import pytest_asyncio
 
 from supriya import AsyncServer, OscBundle, OscMessage, Server
-from supriya.contexts.errors import MomentClosed
+from supriya.exceptions import MomentClosed
 from supriya.ugens import Out, SinOsc, SynthDef, SynthDefBuilder, compile_synthdefs
 
 
