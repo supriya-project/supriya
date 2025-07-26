@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from supriya import OscBundle, OscMessage, Score
-from supriya.contexts.errors import MomentClosed
+from supriya.exceptions import MomentClosed
 from supriya.ugens import Out, SinOsc, SynthDef, SynthDefBuilder, compile_synthdefs
 
 
