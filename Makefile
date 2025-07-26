@@ -48,7 +48,6 @@ mypy-strict: ## Type-check via mypy strictly
 	mypy --strict ${project}/
 
 pytest: ## Unit test via pytest
-	rm -Rf htmlcov/
 	pytest ${testPaths} --cov=supriya
 
 reformat: ruff-imports-fix ruff-format-fix ## Reformat codebase
