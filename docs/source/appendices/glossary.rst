@@ -1,5 +1,11 @@
+:icon: material/alert
+
 Glossary
 ========
+
+.. self-criticism::
+
+   Under construction.
 
 .. glossary::
    :sorted:
@@ -285,7 +291,7 @@ Glossary
       :term:`SuperCollider` :term:`clients <client>` and :term:`servers
       <server>` communicate via OSC.
 
-      See: http://opensoundcontrol.org/spec-1_0
+      See: https://opensoundcontrol.stanford.edu/
 
    octave
       The interval between one musical pitch and another with double its

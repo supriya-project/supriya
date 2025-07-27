@@ -1,5 +1,11 @@
+:icon: material/alert
+
 Non-realtime Scores
 ===================
+
+.. self-criticism::
+
+   Under construction.
 
 Outline:
 

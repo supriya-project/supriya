@@ -1,5 +1,15 @@
+:icon: material/alert
+
 Open Sound Control
 ==================
+
+.. self-criticism::
+
+   Under construction.
+
+.. editorial::
+
+   Did I mention that I hate OSC? Oh well!
 
 - what is osc
 - anatomy of an osc message
