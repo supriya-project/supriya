@@ -660,16 +660,18 @@ class BusGroup(ContextObject):
         :param use_shared_memory: If true, use the shared memory interface.
             Skips bundling the request in any open moment.
         """
-        if isinstance(values, float):
+        if isinstance(values, SupportsFloat):
             if len(self) == 1:
                 self.context.set_bus(
-                    bus=self[0], value=values, use_shared_memory=use_shared_memory
+                    bus=self[0],
+                    value=float(values),
+                    use_shared_memory=use_shared_memory,
                 )
             else:
                 self.context.fill_bus_range(
                     bus=self[0],
                     count=len(self),
-                    value=values,
+                    value=float(values),
                     use_shared_memory=use_shared_memory,
                 )
         else:
