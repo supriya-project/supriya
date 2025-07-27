@@ -835,6 +835,18 @@ class Node(ContextObject):
         """
         self.context.set_node_range(self, *indexed_settings, **settings)
 
+    def trace(self) -> Awaitable[None] | None:
+        """
+        Trace the node
+
+        Emit ``/n_trace`` requests.
+        """
+        from .realtime import AsyncServer, Server
+
+        if not isinstance(self.context, (AsyncServer, Server)):
+            raise ContextError
+        return self.context.trace_node(self)
+
     def unpause(self) -> None:
         """
         Unpause the node.

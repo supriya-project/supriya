@@ -451,6 +451,27 @@ async def test_set_node_range(context: AsyncServer | Server) -> None:
 
 
 @pytest.mark.asyncio
+async def test_trace_node(context: AsyncServer | Server) -> None:
+    for _ in range(5):
+        context.default_group.add_group()
+    with context.osc_protocol.capture() as osc_transcript:
+        with context.process_protocol.capture() as process_transcript:
+            await get(context.default_group.trace())
+            await asyncio.sleep(0.1)
+    assert osc_transcript.filtered(received=False, sent=True, status=False) == [
+        OscMessage("/n_trace", 1),
+    ]
+    assert process_transcript.lines == [
+        "TRACE Group 1",
+        "   1004 group",
+        "   1003 group",
+        "   1002 group",
+        "   1001 group",
+        "   1000 group",
+    ]
+
+
+@pytest.mark.asyncio
 async def test_unpause_node(context: AsyncServer | Server) -> None:
     group_a = context.add_group()
     group_b = context.add_group()

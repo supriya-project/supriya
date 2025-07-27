@@ -75,6 +75,7 @@ from .requests import (
     Quit,
     Sync,
     ToggleNotifications,
+    TraceNode,
 )
 from .responses import (
     BufferInfo,
@@ -1069,6 +1070,22 @@ class Server(BaseServer):
         ).communicate(server=self, timeout=timeout)
         return self
 
+    def trace_node(
+        self,
+        node: Node,
+    ) -> None:
+        """
+        Trace a node
+
+        Emit ``/n_trace`` requests.
+
+        :param node: The node to trace.
+        """
+        self._validate_can_request()
+        request = TraceNode(node_ids=[int(node)])
+        self._add_requests(request)
+        return None
+
     def unregister_osc_callback(self, callback: OscCallback) -> None:
         """
         Unregister an OSC callback.
@@ -1697,6 +1714,22 @@ class AsyncServer(BaseServer):
             sync_id=sync_id if sync_id is not None else self._get_next_sync_id()
         ).communicate_async(server=self, timeout=timeout)
         return self
+
+    async def trace_node(
+        self,
+        node: Node,
+    ) -> None:
+        """
+        Trace a node
+
+        Emit ``/n_trace`` requests.
+
+        :param node: The node to trace.
+        """
+        self._validate_can_request()
+        request = TraceNode(node_ids=[int(node)])
+        self._add_requests(request)
+        return None
 
     def unregister_osc_callback(self, callback: OscCallback) -> None:
         """
