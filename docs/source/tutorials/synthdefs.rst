@@ -1,3 +1,5 @@
+:status: under-construction
+
 SynthDefs
 =========
 
@@ -9,10 +11,11 @@ Concepts
 
 - synthdefs
 - ugens
+- graphs are static
 - calculation rates
+- multi-channel expansion
 - inputs and outputs (and buses)
 - parameters and controls
-- multi-channel expansion
 
 Building
 --------
@@ -34,3 +37,10 @@ Lifecycle
 
 - allocation
 - freeing
+
+Internals
+---------
+
+- UGen metaclass
+- ``@ugen`` decorator
+- ``param``

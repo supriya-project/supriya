@@ -1,3 +1,5 @@
+:status: under-construction
+
 Clocks
 ======
 
@@ -149,7 +151,3 @@ Offline clocks
 
 Debugging
 ---------
-
-.. _aiohttp: https://docs.aiohttp.org
-.. _pymonome: https://github.com/artfwo/pymonome
-.. _python-prompt-toolkit: https://python-prompt-toolkit.readthedocs.io

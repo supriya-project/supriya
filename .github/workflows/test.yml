@@ -60,6 +60,9 @@ jobs:
     - name: Check for FailWarning
       run: "! grep -R ': FailWarning: ' *"
       working-directory: docs/build/html
+    - name: Link check
+      run: make linkcheck
+      working-directory: docs
   
   lint:
     name: Lint Supriya

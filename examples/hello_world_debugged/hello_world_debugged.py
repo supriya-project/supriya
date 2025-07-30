@@ -3,13 +3,10 @@ import time
 
 import supriya
 
-# A C-major chord
-FREQUENCIES = [261.63, 329.63, 392.00]
 
-
-def play_synths(
-    context: supriya.Context, frequencies: list[float]
-) -> list[supriya.Synth]:
+def play_synths(context: supriya.Context) -> list[supriya.Synth]:
+    # A C-major chord
+    frequencies = [261.63, 329.63, 392.00]
     # Create an empty list to store synths in:
     synths: list[supriya.Synth] = []
     # Add the default synthdef to the server and open a "completion" context
@@ -31,98 +28,58 @@ def stop_synths(synths: list[supriya.Synth]) -> None:
         synth.free()
 
 
+def debug(
+    header: str, server: supriya.Server, transcript: supriya.osc.Capture | None = None
+) -> None:
+    # Print a header:
+    print(header)
+    # Print the server status
+    print(f"Server status: {server.status}")
+    # Print the node tree:
+    print(server.query_tree())
+    # Filter the OSC transcript down to just non-status sent messages and print them:
+    if transcript is not None:
+        for message in transcript.filtered(sent=True, received=False, status=False):
+            print(f"Sent: {message!r}")
+
+
 def main() -> None:
     # Turn on basic logging system-wide
     logging.basicConfig(level=logging.WARN)
-
     # Set Supriya's supriya.scsynth logger level to INFO
     logging.getLogger("supriya.scsynth").setLevel(logging.INFO)
-
     # Create a server and boot it:
     server = supriya.Server().boot()
-
-    # Print a header:
-    print("\nBEFORE PLAYING:\n")
-
-    # Print the server status
-    print(f"Server status: {server.status}")
-
-    # Print the node tree:
-    print(server.query_tree())
-
+    # Debug:
+    debug("BEFORE PLAYING:", server)
     # Create an empty list to store synths in:
     synths: list[supriya.Synth] = []
-
     # Capture the OSC messages send to the server to load the SynthDef and create the synths:
     with server.osc_protocol.capture() as transcript:
         # N.B. This block is now indented inside the .capture() context manager
         # Start an OSC bundle to run immediately:
         with server.at():
             # Start playing the synths
-            synths = play_synths(context=server, frequencies=FREQUENCIES)
-
+            synths = play_synths(context=server)
     # Sync the server so we can see the node tree updates:
     server.sync()
-
-    # Print a header:
-    print("\nPLAYING:\n")
-
-    # Print the server status
-    print(f"Server status: {server.status}")
-
-    # Print the node tree:
-    print(server.query_tree())
-
-    # Filter the OSC transcript down to just non-status sent messages and print them:
-    for message in transcript.filtered(sent=True, received=False, status=False):
-        print(f"Sent: {message!r}")
-
+    # Debug:
+    debug("PLAYING:", server, transcript)
     # Let the notes play for 4 seconds:
     time.sleep(4)
-
     # Print a header:
-    print("\nBEFORE FREEING:\n")
-
-    # Print the server status
-    print(f"Server status: {server.status}")
-
-    # Print the node tree:
-    print(server.query_tree())
-
-    # Print a header:
-    print("\nFREEING:\n")
-
+    debug("JUST BEFORE STOPPING:", server)
     # Capture the OSC messages send to the server to free the synths:
     with server.osc_protocol.capture() as transcript:
         # N.B. This block is now indented inside the .capture() context manager
         # Loop over the synths and free them
         stop_synths(synths)
-
-    # Print the server status
-    print(f"Server status: {server.status}")
-
-    # Print the node tree:
-    print(server.query_tree())
-
-    # Filter the OSC transcript down to just non-status sent messages and print them:
-    for message in transcript.filtered(sent=True, received=False, status=False):
-        print(f"Sent: {message!r}")
-
+    # Debug:
+    debug("AFTER STOPPING:", server, transcript)
     # Wait a second for the notes to fade out:
     time.sleep(1)
-
     # Print a header:
-    print("\nAFTER FREEING:\n")
-
-    # Print the server status
-    print(f"Server status: {server.status}")
-
-    # Print the node tree:
-    print(server.query_tree())
-
-    # Print a blank line
-    print()
-
+    debug("A LITTLE AFTER STOPPING:", server, transcript)
     # Quit the server:
     server.quit()
 

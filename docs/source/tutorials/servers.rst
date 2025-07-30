@@ -99,6 +99,14 @@ keyword arguments when booting::
 
     >>> server.quit()
 
+The server's options describe how to generate the shell command for launching
+the server process, and an :py:class:`~supriya.scsynth.Options` instance can be
+iterated over like a list to generate that command::
+
+    >>> for x in supriya.Options():
+    ...     x
+    ...
+
 Multiple clients
 ````````````````
 
@@ -300,7 +308,7 @@ initiated operations complete::
 
     >>> server.sync()
 
-..  note:: See :doc:`../osc` for more information about OSC communication with
+..  note:: See :doc:`osc` for more information about OSC communication with
     the server, including OSC callbacks.
 
 Mutating
@@ -376,17 +384,30 @@ Use :py:class:`~supriya.contexts.realtime.AsyncServer` with
 eventloop-driven libraries like `aiohttp`_, `python-prompt-toolkit`_ and
 `pymonome`_.
 
-Lower level APIs
-----------------
+Internals
+---------
 
-You can kill all running ``scsynth`` processes via :py:func:`supriya.scsynth.kill`::
+Utilities
+`````````
+
+You can kill all running ``scsynth`` processes via :py:func:`~supriya.scsynth.kill`::
 
     >>> supriya.scsynth.kill()
+
+You can also find a random free port for use when booting multiple servers at once via :py:func:`~supriya.osc.protocols.find_free_port`::
+
+    >>> supriya.osc.find_free_port()
+
+Process protocols
+`````````````````
 
 Get access to the server's underlying process management subsystem via
 :py:attr:`~supriya.contexts.realtime.Server.process_protocol`::
 
     >>> server.process_protocol
+
+Osc protocols
+`````````````
 
 Get access to the server's underlying OSC subsystem via
 :py:attr:`~supriya.contexts.realtime.Server.osc_protocol`::
@@ -402,7 +423,3 @@ Get access to the server's underlying OSC subsystem via
     :py:class:`~supriya.contexts.realtime.AsyncServer` discussed later uses
     :py:class:`~supriya.scsynth.AsyncProcessProtocol` and
     :py:class:`~supriya.osc.AsyncOscProtocol` objects.
-
-.. _aiohttp: https://docs.aiohttp.org/
-.. _python-prompt-toolkit: https://python-prompt-toolkit.readthedocs.io/
-.. _pymonome: https://github.com/artfwo/pymonome
