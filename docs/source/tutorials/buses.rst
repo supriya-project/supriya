@@ -1,5 +1,11 @@
+:icon: material/alert
+
 Buses
 =====
+
+.. self-criticism::
+
+   Under construction.
 
 - what is a bus?
 - buses vs bus groups

@@ -1,5 +1,11 @@
+:icon: material/alert
+
 Clocks
 ======
+
+.. self-criticism::
+
+   Under construction.
 
 Supriya provides a collection of musical-time-aware clocks which permit
 scheduling callbacks relative to both seconds, beats and measures, and which - by
@@ -149,7 +155,3 @@ Offline clocks
 
 Debugging
 ---------
-
-.. _aiohttp: https://docs.aiohttp.org
-.. _pymonome: https://github.com/artfwo/pymonome
-.. _python-prompt-toolkit: https://python-prompt-toolkit.readthedocs.io

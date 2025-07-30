@@ -1,0 +1,20 @@
+:icon: material/alert
+
+Hello, world!
+=============
+
+.. self-criticism::
+
+   Under construction.
+
+See the :si-icon:`octicons/mark-github-16` :github-tree:`full source code
+<examples/hello_world>`.
+
+.. code-block:: bash
+   :caption: Invoke the script with ...
+
+   python hello_world.py
+
+.. literalinclude:: ../../../examples/hello_world/hello_world.py
+   :caption:
+   :pyobject: main

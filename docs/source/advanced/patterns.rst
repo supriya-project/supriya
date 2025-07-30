@@ -1,5 +1,11 @@
+:icon: material/alert
+
 Patterns
 ========
+
+.. self-criticism::
+
+   Under construction.
 
 - what is a pattern
 
