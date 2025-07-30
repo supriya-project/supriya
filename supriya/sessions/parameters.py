@@ -1,0 +1,103 @@
+import dataclasses
+from typing import TYPE_CHECKING, SupportsFloat
+
+from ..contexts import AsyncServer
+from ..enums import CalculationRate
+from .specs import BusSpec, Spec
+
+if TYPE_CHECKING:
+    from .components import Component
+
+
+@dataclasses.dataclass
+class Field:
+    default: SupportsFloat
+    has_bus: bool = False
+
+    def __call__(self, value: SupportsFloat) -> float:
+        raise NotImplementedError
+
+
+@dataclasses.dataclass
+class IntField(Field):
+    default: int = 0
+    minimum: int | None = None
+    maximum: int | None = None
+
+    def __call__(self, value: SupportsFloat) -> float:
+        value_ = int(float(value))
+        if self.minimum is not None and value_ < self.minimum:
+            value_ = self.minimum
+        if self.maximum is not None and value_ > self.maximum:
+            value_ = self.maximum
+        return float(value)
+
+
+@dataclasses.dataclass
+class FloatField(Field):
+    default: float = 0.0
+    minimum: float | None = None
+    maximum: float | None = None
+
+    def __call__(self, value: SupportsFloat) -> float:
+        value_ = float(value)
+        if self.minimum is not None and value_ < self.minimum:
+            value_ = self.minimum
+        if self.maximum is not None and value_ > self.maximum:
+            value_ = self.maximum
+        return value_
+
+
+@dataclasses.dataclass
+class BoolField(Field):
+    default: bool = False
+
+    def __call__(self, value: SupportsFloat) -> float:
+        return float(bool(float(value)))
+
+
+class Parameter:
+    def __init__(self, *, component: "Component", name: str, field: Field) -> None:
+        self._component = component
+        self._name = name
+        self._field = field
+        self._value: float = self._field(self._field.default)
+
+    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+        if not context or not self._field.has_bus:
+            return []
+        return [
+            BusSpec(
+                calculation_rate=CalculationRate.CONTROL,
+                channel_count=1,
+                component=self.component,
+                context=context,
+                default=self._value,
+                name=self.name,
+            ),
+        ]
+
+    def set(self, value: float) -> None:
+        value_ = self._field(value)
+        if self._name in self._component._artifacts.control_buses:
+            self._component._artifacts.control_buses[self._name].set(
+                value_, use_shared_memory=True
+            )
+        else:
+            self._value = value_
+
+    @property
+    def component(self) -> "Component":
+        return self._component
+
+    @property
+    def field(self) -> Field:
+        return self._field
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def value(self) -> float:
+        return self._value
