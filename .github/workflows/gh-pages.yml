@@ -3,8 +3,8 @@ name: Update gh-pages
 on: workflow_dispatch
 
 env:
-  SC_ORIGIN: https://github.com/supercollider/supercollider.git
-  SC_BRANCH: "3.13"
+  SC_ORIGIN: https://github.com/josephine-wolf-oberholtzer/supercollider.git
+  SC_BRANCH: g-dumpTree-end-delimiter
   
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
