@@ -1,5 +1,11 @@
+:status: under-construction
+
 Open Sound Control
 ==================
+
+.. self-criticism::
+
+   These docs are still under construction.
 
 - what is osc
 - anatomy of an osc message

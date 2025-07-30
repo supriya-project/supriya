@@ -24,9 +24,10 @@ classifiers = [
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 dependencies = [
+  "backports.strenum; python_version < '3.11'",
   "platformdirs >= 4.0.0",
   "psutil",
-  "uqbar >= 0.9.0",
+  "uqbar >= 0.9.3",
 ]
 description = "A Python API for SuperCollider"
 dynamic = ["version"]
@@ -93,9 +94,7 @@ exclude_lines = [
 
 [tool.mypy]
 ignore_missing_imports = true
-plugins = [
-    "supriya.ext.mypy",
-]
+plugins = ["supriya.ext.mypy"]
 
 [tool.pytest.ini_options]
 addopts = [

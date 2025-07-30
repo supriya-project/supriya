@@ -1,5 +1,11 @@
+:status: under-construction
+
 Buffers
 =======
+
+.. self-criticism::
+
+   These docs are still under construction.
 
 :term:`Buffers <buffer>` are arrays of sample data. Like sound files, they have
 one or more :term:`channels <channel>`, and one or more :term:`frames <frame>`.

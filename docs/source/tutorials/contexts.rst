@@ -13,6 +13,15 @@ execution contexts in both *realtime* and *non-realtime*.
 See the :doc:`servers <servers>` and :doc:`scores <scores>` pages for in-depth documentation on
 how each time of context works.
 
+Types of contexts
+-----------------
+
+.. inheritance-diagram:: supriya.contexts
+   :lineage: supriya.contexts.core.Context
+
+- Write-only (non-realtime)
+- Read-write (realtime)
+
 Moments
 -------
 

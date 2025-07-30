@@ -1,5 +1,11 @@
+:status: under-construction
+
 Non-realtime Scores
 ===================
+
+.. self-criticism::
+
+   These docs are still under construction.
 
 Outline:
 

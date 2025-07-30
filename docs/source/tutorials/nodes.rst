@@ -1,5 +1,11 @@
+:status: under-construction
+
 Nodes
 =====
+
+.. self-criticism::
+
+   These docs are still under construction.
 
 SuperCollider's :term:`scsynth` server processes audio by traversaing a
 :term:`tree` of :term:`nodes <node>`. Nodes in the tree can be either
@@ -132,7 +138,7 @@ terminal::
 The :term:`repr` shows the synths's type (``Synth``), its :term:`ID <ID, node>`
 (``1000``), its :term:`SynthDef` name (``default``), and indicates it has been
 allocated (``+``). We discuss synth definitions in depth :doc:`later
-<../synthdefs>`, but suffice it to say a :term:`SynthDef` represents a
+<synthdefs>`, but suffice it to say a :term:`SynthDef` represents a
 graph of operators that do audio processing. If that sounds fractally like what
 we're already discussing, you're not wrong. It's graphs all the way down.
 
@@ -201,7 +207,7 @@ how the reverberation kicks in when you instantiate the second synth::
     will automatically allocate them for you when you add synths to the server.
     If you need precise timing, make sure to pre-allocate the SynthDefs.
 
-    See :doc:`../synthdefs` and :doc:`../osc` for more details.
+    See :doc:`synthdefs` and :doc:`osc` for more details.
 
 Deleting
 ````````
