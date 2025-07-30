@@ -31,6 +31,7 @@ realtime
    .. automethod:: register_osc_callback
    .. automethod:: reset
    .. automethod:: sync
+   .. automethod:: trace_node
    .. automethod:: unregister_osc_callback
    .. autoproperty:: boot_future
    .. autoproperty:: exit_future
@@ -75,6 +76,7 @@ realtime
    .. automethod:: register_osc_callback
    .. automethod:: reset
    .. automethod:: sync
+   .. automethod:: trace_node
    .. automethod:: unregister_osc_callback
    .. autoproperty:: boot_future
    .. autoproperty:: exit_future

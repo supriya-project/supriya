@@ -13,7 +13,6 @@ contexts
    allocators
    core
    entities
-   errors
    nonrealtime
    realtime
    requests

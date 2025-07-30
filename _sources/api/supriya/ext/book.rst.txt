@@ -26,3 +26,8 @@ book
    .. automethod:: setup_sphinx
    .. automethod:: to_docutils
    .. automethod:: visit_block_html
+
+.. autoclass:: TypeVarDocumenter
+   :show-inheritance:
+
+   .. automethod:: validate_client

@@ -96,6 +96,7 @@ entities
    .. automethod:: query
    .. automethod:: set
    .. automethod:: set_range
+   .. automethod:: trace
    .. automethod:: unpause
    .. autoproperty:: active
    .. autoproperty:: parent

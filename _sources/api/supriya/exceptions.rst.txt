@@ -7,31 +7,17 @@ exceptions
 
 .. currentmodule:: supriya.exceptions
 
-.. autoexception:: AlreadyAllocated
+.. autoexception:: AllocationError
 
-.. autoexception:: BufferAlreadyAllocated
+.. autoexception:: ContextError
 
-.. autoexception:: BufferNotAllocated
+.. autoexception:: InvalidCalculationRate
 
-.. autoexception:: BusAlreadyAllocated
+.. autoexception:: InvalidMoment
 
-.. autoexception:: BusNotAllocated
-
-.. autoexception:: IncompatibleRate
-
-.. autoexception:: NodeAlreadyAllocated
-
-.. autoexception:: NodeNotAllocated
-
-.. autoexception:: NonrealtimeOutputMissing
-
-.. autoexception:: NonrealtimeRenderError
-
-.. autoexception:: NotAllocated
+.. autoexception:: MomentClosed
 
 .. autoexception:: OwnedServerShutdown
-
-.. autoexception:: RequestTimeout
 
 .. autoexception:: ServerCannotBoot
 
