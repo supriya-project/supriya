@@ -3,6 +3,10 @@
 SynthDefs
 =========
 
+.. self-criticism::
+
+   These docs are still under construction.
+
 - what is a synthdef
 - sclang vs supriya implementation
 

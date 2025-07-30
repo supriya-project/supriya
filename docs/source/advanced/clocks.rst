@@ -3,6 +3,10 @@
 Clocks
 ======
 
+.. self-criticism::
+
+   These docs are still under construction.
+
 Supriya provides a collection of musical-time-aware clocks which permit
 scheduling callbacks relative to both seconds, beats and measures, and which - by
 extension - understand tempo, time signatures and downbeats.

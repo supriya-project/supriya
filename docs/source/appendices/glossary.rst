@@ -3,6 +3,10 @@
 Glossary
 ========
 
+.. self-criticism::
+
+   These docs are still under construction.
+
 .. glossary::
    :sorted:
 

@@ -3,6 +3,10 @@
 Patterns
 ========
 
+.. self-criticism::
+
+   These docs are still under construction.
+
 - what is a pattern
 
 Background

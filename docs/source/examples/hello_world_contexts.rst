@@ -3,6 +3,10 @@
 Hello, world!, context-agnostic
 ===============================
 
+.. self-criticism::
+
+   These docs are still under construction.
+
 See the :si-icon:`octicons/mark-github-16` :github-tree:`full source code
 <examples/hello_world_contexts>`.
 

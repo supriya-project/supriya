@@ -3,6 +3,10 @@
 Buses
 =====
 
+.. self-criticism::
+
+   These docs are still under construction.
+
 - what is a bus?
 - buses vs bus groups
 - calculation rates

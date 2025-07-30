@@ -3,6 +3,10 @@
 Nodes
 =====
 
+.. self-criticism::
+
+   These docs are still under construction.
+
 SuperCollider's :term:`scsynth` server processes audio by traversaing a
 :term:`tree` of :term:`nodes <node>`. Nodes in the tree can be either
 :term:`groups <group>` - which *group* together other nodes - or :term:`synths
