@@ -26,10 +26,10 @@ Nodes can only be added to running servers, so let's create one and boot it::
 
     >>> server = supriya.Server().boot()
 
-.. note::
+..  note::
 
-   :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
-   nor offline, so you can add nodes to them whenever you like.
+    :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
+    nor offline, so you can add nodes to them whenever you like.
 
 Creating groups
 ```````````````
@@ -89,7 +89,7 @@ first::
     >>> group_eight = group_one.add_group(add_action=supriya.AddAction.REPLACE)
     >>> print(server.query_tree())
 
-.. note::
+..  note::
 
     Supriya will attempt to coerce a variety of inputs into a valid
     :py:class:`~supriya.enums.AddAction`::
@@ -103,7 +103,7 @@ first::
 
         >>> server.add_group(add_action="add to head")
 
-.. note::
+..  note::
 
     When using :term:`supernova` as your server executable, you can create
     _parallel_ groups by specifying ``parallel=True`` in any call you would use
@@ -195,7 +195,7 @@ how the reverberation kicks in when you instantiate the second synth::
 
     >>> print(server.query_tree())
 
-.. note::
+..  note::
 
     Supriya keeps track of which SynthDefs have already been allocated, and
     will automatically allocate them for you when you add synths to the server.
@@ -217,7 +217,7 @@ Reset the server for a clean slate, then add a synth::
     ...         synth = server.add_synth(supriya.default)
     ...= 
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()  # wait for synthdefs to load
@@ -292,7 +292,7 @@ Reset the server for a clean slate::
     ...         synth_c = group.add_synth(supriya.default, frequency=555)
     ...
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()  # wait for synthdefs to load
@@ -304,7 +304,7 @@ Every node has a ``id_`` and a reference to its context::
     >>> synth_b.id_, synth_b.context
     >>> synth_c.id_, synth_c.context
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()
@@ -314,7 +314,7 @@ Node position
 
 Nodes know about their position in the :term:`node tree`.
 
-.. caution::
+..  caution::
 
     This position information is cached on our realtime context based off of
     the various ``/n_go`` and ``/n_end`` messages sent back by :term:`scsynth`,
@@ -363,7 +363,7 @@ Reset the server for a clean slate::
     ...         reverb_synth = group.add_synth(reverb_synthdef, add_action="add_to_tail")
     ...
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()  # wait for synthdefs to load

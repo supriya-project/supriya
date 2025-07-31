@@ -15,18 +15,18 @@ Get Supriya
 Install Supriya from `PyPI`_ via `pip`_, or from its `GitHub`_ repository via `git
 <https://git-scm.com/>`_ and `pip`_:
 
-.. include:: /includes/install.txt
+..  include:: /includes/install.txt
 
 Optional dependencies
 ---------------------
 
 With `Sphinx`_ and `IPython`_ support:
 
-.. include:: /includes/install-docs.txt
+..  include:: /includes/install-docs.txt
 
 With linting and testing dependencies:
 
-.. include:: /includes/install-test.txt
+..  include:: /includes/install-test.txt
 
 Graphviz
 ````````
@@ -38,39 +38,39 @@ making sounds with Supriya.
 
 To install Graphviz:
 
-.. md-tab-set::
+..  md-tab-set::
 
-   .. md-tab-item:: OSX 
+    ..  md-tab-item:: OSX 
 
-      Via `Homebrew`_:
+        Via `Homebrew`_:
 
-      .. code-block:: console
+        ..  code-block:: console
 
-         josephine@laptop:~$ brew install graphviz
+            josephine@laptop:~$ brew install graphviz
 
-   .. md-tab-item:: Ubuntu
+    ..  md-tab-item:: Ubuntu
 
-      Via ``apt``:
+        Via ``apt``:
 
-      .. code-block:: console
+        ..  code-block:: console
 
-         josephine@laptop:~$ sudo apt-get install graphviz
+            josephine@laptop:~$ sudo apt-get install graphviz
 
-   .. md-tab-item:: Windows
+    ..  md-tab-item:: Windows
 
-      Via `Chocolatey`_:
+        Via `Chocolatey`_:
 
-      .. code-block:: console
+        ..  code-block:: console
 
-         josephine@laptop:~$ choco install graphviz
+            josephine@laptop:~$ choco install graphviz
 
 Once you have install Graphviz, test if you can call it from your command-line
 by running the following:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~$ dot -V
-   dot - graphviz version 13.1.0 (20250701.0955)
+    josephine@laptop:~$ dot -V
+    dot - graphviz version 13.1.0 (20250701.0955)
 
 FFmpeg and LAME
 ```````````````
@@ -81,28 +81,28 @@ output from `SuperCollider`_ into OGG or MP3 files suitable for use in web
 browsers. If you want to build Supriya's documentation or use Supriya in
 Jupyter notebooks, make sure to install them:
 
-.. md-tab-set::
+..  md-tab-set::
 
-   .. md-tab-item:: OSX 
+    ..  md-tab-item:: OSX 
 
-      Via `Homebrew`_:
+        Via `Homebrew`_:
 
-      .. code-block:: console
+        ..  code-block:: console
 
-         josephine@laptop:~$ brew install ffmpeg lame
+            josephine@laptop:~$ brew install ffmpeg lame
 
-   .. md-tab-item:: Ubuntu
+    .. md-tab-item:: Ubuntu
 
-      Via ``apt``:
+       Via ``apt``:
 
-      .. code-block:: console
+       ..  code-block:: console
 
-         josephine@laptop:~$ sudo apt-get install ffmpeg lame
+           josephine@laptop:~$ sudo apt-get install ffmpeg lame
 
-   .. md-tab-item:: Windows
+    .. md-tab-item:: Windows
 
-      Via `Chocolatey`_:
+       Via `Chocolatey`_:
 
-      .. code-block:: console
+       ..  code-block:: console
 
-         josephine@laptop:~$ choco install ffmpeg lame
+           josephine@laptop:~$ choco install ffmpeg lame

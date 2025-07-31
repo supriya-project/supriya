@@ -19,8 +19,8 @@ Types of contexts
 There are really two broad categories of contexts: write-only non-realtime
 contexts, and read/write realtime contexts.
 
-.. inheritance-diagram:: supriya.contexts
-   :lineage: supriya.contexts.core.Context
+..  inheritance-diagram:: supriya.contexts
+    :lineage: supriya.contexts.core.Context
 
 Write-only contexts
 ```````````````````

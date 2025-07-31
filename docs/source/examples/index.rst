@@ -1,8 +1,8 @@
 :status: under-construction
 
-Examples Overview
+Examples overview
 =================
 
-.. self-criticism::
+..  self-criticism::
 
-   These docs are still under construction.
+    These docs are still under construction.
