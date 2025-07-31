@@ -284,8 +284,8 @@ Interaction
 The server provides a variety of methods for interacting with it and modifying
 its state.
 
-Sending OSC
-```````````
+Sending OSC messages
+````````````````````
 
 You can send :term:`OSC` messages via the
 :py:meth:`~supriya.contexts.realtime.Server.send` method, either as
@@ -296,8 +296,8 @@ explicit :py:class:`~supriya.osc.OscMessage` or
     >>> from supriya.osc import OscMessage
     >>> server.send(OscMessage("/g_new", 1000, 0, 1))
 
-Syncing
-```````
+Syncing servers
+```````````````
 
 Many interactions with :term:`scsynth` don't take effect immediately. In fact,
 none of them really do, because the server behaves asynchronously. For
@@ -311,8 +311,8 @@ initiated operations complete::
 ..  note:: See :doc:`osc` for more information about OSC communication with
     the server, including OSC callbacks.
 
-Mutating
-````````
+Mutating servers
+````````````````
 
 The server provides methods for allocating :term:`nodes <node>` (:term:`groups
 <group>` and :term:`synths <synth>`), :term:`buffers <buffer>` and :term:`buses
@@ -326,8 +326,8 @@ The server provides methods for allocating :term:`nodes <node>` (:term:`groups
     >>> server.add_bus_group(count=2, calculation_rate="audio")
     >>> print(server.query_tree())
 
-Resetting
-`````````
+Resetting servers
+`````````````````
 
 Supriya supports *resetting* the state of the server, similar to
 SuperCollider's ``CmdPeriod``::

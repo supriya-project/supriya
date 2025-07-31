@@ -189,7 +189,6 @@ html_theme_options = {
         "content.tabs.link",
         "content.tooltips",
         "navigation.footer",
-        "navigation.instant",
         "navigation.tabs",
         "navigation.top",
         "toc.follow",

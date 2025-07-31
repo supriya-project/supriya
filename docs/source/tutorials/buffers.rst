@@ -306,6 +306,10 @@ existing buffer's contents into another buffer and convert.
 Configuration
 -------------
 
-The maximum number of buffers available in a context is controlled by its options.
+The maximum number of buffers available in a context is controlled by its
+:py:class:`options <supriya.scsynth.Options>`.
 
-- Options.buffer_count
+- Set the maximum number of buffers with the ``buffer_count`` keyword.
+
+This can be set on an :py:class:`~supriya.scsynth.Options` instance passed the
+context when initialized or booting, or just as keyword arguments.
