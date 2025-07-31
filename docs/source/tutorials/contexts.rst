@@ -10,17 +10,45 @@ execution contexts in both *realtime* and *non-realtime*.
     >>> server = supriya.Server().boot()  # realtime
     >>> score = supriya.Score()  # non-realtime
 
-See the :doc:`servers <servers>` and :doc:`scores <scores>` pages for in-depth documentation on
-how each time of context works.
+See the :doc:`servers <servers>` and :doc:`scores <scores>` pages for in-depth
+documentation on how each type of context works.
 
 Types of contexts
 -----------------
 
-.. inheritance-diagram:: supriya.contexts
-   :lineage: supriya.contexts.core.Context
+There are really two broad categories of contexts: write-only non-realtime
+contexts, and read/write realtime contexts.
 
-- Write-only (non-realtime)
-- Read-write (realtime)
+..  inheritance-diagram:: supriya.contexts
+    :lineage: supriya.contexts.core.Context
+
+Write-only contexts
+```````````````````
+
+The SuperCollider server's non-realtime mode doesn't support queries, only mutations.
+E.g. you *cannot* ask for the server's status, for information about a node, for the
+structure of the node tree, for the contents of a buffer. You can only modify
+the state of the server. Therefore non-realtime contexts - scores - are
+*write-only*.
+
+Mutations in Supriya's context implementations are synchronous in the Pythonic sense of
+sync-vs-async: the messages just fire off.
+
+Read/write contexts
+```````````````````
+
+The SuperCollider server's realtime mode supports queries *and* mutations. You
+*can* ask for the for the server's status, for information about a node, for
+the structure of the node tree, for the contents of a buffer, and the server
+will reply with a message encoding that information.
+
+Queries in Supriya's context implementations may be synchronous or asynchronous
+(in the Pythonic sense of async/await syntax), and which specific syntax
+depends on the specific type of server used and what concurrency paradigm it
+supports. :py:class:`"Async" servers <supriya.contexts.realtime.AsyncServer>`
+support async/await syntax for queries, while :py:class:`"sync" servers
+<supriya.contexts.realtime.Server>` will block the current thread until their
+query replies arrive.
 
 Moments
 -------
