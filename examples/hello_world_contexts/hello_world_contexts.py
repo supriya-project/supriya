@@ -64,7 +64,7 @@ async def run_async() -> None:
 
 
 def run_nonrealtime() -> None:
-    # Create a score:
+    # Create a score with stereo outputs:
     score = supriya.Score(output_bus_channel_count=2)
     # Start an OSC bundle to run at 0 seconds:
     with score.at(0):
