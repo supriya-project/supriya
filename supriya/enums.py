@@ -124,12 +124,12 @@ class CalculationRate(enum.IntEnum):
         ::
 
             >>> supriya.CalculationRate.from_expr(1)
-            CalculationRate.SCALAR
+            <CalculationRate.SCALAR: 0>
 
         ::
 
             >>> supriya.CalculationRate.from_expr("demand")
-            CalculationRate.DEMAND
+            <CalculationRate.DEMAND: 3>
 
         ::
 
@@ -138,7 +138,7 @@ class CalculationRate(enum.IntEnum):
             >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
             >>> supriya.CalculationRate.from_expr(collection)
-            CalculationRate.AUDIO
+            <CalculationRate.AUDIO: 2>
 
         ::
 
@@ -146,7 +146,7 @@ class CalculationRate(enum.IntEnum):
             >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
             >>> supriya.CalculationRate.from_expr(collection)
-            CalculationRate.CONTROL
+            <CalculationRate.CONTROL: 1>
 
         Return calculation-rate.
         """
