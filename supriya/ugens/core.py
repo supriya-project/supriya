@@ -1,5 +1,6 @@
 import abc
 import copy
+import enum
 import hashlib
 import inspect
 import math
@@ -156,7 +157,10 @@ def _add_rate_fn(
             else prefix
         )
     body = ["return cls._new_expanded("]
-    body.append(f"    calculation_rate={rate!r},")
+    if rate is None:
+        body.append("    calculation_rate=None,")
+    else:
+        body.append(f"    calculation_rate=CalculationRate.{rate.name},")
     if is_multichannel and not fixed_channel_count:
         args.append(f"channel_count: int = {channel_count or 1}")
         body.append("    channel_count=channel_count,")
@@ -211,6 +215,8 @@ def _format_value(value) -> str:
         value_repr = "Default()"
     elif isinstance(value, Missing):
         value_repr = "Missing()"
+    elif isinstance(value, enum.Enum):
+        value_repr = f"{type(value).__name__}.{value.name}"
     else:
         value_repr = repr(value)
     return value_repr

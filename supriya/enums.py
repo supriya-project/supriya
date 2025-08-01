@@ -4,12 +4,12 @@ Enumerations.
 
 import enum
 from collections.abc import Sequence
-from typing import SupportsFloat, cast
+from typing import SupportsFloat, SupportsInt, Union, cast
 
-from uqbar.enums import IntEnumeration, StrictEnumeration
+from uqbar.enums import from_expr
 
 
-class AddAction(IntEnumeration):
+class AddAction(enum.IntEnum):
     """
     An enumeration of scsynth node add actions.
     """
@@ -20,8 +20,14 @@ class AddAction(IntEnumeration):
     ADD_AFTER = 3
     REPLACE = 4
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["AddAction", SupportsInt, str] | None
+    ) -> "AddAction":
+        return from_expr(cls, expr)
 
-class BinaryOperator(IntEnumeration):
+
+class BinaryOperator(enum.IntEnum):
     ABSOLUTE_DIFFERENCE = 38  # |a - b|
     ADDITION = 0
     AMCLIP = 40
@@ -72,6 +78,12 @@ class BinaryOperator(IntEnumeration):
     UNSIGNED_SHIFT = 28
     WRAP2 = 45
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["BinaryOperator", SupportsInt, str] | None
+    ) -> "BinaryOperator":
+        return from_expr(cls, expr)
+
 
 class BootStatus(enum.IntEnum):
     OFFLINE = 0
@@ -79,8 +91,14 @@ class BootStatus(enum.IntEnum):
     ONLINE = 2
     QUITTING = 3
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["BootStatus", SupportsInt, str] | None
+    ) -> "BootStatus":
+        return from_expr(cls, expr)
 
-class CalculationRate(IntEnumeration):
+
+class CalculationRate(enum.IntEnum):
     """
     An enumeration of scsynth calculation-rates.
     """
@@ -106,12 +124,12 @@ class CalculationRate(IntEnumeration):
         ::
 
             >>> supriya.CalculationRate.from_expr(1)
-            CalculationRate.SCALAR
+            <CalculationRate.SCALAR: 0>
 
         ::
 
             >>> supriya.CalculationRate.from_expr("demand")
-            CalculationRate.DEMAND
+            <CalculationRate.DEMAND: 3>
 
         ::
 
@@ -120,7 +138,7 @@ class CalculationRate(IntEnumeration):
             >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
             >>> supriya.CalculationRate.from_expr(collection)
-            CalculationRate.AUDIO
+            <CalculationRate.AUDIO: 2>
 
         ::
 
@@ -128,7 +146,7 @@ class CalculationRate(IntEnumeration):
             >>> collection.append(supriya.ugens.DC.kr(source=1))
             >>> collection.append(2.0)
             >>> supriya.CalculationRate.from_expr(collection)
-            CalculationRate.CONTROL
+            <CalculationRate.CONTROL: 1>
 
         Return calculation-rate.
         """
@@ -153,10 +171,10 @@ class CalculationRate(IntEnumeration):
                 return cast(CalculationRate, CalculationRate.CONTROL)
             return CalculationRate.from_expr(name)
         elif isinstance(expr, str):
-            return super().from_expr(expr)
+            return from_expr(cls, expr)
         elif isinstance(expr, Sequence):
             return max(CalculationRate.from_expr(item) for item in expr)
-        return super().from_expr(expr)
+        return from_expr(cls, expr)
 
     @property
     def token(self) -> str:
@@ -171,7 +189,7 @@ class CalculationRate(IntEnumeration):
         return "new"
 
 
-class DoneAction(IntEnumeration):
+class DoneAction(enum.IntEnum):
     """
     An enumeration of ``scsynth`` UGen "done" actions.
     """
@@ -192,8 +210,14 @@ class DoneAction(IntEnumeration):
     FREE_SYNTH_AND_ALL_SIBLING_NODES = 13
     FREE_SYNTH_AND_ENCLOSING_GROUP = 14
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["DoneAction", SupportsInt, str] | None
+    ) -> "DoneAction":
+        return from_expr(cls, expr)
 
-class EnvelopeShape(IntEnumeration):
+
+class EnvelopeShape(enum.IntEnum):
     STEP = 0
     LINEAR = 1
     EXPONENTIAL = 2
@@ -204,8 +228,14 @@ class EnvelopeShape(IntEnumeration):
     CUBED = 7
     HOLD = 8
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["EnvelopeShape", SupportsInt, str] | None
+    ) -> "EnvelopeShape":
+        return from_expr(cls, expr)
 
-class HeaderFormat(IntEnumeration):
+
+class HeaderFormat(enum.IntEnum):
     """
     An enumeration of soundfile header formats.
     """
@@ -216,8 +246,14 @@ class HeaderFormat(IntEnumeration):
     RAW = 3
     WAV = 4
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["HeaderFormat", SupportsInt, str] | None
+    ) -> "HeaderFormat":
+        return from_expr(cls, expr)
 
-class NodeAction(IntEnumeration):
+
+class NodeAction(enum.IntEnum):
     NODE_CREATED = 0
     NODE_REMOVED = 1
     NODE_ACTIVATED = 2
@@ -226,23 +262,23 @@ class NodeAction(IntEnumeration):
     NODE_QUERIED = 5
 
     @classmethod
-    def from_expr(cls, address) -> "NodeAction":
-        if isinstance(address, cls):
-            return address
-        return cast(
-            NodeAction,
-            {
-                "/n_end": cls.NODE_REMOVED,
-                "/n_go": cls.NODE_CREATED,
-                "/n_info": cls.NODE_QUERIED,
-                "/n_move": cls.NODE_MOVED,
-                "/n_off": cls.NODE_DEACTIVATED,
-                "/n_on": cls.NODE_ACTIVATED,
-            }[address],
-        )
+    def from_expr(
+        cls, expr: Union["NodeAction", SupportsInt, str] | None
+    ) -> "NodeAction":
+        mapping = {
+            "/n_end": NodeAction.NODE_REMOVED,
+            "/n_go": NodeAction.NODE_CREATED,
+            "/n_info": NodeAction.NODE_QUERIED,
+            "/n_move": NodeAction.NODE_MOVED,
+            "/n_off": NodeAction.NODE_DEACTIVATED,
+            "/n_on": NodeAction.NODE_ACTIVATED,
+        }
+        if isinstance(expr, str) and expr in mapping:
+            return mapping[expr]
+        return from_expr(cls, expr)
 
 
-class ParameterRate(IntEnumeration):
+class ParameterRate(enum.IntEnum):
     """
     An enumeration of synthdef control rates.
     """
@@ -256,8 +292,14 @@ class ParameterRate(IntEnumeration):
     IR = 0
     TR = 1
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["ParameterRate", SupportsInt, str] | None
+    ) -> "ParameterRate":
+        return from_expr(cls, expr)
 
-class RequestId(IntEnumeration):
+
+class RequestId(enum.IntEnum):
     """
     An enumeration of scsynth request ids.
     """
@@ -328,12 +370,18 @@ class RequestId(IntEnumeration):
     UGEN_COMMAND = 20
     VERSION = 64
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["RequestId", SupportsInt, str] | None
+    ) -> "RequestId":
+        return from_expr(cls, expr)
+
     @property
-    def request_name(self) -> str:
+    def request_name(self) -> "RequestName":
         return RequestName.from_expr(self.name)
 
 
-class RequestName(StrictEnumeration):
+class RequestName(enum.Enum):
     """
     An enumeration of scsynth request names.
     """
@@ -404,12 +452,18 @@ class RequestName(StrictEnumeration):
     UGEN_COMMAND = "/u_cmd"
     VERSION = "/version"
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["RequestName", SupportsInt, str] | None
+    ) -> "RequestName":
+        return from_expr(cls, expr)
+
     @property
-    def request_id(self) -> str:
+    def request_id(self) -> RequestId:
         return RequestId.from_expr(self.name)
 
 
-class SampleFormat(IntEnumeration):
+class SampleFormat(enum.IntEnum):
     """
     An enumeration of soundfile sample formats.
     """
@@ -423,8 +477,14 @@ class SampleFormat(IntEnumeration):
     INT32 = 6
     MULAW = 7
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["SampleFormat", SupportsInt, str] | None
+    ) -> "SampleFormat":
+        return from_expr(cls, expr)
 
-class ServerLifecycleEvent(IntEnumeration):
+
+class ServerLifecycleEvent(enum.IntEnum):
     BOOTING = enum.auto()
     PROCESS_BOOTED = enum.auto()
     CONNECTING = enum.auto()
@@ -440,16 +500,28 @@ class ServerLifecycleEvent(IntEnumeration):
     PROCESS_QUIT = enum.auto()
     QUIT = enum.auto()
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["ServerLifecycleEvent", SupportsInt, str] | None
+    ) -> "ServerLifecycleEvent":
+        return from_expr(cls, expr)
 
-class ServerShutdownEvent(IntEnumeration):
+
+class ServerShutdownEvent(enum.IntEnum):
     QUIT = enum.auto()
     DISCONNECT = enum.auto()
     OSC_PANIC = enum.auto()
     PROCESS_PANIC = enum.auto()
     TOO_MANY_CLIENTS = enum.auto()
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["ServerShutdownEvent", SupportsInt, str] | None
+    ) -> "ServerShutdownEvent":
+        return from_expr(cls, expr)
 
-class SignalRange(IntEnumeration):
+
+class SignalRange(enum.IntEnum):
     """
     An enumeration of scsynth UGen signal ranges.
     """
@@ -457,8 +529,14 @@ class SignalRange(IntEnumeration):
     UNIPOLAR = 0
     BIPOLAR = 1
 
+    @classmethod
+    def from_expr(
+        cls, expr: Union["SignalRange", SupportsInt, str] | None
+    ) -> "SignalRange":
+        return from_expr(cls, expr)
 
-class UnaryOperator(IntEnumeration):
+
+class UnaryOperator(enum.IntEnum):
     ABSOLUTE_VALUE = 5
     AMPLITUDE_TO_DB = 22
     ARCCOS = 32
@@ -513,3 +591,9 @@ class UnaryOperator(IntEnumeration):
     THRU = 47
     TRIANGLE_WINDOW = 51
     WELCH_WINDOW = 50
+
+    @classmethod
+    def from_expr(
+        cls, expr: Union["UnaryOperator", SupportsInt, str] | None
+    ) -> "UnaryOperator":
+        return from_expr(cls, expr)
