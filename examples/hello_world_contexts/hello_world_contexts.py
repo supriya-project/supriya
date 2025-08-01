@@ -82,7 +82,7 @@ def run_nonrealtime() -> None:
     supriya.play(score)
 
 
-def parse_args(args: list[str] | None = None) -> None:
+def parse_args(args: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Play a C-major chord via different kinds of contexts"
     )

@@ -79,6 +79,7 @@ rst_epilog = """
 .. _aiohttp: https://docs.aiohttp.org/en/stable/
 .. _black: https://black.readthedocs.io/en/stable/
 .. _flake8: https://flake8.pycqa.org/en/latest/
+.. _"hello, world!": https://en.wikipedia.org/wiki/%22Hello,_World!%22_program
 .. _isort: https://pycqa.github.io/isort/
 .. _libsndfile: https://www.mega-nerd.com/libsndfile/
 .. _mkdocs: https://www.mkdocs.org/
