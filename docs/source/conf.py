@@ -16,7 +16,7 @@ git_branch = (
 ).stdout.strip()
 
 if os.environ.get("CI"):
-    git_branch = os.environ.get("GITHUB_HEAD_REF")
+    git_branch = os.environ.get("GITHUB_HEAD_REF") or os.environ.get("GITHUB_REF_NAME")
 
 ### SPHINX ###
 
