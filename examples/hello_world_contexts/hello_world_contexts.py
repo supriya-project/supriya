@@ -64,7 +64,7 @@ async def run_async() -> None:
 
 
 def run_nonrealtime() -> None:
-    # Create a score:
+    # Create a score with stereo outputs:
     score = supriya.Score(output_bus_channel_count=2)
     # Start an OSC bundle to run at 0 seconds:
     with score.at(0):
@@ -82,7 +82,7 @@ def run_nonrealtime() -> None:
     supriya.play(score)
 
 
-def parse_args(args: list[str] | None = None) -> None:
+def parse_args(args: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Play a C-major chord via different kinds of contexts"
     )

@@ -3,9 +3,9 @@
 Non-realtime Scores
 ===================
 
-.. self-criticism::
+..  self-criticism::
 
-   These docs are still under construction.
+    These docs are still under construction.
 
 Outline:
 

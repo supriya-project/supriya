@@ -3,9 +3,9 @@
 Buses
 =====
 
-.. self-criticism::
+..  self-criticism::
 
-   These docs are still under construction.
+    These docs are still under construction.
 
 - what is a bus?
 - buses vs bus groups
@@ -18,10 +18,10 @@ Buses can only be added to running servers, so let’s create one and boot it:
 
     >>> server = supriya.Server().boot()
 
-.. note::
+..  note::
 
-   :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
-   nor offline, so you can add buses to them whenever you like.
+    :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
+    nor offline, so you can add buses to them whenever you like.
 
 Creation
 ````````
@@ -90,9 +90,28 @@ Inputs and outputs
 Configuration
 -------------
 
-The number of buses available in a context is controlled by its options.
+The number of buses available in a context is controlled by its
+:py:class:`options <supriya.scsynth.Options>`.
 
-- Options.control_bus_channel_count
-- Options.audio_bus_channel_count
-- Options.input_bus_channel_count
-- Options.output_bus_channel_count
+- Set the maximum number of control buses with the
+  ``control_bus_channel_count`` keyword.
+
+- Set the maximum number of audio buses with the ``control_bus_channel_count``
+  keyword.
+
+- Set the number of *input* audio buses to the server with the
+  ``input_bus_channel_count`` keyword.
+
+- Set the number of *output* audio buses to the server with the
+  ``output_bus_channel_count`` keyword.
+
+..  note::
+
+    The ``input_bus_channel_count`` and ``output_bus_channel_count`` values are
+    independent of what your current soundcard supports. They can be greater
+    than or less than the number of available channels, but won't actually
+    carry more information if you select a higher value internal to the
+    context. Typically you select the same or fewer channels.
+
+These can be set on an :py:class:`~supriya.scsynth.Options` instance passed the
+context when initialized or booting, or just as keyword arguments.

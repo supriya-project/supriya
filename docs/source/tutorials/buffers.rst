@@ -3,16 +3,17 @@
 Buffers
 =======
 
-.. self-criticism::
+..  self-criticism::
 
-   These docs are still under construction.
+    These docs are still under construction.
 
-:term:`Buffers <buffer>` are arrays of sample data. Like sound files, they have
-one or more :term:`channels <channel>`, and one or more :term:`frames <frame>`.
-They can be read from disk (or written back to it), created empty and populated
-later, or synthesized by the server - typically to create window functions or
-waveforms for wavetable synthesis. They're also used when streaming audio to or
-from soundfiles too large to load into memory at once.
+:term:`Buffers <buffer>` are fixed-size arrays of sample data. Like sound
+files, they have one or more :term:`channels <channel>`, and one or more
+:term:`frames <frame>`. They can be read from disk (or written back to it),
+created empty and populated later, or synthesized by the server - typically to
+create window functions or waveforms for wavetable synthesis. They're also used
+when streaming audio to or from soundfiles too large to load into memory at
+once.
 
 Like buses, :term:`scsynth` boots with a fixed number of buffers available.
 Unlike buses, these buffers can be reconfigured with different channel counts
@@ -29,10 +30,10 @@ Buffers can only be added to running servers, so let’s create one and boot it:
 
     >>> server = supriya.Server().boot()
 
-.. note::
+..  note::
 
-   :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
-   nor offline, so you can add buffers to them whenever you like.
+    :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
+    nor offline, so you can add buffers to them whenever you like.
 
 Creation
 ````````
@@ -40,7 +41,7 @@ Creation
 Buffers can be allocated empty or immediately filled with all or part of a
 soundfile read from disk.
 
-.. note::
+..  note::
 
     You must specify the number of channels and frames when allocating a buffer.
 
@@ -69,7 +70,7 @@ The :term:`repr` shows the buffer group's type (``BufferGroup``), the :term:`ID
 <ID, buffer>` of the first buffer in the group (``1``) and indicates it has
 been allocated (``+``).
 
-.. note::
+..  note::
 
     Why use a :py:class:`~supriya.contexts.entities.BufferGroup`?
 
@@ -127,7 +128,7 @@ of channels to grab via the ``channel_count`` parameter::
 
     >>> server.add_buffer(channel_indices=[0, 1], file_path=file_path)
 
-.. todo:: Implement ``server.add_buffer_group(file_paths=[..., ..., ...])``
+..  todo:: Implement ``server.add_buffer_group(file_paths=[..., ..., ...])``
 
 Deletion
 ````````
@@ -301,11 +302,15 @@ format, there's no functionality built into :term:`scsynth` to load arbitrary
 soundfiles and convert them into wavetable format in the process, or to copy an
 existing buffer's contents into another buffer and convert.
 
-.. todo:: Implement wavetable utilities for loading arbitrary audio.
+..  todo:: Implement wavetable utilities for loading arbitrary audio.
 
 Configuration
 -------------
 
-The maximum number of buffers available in a context is controlled by its options.
+The maximum number of buffers available in a context is controlled by its
+:py:class:`options <supriya.scsynth.Options>`.
 
-- Options.buffer_count
+- Set the maximum number of buffers with the ``buffer_count`` keyword.
+
+This can be set on an :py:class:`~supriya.scsynth.Options` instance passed the
+context when initialized or booting, or just as keyword arguments.

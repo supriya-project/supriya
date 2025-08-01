@@ -6,7 +6,7 @@ development process.
 
 Install Supriya's test dependencies with:
 
-.. include:: /includes/install-test.txt
+..  include:: /includes/install-test.txt
 
 Running tests
 -------------
@@ -17,28 +17,28 @@ doctests, along with a variety of `pytest_` plugins.
 Run `pytest`_ against Supriya's default test paths (:github-tree:`supriya/
 <supriya>` and :github-tree:`tests/ <tests>`) with:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~/supriya$ pytest
+    josephine@laptop:~/supriya$ pytest
 
 You can run `pytest`_ against a specific test module with:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~/supriya$ pytest tests/contexts/test_Server_nodes.py
+    josephine@laptop:~/supriya$ pytest tests/contexts/test_Server_nodes.py
 
 ... or against a specific test function in a specific module with:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~/supriya$ pytest tests/contexts/test_Server_nodes.py::test_add_synth
+    josephine@laptop:~/supriya$ pytest tests/contexts/test_Server_nodes.py::test_add_synth
 
 You can also run `pytest`_ against any test or test file matching a pattern
 with:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~/supriya$ pytest -k add_synth
+    josephine@laptop:~/supriya$ pytest -k add_synth
 
 See `pytest`_'s complete documentation for a wide variety of invocation
 options.
@@ -65,19 +65,19 @@ Coverage
 Collect coverage against the code in the :github-tree:`supriya/ <supriya>`
 directory during a test run by adding the ``--cov=supriya`` flag:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~/supriya$ pytest --cov=supriya
+    josephine@laptop:~/supriya$ pytest --cov=supriya
 
 Supriya provides a ``Makefile`` target to simplify this call:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~/supriya$ make pytest
+    josephine@laptop:~/supriya$ make pytest
 
 The coverage report appear at the end of the test output in your terminal:
 
-.. code-block::
+..  code-block::
 
     Name                                Stmts   Miss Branch BrPart  Cover
     ---------------------------------------------------------------------
@@ -174,24 +174,24 @@ The coverage report appear at the end of the test output in your terminal:
 A line-by-line HTML version of the output can also be found under an ``htmlcov/``
 directory at the root of Supriya's codebase.
 
-.. hint::
+..  hint::
 
-   Use coverage reporting to guide your test writing. It will expose branches
-   that haven't been executed during testing. Aim for 90% coverage, but don't
-   stress about going significantly higher. Higher percentages (while often
-   possible!) tend to require contortions of logic, and in practice don't
-   necessarily yield better stability. Rely on static type-checking to fill in
-   the gaps in test coverage.
+    Use coverage reporting to guide your test writing. It will expose branches
+    that haven't been executed during testing. Aim for 90% coverage, but don't
+    stress about going significantly higher. Higher percentages (while often
+    possible!) tend to require contortions of logic, and in practice don't
+    necessarily yield better stability. Rely on static type-checking to fill in
+    the gaps in test coverage.
 
 Writing tests
 -------------
 
-.. note::
+..  note::
 
-   The test examples here are in the official test suite, to ensure that they
-   continue to work and are also therefore subject to the same formatting,
-   linting and static-typing checks as any other code in Supriya. You can find
-   them :github-blob:`here <tests/test_examples.py>`.
+    The test examples here are in the official test suite, to ensure that they
+    continue to work and are also therefore subject to the same formatting,
+    linting and static-typing checks as any other code in Supriya. You can find
+    them :github-blob:`here <tests/test_examples.py>`.
 
 Some philosophy
 ```````````````
@@ -225,12 +225,12 @@ Doctests are OK, but keep them very concise. Prefer to push extended testing in
 docstrings into the unit testsuite instead. Prefer to push extensive exposition
 into the documentation instead.
 
-.. self-criticism::
+..  self-criticism::
 
-   You'll see in some of Supriya's older tests - especially for SynthDefs -
-   multiple rounds of operations and validations. Avoid this pattern when
-   writing new ones. These older tests will eventually get refactored,
-   typically into parametrized tests.
+    You'll see in some of Supriya's older tests - especially for SynthDefs -
+    multiple rounds of operations and validations. Avoid this pattern when
+    writing new ones. These older tests will eventually get refactored,
+    typically into parametrized tests.
 
 An example test
 ```````````````
@@ -242,20 +242,21 @@ Let's create a simple test that:
 - asserts that the node tree matches our expectations
 - *as teardown*, quits the server
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_basic
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_basic
 
 Not particularly interesting or necessarily useful, but it's a good
 demonstration of what a test might look like.
 
 You can run this test with:
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_basic
+    pytest tests/test_examples.py::test_basic
 
 Our first test has a problem: if the ``assert`` fails (it won't, but *if it
 did*), the server won't quit. Philosophically, booting and quitting the server
@@ -268,15 +269,16 @@ Testing with fixtures
 One might be tempted to use a try/finally block to ensure the server quits,
 even if the assertion fails. And it's true, that will work fine:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_try_finally
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_try_finally
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_try_finally
+    pytest tests/test_examples.py::test_try_finally
 
 But there's a simpler way to do this, with less indentation, where we can
 extract out the server lifecycle from the test entirely into a reusable
@@ -287,8 +289,8 @@ The following demonstrates a fixture that instantiates a server, boots it,
 yields the server for usage elsewhere, and then quits it when that usage
 completes:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: server
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: server
 
 Importantly, the code *after* the yield will run even if the code using the
 yielded server fails. This single-yield generator effectively describes a
@@ -297,15 +299,16 @@ setup/test/teardown lifecycle.
 We integrate the ``server`` fixture into a test by adding an argument *with the
 same name as the fixture* to the test function:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_fixtures
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_fixtures
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_fixtures
+    pytest tests/test_examples.py::test_fixtures
 
 The resulting test is a little shorter (not dramatically so, but you can
 imagine how this saves a lot of space in more complex scenarios), and a little
@@ -330,18 +333,19 @@ Async code *typically* needs to be run inside async tests. To do this:
   plugin) to decorate async fixtures, in this case to decorate a fixture
   returning an :py:class:`~supriya.contexts.realtime.AsyncServer`
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: async_server
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: async_server
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_async
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_async
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_async
+    pytest tests/test_examples.py::test_async
 
 
 Note that ``test_async`` looks just like ``test_fixtures``, just... *async*.
@@ -354,16 +358,16 @@ When testing classes with "mirror" sync and async interfaces, like
 :py:class:`~supriya.contexts.realtime.AsyncServer` we can use a little helper
 function to optionally await as necessary:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: get
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: get
 
 And we can use a (more complex) *async* fixture (available via the
 `pytest-asyncio`_ plugin) to instantiate, boot, yield, then quit *either* a
 :py:class:`~supriya.contexts.realtime.Server` or a
 :py:class:`~supriya.contexts.realtime.AsyncServer`:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: context
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: context
 
 The above fixture actually causes tests using it to run *once per value* in the
 fixture's ``params`` list, effectively parametrizing the test!
@@ -372,43 +376,46 @@ Then we can use the fixture, just like we used the ``server`` fixture
 previously, along with the ``get()`` helper, to test that both flavors of
 server handle querying the node tree the same way:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_async_and_sync
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_async_and_sync
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_async_and_sync
+    pytest tests/test_examples.py::test_async_and_sync
 
-.. note::
+..  note::
    
-   Note the bracketed arguments in the `pytest`_ output. These show (if
-   possible) a representation of the parametrized argument(s) to each
-   individual run of the test.
+    Note the bracketed arguments in the `pytest`_ output. These show (if
+    possible) a representation of the parametrized argument(s) to each
+    individual run of the test.
 
 Testing node trees diffs
 ````````````````````````
 
 Many client operations change the state of the server's node tree, and in those
-cases the simplest thing to test is often not just "does the node tree look like what we
-expect?" but "does the diff of the node tree before and after my operation look like what I expect?"
+cases the simplest thing to test is often not just "does the node tree look
+like what we expect?" but "does the diff of the node tree before and after my
+operation look like what I expect?"
 
 To do this, we can literally compare the node tree *before* and *after* an
 operation, as a diff. First, query the tree as a pre-condition, query it again
 after performing an operation, diff the two strings, and compare your expected
 diff against the actual diff.
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_node_tree_diff
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_node_tree_diff
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_node_tree_diff
+    pytest tests/test_examples.py::test_node_tree_diff
 
 Now, note that there's a lot of boilerplate in that test. Let's extract out the
 tree querying and diffing logic into something separate. Because there's
@@ -420,24 +427,25 @@ earlier for testing both sync and async code "homogenously" to create an *async
 context manager* that can validate the node tree diff for both sync and async
 servers:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: assert_node_tree_diff
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: assert_node_tree_diff
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_node_tree_diff_context_manager
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_node_tree_diff_context_manager
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_node_tree_diff_context_manager
+    pytest tests/test_examples.py::test_node_tree_diff_context_manager
 
-.. note::
+..  note::
 
-   If the diff comparisons fail, `pytest`_ will show you a *diff of diffs* in
-   its failure reporting. That's not the easiest thing to read, but I swear
-   you'll get used to it.
+    If the diff comparisons fail, `pytest`_ will show you a *diff of diffs* in
+    its failure reporting. That's not the easiest thing to read, but I swear
+    you'll get used to it.
 
 Testing OSC transcripts
 ```````````````````````
@@ -451,27 +459,30 @@ Supriya provides a low-level context manager - accessible via the server's OSC
 protocol object - for capturing OSC data *sent to* and *received from* the
 server:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_osc_transcript
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_osc_transcript
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_osc_transcript
+    pytest tests/test_examples.py::test_osc_transcript
 
-.. note::
+..  note::
 
-   The OSC "transcript" can be filtered via various boolean flags:
+    The OSC "transcript" can be filtered via various boolean flags:
 
-   - If ``sent=True`` then the filtered messages will include outgoing OSC messages.
+    - If ``sent=True`` then the filtered messages will include outgoing OSC
+      messages.
 
-   - If ``received=True`` then the filtered messages will include incoming OSC messages.
+    - If ``received=True`` then the filtered messages will include incoming OSC
+      messages.
 
-   - If ``status=False`` then nthe filtered messages will omit both ``/status`` and
-     ``/status.reply`` messages, as these are constantly being sent and
-     received during the course of normal operation.
+    - If ``status=False`` then nthe filtered messages will omit both
+      ``/status`` and ``/status.reply`` messages, as these are constantly being
+      sent and received during the course of normal operation.
 
 Testing server process transcripts
 ```````````````````````````````````
@@ -481,15 +492,16 @@ from a server's underlying ``scsynth`` or ``supernova`` process via a process
 :py:class:`~supriya.scsynth.Capture`. There are few uses for this, but it's
 available nonetheless:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_process_transcript
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_process_transcript
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_process_transcript
+    pytest tests/test_examples.py::test_process_transcript
 
 Testing exceptions
 ``````````````````
@@ -502,15 +514,16 @@ part of API design.
 `pytest`_ provides a ``pytest.raises(...)`` context manager for asserting
 exceptions were raised by a code block:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_exceptions
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_exceptions
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_exceptions
+    pytest tests/test_examples.py::test_exceptions
 
 Testing warnings
 ````````````````
@@ -522,15 +535,16 @@ raises.
 ``warnings.catch_warnings(record=True)`` context manager for catching warnings
 we can inspect later:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_warnings
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_warnings
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_warnings
+    pytest tests/test_examples.py::test_warnings
 
 Testing logs
 ````````````
@@ -542,15 +556,16 @@ that it logged the way you want?
 <https://docs.pytest.org/en/stable/how-to/logging.html#caplog-fixture>`_
 that lets you set logging levels and capture logs during tests:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_logging
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_logging
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_logging
+    pytest tests/test_examples.py::test_logging
 
 Testing parametrically
 ``````````````````````
@@ -560,11 +575,11 @@ that series of similar tests into a single test with varying inputs. This is a
 "parametrized" test: one test body, but a series of one or more varying sets of
 inputs.
 
-.. note::
+..  note::
    
-   The `pytest`_ folks use the British "parametrize" spelling rather than the
-   American "parameterized" spelling. We'll use the same spelling they do for
-   the sake of consistency.
+    The `pytest`_ folks use the British "parametrize" spelling rather than the
+    American "parameterized" spelling. We'll use the same spelling they do for
+    the sake of consistency.
 
 You can create a parametrized test with the ``@pytest.mark.parametrize``
 `decorator
@@ -588,15 +603,16 @@ each add action, with a matching expected node tree diff. The test body will
 execute its logic with each different add action, and validate that our
 expected node tree diff matches the actual node tree diff:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_parametrized
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_parametrized
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_parametrized
+    pytest tests/test_examples.py::test_parametrized
 
 Parameters are combinatoric. You can use multiple ``@pytest.mark.parametrize``
 decorators and/or parametrized fixtures with the same test case, and `pytest`_
@@ -604,24 +620,25 @@ will perform combinatoric expansion. Let's use the ``context`` fixture defined
 earlier that can yield either a sync or async server with our initial
 parametric test cases:
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_parametrized_combinatoric
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_parametrized_combinatoric
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_parametrized_combinatoric
+    pytest tests/test_examples.py::test_parametrized_combinatoric
 
 Note the expansion in the test report: five add actions times two server types.
 
-.. note::
+..  note::
 
-   Debugging parametrized tests can be difficult because of the verticality of
-   the code, and the non-obvious connection between which parameter block was
-   associated with which failure. In general, try not to stack too many
-   different parametric groups, simply for the sake of legibility.
+    Debugging parametrized tests can be difficult because of the verticality of
+    the code, and the non-obvious connection between which parameter block was
+    associated with which failure. In general, try not to stack too many
+    different parametric groups, simply for the sake of legibility.
 
 Testing parametrically with fixtures
 ````````````````````````````````````
@@ -638,21 +655,22 @@ a :py:class:`~supriya.contexts.realtime.Server` or
 ``@pytest.mark.parametrize`` decorator whose arguments are lazily-evaluated
 references to the ``async_server`` and ``server`` fixtures.
 
-.. literalinclude:: ../../../tests/test_examples.py
-   :pyobject: test_parametrized_lazy_fixtures
+..  literalinclude:: ../../../tests/test_examples.py
+    :pyobject: test_parametrized_lazy_fixtures
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   pytest tests/test_examples.py::test_parametrized_lazy_fixtures
+    pytest tests/test_examples.py::test_parametrized_lazy_fixtures
 
-.. note::
+..  note::
 
-   There's no good reason to do this specifically except for the sake of
-   pedagogy. The original ``context`` fixture is cleaner, but we need to
-   demonstrate the lazy technique.
+    There's no good reason to do this specifically except for the sake of
+    pedagogy. The original ``context`` fixture is cleaner, but we need to
+    demonstrate the lazy technique.
 
 Formatting
 ----------
@@ -663,12 +681,13 @@ imports, it now just uses `ruff`_.
 
 You can auto-format the codebase with:
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   make reformat
+    make reformat
 
 Linting
 -------
@@ -678,12 +697,13 @@ sake of speed and ease of configuration.
 
 You can lint the codebase with:
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   make ruff-lint
+    make ruff-lint
 
 Type-checking
 -------------
@@ -693,12 +713,13 @@ work-in-progress) and uses `mypy`_ to perform the analysis.
 
 You can run static type-checking with:
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   make mypy
+    make mypy
 
 When writing (or refactoring) code, make sure to add type hints whenever
 possible. Except in rare cases - typically extremely dynamic programming or
@@ -706,11 +727,11 @@ low-level systems programming-, most functions and methods can be type hinted.
 We aim for every method and function to *at least* have a return value, but
 more is better.
 
-.. note::
+..  note::
 
-   Also make sure to type hint tests in the test suite, as this makes
-   refactoring the codebase simpler and surfaces errors faster than simply
-   running the tests.
+    Also make sure to type hint tests in the test suite, as this makes
+    refactoring the codebase simpler and surfaces errors faster than simply
+    running the tests.
 
 Mypy extensions
 ```````````````
@@ -726,7 +747,7 @@ and MyPy is already configured to use it via the ``plugins`` field in Supriya's
 Should you need to type check against Supriya's UGens in another project, you
 can activate the `mypy`_ extension with the following code:
 
-.. code-block:: toml
+..  code-block:: toml
 
     [tool.mypy]
     plugins = ["supriya.ext.mypy"]
