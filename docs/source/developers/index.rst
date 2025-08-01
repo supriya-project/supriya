@@ -32,6 +32,7 @@ Supriya provides a ``Makefile`` with targets for common local development tasks:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 

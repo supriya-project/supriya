@@ -170,6 +170,7 @@ Finally, shell console sessions can be captured, just like Python sessions:
 
     ..  shell::
         :cwd: ..
+        :rel: ..
         :user: josephine
         :host: laptop
 

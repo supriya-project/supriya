@@ -3,8 +3,8 @@ Hello, world!
 
 ..  info::
 
-   See the :si-icon:`octicons/mark-github-16` :github-tree:`full example source
-   code <examples/hello_world>` on GitHub.
+    See the :si-icon:`octicons/mark-github-16` :github-tree:`full example
+    source code <examples/hello_world>` on GitHub.
 
 Supriya's `"hello, world!"`_ is a little longer than most traditional "hello,
 world!" recipes, because playing a sound from scratch requires more than one step:
@@ -31,9 +31,16 @@ All of this logic is outlined in the example's ``main`` function:
     :caption:
     :pyobject: main
 
+Invocation
+----------
+
 You can invoke the script with ...
 
-..  code-block:: bash
+..  shell::
+    :cwd: ../examples/hello_world
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
     python hello_world.py
 

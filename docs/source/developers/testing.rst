@@ -252,6 +252,7 @@ You can run this test with:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -273,6 +274,7 @@ even if the assertion fails. And it's true, that will work fine:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -302,6 +304,7 @@ same name as the fixture* to the test function:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -338,6 +341,7 @@ Async code *typically* needs to be run inside async tests. To do this:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -377,6 +381,7 @@ server handle querying the node tree the same way:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -406,6 +411,7 @@ diff against the actual diff.
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -429,6 +435,7 @@ servers:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -457,6 +464,7 @@ server:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -489,6 +497,7 @@ available nonetheless:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -510,6 +519,7 @@ exceptions were raised by a code block:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -530,6 +540,7 @@ we can inspect later:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -550,6 +561,7 @@ that lets you set logging levels and capture logs during tests:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -596,6 +608,7 @@ expected node tree diff matches the actual node tree diff:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -612,6 +625,7 @@ parametric test cases:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -646,6 +660,7 @@ references to the ``async_server`` and ``server`` fixtures.
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -668,6 +683,7 @@ You can auto-format the codebase with:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -683,6 +699,7 @@ You can lint the codebase with:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
@@ -698,6 +715,7 @@ You can run static type-checking with:
 
 ..  shell::
     :cwd: ..
+    :rel: ..
     :user: josephine
     :host: laptop
 
