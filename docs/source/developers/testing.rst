@@ -188,10 +188,10 @@ Writing tests
 
 ..  note::
 
-    The test examples here are in the official test suite, to ensure that they
-    continue to work and are also therefore subject to the same formatting,
-    linting and static-typing checks as any other code in Supriya. You can find
-    them :github-blob:`here <tests/test_examples.py>`.
+    The test examples here are :si-icon:`octicons/mark-github-16`
+    :github-blob:`in the official test suite <tests/test_examples.py>`, which
+    ensures that they continue to work and are subject to the same formatting,
+    linting and static-typing checks as any other code in Supriya.
 
 Some philosophy
 ```````````````

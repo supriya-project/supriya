@@ -3,8 +3,8 @@ Examples overview
 
 ..  info::
 
-    All examples are located under the :si-icon:`octicons/mark-github-16` :github-tree:`examples/` subdirectory
-    inside the repository.
+    All examples are located under the :si-icon:`octicons/mark-github-16`
+    :github-tree:`examples/` subdirectory inside the repository.
 
 Unless specified otherwise in the example's ``README.md`` (or in the example's
 documentation here) you can run the example like a script:
