@@ -52,7 +52,12 @@ def debug(
         print("    Transcript:")
     # Print the OSC transcript's filtered, captured messages
     for entry in entries:
-        print(f"        {'Recv' if entry.label == 'R' else 'Sent'}: {entry.message!r}")
+        # A received message
+        if entry.label == "R":
+            print(f"        Received: {entry.message!r}")
+        # A sent message
+        else:
+            print(f"        Sent:     {entry.message!r}")
     # Print the node tree
     for line in str(server.query_tree()).splitlines():
         print(f"    Tree: {line}")
@@ -60,7 +65,7 @@ def debug(
 
 def main() -> None:
     # Turn on basic logging output interpreter-wide
-    logging.basicConfig(level=logging.WARN)
+    logging.basicConfig(level=logging.WARNING)
 
     # Set Supriya's supriya.scsynth logger level to INFO
     logging.getLogger("supriya.scsynth").setLevel(logging.INFO)
@@ -68,28 +73,36 @@ def main() -> None:
     # Create a server and boot it:
     server = supriya.Server().boot()
 
-    # Print debug info before we play anything
+    # Print debug info before we play anything ...
+    # Should be just an empty server with the default groups.
     with debug("BEFORE PLAYING:", server):
         pass
 
-    # Print debug info immediately after we play the synths
+    # Print debug info immediately after we play the synths ...
+    # No synths should be allocated yet because their SynthDef hasn't finished
+    # allocation.
     with debug("IMMEDIATELY AFTER PLAYING:", server):
         # Start playing the synths
         synths = play_synths(context=server)
 
-    # Print debug info after syncing with the server
+    # Print debug info after syncing with the server ...
+    # The synths should now be present.
     with debug("PLAYING:", server):
         server.sync()
 
-    # Print debug info after 4 seconds of waiting
+    # Print debug info after 4 seconds of waiting ...
+    # Nothing should have changed since the synths allocated.
     with debug("JUST BEFORE STOPPING:", server):
         time.sleep(4)
 
     # Print debug info immediately after stopping the synths
+    # The synths are still present, but their "gate" parameters have flipped to
+    # zero.
     with debug("IMMEDIATELY AFTER STOPPING:", server):
         stop_synths(context=server, synths=synths)
 
-    # Print debug info after 1 second of waiting
+    # Print debug info after 1 second of waiting ...
+    # The synths should now be gone.
     with debug("AFTER RELEASING:", server):
         time.sleep(1)
 
