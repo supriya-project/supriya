@@ -4038,7 +4038,7 @@ From source</label></div>
 </div><h2 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">¶</a></h2>
 <p>Supriya uses <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> as its test runner, both for unit tests and for
 doctests, along with a variety of <cite>pytest_</cite> plugins.</p>
-<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/tests">tests/</a>) with:</p>
+<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b1/supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b1/tests">tests/</a>) with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest
 </code></pre></div>
 </div>
@@ -4068,7 +4068,7 @@ equivalents.</p>
 <h3 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> can collect code coverage statistics during its test runs via the
 <a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/">pytest-cov</a> plugin, installed when you install Supriya’s test dependencies.</p>
-<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/supriya">supriya/</a>
+<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b1/supriya">supriya/</a>
 directory during a test run by adding the <code class="docutils literal notranslate"><span class="pre">--cov=supriya</span></code> flag:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>--cov<span class="o">=</span>supriya
 </code></pre></div>
@@ -4188,7 +4188,7 @@ the gaps in test coverage.</p>
 <p>The test examples here are in the official test suite, to ensure that they
 continue to work and are also therefore subject to the same formatting,
 linting and static-typing checks as any other code in Supriya. You can find
-them <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b0/tests/test_examples.py">here</a>.</p>
+them <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b1/tests/test_examples.py">here</a>.</p>
 </div>
 <h3 id="some-philosophy">Some philosophy<a class="headerlink" href="#some-philosophy" title="Link to this heading">¶</a></h3>
 <p>Whenever possible, keep tests simple:</p>
@@ -5284,9 +5284,9 @@ running the tests.</p>
 <p>Because of its use of metaclasses for code generation in UGens, Supriya
 requires a <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension to teach it about the auto-generated methods and
 properties on those classes.</p>
-<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b0/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
+<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b1/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
 and MyPy is already configured to use it via the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> field in Supriya’s
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b0/pyproject.toml">pyproject.toml</a>.</p>
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b1/pyproject.toml">pyproject.toml</a>.</p>
 <p>Should you need to type check against Supriya’s UGens in another project, you
 can activate the <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension with the following code:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><code><span class="k">[tool.mypy]</span>

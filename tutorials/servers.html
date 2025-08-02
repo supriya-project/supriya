@@ -4000,7 +4000,7 @@ will result in an error:</p>
 <p>Use <code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 59482]&gt;</span>
+<span class="go">&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 37767]&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -4184,7 +4184,7 @@ properties for inspecting its state.</p>
 <h3 id="querying-status">Querying status<a class="headerlink" href="#querying-status" title="Link to this heading">¶</a></h3>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44105.34321560694, average_cpu_usage=0.04948261380195618, group_count=2, peak_cpu_usage=0.2604348063468933, synth_count=0, synthdef_count=0, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.04742657393217087, group_count=2, peak_cpu_usage=0.24961353838443756, synth_count=0, synthdef_count=0, target_sample_rate=44100.0, ugen_count=0)</span>
 </code></pre></div>
 </div>
 <div class="hint tip admonition">
@@ -4200,7 +4200,7 @@ complexity of the status output:</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44105.34321560694, average_cpu_usage=0.12202907353639603, group_count=2, peak_cpu_usage=0.2604348063468933, synth_count=1, synthdef_count=33, target_sample_rate=44100.0, ugen_count=20)</span>
+<span class="go">StatusInfo(actual_sample_rate=44105.90937424586, average_cpu_usage=0.11695867031812668, group_count=2, peak_cpu_usage=0.24961353838443756, synth_count=1, synthdef_count=33, target_sample_rate=44100.0, ugen_count=20)</span>
 </code></pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">synth_count</span></code>, <code class="docutils literal notranslate"><span class="pre">synthdef_count</span></code> and <code class="docutils literal notranslate"><span class="pre">ugen_count</span></code> have gone up
@@ -4346,12 +4346,12 @@ methods are async as well.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">main</span><span class="p">()</span>
 <span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;</span>
-<span class="go">&lt;AsyncServer ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 42164]&gt;</span>
+<span class="go">&lt;AsyncServer ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 40405]&gt;</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
 <span class="go">        1000 group</span>
 
-<span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 42164]&gt;</span>
+<span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 40405]&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -4372,21 +4372,21 @@ eventloop-driven libraries like <a class="reference external" href="https://docs
 </div>
 <p>You can also find a random free port for use when booting multiple servers at once via <a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.find_free_port" title="supriya.osc.protocols.find_free_port (Python function)"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">()</span>
-<span class="go">49823</span>
+<span class="go">44627</span>
 </code></pre></div>
 </div>
 <h3 id="process-protocols">Process protocols<a class="headerlink" href="#process-protocols" title="Link to this heading">¶</a></h3>
 <p>Get access to the server’s underlying process management subsystem via
 <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.process_protocol" title="supriya.contexts.realtime.Server.process_protocol (Python property) — Get the server's process protocol."><code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.scsynth.ThreadedProcessProtocol object at 0x7f8fd73d5d30&gt;</span>
+<span class="go">&lt;supriya.scsynth.ThreadedProcessProtocol object at 0x7f8754c8d390&gt;</span>
 </code></pre></div>
 </div>
 <h3 id="osc-protocols">Osc protocols<a class="headerlink" href="#osc-protocols" title="Link to this heading">¶</a></h3>
 <p>Get access to the server’s underlying OSC subsystem via
 <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.osc_protocol" title="supriya.contexts.realtime.Server.osc_protocol (Python property) — Get the server's OSC protocol."><code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.threaded.ThreadedOscProtocol object at 0x7f8fd5e755e0&gt;</span>
+<span class="go">&lt;supriya.osc.threaded.ThreadedOscProtocol object at 0x7f871511ae40&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
