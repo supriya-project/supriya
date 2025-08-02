@@ -50,20 +50,20 @@ async def context(request) -> AsyncGenerator[AsyncServer | Server, None]:
 async def test_ScopeBuffer(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         scope_buffer = context.add_scope_buffer()
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
     assert isinstance(scope_buffer, ScopeBuffer)
     assert scope_buffer.context is context
     assert scope_buffer.id_ == 0
     with context.osc_protocol.capture() as transcript:
         scope_buffer.free()
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
 
 
 @pytest.mark.asyncio
 async def test_clear_schedule(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         context.clear_schedule()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/clearSched")
     ]
 
@@ -86,7 +86,7 @@ async def test_dump_tree(context: AsyncServer | Server) -> None:
             1 group
         """
     )
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/g_dumpTree", 0, 1),
     ]
     # a large node tree
@@ -1108,7 +1108,9 @@ async def test_query_status(context: AsyncServer | Server) -> None:
     # unsync
     with context.osc_protocol.capture() as transcript:
         assert await get(context.query_status(sync=False)) is None
-    assert transcript.filtered(received=False, status=True) == [OscMessage("/status")]
+    assert [
+        entry.message for entry in transcript.filtered(received=False, status=True)
+    ] == [OscMessage("/status")]
 
 
 @pytest.mark.asyncio
@@ -1123,7 +1125,7 @@ async def test_query_tree(context: AsyncServer | Server) -> None:
     await get(context.sync())
     with context.osc_protocol.capture() as transcript:
         tree = await get(context.query_tree())
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/g_queryTree", 0, 1)
     ]
     assert normalize(str(tree)) == normalize(
@@ -1144,7 +1146,7 @@ async def test_query_tree(context: AsyncServer | Server) -> None:
     # unsync
     with context.osc_protocol.capture() as transcript:
         assert await get(context.query_tree(sync=False)) is None
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/g_queryTree", 0, 1)
     ]
 
@@ -1176,7 +1178,9 @@ async def test_query_version(context: AsyncServer | Server) -> None:
     # unsync
     with context.osc_protocol.capture() as transcript:
         assert await get(context.query_version(sync=False)) is None
-    assert transcript.filtered(received=False, status=False) == [OscMessage("/version")]
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
+        OscMessage("/version")
+    ]
 
 
 @pytest.mark.asyncio
@@ -1205,7 +1209,7 @@ async def test_reboot(context: AsyncServer | Server) -> None:
         ServerLifecycleEvent.CONNECTED,
         ServerLifecycleEvent.BOOTED,
     ]
-    assert transcript.filtered(received=False, sent=True, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/quit"),
         OscMessage("/notify", 1),
         OscMessage("/g_new", 1, 1, 0),
@@ -1253,7 +1257,7 @@ async def test_reset(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         await get(context.reset())
     assert events == []
-    assert transcript.filtered(received=False, sent=True, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscBundle(
             contents=[
                 OscMessage("/clearSched"),
@@ -1284,7 +1288,7 @@ async def test_sync(context: AsyncServer | Server) -> None:
         await get(context.sync())
         await get(context.sync())
         await get(context.sync())
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/sync", 2),
         OscMessage("/sync", 3),
         OscMessage("/sync", 4),
