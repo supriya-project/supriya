@@ -132,7 +132,7 @@ async def test_add_group(context: AsyncServer | Server) -> None:
             context.add_group(parallel=True, target_node=group)
             context.add_group(target_node=group)
             context.add_group(target_node=group)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/g_new", 1000, 0, 1),
         OscMessage("/p_new", 1001, 0, 1),
         OscBundle(
@@ -168,7 +168,7 @@ async def test_add_synth(
             context.add_synth(
                 default, frequency=bus_c.map_symbol(), amplitude="a16", pan=0.25, out=0
             )
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/s_new", "supriya:default", 1000, 0, 1),
         OscMessage(
             "/s_new",
@@ -242,7 +242,7 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
     # /g_freeAll
     with context.osc_protocol.capture() as transcript:
         grandparent.free_children()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/g_freeAll", 1000)
     ]
     assert normalize(str(await get(context.query_tree()))) == normalize(
@@ -271,7 +271,7 @@ async def test_free_group_children(context: AsyncServer | Server) -> None:
     # /g_deepFree
     with context.osc_protocol.capture() as transcript:
         grandparent.free_children(synths_only=True)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/g_deepFree", 1000)
     ]
     assert normalize(str(await get(context.query_tree()))) == normalize(
@@ -291,7 +291,7 @@ async def test_free_node(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         group.free()
         synth.free()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_free", 1000),
         OscMessage("/n_set", 1001, "gate", 0),
     ]
@@ -314,7 +314,7 @@ async def test_get_synth_controls(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         with context.at():
             assert await get(synth.get("frequency", sync=False)) is None
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/s_get", 1000, "frequency")
     ]
 
@@ -333,7 +333,7 @@ async def test_get_synth_control_range(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         with context.at():
             assert await get(synth.get_range("frequency", 3, sync=False)) is None
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/s_getn", 1000, "frequency", 3)
     ]
 
@@ -345,7 +345,7 @@ async def test_map_node(context: AsyncServer | Server) -> None:
     synth = context.add_synth(default)
     with context.osc_protocol.capture() as transcript:
         synth.map(frequency=bus_a, amplitude=bus_c, pan=None)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscBundle(
             contents=(
                 OscMessage("/n_map", 1000, "amplitude", 0, "pan", -1),
@@ -364,7 +364,7 @@ async def test_move_node(context: AsyncServer | Server) -> None:
         synth.move(target_node=group, add_action="ADD_BEFORE")
         synth.move(target_node=group, add_action="ADD_TO_TAIL")
         synth.move(target_node=group, add_action="ADD_TO_HEAD")
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_after", 1000, 1001),
         OscMessage("/n_before", 1001, 1000),
         OscMessage("/g_tail", 1000, 1001),
@@ -379,7 +379,7 @@ async def test_order_nodes(context: AsyncServer | Server) -> None:
     group_c = context.add_group()
     with context.osc_protocol.capture() as transcript:
         group_a.order(group_b, group_c, add_action="ADD_TO_TAIL")
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_order", 1, 1000, 1001, 1002)
     ]
 
@@ -389,7 +389,7 @@ async def test_pause_node(context: AsyncServer | Server) -> None:
     group = context.add_group()
     with context.osc_protocol.capture() as transcript:
         group.pause()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_run", 1000, 0)
     ]
 
@@ -412,7 +412,7 @@ async def test_query_node(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         with context.at():
             assert await get(group.query(sync=False)) is None
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_query", 1000)
     ]
 
@@ -422,7 +422,7 @@ async def test_set_node(context: AsyncServer | Server) -> None:
     group = context.add_group()
     with context.osc_protocol.capture() as transcript:
         group.set((1, 2.3), (2, [3.4, 4.5]), foo=3.145, bar=4.5, baz=[1.23, 4.56])
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage(
             "/n_set",
             1000,
@@ -445,7 +445,7 @@ async def test_set_node_range(context: AsyncServer | Server) -> None:
     group = context.add_group()
     with context.osc_protocol.capture() as transcript:
         group.set_range((2, [3.4, 4.5]), baz=[1.23, 4.56])
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_setn", 1000, 2, 2, 3.4, 4.5, "baz", 2, 1.23, 4.56)
     ]
 
@@ -454,11 +454,11 @@ async def test_set_node_range(context: AsyncServer | Server) -> None:
 async def test_trace_node(context: AsyncServer | Server) -> None:
     for _ in range(5):
         context.default_group.add_group()
-    with context.osc_protocol.capture() as osc_transcript:
+    with context.osc_protocol.capture() as transcript:
         with context.process_protocol.capture() as process_transcript:
             await get(context.default_group.trace())
             await asyncio.sleep(0.1)
-    assert osc_transcript.filtered(received=False, sent=True, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_trace", 1),
     ]
     assert process_transcript.lines == [
@@ -481,7 +481,7 @@ async def test_unpause_node(context: AsyncServer | Server) -> None:
         with context.at(1.23):
             group_b.unpause()
             group_c.unpause()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_run", 1000, 1),
         OscBundle(
             contents=(OscMessage("/n_run", 1001, 1, 1002, 1),),

@@ -76,46 +76,62 @@ class Capture:
 
     def __init__(self, osc_protocol: "OscProtocol") -> None:
         self.osc_protocol = osc_protocol
-        self.messages: list[CaptureEntry] = []
+        self.entries: list[CaptureEntry] = []
 
     ### SPECIAL METHODS ###
 
     def __enter__(self) -> "Capture":
         self.osc_protocol.captures.add(self)
-        self.messages[:] = []
+        self.entries[:] = []
         return self
 
     def __exit__(self, exc_type, exc_value, traceback) -> None:
         self.osc_protocol.captures.remove(self)
 
     def __getitem__(self, i: int | slice) -> CaptureEntry | list[CaptureEntry]:
-        return self.messages[i]
+        return self.entries[i]
 
     def __iter__(self) -> Iterator[CaptureEntry]:
-        return iter(self.messages)
+        return iter(self.entries)
 
     def __len__(self) -> int:
-        return len(self.messages)
+        return len(self.entries)
 
     ### PUBLIC METHODS ###
 
+    def add_entry(
+        self,
+        timestamp: float,
+        label: Literal["R", "S"],
+        message: OscBundle | OscMessage,
+        raw_message: SequenceABC | SupportsOsc | str | None = None,
+    ) -> None:
+        self.entries.append(
+            CaptureEntry(
+                timestamp=timestamp,
+                label=label,
+                message=message,
+                raw_message=raw_message,
+            )
+        )
+
     def filtered(
-        self, sent: bool = True, received: bool = True, status: bool = True
-    ) -> list[OscBundle | OscMessage]:
-        messages = []
-        for _, label, message, _ in self.messages:
-            if label == "R" and not received:
+        self, sent: bool = True, received: bool = True, status: bool = False
+    ) -> list[CaptureEntry]:
+        entries = []
+        for entry in self.entries:
+            if entry.label == "R" and not received:
                 continue
-            if label == "S" and not sent:
+            if entry.label == "S" and not sent:
                 continue
             if (
-                isinstance(message, OscMessage)
-                and message.address in ("/status", "/status.reply")
-                and not status
+                not status
+                and isinstance(entry.message, OscMessage)
+                and entry.message.address in ("/status", "/status.reply")
             ):
                 continue
-            messages.append(message)
-        return messages
+            entries.append(entry)
+        return entries
 
 
 class OscProtocol:
@@ -295,13 +311,11 @@ class OscProtocol:
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] {message!r}"
         )
         for capture in self.captures:
-            capture.messages.append(
-                CaptureEntry(
-                    timestamp=time.time(),
-                    label="S",
-                    message=message,
-                    raw_message=raw_message,
-                )
+            capture.add_entry(
+                timestamp=time.time(),
+                label="S",
+                message=message,
+                raw_message=raw_message,
             )
         datagram = message.to_datagram()
         udp_out_logger.debug(
@@ -336,9 +350,7 @@ class OscProtocol:
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] {message!r}"
         )
         for capture in self.captures:
-            capture.messages.append(
-                CaptureEntry(timestamp=time.time(), label="R", message=message)
-            )
+            capture.add_entry(timestamp=time.time(), label="R", message=message)
         for callback in self._match_callbacks(message):
             yield callback, message
 

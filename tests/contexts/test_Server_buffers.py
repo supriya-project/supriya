@@ -113,7 +113,7 @@ async def test_add_buffer(
     buffers = [buffer_a, buffer_b, buffer_c, buffer_d, buffer_e, buffer_f]
     assert all(buffer.context is context for buffer in buffers)
     assert [buffer.id_ for buffer in buffers] == [0, 1, 2, 3, 4, 5]
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_alloc", 0, 23, 1),
         OscMessage("/b_allocRead", 1, str(audio_paths[0]), 0, 19),
         OscMessage("/b_allocReadChannel", 2, str(audio_paths[1]), 0, 17, 0, 0),
@@ -144,7 +144,7 @@ async def test_add_buffer_group(context: AsyncServer | Server) -> None:
     assert len(buffer_group) == 5
     assert all(buffer.context is context for buffer in buffer_group)
     assert [buffer.id_ for buffer in buffer_group] == [0, 1, 2, 3, 4]
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscBundle(
             contents=(
                 OscMessage("/b_alloc", 0, 23, 1),
@@ -173,7 +173,7 @@ async def test_close_buffer(context: AsyncServer | Server) -> None:
         with context.at():
             with buffer_c.close():
                 buffer_c.free()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_close", 0),
         OscMessage("/b_close", 1, OscMessage("/b_free", 1)),
         OscMessage("/b_close", 2, OscMessage("/b_free", 2)),
@@ -191,7 +191,7 @@ async def test_copy_buffer(context: AsyncServer | Server) -> None:
             target_starting_frame=7,
             frame_count=3,
         )
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_gen", 1, "copy", 7, 0, 5, 3)
     ]
 
@@ -209,7 +209,7 @@ async def test_fill_buffer(context: AsyncServer | Server) -> None:
             buffer_b.fill(3, 4, 0.5)
             buffer_a.fill(4, 5, 0.4)
             buffer_a.fill(5, 6, 0.3)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_fill", 0, 2, 3, 0.5),
         OscBundle(
             contents=(
@@ -236,7 +236,7 @@ async def test_free_buffer(context: AsyncServer | Server) -> None:
         with context.at():
             with buffer_c.free():
                 context.add_group()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_free", 0),
         OscMessage("/b_free", 1, OscMessage("/g_new", 1000, 0, 1)),
         OscMessage("/b_free", 2, OscMessage("/g_new", 1001, 0, 1)),
@@ -270,7 +270,7 @@ def test_generate_buffer(context: AsyncServer | Server) -> None:
                 should_clear_first=True,
                 should_normalize=True,
             )
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscBundle(
             contents=(
                 OscMessage("/b_gen", 0, "sine1", 0, 1.0, 2.0, 3.0),
@@ -318,7 +318,7 @@ async def test_get_buffer(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         assert await get(buffer.get(1, 2, 3)) == {1: 0.0, 2: 0.0, 3: 0.0}  # sync
         assert await get(buffer.get(1, sync=False)) is None  # unsync
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_get", 0, 1, 2, 3),
         OscMessage("/b_get", 0, 1),
     ]
@@ -342,7 +342,7 @@ async def test_get_buffer_range(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         assert await get(buffer.get_range(1, 3)) == (0.0, 0.0, 0.0)  # sync
         assert await get(buffer.get_range(1, 3, sync=False)) is None  # unsync
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_getn", 0, 1, 3),
         OscMessage("/b_getn", 0, 1, 3),
     ]
@@ -353,7 +353,7 @@ async def test_normalize_buffer(context: AsyncServer | Server) -> None:
     buffer = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
         buffer.normalize(0.5)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_gen", 0, "normalize", 0.5)
     ]
 
@@ -380,7 +380,7 @@ async def test_query_buffer(context: AsyncServer | Server) -> None:
     # unsync
     with context.osc_protocol.capture() as transcript:
         assert await get(buffer.query(sync=False)) is None
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_query", 0)
     ]
 
@@ -414,7 +414,7 @@ async def test_read_buffer(
             leave_open=True,
             starting_frame=3,
         )
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_read", 0, str(audio_paths[0]), 0, -1, 0, 0),
         OscMessage(
             "/b_read",
@@ -446,7 +446,7 @@ async def test_set_buffer(context: AsyncServer | Server) -> None:
     await get(context.sync())  # can't set until allocation finishes
     with context.osc_protocol.capture() as transcript:
         buffer.set(2, 0.5)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_set", 0, 2, 0.5)
     ]
 
@@ -457,7 +457,7 @@ async def test_set_buffer_range(context: AsyncServer | Server) -> None:
     await get(context.sync())  # can't set until allocation finishes
     with context.osc_protocol.capture() as transcript:
         buffer.set_range(4, (0.5, 0.75, 0.25))
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_setn", 0, 4, 3, 0.5, 0.75, 0.25)
     ]
 
@@ -489,7 +489,7 @@ async def test_write_buffer(context: AsyncServer | Server, tmp_path: Path) -> No
             sample_format="FLOAT",
             starting_frame=5,
         )
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage(
             "/b_write", 0, str(tmp_path / "foo-1.aiff"), "aiff", "int24", -1, 0, 0
         ),
@@ -537,7 +537,7 @@ async def test_zero_buffer(context: AsyncServer | Server) -> None:
         with context.at():
             with buffer_c.zero():
                 context.add_group()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_zero", 0),
         OscMessage("/b_zero", 1, OscMessage("/g_new", 1000, 0, 1)),
         OscMessage("/b_zero", 2, OscMessage("/g_new", 1001, 0, 1)),

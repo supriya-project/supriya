@@ -243,7 +243,7 @@ def test_osc_transcript(server: supriya.Server) -> None:
         # perform an action that will emit OSC messages
         server.add_group()
     # validate that sent messages match what we expect
-    assert transcript.filtered(sent=True, received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         supriya.OscMessage("/g_new", 1000, 0, 1),
     ]
 

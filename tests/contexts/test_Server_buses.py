@@ -62,7 +62,7 @@ async def test_add_bus(context: AsyncServer | Server) -> None:
     assert audio_bus.id_ == 16
     assert control_bus.context is context
     assert control_bus.id_ == 0
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
 
 
 @pytest.mark.asyncio
@@ -92,7 +92,7 @@ async def test_add_bus_group(context: AsyncServer | Server) -> None:
     assert len(control_bus_group) == 4
     assert all(control_bus.context is context for control_bus in control_bus_group)
     assert [control_bus.id_ for control_bus in control_bus_group] == [0, 1, 2, 3]
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
 
 
 @pytest.mark.asyncio
@@ -108,14 +108,14 @@ async def test_fill_bus_range(context: AsyncServer | Server) -> None:
         with context.at():
             control_bus_b.fill(4, 0.25)
             control_bus_c.fill(5, 0.125)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/c_fill", 0, 3, 0.5),
         OscMessage("/c_fill", 1, 4, 0.25, 2, 5, 0.125),
     ]
     # Use shared memory:
     with context.osc_protocol.capture() as transcript:
         control_bus_c.fill(8, 1.0, use_shared_memory=True)
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
     # Shared memory writes run before the OSC requests get processed, and so
     # the OSC requests overwrite the changes from shared memory access.
     assert await get(
@@ -153,7 +153,7 @@ async def test_free_bus(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         audio_bus.free()
         control_bus.free()
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
     new_audio_bus = context.add_bus("AUDIO")
     new_control_bus = context.add_bus("CONTROL")
     # verify IDs are re-used
@@ -171,13 +171,13 @@ async def test_get_bus(context: AsyncServer | Server) -> None:
     # unsync
     with context.osc_protocol.capture() as transcript:
         assert await get(bus.get(sync=False)) is None
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/c_get", 0)
     ]
     # Use shared memory:
     with context.osc_protocol.capture() as transcript:
         assert await get(bus.get(use_shared_memory=True)) == 0.0
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
 
 
 @pytest.mark.asyncio
@@ -196,7 +196,7 @@ async def test_get_bus_range(context: AsyncServer | Server) -> None:
         assert (
             await get(bus_group[0].get_range(count=len(bus_group), sync=False)) is None
         )
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/c_getn", 0, 4)
     ]
     # Use shared memory:
@@ -204,7 +204,7 @@ async def test_get_bus_range(context: AsyncServer | Server) -> None:
         assert await get(
             bus_group[0].get_range(count=len(bus_group), use_shared_memory=True)
         ) == [0.0, 0.0, 0.0, 0.0]
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
 
 
 @pytest.mark.asyncio
@@ -221,14 +221,14 @@ async def test_set_bus(context: AsyncServer | Server) -> None:
         with context.at():
             control_bus_b.set(0.25)
             control_bus_c.set(0.125)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/c_set", 0, 0.5),
         OscMessage("/c_set", 1, 0.25, 2, 0.125),
     ]
     # Use shared memory:
     with context.osc_protocol.capture() as transcript:
         control_bus_d.set(1.0, use_shared_memory=True)
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
     # Validate:
     assert await get(control_bus_a.get_range(4)) == (0.5, 0.25, 0.125, 1.0)
 
@@ -242,13 +242,13 @@ async def test_set_bus_range(context: AsyncServer | Server) -> None:
         with pytest.raises(InvalidCalculationRate):
             audio_bus_group[0].set_range((0.1, 0.2, 0.3, 0.4))
         control_bus_group_a[0].set_range((0.1, 0.2, 0.3, 0.4))
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/c_setn", 0, 4, 0.1, 0.2, 0.3, 0.4),
     ]
     # Use shared memory:
     with context.osc_protocol.capture() as transcript:
         control_bus_group_b.set(1.0, use_shared_memory=True)
-    assert transcript.filtered(received=False, status=False) == []
+    assert [entry.message for entry in transcript.filtered(received=False)] == []
     # Validate:
     assert [round(x, 3) for x in await get(control_bus_group_a[0].get_range(8))] == [
         0.1,

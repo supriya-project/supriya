@@ -65,7 +65,7 @@ async def test_add_synthdefs(
         with context.at(1.23):
             with context.add_synthdefs(synthdefs[2]):
                 context.add_group()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/d_recv", compiled(synthdefs[0])),
         OscMessage("/d_recv", compiled(*synthdefs)),
         OscMessage("/d_recv", compiled(synthdefs[1]), OscMessage("/g_new", 1000, 0, 1)),
@@ -93,7 +93,7 @@ async def test_free_synthdefs(
             context.free_synthdefs()
         # /d_free
         context.free_synthdefs(*synthdefs)
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/d_free", "synthdef-a", "synthdef-b", "synthdef-c")
     ]
 
@@ -102,7 +102,7 @@ async def test_free_synthdefs(
 async def test_free_all_synthdefs(context: AsyncServer | Server) -> None:
     with context.osc_protocol.capture() as transcript:
         context.free_all_synthdefs()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/d_freeAll")
     ]
 
@@ -125,7 +125,7 @@ async def test_load_synthdefs(
         with context.at(1.23):
             with context.load_synthdefs(tmp_path / "c.scsyndef"):
                 context.add_group()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/d_load", str(tmp_path / "a.scsyndef")),
         OscMessage(
             "/d_load", str(tmp_path / "b.scsyndef"), OscMessage("/g_new", 1000, 0, 1)
@@ -162,7 +162,7 @@ async def test_load_synthdefs_directory(
         with context.at(1.23):
             with context.load_synthdefs_directory(tmp_path):
                 context.add_group()
-    assert transcript.filtered(received=False, status=False) == [
+    assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/d_loadDir", str(tmp_path)),
         OscMessage("/d_loadDir", str(tmp_path), OscMessage("/g_new", 1000, 0, 1)),
         OscMessage("/d_loadDir", str(tmp_path)),
