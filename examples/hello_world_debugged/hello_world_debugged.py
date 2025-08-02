@@ -1,86 +1,115 @@
+import contextlib
 import logging
+import sys
 import time
+from typing import Generator
 
 import supriya
 
 
 def play_synths(context: supriya.Context) -> list[supriya.Synth]:
-    # A C-major chord
-    frequencies = [261.63, 329.63, 392.00]
-    # Create an empty list to store synths in:
-    synths: list[supriya.Synth] = []
-    # Add the default synthdef to the server and open a "completion" context
-    # manager to group further commands for when the synthdef finishes loading:
-    with context.add_synthdefs(supriya.default):
-        # Loop over the frequencies:
-        for frequency in frequencies:
-            # Create a synth using the default synthdef and the frequency
-            # and add it to the list of synths:
-            synths.append(
-                context.add_synth(synthdef=supriya.default, frequency=frequency)
-            )
+    # Start an OSC bundle to run immediately:
+    with context.at():
+        # A C-major chord
+        frequencies = [261.63, 329.63, 392.00]
+        # Create an empty list to store synths in:
+        synths: list[supriya.Synth] = []
+        # Add the default synthdef to the server and open a "completion" context
+        # manager to group further commands for when the synthdef finishes loading:
+        with context.add_synthdefs(supriya.default):
+            # Loop over the frequencies:
+            for frequency in frequencies:
+                # Create a synth using the default synthdef and the frequency
+                # and add it to the list of synths:
+                synths.append(
+                    context.add_synth(synthdef=supriya.default, frequency=frequency)
+                )
     return synths
 
 
-def stop_synths(synths: list[supriya.Synth]) -> None:
-    # Loop over the synths and free them
-    for synth in synths:
-        synth.free()
+def stop_synths(context: supriya.Context, synths: list[supriya.Synth]) -> None:
+    # Start an OSC bundle to run immediately:
+    with context.at():
+        # Loop over the synths and free them
+        for synth in synths:
+            synth.free()
 
 
+@contextlib.contextmanager
 def debug(
-    header: str, server: supriya.Server, transcript: supriya.osc.Capture | None = None
-) -> None:
-    # Print a header:
+    header: str,
+    server: supriya.Server,
+) -> Generator[None, None, None]:
+    # Capture any OSC messages sent or received
+    with server.osc_protocol.capture() as transcript:
+        # Yield to the with block body
+        yield
+    # Print a header
     print(header)
     # Print the server status
-    print(f"Server status: {server.status}")
-    # Print the node tree:
-    print(server.query_tree())
-    # Filter the OSC transcript down to just non-status sent messages and print them:
-    if transcript is not None:
-        for message in transcript.filtered(sent=True, received=False, status=False):
-            print(f"Sent: {message!r}")
+    print(f"    Status: {server.status}")
+    # Filter out any /status or /status.reply messages from the transcript
+    if len(entries := transcript.filtered()):
+        print("    Transcript:")
+    # Print the OSC transcript's filtered, captured messages
+    for entry in entries:
+        # A received message
+        if entry.label == "R":
+            print(f"        Received: {entry.message!r}")
+        # A sent message
+        else:
+            print(f"        Sent:     {entry.message!r}")
+    # Print the node tree
+    for line in str(server.query_tree()).splitlines():
+        print(f"    Tree: {line}")
 
 
 def main() -> None:
-    # Turn on basic logging system-wide
-    logging.basicConfig(level=logging.WARN)
+    # Turn on basic logging output interpreter-wide.
+    # Explicitly set the stream to stdout so that the output looks the same in
+    # your terminal as it does in the documentation! Normally you don't need to
+    # worry about this.
+    logging.basicConfig(level=logging.WARNING, stream=sys.stdout)
+
     # Set Supriya's supriya.scsynth logger level to INFO
     logging.getLogger("supriya.scsynth").setLevel(logging.INFO)
+
     # Create a server and boot it:
     server = supriya.Server().boot()
-    # Debug:
-    debug("BEFORE PLAYING:", server)
-    # Create an empty list to store synths in:
-    synths: list[supriya.Synth] = []
-    # Capture the OSC messages send to the server to load the SynthDef and create the synths:
-    with server.osc_protocol.capture() as transcript:
-        # N.B. This block is now indented inside the .capture() context manager
-        # Start an OSC bundle to run immediately:
-        with server.at():
-            # Start playing the synths
-            synths = play_synths(context=server)
-    # Sync the server so we can see the node tree updates:
-    server.sync()
-    # Debug:
-    debug("PLAYING:", server, transcript)
-    # Let the notes play for 4 seconds:
-    time.sleep(4)
-    # Print a header:
-    debug("JUST BEFORE STOPPING:", server)
-    # Capture the OSC messages send to the server to free the synths:
-    with server.osc_protocol.capture() as transcript:
-        # N.B. This block is now indented inside the .capture() context manager
-        # Loop over the synths and free them
-        stop_synths(synths)
-    # Debug:
-    debug("AFTER STOPPING:", server, transcript)
-    # Wait a second for the notes to fade out:
-    time.sleep(1)
-    # Print a header:
-    debug("A LITTLE AFTER STOPPING:", server, transcript)
-    # Quit the server:
+
+    # Print debug info before we play anything ...
+    # Should be just an empty server with the default groups.
+    with debug("BEFORE PLAYING:", server):
+        pass
+
+    # Print debug info immediately after we play the synths ...
+    # No synths should be allocated yet because their SynthDef hasn't finished
+    # allocation.
+    with debug("IMMEDIATELY AFTER PLAYING:", server):
+        synths = play_synths(context=server)
+
+    # Print debug info after syncing with the server ...
+    # The synths should now be present.
+    with debug("PLAYING:", server):
+        server.sync()
+
+    # Print debug info after 4 seconds of waiting ...
+    # Nothing should have changed since the synths allocated.
+    with debug("JUST BEFORE STOPPING:", server):
+        time.sleep(4)
+
+    # Print debug info immediately after stopping the synths
+    # The synths are still present, but their "gate" parameters have flipped to
+    # zero.
+    with debug("IMMEDIATELY AFTER STOPPING:", server):
+        stop_synths(context=server, synths=synths)
+
+    # Print debug info after 1 second of waiting ...
+    # The synths should now be gone.
+    with debug("AFTER RELEASING:", server):
+        time.sleep(1)
+
+    # Quit the server
     server.quit()
 
 

@@ -3,9 +3,9 @@
 Open Sound Control
 ==================
 
-.. self-criticism::
+..  self-criticism::
 
-   These docs are still under construction.
+    These docs are still under construction.
 
 - what is osc
 - anatomy of an osc message

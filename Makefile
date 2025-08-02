@@ -4,6 +4,7 @@
 project = supriya
 origin := $(shell git config --get remote.origin.url)
 formatPaths = ${project}/ docs/ examples/ tests/ *.py
+mypyPaths = ${project}/ examples/ tests/
 testPaths = ${project}/ tests/
 
 help: ## This help
@@ -30,13 +31,13 @@ docs-clean: ## Build documentation from scratch
 lint: reformat ruff-lint mypy ## Run all linters
 
 mypy: ## Type-check via mypy
-	mypy ${project}/ tests/
+	mypy ${mypyPaths}
 
 mypy-cov: ## Type-check via mypy with coverage reported to ./mypycov/
-	mypy --html-report ./mypycov/ ${project}/ tests/
+	mypy --html-report ./mypycov/ ${mypyPaths}
 
 mypy-strict: ## Type-check via mypy strictly
-	mypy --strict ${project}/
+	mypy --strict ${mypyPaths}
 
 pytest: ## Unit test via pytest
 	pytest ${testPaths} --cov=supriya
