@@ -621,14 +621,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1182,17 +1174,9 @@
   
   
   <span class="md-ellipsis">
-    Examples Overview
+    Examples overview
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1218,14 +1202,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1250,14 +1226,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1281,14 +1249,6 @@
     Hello, world!, debugged
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -3883,13 +3843,28 @@ nor offline, so you can add buses to them whenever you like.</p>
 <li><p>ReplaceOut</p></li>
 </ul>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
-<p>The number of buses available in a context is controlled by its options.</p>
+<p>The number of buses available in a context is controlled by its
+<a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">options</span></code></a>.</p>
 <ul class="simple">
-<li><p>Options.control_bus_channel_count</p></li>
-<li><p>Options.audio_bus_channel_count</p></li>
-<li><p>Options.input_bus_channel_count</p></li>
-<li><p>Options.output_bus_channel_count</p></li>
+<li><p>Set the maximum number of control buses with the
+<code class="docutils literal notranslate"><span class="pre">control_bus_channel_count</span></code> keyword.</p></li>
+<li><p>Set the maximum number of audio buses with the <code class="docutils literal notranslate"><span class="pre">control_bus_channel_count</span></code>
+keyword.</p></li>
+<li><p>Set the number of <em>input</em> audio buses to the server with the
+<code class="docutils literal notranslate"><span class="pre">input_bus_channel_count</span></code> keyword.</p></li>
+<li><p>Set the number of <em>output</em> audio buses to the server with the
+<code class="docutils literal notranslate"><span class="pre">output_bus_channel_count</span></code> keyword.</p></li>
 </ul>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">input_bus_channel_count</span></code> and <code class="docutils literal notranslate"><span class="pre">output_bus_channel_count</span></code> values are
+independent of what your current soundcard supports. They can be greater
+than or less than the number of available channels, but won’t actually
+carry more information if you select a higher value internal to the
+context. Typically you select the same or fewer channels.</p>
+</div>
+<p>These can be set on an <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> instance passed the
+context when initialized or booting, or just as keyword arguments.</p>
 
 
 
@@ -3995,7 +3970,7 @@ nor offline, so you can add buses to them whenever you like.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
       
         <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>

@@ -35,9 +35,9 @@ Quickstart
 1. Get Supriya
 ``````````````
 
-.. include:: /includes/install.txt
+..  include:: /includes/install.txt
 
-.. note::
+..  note::
 
     Consult our :doc:`installation instructions </introduction/installation>`
     for detailed help on getting Supriya, setting it up, and installing any
@@ -120,64 +120,64 @@ Quit the server::
 
     >>> server.quit()
 
-.. toctree::
-   :caption: Introduction
-   :hidden: 
+..  toctree::
+    :caption: Introduction
+    :hidden: 
 
-   introduction/installation
-   introduction/history.rst
-   introduction/concepts.rst
+    introduction/installation
+    introduction/history.rst
+    introduction/concepts.rst
 
-.. toctree::
-   :caption: Core tutorials
-   :hidden: 
+..  toctree::
+    :caption: Core tutorials
+    :hidden: 
 
-   tutorials/index
-   tutorials/contexts
-   tutorials/servers
-   tutorials/nodes
-   tutorials/buses
-   tutorials/buffers
-   tutorials/synthdefs
-   tutorials/osc
-   tutorials/scores
+    tutorials/index
+    tutorials/contexts
+    tutorials/servers
+    tutorials/nodes
+    tutorials/buses
+    tutorials/buffers
+    tutorials/synthdefs
+    tutorials/osc
+    tutorials/scores
 
-.. toctree::
-   :caption: Advanced tutorials
-   :hidden: 
+..  toctree::
+    :caption: Advanced tutorials
+    :hidden: 
 
-   advanced/index
-   advanced/clocks
-   advanced/patterns
-   advanced/extensions
+    advanced/index
+    advanced/clocks
+    advanced/patterns
+    advanced/extensions
 
-.. toctree::
-   :caption: Examples
-   :hidden: 
+..  toctree::
+    :caption: Examples
+    :hidden: 
 
-   examples/index
-   examples/hello_world
-   examples/hello_world_contexts
-   examples/hello_world_debugged
+    examples/index
+    examples/hello_world
+    examples/hello_world_contexts
+    examples/hello_world_debugged
 
-.. toctree::
-   :caption: For developers
-   :hidden: 
+..  toctree::
+    :caption: For developers
+    :hidden: 
 
-   developers/index
-   developers/testing
-   developers/documenting
-   developers/releasing
+    developers/index
+    developers/testing
+    developers/documenting
+    developers/releasing
 
-.. toctree::
-   :caption: API Reference
-   :hidden: 
-   :maxdepth: 2
+..  toctree::
+    :caption: API Reference
+    :hidden: 
+    :maxdepth: 2
 
-   api/supriya/index
+    api/supriya/index
 
-.. toctree::
-   :hidden: 
-   :caption: Appendices
+..  toctree::
+    :hidden: 
+    :caption: Appendices
 
-   appendices/glossary
+    appendices/glossary

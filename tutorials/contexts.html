@@ -618,6 +618,32 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Types of contexts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-only-contexts" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Write-<wbr>only contexts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-write-contexts" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Read/write contexts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -689,14 +715,6 @@
     Nodes
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1092,17 +1110,9 @@
   
   
   <span class="md-ellipsis">
-    Examples Overview
+    Examples overview
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1128,14 +1138,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1160,14 +1162,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1191,14 +1185,6 @@
     Hello, world!, debugged
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -3587,6 +3573,32 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Types of contexts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-only-contexts" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Write-<wbr>only contexts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-write-contexts" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Read/write contexts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3644,9 +3656,11 @@ execution contexts in both <em>realtime</em> and <em>non-realtime</em>.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">score</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Score</span><span class="p">()</span>  <span class="c1"># non-realtime</span>
 </code></pre></div>
 </div>
-<p>See the <a class="reference internal" href="servers.html"><span class="doc">servers</span></a> and <a class="reference internal" href="scores.html"><span class="doc">scores</span></a> pages for in-depth documentation on
-how each time of context works.</p>
+<p>See the <a class="reference internal" href="servers.html"><span class="doc">servers</span></a> and <a class="reference internal" href="scores.html"><span class="doc">scores</span></a> pages for in-depth
+documentation on how each type of context works.</p>
 <h2 id="types-of-contexts">Types of contexts<a class="headerlink" href="#types-of-contexts" title="Link to this heading">¶</a></h2>
+<p>There are really two broad categories of contexts: write-only non-realtime
+contexts, and read/write realtime contexts.</p>
 <div class="graphviz"><object data="../_images/inheritance-f6098baa1bf0c19a1f786f26ecd5e92d96f1cf0f.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
     graph [bgcolor=transparent,
@@ -3704,10 +3718,25 @@ how each time of context works.</p>
     &quot;supriya.contexts.core.Context&quot; -&gt; &quot;supriya.contexts.nonrealtime.Score&quot;;
     &quot;supriya.contexts.core.Context&quot; -&gt; &quot;supriya.contexts.realtime.BaseServer&quot;;
 }</p></object></div>
-<ul class="simple">
-<li><p>Write-only (non-realtime)</p></li>
-<li><p>Read-write (realtime)</p></li>
-</ul>
+<h3 id="write-only-contexts">Write-only contexts<a class="headerlink" href="#write-only-contexts" title="Link to this heading">¶</a></h3>
+<p>The SuperCollider server’s non-realtime mode doesn’t support queries, only mutations.
+E.g. you <em>cannot</em> ask for the server’s status, for information about a node, for the
+structure of the node tree, for the contents of a buffer. You can only modify
+the state of the server. Therefore non-realtime contexts - scores - are
+<em>write-only</em>.</p>
+<p>Mutations in Supriya’s context implementations are synchronous in the Pythonic sense of
+sync-vs-async: the messages just fire off.</p>
+<h3 id="read-write-contexts">Read/write contexts<a class="headerlink" href="#read-write-contexts" title="Link to this heading">¶</a></h3>
+<p>The SuperCollider server’s realtime mode supports queries <em>and</em> mutations. You
+<em>can</em> ask for the for the server’s status, for information about a node, for
+the structure of the node tree, for the contents of a buffer, and the server
+will reply with a message encoding that information.</p>
+<p>Queries in Supriya’s context implementations may be synchronous or asynchronous
+(in the Pythonic sense of async/await syntax), and which specific syntax
+depends on the specific type of server used and what concurrency paradigm it
+supports. <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.AsyncServer" title="supriya.contexts.realtime.AsyncServer (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">&quot;Async&quot;</span> <span class="pre">servers</span></code></a>
+support async/await syntax for queries, while <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server" title="supriya.contexts.realtime.Server (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">&quot;sync&quot;</span> <span class="pre">servers</span></code></a> will block the current thread until their
+query replies arrive.</p>
 <h2 id="moments">Moments<a class="headerlink" href="#moments" title="Link to this heading">¶</a></h2>
 <p>Contexts can bundle requests together via
 <a class="reference internal" href="../api/supriya/contexts/core.html#supriya.contexts.core.Moment" title="supriya.contexts.core.Moment (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moment</span></code></a> context managers.</p>
@@ -3781,7 +3810,7 @@ message.</p>
 <span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="k">lambda</span> <span class="n">context</span><span class="p">:</span> <span class="n">context</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="go">Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(ReceiveSynthDefs(synthdefs=(&lt;SynthDef: supriya:default&gt;,), on_completion=None), ...)]), requests=[(NewSynth(synthdef=&lt;SynthDef: supriya:default&gt;, synth_id=1004, add_action=AddAction.ADD_TO_HEAD, target_node_id=1, controls={}), None)])</span>
+<span class="go">Completion(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(ReceiveSynthDefs(synthdefs=(&lt;SynthDef: supriya:default&gt;,), on_completion=None), ...)]), requests=[(NewSynth(synthdef=&lt;SynthDef: supriya:default&gt;, synth_id=1004, add_action=&lt;AddAction.ADD_TO_HEAD: 0&gt;, target_node_id=1, controls={}), None)])</span>
 </code></pre></div>
 </div>
 <p>If issuing commands inside a moment, the completion must be used before the
@@ -3908,7 +3937,7 @@ added will have been sent once the moment closed.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
       
         <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>

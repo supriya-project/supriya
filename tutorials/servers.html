@@ -738,40 +738,40 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sending-osc" class="md-nav__link">
+  <a href="#sending-osc-messages" class="md-nav__link">
     
     <span class="md-ellipsis">
-      Sending OSC
+      Sending OSC messages
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#syncing" class="md-nav__link">
+  <a href="#syncing-servers" class="md-nav__link">
     
     <span class="md-ellipsis">
-      Syncing
+      Syncing servers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mutating" class="md-nav__link">
+  <a href="#mutating-servers" class="md-nav__link">
     
     <span class="md-ellipsis">
-      Mutating
+      Mutating servers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#resetting" class="md-nav__link">
+  <a href="#resetting-servers" class="md-nav__link">
     
     <span class="md-ellipsis">
-      Resetting
+      Resetting servers
     </span>
   </a>
   
@@ -863,14 +863,6 @@
     Nodes
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1266,17 +1258,9 @@
   
   
   <span class="md-ellipsis">
-    Examples Overview
+    Examples overview
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1302,14 +1286,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1334,14 +1310,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1365,14 +1333,6 @@
     Hello, world!, debugged
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -3857,40 +3817,40 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sending-osc" class="md-nav__link">
+  <a href="#sending-osc-messages" class="md-nav__link">
     
     <span class="md-ellipsis">
-      Sending OSC
+      Sending OSC messages
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#syncing" class="md-nav__link">
+  <a href="#syncing-servers" class="md-nav__link">
     
     <span class="md-ellipsis">
-      Syncing
+      Syncing servers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mutating" class="md-nav__link">
+  <a href="#mutating-servers" class="md-nav__link">
     
     <span class="md-ellipsis">
-      Mutating
+      Mutating servers
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#resetting" class="md-nav__link">
+  <a href="#resetting-servers" class="md-nav__link">
     
     <span class="md-ellipsis">
-      Resetting
+      Resetting servers
     </span>
   </a>
   
@@ -4040,7 +4000,7 @@ will result in an error:</p>
 <p>Use <code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 47553]&gt;</span>
+<span class="go">&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 59482]&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -4152,20 +4112,20 @@ quitting, after quitting, or even on server panic:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ServerLifecycleEvent</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
 <span class="gp">... </span>
-<span class="go">ServerLifecycleEvent.BOOTING</span>
-<span class="go">ServerLifecycleEvent.PROCESS_BOOTED</span>
-<span class="go">ServerLifecycleEvent.CONNECTING</span>
-<span class="go">ServerLifecycleEvent.OSC_CONNECTED</span>
-<span class="go">ServerLifecycleEvent.CONNECTED</span>
-<span class="go">ServerLifecycleEvent.BOOTED</span>
-<span class="go">ServerLifecycleEvent.OSC_PANICKED</span>
-<span class="go">ServerLifecycleEvent.PROCESS_PANICKED</span>
-<span class="go">ServerLifecycleEvent.QUITTING</span>
-<span class="go">ServerLifecycleEvent.DISCONNECTING</span>
-<span class="go">ServerLifecycleEvent.OSC_DISCONNECTED</span>
-<span class="go">ServerLifecycleEvent.DISCONNECTED</span>
-<span class="go">ServerLifecycleEvent.PROCESS_QUIT</span>
-<span class="go">ServerLifecycleEvent.QUIT</span>
+<span class="go">&lt;ServerLifecycleEvent.BOOTING: 1&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.PROCESS_BOOTED: 2&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.CONNECTING: 3&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.OSC_CONNECTED: 4&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.CONNECTED: 5&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.BOOTED: 6&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.OSC_PANICKED: 7&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.PROCESS_PANICKED: 8&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.QUITTING: 9&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.DISCONNECTING: 10&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.OSC_DISCONNECTED: 11&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.DISCONNECTED: 12&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.PROCESS_QUIT: 13&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.QUIT: 14&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -4190,23 +4150,23 @@ the loading completes.</p>
 </div>
 <p>Boot the server and watch the events print:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-<span class="go">ServerLifecycleEvent.BOOTING</span>
-<span class="go">ServerLifecycleEvent.PROCESS_BOOTED</span>
-<span class="go">ServerLifecycleEvent.CONNECTING</span>
-<span class="go">ServerLifecycleEvent.OSC_CONNECTED</span>
-<span class="go">ServerLifecycleEvent.CONNECTED</span>
-<span class="go">ServerLifecycleEvent.BOOTED</span>
+<span class="go">&lt;ServerLifecycleEvent.BOOTING: 1&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.PROCESS_BOOTED: 2&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.CONNECTING: 3&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.OSC_CONNECTED: 4&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.CONNECTED: 5&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.BOOTED: 6&gt;</span>
 <span class="go">&lt;Server ONLINE [/usr/local/bin/supernova -B 0.0.0.0 -R 0 -i 2 -l 1 -o 2 -u 56666]&gt;</span>
 </code></pre></div>
 </div>
 <p>Quit the server and watch the events print:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-<span class="go">ServerLifecycleEvent.QUITTING</span>
-<span class="go">ServerLifecycleEvent.DISCONNECTING</span>
-<span class="go">ServerLifecycleEvent.OSC_DISCONNECTED</span>
-<span class="go">ServerLifecycleEvent.DISCONNECTED</span>
-<span class="go">ServerLifecycleEvent.PROCESS_QUIT</span>
-<span class="go">ServerLifecycleEvent.QUIT</span>
+<span class="go">&lt;ServerLifecycleEvent.QUITTING: 9&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.DISCONNECTING: 10&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.OSC_DISCONNECTED: 11&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.DISCONNECTED: 12&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.PROCESS_QUIT: 13&gt;</span>
+<span class="go">&lt;ServerLifecycleEvent.QUIT: 14&gt;</span>
 <span class="go">&lt;Server OFFLINE [/usr/local/bin/supernova -B 0.0.0.0 -R 0 -i 2 -l 1 -o 2 -u 56666]&gt;</span>
 </code></pre></div>
 </div>
@@ -4224,7 +4184,7 @@ properties for inspecting its state.</p>
 <h3 id="querying-status">Querying status<a class="headerlink" href="#querying-status" title="Link to this heading">¶</a></h3>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44106.362311622295, average_cpu_usage=0.06459535658359528, group_count=2, peak_cpu_usage=0.3399755656719208, synth_count=0, synthdef_count=0, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">StatusInfo(actual_sample_rate=44105.34321560694, average_cpu_usage=0.04948261380195618, group_count=2, peak_cpu_usage=0.2604348063468933, synth_count=0, synthdef_count=0, target_sample_rate=44100.0, ugen_count=0)</span>
 </code></pre></div>
 </div>
 <div class="hint tip admonition">
@@ -4240,7 +4200,7 @@ complexity of the status output:</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44106.24907640606, average_cpu_usage=0.1592986136674881, group_count=2, peak_cpu_usage=0.3399755656719208, synth_count=1, synthdef_count=33, target_sample_rate=44100.0, ugen_count=20)</span>
+<span class="go">StatusInfo(actual_sample_rate=44105.34321560694, average_cpu_usage=0.12202907353639603, group_count=2, peak_cpu_usage=0.2604348063468933, synth_count=1, synthdef_count=33, target_sample_rate=44100.0, ugen_count=20)</span>
 </code></pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">synth_count</span></code>, <code class="docutils literal notranslate"><span class="pre">synthdef_count</span></code> and <code class="docutils literal notranslate"><span class="pre">ugen_count</span></code> have gone up
@@ -4275,17 +4235,17 @@ output similar to <a class="reference internal" href="../appendices/glossary.htm
 <p>And access the input and output audio <a class="reference internal" href="../appendices/glossary.html#term-bus" title="bus (glossary term)"><span class="xref std std-term">bus</span></a> groups, which represent
 microphone inputs and speaker outputs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">audio_input_bus_group</span>
-<span class="go">BusGroup(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=8, calculation_rate=CalculationRate.AUDIO, count=8)</span>
+<span class="go">BusGroup(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=8, calculation_rate=&lt;CalculationRate.AUDIO: 2&gt;, count=8)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">audio_output_bus_group</span>
-<span class="go">BusGroup(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=0, calculation_rate=CalculationRate.AUDIO, count=8)</span>
+<span class="go">BusGroup(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=0, calculation_rate=&lt;CalculationRate.AUDIO: 2&gt;, count=8)</span>
 </code></pre></div>
 </div>
 <h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Link to this heading">¶</a></h2>
 <p>The server provides a variety of methods for interacting with it and modifying
 its state.</p>
-<h3 id="sending-osc">Sending OSC<a class="headerlink" href="#sending-osc" title="Link to this heading">¶</a></h3>
+<h3 id="sending-osc-messages">Sending OSC messages<a class="headerlink" href="#sending-osc-messages" title="Link to this heading">¶</a></h3>
 <p>You can send <a class="reference internal" href="../appendices/glossary.html#term-OSC" title="OSC (glossary term)"><span class="xref std std-term">OSC</span></a> messages via the
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">send()</span></code> method, either as
 explicit <code class="xref py py-class docutils literal notranslate"><span class="pre">OscMessage</span></code> or
@@ -4295,7 +4255,7 @@ explicit <code class="xref py py-class docutils literal notranslate"><span class
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/g_new&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
 </div>
-<h3 id="syncing">Syncing<a class="headerlink" href="#syncing" title="Link to this heading">¶</a></h3>
+<h3 id="syncing-servers">Syncing servers<a class="headerlink" href="#syncing-servers" title="Link to this heading">¶</a></h3>
 <p>Many interactions with <a class="reference internal" href="../appendices/glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> don’t take effect immediately. In fact,
 none of them really do, because the server behaves asynchronously. For
 operations with significant delay, e.g. sending multiple <a class="reference internal" href="../appendices/glossary.html#term-SynthDef" title="SynthDef (glossary term)"><span class="xref std std-term">SynthDefs</span></a> or reading/writing buffers from/to disk, use
@@ -4310,7 +4270,7 @@ initiated operations complete:</p>
 <p>See <a class="reference internal" href="osc.html"><span class="doc">Open Sound Control</span></a> for more information about OSC communication with
 the server, including OSC callbacks.</p>
 </div>
-<h3 id="mutating">Mutating<a class="headerlink" href="#mutating" title="Link to this heading">¶</a></h3>
+<h3 id="mutating-servers">Mutating servers<a class="headerlink" href="#mutating-servers" title="Link to this heading">¶</a></h3>
 <p>The server provides methods for allocating <a class="reference internal" href="../appendices/glossary.html#term-node" title="node (glossary term)"><span class="xref std std-term">nodes</span></a> (<a class="reference internal" href="../appendices/glossary.html#term-group" title="group (glossary term)"><span class="xref std std-term">groups</span></a> and <a class="reference internal" href="../appendices/glossary.html#term-synth" title="synth (glossary term)"><span class="xref std std-term">synths</span></a>), <a class="reference internal" href="../appendices/glossary.html#term-buffer" title="buffer (glossary term)"><span class="xref std std-term">buffers</span></a> and <a class="reference internal" href="../appendices/glossary.html#term-bus" title="bus (glossary term)"><span class="xref std std-term">buses</span></a>, all of which are discussed in the sections following this one:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="go">Group(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=1000, parallel=False)</span>
@@ -4329,11 +4289,11 @@ the server, including OSC callbacks.</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_bus</span><span class="p">()</span>
-<span class="go">Bus(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=0, calculation_rate=CalculationRate.CONTROL)</span>
+<span class="go">Bus(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=0, calculation_rate=&lt;CalculationRate.CONTROL: 1&gt;)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_bus_group</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="s2">&quot;audio&quot;</span><span class="p">)</span>
-<span class="go">BusGroup(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=16, calculation_rate=CalculationRate.AUDIO, count=2)</span>
+<span class="go">BusGroup(context=&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;, id_=16, calculation_rate=&lt;CalculationRate.AUDIO: 2&gt;, count=2)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
@@ -4345,7 +4305,7 @@ the server, including OSC callbacks.</p>
 
 </code></pre></div>
 </div>
-<h3 id="resetting">Resetting<a class="headerlink" href="#resetting" title="Link to this heading">¶</a></h3>
+<h3 id="resetting-servers">Resetting servers<a class="headerlink" href="#resetting-servers" title="Link to this heading">¶</a></h3>
 <p>Supriya supports <em>resetting</em> the state of the server, similar to
 SuperCollider’s <code class="docutils literal notranslate"><span class="pre">CmdPeriod</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
@@ -4386,12 +4346,12 @@ methods are async as well.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">main</span><span class="p">()</span>
 <span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;</span>
-<span class="go">&lt;AsyncServer ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 56731]&gt;</span>
+<span class="go">&lt;AsyncServer ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 42164]&gt;</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
 <span class="go">        1000 group</span>
 
-<span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 56731]&gt;</span>
+<span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 42164]&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -4412,21 +4372,21 @@ eventloop-driven libraries like <a class="reference external" href="https://docs
 </div>
 <p>You can also find a random free port for use when booting multiple servers at once via <a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.find_free_port" title="supriya.osc.protocols.find_free_port (Python function)"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">()</span>
-<span class="go">47673</span>
+<span class="go">49823</span>
 </code></pre></div>
 </div>
 <h3 id="process-protocols">Process protocols<a class="headerlink" href="#process-protocols" title="Link to this heading">¶</a></h3>
 <p>Get access to the server’s underlying process management subsystem via
 <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.process_protocol" title="supriya.contexts.realtime.Server.process_protocol (Python property) — Get the server's process protocol."><code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.scsynth.ThreadedProcessProtocol object at 0x7f8d7dd69630&gt;</span>
+<span class="go">&lt;supriya.scsynth.ThreadedProcessProtocol object at 0x7f8fd73d5d30&gt;</span>
 </code></pre></div>
 </div>
 <h3 id="osc-protocols">Osc protocols<a class="headerlink" href="#osc-protocols" title="Link to this heading">¶</a></h3>
 <p>Get access to the server’s underlying OSC subsystem via
 <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.osc_protocol" title="supriya.contexts.realtime.Server.osc_protocol (Python property) — Get the server's OSC protocol."><code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.threaded.ThreadedOscProtocol object at 0x7f8d7defb890&gt;</span>
+<span class="go">&lt;supriya.osc.threaded.ThreadedOscProtocol object at 0x7f8fd5e755e0&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -4544,7 +4504,7 @@ subprocess and OSC communication via
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
       
         <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>

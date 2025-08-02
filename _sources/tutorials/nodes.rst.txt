@@ -1,11 +1,5 @@
-:status: under-construction
-
 Nodes
 =====
-
-.. self-criticism::
-
-   These docs are still under construction.
 
 SuperCollider's :term:`scsynth` server processes audio by traversaing a
 :term:`tree` of :term:`nodes <node>`. Nodes in the tree can be either
@@ -32,10 +26,10 @@ Nodes can only be added to running servers, so let's create one and boot it::
 
     >>> server = supriya.Server().boot()
 
-.. note::
+..  note::
 
-   :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
-   nor offline, so you can add nodes to them whenever you like.
+    :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
+    nor offline, so you can add nodes to them whenever you like.
 
 Creating groups
 ```````````````
@@ -48,8 +42,8 @@ Create a group, and print its :term:`repr` to the terminal::
 The :term:`repr` shows the group's type (``Group``), its :term:`ID <ID, node>`
 (``1000``), and indicates it has been allocated (``+``).
 
-Positioning
-```````````
+Positioning nodes
+`````````````````
 
 Let's add another group. Groups can be added relative to other groups::
 
@@ -95,7 +89,7 @@ first::
     >>> group_eight = group_one.add_group(add_action=supriya.AddAction.REPLACE)
     >>> print(server.query_tree())
 
-.. note::
+..  note::
 
     Supriya will attempt to coerce a variety of inputs into a valid
     :py:class:`~supriya.enums.AddAction`::
@@ -109,7 +103,7 @@ first::
 
         >>> server.add_group(add_action="add to head")
 
-.. note::
+..  note::
 
     When using :term:`supernova` as your server executable, you can create
     _parallel_ groups by specifying ``parallel=True`` in any call you would use
@@ -201,7 +195,7 @@ how the reverberation kicks in when you instantiate the second synth::
 
     >>> print(server.query_tree())
 
-.. note::
+..  note::
 
     Supriya keeps track of which SynthDefs have already been allocated, and
     will automatically allocate them for you when you add synths to the server.
@@ -209,8 +203,8 @@ how the reverberation kicks in when you instantiate the second synth::
 
     See :doc:`synthdefs` and :doc:`osc` for more details.
 
-Deleting
-````````
+Deleting nodes
+``````````````
 
 Reset the server for a clean slate, then add a synth::
 
@@ -221,9 +215,9 @@ Reset the server for a clean slate, then add a synth::
     >>> with server.at():
     ...     with server.add_synthdefs(supriya.default):
     ...         synth = server.add_synth(supriya.default)
-    ...
+    ...= 
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()  # wait for synthdefs to load
@@ -251,6 +245,36 @@ Groups can also be freed::
     >>> group = server.add_group()
     >>> group.free()
 
+Permanent vs impermanent nodes
+``````````````````````````````
+
+By convention, SuperCollider clients support a notion of *permanent* vs
+*user-space* (or *impermanent*) node IDs.
+
+By default, user-space node IDs start at 1000, with the ID space from 1000 to
+the maximum node count divided up by the maximum number of clients. The node
+IDs from 1 up to (but not including) 1000 are for *permanent* nodes. Typically
+this means the default groups for every potential login, but could also be used
+for bus scopes, for server meters, for recording synths, etc.
+
+You can create a node with a permanent node ID by using the ``permanent=True``
+keyword when adding it to the server::
+
+    >>> with server.at():
+    ...     permanent_group = server.add_group(permanent=True)
+    ...     permanent_synth = permanent_group.add_synth(
+    ...         permanent=True, synthdef=supriya.default
+    ...     )
+    ...
+
+::
+
+    >>> permanent_group.id_  # less than 1000
+
+::
+
+    >>> permanent_synth.id_  # also less than 1000
+
 Inspection
 ----------
 
@@ -268,7 +292,7 @@ Reset the server for a clean slate::
     ...         synth_c = group.add_synth(supriya.default, frequency=555)
     ...
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()  # wait for synthdefs to load
@@ -280,17 +304,17 @@ Every node has a ``id_`` and a reference to its context::
     >>> synth_b.id_, synth_b.context
     >>> synth_c.id_, synth_c.context
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()
 
-Position
-````````
+Node position
+`````````````
 
 Nodes know about their position in the :term:`node tree`.
 
-.. caution::
+..  caution::
 
     This position information is cached on our realtime context based off of
     the various ``/n_go`` and ``/n_end`` messages sent back by :term:`scsynth`,
@@ -339,7 +363,7 @@ Reset the server for a clean slate::
     ...         reverb_synth = group.add_synth(reverb_synthdef, add_action="add_to_tail")
     ...
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()  # wait for synthdefs to load
@@ -349,8 +373,8 @@ by the *reverb* synth.
 
 Now we'll interact with these three nodes to modify their sound ...
 
-Moving
-``````
+Moving nodes
+````````````
 
 Nodes can be moved relative to other nodes, using the same :term:`add actions
 <add action>` used when allocating nodes.
@@ -402,8 +426,8 @@ Query the node tree to see the control settings::
 
     >>> print(server.query_tree())
 
-Pausing
-```````
+Pausing and unpausing nodes
+```````````````````````````
 
 Nodes can be paused and unpaused. Paused synths perform no audio processing,
 and all children of paused groups are considered paused.
@@ -433,7 +457,13 @@ Unpause the parent group to resume audio processing::
 Configuration
 -------------
 
-The maximum number of nodes available in a context is controlled by its options.
+The initial impermanent node ID and maximum node count available in a context
+are controlled by its :py:class:`options <supriya.scsynth.Options>`.
 
-- Options.maximum_node_count
-- Options.initial_node_id
+- Set the maximum number of nodes available on the context with the
+  ``maximum_node_count`` keyword.
+
+- Set the initial impermanent node ID with the ``initial_node_id`` keyword.
+
+These can be set on an :py:class:`~supriya.scsynth.Options` instance passed the
+context when initialized or booting, or just as keyword arguments.

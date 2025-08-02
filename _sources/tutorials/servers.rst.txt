@@ -33,12 +33,12 @@ You can override the IP address or port via keyword arguments::
 
     >>> server.boot(ip_address="0.0.0.0", port=56666)
 
-.. book::
+..  book::
     :hide:
 
     >>> server.quit()
 
-.. caution::
+..  caution::
 
     Attempting to boot a server on a port where another server is already running
     will result in an error::
@@ -57,7 +57,7 @@ You can override the IP address or port via keyword arguments::
 
         >>> server_two.boot(port=supriya.osc.find_free_port())
 
-.. book::
+..  book::
     :hide:
 
     >>> server_one.quit()
@@ -67,7 +67,7 @@ You can also explicitly select the server binary via the ``executable`` keyword:
 
     >>> server.boot(executable="scsynth")
 
-.. book::
+..  book::
     :hide:
 
     >>> server.quit()
@@ -76,7 +76,7 @@ The ``executable`` keyword allows you to boot with ``supernova`` if you have it 
 
     >>> server.boot(executable="supernova")
 
-.. book::
+..  book::
     :hide:
 
     >>> server.quit()
@@ -94,7 +94,7 @@ keyword arguments when booting::
 
     >>> server.boot(input_bus_channel_count=2, output_bus_channel_count=2)
 
-.. book::
+..  book::
     :hide:
 
     >>> server.quit()
@@ -143,7 +143,7 @@ non-owners, e.g. a ``force`` boolean flag which non-owners can set to ``True``
 if they really want to quit the server. Without ``force``, quitting a non-owned
 server will error:
 
-.. book::
+..  book::
     :allow-exceptions:
 
     >>> server_two.quit()
@@ -155,7 +155,7 @@ Finally, disconnect::
 Disconnecting won't terminate the server. It continues to run from wherever
 ``server_one`` was originally booted.
 
-.. book::
+..  book::
     :hide:
 
     >>> server_one.quit()
@@ -216,7 +216,7 @@ Inspect the "status" of audio processing::
 
     >>> server.status
 
-.. hint::
+..  hint::
 
     Server status is a great way of tracking :term:`scsynth`'s CPU usage.
 
@@ -228,7 +228,7 @@ complexity of the status output::
     ...         synth = server.add_synth(supriya.default)
     ...
 
-.. book::
+..  book::
     :hide:
 
     >>> server.sync()
@@ -266,7 +266,7 @@ microphone inputs and speaker outputs::
     >>> server.audio_input_bus_group
     >>> server.audio_output_bus_group
 
-.. book::
+..  book::
     :hide:
 
     >>> server.quit()
@@ -274,7 +274,7 @@ microphone inputs and speaker outputs::
 Interaction
 -----------
 
-.. book::
+..  book::
     :hide:
 
     >>> server.boot()
@@ -284,8 +284,8 @@ Interaction
 The server provides a variety of methods for interacting with it and modifying
 its state.
 
-Sending OSC
-```````````
+Sending OSC messages
+````````````````````
 
 You can send :term:`OSC` messages via the
 :py:meth:`~supriya.contexts.realtime.Server.send` method, either as
@@ -296,8 +296,8 @@ explicit :py:class:`~supriya.osc.OscMessage` or
     >>> from supriya.osc import OscMessage
     >>> server.send(OscMessage("/g_new", 1000, 0, 1))
 
-Syncing
-```````
+Syncing servers
+```````````````
 
 Many interactions with :term:`scsynth` don't take effect immediately. In fact,
 none of them really do, because the server behaves asynchronously. For
@@ -311,8 +311,8 @@ initiated operations complete::
 ..  note:: See :doc:`osc` for more information about OSC communication with
     the server, including OSC callbacks.
 
-Mutating
-````````
+Mutating servers
+````````````````
 
 The server provides methods for allocating :term:`nodes <node>` (:term:`groups
 <group>` and :term:`synths <synth>`), :term:`buffers <buffer>` and :term:`buses
@@ -326,8 +326,8 @@ The server provides methods for allocating :term:`nodes <node>` (:term:`groups
     >>> server.add_bus_group(count=2, calculation_rate="audio")
     >>> print(server.query_tree())
 
-Resetting
-`````````
+Resetting servers
+`````````````````
 
 Supriya supports *resetting* the state of the server, similar to
 SuperCollider's ``CmdPeriod``::
@@ -340,7 +340,7 @@ buffers and SynthDefs::
 
     >>> server.reboot()
 
-.. book::
+..  book::
     :hide:
 
     >>> server.quit()
@@ -373,7 +373,7 @@ methods are async as well.
 
     >>> await main()
 
-.. note::
+..  note::
 
     Supriya's documentation allows top-level ``await`` constructs, but
     depending on where you're running async code, you may need to wrap it in a
@@ -414,7 +414,7 @@ Get access to the server's underlying OSC subsystem via
 
     >>> server.osc_protocol
 
-.. note::
+..  note::
 
     :py:class:`~supriya.contexts.realtime.Server` manages its :term:`scsynth`
     subprocess and OSC communication via

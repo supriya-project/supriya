@@ -3,9 +3,9 @@
 Extensions
 ==========
 
-.. self-criticism::
+..  self-criticism::
 
-   These docs are still under construction.
+    These docs are still under construction.
 
 Jupyter Notebooks
 -----------------

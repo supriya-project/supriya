@@ -621,14 +621,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1304,17 +1296,9 @@
   
   
   <span class="md-ellipsis">
-    Examples Overview
+    Examples overview
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1340,14 +1324,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1372,14 +1348,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1403,14 +1371,6 @@
     Hello, world!, debugged
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -4057,12 +4017,13 @@
 <p class="admonition-title">Self Criticism</p>
 <p>These docs are still under construction.</p>
 </div>
-<p><a class="reference internal" href="../appendices/glossary.html#term-buffer" title="buffer (glossary term)"><span class="xref std std-term">Buffers</span></a> are arrays of sample data. Like sound files, they have
-one or more <a class="reference internal" href="../appendices/glossary.html#term-channel" title="channel (glossary term)"><span class="xref std std-term">channels</span></a>, and one or more <a class="reference internal" href="../appendices/glossary.html#term-frame" title="frame (glossary term)"><span class="xref std std-term">frames</span></a>.
-They can be read from disk (or written back to it), created empty and populated
-later, or synthesized by the server - typically to create window functions or
-waveforms for wavetable synthesis. They’re also used when streaming audio to or
-from soundfiles too large to load into memory at once.</p>
+<p><a class="reference internal" href="../appendices/glossary.html#term-buffer" title="buffer (glossary term)"><span class="xref std std-term">Buffers</span></a> are fixed-size arrays of sample data. Like sound
+files, they have one or more <a class="reference internal" href="../appendices/glossary.html#term-channel" title="channel (glossary term)"><span class="xref std std-term">channels</span></a>, and one or more
+<a class="reference internal" href="../appendices/glossary.html#term-frame" title="frame (glossary term)"><span class="xref std std-term">frames</span></a>. They can be read from disk (or written back to it),
+created empty and populated later, or synthesized by the server - typically to
+create window functions or waveforms for wavetable synthesis. They’re also used
+when streaming audio to or from soundfiles too large to load into memory at
+once.</p>
 <p>Like buses, <a class="reference internal" href="../appendices/glossary.html#term-scsynth" title="scsynth (glossary term)"><span class="xref std std-term">scsynth</span></a> boots with a fixed number of buffers available.
 Unlike buses, these buffers can be reconfigured with different channel counts
 and durations on allocation. The <a class="reference internal" href="../api/supriya/contexts/entities.html#supriya.contexts.entities.Buffer" title="supriya.contexts.entities.Buffer (Python class) — Bases: ContextObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">Buffer</span></code></a>
@@ -4334,10 +4295,13 @@ existing buffer’s contents into another buffer and convert.</p>
 <p>Implement wavetable utilities for loading arbitrary audio.</p>
 </div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
-<p>The maximum number of buffers available in a context is controlled by its options.</p>
+<p>The maximum number of buffers available in a context is controlled by its
+<a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">options</span></code></a>.</p>
 <ul class="simple">
-<li><p>Options.buffer_count</p></li>
+<li><p>Set the maximum number of buffers with the <code class="docutils literal notranslate"><span class="pre">buffer_count</span></code> keyword.</p></li>
 </ul>
+<p>This can be set on an <a class="reference internal" href="../api/supriya/scsynth.html#supriya.scsynth.Options" title="supriya.scsynth.Options (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Options</span></code></a> instance passed the
+context when initialized or booting, or just as keyword arguments.</p>
 
 
 
@@ -4443,7 +4407,7 @@ existing buffer’s contents into another buffer and convert.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
       
         <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>

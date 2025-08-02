@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#performance-logic" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -611,14 +616,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1018,17 +1015,9 @@
   
   
   <span class="md-ellipsis">
-    Examples Overview
+    Examples overview
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1054,14 +1043,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1086,14 +1067,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1116,6 +1089,19 @@
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Hello, world!, debugged
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="#" class="md-nav__link md-nav__link--active">
         
   
@@ -1125,16 +1111,66 @@
     
   </span>
   
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
     
   
   
-    <span class="md-status md-status--under-construction" title="Under construction">
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#performance-logic" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Performance logic
     </span>
+  </a>
   
-
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Debugging
+    </span>
+  </a>
   
-
-      </a>
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invocation" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Invocation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -3507,6 +3543,54 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#performance-logic" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Performance logic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Debugging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invocation" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Invocation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3533,114 +3617,243 @@
   
 
 <h1 id="hello-world-debugged">Hello, world!, debugged<a class="headerlink" href="#hello-world-debugged" title="Link to this heading">¶</a></h1>
-<div class="self-criticism admonition">
-<p class="admonition-title">Self Criticism</p>
-<p>These docs are still under construction.</p>
+<div class="info admonition">
+<p class="admonition-title">Info</p>
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/examples/hello_world_debugged">full example
+source code</a> on GitHub.</p>
 </div>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree//examples/hello_world_debugged">full source code</a>.</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
-</span>Invoke the script with …<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>python<span class="w"> </span>hello_world_debugged.py
-</code></pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
-</span>../../../examples/hello_world_debugged/hello_world_debugged.py<a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
+<p>Let’s revisit aspects of the <a class="reference internal" href="hello_world.html"><span class="doc">previous</span></a> <a class="reference internal" href="hello_world_contexts.html"><span class="doc">two</span></a> <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> examples and introduce a variety of
+debugging techniques.</p>
+<p>It’s not uncommon to wonder “why isn’t the audio I expect happening?” We have a
+variety of ways to debug this with Supriya (although your volume could always
+just be too low).</p>
+<p>We’ll employ:</p>
+<ul class="simple">
+<li><p><strong>Server logging</strong>: Did it boot up? Has it reported any errors?</p></li>
+<li><p><strong>Server status</strong>: Is my sample rate correct? Do the counts of nodes, of
+synths, of synthdefs make sense to me?</p></li>
+<li><p><strong>Node tree queries</strong>: Is the structure of nodes on the server what I expect?</p></li>
+<li><p><strong>OSC transcripts</strong>: Did I send the messages I thought I sent? Did I receive
+the message I should have received?</p></li>
+</ul>
+<h2 id="performance-logic">Performance logic<a class="headerlink" href="#performance-logic" title="Link to this heading">¶</a></h2>
+<p>The performance logic is almost exactly the same as in the
+<a class="reference internal" href="hello_world_contexts.html"><span class="doc">Hello, world!, context-agnostic</span></a> example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">play_synths</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]:</span>
-    <span class="c1"># A C-major chord</span>
-    <span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mf">261.63</span><span class="p">,</span> <span class="mf">329.63</span><span class="p">,</span> <span class="mf">392.00</span><span class="p">]</span>
-    <span class="c1"># Create an empty list to store synths in:</span>
-    <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># Add the default synthdef to the server and open a &quot;completion&quot; context</span>
-    <span class="c1"># manager to group further commands for when the synthdef finishes loading:</span>
-    <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
-        <span class="c1"># Loop over the frequencies:</span>
-        <span class="k">for</span> <span class="n">frequency</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">:</span>
-            <span class="c1"># Create a synth using the default synthdef and the frequency</span>
-            <span class="c1"># and add it to the list of synths:</span>
-            <span class="n">synths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">context</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">)</span>
-            <span class="p">)</span>
+    <span class="c1"># Start an OSC bundle to run immediately:</span>
+    <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
+        <span class="c1"># A C-major chord</span>
+        <span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mf">261.63</span><span class="p">,</span> <span class="mf">329.63</span><span class="p">,</span> <span class="mf">392.00</span><span class="p">]</span>
+        <span class="c1"># Create an empty list to store synths in:</span>
+        <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Add the default synthdef to the server and open a &quot;completion&quot; context</span>
+        <span class="c1"># manager to group further commands for when the synthdef finishes loading:</span>
+        <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
+            <span class="c1"># Loop over the frequencies:</span>
+            <span class="k">for</span> <span class="n">frequency</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">:</span>
+                <span class="c1"># Create a synth using the default synthdef and the frequency</span>
+                <span class="c1"># and add it to the list of synths:</span>
+                <span class="n">synths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">context</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">)</span>
+                <span class="p">)</span>
     <span class="k">return</span> <span class="n">synths</span>
 </code></pre></div>
 </div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
-</span>../../../examples/hello_world_debugged/hello_world_debugged.py<a class="headerlink" href="#id4" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop_synths</span><span class="p">(</span><span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># Loop over the synths and free them</span>
-    <span class="k">for</span> <span class="n">synth</span> <span class="ow">in</span> <span class="n">synths</span><span class="p">:</span>
-        <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop_synths</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># Start an OSC bundle to run immediately:</span>
+    <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
+        <span class="c1"># Loop over the synths and free them</span>
+        <span class="k">for</span> <span class="n">synth</span> <span class="ow">in</span> <span class="n">synths</span><span class="p">:</span>
+            <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
-</span>../../../examples/hello_world_debugged/hello_world_debugged.py<a class="headerlink" href="#id5" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">debug</span><span class="p">(</span>
-    <span class="n">header</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">,</span> <span class="n">transcript</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">Capture</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># Print a header:</span>
+<p>One small difference, just to save some vertical space in the <code class="docutils literal notranslate"><span class="pre">main()</span></code> function is
+to move the use of <a class="reference internal" href="../api/supriya/contexts/core.html#supriya.contexts.core.Context.at" title="supriya.contexts.core.Context.at (Python method) — Create a Moment."><code class="xref py py-meth docutils literal notranslate"><span class="pre">at()</span></code></a> inside the two
+performance functions. Because we’re querying the context state, the context
+<em>must</em> be realtime, so we can rely on it supporting timestamp-free OSC bundling.</p>
+<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Link to this heading">¶</a></h2>
+<p>OK, let’s debug our performance.</p>
+<p>We’ll write a context manager, facilitated by Python’s
+<a class="reference external" href="https://docs.python.org/3/library/contextlib.html#contextlib.contextmanager" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">contextlib.contextmanager()</span></code></a> decorator, to debug the state of the
+server and (optionally!) any operations we performed against it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">debug</span><span class="p">(</span>
+    <span class="n">header</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">server</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="c1"># Capture any OSC messages sent or received</span>
+    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
+        <span class="c1"># Yield to the with block body</span>
+        <span class="k">yield</span>
+    <span class="c1"># Print a header</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
     <span class="c1"># Print the server status</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Server status: </span><span class="si">{</span><span class="n">server</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="c1"># Print the node tree:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
-    <span class="c1"># Filter the OSC transcript down to just non-status sent messages and print them:</span>
-    <span class="k">if</span> <span class="n">transcript</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">transcript</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="n">sent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">received</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sent: </span><span class="si">{</span><span class="n">message</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Status: </span><span class="si">{</span><span class="n">server</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Filter out any /status or /status.reply messages from the transcript</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span> <span class="o">:=</span> <span class="n">transcript</span><span class="o">.</span><span class="n">filtered</span><span class="p">()):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    Transcript:&quot;</span><span class="p">)</span>
+    <span class="c1"># Print the OSC transcript&#39;s filtered, captured messages</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+        <span class="c1"># A received message</span>
+        <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;        Received: </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># A sent message</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;        Sent:     </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Print the node tree</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Tree: </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
-</span>../../../examples/hello_world_debugged/hello_world_debugged.py<a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
+<p>The context manager will let us start capturing OSC messages sent and received
+into a transcript, <em>yield</em> so we can perform an action against the server if we
+wish, and when we’re done yielding we’ll print out:</p>
+<ul class="simple">
+<li><p>a header string,</p></li>
+<li><p>the server’s <em>status</em>,</p></li>
+<li><p>any messages we <em>sent to</em> or <em>received from</em> the server, excluding the
+<code class="docutils literal notranslate"><span class="pre">/status</span></code> and <code class="docutils literal notranslate"><span class="pre">/status.reply</span></code> messages that are always coming and going
+during standard operations,</p></li>
+<li><p>and the server’s <em>node tree</em>.</p></li>
+</ul>
+<h2 id="integration">Integration<a class="headerlink" href="#integration" title="Link to this heading">¶</a></h2>
+<p>Now let’s sprinkle that debugging context manager throughout our <code class="docutils literal notranslate"><span class="pre">main</span></code> function.</p>
+<p>We’ll also turn on logging output (set to a base level of <code class="docutils literal notranslate"><span class="pre">WARNING</span></code> so we
+don’t see too much) and then dial in the <a class="reference internal" href="../api/supriya/scsynth.html#module-supriya.scsynth" title="supriya.scsynth (Python module)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">supriya.scsynth</span></code></a> logger to
+<code class="docutils literal notranslate"><span class="pre">INFO</span></code> so we can see info about the server during booting and quitting.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># Turn on basic logging system-wide</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARN</span><span class="p">)</span>
+    <span class="c1"># Turn on basic logging output interpreter-wide.</span>
+    <span class="c1"># Explicitly set the stream to stdout so that the output looks the same in</span>
+    <span class="c1"># your terminal as it does in the documentation! Normally you don&#39;t need to</span>
+    <span class="c1"># worry about this.</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+
     <span class="c1"># Set Supriya&#39;s supriya.scsynth logger level to INFO</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;supriya.scsynth&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
     <span class="c1"># Create a server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-    <span class="c1"># Debug:</span>
-    <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;BEFORE PLAYING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
-    <span class="c1"># Create an empty list to store synths in:</span>
-    <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># Capture the OSC messages send to the server to load the SynthDef and create the synths:</span>
-    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
-        <span class="c1"># N.B. This block is now indented inside the .capture() context manager</span>
-        <span class="c1"># Start an OSC bundle to run immediately:</span>
-        <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
-            <span class="c1"># Start playing the synths</span>
-            <span class="n">synths</span> <span class="o">=</span> <span class="n">play_synths</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
-    <span class="c1"># Sync the server so we can see the node tree updates:</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
-    <span class="c1"># Debug:</span>
-    <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;PLAYING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">transcript</span><span class="p">)</span>
-    <span class="c1"># Let the notes play for 4 seconds:</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="c1"># Print a header:</span>
-    <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;JUST BEFORE STOPPING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
-    <span class="c1"># Capture the OSC messages send to the server to free the synths:</span>
-    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
-        <span class="c1"># N.B. This block is now indented inside the .capture() context manager</span>
-        <span class="c1"># Loop over the synths and free them</span>
-        <span class="n">stop_synths</span><span class="p">(</span><span class="n">synths</span><span class="p">)</span>
-    <span class="c1"># Debug:</span>
-    <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;AFTER STOPPING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">transcript</span><span class="p">)</span>
-    <span class="c1"># Wait a second for the notes to fade out:</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c1"># Print a header:</span>
-    <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;A LITTLE AFTER STOPPING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">transcript</span><span class="p">)</span>
-    <span class="c1"># Quit the server:</span>
+
+    <span class="c1"># Print debug info before we play anything ...</span>
+    <span class="c1"># Should be just an empty server with the default groups.</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;BEFORE PLAYING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Print debug info immediately after we play the synths ...</span>
+    <span class="c1"># No synths should be allocated yet because their SynthDef hasn&#39;t finished</span>
+    <span class="c1"># allocation.</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;IMMEDIATELY AFTER PLAYING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="n">synths</span> <span class="o">=</span> <span class="n">play_synths</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+
+    <span class="c1"># Print debug info after syncing with the server ...</span>
+    <span class="c1"># The synths should now be present.</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;PLAYING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+
+    <span class="c1"># Print debug info after 4 seconds of waiting ...</span>
+    <span class="c1"># Nothing should have changed since the synths allocated.</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;JUST BEFORE STOPPING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># Print debug info immediately after stopping the synths</span>
+    <span class="c1"># The synths are still present, but their &quot;gate&quot; parameters have flipped to</span>
+    <span class="c1"># zero.</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;IMMEDIATELY AFTER STOPPING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="n">stop_synths</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">synths</span><span class="o">=</span><span class="n">synths</span><span class="p">)</span>
+
+    <span class="c1"># Print debug info after 1 second of waiting ...</span>
+    <span class="c1"># The synths should now be gone.</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;AFTER RELEASING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Quit the server</span>
     <span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 </code></pre></div>
 </div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>While the <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">debug(...):`</span></code> lines come <em>before</em> the operations we want
+to debug, their output actually comes <em>after</em>. Inside our debugging context
+manager, the body of our <code class="docutils literal notranslate"><span class="pre">with</span></code> block executes at the moment we
+<code class="docutils literal notranslate"><span class="pre">yield</span></code>, and everything after the <code class="docutils literal notranslate"><span class="pre">yield</span></code> keyword occurs when we exit
+that <code class="docutils literal notranslate"><span class="pre">with</span></code> block. This might look a little “backwards” in our <code class="docutils literal notranslate"><span class="pre">main()</span></code>
+function, but sit with it.</p>
 </div>
+<h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
+<p>You can invoke the script and see its (very verbose) output with …</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya/examples/hello_world_debugged$ </span>python<span class="w"> </span>hello_world_debugged.py
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] booting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] command: /usr/local/bin/scsynth -R 0 -l 1 -u 57110</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] received: JackDriver: client name is &#39;SuperCollider&#39;</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] received: SC_AudioDriver: sample rate = 44100.000000, driver&#39;s block size = 1024</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] received: SuperCollider 3 server ready.</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] ... booted!</span>
+<span class="go">BEFORE PLAYING:</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.24907640606, average_cpu_usage=0.10537740588188171, group_count=2, peak_cpu_usage=0.3888465166091919, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Tree: NODE TREE 0 group</span>
+<span class="go">    Tree:     1 group</span>
+<span class="go">IMMEDIATELY AFTER PLAYING:</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.24907640606, average_cpu_usage=0.10537740588188171, group_count=2, peak_cpu_usage=0.3888465166091919, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Transcript:</span>
+<span class="go">        Sent:     OscMessage(&#39;/d_recv&#39;, b&#39;SCgf\x00\x00\x00\x02\x00\x01\x0fsupriya:default\x00\x00\x00\x0c\x00\x00\x00\x00&gt;\x99\x99\x9a&lt;#\xd7\n?333@\x00\x00\x00\xbe\xcc\xcc\xcd&gt;\xcc\xcc\xcdEz\x00\x00E\x9c@\x00E\x1c@\x00EH\x00\x00?\x80\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00=\xcc\xcc\xcdC\xdc\x00\x00?\x80\x00\x00?\x00\x00\x00\x00\x00\x00\x05\x03out\x00\x00\x00\x00\tamplitude\x00\x00\x00\x01\tfrequency\x00\x00\x00\x02\x04gate\x00\x00\x00\x03\x03pan\x00\x00\x00\x04\x00\x00\x00\x14\x07Control\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x04\x00\x01\x01\x01\x01\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x05Linen\x01\x00\x00\x00\x05\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x04\x01\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x00\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x04\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x06\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x08\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Sum3\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\t\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\n\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x07\xff\xff\xff\xff\x00\x00\x00\x08\x00\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\t\xff\xff\xff\xff\x00\x00\x00\n\x00\x05XLine\x01\x00\x00\x00\x04\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0c\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x0b\xff\xff\xff\xff\x00\x00\x00\x00\x01\x03LPF\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0b\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x0f\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x10\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x04Pan2\x02\x00\x00\x00\x03\x00\x00\x00\x02\x00\x00\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x0b\x02\x02\tOffsetOut\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x01\x00\x00&#39;, OscBundle(contents=[OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1000, 0, 1, &#39;frequency&#39;, 261.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1001, 0, 1, &#39;frequency&#39;, 329.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1002, 0, 1, &#39;frequency&#39;, 392.0)]))</span>
+<span class="go">    Tree: NODE TREE 0 group</span>
+<span class="go">    Tree:     1 group</span>
+<span class="go">PLAYING:</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.24907640606, average_cpu_usage=0.10537740588188171, group_count=2, peak_cpu_usage=0.3888465166091919, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Transcript:</span>
+<span class="go">        Sent:     OscMessage(&#39;/sync&#39;, 1)</span>
+<span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 0)</span>
+<span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1001, 1, -1, 1000, 0)</span>
+<span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1002, 1, -1, 1001, 0)</span>
+<span class="go">        Received: OscMessage(&#39;/done&#39;, &#39;/d_recv&#39;)</span>
+<span class="go">        Received: OscMessage(&#39;/synced&#39;, 1)</span>
+<span class="go">    Tree: NODE TREE 0 group</span>
+<span class="go">    Tree:     1 group</span>
+<span class="go">    Tree:         1002 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 392.0, gate: 1.0, pan: 0.5</span>
+<span class="go">    Tree:         1001 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 329.630005, gate: 1.0, pan: 0.5</span>
+<span class="go">    Tree:         1000 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
+<span class="go">JUST BEFORE STOPPING:</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.456446171935, average_cpu_usage=0.4716968238353729, group_count=2, peak_cpu_usage=0.47382697463035583, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Tree: NODE TREE 0 group</span>
+<span class="go">    Tree:     1 group</span>
+<span class="go">    Tree:         1002 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 392.0, gate: 1.0, pan: 0.5</span>
+<span class="go">    Tree:         1001 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 329.630005, gate: 1.0, pan: 0.5</span>
+<span class="go">    Tree:         1000 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
+<span class="go">IMMEDIATELY AFTER STOPPING:</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.456446171935, average_cpu_usage=0.4716968238353729, group_count=2, peak_cpu_usage=0.47382697463035583, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Transcript:</span>
+<span class="go">        Sent:     OscBundle(contents=[OscMessage(&#39;/n_set&#39;, 1000, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1001, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1002, &#39;gate&#39;, 0.0)])</span>
+<span class="go">    Tree: NODE TREE 0 group</span>
+<span class="go">    Tree:     1 group</span>
+<span class="go">    Tree:         1002 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 392.0, gate: 0.0, pan: 0.5</span>
+<span class="go">    Tree:         1001 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 329.630005, gate: 0.0, pan: 0.5</span>
+<span class="go">    Tree:         1000 supriya:default</span>
+<span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 0.0, pan: 0.5</span>
+<span class="go">AFTER RELEASING:</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.116756221105, average_cpu_usage=0.4733668863773346, group_count=2, peak_cpu_usage=0.47594302892684937, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Transcript:</span>
+<span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1002, 1, -1, 1001, 0)</span>
+<span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1001, 1, -1, 1000, 0)</span>
+<span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1000, 1, -1, -1, 0)</span>
+<span class="go">    Tree: NODE TREE 0 group</span>
+<span class="go">    Tree:     1 group</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] ... quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f6182f48830] ... already quit!</span>
+</code></pre></div>
+</div>
+<p>That’s a lot of output! Depending on your application, you may need to dial it
+down, or dial it up. Now you have the building blocks to do so.</p>
 
 
 
@@ -3746,7 +3959,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
       
         <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>

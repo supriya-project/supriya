@@ -17,22 +17,23 @@ a pull request.
 See the following sections for more detailed guidance on developing Supriya
 itself.
 
-.. editorial::
+..  editorial::
 
-   I (`Joséphine`_) am *exceedingly* disinterested in helping package Supriya for
-   random Linux distributions. *Please* just install Supriya from `PyPI`_.
-   There's no reason to package it up for Arch, etc. That just creates a
-   graveyard of unmaintained ancient packages which - if anyone even notices
-   them - can become a burden for me.
+    `I`_ am *exceedingly* disinterested in helping package Supriya for random
+    Linux distributions. *Please* just install Supriya from `PyPI`_. There's no
+    reason to package it up for Arch, etc. That just creates a graveyard of
+    unmaintained ancient packages which - if anyone even notices them - can
+    become a burden for me.
 
 Tooling
 -------
 
 Supriya provides a ``Makefile`` with targets for common local development tasks:
 
-.. shell::
-   :cwd: ..
-   :user: josephine
-   :host: laptop
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
 
-   make
+    make

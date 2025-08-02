@@ -15,6 +15,7 @@ protocols
    .. automethod:: __getitem__
    .. automethod:: __iter__
    .. automethod:: __len__
+   .. automethod:: add_entry
    .. automethod:: filtered
 
 .. autoclass:: CaptureEntry

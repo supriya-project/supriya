@@ -616,14 +616,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1018,17 +1010,9 @@
   
   
   <span class="md-ellipsis">
-    Examples Overview
+    Examples overview
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1054,14 +1038,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1086,14 +1062,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1117,14 +1085,6 @@
     Hello, world!, debugged
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -4078,7 +4038,7 @@ From source</label></div>
 </div><h2 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">¶</a></h2>
 <p>Supriya uses <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> as its test runner, both for unit tests and for
 doctests, along with a variety of <cite>pytest_</cite> plugins.</p>
-<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree//supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree//tests">tests/</a>) with:</p>
+<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/tests">tests/</a>) with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest
 </code></pre></div>
 </div>
@@ -4108,7 +4068,7 @@ equivalents.</p>
 <h3 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> can collect code coverage statistics during its test runs via the
 <a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/">pytest-cov</a> plugin, installed when you install Supriya’s test dependencies.</p>
-<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree//supriya">supriya/</a>
+<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/supriya">supriya/</a>
 directory during a test run by adding the <code class="docutils literal notranslate"><span class="pre">--cov=supriya</span></code> flag:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>--cov<span class="o">=</span>supriya
 </code></pre></div>
@@ -4228,7 +4188,7 @@ the gaps in test coverage.</p>
 <p>The test examples here are in the official test suite, to ensure that they
 continue to work and are also therefore subject to the same formatting,
 linting and static-typing checks as any other code in Supriya. You can find
-them <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob//tests/test_examples.py">here</a>.</p>
+them <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b0/tests/test_examples.py">here</a>.</p>
 </div>
 <h3 id="some-philosophy">Some philosophy<a class="headerlink" href="#some-philosophy" title="Link to this heading">¶</a></h3>
 <p>Whenever possible, keep tests simple:</p>
@@ -4292,6 +4252,7 @@ typically into parametrized tests.</p>
 demonstration of what a test might look like.</p>
 <p>You can run this test with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_basic
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <p>Our first test has a problem: if the <code class="docutils literal notranslate"><span class="pre">assert</span></code> fails (it won’t, but <em>if it
@@ -4322,6 +4283,7 @@ even if the assertion fails. And it’s true, that will work fine:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_try_finally
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <p>But there’s a simpler way to do this, with less indentation, where we can
@@ -4362,6 +4324,7 @@ same name as the fixture</em> to the test function:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_fixtures
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <p>The resulting test is a little shorter (not dramatically so, but you can
@@ -4407,6 +4370,7 @@ returning an <a class="reference internal" href="../api/supriya/contexts/realtim
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_async
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">test_async</span></code> looks just like <code class="docutils literal notranslate"><span class="pre">test_fixtures</span></code>, just… <em>async</em>.</p>
@@ -4464,6 +4428,7 @@ server handle querying the node tree the same way:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_async_and_sync
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -4474,8 +4439,9 @@ individual run of the test.</p>
 </div>
 <h3 id="testing-node-trees-diffs">Testing node trees diffs<a class="headerlink" href="#testing-node-trees-diffs" title="Link to this heading">¶</a></h3>
 <p>Many client operations change the state of the server’s node tree, and in those
-cases the simplest thing to test is often not just “does the node tree look like what we
-expect?” but “does the diff of the node tree before and after my operation look like what I expect?”</p>
+cases the simplest thing to test is often not just “does the node tree look
+like what we expect?” but “does the diff of the node tree before and after my
+operation look like what I expect?”</p>
 <p>To do this, we can literally compare the node tree <em>before</em> and <em>after</em> an
 operation, as a diff. First, query the tree as a pre-condition, query it again
 after performing an operation, diff the two strings, and compare your expected
@@ -4518,6 +4484,7 @@ diff against the actual diff.</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_node_tree_diff
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <p>Now, note that there’s a lot of boilerplate in that test. Let’s extract out the
@@ -4581,6 +4548,7 @@ servers:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_node_tree_diff_context_manager
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -4603,23 +4571,26 @@ server:</p>
         <span class="c1"># perform an action that will emit OSC messages</span>
         <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
     <span class="c1"># validate that sent messages match what we expect</span>
-    <span class="k">assert</span> <span class="n">transcript</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="n">sent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">received</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span>
+    <span class="k">assert</span> <span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="n">received</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> <span class="o">==</span> <span class="p">[</span>
         <span class="n">supriya</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/g_new&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
     <span class="p">]</span>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_osc_transcript
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The OSC “transcript” can be filtered via various boolean flags:</p>
 <ul class="simple">
-<li><p>If <code class="docutils literal notranslate"><span class="pre">sent=True</span></code> then the filtered messages will include outgoing OSC messages.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">received=True</span></code> then the filtered messages will include incoming OSC messages.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">status=False</span></code> then nthe filtered messages will omit both <code class="docutils literal notranslate"><span class="pre">/status</span></code> and
-<code class="docutils literal notranslate"><span class="pre">/status.reply</span></code> messages, as these are constantly being sent and
-received during the course of normal operation.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">sent=True</span></code> then the filtered messages will include outgoing OSC
+messages.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">received=True</span></code> then the filtered messages will include incoming OSC
+messages.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">status=False</span></code> then nthe filtered messages will omit both
+<code class="docutils literal notranslate"><span class="pre">/status</span></code> and <code class="docutils literal notranslate"><span class="pre">/status.reply</span></code> messages, as these are constantly being
+sent and received during the course of normal operation.</p></li>
 </ul>
 </div>
 <h3 id="testing-server-process-transcripts">Testing server process transcripts<a class="headerlink" href="#testing-server-process-transcripts" title="Link to this heading">¶</a></h3>
@@ -4647,6 +4618,7 @@ available nonetheless:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_process_transcript
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <h3 id="testing-exceptions">Testing exceptions<a class="headerlink" href="#testing-exceptions" title="Link to this heading">¶</a></h3>
@@ -4668,6 +4640,7 @@ exceptions were raised by a code block:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_exceptions
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <h3 id="testing-warnings">Testing warnings<a class="headerlink" href="#testing-warnings" title="Link to this heading">¶</a></h3>
@@ -4692,6 +4665,7 @@ we can inspect later:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_warnings
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <h3 id="testing-logs">Testing logs<a class="headerlink" href="#testing-logs" title="Link to this heading">¶</a></h3>
@@ -4717,6 +4691,7 @@ that lets you set logging levels and capture logs during tests:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_logging
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <h3 id="testing-parametrically">Testing parametrically<a class="headerlink" href="#testing-parametrically" title="Link to this heading">¶</a></h3>
@@ -4837,6 +4812,7 @@ expected node tree diff matches the actual node tree diff:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_parametrized
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <p>Parameters are combinatoric. You can use multiple <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.parametrize</span></code>
@@ -4932,6 +4908,7 @@ parametric test cases:</p>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_parametrized_combinatoric
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <p>Note the expansion in the test report: five add actions times two server types.</p>
@@ -5044,6 +5021,7 @@ references to the <code class="docutils literal notranslate"><span class="pre">a
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_parametrized_lazy_fixtures
+<span class="go">/bin/sh: 1: pytest: not found</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -5060,6 +5038,8 @@ imports, it now just uses <a class="reference external" href="https://docs.astra
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>reformat
 <span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 <span class="go">ruff check --select I,RUF022 --fix supriya/ docs/ examples/ tests/ *.py</span>
+<span class="go">/bin/sh: 1: ruff: not found</span>
+<span class="go">make[2]: *** [Makefile:57: ruff-imports-fix] Error 127</span>
 <span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 </code></pre></div>
 </div>
@@ -5070,6 +5050,8 @@ sake of speed and ease of configuration.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>ruff-lint
 <span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 <span class="go">ruff check --diff supriya/ docs/ examples/ tests/ *.py</span>
+<span class="go">/bin/sh: 1: ruff: not found</span>
+<span class="go">make[2]: *** [Makefile:60: ruff-lint] Error 127</span>
 <span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 </code></pre></div>
 </div>
@@ -5079,7 +5061,7 @@ work-in-progress) and uses <a class="reference external" href="https://mypy-lang
 <p>You can run static type-checking with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>mypy
 <span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
-<span class="go">mypy supriya/ tests/</span>
+<span class="go">mypy supriya/ examples/ tests/</span>
 <span class="go">supriya/ext/book.py:14: error: Library stubs not installed for &quot;docutils.nodes&quot;  [import-untyped]</span>
 <span class="go">supriya/ext/book.py:14: note: Hint: &quot;python3 -m pip install types-docutils&quot;</span>
 <span class="go">supriya/ext/book.py:14: note: (or run &quot;mypy --install-types&quot; to install all missing stub packages)</span>
@@ -5282,7 +5264,8 @@ work-in-progress) and uses <a class="reference external" href="https://mypy-lang
 <span class="go">tests/patterns/test_BusPattern.py:303: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
 <span class="go">tests/patterns/test_BusPattern.py:305: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
 <span class="go">tests/patterns/test_BusPattern.py:306: error: Argument 1 to &quot;BusFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">Found 199 errors in 9 files (checked 158 source files)</span>
+<span class="go">Found 199 errors in 9 files (checked 161 source files)</span>
+<span class="go">make[2]: *** [Makefile:34: mypy] Error 1</span>
 <span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 </code></pre></div>
 </div>
@@ -5301,9 +5284,9 @@ running the tests.</p>
 <p>Because of its use of metaclasses for code generation in UGens, Supriya
 requires a <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension to teach it about the auto-generated methods and
 properties on those classes.</p>
-<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob//supriya/ext/mypy.py">supriya/ext/mypy.py</a>
+<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b0/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
 and MyPy is already configured to use it via the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> field in Supriya’s
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob//pyproject.toml">pyproject.toml</a>.</p>
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b0/pyproject.toml">pyproject.toml</a>.</p>
 <p>Should you need to type check against Supriya’s UGens in another project, you
 can activate the <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension with the following code:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><code><span class="k">[tool.mypy]</span>
@@ -5436,7 +5419,7 @@ Python (e.g. 3.10, 3.11, 3.12, 3.13)</p></li>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
       
         <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>

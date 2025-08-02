@@ -616,14 +616,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1018,17 +1010,9 @@
   
   
   <span class="md-ellipsis">
-    Examples Overview
+    Examples overview
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1054,14 +1038,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1086,14 +1062,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1117,14 +1085,6 @@
     Hello, world!, debugged
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -3802,7 +3762,7 @@ From source</label></div>
 </div>
 </div>
 </div><h2 id="building-documentation">Building documentation<a class="headerlink" href="#building-documentation" title="Link to this heading">¶</a></h2>
-<p>Supriya’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation lives under <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree//docs/">docs/</a>.</p>
+<p>Supriya’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation lives under <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/docs/">docs/</a>.</p>
 <p>You can build the documentationg with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>docs
 </code></pre></div>
@@ -3822,7 +3782,7 @@ automatically build Supriya’s <a class="reference external" href="https://www.
 this project, so - with grace - some guidance.</p>
 <h3 id="sphinx">sphinx<a class="headerlink" href="#sphinx" title="Link to this heading">¶</a></h3>
 <p>Supriya’s documentation is built via <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> and, both under
-<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree//docs/">docs/</a> and in every docstring, uses <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">reStructuredText</a>
+<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/docs/">docs/</a> and in every docstring, uses <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">reStructuredText</a>
 formatting.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -3830,7 +3790,7 @@ formatting.</p>
 far</em> more extensible and expressive. The majority of Sphinx’s interesting
 features like custom directives, plugins, cross-references, etc. require
 reStructuredText capabilities. While Markdown is used sparingly in READMEs
-only intended for viewing on GitHub (e.g. the <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob//README.md">root README</a>), everywhere else should use reStructuredText.</p>
+only intended for viewing on GitHub (e.g. the <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b0/README.md">root README</a>), everywhere else should use reStructuredText.</p>
 </div>
 <p>Familiarize yourself with reStructuredText’s basics, and with its <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/domains/python.html">Python
 domain</a>
@@ -3862,8 +3822,8 @@ exception, the build process will fail.</p>
 maintaining state across as the order they appear in the Python module is
 not guaranteed to be the same order they appear in the doctree. Unlike in
 doctests, <code class="docutils literal notranslate"><span class="pre">uqbar.sphinx.book</span></code> will not automatically import the contents
-of the Python module into the console global namespace, so make sure imports
-are fully qualified.</p>
+of the Python module into the console global namespace, so make sure
+imports are fully qualified.</p>
 </div>
 <div class="important tip admonition">
 <p class="admonition-title">Important</p>
@@ -3878,9 +3838,9 @@ finer-grained control over output formatting and error handling.</p>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>A book block<a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">book</span><span class="p">::</span>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span>  <span class="ow">book</span><span class="p">::</span>
 
-   &gt;&gt;&gt; print(&quot;this is basically the same as a <span class="s">``.. code-block::``</span>&quot;)
+    &gt;&gt;&gt; print(&quot;this is basically the same as a <span class="s">``.. code-block::``</span>&quot;)
 </code></pre></div>
 </div>
 </div>
@@ -3898,10 +3858,10 @@ the interpreter textual input and output for a single block.</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Hiding code<a class="headerlink" href="#id7" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">book</span><span class="p">::</span>
-   <span class="nc">:hide:</span>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span>  <span class="ow">book</span><span class="p">::</span>
+    <span class="nc">:hide:</span>
 
-   &gt;&gt;&gt; hidden_server = supriya.Server()  # executed, but hidden from Sphinx output
+    &gt;&gt;&gt; hidden_server = supriya.Server()  # executed, but hidden from Sphinx output
 </code></pre></div>
 </div>
 </div>
@@ -3915,10 +3875,10 @@ hidden:</p>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Hiding code, but showing visuals<a class="headerlink" href="#id8" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">book</span><span class="p">::</span>
-   <span class="nc">:hide:</span>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span>  <span class="ow">book</span><span class="p">::</span>
+    <span class="nc">:hide:</span>
 
-   &gt;&gt;&gt; supriya.graph(supriya.default)
+    &gt;&gt;&gt; supriya.graph(supriya.default)
 </code></pre></div>
 </div>
 </div>
@@ -3933,7 +3893,7 @@ hidden ones:</p>
 </span>Implicit Python code blocks<a class="headerlink" href="#id9" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code>::
 
-   &gt;&gt;&gt; print(hidden_server)  # knows about <span class="s">``hidden_server``</span> from before
+    &gt;&gt;&gt; print(hidden_server)  # knows about <span class="s">``hidden_server``</span> from before
 </code></pre></div>
 </div>
 </div>
@@ -3948,9 +3908,9 @@ hidden ones:</p>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Explicit Python code blocks<a class="headerlink" href="#id10" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> python
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span>  <span class="ow">code-block</span><span class="p">::</span> python
 
-   &gt;&gt;&gt; print(repr(hidden_server.boot_status))  # also knows about <span class="s">``hidden_server``</span>
+    &gt;&gt;&gt; print(repr(hidden_server.boot_status))  # also knows about <span class="s">``hidden_server``</span>
 </code></pre></div>
 </div>
 </div>
@@ -3967,10 +3927,10 @@ safe-listed via the <code class="docutils literal notranslate"><span class="pre"
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Allowing exceptions<a class="headerlink" href="#id11" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">book</span><span class="p">::</span>
-   <span class="nc">:allow-exceptions:</span>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span>  <span class="ow">book</span><span class="p">::</span>
+    <span class="nc">:allow-exceptions:</span>
 
-   &gt;&gt;&gt; print(1 / 0)  # this will blow up, but won&#39;t break the docs
+    &gt;&gt;&gt; print(1 / 0)  # this will blow up, but won&#39;t break the docs
 </code></pre></div>
 </div>
 </div>
@@ -3988,12 +3948,13 @@ safe-listed via the <code class="docutils literal notranslate"><span class="pre"
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Shell sessions<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">shell</span><span class="p">::</span>
-   <span class="nc">:cwd:</span> ..
-   <span class="nc">:user:</span> josephine
-   <span class="nc">:host:</span> laptop
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span>  <span class="ow">shell</span><span class="p">::</span>
+    <span class="nc">:cwd:</span> ..
+    <span class="nc">:rel:</span> ..
+    <span class="nc">:user:</span> josephine
+    <span class="nc">:host:</span> laptop
 
-   echo &quot;hello, world!&quot;
+    echo &quot;hello, world!&quot;
 </code></pre></div>
 </div>
 </div>
@@ -4048,7 +4009,7 @@ initializers), use <a class="reference external" href="https://www.sphinx-doc.or
 <p>Don’t worry about explicitly adding types to the documentation. <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> will
 pull type annotations directly out of the Python source code.</p>
 <h2 id="writing-examples">Writing examples<a class="headerlink" href="#writing-examples" title="Link to this heading">¶</a></h2>
-<p>Supriya’s examples live in <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree//examples/">examples/</a>.</p>
+<p>Supriya’s examples live in <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/examples/">examples/</a>.</p>
 <p>Each example should receive its own subdirectory (named e.g.
 <code class="docutils literal notranslate"><span class="pre">examples/hello_world/</span></code>), its own <code class="docutils literal notranslate"><span class="pre">README.md</span></code> with basic usage information,
 and one (and preferably only one) Python module named the same as the directory
@@ -4056,7 +4017,7 @@ and one (and preferably only one) Python module named the same as the directory
 <p>There should also be a reStructuredText document named after the example in the
 documentation source (e.g. <code class="docutils literal notranslate"><span class="pre">docs/source/examples/hello_world.rst</span></code>) and
 included into the examples TOC (table-of-contents) in the root reStructuredText
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob//docs/source/index.rst">index.rst</a>.</p>
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b0/docs/source/index.rst">index.rst</a>.</p>
 <p>Each example Python module should have a <code class="docutils literal notranslate"><span class="pre">main()</span></code> function, and an <code class="docutils literal notranslate"><span class="pre">if</span>
 <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> block executing it:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -4182,7 +4143,7 @@ describe the entire example module in the accompanying reStructuredText.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
       
         <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>

@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#invocation" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -611,14 +616,6 @@
     
   </span>
   
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
-  
 
       </a>
     </li>
@@ -1018,17 +1015,9 @@
   
   
   <span class="md-ellipsis">
-    Examples Overview
+    Examples overview
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1052,6 +1041,19 @@
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Hello, world!
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="#" class="md-nav__link md-nav__link--active">
         
   
@@ -1061,16 +1063,36 @@
     
   </span>
   
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
     
   
   
-    <span class="md-status md-status--under-construction" title="Under construction">
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#invocation" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Invocation
     </span>
+  </a>
   
-
+</li>
+      
+    </ul>
   
-
-      </a>
+</nav>
       
     </li>
   
@@ -1093,14 +1115,6 @@
     Hello, world!, context-<wbr>agnostic
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -1125,14 +1139,6 @@
     Hello, world!, debugged
     
   </span>
-  
-    
-  
-  
-    <span class="md-status md-status--under-construction" title="Under construction">
-    </span>
-  
-
   
 
       </a>
@@ -3507,6 +3513,24 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#invocation" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Invocation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3533,31 +3557,34 @@
   
 
 <h1 id="hello-world">Hello, world!<a class="headerlink" href="#hello-world" title="Link to this heading">¶</a></h1>
-<div class="self-criticism admonition">
-<p class="admonition-title">Self Criticism</p>
-<p>These docs are still under construction.</p>
+<div class="info admonition">
+<p class="admonition-title">Info</p>
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b0/examples/hello_world">full example
+source code</a> on GitHub.</p>
 </div>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree//examples/hello_world">full source code</a>.</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
-</span>Invoke the script with …<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>python<span class="w"> </span>hello_world.py
-</code></pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
-</span>../../../examples/hello_world/hello_world.py<a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
+<p>Supriya’s <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> is a little longer than most traditional “hello,
+world!” recipes, because playing a sound from scratch requires more than one step:</p>
+<ul class="simple">
+<li><p>We need a <a class="reference internal" href="../tutorials/servers.html"><span class="doc">server</span></a>, booted and online</p></li>
+<li><p>We need to find (or define) a <a class="reference internal" href="../tutorials/synthdefs.html"><span class="doc">SynthDef</span></a> to act
+as the template for the synths that actually make sound</p></li>
+<li><p>We need to allocate that SynthDef on the running server, and we need to wait for
+allocation to complete (because SynthDef allocation is an asynchronous command)</p></li>
+<li><p>Once the SynthDef finishes allocating, we need to create one or more
+<a class="reference internal" href="../tutorials/nodes.html"><span class="doc">synths</span></a></p></li>
+<li><p>We need to give those synths some time to play so we can actually hear
+them</p></li>
+<li><p>And we should be good and clean up after ourselves: release the synths, wait
+for them to fade out, then quit the running server</p></li>
+</ul>
+<p>All of this logic is outlined in the example’s <code class="docutils literal notranslate"><span class="pre">main</span></code> function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># Create a server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-
     <span class="c1"># Define a C-major chord in Hertz</span>
     <span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mf">261.63</span><span class="p">,</span> <span class="mf">329.63</span><span class="p">,</span> <span class="mf">392.00</span><span class="p">]</span>
-
     <span class="c1"># Create an empty list to store synths in:</span>
     <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
     <span class="c1"># Start an OSC bundle to run immediately:</span>
     <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
         <span class="c1"># Add the default synthdef to the server and open a &quot;completion&quot;</span>
@@ -3571,22 +3598,25 @@
                 <span class="n">synths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">)</span>
                 <span class="p">)</span>
-
     <span class="c1"># Let the notes play for 4 seconds:</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-
     <span class="c1"># Loop over the synths and free them</span>
     <span class="k">for</span> <span class="n">synth</span> <span class="ow">in</span> <span class="n">synths</span><span class="p">:</span>
         <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-
     <span class="c1"># Wait a second for the notes to fade out:</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
     <span class="c1"># Quit the server:</span>
     <span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 </code></pre></div>
 </div>
+<h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
+<p>You can invoke the script with …</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya/examples/hello_world$ </span>python<span class="w"> </span>hello_world.py
+</code></pre></div>
 </div>
+<p>You should hear a C-major chord play for a few seconds, then fade out quickly
+before the script exits.</p>
+<p>Hello, world!</p>
 
 
 
@@ -3626,7 +3656,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Examples Overview">
+          <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Examples overview">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3636,7 +3666,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Examples Overview
+                Examples overview
               </div>
             </div>
           </a>
@@ -3692,7 +3722,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
       
         <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>

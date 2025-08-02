@@ -3,7 +3,7 @@ Documentating
 
 Install Supriya's documentation dependencies with:
 
-.. include:: /includes/install-docs.txt
+..  include:: /includes/install-docs.txt
 
 Building documentation
 ----------------------
@@ -12,16 +12,16 @@ Supriya's `Sphinx`_ documentation lives under :github-tree:`docs/`.
 
 You can build the documentationg with:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~/supriya$ make docs
+    josephine@laptop:~/supriya$ make docs
 
 In rare cases, some docs artifacts may become stale. In that case, blow away
 the build artifacts and rebuild fresh with:
 
-.. code-block:: console
+..  code-block:: console
 
-   josephine@laptop:~/supriya$ make docs-clean
+    josephine@laptop:~/supriya$ make docs-clean
 
 GitHub Pages
 ````````````
@@ -47,14 +47,14 @@ Supriya's documentation is built via `Sphinx`_ and, both under
 <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_
 formatting.
 
-.. note::
+..  note::
 
-   reStructuredText is uglier than Markdown, more complicated, and also *far,
-   far* more extensible and expressive. The majority of Sphinx's interesting
-   features like custom directives, plugins, cross-references, etc. require
-   reStructuredText capabilities. While Markdown is used sparingly in READMEs
-   only intended for viewing on GitHub (e.g. the :github-blob:`root README
-   <README.md>`), everywhere else should use reStructuredText.
+    reStructuredText is uglier than Markdown, more complicated, and also *far,
+    far* more extensible and expressive. The majority of Sphinx's interesting
+    features like custom directives, plugins, cross-references, etc. require
+    reStructuredText capabilities. While Markdown is used sparingly in READMEs
+    only intended for viewing on GitHub (e.g. the :github-blob:`root README
+    <README.md>`), everywhere else should use reStructuredText.
 
 Familiarize yourself with reStructuredText's basics, and with its `Python
 domain <https://www.sphinx-doc.org/en/master/usage/domains/python.html>`_
@@ -91,19 +91,19 @@ like a `Jupyter`_ notebook. Code blocks are interpreted in this session, in the
 order they appear in the document. If any code block raises an unhandled
 exception, the build process will fail.
 
-.. important::
+..  important::
 
-   Code blocks in docstrings pulled from Python modules should not rely on
-   maintaining state across as the order they appear in the Python module is
-   not guaranteed to be the same order they appear in the doctree. Unlike in
-   doctests, ``uqbar.sphinx.book`` will not automatically import the contents
-   of the Python module into the console global namespace, so make sure imports
-   are fully qualified.
+    Code blocks in docstrings pulled from Python modules should not rely on
+    maintaining state across as the order they appear in the Python module is
+    not guaranteed to be the same order they appear in the doctree. Unlike in
+    doctests, ``uqbar.sphinx.book`` will not automatically import the contents
+    of the Python module into the console global namespace, so make sure
+    imports are fully qualified.
 
-.. important::
+..  important::
 
-   Supriya's interpreted docs all automatically receive the import ``import
-   supriya`` at the very beginning of their interpreter sessions.
+    Supriya's interpreted docs all automatically receive the import ``import
+    supriya`` at the very beginning of their interpreter sessions.
 
 `uqbar.sphinx.book`_ provides some explicit `Sphinx`_ directives for
 finer-grained control over output formatting and error handling.
@@ -111,69 +111,70 @@ finer-grained control over output formatting and error handling.
 A ``.. book::`` block without arguments is effectively the same as `Sphinx`_'s
 ``.. code-block::``:
 
-.. rst-example:: A book block
+..  rst-example:: A book block
 
-   .. book::
+    ..  book::
 
-      >>> print("this is basically the same as a ``.. code-block::``")
+        >>> print("this is basically the same as a ``.. code-block::``")
 
 However, sometimes it's helpful to perform some setup or teardown in the midst
 of a document without showing the work. Use the ``:hide:`` option to omit both
 the interpreter textual input and output for a single block.
 
-.. rst-example:: Hiding code
+..  rst-example:: Hiding code
 
-   .. book::
-      :hide:
+    ..  book::
+        :hide:
 
-      >>> hidden_server = supriya.Server()  # executed, but hidden from Sphinx output
+        >>> hidden_server = supriya.Server()  # executed, but hidden from Sphinx output
 
 Audio and visual output from hidden ``.. book::`` blocks will still be
 rendered, although any textual input and/or output from those blocks will be
 hidden:
 
-.. rst-example:: Hiding code, but showing visuals
+..  rst-example:: Hiding code, but showing visuals
 
-   .. book::
-      :hide:
+   ..  book::
+       :hide:
 
-      >>> supriya.graph(supriya.default)
+       >>> supriya.graph(supriya.default)
 
 ``uqbar.sphinx.book`` maintains state across interpreted blocks, including
 hidden ones:
 
-.. rst-example:: Implicit Python code blocks
+..  rst-example:: Implicit Python code blocks
 
-   ::
+    ::
 
-      >>> print(hidden_server)  # knows about ``hidden_server`` from before
+        >>> print(hidden_server)  # knows about ``hidden_server`` from before
 
-.. rst-example:: Explicit Python code blocks
+..  rst-example:: Explicit Python code blocks
 
-   .. code-block:: python
+    ..  code-block:: python
 
-      >>> print(repr(hidden_server.boot_status))  # also knows about ``hidden_server``
+        >>> print(repr(hidden_server.boot_status))  # also knows about ``hidden_server``
 
 Exceptions should be either handled explicitly in the code blocks, or
 safe-listed via the ``:allow-exceptions:`` flag:
 
-.. rst-example:: Allowing exceptions
+..  rst-example:: Allowing exceptions
 
-   .. book::
-      :allow-exceptions:
+    ..  book::
+        :allow-exceptions:
 
-      >>> print(1 / 0)  # this will blow up, but won't break the docs
+        >>> print(1 / 0)  # this will blow up, but won't break the docs
 
 Finally, shell console sessions can be captured, just like Python sessions:
 
-.. rst-example:: Shell sessions
+..  rst-example:: Shell sessions
 
-   .. shell::
-      :cwd: ..
-      :user: josephine
-      :host: laptop
+    ..  shell::
+        :cwd: ..
+        :rel: ..
+        :user: josephine
+        :host: laptop
 
-      echo "hello, world!"
+        echo "hello, world!"
 
 Docstrings
 ``````````
@@ -242,7 +243,7 @@ included into the examples TOC (table-of-contents) in the root reStructuredText
 Each example Python module should have a ``main()`` function, and an ``if
 __name__ == "__main__":`` block executing it:
 
-.. code-block:: python
+..  code-block:: python
 
     def main() -> None:
         print("this is an *example* example.")
