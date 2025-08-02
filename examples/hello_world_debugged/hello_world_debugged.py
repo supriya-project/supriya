@@ -1,5 +1,6 @@
 import contextlib
 import logging
+import sys
 import time
 from typing import Generator
 
@@ -64,8 +65,11 @@ def debug(
 
 
 def main() -> None:
-    # Turn on basic logging output interpreter-wide
-    logging.basicConfig(level=logging.WARNING)
+    # Turn on basic logging output interpreter-wide.
+    # Explicitly set the stream to stdout so that the output looks the same in
+    # your terminal as it does in the documentation! Normally you don't need to
+    # worry about this.
+    logging.basicConfig(level=logging.WARNING, stream=sys.stdout)
 
     # Set Supriya's supriya.scsynth logger level to INFO
     logging.getLogger("supriya.scsynth").setLevel(logging.INFO)
