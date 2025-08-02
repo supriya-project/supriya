@@ -86,7 +86,6 @@ def main() -> None:
     # No synths should be allocated yet because their SynthDef hasn't finished
     # allocation.
     with debug("IMMEDIATELY AFTER PLAYING:", server):
-        # Start playing the synths
         synths = play_synths(context=server)
 
     # Print debug info after syncing with the server ...
