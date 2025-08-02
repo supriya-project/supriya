@@ -102,3 +102,6 @@ You can invoke the script and see its (very verbose) output with ...
     :host: laptop
 
     python hello_world_debugged.py
+
+That's a lot of output! Depending on your application, you may need to dial it
+down, or dial it up. Now you have the building blocks to do so.
