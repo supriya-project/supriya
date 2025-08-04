@@ -548,7 +548,9 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()
         self.exit_future = loop.create_future()
-        await loop.subprocess_exec(lambda: self, *options, stdin=None, stderr=None)
+        await loop.subprocess_exec(
+            lambda: self, *options, stdin=None, stderr=None, start_new_session=True
+        )
         if not (await self.boot_future):
             await self.exit_future
             raise ServerCannotBoot(self.error_text)
