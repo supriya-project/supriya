@@ -1145,6 +1145,10 @@ class AsyncServer(BaseServer):
     def __init__(
         self, options: Options | None = None, name: str | None = None, **kwargs
     ) -> None:
+        def on_panic(event: ServerShutdownEvent) -> None:
+            if not self._shutdown_future.done():
+                self._shutdown_future.set_result(event)
+
         BaseServer.__init__(
             self,
             name=name,
@@ -1155,16 +1159,11 @@ class AsyncServer(BaseServer):
         self._exit_future: asyncio.Future[bool] = asyncio.Future()
         self._shutdown_future: asyncio.Future[ServerShutdownEvent] = asyncio.Future()
         self._osc_protocol: AsyncOscProtocol = AsyncOscProtocol(
-            name=name,
-            on_panic_callback=lambda: self._shutdown_future.set_result(
-                ServerShutdownEvent.OSC_PANIC
-            ),
+            name=name, on_panic_callback=lambda: on_panic(ServerShutdownEvent.OSC_PANIC)
         )
         self._process_protocol: AsyncProcessProtocol = AsyncProcessProtocol(
             name=name,
-            on_panic_callback=lambda: self._shutdown_future.set_result(
-                ServerShutdownEvent.PROCESS_PANIC
-            ),
+            on_panic_callback=lambda: on_panic(ServerShutdownEvent.PROCESS_PANIC),
         )
         self._setup_osc_callbacks(self._osc_protocol)
 
