@@ -1,21 +1,24 @@
-def midi_note_number_to_frequency(midi_note_number):
+import math
+
+
+def midi_note_number_to_frequency(midi_note_number: float) -> float:
     return pow(2.0, (midi_note_number - 69) / 12) * 440.0
 
 
-def midi_velocity_to_amplitude(midi_velocity):
+def midi_velocity_to_amplitude(midi_velocity: float) -> float:
     return pow(midi_velocity / 127.0, 2.0)
 
 
 def midi_velocity_to_decibels(midi_velocity):
-    pass
+    return amplitude_to_decibels(midi_velocity_to_amplitude(midi_velocity))
 
 
-def amplitude_to_decibels(amplitude):
-    pass
+def amplitude_to_decibels(amplitude: float) -> float:
+    return 20.0 * math.log10(amplitude)
 
 
-def decibels_to_amplitude(decibels):
-    pass
+def decibels_to_amplitude(decibels: float) -> float:
+    return 10 ** (decibels / 20.0)
 
 
 def measure_to_offset(
