@@ -559,7 +559,7 @@ class Server(BaseServer):
             self._contexts.add(self)
             self._osc_protocol.activate_healthcheck()
             self._setup_allocators(owned=self._is_owner)
-            if self._client_id == 0:
+            if owned:
                 self._setup_system()
                 self.sync()
             if self._osc_protocol.boot_future.result():
@@ -574,12 +574,10 @@ class Server(BaseServer):
         except TooManyClients:
             self._shutdown_future.set_result(ServerShutdownEvent.TOO_MANY_CLIENTS)
         # await shutdown future, osc panic, process panic
-        shutdown = self._shutdown_future.result()
-        # fire off quitting?
-        if shutdown == ServerShutdownEvent.QUIT:
+        if (shutdown := self._shutdown_future.result()) == ServerShutdownEvent.QUIT:
             logger.info(log_prefix + "quitting ...")
-        self._boot_status = BootStatus.QUITTING
-        if shutdown == ServerShutdownEvent.QUIT:
+            self._on_lifecycle_event(ServerLifecycleEvent.QUITTING)
+            self._boot_status = BootStatus.QUITTING
             try:
                 Quit().communicate(server=self, timeout=1)
             except (OscProtocolOffline, asyncio.TimeoutError):
@@ -591,9 +589,6 @@ class Server(BaseServer):
         elif shutdown == ServerShutdownEvent.PROCESS_PANIC:
             self._on_lifecycle_event(ServerLifecycleEvent.PROCESS_PANICKED)
             self._on_lifecycle_event(ServerLifecycleEvent.OSC_PANICKED)
-        if owned or shutdown == ServerShutdownEvent.QUIT:
-            self._on_lifecycle_event(ServerLifecycleEvent.QUITTING)
-        # handle shutdown future specifically with Quit request
         logger.info(log_prefix + "disconnecting ...")
         self._on_lifecycle_event(ServerLifecycleEvent.DISCONNECTING)
         self._osc_protocol.disconnect()
@@ -1197,7 +1192,7 @@ class AsyncServer(BaseServer):
             self._contexts.add(self)
             self._osc_protocol.activate_healthcheck()
             self._setup_allocators(owned=self._is_owner)
-            if self._client_id == 0:
+            if owned:
                 self._setup_system()
                 await self.sync()
             if await self._osc_protocol.boot_future:
@@ -1212,12 +1207,10 @@ class AsyncServer(BaseServer):
         except TooManyClients:
             self._shutdown_future.set_result(ServerShutdownEvent.TOO_MANY_CLIENTS)
         # await shutdown future, osc panic, process panic
-        shutdown = await self._shutdown_future
-        # fire off quitting?
-        if shutdown == ServerShutdownEvent.QUIT:
+        if (shutdown := await self._shutdown_future) == ServerShutdownEvent.QUIT:
             logger.info(log_prefix + "quitting ...")
-        self._boot_status = BootStatus.QUITTING
-        if shutdown == ServerShutdownEvent.QUIT:
+            await self._on_lifecycle_event(ServerLifecycleEvent.QUITTING)
+            self._boot_status = BootStatus.QUITTING
             try:
                 await Quit().communicate_async(server=self, timeout=1)
             except (OscProtocolOffline, asyncio.TimeoutError):
@@ -1229,8 +1222,6 @@ class AsyncServer(BaseServer):
         elif shutdown == ServerShutdownEvent.PROCESS_PANIC:
             await self._on_lifecycle_event(ServerLifecycleEvent.PROCESS_PANICKED)
             await self._on_lifecycle_event(ServerLifecycleEvent.OSC_PANICKED)
-        if owned or shutdown == ServerShutdownEvent.QUIT:
-            await self._on_lifecycle_event(ServerLifecycleEvent.QUITTING)
         # handle shutdown future specifically with Quit request
         logger.info(log_prefix + "disconnecting ...")
         await self._on_lifecycle_event(ServerLifecycleEvent.DISCONNECTING)
