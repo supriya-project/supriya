@@ -11,73 +11,60 @@ responses
    :show-inheritance:
 
    .. autoclass:: supriya.contexts.responses::BufferInfo.Item
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: DoneInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: FailInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: GetBufferInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: GetBufferRangeInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: GetControlBusInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: GetControlBusRangeInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: GetNodeControlInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: GetNodeControlRangeInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: NodeInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: QueryTreeControl
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: QueryTreeGroup
    :show-inheritance:
 
-   .. automethod:: __format__
-   .. automethod:: __replace__
    .. automethod:: annotate
    .. automethod:: from_query_tree_info
    .. automethod:: from_string
@@ -87,52 +74,42 @@ responses
    :show-inheritance:
 
    .. autoclass:: supriya.contexts.responses::QueryTreeInfo.Item
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: QueryTreeNode
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: QueryTreeSynth
    :show-inheritance:
 
-   .. automethod:: __format__
-   .. automethod:: __replace__
 
 .. autoclass:: Response
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: StatusInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: SyncedInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: SynthDefRemovedInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: TriggerInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc
 
 .. autoclass:: VersionInfo
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: from_osc

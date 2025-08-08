@@ -14,7 +14,6 @@ entities
    .. automethod:: __exit__
    .. automethod:: __plot__
    .. automethod:: __render_memo__
-   .. automethod:: __replace__
    .. automethod:: close
    .. automethod:: copy
    .. automethod:: fill
@@ -37,13 +36,11 @@ entities
    .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: __post_init__
-   .. automethod:: __replace__
    .. automethod:: free
 
 .. autoclass:: Bus
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: fill
    .. automethod:: free
    .. automethod:: get
@@ -59,7 +56,6 @@ entities
    .. automethod:: __iter__
    .. automethod:: __len__
    .. automethod:: __post_init__
-   .. automethod:: __replace__
    .. automethod:: free
    .. automethod:: get
    .. automethod:: map_symbol
@@ -70,13 +66,11 @@ entities
 
    .. automethod:: __float__
    .. automethod:: __int__
-   .. automethod:: __replace__
    .. autoproperty:: allocated
 
 .. autoclass:: Group
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: dump_tree
    .. automethod:: free_children
    .. automethod:: query_tree
@@ -85,7 +79,6 @@ entities
 .. autoclass:: Node
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: add_group
    .. automethod:: add_synth
    .. automethod:: free
@@ -106,17 +99,14 @@ entities
    :show-inheritance:
 
    .. automethod:: __post_init__
-   .. automethod:: __replace__
 
 .. autoclass:: ScopeBuffer
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: free
 
 .. autoclass:: Synth
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: get
    .. automethod:: get_range

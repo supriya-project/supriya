@@ -1,0 +1,10 @@
+.. _examples--hello-world:
+
+hello_world
+===========
+
+.. automodule:: examples.hello_world
+
+.. currentmodule:: examples.hello_world
+
+.. autofunction:: main

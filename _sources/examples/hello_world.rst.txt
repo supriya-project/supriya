@@ -28,7 +28,7 @@ world!" recipes, because playing a sound from scratch requires more than one ste
 
 All of this logic is outlined in the example's ``main`` function:
 
-..  literalinclude:: ../../../examples/hello_world/hello_world.py
+..  literalinclude:: ../../../examples/hello_world/__init__.py
     :pyobject: main
 
 Invocation
@@ -37,12 +37,12 @@ Invocation
 You can invoke the script with ...
 
 ..  shell::
-    :cwd: ../examples/hello_world
+    :cwd: ..
     :rel: ..
     :user: josephine
     :host: laptop
 
-    python hello_world.py
+    python -m examples.hello_world
 
 You should hear a C-major chord play for a few seconds, then fade out quickly
 before the script exits.

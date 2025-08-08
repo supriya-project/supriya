@@ -40,14 +40,12 @@ scsynth
    :members:
    :undoc-members:
 
-   .. automethod:: __format__
 
 .. autoclass:: Options
    :show-inheritance:
 
    .. automethod:: __iter__
    .. automethod:: __post_init__
-   .. automethod:: __replace__
    .. automethod:: get_audio_bus_ids
    .. automethod:: get_buffer_ids
    .. automethod:: get_control_bus_ids

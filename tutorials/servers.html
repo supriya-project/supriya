@@ -1341,6 +1341,54 @@
 
               
             
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/keyboard_input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/keyboard_input_async.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input, async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3603,6 +3651,181 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/examples/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_contexts/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>contexts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_debugged/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>debugged
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input_async/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input_<wbr>async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3992,7 +4215,7 @@ will result in an error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">680</span>, in <span class="n">boot</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">675</span>, in <span class="n">boot</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">ServerCannotBoot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_protocol</span><span class="o">.</span><span class="n">error_text</span><span class="p">)</span>
 <span class="gr">supriya.exceptions.ServerCannotBoot</span>: <span class="n">*** ERROR: failed to open UDP socket: address in use.</span>
 </code></pre></div>
@@ -4000,7 +4223,7 @@ will result in an error:</p>
 <p>Use <code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code> to grab a random unused port to
 successfully boot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">())</span>
-<span class="go">&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 37767]&gt;</span>
+<span class="go">&lt;Server ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 50881]&gt;</span>
 </code></pre></div>
 </div>
 </div>
@@ -4091,7 +4314,7 @@ server will error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server_two</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
-  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">986</span>, in <span class="n">quit</span>
+  File <span class="nb">&quot;/home/runner/work/supriya/supriya/supriya/contexts/realtime.py&quot;</span>, line <span class="m">981</span>, in <span class="n">quit</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">UnownedServerShutdown</span><span class="p">(</span>
 <span class="w">    </span>    <span class="s2">&quot;Cannot quit unowned server without force flag.&quot;</span>
 <span class="w">    </span><span class="p">)</span>
@@ -4134,9 +4357,10 @@ quitting, after quitting, or even on server panic:</p>
 </div>
 <div class="tip admonition">
 <p class="admonition-title">Tip</p>
-<p>Use lifecycle callbacks to load SynthDefs on server boot. Make sure
-to sync the server inside the callback procedure so your code blocks until
-the loading completes.</p>
+<p>Use lifecycle callbacks to load <a class="reference internal" href="synthdefs.html"><span class="doc">SynthDefs</span></a> on server
+boot, and to perform cleanup just before server quit. Make sure to sync the
+server inside the boot callback procedure so your code blocks until the
+SynthDef loading completes.</p>
 </div>
 <p>Define a callback and register it against one or more events:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">print_event</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
@@ -4174,6 +4398,23 @@ the loading completes.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">unregister_lifecycle_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
 </code></pre></div>
 </div>
+<p>You might want to …</p>
+<ul class="simple">
+<li><p>Use <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.ServerLifecycleEvent.BOOTING" title="supriya.enums.ServerLifecycleEvent.BOOTING (Python attribute)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">BOOTING</span></code></a> to run callbacks
+immediately after <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.boot" title="supriya.contexts.realtime.Server.boot (Python method) — Boot the server."><code class="xref py py-meth docutils literal notranslate"><span class="pre">boot()</span></code></a> starts,
+but before communication with the server is possible.</p></li>
+<li><p>Use <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.ServerLifecycleEvent.BOOTED" title="supriya.enums.ServerLifecycleEvent.BOOTED (Python attribute)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">BOOTED</span></code></a> to run callbacks
+once the server has been completely setup, but just before
+<a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.boot" title="supriya.contexts.realtime.Server.boot (Python method) — Boot the server."><code class="xref py py-meth docutils literal notranslate"><span class="pre">boot()</span></code></a> returns,</p></li>
+<li><p>Use <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.ServerLifecycleEvent.QUITTING" title="supriya.enums.ServerLifecycleEvent.QUITTING (Python attribute)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">QUITTING</span></code></a> to run callbacks
+once <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.quit" title="supriya.contexts.realtime.Server.quit (Python method) — Quit the server."><code class="xref py py-meth docutils literal notranslate"><span class="pre">quit()</span></code></a> has started safely,
+but before communication with the server shuts-down.</p></li>
+<li><p>Use <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.ServerLifecycleEvent.QUIT" title="supriya.enums.ServerLifecycleEvent.QUIT (Python attribute)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">QUIT</span></code></a> to run callbacks once
+all communication with the server process has shutdown, but just before
+<a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.quit" title="supriya.contexts.realtime.Server.quit (Python method) — Quit the server."><code class="xref py py-meth docutils literal notranslate"><span class="pre">quit()</span></code></a> returns.</p></li>
+</ul>
+<p>See <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/tests/contexts/test_Server_lifecycle.py">tests/contexts/test_Server_lifecycle.py</a> for a variety of
+lifecycle scenarios and the resulting lifecycle events fired.</p>
 <h2 id="inspection">Inspection<a class="headerlink" href="#inspection" title="Link to this heading">¶</a></h2>
 <p><a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server" title="supriya.contexts.realtime.Server (Python class) — Bases: BaseServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a> provides a number of methods and
 properties for inspecting its state.</p>
@@ -4184,7 +4425,7 @@ properties for inspecting its state.</p>
 <h3 id="querying-status">Querying status<a class="headerlink" href="#querying-status" title="Link to this heading">¶</a></h3>
 <p>Inspect the “status” of audio processing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.04742657393217087, group_count=2, peak_cpu_usage=0.24961353838443756, synth_count=0, synthdef_count=0, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.05624762922525406, group_count=2, peak_cpu_usage=0.2960401475429535, synth_count=0, synthdef_count=0, target_sample_rate=44100.0, ugen_count=0)</span>
 </code></pre></div>
 </div>
 <div class="hint tip admonition">
@@ -4200,7 +4441,7 @@ complexity of the status output:</p>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">status</span>
-<span class="go">StatusInfo(actual_sample_rate=44105.90937424586, average_cpu_usage=0.11695867031812668, group_count=2, peak_cpu_usage=0.24961353838443756, synth_count=1, synthdef_count=33, target_sample_rate=44100.0, ugen_count=20)</span>
+<span class="go">StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.13871227204799652, group_count=2, peak_cpu_usage=0.2960401475429535, synth_count=1, synthdef_count=33, target_sample_rate=44100.0, ugen_count=20)</span>
 </code></pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">synth_count</span></code>, <code class="docutils literal notranslate"><span class="pre">synthdef_count</span></code> and <code class="docutils literal notranslate"><span class="pre">ugen_count</span></code> have gone up
@@ -4346,12 +4587,12 @@ methods are async as well.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">main</span><span class="p">()</span>
 <span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 57110]&gt;</span>
-<span class="go">&lt;AsyncServer ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 40405]&gt;</span>
+<span class="go">&lt;AsyncServer ONLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 33360]&gt;</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
 <span class="go">        1000 group</span>
 
-<span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 40405]&gt;</span>
+<span class="go">&lt;AsyncServer OFFLINE [/usr/local/bin/scsynth -R 0 -l 1 -u 33360]&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">
@@ -4372,21 +4613,21 @@ eventloop-driven libraries like <a class="reference external" href="https://docs
 </div>
 <p>You can also find a random free port for use when booting multiple servers at once via <a class="reference internal" href="../api/supriya/osc/protocols.html#supriya.osc.protocols.find_free_port" title="supriya.osc.protocols.find_free_port (Python function)"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_free_port()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">find_free_port</span><span class="p">()</span>
-<span class="go">44627</span>
+<span class="go">60959</span>
 </code></pre></div>
 </div>
 <h3 id="process-protocols">Process protocols<a class="headerlink" href="#process-protocols" title="Link to this heading">¶</a></h3>
 <p>Get access to the server’s underlying process management subsystem via
 <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.process_protocol" title="supriya.contexts.realtime.Server.process_protocol (Python property) — Get the server's process protocol."><code class="xref py py-attr docutils literal notranslate"><span class="pre">process_protocol</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">process_protocol</span>
-<span class="go">&lt;supriya.scsynth.ThreadedProcessProtocol object at 0x7f8754c8d390&gt;</span>
+<span class="go">&lt;supriya.scsynth.ThreadedProcessProtocol object at 0x7f531d4d2b30&gt;</span>
 </code></pre></div>
 </div>
 <h3 id="osc-protocols">Osc protocols<a class="headerlink" href="#osc-protocols" title="Link to this heading">¶</a></h3>
 <p>Get access to the server’s underlying OSC subsystem via
 <a class="reference internal" href="../api/supriya/contexts/realtime.html#supriya.contexts.realtime.Server.osc_protocol" title="supriya.contexts.realtime.Server.osc_protocol (Python property) — Get the server's OSC protocol."><code class="xref py py-attr docutils literal notranslate"><span class="pre">osc_protocol</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span>
-<span class="go">&lt;supriya.osc.threaded.ThreadedOscProtocol object at 0x7f871511ae40&gt;</span>
+<span class="go">&lt;supriya.osc.threaded.ThreadedOscProtocol object at 0x7f531d3e8140&gt;</span>
 </code></pre></div>
 </div>
 <div class="note admonition">

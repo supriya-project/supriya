@@ -86,7 +86,6 @@ realtime
 .. autoclass:: ServerLifecycleCallback
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: unregister
 
 .. autoexception:: FailWarning

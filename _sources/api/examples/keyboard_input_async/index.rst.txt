@@ -1,0 +1,12 @@
+.. _examples--keyboard-input-async:
+
+keyboard_input_async
+====================
+
+.. automodule:: examples.keyboard_input_async
+
+.. currentmodule:: examples.keyboard_input_async
+
+.. autofunction:: main
+
+.. autofunction:: run

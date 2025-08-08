@@ -14,7 +14,7 @@
         <link rel="prev" href="hello_world_contexts.html">
       
       
-        <link rel="next" href="../developers/index.html">
+        <link rel="next" href="keyboard_input.html">
       
       
       <link rel="icon" href="../_static/favicon.ico">
@@ -1172,6 +1172,54 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyboard_input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyboard_input_async.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input, async
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -3439,6 +3487,181 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/examples/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_contexts/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>contexts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_debugged/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>debugged
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input_async/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input_<wbr>async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3619,7 +3842,7 @@
 <h1 id="hello-world-debugged">Hello, world!, debugged<a class="headerlink" href="#hello-world-debugged" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b1/examples/hello_world_debugged">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/examples/hello_world_debugged">full example
 source code</a> on GitHub.</p>
 </div>
 <p>Let’s revisit aspects of the <a class="reference internal" href="hello_world.html"><span class="doc">previous</span></a> <a class="reference internal" href="hello_world_contexts.html"><span class="doc">two</span></a> <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> examples and introduce a variety of
@@ -3640,6 +3863,9 @@ the message I should have received?</p></li>
 <p>The performance logic is almost exactly the same as in the
 <a class="reference internal" href="hello_world_contexts.html"><span class="doc">Hello, world!, context-agnostic</span></a> example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">play_synths</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Play a C-major chord on ``context``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
     <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
         <span class="c1"># A C-major chord</span>
@@ -3660,6 +3886,9 @@ the message I should have received?</p></li>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop_synths</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stop ``synths``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
     <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
         <span class="c1"># Loop over the synths and free them</span>
@@ -3667,10 +3896,11 @@ the message I should have received?</p></li>
             <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
 </div>
-<p>One small difference, just to save some vertical space in the <code class="docutils literal notranslate"><span class="pre">main()</span></code> function is
-to move the use of <a class="reference internal" href="../api/supriya/contexts/core.html#supriya.contexts.core.Context.at" title="supriya.contexts.core.Context.at (Python method) — Create a Moment."><code class="xref py py-meth docutils literal notranslate"><span class="pre">at()</span></code></a> inside the two
-performance functions. Because we’re querying the context state, the context
-<em>must</em> be realtime, so we can rely on it supporting timestamp-free OSC bundling.</p>
+<p>One small difference, just to save some vertical space in the
+<a class="reference internal" href="../api/examples/hello_world_debugged/index.html#examples.hello_world_debugged.main" title="examples.hello_world_debugged.main (Python function) — The example entry-point function."><code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code></a> function is to move the use of
+<a class="reference internal" href="../api/supriya/contexts/core.html#supriya.contexts.core.Context.at" title="supriya.contexts.core.Context.at (Python method) — Create a Moment."><code class="xref py py-meth docutils literal notranslate"><span class="pre">at()</span></code></a> inside the two performance
+functions. Because we’re querying the context state, the context <em>must</em> be
+realtime, so we can rely on it supporting timestamp-free OSC bundling.</p>
 <h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Link to this heading">¶</a></h2>
 <p>OK, let’s debug our performance.</p>
 <p>We’ll write a context manager, facilitated by Python’s
@@ -3681,6 +3911,9 @@ server and (optionally!) any operations we performed against it:</p>
     <span class="n">header</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">server</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A context manager for printing debugging information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Capture any OSC messages sent or received</span>
     <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
         <span class="c1"># Yield to the with block body</span>
@@ -3717,11 +3950,16 @@ during standard operations,</p></li>
 <li><p>and the server’s <em>node tree</em>.</p></li>
 </ul>
 <h2 id="integration">Integration<a class="headerlink" href="#integration" title="Link to this heading">¶</a></h2>
-<p>Now let’s sprinkle that debugging context manager throughout our <code class="docutils literal notranslate"><span class="pre">main</span></code> function.</p>
+<p>Now let’s sprinkle that debugging context manager throughout our
+<a class="reference internal" href="../api/examples/hello_world_debugged/index.html#examples.hello_world_debugged.main" title="examples.hello_world_debugged.main (Python function) — The example entry-point function."><code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code></a> function.</p>
 <p>We’ll also turn on logging output (set to a base level of <code class="docutils literal notranslate"><span class="pre">WARNING</span></code> so we
 don’t see too much) and then dial in the <a class="reference internal" href="../api/supriya/scsynth.html#module-supriya.scsynth" title="supriya.scsynth (Python module)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">supriya.scsynth</span></code></a> logger to
 <code class="docutils literal notranslate"><span class="pre">INFO</span></code> so we can see info about the server during booting and quitting.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The example entry-point function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1"># Turn on basic logging output interpreter-wide.</span>
     <span class="c1"># Explicitly set the stream to stdout so that the output looks the same in</span>
     <span class="c1"># your terminal as it does in the documentation! Normally you don&#39;t need to</span>
@@ -3776,31 +4014,31 @@ don’t see too much) and then dial in the <a class="reference internal" href=".
 to debug, their output actually comes <em>after</em>. Inside our debugging context
 manager, the body of our <code class="docutils literal notranslate"><span class="pre">with</span></code> block executes at the moment we
 <code class="docutils literal notranslate"><span class="pre">yield</span></code>, and everything after the <code class="docutils literal notranslate"><span class="pre">yield</span></code> keyword occurs when we exit
-that <code class="docutils literal notranslate"><span class="pre">with</span></code> block. This might look a little “backwards” in our <code class="docutils literal notranslate"><span class="pre">main()</span></code>
-function, but sit with it.</p>
+that <code class="docutils literal notranslate"><span class="pre">with</span></code> block. This might look a little “backwards” in our
+<a class="reference internal" href="../api/examples/hello_world_debugged/index.html#examples.hello_world_debugged.main" title="examples.hello_world_debugged.main (Python function) — The example entry-point function."><code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code></a> function, but sit with it.</p>
 </div>
 <h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
 <p>You can invoke the script and see its (very verbose) output with …</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya/examples/hello_world_debugged$ </span>python<span class="w"> </span>hello_world_debugged.py
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] booting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] command: /usr/local/bin/scsynth -R 0 -l 1 -u 57110</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] received: JackDriver: client name is &#39;SuperCollider&#39;</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] received: SC_AudioDriver: sample rate = 44100.000000, driver&#39;s block size = 1024</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] received: SuperCollider 3 server ready.</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] ... booted!</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>python<span class="w"> </span>-m<span class="w"> </span>examples.hello_world_debugged
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] booting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] command: /usr/local/bin/scsynth -R 0 -l 1 -u 57110</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] received: JackDriver: client name is &#39;SuperCollider&#39;</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] received: SC_AudioDriver: sample rate = 44100.000000, driver&#39;s block size = 1024</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] received: SuperCollider 3 server ready.</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] ... booted!</span>
 <span class="go">BEFORE PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.682909046096, average_cpu_usage=0.11747105419635773, group_count=2, peak_cpu_usage=0.43347251415252686, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.79614135528, average_cpu_usage=0.06197970733046532, group_count=2, peak_cpu_usage=0.22870740294456482, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">IMMEDIATELY AFTER PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.682909046096, average_cpu_usage=0.11747105419635773, group_count=2, peak_cpu_usage=0.43347251415252686, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.79614135528, average_cpu_usage=0.06197970733046532, group_count=2, peak_cpu_usage=0.22870740294456482, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscMessage(&#39;/d_recv&#39;, b&#39;SCgf\x00\x00\x00\x02\x00\x01\x0fsupriya:default\x00\x00\x00\x0c\x00\x00\x00\x00&gt;\x99\x99\x9a&lt;#\xd7\n?333@\x00\x00\x00\xbe\xcc\xcc\xcd&gt;\xcc\xcc\xcdEz\x00\x00E\x9c@\x00E\x1c@\x00EH\x00\x00?\x80\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00=\xcc\xcc\xcdC\xdc\x00\x00?\x80\x00\x00?\x00\x00\x00\x00\x00\x00\x05\x03out\x00\x00\x00\x00\tamplitude\x00\x00\x00\x01\tfrequency\x00\x00\x00\x02\x04gate\x00\x00\x00\x03\x03pan\x00\x00\x00\x04\x00\x00\x00\x14\x07Control\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x04\x00\x01\x01\x01\x01\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x05Linen\x01\x00\x00\x00\x05\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x04\x01\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x00\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x04\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x06\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x08\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Sum3\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\t\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\n\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x07\xff\xff\xff\xff\x00\x00\x00\x08\x00\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\t\xff\xff\xff\xff\x00\x00\x00\n\x00\x05XLine\x01\x00\x00\x00\x04\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0c\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x0b\xff\xff\xff\xff\x00\x00\x00\x00\x01\x03LPF\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0b\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x0f\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x10\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x04Pan2\x02\x00\x00\x00\x03\x00\x00\x00\x02\x00\x00\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x0b\x02\x02\tOffsetOut\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x01\x00\x00&#39;, OscBundle(contents=[OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1000, 0, 1, &#39;frequency&#39;, 261.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1001, 0, 1, &#39;frequency&#39;, 329.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1002, 0, 1, &#39;frequency&#39;, 392.0)]))</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.682909046096, average_cpu_usage=0.11747105419635773, group_count=2, peak_cpu_usage=0.43347251415252686, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.79614135528, average_cpu_usage=0.06197970733046532, group_count=2, peak_cpu_usage=0.22870740294456482, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscMessage(&#39;/sync&#39;, 1)</span>
 <span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 0)</span>
@@ -3817,7 +4055,7 @@ function, but sit with it.</p>
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
 <span class="go">JUST BEFORE STOPPING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.00352740025, average_cpu_usage=0.36858507990837097, group_count=2, peak_cpu_usage=0.391731858253479, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.116756221105, average_cpu_usage=0.438785582780838, group_count=2, peak_cpu_usage=0.44228535890579224, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">    Tree:         1002 supriya:default</span>
@@ -3827,7 +4065,7 @@ function, but sit with it.</p>
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
 <span class="go">IMMEDIATELY AFTER STOPPING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.00352740025, average_cpu_usage=0.36858507990837097, group_count=2, peak_cpu_usage=0.391731858253479, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.116756221105, average_cpu_usage=0.438785582780838, group_count=2, peak_cpu_usage=0.44228535890579224, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscBundle(contents=[OscMessage(&#39;/n_set&#39;, 1000, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1001, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1002, &#39;gate&#39;, 0.0)])</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
@@ -3839,17 +4077,17 @@ function, but sit with it.</p>
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 0.0, pan: 0.5</span>
 <span class="go">AFTER RELEASING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44104.89029916077, average_cpu_usage=0.3804926872253418, group_count=2, peak_cpu_usage=0.3875886797904968, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44104.777071502656, average_cpu_usage=0.45496866106987, group_count=2, peak_cpu_usage=0.4615771174430847, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1002, 1, -1, 1001, 0)</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1001, 1, -1, 1000, 0)</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1000, 1, -1, -1, 0)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] quitting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] ... quit!</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] quitting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fe94c014830] ... already quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] ... quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] ... already quit!</span>
 </code></pre></div>
 </div>
 <p>That’s a lot of output! Depending on your application, you may need to dial it
@@ -3910,13 +4148,13 @@ down, or dial it up. Now you have the building blocks to do so.</p>
         
         
           
-          <a href="../developers/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Developer overview">
+          <a href="keyboard_input.html" class="md-footer__link md-footer__link--next" aria-label="Next: Keyboard input">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Developer overview
+                Keyboard input
               </div>
             </div>
             <div class="md-footer__button md-icon">

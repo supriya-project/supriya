@@ -12,4 +12,3 @@ soundfiles
 
    .. automethod:: __post_init__
    .. automethod:: __render__
-   .. automethod:: __replace__

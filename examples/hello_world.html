@@ -1147,6 +1147,54 @@
 
               
             
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyboard_input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyboard_input_async.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input, async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3409,6 +3457,181 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/examples/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_contexts/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>contexts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_debugged/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>debugged
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input_async/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input_<wbr>async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3559,7 +3782,7 @@
 <h1 id="hello-world">Hello, world!<a class="headerlink" href="#hello-world" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b1/examples/hello_world">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/examples/hello_world">full example
 source code</a> on GitHub.</p>
 </div>
 <p>Supriya’s <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> is a little longer than most traditional “hello,
@@ -3579,6 +3802,9 @@ for them to fade out, then quit the running server</p></li>
 </ul>
 <p>All of this logic is outlined in the example’s <code class="docutils literal notranslate"><span class="pre">main</span></code> function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The example entry-point function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create a server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># Define a C-major chord in Hertz</span>
@@ -3611,7 +3837,7 @@ for them to fade out, then quit the running server</p></li>
 </div>
 <h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
 <p>You can invoke the script with …</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya/examples/hello_world$ </span>python<span class="w"> </span>hello_world.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>python<span class="w"> </span>-m<span class="w"> </span>examples.hello_world
 </code></pre></div>
 </div>
 <p>You should hear a C-major chord play for a few seconds, then fade out quickly

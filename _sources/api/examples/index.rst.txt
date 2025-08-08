@@ -1,0 +1,17 @@
+.. _examples:
+
+examples
+========
+
+.. automodule:: examples
+
+.. currentmodule:: examples
+
+.. toctree::
+   :hidden:
+
+   hello_world/index
+   hello_world_contexts/index
+   hello_world_debugged/index
+   keyboard_input/index
+   keyboard_input_async/index

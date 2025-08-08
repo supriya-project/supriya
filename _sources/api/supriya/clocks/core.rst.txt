@@ -10,7 +10,6 @@ core
 .. autoclass:: Action
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: AsyncClockCallback
    :show-inheritance:
@@ -36,22 +35,18 @@ core
 .. autoclass:: CallbackCommand
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: CallbackEvent
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: ChangeCommand
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: ChangeEvent
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: ClockCallback
    :show-inheritance:
@@ -61,17 +56,14 @@ core
 .. autoclass:: ClockContext
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: ClockState
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: Command
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: Event
    :show-inheritance:
@@ -80,23 +72,18 @@ core
    .. automethod:: __gt__
    .. automethod:: __le__
    .. automethod:: __lt__
-   .. automethod:: __replace__
 
 .. autoclass:: EventType
    :show-inheritance:
    :members:
    :undoc-members:
 
-   .. automethod:: __format__
 
 .. autoclass:: Moment
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: TimeUnit
    :show-inheritance:
    :members:
    :undoc-members:
-
-   .. automethod:: __format__

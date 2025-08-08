@@ -28,7 +28,7 @@ We can pull out the logic for starting the chord into its own function, passing
 the context in as an argument, and returning the list of synths when we're
 done:
 
-..  literalinclude:: ../../../examples/hello_world_contexts/hello_world_contexts.py
+..  literalinclude:: ../../../examples/hello_world_contexts/__init__.py
     :pyobject: play_synths
 
 ..  note::
@@ -46,7 +46,7 @@ And we can pull out the logic for stopping the chord into its own function,
 passing a list of synths in as an argument, and return nothing because there's
 nothing else to be done:
 
-..  literalinclude:: ../../../examples/hello_world_contexts/hello_world_contexts.py
+..  literalinclude:: ../../../examples/hello_world_contexts/__init__.py
     :pyobject: stop_synths
 
 Nice. We've decoupled playing the chord from stopping the chord, and we've
@@ -68,9 +68,9 @@ Threaded realtime
 `````````````````
 
 Performing with a threaded server is simple, and looks very much like an
-abridged version of the ``main`` function from the very first example:
+abridged version of the :py:func:`~examples.hello_world.main` function from the very first example:
 
-..  literalinclude:: ../../../examples/hello_world_contexts/hello_world_contexts.py
+..  literalinclude:: ../../../examples/hello_world_contexts/__init__.py
     :pyobject: run_threaded
 
 Async realtime
@@ -81,7 +81,7 @@ threaded server. The only differences are the server's class name, and a
 sprinkling of ``async`` and ``await`` keywords (and yes, ``await
 asyncio.sleep()`` instead of ``time.sleep()``):
 
-..  literalinclude:: ../../../examples/hello_world_contexts/hello_world_contexts.py
+..  literalinclude:: ../../../examples/hello_world_contexts/__init__.py
     :pyobject: run_async
 
 Booting, quitting and sleeping are all ``async`` operations in this paradigm,
@@ -105,7 +105,7 @@ open a third moment at ``5`` seconds and... *do nothing*. The final no-op
 operation against the context just signals to non-realtime rendering that we
 should keep processing audio until that timestamp.
 
-..  literalinclude:: ../../../examples/hello_world_contexts/hello_world_contexts.py
+..  literalinclude:: ../../../examples/hello_world_contexts/__init__.py
     :pyobject: run_nonrealtime
 
 ..  note::
@@ -133,11 +133,11 @@ Scripting
 Now that we have three different ways of creating contexts to use our
 context-agnostic performance logic, we need a way to yoke them into a script.
 
-Our ``main`` function parses some command-line arguments, and then calls the
-appropriate ``run_...()`` function depending on what we passed to the CLI on
-invocation:
+Our :py:func:`~examples.hello_world_contexts.main` function parses some
+command-line arguments, and then calls the appropriate ``run_...()`` function
+depending on what we passed to the CLI on invocation:
 
-..  literalinclude:: ../../../examples/hello_world_contexts/hello_world_contexts.py
+..  literalinclude:: ../../../examples/hello_world_contexts/__init__.py
     :pyobject: main
 
 And, for simplicity, we'll wrap up the CLI argument parsing into its own
@@ -145,7 +145,7 @@ function, using Python's :py:mod:`argparse` module to create an argument
 parser, create a mandatory mutually-exclusive group of flags, and then parse
 whatever CLI arguments were passed when we run the script:
 
-..  literalinclude:: ../../../examples/hello_world_contexts/hello_world_contexts.py
+..  literalinclude:: ../../../examples/hello_world_contexts/__init__.py
     :pyobject: parse_args
 
 Invocation
@@ -154,21 +154,21 @@ Invocation
 You can invoke the script with ...
 
 ..  shell::
-    :cwd: ../examples/hello_world_contexts
+    :cwd: ..
     :rel: ..
     :user: josephine
     :host: laptop
 
-    python hello_world_contexts.py --help
+    python -m examples.hello_world_contexts --help
 
 ... and you'll see the options necessary to properly run it.
 
 For example:
 
 ..  shell::
-    :cwd: ../examples/hello_world_contexts
+    :cwd: ..
     :rel: ..
     :user: josephine
     :host: laptop
 
-    python hello_world_contexts.py --realtime-threaded
+    python -m examples.hello_world_contexts --realtime-threaded

@@ -21,17 +21,14 @@ protocols
 .. autoclass:: CaptureEntry
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: HealthCheck
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: OscCallback
    :show-inheritance:
 
-   .. automethod:: __replace__
    .. automethod:: unregister
 
 .. autoclass:: OscProtocol

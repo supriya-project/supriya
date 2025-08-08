@@ -1,0 +1,16 @@
+.. _examples--hello-world-debugged:
+
+hello_world_debugged
+====================
+
+.. automodule:: examples.hello_world_debugged
+
+.. currentmodule:: examples.hello_world_debugged
+
+.. autofunction:: debug
+
+.. autofunction:: main
+
+.. autofunction:: play_synths
+
+.. autofunction:: stop_synths

@@ -1,0 +1,47 @@
+.. _examples--keyboard-input:
+
+keyboard_input
+==============
+
+.. automodule:: examples.keyboard_input
+
+.. currentmodule:: examples.keyboard_input
+
+.. autoclass:: InputHandler
+   :show-inheritance:
+
+   .. automethod:: listen
+
+.. autoclass:: MidiHandler
+   :show-inheritance:
+
+   .. automethod:: handle
+   .. automethod:: listen
+
+.. autoclass:: NoteOff
+   :show-inheritance:
+
+
+.. autoclass:: NoteOn
+   :show-inheritance:
+
+
+.. autoclass:: PolyphonyManager
+   :show-inheritance:
+
+   .. automethod:: free_all
+   .. automethod:: perform
+
+.. autoclass:: QwertyHandler
+   :show-inheritance:
+
+   .. automethod:: listen
+   .. automethod:: on_press
+   .. automethod:: on_release
+   .. automethod:: qwerty_key_to_pitch_number
+
+.. autofunction:: main
+
+.. autofunction:: parse_args
+
+.. autofunction:: run

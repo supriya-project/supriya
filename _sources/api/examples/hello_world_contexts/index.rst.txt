@@ -1,0 +1,22 @@
+.. _examples--hello-world-contexts:
+
+hello_world_contexts
+====================
+
+.. automodule:: examples.hello_world_contexts
+
+.. currentmodule:: examples.hello_world_contexts
+
+.. autofunction:: main
+
+.. autofunction:: parse_args
+
+.. autofunction:: play_synths
+
+.. autofunction:: run_async
+
+.. autofunction:: run_nonrealtime
+
+.. autofunction:: run_threaded
+
+.. autofunction:: stop_synths

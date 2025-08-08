@@ -46,7 +46,6 @@ core
 .. autoclass:: Param
    :show-inheritance:
 
-   .. automethod:: __replace__
 
 .. autoclass:: Parameter
    :show-inheritance:

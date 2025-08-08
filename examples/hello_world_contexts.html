@@ -1213,6 +1213,54 @@
 
               
             
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyboard_input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyboard_input_async.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input, async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3475,6 +3523,181 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/examples/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_contexts/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>contexts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_debugged/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>debugged
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input_async/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input_<wbr>async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3691,7 +3914,7 @@
 <h1 id="hello-world-context-agnostic">Hello, world!, context-agnostic<a class="headerlink" href="#hello-world-context-agnostic" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b1/examples/hello_world_contexts">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/examples/hello_world_contexts">full example
 source code</a> on GitHub.</p>
 </div>
 <p>Let’s revisit the first <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> <a class="reference internal" href="hello_world.html"><span class="doc">example</span></a> and
@@ -3710,6 +3933,9 @@ example</span></a>.</p>
 the context in as an argument, and returning the list of synths when we’re
 done:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">play_synths</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Play a C-major chord on ``context``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Define a C-major chord in Hertz</span>
     <span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mf">261.63</span><span class="p">,</span> <span class="mf">329.63</span><span class="p">,</span> <span class="mf">392.00</span><span class="p">]</span>
     <span class="c1"># Create an empty list to store synths in:</span>
@@ -3742,6 +3968,9 @@ implementation detail external to this function.</p>
 passing a list of synths in as an argument, and return nothing because there’s
 nothing else to be done:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop_synths</span><span class="p">(</span><span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stop ``synths``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Loop over the synths and free them</span>
     <span class="k">for</span> <span class="n">synth</span> <span class="ow">in</span> <span class="n">synths</span><span class="p">:</span>
         <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
@@ -3759,8 +3988,12 @@ functions using a <a class="reference internal" href="../api/supriya/contexts/re
 non-realtime function using a <a class="reference internal" href="../api/supriya/contexts/nonrealtime.html#supriya.contexts.nonrealtime.Score" title="supriya.contexts.nonrealtime.Score (Python class) — Bases: Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">Score</span></code></a>.</p>
 <h3 id="threaded-realtime">Threaded realtime<a class="headerlink" href="#threaded-realtime" title="Link to this heading">¶</a></h3>
 <p>Performing with a threaded server is simple, and looks very much like an
-abridged version of the <code class="docutils literal notranslate"><span class="pre">main</span></code> function from the very first example:</p>
+abridged version of the <a class="reference internal" href="../api/examples/hello_world/index.html#examples.hello_world.main" title="examples.hello_world.main (Python function) — The example entry-point function."><code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code></a> function from the very first example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run_threaded</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the example on a realtime threaded</span>
+<span class="sd">    :py:class:`~supriya.contexts.realtime.Server`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create a server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
@@ -3783,6 +4016,10 @@ threaded server. The only differences are the server’s class name, and a
 sprinkling of <code class="docutils literal notranslate"><span class="pre">async</span></code> and <code class="docutils literal notranslate"><span class="pre">await</span></code> keywords (and yes, <code class="docutils literal notranslate"><span class="pre">await</span>
 <span class="pre">asyncio.sleep()</span></code> instead of <code class="docutils literal notranslate"><span class="pre">time.sleep()</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run_async</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the example on an realtime async</span>
+<span class="sd">    :py:class:`~supriya.contexts.realtime.AsyncServer`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create an async server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AsyncServer</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
@@ -3816,6 +4053,10 @@ open a third moment at <code class="docutils literal notranslate"><span class="p
 operation against the context just signals to non-realtime rendering that we
 should keep processing audio until that timestamp.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run_nonrealtime</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the example on a non-realtime</span>
+<span class="sd">    :py:class:`~supriya.contexts.nonrealtime.Score`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create a score with stereo outputs:</span>
     <span class="n">score</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Score</span><span class="p">(</span><span class="n">output_bus_channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="c1"># Start an OSC bundle to run at 0 seconds:</span>
@@ -3853,16 +4094,19 @@ and opens the result in your default audio player.</p>
 <h2 id="scripting">Scripting<a class="headerlink" href="#scripting" title="Link to this heading">¶</a></h2>
 <p>Now that we have three different ways of creating contexts to use our
 context-agnostic performance logic, we need a way to yoke them into a script.</p>
-<p>Our <code class="docutils literal notranslate"><span class="pre">main</span></code> function parses some command-line arguments, and then calls the
-appropriate <code class="docutils literal notranslate"><span class="pre">run_...()</span></code> function depending on what we passed to the CLI on
-invocation:</p>
+<p>Our <a class="reference internal" href="../api/examples/hello_world_contexts/index.html#examples.hello_world_contexts.main" title="examples.hello_world_contexts.main (Python function) — The example entry-point function."><code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code></a> function parses some
+command-line arguments, and then calls the appropriate <code class="docutils literal notranslate"><span class="pre">run_...()</span></code> function
+depending on what we passed to the CLI on invocation:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The example entry-point function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">parsed_args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">realtime_threaded</span><span class="p">:</span>
         <span class="n">run_threaded</span><span class="p">()</span>
     <span class="k">elif</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">realtime_async</span><span class="p">:</span>
         <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_async</span><span class="p">())</span>
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">nonrealtime</span><span class="p">:</span>
         <span class="n">run_nonrealtime</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -3871,6 +4115,9 @@ function, using Python’s <a class="reference external" href="https://docs.pyth
 parser, create a mandatory mutually-exclusive group of flags, and then parse
 whatever CLI arguments were passed when we run the script:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse CLI arguments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Play a C-major chord via different kinds of contexts&quot;</span>
     <span class="p">)</span>
@@ -3893,9 +4140,9 @@ whatever CLI arguments were passed when we run the script:</p>
 </div>
 <h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
 <p>You can invoke the script with …</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya/examples/hello_world_contexts$ </span>python<span class="w"> </span>hello_world_contexts.py<span class="w"> </span>--help
-<span class="go">usage: hello_world_contexts.py [-h] (--realtime-threaded | --realtime-async |</span>
-<span class="go">                               --nonrealtime)</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>python<span class="w"> </span>-m<span class="w"> </span>examples.hello_world_contexts<span class="w"> </span>--help
+<span class="go">usage: __main__.py [-h] (--realtime-threaded | --realtime-async |</span>
+<span class="go">                   --nonrealtime)</span>
 
 <span class="go">Play a C-major chord via different kinds of contexts</span>
 
@@ -3908,7 +4155,7 @@ whatever CLI arguments were passed when we run the script:</p>
 </div>
 <p>… and you’ll see the options necessary to properly run it.</p>
 <p>For example:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya/examples/hello_world_contexts$ </span>python<span class="w"> </span>hello_world_contexts.py<span class="w"> </span>--realtime-threaded
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>python<span class="w"> </span>-m<span class="w"> </span>examples.hello_world_contexts<span class="w"> </span>--realtime-threaded
 </code></pre></div>
 </div>
 

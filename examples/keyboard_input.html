@@ -1,0 +1,4565 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="hello_world_debugged.html">
+      
+      
+        <link rel="next" href="keyboard_input_async.html">
+      
+      
+      <link rel="icon" href="../_static/favicon.ico">
+    
+    
+      
+        <title>Keyboard input - Supriya</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.617440e035ad4929f.min.css?v=43d9ce22" />
+        <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#note-events" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Supriya" class="md-header__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="../_static/icon.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Supriya
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Keyboard input
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/supriya-project/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../introduction/installation.html" class="md-tabs__link">
+        
+  
+    
+  
+  Introduction
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../tutorials/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Core tutorials
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../advanced/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Advanced tutorials
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../developers/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  For developers
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/supriya/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../appendices/glossary.html" class="md-tabs__link">
+        
+  
+    
+  
+  Appendices
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Supriya" class="md-nav__button md-logo" aria-label="Supriya" data-md-component="logo">
+      <img src="../_static/icon.svg" alt="logo">
+    </a>
+    Supriya
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/supriya-project/supriya/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    supriya
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/history.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    History and background
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/concepts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Core tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Core tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core tutorials overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/contexts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contexts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/servers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Realtime Servers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/nodes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/buses.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buses
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/buffers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buffers
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/synthdefs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Synth<wbr>Defs
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/osc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Open Sound Control
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/scores.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Non-<wbr>realtime Scores
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced tutorials overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/clocks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clocks
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/patterns.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Patterns
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/extensions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extensions
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hello_world.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hello, world!
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hello_world_contexts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hello, world!, context-<wbr>agnostic
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hello_world_debugged.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hello, world!, debugged
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#note-events" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Note events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-polyphony" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Managing polyphony
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-input" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Handling input
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling input">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handling-midi" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Handling MIDI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-qwerty" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Handling QWERTY
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripting" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Scripting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invocation" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Invocation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyboard_input_async.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Keyboard input, async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    For developers
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            For developers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/testing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/documenting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentating
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/releasing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releasing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/supriya/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    supriya
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            supriya
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/supriya/clocks/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    clocks
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1_1" id="__nav_6_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            clocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/clocks/asynchronous.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    asynchronous
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/clocks/core.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/clocks/offline.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    offline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/clocks/threaded.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    threaded
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/supriya/contexts/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    contexts
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1_2" id="__nav_6_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            contexts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/allocators.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    allocators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/core.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/entities.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    entities
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/nonrealtime.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    nonrealtime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/realtime.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    realtime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/requests.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    requests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/responses.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    responses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/scopes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scopes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/contexts/shm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    shm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/conversions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    conversions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/enums.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enums
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/exceptions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    exceptions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/supriya/ext/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ext
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1_6" id="__nav_6_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            ext
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ext/book.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    book
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ext/ipython.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ipython
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ext/mypy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    mypy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/io.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    io
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/supriya/osc/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    osc
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1_8" id="__nav_6_1_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            osc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/osc/asynchronous.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    asynchronous
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/osc/messages.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    messages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/osc/protocols.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    protocols
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/osc/threaded.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    threaded
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/osc/utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    utils
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/supriya/patterns/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    patterns
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1_9" id="__nav_6_1_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            patterns
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/patterns/eventpatterns.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eventpatterns
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/patterns/events.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    events
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/patterns/noise.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    noise
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/patterns/patterns.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    patterns
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/patterns/players.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    players
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/patterns/structure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/patterns/testutils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    testutils
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/sclang.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    sclang
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/scsynth.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scsynth
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/soundfiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    soundfiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/typing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    typing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_14" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/supriya/ugens/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ugens
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1_14" id="__nav_6_1_14_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_14">
+            <span class="md-nav__icon md-icon"></span>
+            ugens
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/basic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    basic
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/beq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    beq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/bufio.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bufio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/chaos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    chaos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/convolution.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    convolution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/core.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/delay.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    delay
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/demand.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    demand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/diskio.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    diskio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/dynamics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    dynamics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/envelopes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    envelopes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/factories.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    factories
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/ffsinosc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ffsinosc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/filters.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/gendyn.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    gendyn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/granular.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    granular
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/hilbert.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hilbert
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/info.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/inout.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    inout
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/lines.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    lines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/mac.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    mac
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/ml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ml
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/noise.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    noise
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/osc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    osc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/panning.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    panning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/physical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    physical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/pv.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    pv
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/reverb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    reverb
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/safety.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    safety
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/ugens/triggers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    triggers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_15" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/supriya/utils/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    utils
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1_15" id="__nav_6_1_15_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_15">
+            <span class="md-nav__icon md-icon"></span>
+            utils
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/utils/intervals.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    intervals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/supriya/utils/iterables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    iterables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/examples/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_contexts/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>contexts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/hello_world_debugged/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    hello_<wbr>world_<wbr>debugged
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/examples/keyboard_input_async/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    keyboard_<wbr>input_<wbr>async
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Appendices
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Appendices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendices/glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--under-construction" title="Under construction">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#note-events" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Note events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-polyphony" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Managing polyphony
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-input" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Handling input
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling input">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handling-midi" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Handling MIDI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-qwerty" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Handling QWERTY
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripting" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Scripting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invocation" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Invocation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+  
+  
+    
+      
+    
+    <a href="https://github.com/supriya-project/supriya/raw/main/docs/examples/keyboard_input.rst" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+<h1 id="keyboard-input">Keyboard input<a class="headerlink" href="#keyboard-input" title="Link to this heading">¶</a></h1>
+<div class="info admonition">
+<p class="admonition-title">Info</p>
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/examples/keyboard_input">full example
+source code</a> on GitHub.</p>
+</div>
+<div class="important tip admonition">
+<p class="admonition-title">Important</p>
+<p>This example requires additional third-party packages. Install them with:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2">
+<input checked type="radio" id="__tabbed_1_1" name="__tabbed_1"><input type="radio" id="__tabbed_1_2" name="__tabbed_1"><div class="tabbed-labels docutils container">
+<label class="tabbed-label" for="__tabbed_1_1">
+From PyPI</label><label class="tabbed-label" for="__tabbed_1_2">
+From source</label></div>
+<div class="tabbed-content docutils container">
+<div class="tabbed-block docutils container">
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~$ </span>pip<span class="w"> </span>install<span class="w"> </span>supriya<span class="o">[</span>examples<span class="o">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="tabbed-block docutils container">
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~$ </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/supriya-project/supriya.git
+<span class="gp">josephine@laptop:~$ </span><span class="nb">cd</span><span class="w"> </span>supriya
+<span class="gp">josephine@laptop:~/supriya$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>examples<span class="o">]</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div></div>
+<p>Let’s introduce some interactivity.</p>
+<p>We can play notes with Supriya using a MIDI keyboard. Don’t have a MIDI
+keyboard available? We’ll also support using your computer’s QWERTY keyboard
+just like you can in Ableton live.</p>
+<h2 id="note-events">Note events<a class="headerlink" href="#note-events" title="Link to this heading">¶</a></h2>
+<p>What’s a “note”, anyways?</p>
+<p>MIDI represents notes not as durated objects positioned on a timeline, but
+instead as pairs of “on” and “off” events. The note starts when an instrument
+handles a note “on” event, and it stops when that instrument handles the
+corresponding note “off” event. We won’t recreate MIDI here exactly, but we
+need some simple classes to represent the idea of starting a note with a given
+pitch (or <em>note number</em>) and loudness (or <em>velocity</em>) and stopping a note at a
+given pitch. We can do this with a pair of <a class="reference external" href="https://docs.python.org/3/library/dataclasses.html#module-dataclasses" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dataclasses</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NoteOn</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A note on event.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">note_number</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">velocity</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NoteOff</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A note off event.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">note_number</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div>
+</div>
+<p>The integer values for <code class="docutils literal notranslate"><span class="pre">note_number</span></code> and <code class="docutils literal notranslate"><span class="pre">velocity</span></code> will range from <code class="docutils literal notranslate"><span class="pre">0</span></code>
+to <code class="docutils literal notranslate"><span class="pre">127</span></code>, just like with MIDI. It’s an obvious choice for this examples
+because we’ll literally be using MIDI as an input later on. Massaging all input
+values into a consistent <code class="docutils literal notranslate"><span class="pre">0-127</span></code> range will remove the need for
+special-casing.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>We’ll use <a class="reference external" href="https://docs.python.org/3/library/dataclasses.html#module-dataclasses" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dataclasses</span></code></a> pervasively in the examples because 1) they
+save vertical space by removing boilerplate, and 2) their requirement to
+use type hints (in <a class="reference external" href="https://josephine-wolf-oberholtzer.com/">my</a> opinion) aids legibility. Importantly, we don’t
+need to write initializers for them.</p>
+</div>
+<h2 id="managing-polyphony">Managing polyphony<a class="headerlink" href="#managing-polyphony" title="Link to this heading">¶</a></h2>
+<p>While “note” events represent <em>only</em> the start of stop of a note, we need to
+translate these events into the creation and destruction of synths on the
+SuperCollider server, and that requires tracking <em>state</em>. We’ll do this with a
+polyphony manager. Our implementation looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PolyphonyManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A polyphony manager.</span>
+
+<span class="sd">    Translates :py:class:`NoteOn` or :py:class:`NoteOff` events into actions</span>
+<span class="sd">    against a :py:class:`~supriya.contexts.core.Context`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># the server to act on</span>
+    <span class="n">server</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span>
+    <span class="c1"># a dictionary of MIDI note numbers to synths</span>
+    <span class="n">notes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="c1"># a synthdef to use when making new synths</span>
+    <span class="n">synthdef</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDef</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+    <span class="c1"># target node to add relative to</span>
+    <span class="n">target_node</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Node</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># add action to use</span>
+    <span class="n">add_action</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">free_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Free all currently playing :py:class:`~supriya.contexts.entities.Synth`</span>
+<span class="sd">        instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">synth</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform a :py:class:`NoteOn` or :py:class:`NoteOff` event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># if we&#39;re starting a note ...</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">NoteOn</span><span class="p">):</span>
+            <span class="c1"># bail if we already started this note</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">note_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Performing </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># convert MIDI 0-127 to frequency in Hertz</span>
+            <span class="n">frequency</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">conversions</span><span class="o">.</span><span class="n">midi_note_number_to_frequency</span><span class="p">(</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">note_number</span>
+            <span class="p">)</span>
+            <span class="c1"># convert MIDI 0-127 to amplitude</span>
+            <span class="n">amplitude</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">conversions</span><span class="o">.</span><span class="n">midi_velocity_to_amplitude</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+            <span class="c1"># create a synth and store a reference by MIDI note number in the</span>
+            <span class="c1"># dictionary ...</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">note_number</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span>
+                <span class="n">add_action</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">add_action</span><span class="p">,</span>
+                <span class="n">amplitude</span><span class="o">=</span><span class="n">amplitude</span><span class="p">,</span>
+                <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span>
+                <span class="n">synthdef</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">synthdef</span><span class="p">,</span>
+                <span class="n">target_node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">target_node</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># if we&#39;re stopping a note ...</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">NoteOff</span><span class="p">):</span>
+            <span class="c1"># bail if we already stopped this note:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">note_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Performing </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># pop the synth out of the dictionary and free it ...</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">note_number</span><span class="p">)</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>The polyphony manager’s main work is in its
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.PolyphonyManager.perform" title="examples.keyboard_input.PolyphonyManager.perform (Python method) — Perform a NoteOn or NoteOff event."><code class="xref py py-meth docutils literal notranslate"><span class="pre">perform()</span></code></a> method,
+translating note on and note off events into actions to create or destroy
+synths on the SuperCollider server. When creating synths, we need to translate
+the MIDI <code class="docutils literal notranslate"><span class="pre">0-127</span></code> range into Hertz frequency and linear amplitude. We’ll use
+some conversion helpers to do this. The manager stores state about the notes
+and synths in a dictionary, mapping note numbers to synth instances so the
+synths can be freed later, when it handles note “off” events.</p>
+<p>The manager also implements a
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.PolyphonyManager.free_all" title="examples.keyboard_input.PolyphonyManager.free_all (Python method) — Free all currently playing Synth instances."><code class="xref py py-meth docutils literal notranslate"><span class="pre">free_all()</span></code></a> method to free
+all the synths at once. We’ll see both
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.PolyphonyManager.perform" title="examples.keyboard_input.PolyphonyManager.perform (Python method) — Perform a NoteOn or NoteOff event."><code class="xref py py-meth docutils literal notranslate"><span class="pre">perform()</span></code></a> and
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.PolyphonyManager.free_all" title="examples.keyboard_input.PolyphonyManager.free_all (Python method) — Free all currently playing Synth instances."><code class="xref py py-meth docutils literal notranslate"><span class="pre">free_all()</span></code></a> in use later on.</p>
+<h2 id="handling-input">Handling input<a class="headerlink" href="#handling-input" title="Link to this heading">¶</a></h2>
+<p>Now let’s build some input handlers.</p>
+<p>We have some basic requirements for any input handler:</p>
+<ul class="simple">
+<li><p>It needs to translate raw input into
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOn" title="examples.keyboard_input.NoteOn (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOn</span></code></a> and
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOff" title="examples.keyboard_input.NoteOff (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOff</span></code></a> events.</p></li>
+<li><p>It needs to start up and listen continuously in the background in a
+non-blocking way.</p></li>
+<li><p>It needs to be <em>decoupled</em> from the rest of the system. It shouldn’t know
+about our <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.PolyphonyManager" title="examples.keyboard_input.PolyphonyManager (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolyphonyManager</span></code></a>, only that it
+can pass the generated <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOn" title="examples.keyboard_input.NoteOn (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOn</span></code></a> and
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOff" title="examples.keyboard_input.NoteOff (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOff</span></code></a> events along to some other
+callable, configured when the input handler is instantiated.</p></li>
+</ul>
+<p>We’ll define a simple base class for our MIDI and QWERTY input handlers, mainly
+to ease type hints. Anytime you encounter a setup / do something / teardown
+pattern, a context manager is an obvious choice, so we’ll use Python’s
+<a class="reference external" href="https://docs.python.org/3/library/contextlib.html#contextlib.contextmanager" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">contextlib.contextmanager()</span></code></a> to decorate our
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.InputHandler.listen" title="examples.keyboard_input.InputHandler.listen (Python method)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">listen()</span></code></a> stub method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">InputHandler</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for input handlers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listen</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="c1"># subclasses must implement this method!</span>
+        <span class="c1"># 1) start the handler&#39;s listener</span>
+        <span class="c1"># 2) yield to the with block body</span>
+        <span class="c1"># 3) stop the handler&#39;s listener</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</code></pre></div>
+</div>
+<p>She doesn’t actually do anything, so let’s define some concrete
+implementations.</p>
+<h3 id="handling-midi">Handling MIDI<a class="headerlink" href="#handling-midi" title="Link to this heading">¶</a></h3>
+<p>MIDI input is <em>relatively</em> simple to setup, at least compared to QWERTY. We’ll
+use the <a class="reference external" href="https://spotlightkid.github.io/python-rtmidi/">python-rtmidi</a> library to listen to MIDI messages from attached
+hardware. Let’s take a look:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MidiHandler</span><span class="p">(</span><span class="n">InputHandler</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A MIDI input handler.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span>
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listen</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Context manager for listening to MIDI input events.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">midi_input</span> <span class="o">=</span> <span class="n">rtmidi</span><span class="o">.</span><span class="n">MidiIn</span><span class="p">()</span>  <span class="c1"># create the MIDI input</span>
+        <span class="c1"># set the MIDI event callback to this class&#39;s __call__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">midi_input</span><span class="o">.</span><span class="n">set_callback</span><span class="p">(</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">callback</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">midi_input</span><span class="o">.</span><span class="n">open_port</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>  <span class="c1"># open the port for listening</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening for MIDI keyboard events ...&quot;</span><span class="p">)</span>  <span class="c1"># let the user know</span>
+        <span class="k">yield</span>  <span class="c1"># yield to the with block body</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">midi_input</span><span class="o">.</span><span class="n">close_port</span><span class="p">()</span>  <span class="c1"># close the port</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">event</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle a MIDI input event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MIDI received: </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># the raw MIDI event is a 2-tuple of MIDI data and time delta, so</span>
+        <span class="c1"># unpack it, keep the data and discard the time delta ...</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">event</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">rtmidi</span><span class="o">.</span><span class="n">midiconstants</span><span class="o">.</span><span class="n">NOTE_ON</span><span class="p">:</span>  <span class="c1"># if we received a note-on ...</span>
+            <span class="c1"># grab the note number and velocity</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">note_number</span><span class="p">,</span> <span class="n">velocity</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="c1"># perform a &quot;note on&quot; event</span>
+            <span class="n">callback</span><span class="p">(</span><span class="n">NoteOn</span><span class="p">(</span><span class="n">note_number</span><span class="o">=</span><span class="n">note_number</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">velocity</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">rtmidi</span><span class="o">.</span><span class="n">midiconstants</span><span class="o">.</span><span class="n">NOTE_OFF</span><span class="p">:</span>  <span class="c1"># if we received a note-off ...</span>
+            <span class="c1"># grab the note number</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">note_number</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="c1"># perform a &quot;note off&quot; event</span>
+            <span class="n">callback</span><span class="p">(</span><span class="n">NoteOff</span><span class="p">(</span><span class="n">note_number</span><span class="o">=</span><span class="n">note_number</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<p>The <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler.listen" title="examples.keyboard_input.MidiHandler.listen (Python method) — Context manager for listening to MIDI input events."><code class="xref py py-meth docutils literal notranslate"><span class="pre">listen()</span></code></a> context manager
+creates an <a class="reference external" href="https://spotlightkid.github.io/python-rtmidi/rtmidi.html#rtmidi.MidiIn" title="(in python-rtmidi v1.5.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">rtmidi.MidiIn</span></code></a> instance, points its callback at the
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler" title="examples.keyboard_input.MidiHandler (Python class) — Bases: InputHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MidiHandler</span></code></a>’s
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler.handle" title="examples.keyboard_input.MidiHandler.handle (Python method) — Handle a MIDI input event."><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle()</span></code></a> method, opens a port and
+then yields. When it’s done yielding it just closes the port. Look closer at
+how we treat the callback passed into
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler.listen" title="examples.keyboard_input.MidiHandler.listen (Python method) — Context manager for listening to MIDI input events."><code class="xref py py-meth docutils literal notranslate"><span class="pre">listen()</span></code></a> . Rather than store a
+reference to the callback function on the handler instance, we use
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> to “freeze” part of the call to the handler’s
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler.handle" title="examples.keyboard_input.MidiHandler.handle (Python method) — Handle a MIDI input event."><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle()</span></code></a> method. This way, our
+custom <code class="docutils literal notranslate"><span class="pre">callback</span></code> will always be the first argument to
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler.listen" title="examples.keyboard_input.MidiHandler.listen (Python method) — Context manager for listening to MIDI input events."><code class="xref py py-meth docutils literal notranslate"><span class="pre">listen()</span></code></a> as long as we’re inside
+its context block.</p>
+<p>MIDI note on and note off messages arrive into our
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler.handle" title="examples.keyboard_input.MidiHandler.handle (Python method) — Handle a MIDI input event."><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle()</span></code></a> method from
+<a class="reference external" href="https://spotlightkid.github.io/python-rtmidi/rtmidi.html#module-rtmidi" title="(in python-rtmidi v1.5.5)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">rtmidi</span></code></a> as integer triples. The first integer (the <em>status</em>) tells us
+what kind of MIDI message it is. For note on and note off messages the second
+integer represents the note number, from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">127</span></code> (more than enough to
+represent a grand piano’s keyboard, which should be good enough for anyone,
+right?) and the last integer represents the <em>velocity</em> (how fast the key was
+pressed, which by convention maps to volume level).</p>
+<p>Our <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler.handle" title="examples.keyboard_input.MidiHandler.handle (Python method) — Handle a MIDI input event."><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle()</span></code></a> method checks the
+first integer to determine if it’s handling a note on or note off, ignoring
+other types of messages, and then wraps the data into our
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOn" title="examples.keyboard_input.NoteOn (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOn</span></code></a> and
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOff" title="examples.keyboard_input.NoteOff (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOff</span></code></a> dataclasses, calling the
+<code class="docutils literal notranslate"><span class="pre">callback</span></code> callable against them.</p>
+<h3 id="handling-qwerty">Handling QWERTY<a class="headerlink" href="#handling-qwerty" title="Link to this heading">¶</a></h3>
+<p>Input from a computer keyboard is more complicated because we need to simulate
+a larger pitch space than we have keys on our computer keyboard. We’ll use the
+<a class="reference external" href="https://github.com/moses-palmer/pynput">pynput</a> library to listen for key presses and releases, and mimic <a class="reference external" href="https://www.ableton.com/en/live/">Ableton
+Live</a>’s QWERTY keyboard feature. Take a look and then let’s discuss.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">QwertyHandler</span><span class="p">(</span><span class="n">InputHandler</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A QWERTY input handler.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">octave</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">presses_to_note_numbers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">listen</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Context manager for listening to QWERTY input events.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># setup the QWERTY keybord listener</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">Listener</span><span class="p">(</span>
+            <span class="n">on_press</span><span class="o">=</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_press</span><span class="p">,</span> <span class="n">callback</span><span class="p">),</span>
+            <span class="n">on_release</span><span class="o">=</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_release</span><span class="p">,</span> <span class="n">callback</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># start the listener</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening for QWERTY keyboard events ...&quot;</span><span class="p">)</span>  <span class="c1"># let the user know</span>
+        <span class="k">yield</span>  <span class="c1"># yield to the with block body</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stop the listener</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">qwerty_key_to_pitch_number</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Translate a QWERTY key event into a pitch number.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># dict lookups are faster, but this is soooo much shorter</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;awsedftgyhujkolp;&#39;&quot;</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_press</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">Key</span> <span class="o">|</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle a QWERTY key press.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span><span class="p">):</span>
+            <span class="k">return</span>  <span class="c1"># bail if we didn&#39;t get a keycode object</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;QWERTY pressed: </span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>  <span class="c1"># decrement our octave setting</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="c1"># increment our octave setting</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presses_to_note_numbers</span><span class="p">:</span>
+            <span class="k">return</span>  <span class="c1"># already pressed</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">pitch</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qwerty_key_to_pitch_number</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>  <span class="c1"># not a valid key, ignore it</span>
+        <span class="c1"># calculate the note number from the pitch and octave</span>
+        <span class="n">note_number</span> <span class="o">=</span> <span class="n">pitch</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">*</span> <span class="mi">12</span>
+        <span class="c1"># QWERTY keyboards aren&#39;t pressure-sensitive, so let&#39;s create a random</span>
+        <span class="c1"># velocity to simulate expressivity</span>
+        <span class="n">velocity</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+        <span class="c1"># stash the note number with the key for releasing later</span>
+        <span class="c1"># so that changing the octave doesn&#39;t prevent releasing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">presses_to_note_numbers</span><span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">note_number</span>
+        <span class="c1"># perform a &quot;note on&quot; event</span>
+        <span class="n">callback</span><span class="p">(</span><span class="n">NoteOn</span><span class="p">(</span><span class="n">note_number</span><span class="o">=</span><span class="n">note_number</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">velocity</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_release</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">key</span><span class="p">:</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">Key</span> <span class="o">|</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle a QWERTY key release.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span><span class="p">):</span>
+            <span class="k">return</span>  <span class="c1"># bail if we didn&#39;t get a keycode object</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;QWERTY released: </span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># bail if the key isn&#39;t currently held down</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presses_to_note_numbers</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="c1"># grab the note number out of the stash</span>
+        <span class="n">note_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">presses_to_note_numbers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="p">)</span>
+        <span class="c1"># perform a &quot;note off&quot; event</span>
+        <span class="n">callback</span><span class="p">(</span><span class="n">NoteOff</span><span class="p">(</span><span class="n">note_number</span><span class="o">=</span><span class="n">note_number</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<p>Like the <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler" title="examples.keyboard_input.MidiHandler (Python class) — Bases: InputHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MidiHandler</span></code></a>, the
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.QwertyHandler.listen" title="examples.keyboard_input.QwertyHandler.listen (Python method) — Context manager for listening to QWERTY input events."><code class="xref py py-meth docutils literal notranslate"><span class="pre">listen()</span></code></a> context manager is pretty simple. We create a
+<a class="reference external" href="https://pynput.readthedocs.io/en/latest/keyboard.html#pynput.keyboard.Listener" title="(in pynput v1.7.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pynput.keyboard.Listener</span></code></a>, point it as <em>two</em> different callback
+methods (one for pressing keys, and another for releasing them ), start it,
+yield to the with block, then stop it when we’re done. Easy.</p>
+<p>Handling those key presses and releases is tricky though. We’ll treat
+<code class="docutils literal notranslate"><span class="pre">asdfghjkl;'</span></code> as our white keys with <code class="docutils literal notranslate"><span class="pre">a</span></code> mapping to a <code class="docutils literal notranslate"><span class="pre">C5</span></code> on a piano
+keyboard and <code class="docutils literal notranslate"><span class="pre">;</span></code> mapping to an <code class="docutils literal notranslate"><span class="pre">F6</span></code>, and <code class="docutils literal notranslate"><span class="pre">we</span> <span class="pre">tyu</span> <span class="pre">op</span></code> as black keys
+starting from <code class="docutils literal notranslate"><span class="pre">C#5</span></code>. That’s about an octave and a half of notes when we’d
+like to simulate the ten-plus octaves available on MIDI. To do this, we’ll
+store the current octave on the handler, and use the <code class="docutils literal notranslate"><span class="pre">z</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code> keys to
+decrement or increment the octave, adding it to the note number mapped from the
+other keys.</p>
+<p>That’s great, but what happens if you change the octave when you’re in the
+middle of changing the note? When releasing the key, we’d send a
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOff" title="examples.keyboard_input.NoteOff (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOff</span></code></a> event corresponding to a different
+pitch than the original <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOn" title="examples.keyboard_input.NoteOn (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOn</span></code></a> event,
+resulting in “stuck” synths. To fix this, we’ll add <em>state</em> to the
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler" title="examples.keyboard_input.MidiHandler (Python class) — Bases: InputHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MidiHandler</span></code></a>, storing the note numbers
+calculated at the moment each QWERTY key was pressed. When we release the
+QWERTY key, rather than re-calculate what the note number should be based on
+the current octave, we look up the note number calculated at key press and
+issue a <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.NoteOff" title="examples.keyboard_input.NoteOff (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoteOff</span></code></a> for that instead.</p>
+<h2 id="integration">Integration<a class="headerlink" href="#integration" title="Link to this heading">¶</a></h2>
+<p>Now we need to stitch together our input handlers, the polyphony manager, and a
+server so we can actually hear something. We’ll write one
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.run" title="examples.keyboard_input.run (Python function) — Run the script."><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> function with a number of simple nested
+functions for the various callbacks our application requires:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">input_handler</span><span class="p">:</span> <span class="n">InputHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the script.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_boot</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># run this during server.boot()</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">polyphony</span><span class="o">.</span><span class="n">synthdef</span><span class="p">)</span>  <span class="c1"># add the polyphony&#39;s synthdef</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>  <span class="c1"># wait for the synthdef to load before moving on</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_quitting</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># run this during server.quit()</span>
+        <span class="n">polyphony</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>  <span class="c1"># free all the synths</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># wait for them to fade out before moving on</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">signal_handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">exit_future</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># set the exit future flag</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_callback</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># just play the event via polyphony directly</span>
+        <span class="n">polyphony</span><span class="o">.</span><span class="n">perform</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="c1"># create a future we can wait on to quit the script</span>
+    <span class="n">exit_future</span><span class="p">:</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">Future</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">Future</span><span class="p">()</span>
+    <span class="c1"># create a server and polyphony manager</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span>
+    <span class="n">polyphony</span> <span class="o">=</span> <span class="n">PolyphonyManager</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+    <span class="c1"># setup lifecycle callbacks</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">&quot;BOOTED&quot;</span><span class="p">,</span> <span class="n">on_boot</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">&quot;QUITTING&quot;</span><span class="p">,</span> <span class="n">on_quitting</span><span class="p">)</span>
+    <span class="c1"># hook up Ctrl-C so we can gracefully shutdown the server</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal_handler</span><span class="p">)</span>
+    <span class="c1"># boot the server and let the user know we&#39;re ready to play</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Server online. Press Ctrl-C to exit.&quot;</span><span class="p">)</span>
+    <span class="c1"># turn on the input handler and teach it to callback against the polyphony manager</span>
+    <span class="k">with</span> <span class="n">input_handler</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">input_callback</span><span class="p">):</span>
+        <span class="n">exit_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>  <span class="c1"># wait for Ctrl-C</span>
+    <span class="c1"># stop the input handler and quit the server</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>A few notes about our <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.run" title="examples.keyboard_input.run (Python function) — Run the script."><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> function:</p>
+<ul class="simple">
+<li><p>It takes an <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.InputHandler" title="examples.keyboard_input.InputHandler (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputHandler</span></code></a> as its only
+argument, which means we can use the
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.MidiHandler" title="examples.keyboard_input.MidiHandler (Python class) — Bases: InputHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MidiHandler</span></code></a> and
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.QwertyHandler" title="examples.keyboard_input.QwertyHandler (Python class) — Bases: InputHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">QwertyHandler</span></code></a> classes interchangeably.
+It doesn’t know anything about their specific implementations, just that they
+have a <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.InputHandler.listen" title="examples.keyboard_input.InputHandler.listen (Python method)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">listen()</span></code></a> context
+manager method that accepts a <code class="docutils literal notranslate"><span class="pre">callback</span></code> callable.</p></li>
+<li><p>The <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.InputHandler" title="examples.keyboard_input.InputHandler (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputHandler</span></code></a>’s context block simply waits on a
+<a class="reference external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.Future" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">concurrent.futures.Future</span></code></a> to resolve, nothing more. When the
+future resolves, we exit the context block and quit the server.</p></li>
+<li><p>We add setup and teardown logic to our server via lifecycle event callbacks.
+Setup involves loading the <a class="reference internal" href="../api/supriya/ugens/core.html#supriya.ugens.core.SynthDef" title="supriya.ugens.core.SynthDef (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">SynthDef</span></code></a> we’ll use
+to create synths, and to wait for it to load before proceeding. Teardown
+involves freeing any synths still playing after we stop listening for input
+events, and then waiting for them to completely fade out before moving on.</p></li>
+<li><p>Without getting too deep into systems programming, we’ll use a
+<a class="reference external" href="https://docs.python.org/3/library/signal.html#signal.signal" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">signal.signal()</span></code></a> callback to listen for <code class="docutils literal notranslate"><span class="pre">Ctrl-C</span></code> presses on the
+keyboard. When you press <code class="docutils literal notranslate"><span class="pre">Ctrl-C</span></code> to end the script, this callback will set
+the value of the exit future our script is waiting on, allowing it to
+progress to its shutdown logic.</p></li>
+</ul>
+<h2 id="scripting">Scripting<a class="headerlink" href="#scripting" title="Link to this heading">¶</a></h2>
+<p>Let’s put final touches on our script so we can run it from the command-line.</p>
+<p>We’ll use <a class="reference external" href="https://docs.python.org/3/library/argparse.html#module-argparse" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">argparse</span></code></a> to define the flags we can pass to the script,
+with a required <em>mutually exclusive argument group</em> forcing us to pick at least
+one flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse CLI arguments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Play notes via your QWERTY or MIDI keyboards&quot;</span>
+    <span class="p">)</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--list-midi-inputs&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;list available MIDI inputs&quot;</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--use-midi&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;play via MIDI keyboard&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT_NUMBER&quot;</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--use-qwerty&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;play via QWERTY keyboard&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Then we just parse the arguments, check which flag was set, create the
+appropriate <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.InputHandler" title="examples.keyboard_input.InputHandler (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputHandler</span></code></a> and then call
+<a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.run" title="examples.keyboard_input.run (Python function) — Run the script."><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> with it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The example entry-point function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parsed_args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">list_midi_inputs</span><span class="p">:</span>
+        <span class="c1"># print out available MIDI input ports</span>
+        <span class="n">rtmidi</span><span class="o">.</span><span class="n">midiutil</span><span class="o">.</span><span class="n">list_input_ports</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">use_midi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">run</span><span class="p">(</span><span class="n">MidiHandler</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">parsed_args</span><span class="o">.</span><span class="n">use_midi</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">use_qwerty</span><span class="p">:</span>
+        <span class="n">run</span><span class="p">(</span><span class="n">QwertyHandler</span><span class="p">())</span>
+</code></pre></div>
+</div>
+<p>Of course, we might not know what port to use when playing with MIDI, so we’ll
+use the <code class="docutils literal notranslate"><span class="pre">--list-midi-inputs</span></code> flag to print out available MIDI port numbers
+you can pass to the script when running it with <code class="docutils literal notranslate"><span class="pre">--use-midi</span></code>.</p>
+<h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
+<p>You can invoke the script with …</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>python<span class="w"> </span>-m<span class="w"> </span>examples.keyboard_input<span class="w"> </span>--help
+<span class="go">usage: __main__.py [-h] (--list-midi-inputs | --use-midi PORT_NUMBER |</span>
+<span class="go">                   --use-qwerty)</span>
+
+<span class="go">Play notes via your QWERTY or MIDI keyboards</span>
+
+<span class="go">options:</span>
+<span class="go">  -h, --help            show this help message and exit</span>
+<span class="go">  --list-midi-inputs    list available MIDI inputs</span>
+<span class="go">  --use-midi PORT_NUMBER</span>
+<span class="go">                        play via MIDI keyboard</span>
+<span class="go">  --use-qwerty          play via QWERTY keyboard</span>
+</code></pre></div>
+</div>
+<p>… and you’ll see the options necessary to properly run it.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="hello_world_debugged.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Hello, world!, debugged">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Hello, world!, debugged
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="keyboard_input_async.html" class="md-footer__link md-footer__link--next" aria-label="Next: Keyboard input, async">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Keyboard input, async
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2014-2025, Joséphine Wolf Oberholtzer.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.2.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.view", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.tabs", "navigation.top", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+    
+  </body>
+</html>
