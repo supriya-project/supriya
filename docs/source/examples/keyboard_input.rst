@@ -16,7 +16,7 @@ Let's introduce some interactivity.
 
 We can play notes with Supriya using a MIDI keyboard. Don't have a MIDI
 keyboard available? We'll also support using your computer's QWERTY keyboard
-just like you can in Ableton live.
+just like you can in `Ableton Live`_.
 
 Note events
 -----------
@@ -152,7 +152,7 @@ Handling QWERTY
 ```````````````
 
 Input from a computer keyboard is more complicated because we need to simulate
-a larger pitch space than we have keys on our computer keyboard. We'll use the
+a larger pitch space than we have physical keys available. We'll use the
 `pynput`_ library to listen for key presses and releases, and mimic `Ableton
 Live`_'s QWERTY keyboard feature. Take a look and then let's discuss.
 
