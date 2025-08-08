@@ -190,6 +190,10 @@ html_logo = "icon.svg"
 html_static_path = ["_static"]
 html_theme = "sphinx_immaterial"
 html_theme_options = {
+    "analytics": {
+        "provider": "google",
+        "property": "G-6LPCB5FX1J",
+    },
     "icon": {"repo": "fontawesome/brands/github"},
     "site_url": "https://supriya-project.github.io/supriya/",
     "repo_url": "https://github.com/supriya-project/supriya/",
