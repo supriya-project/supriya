@@ -53,11 +53,8 @@ docs = [
   "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
 ]
 test = [
-  "jupyterlab",
-  "librosa",
+  "supriya[docs]",
   "lxml",
-  "matplotlib",
-  "mypy >= 1.8.0",
   "pytest",
   "pytest-asyncio",
   "pytest-cov",
@@ -65,9 +62,6 @@ test = [
   "pytest-mock",
   "pytest-rerunfailures",
   "ruff",
-  "setuptools; python_version >= '3.12'",
-  "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
-  "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
   "types-PyYAML",
   "types-docutils",
 ]
