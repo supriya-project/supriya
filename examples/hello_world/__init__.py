@@ -1,9 +1,31 @@
+"""
+Hello, world!
+
+Let's play a C-major chord!
+
+Invoke with:
+
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
+
+    python -m examples.hello_world
+
+See the :doc:`example documentation </examples/hello_world>` for a complete
+explanation.
+"""
+
 import time
 
 import supriya
 
 
 def main() -> None:
+    """
+    The example entry-point function.
+    """
     # Create a server and boot it:
     server = supriya.Server().boot()
     # Define a C-major chord in Hertz

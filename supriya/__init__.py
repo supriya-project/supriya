@@ -1,3 +1,7 @@
+"""
+Supriya is a Python API for SuperCollider.
+"""
+
 from pathlib import Path
 
 import platformdirs

@@ -32,16 +32,17 @@ Performance logic
 The performance logic is almost exactly the same as in the
 :doc:`hello_world_contexts` example:
 
-..  literalinclude:: ../../../examples/hello_world_debugged/hello_world_debugged.py
+..  literalinclude:: ../../../examples/hello_world_debugged/__init__.py
     :pyobject: play_synths
 
-..  literalinclude:: ../../../examples/hello_world_debugged/hello_world_debugged.py
+..  literalinclude:: ../../../examples/hello_world_debugged/__init__.py
     :pyobject: stop_synths
 
-One small difference, just to save some vertical space in the ``main()`` function is
-to move the use of :py:meth:`~supriya.contexts.core.Context.at` inside the two
-performance functions. Because we're querying the context state, the context
-*must* be realtime, so we can rely on it supporting timestamp-free OSC bundling.
+One small difference, just to save some vertical space in the
+:py:func:`~examples.hello_world_debugged.main` function is to move the use of
+:py:meth:`~supriya.contexts.core.Context.at` inside the two performance
+functions. Because we're querying the context state, the context *must* be
+realtime, so we can rely on it supporting timestamp-free OSC bundling.
 
 Debugging
 ---------
@@ -52,7 +53,7 @@ We'll write a context manager, facilitated by Python's
 :py:func:`contextlib.contextmanager` decorator, to debug the state of the
 server and (optionally!) any operations we performed against it:
 
-..  literalinclude:: ../../../examples/hello_world_debugged/hello_world_debugged.py
+..  literalinclude:: ../../../examples/hello_world_debugged/__init__.py
     :pyobject: debug
 
 The context manager will let us start capturing OSC messages sent and received
@@ -72,13 +73,14 @@ wish, and when we're done yielding we'll print out:
 Integration
 -----------
 
-Now let's sprinkle that debugging context manager throughout our ``main`` function.
+Now let's sprinkle that debugging context manager throughout our
+:py:func:`~examples.hello_world_debugged.main` function.
 
 We'll also turn on logging output (set to a base level of ``WARNING`` so we
 don't see too much) and then dial in the :py:mod:`supriya.scsynth` logger to
 ``INFO`` so we can see info about the server during booting and quitting.
 
-..  literalinclude:: ../../../examples/hello_world_debugged/hello_world_debugged.py
+..  literalinclude:: ../../../examples/hello_world_debugged/__init__.py
     :pyobject: main
 
 ..  note::
@@ -87,8 +89,8 @@ don't see too much) and then dial in the :py:mod:`supriya.scsynth` logger to
     to debug, their output actually comes *after*. Inside our debugging context
     manager, the body of our ``with`` block executes at the moment we
     ``yield``, and everything after the ``yield`` keyword occurs when we exit
-    that ``with`` block. This might look a little "backwards" in our ``main()``
-    function, but sit with it.
+    that ``with`` block. This might look a little "backwards" in our
+    :py:func:`~examples.hello_world_debugged.main` function, but sit with it.
 
 Invocation
 ----------
@@ -96,12 +98,12 @@ Invocation
 You can invoke the script and see its (very verbose) output with ...
 
 ..  shell::
-    :cwd: ../examples/hello_world_debugged
+    :cwd: ..
     :rel: ..
     :user: josephine
     :host: laptop
 
-    python hello_world_debugged.py
+    python -m examples.hello_world_debugged
 
 That's a lot of output! Depending on your application, you may need to dial it
 down, or dial it up. Now you have the building blocks to do so.
