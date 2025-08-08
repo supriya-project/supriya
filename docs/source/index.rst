@@ -159,6 +159,8 @@ Quit the server::
     examples/hello_world
     examples/hello_world_contexts
     examples/hello_world_debugged
+    examples/keyboard_input
+    examples/keyboard_input_async
 
 ..  toctree::
     :caption: For developers
@@ -175,6 +177,7 @@ Quit the server::
     :maxdepth: 2
 
     api/supriya/index
+    api/examples/index
 
 ..  toctree::
     :hidden: 

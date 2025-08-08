@@ -173,9 +173,10 @@ quitting, after quitting, or even on server panic:
 
 ..  note:: This is spiritually equivalent to :term:`sclang`'s ``Server.doWhenBooted``.
 
-..  tip:: Use lifecycle callbacks to load SynthDefs on server boot. Make sure
-    to sync the server inside the callback procedure so your code blocks until
-    the loading completes.
+..  tip:: Use lifecycle callbacks to load :doc:`SynthDefs <synthdefs>` on server
+    boot, and to perform cleanup just before server quit. Make sure to sync the
+    server inside the boot callback procedure so your code blocks until the
+    SynthDef loading completes.
 
 Define a callback and register it against one or more events:
 
@@ -198,6 +199,27 @@ Quit the server and watch the events print:
 Unregister the callback:
 
     >>> server.unregister_lifecycle_callback(callback)
+
+You might want to ...
+
+- Use :py:attr:`~supriya.enums.ServerLifecycleEvent.BOOTING` to run callbacks
+  immediately after :py:meth:`~supriya.contexts.realtime.Server.boot` starts,
+  but before communication with the server is possible.
+
+- Use :py:attr:`~supriya.enums.ServerLifecycleEvent.BOOTED` to run callbacks
+  once the server has been completely setup, but just before
+  :py:meth:`~supriya.contexts.realtime.Server.boot` returns,
+
+- Use :py:attr:`~supriya.enums.ServerLifecycleEvent.QUITTING` to run callbacks
+  once :py:meth:`~supriya.contexts.realtime.Server.quit` has started safely,
+  but before communication with the server shuts-down.
+
+- Use :py:attr:`~supriya.enums.ServerLifecycleEvent.QUIT` to run callbacks once
+  all communication with the server process has shutdown, but just before
+  :py:meth:`~supriya.contexts.realtime.Server.quit` returns.
+
+See :github-blob:`tests/contexts/test_Server_lifecycle.py` for a variety of
+lifecycle scenarios and the resulting lifecycle events fired.
 
 Inspection
 ----------

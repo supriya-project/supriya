@@ -2,6 +2,10 @@
 
 Let's play a C-major chord!
 
+Invoke with:
+
 ```
-python ./hello_world.py
+supriya$ python -m examples.hello_world
 ```
+
+See the example documentation for a complete explanation.

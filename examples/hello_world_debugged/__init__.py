@@ -1,3 +1,36 @@
+"""
+Hello, world!, debugged.
+
+Let's play a C-major chord! But this time, let's also print out logs and
+debugging information about the state of the server, the ``scsynth`` process,
+and the OSC messages sent by our client.
+
+We'll perform four kinds of debugging:
+
+- Turn on logging for the ``scsynth`` subprocess so we can see what it says when
+  it boots up.
+
+- Print the "status" of the server at various points so we can see CPU usage,
+  actual sample rates, node counts, etc.
+
+- Print the "node tree": the structure of the groups and synths in the server.
+
+- Capture and print OSC messages sent by Supriya to ``scsynth``.
+
+Invoke with:
+
+..  shell::
+    :cwd: ..
+    :rel: ..
+    :user: josephine
+    :host: laptop
+
+    python -m examples.hello_world_debugged
+
+See the :doc:`example documentation </examples/hello_world_debugged>` for a
+complete explanation.
+"""
+
 import contextlib
 import logging
 import sys
@@ -8,6 +41,9 @@ import supriya
 
 
 def play_synths(context: supriya.Context) -> list[supriya.Synth]:
+    """
+    Play a C-major chord on ``context``.
+    """
     # Start an OSC bundle to run immediately:
     with context.at():
         # A C-major chord
@@ -28,6 +64,9 @@ def play_synths(context: supriya.Context) -> list[supriya.Synth]:
 
 
 def stop_synths(context: supriya.Context, synths: list[supriya.Synth]) -> None:
+    """
+    Stop ``synths``.
+    """
     # Start an OSC bundle to run immediately:
     with context.at():
         # Loop over the synths and free them
@@ -40,6 +79,9 @@ def debug(
     header: str,
     server: supriya.Server,
 ) -> Generator[None, None, None]:
+    """
+    A context manager for printing debugging information.
+    """
     # Capture any OSC messages sent or received
     with server.osc_protocol.capture() as transcript:
         # Yield to the with block body
@@ -65,6 +107,10 @@ def debug(
 
 
 def main() -> None:
+    """
+    The example entry-point function.
+    """
+
     # Turn on basic logging output interpreter-wide.
     # Explicitly set the stream to stdout so that the output looks the same in
     # your terminal as it does in the documentation! Normally you don't need to

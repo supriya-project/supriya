@@ -1,8 +1,14 @@
 import datetime
 import os
 import subprocess
+import sys
+from pathlib import Path
 
 import supriya
+
+sys.path.append(str(Path(supriya.__path__[0]).parent))
+
+import examples
 
 ### GIT INFO
 
@@ -55,7 +61,9 @@ master_doc = "index"
 project = "Supriya"
 pygments_style = "sphinx"
 rst_epilog = """
+.. _"hello, world!": https://en.wikipedia.org/wiki/%22Hello,_World!%22_program
 .. _Abjad: https://abjad.github.io/
+.. _Ableton Live: https://www.ableton.com/en/live/
 .. _Chocolatey: https://docs.chocolatey.org/
 .. _Cython: https://cython.org/
 .. _FFmpeg: https://ffmpeg.org/
@@ -66,11 +74,10 @@ rst_epilog = """
 .. _IPython: https://ipython.org/
 .. _James McCartney: https://github.com/lfnoise
 .. _Joséphine: https://josephine-wolf-oberholtzer.com/
-.. _joséphine: https://josephine-wolf-oberholtzer.com/
 .. _Jupyter: https://jupyter.org/
 .. _LAME: https://lame.sourceforge.io/
-.. _Max: https://cycling74.com/products/max
 .. _Max/MSP: https://cycling74.com/products/max
+.. _Max: https://cycling74.com/products/max
 .. _PyPI: https://pypi.org/
 .. _Python: https://www.python.org/
 .. _Sphinx: https://www.sphinx-doc.org/en/master/
@@ -79,25 +86,27 @@ rst_epilog = """
 .. _aiohttp: https://docs.aiohttp.org/en/stable/
 .. _black: https://black.readthedocs.io/en/stable/
 .. _flake8: https://flake8.pycqa.org/en/latest/
-.. _"hello, world!": https://en.wikipedia.org/wiki/%22Hello,_World!%22_program
 .. _isort: https://pycqa.github.io/isort/
+.. _joséphine: https://josephine-wolf-oberholtzer.com/
 .. _libsndfile: https://www.mega-nerd.com/libsndfile/
-.. _mkdocs: https://www.mkdocs.org/
 .. _mkdocs-material: https://github.com/squidfunk/mkdocs-material/
+.. _mkdocs: https://www.mkdocs.org/
+.. _my: https://josephine-wolf-oberholtzer.com/
 .. _mypy: https://mypy-lang.org/
 .. _pip: https://pip.pypa.io/en/stable/
 .. _pymonome: https://github.com/artfwo/pymonome
+.. _pynput: https://github.com/moses-palmer/pynput
 .. _pytest-asyncio: https://pytest-asyncio.readthedocs.io/en/stable/
 .. _pytest-cov: https://pytest-cov.readthedocs.io/en/latest/
 .. _pytest-lazy-fixtures: https://github.com/dev-petrov/pytest-lazy-fixtures
 .. _pytest: https://docs.pytest.org/en/stable/
 .. _python-prompt-toolkit: https://python-prompt-toolkit.readthedocs.io/en/master/
-.. _python-rtmidi: https://github.com/SpotlightKid/python-rtmidi
+.. _python-rtmidi: https://spotlightkid.github.io/python-rtmidi/
 .. _ruff: https://docs.astral.sh/ruff/
 .. _sphinx-immaterial: https://sphinx-immaterial.readthedocs.io/en/latest/
-.. _uqbar: https://supriya-project.github.io/uqbar/index.html
 .. _uqbar.sphinx.api: https://supriya-project.github.io/uqbar/api/uqbar/sphinx/api.html#module-uqbar.sphinx.api
 .. _uqbar.sphinx.book: https://supriya-project.github.io/uqbar/api/uqbar/sphinx/book.html#module-uqbar.sphinx.book
+.. _uqbar: https://supriya-project.github.io/uqbar/index.html
 .. _virtualenv: https://readthedocs.org/projects/virtualenv/
 .. _virtualenvwrapper: https://virtualenvwrapper.readthedocs.org/en/latest/
 .. _wavefile: https://pypi.python.org/pypi/wavefile/
@@ -115,8 +124,10 @@ graphviz_output_format = "svg"
 ### INTERSPHINX ###
 
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3", None),
-    "uqbar": ("https://supriya-project.github.io/uqbar", None),
+    "python": ("https://docs.python.org/3/", None),
+    "pynput": ("https://pynput.readthedocs.io/en/latest/", None),
+    "rtmidi": ("https://spotlightkid.github.io/python-rtmidi/", None),
+    "uqbar": ("https://supriya-project.github.io/uqbar/", None),
 }
 
 ## LINKCHECK ###
@@ -144,7 +155,7 @@ uqbar_api_member_documenter_classes = [
 uqbar_api_module_documenter_class = "uqbar.apis.ImmaterialModuleDocumenter"
 uqbar_api_omit_root = True
 uqbar_api_root_documenter_class = "uqbar.apis.SummarizingRootDocumenter"
-uqbar_api_source_paths = supriya.__path__
+uqbar_api_source_paths = [*supriya.__path__, *examples.__path__]
 uqbar_api_title = "Supriya API Reference"
 
 ### UQBAR BOOK ###

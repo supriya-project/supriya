@@ -27,7 +27,7 @@ dependencies = [
   "backports.strenum; python_version < '3.11'",
   "platformdirs >= 4.0.0",
   "psutil",
-  "uqbar >= 0.9.4",
+  "uqbar >= 0.9.6",
 ]
 description = "A Python API for SuperCollider"
 dynamic = ["version"]
@@ -39,6 +39,7 @@ requires-python = ">= 3.10"
 
 [project.optional-dependencies]
 docs = [
+  "supriya[examples]",
   "jupyterlab",
   "jupyterlab-rise",
   "librosa",
@@ -52,9 +53,16 @@ docs = [
   "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
   "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
 ]
+examples = [
+  "pynput",
+  "python-rtmidi",
+]
 test = [
-  "supriya[docs]",
+  "IPython",
+  "librosa",
   "lxml",
+  "matplotlib",
+  "mypy",
   "pytest",
   "pytest-asyncio",
   "pytest-cov",
@@ -62,6 +70,8 @@ test = [
   "pytest-mock",
   "pytest-rerunfailures",
   "ruff",
+  "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
+  "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
   "types-PyYAML",
   "types-docutils",
 ]

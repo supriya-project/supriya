@@ -4,6 +4,7 @@ on:
     types: [released]
 
 env:
+  PYNPUT_BACKEND: dummy
   SC_ORIGIN: https://github.com/josephine-wolf-oberholtzer/supercollider.git
   SC_BRANCH: g-dumpTree-end-delimiter
 
@@ -36,13 +37,13 @@ jobs:
     - name: Install APT deps
       shell: bash
       run: |
-        export DEBIAN_FRONTEND=noninteractive
         sudo apt-get update --yes
         sudo apt-get install --yes \
           espeak \
           ffmpeg \
           graphviz \
-          lame
+          lame \
+          libasound2-dev
     - name: Build docs
       run: make docs
     - uses: actions/upload-artifact@v4
