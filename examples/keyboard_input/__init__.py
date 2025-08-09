@@ -233,6 +233,8 @@ class QwertyHandler(InputHandler):
         if not isinstance(key, pynput.keyboard.KeyCode):
             return  # bail if we didn't get a keycode object
         print(f"QWERTY pressed: {key.char}")
+        if key.char is None:
+            return
         if key.char == "z":  # decrement our octave setting
             self.octave = max(self.octave - 1, 0)
             return

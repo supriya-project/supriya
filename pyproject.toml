@@ -74,6 +74,8 @@ test = [
   "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
   "types-PyYAML",
   "types-docutils",
+  "types-psutil",
+  "types-pynput",
 ]
 
 [project.urls]
