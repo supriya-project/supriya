@@ -31,8 +31,8 @@ from typing import Callable, Generator
 
 import pynput
 import rtmidi
-import rtmidi.midiutil
 import rtmidi.midiconstants
+import rtmidi.midiutil
 
 import supriya
 
