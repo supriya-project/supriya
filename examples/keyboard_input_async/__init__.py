@@ -25,6 +25,7 @@ import asyncio
 import signal
 
 import rtmidi
+import rtmidi.midiutil
 
 import supriya
 
