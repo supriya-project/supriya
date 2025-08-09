@@ -48,6 +48,16 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-6LPCB5FX1J"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-6LPCB5FX1J",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-6LPCB5FX1J",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3828,13 +3838,13 @@ won’t make it past the end of the 21st century), <code class="docutils literal
 current month and <code class="docutils literal notranslate"><span class="pre">X</span></code> is the number of previous releases that month.</p>
 <p>I don’t use semantic versioning because of the cognitive overhead of
 determining what sorts of changes count as breaking, patches, etc.</p>
-<p>The version information is stored in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/supriya/_version.py">supriya/_version.py</a> as a tuple so that it’s available by Supriya after
-installation, and by <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/setup.py">setup.py</a> during installation
+<p>The version information is stored in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b3/supriya/_version.py">supriya/_version.py</a> as a tuple so that it’s available by Supriya after
+installation, and by <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b3/setup.py">setup.py</a> during installation
 (but without needed to import Supriya directly).</p>
 <h2 id="drafting-releases">Drafting releases<a class="headerlink" href="#drafting-releases" title="Link to this heading">¶</a></h2>
 <p>To cut a new release run the <code class="docutils literal notranslate"><span class="pre">Release</span></code> GitHub Actions pipeline at
 <a class="reference external" href="https://github.com/supriya-project/supriya/actions/workflows/release.yml">https://github.com/supriya-project/supriya/actions/workflows/release.yml</a>.</p>
-<p>This will bump the current version number in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/supriya/_version.py">supriya/_version.py</a> and cut a draft of a new release in GitHub.</p>
+<p>This will bump the current version number in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b3/supriya/_version.py">supriya/_version.py</a> and cut a draft of a new release in GitHub.</p>
 <h2 id="publishing-releases">Publishing releases<a class="headerlink" href="#publishing-releases" title="Link to this heading">¶</a></h2>
 <p>Once a draft release in GitHub has been published, the publishing pipeline will
 automatically kickoff at
@@ -3853,6 +3863,8 @@ built documentation with GitHub pages.</p>
   
 
 
+
+  
 
 
 

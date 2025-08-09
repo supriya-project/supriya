@@ -48,6 +48,16 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-6LPCB5FX1J"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-6LPCB5FX1J",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-6LPCB5FX1J",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -4261,7 +4271,7 @@ From source</label></div>
 </div><h2 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">¶</a></h2>
 <p>Supriya uses <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> as its test runner, both for unit tests and for
 doctests, along with a variety of <cite>pytest_</cite> plugins.</p>
-<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/tests">tests/</a>) with:</p>
+<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b3/supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b3/tests">tests/</a>) with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest
 </code></pre></div>
 </div>
@@ -4291,7 +4301,7 @@ equivalents.</p>
 <h3 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> can collect code coverage statistics during its test runs via the
 <a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/">pytest-cov</a> plugin, installed when you install Supriya’s test dependencies.</p>
-<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/supriya">supriya/</a>
+<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b3/supriya">supriya/</a>
 directory during a test run by adding the <code class="docutils literal notranslate"><span class="pre">--cov=supriya</span></code> flag:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>--cov<span class="o">=</span>supriya
 </code></pre></div>
@@ -4409,7 +4419,7 @@ the gaps in test coverage.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The test examples here are <span class="md-icon si-icon-inline octicons_mark-github-16"></span>
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/tests/test_examples.py">in the official test suite</a>, which
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b3/tests/test_examples.py">in the official test suite</a>, which
 ensures that they continue to work and are subject to the same formatting,
 linting and static-typing checks as any other code in Supriya.</p>
 </div>
@@ -5507,9 +5517,9 @@ running the tests.</p>
 <p>Because of its use of metaclasses for code generation in UGens, Supriya
 requires a <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension to teach it about the auto-generated methods and
 properties on those classes.</p>
-<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
+<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b3/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
 and MyPy is already configured to use it via the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> field in Supriya’s
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/pyproject.toml">pyproject.toml</a>.</p>
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b3/pyproject.toml">pyproject.toml</a>.</p>
 <p>Should you need to type check against Supriya’s UGens in another project, you
 can activate the <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension with the following code:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><code><span class="k">[tool.mypy]</span>
@@ -5548,6 +5558,8 @@ Python (e.g. 3.10, 3.11, 3.12, 3.13)</p></li>
   
 
 
+
+  
 
 
 

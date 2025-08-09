@@ -48,6 +48,16 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-6LPCB5FX1J"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-6LPCB5FX1J",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-6LPCB5FX1J",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3842,7 +3852,7 @@
 <h1 id="hello-world-debugged">Hello, world!, debugged<a class="headerlink" href="#hello-world-debugged" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/examples/hello_world_debugged">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b3/examples/hello_world_debugged">full example
 source code</a> on GitHub.</p>
 </div>
 <p>Let’s revisit aspects of the <a class="reference internal" href="hello_world.html"><span class="doc">previous</span></a> <a class="reference internal" href="hello_world_contexts.html"><span class="doc">two</span></a> <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> examples and introduce a variety of
@@ -4020,25 +4030,25 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
 <p>You can invoke the script and see its (very verbose) output with …</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>python<span class="w"> </span>-m<span class="w"> </span>examples.hello_world_debugged
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] booting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] command: /usr/local/bin/scsynth -R 0 -l 1 -u 57110</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] received: JackDriver: client name is &#39;SuperCollider&#39;</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] received: SC_AudioDriver: sample rate = 44100.000000, driver&#39;s block size = 1024</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] received: SuperCollider 3 server ready.</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] ... booted!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] booting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] command: /usr/local/bin/scsynth -R 0 -l 1 -u 57110</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] received: JackDriver: client name is &#39;SuperCollider&#39;</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] received: SC_AudioDriver: sample rate = 44100.000000, driver&#39;s block size = 1024</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] received: SuperCollider 3 server ready.</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] ... booted!</span>
 <span class="go">BEFORE PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.79614135528, average_cpu_usage=0.06197970733046532, group_count=2, peak_cpu_usage=0.22870740294456482, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.06155474856495857, group_count=2, peak_cpu_usage=0.22713929414749146, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">IMMEDIATELY AFTER PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.79614135528, average_cpu_usage=0.06197970733046532, group_count=2, peak_cpu_usage=0.22870740294456482, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.06155474856495857, group_count=2, peak_cpu_usage=0.22713929414749146, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscMessage(&#39;/d_recv&#39;, b&#39;SCgf\x00\x00\x00\x02\x00\x01\x0fsupriya:default\x00\x00\x00\x0c\x00\x00\x00\x00&gt;\x99\x99\x9a&lt;#\xd7\n?333@\x00\x00\x00\xbe\xcc\xcc\xcd&gt;\xcc\xcc\xcdEz\x00\x00E\x9c@\x00E\x1c@\x00EH\x00\x00?\x80\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00=\xcc\xcc\xcdC\xdc\x00\x00?\x80\x00\x00?\x00\x00\x00\x00\x00\x00\x05\x03out\x00\x00\x00\x00\tamplitude\x00\x00\x00\x01\tfrequency\x00\x00\x00\x02\x04gate\x00\x00\x00\x03\x03pan\x00\x00\x00\x04\x00\x00\x00\x14\x07Control\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x04\x00\x01\x01\x01\x01\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x05Linen\x01\x00\x00\x00\x05\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x04\x01\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x00\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x04\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x06\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x08\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Sum3\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\t\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\n\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x07\xff\xff\xff\xff\x00\x00\x00\x08\x00\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\t\xff\xff\xff\xff\x00\x00\x00\n\x00\x05XLine\x01\x00\x00\x00\x04\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0c\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x0b\xff\xff\xff\xff\x00\x00\x00\x00\x01\x03LPF\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0b\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x0f\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x10\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x04Pan2\x02\x00\x00\x00\x03\x00\x00\x00\x02\x00\x00\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x0b\x02\x02\tOffsetOut\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x01\x00\x00&#39;, OscBundle(contents=[OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1000, 0, 1, &#39;frequency&#39;, 261.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1001, 0, 1, &#39;frequency&#39;, 329.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1002, 0, 1, &#39;frequency&#39;, 392.0)]))</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.79614135528, average_cpu_usage=0.06197970733046532, group_count=2, peak_cpu_usage=0.22870740294456482, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.06155474856495857, group_count=2, peak_cpu_usage=0.22713929414749146, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscMessage(&#39;/sync&#39;, 1)</span>
 <span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 0)</span>
@@ -4055,7 +4065,7 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
 <span class="go">JUST BEFORE STOPPING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.116756221105, average_cpu_usage=0.438785582780838, group_count=2, peak_cpu_usage=0.44228535890579224, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.22998562333, average_cpu_usage=0.39666128158569336, group_count=2, peak_cpu_usage=0.396695613861084, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">    Tree:         1002 supriya:default</span>
@@ -4065,7 +4075,7 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
 <span class="go">IMMEDIATELY AFTER STOPPING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.116756221105, average_cpu_usage=0.438785582780838, group_count=2, peak_cpu_usage=0.44228535890579224, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.22998562333, average_cpu_usage=0.39666128158569336, group_count=2, peak_cpu_usage=0.396695613861084, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscBundle(contents=[OscMessage(&#39;/n_set&#39;, 1000, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1001, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1002, &#39;gate&#39;, 0.0)])</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
@@ -4077,17 +4087,17 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 0.0, pan: 0.5</span>
 <span class="go">AFTER RELEASING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44104.777071502656, average_cpu_usage=0.45496866106987, group_count=2, peak_cpu_usage=0.4615771174430847, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44104.89029916077, average_cpu_usage=0.4097205400466919, group_count=2, peak_cpu_usage=0.42003315687179565, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1002, 1, -1, 1001, 0)</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1001, 1, -1, 1000, 0)</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1000, 1, -1, -1, 0)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] quitting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] ... quit!</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] quitting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2f58520830] ... already quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] ... quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f97f2f28830] ... already quit!</span>
 </code></pre></div>
 </div>
 <p>That’s a lot of output! Depending on your application, you may need to dial it
@@ -4103,6 +4113,8 @@ down, or dial it up. Now you have the building blocks to do so.</p>
   
 
 
+
+  
 
 
 

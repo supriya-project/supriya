@@ -48,6 +48,16 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-6LPCB5FX1J"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-6LPCB5FX1J",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-6LPCB5FX1J",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3934,7 +3944,7 @@
 <h1 id="keyboard-input">Keyboard input<a class="headerlink" href="#keyboard-input" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/examples/keyboard_input">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b3/examples/keyboard_input">full example
 source code</a> on GitHub.</p>
 </div>
 <div class="important tip admonition">
@@ -3963,7 +3973,7 @@ From source</label></div>
 <p>Let’s introduce some interactivity.</p>
 <p>We can play notes with Supriya using a MIDI keyboard. Don’t have a MIDI
 keyboard available? We’ll also support using your computer’s QWERTY keyboard
-just like you can in Ableton live.</p>
+just like you can in <a class="reference external" href="https://www.ableton.com/en/live/">Ableton Live</a>.</p>
 <h2 id="note-events">Note events<a class="headerlink" href="#note-events" title="Link to this heading">¶</a></h2>
 <p>What’s a “note”, anyways?</p>
 <p>MIDI represents notes not as durated objects positioned on a timeline, but
@@ -4206,7 +4216,7 @@ other types of messages, and then wraps the data into our
 <code class="docutils literal notranslate"><span class="pre">callback</span></code> callable against them.</p>
 <h3 id="handling-qwerty">Handling QWERTY<a class="headerlink" href="#handling-qwerty" title="Link to this heading">¶</a></h3>
 <p>Input from a computer keyboard is more complicated because we need to simulate
-a larger pitch space than we have keys on our computer keyboard. We’ll use the
+a larger pitch space than we have physical keys available. We’ll use the
 <a class="reference external" href="https://github.com/moses-palmer/pynput">pynput</a> library to listen for key presses and releases, and mimic <a class="reference external" href="https://www.ableton.com/en/live/">Ableton
 Live</a>’s QWERTY keyboard feature. Take a look and then let’s discuss.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
@@ -4257,6 +4267,8 @@ Live</a>’s QWERTY keyboard feature. Take a look and then let’s discuss.</p>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span><span class="p">):</span>
             <span class="k">return</span>  <span class="c1"># bail if we didn&#39;t get a keycode object</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;QWERTY pressed: </span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
         <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>  <span class="c1"># decrement our octave setting</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="k">return</span>
@@ -4462,6 +4474,8 @@ you can pass to the script when running it with <code class="docutils literal no
   
 
 
+
+  
 
 
 

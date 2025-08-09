@@ -48,6 +48,16 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-6LPCB5FX1J"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-6LPCB5FX1J",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-6LPCB5FX1J",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -3985,7 +3995,7 @@ From source</label></div>
 </div>
 </div>
 </div><h2 id="building-documentation">Building documentation<a class="headerlink" href="#building-documentation" title="Link to this heading">¶</a></h2>
-<p>Supriya’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation lives under <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/docs/">docs/</a>.</p>
+<p>Supriya’s <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> documentation lives under <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b3/docs/">docs/</a>.</p>
 <p>You can build the documentationg with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>docs
 </code></pre></div>
@@ -4005,7 +4015,7 @@ automatically build Supriya’s <a class="reference external" href="https://www.
 this project, so - with grace - some guidance.</p>
 <h3 id="sphinx">sphinx<a class="headerlink" href="#sphinx" title="Link to this heading">¶</a></h3>
 <p>Supriya’s documentation is built via <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> and, both under
-<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/docs/">docs/</a> and in every docstring, uses <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">reStructuredText</a>
+<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b3/docs/">docs/</a> and in every docstring, uses <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">reStructuredText</a>
 formatting.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -4013,7 +4023,7 @@ formatting.</p>
 far</em> more extensible and expressive. The majority of Sphinx’s interesting
 features like custom directives, plugins, cross-references, etc. require
 reStructuredText capabilities. While Markdown is used sparingly in READMEs
-only intended for viewing on GitHub (e.g. the <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/README.md">root README</a>), everywhere else should use reStructuredText.</p>
+only intended for viewing on GitHub (e.g. the <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b3/README.md">root README</a>), everywhere else should use reStructuredText.</p>
 </div>
 <p>Familiarize yourself with reStructuredText’s basics, and with its <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/domains/python.html">Python
 domain</a>
@@ -4232,7 +4242,7 @@ initializers), use <a class="reference external" href="https://www.sphinx-doc.or
 <p>Don’t worry about explicitly adding types to the documentation. <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> will
 pull type annotations directly out of the Python source code.</p>
 <h2 id="writing-examples">Writing examples<a class="headerlink" href="#writing-examples" title="Link to this heading">¶</a></h2>
-<p>Supriya’s examples live in <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b2/examples/">examples/</a>.</p>
+<p>Supriya’s examples live in <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.8b3/examples/">examples/</a>.</p>
 <p>Each example should receive its own subdirectory (named e.g.
 <code class="docutils literal notranslate"><span class="pre">examples/hello_world/</span></code>), its own <code class="docutils literal notranslate"><span class="pre">README.md</span></code> with basic usage information,
 and one (and preferably only one) Python module named the same as the directory
@@ -4240,7 +4250,7 @@ and one (and preferably only one) Python module named the same as the directory
 <p>There should also be a reStructuredText document named after the example in the
 documentation source (e.g. <code class="docutils literal notranslate"><span class="pre">docs/source/examples/hello_world.rst</span></code>) and
 included into the examples TOC (table-of-contents) in the root reStructuredText
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b2/docs/source/index.rst">index.rst</a>.</p>
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.8b3/docs/source/index.rst">index.rst</a>.</p>
 <p>Each example Python module should have a <code class="docutils literal notranslate"><span class="pre">main()</span></code> function, and an <code class="docutils literal notranslate"><span class="pre">if</span>
 <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code> block executing it:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -4272,6 +4282,8 @@ describe the entire example module in the accompanying reStructuredText.</p>
   
 
 
+
+  
 
 
 
