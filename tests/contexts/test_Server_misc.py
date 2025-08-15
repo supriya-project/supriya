@@ -2,7 +2,7 @@ import asyncio
 import logging
 import re
 import subprocess
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Union
 
 import pytest
 import pytest_asyncio
@@ -1187,7 +1187,9 @@ async def test_query_version(context: AsyncServer | Server) -> None:
 async def test_reboot(context: AsyncServer | Server) -> None:
     # TODO: expand this
 
-    def callback(event: ServerLifecycleEvent) -> None:
+    def callback(
+        server: Union["AsyncServer", "Server"], event: ServerLifecycleEvent
+    ) -> None:
         events.append(event)
 
     events: list[ServerLifecycleEvent] = []
@@ -1223,7 +1225,9 @@ async def test_reboot(context: AsyncServer | Server) -> None:
 
 @pytest.mark.asyncio
 async def test_register_lifecycle_callback(context: AsyncServer | Server) -> None:
-    def procedure(event: ServerLifecycleEvent) -> None:
+    def procedure(
+        server: Union["AsyncServer", "Server"], event: ServerLifecycleEvent
+    ) -> None:
         events.append(event)
 
     events: list[ServerLifecycleEvent] = []
@@ -1248,7 +1252,9 @@ async def test_register_osc_callback(context: AsyncServer | Server) -> None:
 @pytest.mark.asyncio
 async def test_reset(context: AsyncServer | Server) -> None:
     # TODO: expand this
-    def callback(event: ServerLifecycleEvent) -> None:
+    def callback(
+        server: Union["AsyncServer", "Server"], event: ServerLifecycleEvent
+    ) -> None:
         events.append(event)
 
     events: list[ServerLifecycleEvent] = []
@@ -1300,7 +1306,9 @@ async def test_sync(context: AsyncServer | Server) -> None:
 
 @pytest.mark.asyncio
 async def test_unregister_lifecycle_callback(context: AsyncServer | Server) -> None:
-    def procedure(event: ServerLifecycleEvent) -> None:
+    def procedure(
+        server: Union["AsyncServer", "Server"], event: ServerLifecycleEvent
+    ) -> None:
         events.append(event)
 
     events: list[ServerLifecycleEvent] = []
