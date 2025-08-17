@@ -148,7 +148,6 @@ jobs:
     - name: Sanity-check Supriya
       run: |
         python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
-        python -c "from supriya.utils._intervals import IntervalTreeDriverEx; print(IntervalTreeDriverEx)"
         python -c "from supriya.contexts.shm import ServerSHM; print(ServerSHM)"
       timeout-minutes: 1
     - name: Check for stray processes (Non-Windows)
