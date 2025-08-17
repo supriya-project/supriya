@@ -18,7 +18,6 @@ Invoke with:
 
 See the :doc:`example documentation </examples/keyboard_input_async>` for a
 complete explanation.
-
 """
 
 import asyncio

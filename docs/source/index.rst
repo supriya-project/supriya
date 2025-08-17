@@ -161,6 +161,9 @@ Quit the server::
     examples/hello_world_debugged
     examples/keyboard_input
     examples/keyboard_input_async
+    examples/keyboard_input_elaborated
+    examples/drum_machine
+    examples/drum_machine_sequenced
 
 ..  toctree::
     :caption: For developers
