@@ -1,3 +1,7 @@
+"""
+Utility functions.
+"""
+
 import itertools
 from typing import (
     Generator,

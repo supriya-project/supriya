@@ -18,11 +18,6 @@ def read_version():
 
 extensions = [
     Extension(
-        "supriya.utils._intervals",
-        language="c",
-        sources=["supriya/utils/_intervals.pyx"],
-    ),
-    Extension(
         "supriya.contexts.shm",
         include_dirs=[
             "vendor",

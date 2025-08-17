@@ -88,7 +88,6 @@ build = "cp3{10,11,12,13}-*"
 test-command = [
   # Only double-quotes work on Windows.
   'python -c "from supriya.contexts import shm; print(shm.__file__)"',
-  'python -c "from supriya.utils._intervals import IntervalTreeDriverEx"',
 ]
 
 [tool.coverage.report]
