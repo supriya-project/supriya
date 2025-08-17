@@ -26,7 +26,7 @@ from .responses import Response
 if TYPE_CHECKING:
     import supriya.contexts.realtime
 
-    from .contexts.core import Context
+    from .core import Context
 
 
 logger = logging.getLogger(__name__)
