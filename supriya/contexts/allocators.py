@@ -105,40 +105,6 @@ class BlockAllocator:
                 block_id = used_block.start_offset
         return int(block_id) if block_id is not None else None
 
-    def allocate_at(self, index: int, desired_block_size: int = 1) -> int | None:
-        index = int(index)
-        desired_block_size = int(desired_block_size)
-        block_id = None
-        with self._lock:
-            start_offset = index
-            stop_offset = index + desired_block_size
-            start_cursor = self._free_heap.get_moment_at(start_offset)
-            starting_blocks = sorted(
-                start_cursor.start_intervals + start_cursor.overlap_intervals
-            )
-            stop_cursor = self._free_heap.get_moment_at(stop_offset)
-            stop_blocks = sorted(
-                stop_cursor.overlap_intervals + stop_cursor.stop_intervals
-            )
-            if starting_blocks == stop_blocks:
-                if len(starting_blocks) == 0:
-                    return None
-                if len(starting_blocks) != 1:
-                    raise RuntimeError
-                free_block = starting_blocks[0]
-                used_block = Block(
-                    start_offset=start_offset, stop_offset=stop_offset, used=True
-                )
-                self._used_heap.add(used_block)
-                self._free_heap.remove(free_block)
-                free_blocks = free_block - used_block
-                for free_block in free_blocks:
-                    self._free_heap.add(free_block)
-                block_id = index
-        if block_id is None:
-            return block_id
-        return int(block_id)
-
     def free(self, block_id: int) -> None:
         block_id = int(block_id)
         with self._lock:
