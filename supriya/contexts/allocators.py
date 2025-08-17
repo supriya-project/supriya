@@ -63,6 +63,17 @@ class BlockAllocator:
         ]
         self._lock = threading.Lock()
 
+    ### SPECIAL METHODS ###
+
+    def __getstate__(self) -> dict:
+        state = self.__dict__.copy()
+        del state["_lock"]
+        return state
+
+    def __setstate__(self, state: dict) -> None:
+        self.__dict__.update(state)
+        self._lock = threading.Lock()
+
     ### PUBLIC METHODS ###
 
     def allocate(self, size: int = 1) -> int | None:
