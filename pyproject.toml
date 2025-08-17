@@ -98,7 +98,7 @@ exclude_lines = [
 ]
 
 [tool.mypy]
-disable_error_code = "import-untyped"
+ignore_missing_imports = true
 plugins = ["supriya.ext.mypy"]
 
 [tool.pytest.ini_options]
