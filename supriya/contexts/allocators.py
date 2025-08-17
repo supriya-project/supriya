@@ -20,9 +20,7 @@ class BlockAllocator:
     ::
 
         >>> from supriya.contexts.allocators import BlockAllocator
-        >>> allocator = BlockAllocator(
-        ...     heap_maximum=16,
-        ... )
+        >>> allocator = BlockAllocator(heap_maximum=16)
 
     ::
 
@@ -109,7 +107,7 @@ class BlockAllocator:
                 and self._free_heap[index].stop_offset
                 == self._free_heap[index + 1].start_offset
             ):
-                self._free_heap[index].stop_offset == self._free_heap.pop(
+                self._free_heap[index].stop_offset = self._free_heap.pop(
                     index + 1
                 ).stop_offset
             # coalesce left
