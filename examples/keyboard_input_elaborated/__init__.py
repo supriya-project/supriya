@@ -181,6 +181,16 @@ reverb_synthdef = build_reverb_synthdef()
 compressor_synthdef = build_compressor_synthdef()
 
 
+# TODO: OK
+#       Let's combine polyphonymanager into instrument
+#       Handle monophonic instruments as first-class
+#       And make an instrument that accepts:
+#       - synthdef
+#       - start note callable
+#       - stop note callable
+#       - update note callable (monophonic only)
+
+
 @dataclasses.dataclass
 class PolyphonyManager:
     """
@@ -213,7 +223,11 @@ class PolyphonyManager:
         # already played, bail early
         if event.note_number in self.note_numbers:
             return events
-        elif self.voice_count and len(self.note_numbers) >= self.voice_count:
+        # make sure the NoteOn hits the instrument first
+        # because this makes monophonic instruments simpler
+        events.append(event)
+        self.note_numbers.append(event.note_number)
+        if self.voice_count and len(self.note_numbers) >= self.voice_count:
             print(f"Polyphony limit reached! {event.note_number} {self.note_numbers}")
             if self.polyphony_mode == "oldest":
                 # drop the oldest note number
@@ -229,8 +243,6 @@ class PolyphonyManager:
         if old_note_number is not None:
             self.note_numbers.remove(old_note_number)
             events.append(NoteOff(note_number=old_note_number))
-        self.note_numbers.append(event.note_number)
-        events.append(event)
         return events
 
     @__call__.register
