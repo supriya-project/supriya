@@ -239,12 +239,16 @@ class Context(metaclass=abc.ABCMeta):
 
     def __getstate__(self) -> dict:
         state = self.__dict__.copy()
+        del state["_completions"]
         del state["_lock"]
+        del state["_moments"]
         return state
 
     def __setstate__(self, state: dict) -> None:
         self.__dict__.update(state)
+        self._completions = contextvars.ContextVar("completions")
         self._lock = threading.RLock()
+        self._moments = contextvars.ContextVar("moments")
 
     ### PRIVATE METHODS ###
 
