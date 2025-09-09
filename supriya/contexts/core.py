@@ -6,6 +6,7 @@ Context subclasses expose a common interface for realtime and non-realtime synth
 
 import abc
 import contextlib
+import contextvars
 import dataclasses
 import itertools
 import re
@@ -217,30 +218,37 @@ class Context(metaclass=abc.ABCMeta):
         self._boot_status: BootStatus = BootStatus.OFFLINE
         self._buffer_allocator = BlockAllocator()
         self._client_id: int = 0
+        self._completions: contextvars.ContextVar[list[Completion]] = (
+            contextvars.ContextVar("completions")
+        )
         self._control_bus_allocator = BlockAllocator()
         self._latency: float = 0.0
         self._lock = threading.RLock()
+        self._moments: contextvars.ContextVar[list[Moment]] = contextvars.ContextVar(
+            "moments"
+        )
         self._name: str | None = name
         self._node_id_allocator = NodeIdAllocator()
         self._options: Options = self._get_options(options, **kwargs)
         self._scope_buffer_allocator: BlockAllocator | None = None
         self._sync_id: int = 0
-        self._sync_id_minimum: int = 0
         self._sync_id_maximum: int = 32 << 26
-        self._thread_local = threading.local()
+        self._sync_id_minimum: int = 0
 
     ### SPECIAL METHODS ###
 
     def __getstate__(self) -> dict:
         state = self.__dict__.copy()
+        del state["_completions"]
         del state["_lock"]
-        del state["_thread_local"]
+        del state["_moments"]
         return state
 
     def __setstate__(self, state: dict) -> None:
         self.__dict__.update(state)
+        self._completions = contextvars.ContextVar("completions")
         self._lock = threading.RLock()
-        self._thread_local = threading.local()
+        self._moments = contextvars.ContextVar("moments")
 
     ### PRIVATE METHODS ###
 
@@ -341,9 +349,16 @@ class Context(metaclass=abc.ABCMeta):
             return self._scope_buffer_allocator
         raise ValueError
 
+    def _get_completions(self) -> list[Completion]:
+        self._completions.set(completions := self._completions.get([]))
+        return completions
+
+    def _get_moments(self) -> list[Moment]:
+        self._moments.set(moments := self._moments.get([]))
+        return moments
+
     def _get_moment(self) -> Moment | None:
-        moments = self._thread_local.__dict__.get("moments", [])
-        if not moments:
+        if not (moments := self._get_moments()):
             return None
         return moments[-1]
 
@@ -359,8 +374,8 @@ class Context(metaclass=abc.ABCMeta):
         return dataclasses.replace(options or Options(), **kwargs)
 
     def _get_request_context(self) -> Completion | Moment | None:
-        moments = self._thread_local.__dict__.get("moments", [])
-        completions = self._thread_local.__dict__.get("completions", [])
+        moments = self._get_moments()
+        completions = self._get_completions()
         if completions:
             return completions[-1]
         if moments:
@@ -368,16 +383,16 @@ class Context(metaclass=abc.ABCMeta):
         return None
 
     def _pop_completion(self) -> None:
-        self._thread_local.__dict__.setdefault("completions", []).pop()
+        self._get_completions().pop()
 
     def _pop_moment(self) -> None:
-        self._thread_local.__dict__.setdefault("moments", []).pop()
+        self._get_moments().pop()
 
     def _push_completion(self, completion: Completion) -> None:
-        self._thread_local.__dict__.setdefault("completions", []).append(completion)
+        self._get_completions().append(completion)
 
     def _push_moment(self, moment: Moment) -> None:
-        self._thread_local.__dict__.setdefault("moments", []).append(moment)
+        self._get_moments().append(moment)
 
     @abc.abstractmethod
     def _resolve_node(self, node: Node | SupportsInt | None) -> int:
