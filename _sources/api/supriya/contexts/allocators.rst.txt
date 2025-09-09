@@ -10,15 +10,17 @@ allocators
 .. autoclass:: Block
    :show-inheritance:
 
+   .. automethod:: __ge__
+   .. automethod:: __gt__
+   .. automethod:: __le__
+   .. automethod:: __lt__
+   .. autoproperty:: size
 
 .. autoclass:: BlockAllocator
    :show-inheritance:
 
    .. automethod:: allocate
-   .. automethod:: allocate_at
    .. automethod:: free
-   .. autoproperty:: heap_maximum
-   .. autoproperty:: heap_minimum
 
 .. autoclass:: NodeIdAllocator
    :show-inheritance:

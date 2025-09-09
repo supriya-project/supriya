@@ -1,0 +1,27 @@
+.. _supriya--utils:
+
+utils
+=====
+
+.. automodule:: supriya.utils
+
+.. currentmodule:: supriya.utils
+
+.. autoclass:: Expander
+   :show-inheritance:
+
+   .. automethod:: __call__
+
+.. autofunction:: expand
+
+.. autofunction:: expand_deep
+
+.. autofunction:: flatten
+
+.. autofunction:: group_by_count
+
+.. autofunction:: iterate_nwise
+
+.. autofunction:: repeat_to_length
+
+.. autofunction:: zip_cycled

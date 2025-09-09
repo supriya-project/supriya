@@ -24,4 +24,4 @@ supriya
    soundfiles
    typing
    ugens/index
-   utils/index
+   utils
