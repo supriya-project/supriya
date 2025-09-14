@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import pytest
 
 from supriya.patterns import (
@@ -13,8 +15,8 @@ from supriya.patterns import (
     Pattern,
     SequencePattern,
 )
-from supriya.patterns.testutils import MockUUID as M
-from supriya.patterns.testutils import run_pattern_test
+
+from .conftest import run_pattern_test
 
 
 @pytest.mark.parametrize(
@@ -29,22 +31,22 @@ from supriya.patterns.testutils import run_pattern_test
             [
                 CompositeEvent(
                     [
-                        NoteEvent(M("A"), delta=0.0, frequency=440),
-                        NoteEvent(M("B"), delta=0.0, frequency=777),
+                        NoteEvent(UUID(int=0), delta=0.0, frequency=440),
+                        NoteEvent(UUID(int=1), delta=0.0, frequency=777),
                     ],
                     delta=1.0,
                 ),
                 CompositeEvent(
                     [
-                        NoteEvent(M("C"), delta=0.0, frequency=550),
-                        NoteEvent(M("D"), delta=0.0, frequency=888),
+                        NoteEvent(UUID(int=2), delta=0.0, frequency=550),
+                        NoteEvent(UUID(int=3), delta=0.0, frequency=888),
                     ],
                     delta=1.0,
                 ),
                 CompositeEvent(
                     [
-                        NoteEvent(M("E"), delta=0.0, frequency=660),
-                        NoteEvent(M("F"), delta=0.0, frequency=999),
+                        NoteEvent(UUID(int=4), delta=0.0, frequency=660),
+                        NoteEvent(UUID(int=5), delta=0.0, frequency=999),
                     ],
                     delta=1.0,
                 ),
@@ -60,14 +62,14 @@ from supriya.patterns.testutils import run_pattern_test
             [
                 CompositeEvent(
                     [
-                        NoteEvent(M("A"), delta=0.0, x=1),
-                        NoteEvent(M("B"), delta=0.0, y=1),
+                        NoteEvent(UUID(int=0), delta=0.0, x=1),
+                        NoteEvent(UUID(int=1), delta=0.0, y=1),
                     ],
                     delta=1.0,
                 ),
-                NoteEvent(M("C"), delta=0.5, x=2),
-                NoteEvent(M("D"), delta=0.5, y=2),
-                NoteEvent(M("E"), delta=1.0, x=3),
+                NoteEvent(UUID(int=2), delta=0.5, x=2),
+                NoteEvent(UUID(int=3), delta=0.5, y=2),
+                NoteEvent(UUID(int=4), delta=1.0, x=3),
             ],
             False,
         ),
@@ -80,8 +82,8 @@ from supriya.patterns.testutils import run_pattern_test
             [
                 CompositeEvent(
                     [
-                        NoteEvent(M("A"), delta=0.0, x=1),
-                        NoteEvent(M("B"), delta=0.0, y=1),
+                        NoteEvent(UUID(int=0), delta=0.0, x=1),
+                        NoteEvent(UUID(int=1), delta=0.0, y=1),
                     ],
                     delta=1.0,
                 )
@@ -97,20 +99,24 @@ from supriya.patterns.testutils import run_pattern_test
             [
                 CompositeEvent(
                     [
-                        CompositeEvent([GroupAllocateEvent(M("A"))]),
-                        NoteEvent(M("B"), delta=0.0, target_node=M("A"), x=1),
-                        CompositeEvent([GroupAllocateEvent(M("C"))]),
-                        NoteEvent(M("D"), delta=0.0, target_node=M("C"), y=1),
+                        CompositeEvent([GroupAllocateEvent(UUID(int=0))]),
+                        NoteEvent(UUID(int=1), delta=0.0, target_node=UUID(int=0), x=1),
+                        CompositeEvent([GroupAllocateEvent(UUID(int=2))]),
+                        NoteEvent(UUID(int=3), delta=0.0, target_node=UUID(int=2), y=1),
                     ],
                     delta=1.0,
                 ),
-                NoteEvent(M("E"), delta=0.5, target_node=M("A"), x=2),
-                NoteEvent(M("F"), delta=0.5, target_node=M("C"), y=2),
-                NoteEvent(M("G"), delta=1.0, target_node=M("A"), x=3),
+                NoteEvent(UUID(int=4), delta=0.5, target_node=UUID(int=0), x=2),
+                NoteEvent(UUID(int=5), delta=0.5, target_node=UUID(int=2), y=2),
+                NoteEvent(UUID(int=6), delta=1.0, target_node=UUID(int=0), x=3),
                 CompositeEvent(
                     [
-                        CompositeEvent([NullEvent(delta=0.25), NodeFreeEvent(M("A"))]),
-                        CompositeEvent([NullEvent(delta=0.25), NodeFreeEvent(M("C"))]),
+                        CompositeEvent(
+                            [NullEvent(delta=0.25), NodeFreeEvent(UUID(int=0))]
+                        ),
+                        CompositeEvent(
+                            [NullEvent(delta=0.25), NodeFreeEvent(UUID(int=2))]
+                        ),
                     ]
                 ),
             ],
@@ -125,17 +131,17 @@ from supriya.patterns.testutils import run_pattern_test
             [
                 CompositeEvent(
                     [
-                        CompositeEvent([GroupAllocateEvent(M("A"))]),
-                        NoteEvent(M("B"), delta=0.0, target_node=M("A"), x=1),
-                        CompositeEvent([GroupAllocateEvent(M("C"))]),
-                        NoteEvent(M("D"), delta=0.0, target_node=M("C"), y=1),
+                        CompositeEvent([GroupAllocateEvent(UUID(int=0))]),
+                        NoteEvent(UUID(int=1), delta=0.0, target_node=UUID(int=0), x=1),
+                        CompositeEvent([GroupAllocateEvent(UUID(int=2))]),
+                        NoteEvent(UUID(int=3), delta=0.0, target_node=UUID(int=2), y=1),
                     ],
                     delta=1.0,
                 ),
                 CompositeEvent(
-                    [NullEvent(delta=0.25), NodeFreeEvent(M("A"))], delta=0.5
+                    [NullEvent(delta=0.25), NodeFreeEvent(UUID(int=0))], delta=0.5
                 ),
-                CompositeEvent([NullEvent(delta=0.25), NodeFreeEvent(M("C"))]),
+                CompositeEvent([NullEvent(delta=0.25), NodeFreeEvent(UUID(int=2))]),
             ],
             False,
         ),

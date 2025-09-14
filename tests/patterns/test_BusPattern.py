@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import pytest
 
 from supriya import AddAction, CalculationRate
@@ -16,10 +18,10 @@ from supriya.patterns import (
     SequencePattern,
     SynthAllocateEvent,
 )
-from supriya.patterns.testutils import MockUUID as M
-from supriya.patterns.testutils import run_pattern_test
 from supriya.typing import CalculationRateLike
 from supriya.ugens import system
+
+from .conftest import run_pattern_test
 
 
 @pytest.mark.parametrize(
@@ -35,26 +37,30 @@ from supriya.ugens import system
                 CompositeEvent(
                     [
                         BusAllocateEvent(
-                            M("A"),
+                            UUID(int=0),
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("B")),
+                        GroupAllocateEvent(UUID(int=1)),
                         SynthAllocateEvent(
-                            M("C"),
+                            UUID(int=2),
                             add_action=AddAction.ADD_AFTER,
                             amplitude=1.0,
                             fade_time=0.0,
-                            in_=M("A"),
+                            in_=UUID(int=0),
                             synthdef=system.system_link_audio_2,
-                            target_node=M("B"),
+                            target_node=UUID(int=1),
                         ),
                     ]
                 ),
-                NoteEvent(M("D"), a=1, out=M("A"), target_node=M("B")),
-                NoteEvent(M("E"), a=2, out=M("A"), target_node=M("B")),
+                NoteEvent(UUID(int=3), a=1, out=UUID(int=0), target_node=UUID(int=1)),
+                NoteEvent(UUID(int=4), a=2, out=UUID(int=0), target_node=UUID(int=1)),
                 CompositeEvent(
-                    [NodeFreeEvent(M("C")), NodeFreeEvent(M("B")), BusFreeEvent(M("A"))]
+                    [
+                        NodeFreeEvent(UUID(int=2)),
+                        NodeFreeEvent(UUID(int=1)),
+                        BusFreeEvent(UUID(int=0)),
+                    ]
                 ),
             ],
             False,
@@ -69,30 +75,30 @@ from supriya.ugens import system
                 CompositeEvent(
                     [
                         BusAllocateEvent(
-                            M("A"),
+                            UUID(int=0),
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("B")),
+                        GroupAllocateEvent(UUID(int=1)),
                         SynthAllocateEvent(
-                            M("C"),
+                            UUID(int=2),
                             add_action=AddAction.ADD_AFTER,
                             amplitude=1.0,
                             fade_time=0.25,
-                            in_=M("A"),
+                            in_=UUID(int=0),
                             synthdef=system.system_link_audio_2,
-                            target_node=M("B"),
+                            target_node=UUID(int=1),
                         ),
                     ]
                 ),
-                NoteEvent(M("D"), a=1, out=M("A"), target_node=M("B")),
-                NoteEvent(M("E"), a=2, out=M("A"), target_node=M("B")),
+                NoteEvent(UUID(int=3), a=1, out=UUID(int=0), target_node=UUID(int=1)),
+                NoteEvent(UUID(int=4), a=2, out=UUID(int=0), target_node=UUID(int=1)),
                 CompositeEvent(
                     [
-                        NodeFreeEvent(M("C")),
+                        NodeFreeEvent(UUID(int=2)),
                         NullEvent(delta=0.25),
-                        NodeFreeEvent(M("B")),
-                        BusFreeEvent(M("A")),
+                        NodeFreeEvent(UUID(int=1)),
+                        BusFreeEvent(UUID(int=0)),
                     ]
                 ),
             ],
@@ -108,58 +114,58 @@ from supriya.ugens import system
                 CompositeEvent(
                     [
                         BusAllocateEvent(
-                            M("A"),
+                            UUID(int=0),
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("B")),
+                        GroupAllocateEvent(UUID(int=1)),
                         SynthAllocateEvent(
-                            M("C"),
+                            UUID(int=2),
                             add_action=AddAction.ADD_AFTER,
                             amplitude=1.0,
                             fade_time=0.25,
-                            in_=M("A"),
+                            in_=UUID(int=0),
                             synthdef=system.system_link_audio_2,
-                            target_node=M("B"),
+                            target_node=UUID(int=1),
                         ),
                     ]
                 ),
                 CompositeEvent(
                     [
                         BusAllocateEvent(
-                            M("D"),
+                            UUID(int=3),
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("E"), target_node=M("B")),
+                        GroupAllocateEvent(UUID(int=4), target_node=UUID(int=1)),
                         SynthAllocateEvent(
-                            M("F"),
+                            UUID(int=5),
                             add_action=AddAction.ADD_AFTER,
                             amplitude=1.0,
                             fade_time=0.25,
-                            in_=M("D"),
-                            out=M("A"),
+                            in_=UUID(int=3),
+                            out=UUID(int=0),
                             synthdef=system.system_link_audio_2,
-                            target_node=M("E"),
+                            target_node=UUID(int=4),
                         ),
                     ]
                 ),
-                NoteEvent(M("G"), a=1, out=M("D"), target_node=M("E")),
-                NoteEvent(M("H"), a=2, out=M("D"), target_node=M("E")),
+                NoteEvent(UUID(int=6), a=1, out=UUID(int=3), target_node=UUID(int=4)),
+                NoteEvent(UUID(int=7), a=2, out=UUID(int=3), target_node=UUID(int=4)),
                 CompositeEvent(
                     [
-                        NodeFreeEvent(M("F")),
+                        NodeFreeEvent(UUID(int=5)),
                         NullEvent(delta=0.25),
-                        NodeFreeEvent(M("E")),
-                        BusFreeEvent(M("D")),
+                        NodeFreeEvent(UUID(int=4)),
+                        BusFreeEvent(UUID(int=3)),
                     ]
                 ),
                 CompositeEvent(
                     [
-                        NodeFreeEvent(M("C")),
+                        NodeFreeEvent(UUID(int=2)),
                         NullEvent(delta=0.25),
-                        NodeFreeEvent(M("B")),
-                        BusFreeEvent(M("A")),
+                        NodeFreeEvent(UUID(int=1)),
+                        BusFreeEvent(UUID(int=0)),
                     ]
                 ),
             ],
@@ -184,19 +190,19 @@ from supriya.ugens import system
                 CompositeEvent(
                     [
                         BusAllocateEvent(
-                            M("A"),
+                            UUID(int=0),
                             calculation_rate=CalculationRate.AUDIO,
                             channel_count=2,
                         ),
-                        GroupAllocateEvent(M("B")),
+                        GroupAllocateEvent(UUID(int=1)),
                         SynthAllocateEvent(
-                            M("C"),
+                            UUID(int=2),
                             system.system_link_audio_2,
                             add_action=AddAction.ADD_AFTER,
                             amplitude=1.0,
                             fade_time=0.25,
-                            in_=M("A"),
-                            target_node=M("B"),
+                            in_=UUID(int=0),
+                            target_node=UUID(int=1),
                         ),
                     ]
                 ),
@@ -205,56 +211,60 @@ from supriya.ugens import system
                         CompositeEvent(
                             [
                                 BusAllocateEvent(
-                                    M("D"),
+                                    UUID(int=3),
                                     calculation_rate=CalculationRate.AUDIO,
                                     channel_count=2,
                                 ),
-                                GroupAllocateEvent(M("E"), target_node=M("B")),
+                                GroupAllocateEvent(
+                                    UUID(int=4), target_node=UUID(int=1)
+                                ),
                                 SynthAllocateEvent(
-                                    M("F"),
+                                    UUID(int=5),
                                     system.system_link_audio_2,
                                     add_action=AddAction.ADD_AFTER,
                                     amplitude=1.0,
                                     fade_time=0.25,
-                                    in_=M("D"),
-                                    out=M("A"),
-                                    target_node=M("E"),
+                                    in_=UUID(int=3),
+                                    out=UUID(int=0),
+                                    target_node=UUID(int=4),
                                 ),
                             ]
                         ),
                         NoteEvent(
-                            M("G"),
+                            UUID(int=6),
                             a=1,
                             delta=0.0,
-                            out=M("D"),
-                            target_node=M("E"),
+                            out=UUID(int=3),
+                            target_node=UUID(int=4),
                         ),
                         CompositeEvent(
                             [
                                 BusAllocateEvent(
-                                    M("H"),
+                                    UUID(int=7),
                                     calculation_rate=CalculationRate.AUDIO,
                                     channel_count=2,
                                 ),
-                                GroupAllocateEvent(M("I"), target_node=M("B")),
+                                GroupAllocateEvent(
+                                    UUID(int=8), target_node=UUID(int=1)
+                                ),
                                 SynthAllocateEvent(
-                                    M("J"),
+                                    UUID(int=9),
                                     system.system_link_audio_2,
                                     add_action=AddAction.ADD_AFTER,
                                     amplitude=1.0,
                                     fade_time=0.25,
-                                    in_=M("H"),
-                                    out=M("A"),
-                                    target_node=M("I"),
+                                    in_=UUID(int=7),
+                                    out=UUID(int=0),
+                                    target_node=UUID(int=8),
                                 ),
                             ]
                         ),
                         NoteEvent(
-                            M("K"),
+                            UUID(int=10),
                             a=1,
                             delta=0.0,
-                            out=M("H"),
-                            target_node=M("I"),
+                            out=UUID(int=7),
+                            target_node=UUID(int=8),
                         ),
                     ],
                     delta=1.0,
@@ -262,18 +272,18 @@ from supriya.ugens import system
                 CompositeEvent(
                     [
                         NoteEvent(
-                            M("L"),
+                            UUID(int=11),
                             a=2,
                             delta=0.0,
-                            out=M("D"),
-                            target_node=M("E"),
+                            out=UUID(int=3),
+                            target_node=UUID(int=4),
                         ),
                         NoteEvent(
-                            M("M"),
+                            UUID(int=12),
                             a=2,
                             delta=0.0,
-                            out=M("H"),
-                            target_node=M("I"),
+                            out=UUID(int=7),
+                            target_node=UUID(int=8),
                         ),
                     ],
                     delta=1.0,
@@ -282,28 +292,28 @@ from supriya.ugens import system
                     [
                         CompositeEvent(
                             [
-                                NodeFreeEvent(M("F")),
+                                NodeFreeEvent(UUID(int=5)),
                                 NullEvent(delta=0.25),
-                                NodeFreeEvent(M("E")),
-                                BusFreeEvent(M("D")),
+                                NodeFreeEvent(UUID(int=4)),
+                                BusFreeEvent(UUID(int=3)),
                             ]
                         ),
                         CompositeEvent(
                             [
-                                NodeFreeEvent(M("J")),
+                                NodeFreeEvent(UUID(int=9)),
                                 NullEvent(delta=0.25),
-                                NodeFreeEvent(M("I")),
-                                BusFreeEvent(M("H")),
+                                NodeFreeEvent(UUID(int=8)),
+                                BusFreeEvent(UUID(int=7)),
                             ]
                         ),
                     ]
                 ),
                 CompositeEvent(
                     [
-                        NodeFreeEvent(M("C")),
+                        NodeFreeEvent(UUID(int=2)),
                         NullEvent(delta=0.25),
-                        NodeFreeEvent(M("B")),
-                        BusFreeEvent(M("A")),
+                        NodeFreeEvent(UUID(int=1)),
+                        BusFreeEvent(UUID(int=0)),
                     ]
                 ),
             ],

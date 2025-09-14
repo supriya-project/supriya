@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import pytest
 
 from supriya.patterns import (
@@ -11,8 +13,8 @@ from supriya.patterns import (
     NullEvent,
     SequencePattern,
 )
-from supriya.patterns.testutils import MockUUID as M
-from supriya.patterns.testutils import run_pattern_test
+
+from .conftest import run_pattern_test
 
 
 @pytest.mark.parametrize(
@@ -23,10 +25,10 @@ from supriya.patterns.testutils import run_pattern_test
             EventPattern(a=SequencePattern([1, 2])),
             0.0,
             [
-                CompositeEvent([GroupAllocateEvent(M("A"), delta=0.0)]),
-                NoteEvent(M("B"), a=1, target_node=M("A")),
-                NoteEvent(M("C"), a=2, target_node=M("A")),
-                CompositeEvent([NodeFreeEvent(M("A"), delta=0.0)]),
+                CompositeEvent([GroupAllocateEvent(UUID(int=0), delta=0.0)]),
+                NoteEvent(UUID(int=1), a=1, target_node=UUID(int=0)),
+                NoteEvent(UUID(int=2), a=2, target_node=UUID(int=0)),
+                CompositeEvent([NodeFreeEvent(UUID(int=0), delta=0.0)]),
             ],
             False,
         ),
@@ -35,11 +37,11 @@ from supriya.patterns.testutils import run_pattern_test
             EventPattern(a=SequencePattern([1, 2])),
             0.25,
             [
-                CompositeEvent([GroupAllocateEvent(M("A"), delta=0.0)]),
-                NoteEvent(M("B"), a=1, target_node=M("A")),
-                NoteEvent(M("C"), a=2, target_node=M("A")),
+                CompositeEvent([GroupAllocateEvent(UUID(int=0), delta=0.0)]),
+                NoteEvent(UUID(int=1), a=1, target_node=UUID(int=0)),
+                NoteEvent(UUID(int=2), a=2, target_node=UUID(int=0)),
                 CompositeEvent(
-                    [NullEvent(delta=0.25), NodeFreeEvent(M("A"), delta=0.0)]
+                    [NullEvent(delta=0.25), NodeFreeEvent(UUID(int=0), delta=0.0)]
                 ),
             ],
             False,
