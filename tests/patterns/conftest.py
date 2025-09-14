@@ -1,33 +1,17 @@
 from uuid import UUID
 
-from uqbar.objects import get_repr, get_vars, new
+from uqbar.objects import get_vars, new
 
-from .events import CompositeEvent, Event
-
-
-class MockUUID:
-    def __init__(self, string: str) -> None:
-        self.string = string
-
-    def __eq__(self, expr) -> bool:
-        self_values = type(self), get_vars(self)
-        try:
-            expr_values = type(expr), get_vars(expr)
-        except AttributeError:
-            expr_values = type(expr), expr
-        return self_values == expr_values
-
-    def __repr__(self) -> str:
-        return get_repr(self, multiline=False)
+from supriya.patterns.events import CompositeEvent, Event
 
 
-def sanitize_id(id_, cache):
+def sanitize_id(id_: UUID, cache: dict[UUID, UUID]) -> UUID:
     if id_ not in cache:
-        cache[id_] = MockUUID(chr(len(cache) + 65))
+        cache[id_] = UUID(int=len(cache))
     return cache[id_]
 
 
-def sanitize_event(event, cache):
+def sanitize_event(event: Event, cache: dict[UUID, UUID]) -> Event:
     if isinstance(event, CompositeEvent):
         return new(event, events=[sanitize_event(x, cache) for x in event.events])
     sanitize_data = {}

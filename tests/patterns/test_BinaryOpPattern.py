@@ -4,7 +4,8 @@ from typing import Callable, Sequence, TypeAlias
 import pytest
 
 from supriya.patterns import BinaryOpPattern, Pattern, SequencePattern
-from supriya.patterns.testutils import run_pattern_test
+
+from .conftest import run_pattern_test
 
 PatternInput: TypeAlias = int | Sequence["PatternInput"]
 

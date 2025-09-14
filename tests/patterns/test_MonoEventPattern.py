@@ -1,8 +1,10 @@
+from uuid import UUID
+
 import pytest
 
 from supriya.patterns import Event, MonoEventPattern, NoteEvent, SequencePattern
-from supriya.patterns.testutils import MockUUID as M
-from supriya.patterns.testutils import run_pattern_test
+
+from .conftest import run_pattern_test
 
 
 @pytest.mark.parametrize(
@@ -13,12 +15,12 @@ from supriya.patterns.testutils import run_pattern_test
             SequencePattern([1, 2, 3], None),
             SequencePattern([4, 5], None),
             [
-                NoteEvent(M("A"), a=1, b=4),
-                NoteEvent(M("A"), a=2, b=5),
-                NoteEvent(M("A"), a=3, b=4),
-                NoteEvent(M("A"), a=1, b=5),
-                NoteEvent(M("A"), a=2, b=4),
-                NoteEvent(M("A"), a=3, b=5),
+                NoteEvent(UUID(int=0), a=1, b=4),
+                NoteEvent(UUID(int=0), a=2, b=5),
+                NoteEvent(UUID(int=0), a=3, b=4),
+                NoteEvent(UUID(int=0), a=1, b=5),
+                NoteEvent(UUID(int=0), a=2, b=4),
+                NoteEvent(UUID(int=0), a=3, b=5),
             ],
             True,
         ),
@@ -26,7 +28,7 @@ from supriya.patterns.testutils import run_pattern_test
             None,
             SequencePattern([1, 2, 3], None),
             SequencePattern([4, 5], 1),
-            [NoteEvent(M("A"), a=1, b=4), NoteEvent(M("A"), a=2, b=5)],
+            [NoteEvent(UUID(int=0), a=1, b=4), NoteEvent(UUID(int=0), a=2, b=5)],
             False,
         ),
         (
@@ -34,10 +36,10 @@ from supriya.patterns.testutils import run_pattern_test
             SequencePattern([1, 2, 3], None),
             SequencePattern([4, 5], 2),
             [
-                NoteEvent(M("A"), a=1, b=4),
-                NoteEvent(M("A"), a=2, b=5),
-                NoteEvent(M("A"), a=3, b=4),
-                NoteEvent(M("A"), a=1, b=5),
+                NoteEvent(UUID(int=0), a=1, b=4),
+                NoteEvent(UUID(int=0), a=2, b=5),
+                NoteEvent(UUID(int=0), a=3, b=4),
+                NoteEvent(UUID(int=0), a=1, b=5),
             ],
             False,
         ),
@@ -45,7 +47,7 @@ from supriya.patterns.testutils import run_pattern_test
             None,
             SequencePattern([1, 2, 3], 1),
             SequencePattern([4, 5], 1),
-            [NoteEvent(M("A"), a=1, b=4), NoteEvent(M("A"), a=2, b=5)],
+            [NoteEvent(UUID(int=0), a=1, b=4), NoteEvent(UUID(int=0), a=2, b=5)],
             False,
         ),
         (
@@ -53,9 +55,9 @@ from supriya.patterns.testutils import run_pattern_test
             SequencePattern([1, 2, 3], 1),
             SequencePattern([4, 5], None),
             [
-                NoteEvent(M("A"), a=1, b=4),
-                NoteEvent(M("A"), a=2, b=5),
-                NoteEvent(M("A"), a=3, b=4),
+                NoteEvent(UUID(int=0), a=1, b=4),
+                NoteEvent(UUID(int=0), a=2, b=5),
+                NoteEvent(UUID(int=0), a=3, b=4),
             ],
             False,
         ),
@@ -64,9 +66,9 @@ from supriya.patterns.testutils import run_pattern_test
             SequencePattern([1, 2, 3], 1),
             4,
             [
-                NoteEvent(M("A"), a=1, b=4),
-                NoteEvent(M("A"), a=2, b=4),
-                NoteEvent(M("A"), a=3, b=4),
+                NoteEvent(UUID(int=0), a=1, b=4),
+                NoteEvent(UUID(int=0), a=2, b=4),
+                NoteEvent(UUID(int=0), a=3, b=4),
             ],
             False,
         ),

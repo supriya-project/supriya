@@ -1,7 +1,8 @@
 import pytest
 
 from supriya.patterns import SequencePattern
-from supriya.patterns.testutils import run_pattern_test
+
+from .conftest import run_pattern_test
 
 
 @pytest.mark.parametrize(

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import pytest
 
 from supriya import AddAction
@@ -12,9 +14,9 @@ from supriya.patterns import (
     SequencePattern,
     SynthAllocateEvent,
 )
-from supriya.patterns.testutils import MockUUID as M
-from supriya.patterns.testutils import run_pattern_test
 from supriya.ugens import FreeVerb, In, Out, SynthDef, SynthDefBuilder
+
+from .conftest import run_pattern_test
 
 with SynthDefBuilder(in_=0, out=0, mix=0.0) as builder:
     in_ = In.ar(bus=builder["in_"], channel_count=2)
@@ -37,13 +39,15 @@ synthdef = builder.build()
                 CompositeEvent(
                     [
                         SynthAllocateEvent(
-                            M("A"), add_action=AddAction.ADD_TO_TAIL, synthdef=synthdef
+                            UUID(int=0),
+                            add_action=AddAction.ADD_TO_TAIL,
+                            synthdef=synthdef,
                         )
                     ]
                 ),
-                NoteEvent(M("B"), a=1),
-                NoteEvent(M("C"), a=2),
-                CompositeEvent([NodeFreeEvent(M("A"))]),
+                NoteEvent(UUID(int=1), a=1),
+                NoteEvent(UUID(int=2), a=2),
+                CompositeEvent([NodeFreeEvent(UUID(int=0))]),
             ],
             False,
         ),
@@ -57,16 +61,16 @@ synthdef = builder.build()
                 CompositeEvent(
                     [
                         SynthAllocateEvent(
-                            M("A"),
+                            UUID(int=0),
                             add_action=AddAction.ADD_TO_TAIL,
                             mix=0.25,
                             synthdef=synthdef,
                         )
                     ]
                 ),
-                NoteEvent(M("B"), a=1),
-                NoteEvent(M("C"), a=2),
-                CompositeEvent([NullEvent(delta=0.5), NodeFreeEvent(M("A"))]),
+                NoteEvent(UUID(int=1), a=1),
+                NoteEvent(UUID(int=2), a=2),
+                CompositeEvent([NullEvent(delta=0.5), NodeFreeEvent(UUID(int=0))]),
             ],
             False,
         ),
