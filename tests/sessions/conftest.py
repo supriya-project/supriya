@@ -43,7 +43,12 @@ def capture(
     else:
         with context.osc_protocol.capture() as transcript:
             yield entries
-        entries.extend(transcript.filtered(received=False, status=False))
+        entries.extend(
+            [
+                entry.message
+                for entry in transcript.filtered(received=False, status=False)
+            ]
+        )
 
 
 def format_messages(messages: list[OscBundle | OscMessage]) -> str:
