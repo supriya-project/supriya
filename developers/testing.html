@@ -2679,30 +2679,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api/supriya/patterns/testutils.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    <span>testutils</span>
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -4192,7 +4168,7 @@ From source</label></div>
 </div><h2 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">¶</a></h2>
 <p>Supriya uses <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> as its test runner, both for unit tests and for
 doctests, along with a variety of <cite>pytest_</cite> plugins.</p>
-<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.9b0/supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.9b0/tests">tests/</a>) with:</p>
+<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.9b1/supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.9b1/tests">tests/</a>) with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest
 </code></pre></div>
 </div>
@@ -4222,7 +4198,7 @@ equivalents.</p>
 <h3 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> can collect code coverage statistics during its test runs via the
 <a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/">pytest-cov</a> plugin, installed when you install Supriya’s test dependencies.</p>
-<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.9b0/supriya">supriya/</a>
+<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.9b1/supriya">supriya/</a>
 directory during a test run by adding the <code class="docutils literal notranslate"><span class="pre">--cov=supriya</span></code> flag:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>--cov<span class="o">=</span>supriya
 </code></pre></div>
@@ -4340,7 +4316,7 @@ the gaps in test coverage.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The test examples here are <span class="md-icon si-icon-inline octicons_mark-github-16"></span>
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.9b0/tests/test_examples.py">in the official test suite</a>, which
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.9b1/tests/test_examples.py">in the official test suite</a>, which
 ensures that they continue to work and are subject to the same formatting,
 linting and static-typing checks as any other code in Supriya.</p>
 </div>
@@ -5220,205 +5196,7 @@ work-in-progress) and uses <a class="reference external" href="https://mypy-lang
 <span class="go">supriya/ext/book.py:14: note: Hint: &quot;python3 -m pip install types-docutils&quot;</span>
 <span class="go">supriya/ext/book.py:14: note: (or run &quot;mypy --install-types&quot; to install all missing stub packages)</span>
 <span class="go">supriya/ext/book.py:14: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports</span>
-<span class="go">tests/patterns/test_UpdatePattern.py:17: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_UpdatePattern.py:26: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_UpdatePattern.py:36: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_UpdatePattern.py:37: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_UpdatePattern.py:38: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_UpdatePattern.py:39: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_UpdatePattern.py:40: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_UpdatePattern.py:41: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:32: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:33: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:39: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:40: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:46: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:47: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:63: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:64: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:68: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:69: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:70: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:83: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:84: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:100: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:101: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:101: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:102: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:103: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:103: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:107: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:107: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:108: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:108: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:109: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:109: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:112: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:113: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:128: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:129: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:129: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:130: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:131: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:131: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:136: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ParallelPattern.py:138: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:16: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:17: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:18: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:19: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:20: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:21: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:29: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:37: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:38: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:39: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:40: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:48: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:56: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:57: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:58: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:67: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:68: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_MonoEventPattern.py:69: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:26: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:27: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:27: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:28: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:28: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:29: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:38: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:39: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:39: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:40: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:40: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_GroupPattern.py:42: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_FxPattern.py:40: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_FxPattern.py:44: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_FxPattern.py:45: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_FxPattern.py:46: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_FxPattern.py:60: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_FxPattern.py:67: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_FxPattern.py:68: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_FxPattern.py:69: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:16: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:17: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:18: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:19: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:20: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:21: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:29: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:37: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:38: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:39: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:40: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:48: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:56: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:57: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:58: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:67: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:68: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_EventPattern.py:69: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ChainPattern.py:23: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ChainPattern.py:32: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ChainPattern.py:42: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ChainPattern.py:43: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ChainPattern.py:44: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ChainPattern.py:45: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ChainPattern.py:46: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_ChainPattern.py:47: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:38: error: Argument 1 to &quot;BusAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:42: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:44: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:48: error: Argument &quot;in_&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:50: error: Argument &quot;target_node&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:54: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:54: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:54: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:55: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:55: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:55: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:57: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:57: error: Argument 1 to &quot;BusFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:72: error: Argument 1 to &quot;BusAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:76: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:78: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:82: error: Argument &quot;in_&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:84: error: Argument &quot;target_node&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:88: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:88: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:88: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:89: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:89: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:89: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:92: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:94: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:95: error: Argument 1 to &quot;BusFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:111: error: Argument 1 to &quot;BusAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:115: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:117: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:121: error: Argument &quot;in_&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:123: error: Argument &quot;target_node&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:130: error: Argument 1 to &quot;BusAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:134: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:134: error: Argument &quot;target_node&quot; to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:136: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:140: error: Argument &quot;in_&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:141: error: Argument &quot;out&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:143: error: Argument &quot;target_node&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:147: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:147: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:147: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:148: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:148: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:148: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:151: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:153: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:154: error: Argument 1 to &quot;BusFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:159: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:161: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:162: error: Argument 1 to &quot;BusFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:187: error: Argument 1 to &quot;BusAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:191: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:193: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:198: error: Argument &quot;in_&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:199: error: Argument &quot;target_node&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:208: error: Argument 1 to &quot;BusAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:212: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:212: error: Argument &quot;target_node&quot; to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:214: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:219: error: Argument &quot;in_&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:220: error: Argument &quot;out&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:221: error: Argument &quot;target_node&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:226: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:229: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:230: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:235: error: Argument 1 to &quot;BusAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:239: error: Argument 1 to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:239: error: Argument &quot;target_node&quot; to &quot;GroupAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:241: error: Argument 1 to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:246: error: Argument &quot;in_&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:247: error: Argument &quot;out&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | str | Sequence[SupportsFloat | UUID | str]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:248: error: Argument &quot;target_node&quot; to &quot;SynthAllocateEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:253: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:256: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:257: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:265: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:268: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:269: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:272: error: Argument 1 to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:275: error: Argument &quot;out&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;SupportsFloat | UUID | Sequence[SupportsFloat | UUID]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:276: error: Argument &quot;target_node&quot; to &quot;NoteEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;Node | UUID | None&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:285: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:287: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:288: error: Argument 1 to &quot;BusFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:293: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:295: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:296: error: Argument 1 to &quot;BusFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:303: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:305: error: Argument 1 to &quot;NodeFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">tests/patterns/test_BusPattern.py:306: error: Argument 1 to &quot;BusFreeEvent&quot; has incompatible type &quot;MockUUID&quot;; expected &quot;UUID | tuple[UUID, int]&quot;  [arg-type]</span>
-<span class="go">Found 199 errors in 9 files (checked 167 source files)</span>
+<span class="go">Found 1 error in 1 file (checked 167 source files)</span>
 <span class="go">make[2]: *** [Makefile:34: mypy] Error 1</span>
 <span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 </code></pre></div>
@@ -5438,9 +5216,9 @@ running the tests.</p>
 <p>Because of its use of metaclasses for code generation in UGens, Supriya
 requires a <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension to teach it about the auto-generated methods and
 properties on those classes.</p>
-<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.9b0/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
+<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.9b1/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
 and MyPy is already configured to use it via the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> field in Supriya’s
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.9b0/pyproject.toml">pyproject.toml</a>.</p>
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v25.9b1/pyproject.toml">pyproject.toml</a>.</p>
 <p>Should you need to type check against Supriya’s UGens in another project, you
 can activate the <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension with the following code:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><code><span class="k">[tool.mypy]</span>

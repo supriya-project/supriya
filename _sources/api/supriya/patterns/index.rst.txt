@@ -16,4 +16,3 @@ patterns
    patterns
    players
    structure
-   testutils

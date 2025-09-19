@@ -2481,30 +2481,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api/supriya/patterns/testutils.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    <span>testutils</span>
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -3773,7 +3749,7 @@
 <h1 id="hello-world-debugged">Hello, world!, debugged<a class="headerlink" href="#hello-world-debugged" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.9b0/examples/hello_world_debugged">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v25.9b1/examples/hello_world_debugged">full example
 source code</a> on GitHub.</p>
 </div>
 <p>Let’s revisit aspects of the <a class="reference internal" href="hello_world.html"><span class="doc">previous</span></a> <a class="reference internal" href="hello_world_contexts.html"><span class="doc">two</span></a> <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> examples and introduce a variety of
@@ -3951,25 +3927,25 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
 <p>You can invoke the script and see its (very verbose) output with …</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>python<span class="w"> </span>-m<span class="w"> </span>examples.hello_world_debugged
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] booting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] command: /usr/local/bin/scsynth -R 0 -l 1 -u 57110</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] received: JackDriver: client name is &#39;SuperCollider&#39;</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] received: SC_AudioDriver: sample rate = 44100.000000, driver&#39;s block size = 1024</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] received: SuperCollider 3 server ready.</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] ... booted!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] booting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] command: /usr/local/bin/scsynth -R 0 -l 1 -u 57110</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] received: JackDriver: client name is &#39;SuperCollider&#39;</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] received: SC_AudioDriver: sample rate = 44100.000000, driver&#39;s block size = 1024</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] received: SuperCollider 3 server ready.</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] ... booted!</span>
 <span class="go">BEFORE PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44106.475547419956, average_cpu_usage=0.06404530256986618, group_count=2, peak_cpu_usage=0.23632954061031342, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.06331907957792282, group_count=2, peak_cpu_usage=0.23364974558353424, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">IMMEDIATELY AFTER PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44106.475547419956, average_cpu_usage=0.06404530256986618, group_count=2, peak_cpu_usage=0.23632954061031342, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.06331907957792282, group_count=2, peak_cpu_usage=0.23364974558353424, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscMessage(&#39;/d_recv&#39;, b&#39;SCgf\x00\x00\x00\x02\x00\x01\x0fsupriya:default\x00\x00\x00\x0c\x00\x00\x00\x00&gt;\x99\x99\x9a&lt;#\xd7\n?333@\x00\x00\x00\xbe\xcc\xcc\xcd&gt;\xcc\xcc\xcdEz\x00\x00E\x9c@\x00E\x1c@\x00EH\x00\x00?\x80\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00=\xcc\xcc\xcdC\xdc\x00\x00?\x80\x00\x00?\x00\x00\x00\x00\x00\x00\x05\x03out\x00\x00\x00\x00\tamplitude\x00\x00\x00\x01\tfrequency\x00\x00\x00\x02\x04gate\x00\x00\x00\x03\x03pan\x00\x00\x00\x04\x00\x00\x00\x14\x07Control\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x04\x00\x01\x01\x01\x01\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x05Linen\x01\x00\x00\x00\x05\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x04\x01\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x00\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x04\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x06\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x08\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Sum3\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\t\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\n\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x07\xff\xff\xff\xff\x00\x00\x00\x08\x00\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\t\xff\xff\xff\xff\x00\x00\x00\n\x00\x05XLine\x01\x00\x00\x00\x04\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0c\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x0b\xff\xff\xff\xff\x00\x00\x00\x00\x01\x03LPF\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0b\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x0f\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x10\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x04Pan2\x02\x00\x00\x00\x03\x00\x00\x00\x02\x00\x00\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x0b\x02\x02\tOffsetOut\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x01\x00\x00&#39;, OscBundle(contents=[OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1000, 0, 1, &#39;frequency&#39;, 261.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1001, 0, 1, &#39;frequency&#39;, 329.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1002, 0, 1, &#39;frequency&#39;, 392.0)]))</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44106.475547419956, average_cpu_usage=0.06404530256986618, group_count=2, peak_cpu_usage=0.23632954061031342, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.022607717845, average_cpu_usage=0.06331907957792282, group_count=2, peak_cpu_usage=0.23364974558353424, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscMessage(&#39;/sync&#39;, 1)</span>
 <span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 0)</span>
@@ -3986,7 +3962,7 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
 <span class="go">JUST BEFORE STOPPING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.56967731832, average_cpu_usage=0.48108169436454773, group_count=2, peak_cpu_usage=0.4895975887775421, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.22998562333, average_cpu_usage=0.4144493043422699, group_count=2, peak_cpu_usage=0.41298267245292664, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">    Tree:         1002 supriya:default</span>
@@ -3996,7 +3972,7 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
 <span class="go">IMMEDIATELY AFTER STOPPING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.56967731832, average_cpu_usage=0.48108169436454773, group_count=2, peak_cpu_usage=0.4895975887775421, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.22998562333, average_cpu_usage=0.4144493043422699, group_count=2, peak_cpu_usage=0.41298267245292664, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Sent:     OscBundle(contents=[OscMessage(&#39;/n_set&#39;, 1000, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1001, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1002, &#39;gate&#39;, 0.0)])</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
@@ -4008,17 +3984,17 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 0.0, pan: 0.5</span>
 <span class="go">AFTER RELEASING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.22998562333, average_cpu_usage=0.5333192944526672, group_count=2, peak_cpu_usage=0.5444673299789429, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44104.777071502656, average_cpu_usage=0.41389819979667664, group_count=2, peak_cpu_usage=0.42410343885421753, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1002, 1, -1, 1001, 0)</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1001, 1, -1, 1000, 0)</span>
 <span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1000, 1, -1, -1, 0)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] quitting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] ... quit!</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] quitting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fea64922f90] ... already quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] ... quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fd5c0686e40] ... already quit!</span>
 </code></pre></div>
 </div>
 <p>That’s a lot of output! Depending on your application, you may need to dial it
