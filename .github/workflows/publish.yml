@@ -5,8 +5,8 @@ on:
 
 env:
   PYNPUT_BACKEND: dummy
-  SC_ORIGIN: https://github.com/josephine-wolf-oberholtzer/supercollider.git
-  SC_BRANCH: g-dumpTree-end-delimiter
+  SC_ORIGIN: https://github.com/supercollider/supercollider.git
+  SC_BRANCH: develop
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
