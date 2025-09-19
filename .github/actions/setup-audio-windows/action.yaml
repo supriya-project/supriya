@@ -31,5 +31,7 @@ runs:
       shell: powershell
 
     - name: Start Windows audio service
-      run: net start audiosrv || true
+      run: |
+        net stop audiosrv
+        net start audiosrv
       shell: powershell
