@@ -179,7 +179,7 @@ Mutation
 
 Modifying a session's component tree.
 
-Implications for locking.
+TODO: Implications for locking.
 
 Adding components
 `````````````````
