@@ -1,6 +1,6 @@
 import dataclasses
 from types import MappingProxyType
-from typing import TYPE_CHECKING, Callable, Mapping, Optional, Type
+from typing import TYPE_CHECKING, Callable, Literal, Mapping, Optional, Type, Union
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
@@ -8,7 +8,7 @@ from ..typing import Default
 from ..ugens import SynthDef
 from ..ugens.system import build_patch_cable_synthdef
 from .components import C, Component
-from .constants import IO, Address, ChannelCount, Names
+from .constants import IO, Address, ChannelCount, Names, PatchMode
 from .parameters import Field
 from .specs import BusSpec, Spec, SynthDefSpec, SynthSpec
 
@@ -66,7 +66,7 @@ class DeviceContainer(Component[C]):
     """
 
     def __init__(self) -> None:
-        self._devices: list[Device] = []
+        self._devices: list[Device | Rack] = []
 
     def _add_device(
         self,
@@ -91,7 +91,13 @@ class DeviceContainer(Component[C]):
         )
         return device
 
-    def _add_rack(self, *, name: str | None = None) -> tuple["Rack", "Chain"]:
+    def _add_rack(
+        self,
+        *,
+        name: str | None = None,
+        read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
+        write_mode: PatchMode = PatchMode.SUM,
+    ) -> tuple["Rack", "Chain"]:
         from .chains import Chain, Rack
 
         self._devices.append(
@@ -109,7 +115,15 @@ class DeviceContainer(Component[C]):
         )
         return rack, chain
 
-    def _group_devices(self, index: int, count: int, name: str | None = None) -> "Rack":
+    def _group_devices(
+        self,
+        *,
+        index: int,
+        count: int,
+        name: str | None = None,
+        read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
+        write_mode: PatchMode = PatchMode.SUM,
+    ) -> "Rack":
         if index < 0:
             raise RuntimeError(index)
         elif count < 1:
@@ -120,6 +134,8 @@ class DeviceContainer(Component[C]):
             id_=self._ensure_session()._get_next_id(),
             name=name,
             parent=self,
+            read_mode=read_mode,
+            write_mode=write_mode,
         )
         rack._chains.append(
             chain := Chain(
@@ -163,9 +179,17 @@ class DeviceContainer(Component[C]):
             )
             return device
 
-    async def add_rack(self, *, name: str | None = None) -> "Rack":
+    async def add_rack(
+        self,
+        *,
+        name: str | None = None,
+        read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
+        write_mode: PatchMode = PatchMode.SUM,
+    ) -> "Rack":
         async with (session := self._ensure_session())._lock:
-            rack, _ = self._add_rack(name=name)
+            rack, _ = self._add_rack(
+                name=name, read_mode=read_mode, write_mode=write_mode
+            )
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[rack],
@@ -174,13 +198,25 @@ class DeviceContainer(Component[C]):
             return rack
 
     async def group_devices(
-        self, index: int, count: int, name: str | None = None
+        self,
+        index: int,
+        count: int,
+        *,
+        name: str | None = None,
+        read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
+        write_mode: PatchMode = PatchMode.SUM,
     ) -> "Rack":
         """
         Group one or more devices in the devices container as children of a new rack.
         """
         async with (session := self._ensure_session())._lock:
-            rack = self._group_devices(index=index, count=count, name=name)
+            rack = self._group_devices(
+                index=index,
+                count=count,
+                name=name,
+                read_mode=read_mode,
+                write_mode=write_mode,
+            )
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[rack],
@@ -189,7 +225,7 @@ class DeviceContainer(Component[C]):
             return rack
 
     @property
-    def devices(self) -> list["Device"]:
+    def devices(self) -> list[Union["Device", "Rack"]]:
         """
         Get the device container's devices.
         """

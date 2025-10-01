@@ -101,7 +101,7 @@ class TrackContainer(Component[Union["Session", "TrackContainer"]]):
             return track
 
     async def group_tracks(
-        self, index: int, count: int, name: str | None = None
+        self, index: int, count: int, *, name: str | None = None
     ) -> "Track":
         """
         Group one or more tracks in the track container as subtracks of a new track.

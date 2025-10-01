@@ -1,3 +1,5 @@
+from typing import Literal, Union
+
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Default
@@ -9,10 +11,14 @@ from .parameters import FloatField
 from .specs import BusSpec, GroupSpec, Spec, SynthSpec
 
 
-class Rack(Device):
+class Rack(Component[DeviceContainer]):
     """
     A device rack.
     """
+
+    # TODO: Rack and Device aren't really similar, so fix inheritance with a
+    #       shared base? Or maybe we just support union types for
+    #       DeviceContainer children.
 
     # TODO: How to define how racks sum/replace with their parent's audio?
     #       Should they have a mix parameter e.g. XOut?
@@ -32,15 +38,17 @@ class Rack(Device):
         id_: int,
         name: str | None = None,
         parent: DeviceContainer | None = None,
+        read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
+        write_mode: PatchMode = PatchMode.SUM,
     ) -> None:
-        Device.__init__(self, id_=id_, name=name, parent=parent)
+        Component.__init__(self, id_=id_, name=name, parent=parent)
         self._chains: list[Chain] = []
         self._add_parameter(
             name=Names.MIX,
             field=FloatField(default=1.0, has_bus=True, minimum=0.0, maximum=1.0),
         )
-        self._read_mode = PatchMode.REPLACE
-        self._write_mode = PatchMode.MIX
+        self._read_mode = read_mode
+        self._write_mode = write_mode
 
     def _add_chain(self, name: str | None = None) -> "Chain":
         self._chains.append(
@@ -49,6 +57,15 @@ class Rack(Device):
             )
         )
         return chain
+
+    def _get_nested_address(self) -> Address:
+        if self.parent is None:
+            return "devices[?]"
+        index = self.parent.devices.index(self)
+        return f"{self.parent.address}.devices[{index}]"
+
+    def _get_numeric_address(self) -> Address:
+        return f"devices[{self._id}]"
 
     def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
         if not context:
@@ -83,7 +100,7 @@ class Rack(Device):
         ]
         return specs
 
-    def _ungroup(self) -> list["Device"]:
+    def _ungroup(self) -> list[Union[Device, "Rack"]]:
         parent = self._ensure_parent()
         if not self.chains:
             raise RuntimeError
@@ -116,6 +133,32 @@ class Rack(Device):
         """
         async with (session := self._ensure_session())._lock:
             self._channel_count = channel_count
+            await Component._reconcile(
+                context=self.context,
+                reconciling_components=[self],
+                session=session,
+            )
+
+    def set_name(self, name: str | None = None) -> None:
+        """
+        Set the rack's name.
+        """
+        self._name = name
+
+    async def set_read_mode(
+        self, mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE]
+    ) -> None:
+        async with (session := self._ensure_session())._lock:
+            self._read_mode = mode
+            await Component._reconcile(
+                context=self.context,
+                reconciling_components=[self],
+                session=session,
+            )
+
+    async def set_write_mode(self, mode: PatchMode) -> None:
+        async with (session := self._ensure_session())._lock:
+            self._write_mode = mode
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[self],
