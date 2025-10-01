@@ -1,5 +1,6 @@
 import dataclasses
-from typing import TYPE_CHECKING, Callable, Optional, Type
+from types import MappingProxyType
+from typing import TYPE_CHECKING, Callable, Mapping, Optional, Type
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
@@ -48,6 +49,15 @@ class SynthConfig:
     ) = None
 
 
+@dataclasses.dataclass
+class DeviceConfig:
+    name: str | None = None
+    device_class: Type["Device"] | None = None
+    parameter_configs: list[ParameterConfig] | None = None
+    sidechain_configs: list[SidechainConfig] | None = None
+    synth_configs: list[SynthConfig] | None = None
+
+
 class DeviceContainer(Component[C]):
     """
     A container for device components.
@@ -58,34 +68,25 @@ class DeviceContainer(Component[C]):
     def __init__(self) -> None:
         self._devices: list[Device] = []
 
-    # TODO: add_instrument(
-    #           voice_synthdefs: ...,
-    #           effect_synthdefs: ...,
-    #           parameters: ...,
-    #           mappings: ...,
-    #           sidechains: ...,
-    #           polyphony: ...,
-    #       ) -> Instrument:
-
-    # TODO: group_devices(self, index: int, count: int, name: str | None = None) -> Rack
-
     def _add_device(
         self,
         *,
+        device_config: DeviceConfig | None = None,
         device_class: Type["Device"] | None = None,
         name: str | None = None,
         parameter_configs: list[ParameterConfig] | None = None,
         sidechain_configs: list[SidechainConfig] | None = None,
         synth_configs: list[SynthConfig] | None = None,
     ) -> "Device":
+        device_config = device_config or DeviceConfig()
         self._devices.append(
-            device := (device_class or Device)(
+            device := (device_class or device_config.device_class or Device)(
                 id_=self._ensure_session()._get_next_id(),
-                name=name,
-                parameter_configs=parameter_configs,
+                name=name or device_config.name,
+                parameter_configs=parameter_configs or device_config.parameter_configs,
                 parent=self,
-                sidechain_configs=sidechain_configs,
-                synth_configs=synth_configs,
+                sidechain_configs=sidechain_configs or device_config.sidechain_configs,
+                synth_configs=synth_configs or device_config.synth_configs,
             )
         )
         return device
@@ -108,8 +109,34 @@ class DeviceContainer(Component[C]):
         )
         return rack, chain
 
+    def _group_devices(self, index: int, count: int, name: str | None = None) -> "Rack":
+        if index < 0:
+            raise RuntimeError(index)
+        elif count < 1:
+            raise RuntimeError(count)
+        elif (index + count) > len(self.devices):
+            raise RuntimeError(index, count)
+        rack = Rack(
+            id_=self._ensure_session()._get_next_id(),
+            name=name,
+            parent=self,
+        )
+        rack._chains.append(
+            chain := Chain(
+                id_=self._ensure_session()._get_next_id(),
+                parent=rack,
+            )
+        )
+        child_devices = self._devices[index : index + count]
+        chain._devices[:] = child_devices
+        self._devices[index : index + count] = [rack]
+        for device in child_devices:
+            device._parent = chain
+        return rack
+
     async def add_device(
         self,
+        device_config: DeviceConfig | None = None,
         *,
         device_class: Type["Device"] | None = None,
         name: str | None = None,
@@ -122,6 +149,7 @@ class DeviceContainer(Component[C]):
         """
         async with (session := self._ensure_session())._lock:
             device = self._add_device(
+                device_config=device_config,
                 device_class=device_class,
                 name=name,
                 parameter_configs=parameter_configs,
@@ -138,6 +166,21 @@ class DeviceContainer(Component[C]):
     async def add_rack(self, *, name: str | None = None) -> "Rack":
         async with (session := self._ensure_session())._lock:
             rack, _ = self._add_rack(name=name)
+            await Component._reconcile(
+                context=self.context,
+                reconciling_components=[rack],
+                session=session,
+            )
+            return rack
+
+    async def group_devices(
+        self, index: int, count: int, name: str | None = None
+    ) -> "Rack":
+        """
+        Group one or more devices in the devices container as children of a new rack.
+        """
+        async with (session := self._ensure_session())._lock:
+            rack = self._group_devices(index=index, count=count, name=name)
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[rack],
@@ -545,3 +588,7 @@ class Device(Component[DeviceContainer]):
         # TODO: Use the container's output levels if this is the last track,
         #       otherwise use it's own output levels
         raise NotImplementedError
+
+    @property
+    def sidechains(self) -> Mapping[str, Sidechain]:
+        return MappingProxyType(self._sidechains)

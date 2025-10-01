@@ -70,7 +70,7 @@ class TrackContainer(Component[Union["Session", "TrackContainer"]]):
         self._soloed_tracks -= set(tracks)
         self._ensure_parent()._unsolo_tracks(tracks=tracks)
 
-    def _group(self, index: int, count: int, name: str | None = None) -> "Track":
+    def _group_tracks(self, index: int, count: int, name: str | None = None) -> "Track":
         if index < 0:
             raise RuntimeError(index)
         elif count < 1:
@@ -107,7 +107,7 @@ class TrackContainer(Component[Union["Session", "TrackContainer"]]):
         Group one or more tracks in the track container as subtracks of a new track.
         """
         async with (session := self._ensure_session())._lock:
-            track = self._group(index=index, count=count, name=name)
+            track = self._group_tracks(index=index, count=count, name=name)
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[track],
