@@ -56,7 +56,7 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
                      1002 group (session.mixers[0]:devices)
             +            1014 group (session.mixers[0].devices[0]:group)
             +                1015 supriya:dc-tester:2 (session.mixers[0].devices[0]:synth-0)
-            +                    active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0, out: 16.0
+            +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
@@ -91,7 +91,7 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
                              1009 group (session.mixers[0].tracks[0]:devices)
             +                    1014 group (session.mixers[0].tracks[0].devices[0]:group)
             +                        1015 supriya:dc-tester:2 (session.mixers[0].tracks[0].devices[0]:synth-0)
-            +                            active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0, out: 18.0
+            +                            out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
                              1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
                                  active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
                              1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)

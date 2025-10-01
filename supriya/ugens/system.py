@@ -49,7 +49,7 @@ def build_dc_tester_synthdef(channel_count: int) -> SynthDef:
     with SynthDefBuilder(
         out=Parameter(rate=ParameterRate.SCALAR, value=0),
         active=1,
-        dc=[0] * channel_count,
+        dc=[1] * channel_count,
         done_action=DoneAction.FREE_SYNTH,
         gate=1,
     ) as builder:
