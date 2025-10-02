@@ -7,7 +7,7 @@ from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Default
 from ..ugens import SynthDef
 from ..ugens.system import build_patch_cable_synthdef
-from .components import C, Component
+from .components import C, Component, Deletable
 from .constants import IO, Address, ChannelCount, Names, PatchMode
 from .parameters import Field
 from .specs import BusSpec, Spec, SynthDefSpec, SynthSpec
@@ -232,7 +232,7 @@ class DeviceContainer(Component[C]):
         return self._devices[:]
 
 
-class DeviceBase(Component[DeviceContainer]):
+class DeviceBase(Deletable[DeviceContainer]):
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._devices.remove(self)
         super()._disconnect_parentage()
@@ -264,18 +264,6 @@ class DeviceBase(Component[DeviceContainer]):
         old_parent._devices.remove(self)
         self._parent = new_parent
         new_parent._devices.insert(index, self)
-
-    async def delete(self) -> None:
-        """
-        Delete the device.
-        """
-        async with (session := self._ensure_session())._lock:
-            await Component._reconcile(
-                context=None,
-                deleting_components=[self],
-                reconciling_components=[self],
-                session=session,
-            )
 
     async def move(self, parent: DeviceContainer, index: int) -> None:
         """

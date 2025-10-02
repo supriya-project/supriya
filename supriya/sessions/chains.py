@@ -4,14 +4,14 @@ from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Default
 from ..ugens.system import build_channel_strip_synthdef
-from .components import Component
+from .components import ChannelSettable, Component, Deletable
 from .constants import Address, ChannelCount, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
 from .specs import BusSpec, GroupSpec, Spec, SynthSpec
 
 
-class Rack(DeviceBase):
+class Rack(DeviceBase, ChannelSettable):
     """
     A device rack.
     """
@@ -127,18 +127,6 @@ class Rack(DeviceBase):
             )
             return chain
 
-    async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
-        """
-        Set the rack's channel count.
-        """
-        async with (session := self._ensure_session())._lock:
-            self._channel_count = channel_count
-            await Component._reconcile(
-                context=self.context,
-                reconciling_components=[self],
-                session=session,
-            )
-
     async def set_read_mode(
         self, mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE]
     ) -> None:
@@ -191,7 +179,7 @@ class Rack(DeviceBase):
         return [*self._chains]
 
 
-class Chain(DeviceContainer[Rack]):
+class Chain(DeviceContainer[Rack], Deletable):
     """
     A rack chain.
     """
@@ -320,18 +308,6 @@ class Chain(DeviceContainer[Rack]):
             ]
         )
         return specs
-
-    async def delete(self) -> None:
-        """
-        Delete the chain.
-        """
-        async with (session := self._ensure_session())._lock:
-            await Component._reconcile(
-                context=None,
-                deleting_components=[self],
-                reconciling_components=[self],
-                session=session,
-            )
 
     async def move(self, parent: Rack, index: int) -> None:
         """

@@ -8,10 +8,8 @@ from ..ugens.system import (
     build_meters_synthdef,
     build_patch_cable_synthdef,
 )
-from .components import (
-    Component,
-)
-from .constants import IO, Address, ChannelCount, Names
+from .components import ChannelSettable, Component, Deletable
+from .constants import IO, Address, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
 from .specs import (
@@ -123,7 +121,7 @@ class TrackContainer(Component[Union["Session", "TrackContainer"]]):
         return self._tracks[:]
 
 
-class TrackSend(Component["Track"]):
+class TrackSend(Deletable["Track"]):
     """
     A track send
 
@@ -254,18 +252,6 @@ class TrackSend(Component["Track"]):
         )
         return specs
 
-    async def delete(self) -> None:
-        """
-        Delete the send.
-        """
-        async with (session := self._ensure_session())._lock:
-            await Component._reconcile(
-                context=None,
-                deleting_components=[self],
-                reconciling_components=[self],
-                session=session,
-            )
-
     @property
     def feedback_graph_order(self) -> tuple[int, ...]:
         """
@@ -288,7 +274,9 @@ class TrackSend(Component["Track"]):
         return self._target
 
 
-class Track(DeviceContainer[TrackContainer], TrackContainer):
+class Track(
+    DeviceContainer[TrackContainer], TrackContainer, ChannelSettable, Deletable
+):
     """
     A track component.
     """
@@ -835,18 +823,6 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
             )
             return send
 
-    async def delete(self) -> None:
-        """
-        Delete the track.
-        """
-        async with (session := self._ensure_session())._lock:
-            await Component._reconcile(
-                context=None,
-                deleting_components=[self],
-                reconciling_components=[self],
-                session=session,
-            )
-
     async def move(self, parent: TrackContainer, index: int) -> None:
         """
         Move the track to another track container and/or index in a track
@@ -854,18 +830,6 @@ class Track(DeviceContainer[TrackContainer], TrackContainer):
         """
         async with (session := self._ensure_session())._lock:
             self._move(new_parent=parent, index=index)
-            await Component._reconcile(
-                context=self.context,
-                reconciling_components=[self],
-                session=session,
-            )
-
-    async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
-        """
-        Set the tracks's channel count.
-        """
-        async with (session := self._ensure_session())._lock:
-            self._channel_count = channel_count
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[self],

@@ -529,3 +529,31 @@ class Component(Generic[C]):
             if isinstance(component, Session):
                 return component
         return None
+
+
+class ChannelSettable(Component[C]):
+    async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
+        """
+        Set the component's channel count.
+        """
+        async with (session := self._ensure_session())._lock:
+            self._channel_count = channel_count
+            await Component._reconcile(
+                context=self.context,
+                reconciling_components=[self],
+                session=session,
+            )
+
+
+class Deletable(Component[C]):
+    async def delete(self) -> None:
+        """
+        Delete the component.
+        """
+        async with (session := self._ensure_session())._lock:
+            await Component._reconcile(
+                context=None,
+                deleting_components=[self],
+                reconciling_components=[self],
+                session=session,
+            )

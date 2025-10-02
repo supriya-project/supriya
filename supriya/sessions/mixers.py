@@ -2,16 +2,17 @@ from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
-from ..typing import Default
 from ..ugens.system import (
     build_channel_strip_synthdef,
     build_meters_synthdef,
     build_patch_cable_synthdef,
 )
 from .components import (
+    ChannelSettable,
     Component,
+    Deletable,
 )
-from .constants import Address, ChannelCount, Names
+from .constants import Address, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
 from .specs import (
@@ -30,6 +31,8 @@ if TYPE_CHECKING:
 class Mixer(
     DeviceContainer["Session"],
     TrackContainer,
+    ChannelSettable,
+    Deletable,
 ):
     """
     A mixer component.
@@ -49,9 +52,6 @@ class Mixer(
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
         self._add_parameter(name=Names.GAIN, field=FloatField(has_bus=True))
-
-    def _delete(self) -> None:
-        self._disconnect_parentage()
 
     def _disconnect_parentage(self) -> None:
         if (session := self._parent) is not None and self in (
@@ -226,30 +226,6 @@ class Mixer(
         for parameter in self.parameters.values():
             specs.extend(parameter._resolve_specs(context=context))
         return specs
-
-    async def delete(self) -> None:
-        """
-        Delete the mixer.
-        """
-        async with (session := self._ensure_session())._lock:
-            await Component._reconcile(
-                context=None,
-                deleting_components=[self],
-                reconciling_components=[self],
-                session=session,
-            )
-
-    async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
-        """
-        Set the mixer's channel count.
-        """
-        async with (session := self._ensure_session())._lock:
-            self._channel_count = channel_count
-            await Component._reconcile(
-                context=self.context,
-                reconciling_components=[self],
-                session=session,
-            )
 
     def set_name(self, name: str | None = None) -> None:
         """
