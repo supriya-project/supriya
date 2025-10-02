@@ -1,6 +1,6 @@
 import dataclasses
 from types import MappingProxyType
-from typing import TYPE_CHECKING, Callable, Literal, Mapping, Optional, Type, Union
+from typing import TYPE_CHECKING, Callable, Literal, Mapping, Optional, Type
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
@@ -66,7 +66,7 @@ class DeviceContainer(Component[C]):
     """
 
     def __init__(self) -> None:
-        self._devices: list[Device | Rack] = []
+        self._devices: list[DeviceBase] = []
 
     def _add_device(
         self,
@@ -225,11 +225,98 @@ class DeviceContainer(Component[C]):
             return rack
 
     @property
-    def devices(self) -> list[Union["Device", "Rack"]]:
+    def devices(self) -> list["DeviceBase"]:
         """
         Get the device container's devices.
         """
         return self._devices[:]
+
+
+class DeviceBase(Component[DeviceContainer]):
+    def _disconnect_parentage(self) -> None:
+        self._ensure_parent()._devices.remove(self)
+        super()._disconnect_parentage()
+
+    def _get_nested_address(self) -> Address:
+        if self.parent is None:
+            return "devices[?]"
+        index = self.parent.devices.index(self)
+        return f"{self.parent.address}.devices[{index}]"
+
+    def _get_numeric_address(self) -> Address:
+        return f"devices[{self._id}]"
+
+    def _move(self, *, new_parent: DeviceContainer, index: int) -> None:
+        # Validate if moving is possible
+        if self.mixer is not new_parent.mixer:
+            raise RuntimeError
+        elif self in new_parent.parentage:
+            raise RuntimeError
+        elif index < 0:
+            raise RuntimeError
+        elif index and index >= len(new_parent.devices):
+            raise RuntimeError
+        # Reconfigure parentage and bail if this is a no-op
+        old_parent = self._ensure_parent()
+        old_index = old_parent._devices.index(self)
+        if old_parent is new_parent and old_index == index:
+            return  # Bail
+        old_parent._devices.remove(self)
+        self._parent = new_parent
+        new_parent._devices.insert(index, self)
+
+    async def delete(self) -> None:
+        """
+        Delete the device.
+        """
+        async with (session := self._ensure_session())._lock:
+            await Component._reconcile(
+                context=None,
+                deleting_components=[self],
+                reconciling_components=[self],
+                session=session,
+            )
+
+    async def move(self, parent: DeviceContainer, index: int) -> None:
+        """
+        Move the device to another device container and/or index in a device
+        container.
+        """
+        async with (session := self._ensure_session())._lock:
+            self._move(new_parent=parent, index=index)
+            await Component._reconcile(
+                context=self.context,
+                reconciling_components=[self],
+                session=session,
+            )
+
+    def set_name(self, name: str | None = None) -> None:
+        """
+        Set the devices's name.
+        """
+        self._name = name
+
+    @property
+    def input_levels(self) -> list[float]:
+        """
+        Get the device's current input levels.
+
+        Read from server shared memory.
+        """
+        # TODO: Use the container's input levels if this is the first track,
+        #       otherwise use it's own input levels
+        raise NotImplementedError
+
+    @property
+    def output_levels(self) -> list[float]:
+        """
+        Get the devices's current output levels.
+
+        Read from server shared memory.
+        """
+        # TODO: Use the container's output levels if this is the last track,
+        #       otherwise use it's own output levels
+        raise NotImplementedError
 
 
 class Sidechain:
@@ -372,7 +459,7 @@ class Sidechain:
         return self._name
 
 
-class Device(Component[DeviceContainer]):
+class Device(DeviceBase):
     """
     A device component.
 
@@ -390,7 +477,7 @@ class Device(Component[DeviceContainer]):
         sidechain_configs: list[SidechainConfig] | None = None,
         synth_configs: list[SynthConfig] | None = None,
     ) -> None:
-        Component.__init__(self, id_=id_, name=name, parent=parent)
+        DeviceBase.__init__(self, id_=id_, name=name, parent=parent)
         # validate parameters
         for parameter_config in parameter_configs or ():
             self._add_parameter(
@@ -424,38 +511,6 @@ class Device(Component[DeviceContainer]):
             conditional=conditional,
         )
         return sidechain
-
-    def _disconnect_parentage(self) -> None:
-        self._ensure_parent()._devices.remove(self)
-        super()._disconnect_parentage()
-
-    def _get_nested_address(self) -> Address:
-        if self.parent is None:
-            return "devices[?]"
-        index = self.parent.devices.index(self)
-        return f"{self.parent.address}.devices[{index}]"
-
-    def _get_numeric_address(self) -> Address:
-        return f"devices[{self._id}]"
-
-    def _move(self, *, new_parent: DeviceContainer, index: int) -> None:
-        # Validate if moving is possible
-        if self.mixer is not new_parent.mixer:
-            raise RuntimeError
-        elif self in new_parent.parentage:
-            raise RuntimeError
-        elif index < 0:
-            raise RuntimeError
-        elif index and index >= len(new_parent.devices):
-            raise RuntimeError
-        # Reconfigure parentage and bail if this is a no-op
-        old_parent = self._ensure_parent()
-        old_index = old_parent._devices.index(self)
-        if old_parent is new_parent and old_index == index:
-            return  # Bail
-        old_parent._devices.remove(self)
-        self._parent = new_parent
-        new_parent._devices.insert(index, self)
 
     def _notify_disconnected(self, connection: "Component") -> bool:
         for sidechain in self._sidechains.values():
@@ -563,37 +618,6 @@ class Device(Component[DeviceContainer]):
             )
         return specs
 
-    async def delete(self) -> None:
-        """
-        Delete the device.
-        """
-        async with (session := self._ensure_session())._lock:
-            await Component._reconcile(
-                context=None,
-                deleting_components=[self],
-                reconciling_components=[self],
-                session=session,
-            )
-
-    async def move(self, parent: DeviceContainer, index: int) -> None:
-        """
-        Move the device to another device container and/or index in a device
-        container.
-        """
-        async with (session := self._ensure_session())._lock:
-            self._move(new_parent=parent, index=index)
-            await Component._reconcile(
-                context=self.context,
-                reconciling_components=[self],
-                session=session,
-            )
-
-    def set_name(self, name: str | None = None) -> None:
-        """
-        Set the devices's name.
-        """
-        self._name = name
-
     async def set_sidechain(self, name: str, input: Optional["Track"]) -> None:
         async with (session := self._ensure_session())._lock:
             self._sidechains[name].set(input)
@@ -602,28 +626,6 @@ class Device(Component[DeviceContainer]):
                 reconciling_components=[self],
                 session=session,
             )
-
-    @property
-    def input_levels(self) -> list[float]:
-        """
-        Get the device's current input levels.
-
-        Read from server shared memory.
-        """
-        # TODO: Use the container's input levels if this is the first track,
-        #       otherwise use it's own input levels
-        raise NotImplementedError
-
-    @property
-    def output_levels(self) -> list[float]:
-        """
-        Get the devices's current output levels.
-
-        Read from server shared memory.
-        """
-        # TODO: Use the container's output levels if this is the last track,
-        #       otherwise use it's own output levels
-        raise NotImplementedError
 
     @property
     def sidechains(self) -> Mapping[str, Sidechain]:

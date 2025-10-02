@@ -1,4 +1,4 @@
-from typing import Literal, Union
+from typing import Literal
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
@@ -6,12 +6,12 @@ from ..typing import Default
 from ..ugens.system import build_channel_strip_synthdef
 from .components import Component
 from .constants import Address, ChannelCount, Names, PatchMode
-from .devices import Device, DeviceContainer
+from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
 from .specs import BusSpec, GroupSpec, Spec, SynthSpec
 
 
-class Rack(Component[DeviceContainer]):
+class Rack(DeviceBase):
     """
     A device rack.
     """
@@ -41,7 +41,7 @@ class Rack(Component[DeviceContainer]):
         read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
         write_mode: PatchMode = PatchMode.SUM,
     ) -> None:
-        Component.__init__(self, id_=id_, name=name, parent=parent)
+        DeviceBase.__init__(self, id_=id_, name=name, parent=parent)
         self._chains: list[Chain] = []
         self._add_parameter(
             name=Names.MIX,
@@ -100,7 +100,7 @@ class Rack(Component[DeviceContainer]):
         ]
         return specs
 
-    def _ungroup(self) -> list[Union[Device, "Rack"]]:
+    def _ungroup(self) -> list[DeviceBase]:
         parent = self._ensure_parent()
         if not self.chains:
             raise RuntimeError
@@ -138,12 +138,6 @@ class Rack(Component[DeviceContainer]):
                 reconciling_components=[self],
                 session=session,
             )
-
-    def set_name(self, name: str | None = None) -> None:
-        """
-        Set the rack's name.
-        """
-        self._name = name
 
     async def set_read_mode(
         self, mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE]

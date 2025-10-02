@@ -7,6 +7,7 @@ from .components import Component
 from .constants import ChannelCount
 from .devices import (
     Device,
+    DeviceBase,
     DeviceContainer,
     ParameterConfig,
     SidechainConfig,
@@ -23,6 +24,7 @@ __all__ = [
     "ChannelCount",
     "Component",
     "Device",
+    "DeviceBase",
     "DeviceContainer",
     "Field",
     "FloatField",

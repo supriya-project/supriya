@@ -3,6 +3,20 @@ import pytest
 from supriya.sessions import Session
 
 
+@pytest.mark.xfail
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.asyncio
+async def test_Rack_add_chain(online: bool) -> None:
+    raise RuntimeError
+
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.asyncio
+async def test_Rack_set_channel_count(online: bool) -> None:
+    raise RuntimeError
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.asyncio
 async def test_Rack_set_name(online: bool) -> None:
@@ -17,3 +31,24 @@ async def test_Rack_set_name(online: bool) -> None:
         assert rack.name == name
     rack.set_name(name=None)
     assert rack.name is None
+
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.asyncio
+async def test_Rack_set_read_mode(online: bool) -> None:
+    raise RuntimeError
+
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.asyncio
+async def test_Rack_set_write_mode(online: bool) -> None:
+    raise RuntimeError
+
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("online", [False, True])
+@pytest.mark.asyncio
+async def test_Rack_ungroup(online: bool) -> None:
+    raise RuntimeError
