@@ -7,7 +7,7 @@ from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Default
 from ..ugens import SynthDef
 from ..ugens.system import build_patch_cable_synthdef
-from .components import C, Component, Deletable
+from .components import C, Component, Deletable, Movable, NameSettable
 from .constants import IO, Address, ChannelCount, Names, PatchMode
 from .parameters import Field
 from .specs import BusSpec, Spec, SynthDefSpec, SynthSpec
@@ -232,7 +232,7 @@ class DeviceContainer(Component[C]):
         return self._devices[:]
 
 
-class DeviceBase(Deletable[DeviceContainer]):
+class DeviceBase(Deletable[DeviceContainer], Movable, NameSettable):
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._devices.remove(self)
         super()._disconnect_parentage()
@@ -264,25 +264,6 @@ class DeviceBase(Deletable[DeviceContainer]):
         old_parent._devices.remove(self)
         self._parent = new_parent
         new_parent._devices.insert(index, self)
-
-    async def move(self, parent: DeviceContainer, index: int) -> None:
-        """
-        Move the device to another device container and/or index in a device
-        container.
-        """
-        async with (session := self._ensure_session())._lock:
-            self._move(new_parent=parent, index=index)
-            await Component._reconcile(
-                context=self.context,
-                reconciling_components=[self],
-                session=session,
-            )
-
-    def set_name(self, name: str | None = None) -> None:
-        """
-        Set the devices's name.
-        """
-        self._name = name
 
     @property
     def input_levels(self) -> list[float]:

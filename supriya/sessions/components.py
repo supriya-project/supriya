@@ -557,3 +557,28 @@ class Deletable(Component[C]):
                 reconciling_components=[self],
                 session=session,
             )
+
+
+class Movable(Component[C]):
+    def _move(self, *, new_parent: C, index: int) -> None:
+        raise NotImplementedError
+
+    async def move(self, parent: C, index: int) -> None:
+        """
+        Move the component to another container and/or index in a container.
+        """
+        async with (session := self._ensure_session())._lock:
+            self._move(new_parent=parent, index=index)
+            await Component._reconcile(
+                context=self.context,
+                reconciling_components=[self],
+                session=session,
+            )
+
+
+class NameSettable(Component[C]):
+    def set_name(self, name: str | None = None) -> None:
+        """
+        Set the components's name.
+        """
+        self._name = name

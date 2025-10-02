@@ -8,7 +8,7 @@ from ..ugens.system import (
     build_meters_synthdef,
     build_patch_cable_synthdef,
 )
-from .components import ChannelSettable, Component, Deletable
+from .components import ChannelSettable, Component, Deletable, Movable, NameSettable
 from .constants import IO, Address, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
@@ -275,7 +275,12 @@ class TrackSend(Deletable["Track"]):
 
 
 class Track(
-    DeviceContainer[TrackContainer], TrackContainer, ChannelSettable, Deletable
+    DeviceContainer[TrackContainer],
+    TrackContainer,
+    ChannelSettable,
+    Deletable,
+    Movable,
+    NameSettable,
 ):
     """
     A track component.
@@ -823,19 +828,6 @@ class Track(
             )
             return send
 
-    async def move(self, parent: TrackContainer, index: int) -> None:
-        """
-        Move the track to another track container and/or index in a track
-        container.
-        """
-        async with (session := self._ensure_session())._lock:
-            self._move(new_parent=parent, index=index)
-            await Component._reconcile(
-                context=self.context,
-                reconciling_components=[self],
-                session=session,
-            )
-
     async def set_input(self, input_: Union[BusGroup, "Track"] | None) -> None:
         """
         Set the track's audio input source.
@@ -861,12 +853,6 @@ class Track(
             self._set_muted(muted=muted)
             if self._reconcile_activation():
                 self._apply_activation()
-
-    def set_name(self, name: str | None = None) -> None:
-        """
-        Set the track's name.
-        """
-        self._name = name
 
     async def set_output(
         self, output: Union[BusGroup, Default, TrackContainer] | None

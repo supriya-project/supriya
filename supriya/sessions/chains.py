@@ -2,10 +2,9 @@ from typing import Literal
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
-from ..typing import Default
 from ..ugens.system import build_channel_strip_synthdef
-from .components import ChannelSettable, Component, Deletable
-from .constants import Address, ChannelCount, Names, PatchMode
+from .components import ChannelSettable, Component, Deletable, Movable, NameSettable
+from .constants import Address, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
 from .specs import BusSpec, GroupSpec, Spec, SynthSpec
@@ -179,7 +178,7 @@ class Rack(DeviceBase, ChannelSettable):
         return [*self._chains]
 
 
-class Chain(DeviceContainer[Rack], Deletable):
+class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
     """
     A rack chain.
     """
@@ -308,24 +307,6 @@ class Chain(DeviceContainer[Rack], Deletable):
             ]
         )
         return specs
-
-    async def move(self, parent: Rack, index: int) -> None:
-        """
-        Move the chain to another rack and/or index in a rack.
-        """
-        async with (session := self._ensure_session())._lock:
-            self._move(new_parent=parent, index=index)
-            await Component._reconcile(
-                context=self.context,
-                reconciling_components=[self],
-                session=session,
-            )
-
-    def set_name(self, name: str | None = None) -> None:
-        """
-        Set the chain's name.
-        """
-        self._name = name
 
     @property
     def children(self) -> list[Component]:

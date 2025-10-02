@@ -11,6 +11,7 @@ from .components import (
     ChannelSettable,
     Component,
     Deletable,
+    NameSettable,
 )
 from .constants import Address, Names
 from .devices import DeviceContainer
@@ -33,6 +34,7 @@ class Mixer(
     TrackContainer,
     ChannelSettable,
     Deletable,
+    NameSettable,
 ):
     """
     A mixer component.
@@ -226,12 +228,6 @@ class Mixer(
         for parameter in self.parameters.values():
             specs.extend(parameter._resolve_specs(context=context))
         return specs
-
-    def set_name(self, name: str | None = None) -> None:
-        """
-        Set the mixer's name.
-        """
-        self._name = name
 
     @property
     def children(self) -> list[Component]:
