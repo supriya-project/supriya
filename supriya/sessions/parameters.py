@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, SupportsFloat
 
 from ..contexts import AsyncServer
 from ..enums import CalculationRate
-from .specs import BusSpec, Spec
+from .specs import BusSpec, Specs
 
 if TYPE_CHECKING:
     from .components import Component
@@ -63,10 +63,11 @@ class Parameter:
         self._field = field
         self._value: float = self._field(self._field.default)
 
-    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
+        specs = Specs()
         if not context or not self._field.has_bus:
-            return []
-        return [
+            return specs
+        specs.bus_specs.append(
             BusSpec(
                 calculation_rate=CalculationRate.CONTROL,
                 channel_count=1,
@@ -74,8 +75,9 @@ class Parameter:
                 context=context,
                 default=self._value,
                 name=self.name,
-            ),
-        ]
+            )
+        )
+        return specs
 
     def set(self, value: float) -> None:
         value_ = self._field(value)

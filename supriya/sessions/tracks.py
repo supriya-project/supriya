@@ -23,6 +23,7 @@ from .specs import (
     BusSpec,
     GroupSpec,
     Spec,
+    Specs,
     SynthDefSpec,
     SynthSpec,
 )
@@ -199,9 +200,10 @@ class TrackSend(Deletable["Track"]):
         related.extend(sorted(components, key=lambda x: x.graph_order))
         return related, deleted
 
-    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
+        specs = Specs()
         if not context:
-            return []
+            return specs
         parent = self._ensure_parent()
         feedsback = bool(
             Spec.feedsback(
@@ -209,53 +211,50 @@ class TrackSend(Deletable["Track"]):
                 reader_order=self.target.graph_order,
             )
         )
-        specs = []
         for parameter in self.parameters.values():
-            specs.extend(parameter._resolve_specs(context=context))
-        specs.extend(
-            [
-                SynthDefSpec(
-                    component=self,
-                    context=context,
-                    name=(
-                        patch_cable_synthdef := build_patch_cable_synthdef(
-                            parent.effective_channel_count,
-                            self.target.effective_channel_count,
-                        )
-                    ).effective_name,
-                    synthdef=patch_cable_synthdef,
+            specs.update(parameter._resolve_specs(context=context))
+        specs.synthdef_specs.append(
+            SynthDefSpec(
+                component=self,
+                context=context,
+                name=(
+                    patch_cable_synthdef := build_patch_cable_synthdef(
+                        parent.effective_channel_count,
+                        self.target.effective_channel_count,
+                    )
+                ).effective_name,
+                synthdef=patch_cable_synthdef,
+            )
+        )
+        specs.synth_specs.append(
+            SynthSpec(
+                add_action=(
+                    AddAction.ADD_AFTER if self.postfader else AddAction.ADD_BEFORE
                 ),
-                SynthSpec(
-                    add_action=(
-                        AddAction.ADD_AFTER if self.postfader else AddAction.ADD_BEFORE
+                component=self,
+                context=context,
+                destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
+                kwargs={
+                    "active": Spec.get_address(
+                        parent, Names.CONTROL_BUSES, Names.ACTIVE
                     ),
-                    component=self,
-                    context=context,
-                    destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
-                    kwargs={
-                        "active": Spec.get_address(
-                            parent, Names.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        "gain": Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
-                        "in_": Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
-                        "out": Spec.get_address(
-                            self.target,
-                            Names.AUDIO_BUSES,
-                            Names.FEEDBACK if feedsback else Names.MAIN,
-                        ),
-                    },
-                    name=Names.SYNTH,
-                    parent_node=None,
-                    synthdef=Spec.get_address(
-                        None,
-                        Names.SYNTHDEFS,
-                        patch_cable_synthdef.effective_name,
+                    "gain": Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
+                    "in_": Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                    "out": Spec.get_address(
+                        self.target,
+                        Names.AUDIO_BUSES,
+                        Names.FEEDBACK if feedsback else Names.MAIN,
                     ),
-                    target_node=Spec.get_address(
-                        parent, Names.NODES, Names.CHANNEL_STRIP
-                    ),
+                },
+                name=Names.SYNTH,
+                parent_node=None,
+                synthdef=Spec.get_address(
+                    None,
+                    Names.SYNTHDEFS,
+                    patch_cable_synthdef.effective_name,
                 ),
-            ]
+                target_node=Spec.get_address(parent, Names.NODES, Names.CHANNEL_STRIP),
+            )
         )
         return specs
 
@@ -466,146 +465,162 @@ class Track(
             )
         return related, deleted
 
-    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
+        specs = Specs()
         if not context:
-            return []
+            return specs
         parent = self._ensure_parent()
-        specs = []
         for parameter in self.parameters.values():
-            specs.extend(parameter._resolve_specs(context=context))
+            specs.update(parameter._resolve_specs(context=context))
         channel_strip_synthdef = build_channel_strip_synthdef(
             self.effective_channel_count
         )
         meters_synthdef = build_meters_synthdef(self.effective_channel_count)
-        synthdefs: list[Spec] = [
-            SynthDefSpec(
-                component=self,
-                context=context,
-                name=channel_strip_synthdef.effective_name,
-                synthdef=channel_strip_synthdef,
-            ),
-            SynthDefSpec(
-                component=self,
-                context=context,
-                name=meters_synthdef.effective_name,
-                synthdef=meters_synthdef,
-            ),
-        ]
-        buses: list[Spec] = [
-            BusSpec(
-                calculation_rate=CalculationRate.AUDIO,
-                channel_count=self.effective_channel_count,
-                component=self,
-                context=context,
-                name=Names.MAIN,
-            ),
-            BusSpec(
-                calculation_rate=CalculationRate.CONTROL,
-                channel_count=1,
-                component=self,
-                context=context,
-                default=float(self._is_active),
-                name=Names.ACTIVE,
-            ),
-            BusSpec(
-                calculation_rate=CalculationRate.CONTROL,
-                channel_count=self.effective_channel_count,
-                component=self,
-                context=context,
-                default=0.0,
-                name=Names.INPUT_LEVELS,
-            ),
-            BusSpec(
-                calculation_rate=CalculationRate.CONTROL,
-                channel_count=self.effective_channel_count,
-                component=self,
-                context=context,
-                default=0.0,
-                name=Names.OUTPUT_LEVELS,
-            ),
-        ]
-        groups: list[Spec] = [
-            self._resolve_container_spec(
-                context=context,
-                destroy_strategy={"gate": 0},
-                parent=(parent := self._ensure_parent()),
-                parent_container=parent.tracks,
-                parent_container_group_name=Names.TRACKS,
-            ),
-            GroupSpec(
-                add_action=AddAction.ADD_TO_HEAD,
-                component=self,
-                context=context,
-                name=Names.TRACKS,
-                parent_node=None,
-                target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-            ),
-            GroupSpec(
-                add_action=AddAction.ADD_TO_TAIL,
-                component=self,
-                context=context,
-                name=Names.DEVICES,
-                parent_node=None,
-                target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-            ),
-        ]
-        synths: list[Spec] = [
-            SynthSpec(
-                add_action=AddAction.ADD_TO_TAIL,
-                component=self,
-                context=context,
-                destroy_strategy={
-                    "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
-                },
-                kwargs={
-                    "active": Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
-                    "gain": Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
-                    "out": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-                },
-                name=Names.CHANNEL_STRIP,
-                parent_node=None,
-                synthdef=Spec.get_address(
-                    None, Names.SYNTHDEFS, channel_strip_synthdef.effective_name
+        specs.synthdef_specs.extend(
+            [
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=channel_strip_synthdef.effective_name,
+                    synthdef=channel_strip_synthdef,
                 ),
-                target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-            ),
-            SynthSpec(
-                add_action=AddAction.ADD_AFTER,
-                component=self,
-                context=context,
-                kwargs={
-                    "active": Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
-                    "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-                    "out": Spec.get_address(
-                        self, Names.CONTROL_BUSES, Names.INPUT_LEVELS
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=meters_synthdef.effective_name,
+                    synthdef=meters_synthdef,
+                ),
+            ]
+        )
+        specs.bus_specs.extend(
+            [
+                BusSpec(
+                    calculation_rate=CalculationRate.AUDIO,
+                    channel_count=self.effective_channel_count,
+                    component=self,
+                    context=context,
+                    name=Names.MAIN,
+                ),
+                BusSpec(
+                    calculation_rate=CalculationRate.CONTROL,
+                    channel_count=1,
+                    component=self,
+                    context=context,
+                    default=float(self._is_active),
+                    name=Names.ACTIVE,
+                ),
+                BusSpec(
+                    calculation_rate=CalculationRate.CONTROL,
+                    channel_count=self.effective_channel_count,
+                    component=self,
+                    context=context,
+                    default=0.0,
+                    name=Names.INPUT_LEVELS,
+                ),
+                BusSpec(
+                    calculation_rate=CalculationRate.CONTROL,
+                    channel_count=self.effective_channel_count,
+                    component=self,
+                    context=context,
+                    default=0.0,
+                    name=Names.OUTPUT_LEVELS,
+                ),
+            ]
+        )
+        specs.group_specs.extend(
+            [
+                self._resolve_container_spec(
+                    context=context,
+                    destroy_strategy={"gate": 0},
+                    parent=(parent := self._ensure_parent()),
+                    parent_container=parent.tracks,
+                    parent_container_group_name=Names.TRACKS,
+                ),
+                GroupSpec(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    component=self,
+                    context=context,
+                    name=Names.TRACKS,
+                    parent_node=None,
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                ),
+                GroupSpec(
+                    add_action=AddAction.ADD_TO_TAIL,
+                    component=self,
+                    context=context,
+                    name=Names.DEVICES,
+                    parent_node=None,
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                ),
+            ]
+        )
+        specs.synth_specs.extend(
+            [
+                SynthSpec(
+                    add_action=AddAction.ADD_TO_TAIL,
+                    component=self,
+                    context=context,
+                    destroy_strategy={
+                        "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                    },
+                    kwargs={
+                        "active": Spec.get_address(
+                            self, Names.CONTROL_BUSES, Names.ACTIVE
+                        ),
+                        "gain": Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
+                        "out": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                    },
+                    name=Names.CHANNEL_STRIP,
+                    parent_node=None,
+                    synthdef=Spec.get_address(
+                        None, Names.SYNTHDEFS, channel_strip_synthdef.effective_name
                     ),
-                },
-                name=Names.INPUT_LEVELS,
-                parent_node=None,
-                synthdef=Spec.get_address(
-                    None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
                 ),
-                target_node=Spec.get_address(self, Names.NODES, Names.TRACKS),
-            ),
-            SynthSpec(
-                add_action=AddAction.ADD_AFTER,
-                component=self,
-                context=context,
-                kwargs={
-                    "active": Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
-                    "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-                    "out": Spec.get_address(
-                        self, Names.CONTROL_BUSES, Names.OUTPUT_LEVELS
+                SynthSpec(
+                    add_action=AddAction.ADD_AFTER,
+                    component=self,
+                    context=context,
+                    kwargs={
+                        "active": Spec.get_address(
+                            self, Names.CONTROL_BUSES, Names.ACTIVE
+                        ),
+                        "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        "out": Spec.get_address(
+                            self, Names.CONTROL_BUSES, Names.INPUT_LEVELS
+                        ),
+                    },
+                    name=Names.INPUT_LEVELS,
+                    parent_node=None,
+                    synthdef=Spec.get_address(
+                        None, Names.SYNTHDEFS, meters_synthdef.effective_name
                     ),
-                },
-                name=Names.OUTPUT_LEVELS,
-                parent_node=None,
-                synthdef=Spec.get_address(
-                    None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                    target_node=Spec.get_address(self, Names.NODES, Names.TRACKS),
                 ),
-                target_node=Spec.get_address(self, Names.NODES, Names.CHANNEL_STRIP),
-            ),
-        ]
+                SynthSpec(
+                    add_action=AddAction.ADD_AFTER,
+                    component=self,
+                    context=context,
+                    kwargs={
+                        "active": Spec.get_address(
+                            self, Names.CONTROL_BUSES, Names.ACTIVE
+                        ),
+                        "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        "out": Spec.get_address(
+                            self, Names.CONTROL_BUSES, Names.OUTPUT_LEVELS
+                        ),
+                    },
+                    name=Names.OUTPUT_LEVELS,
+                    parent_node=None,
+                    synthdef=Spec.get_address(
+                        None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                    ),
+                    target_node=Spec.get_address(
+                        self, Names.NODES, Names.CHANNEL_STRIP
+                    ),
+                ),
+            ]
+        )
         if isinstance(self.input, Track):
             input_feedsback = bool(
                 Spec.feedsback(
@@ -618,7 +633,7 @@ class Track(
                 self.input.effective_channel_count,
                 feedback=input_feedsback,
             )
-            synthdefs.append(
+            specs.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
                     context=context,
@@ -626,7 +641,7 @@ class Track(
                     synthdef=input_patch_cable_synthdef,
                 )
             )
-            synths.append(
+            specs.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
@@ -666,7 +681,7 @@ class Track(
                 self.effective_channel_count,
                 output_target_component.effective_channel_count,
             )
-            synthdefs.append(
+            specs.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
                     context=context,
@@ -674,7 +689,7 @@ class Track(
                     synthdef=output_patch_cable_synthdef,
                 )
             )
-            synths.append(
+            specs.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
@@ -706,7 +721,7 @@ class Track(
                 self.effective_channel_count,
                 len(self.output),
             )
-            synthdefs.append(
+            specs.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
                     context=context,
@@ -714,7 +729,7 @@ class Track(
                     synthdef=output_patch_cable_synthdef,
                 )
             )
-            synths.append(
+            specs.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
@@ -743,7 +758,7 @@ class Track(
                 self.effective_channel_count,
                 feedback=True,
             )
-            synthdefs.append(
+            specs.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
                     context=context,
@@ -751,7 +766,7 @@ class Track(
                     synthdef=feedback_patch_cable_synthdef,
                 )
             )
-            buses.append(
+            specs.bus_specs.append(
                 BusSpec(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=self.effective_channel_count,
@@ -760,7 +775,7 @@ class Track(
                     name=Names.FEEDBACK,
                 )
             )
-            synths.append(
+            specs.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
@@ -785,7 +800,6 @@ class Track(
                     target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
                 )
             )
-        specs.extend(synthdefs + buses + groups + synths)
         return specs
 
     def _set_muted(self, *, muted: bool) -> None:

@@ -7,7 +7,7 @@ from .components import ChannelSettable, Component, Deletable, Movable, NameSett
 from .constants import Address, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
-from .specs import BusSpec, GroupSpec, Spec, SynthSpec
+from .specs import BusSpec, GroupSpec, Spec, Specs, SynthDefSpec, SynthSpec
 
 
 class Rack(DeviceBase, ChannelSettable):
@@ -66,37 +66,42 @@ class Rack(DeviceBase, ChannelSettable):
     def _get_numeric_address(self) -> Address:
         return f"devices[{self._id}]"
 
-    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
+        # TODO: Can we re-use a shared aux bus?
+        #       E.g. multiple racks in serial with the same channel-count
+        #       should be able to re-use the same aux audio bus?
+        specs = Specs()
         if not context:
-            return []
+            return specs
         parent = self._ensure_parent()
-        specs: list[Spec] = [
-            # TODO: Can we re-use a shared aux bus?
-            #       E.g. multiple racks in serial with the same channel-count
-            #       should be able to re-use the same aux audio bus?
+        specs.bus_specs.append(
             BusSpec(
                 calculation_rate=CalculationRate.AUDIO,
                 channel_count=self.effective_channel_count,
                 component=self,
                 context=context,
                 name=Names.MAIN,
-            ),
-            self._resolve_container_spec(
-                context=context,
-                destroy_strategy={"gate": 0},
-                parent=(parent := self._ensure_parent()),
-                parent_container=parent.devices,
-                parent_container_group_name=Names.DEVICES,
-            ),
-            GroupSpec(
-                add_action=AddAction.ADD_TO_HEAD,
-                component=self,
-                context=context,
-                name=Names.CHAINS,
-                parent_node=None,
-                target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-            ),
-        ]
+            )
+        )
+        specs.group_specs.extend(
+            [
+                self._resolve_container_spec(
+                    context=context,
+                    destroy_strategy={"gate": 0},
+                    parent=(parent := self._ensure_parent()),
+                    parent_container=parent.devices,
+                    parent_container_group_name=Names.DEVICES,
+                ),
+                GroupSpec(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    component=self,
+                    context=context,
+                    name=Names.CHAINS,
+                    parent_node=None,
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                ),
+            ]
+        )
         return specs
 
     def _ungroup(self) -> list[DeviceBase]:
@@ -226,16 +231,24 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         self._parent = new_parent
         new_parent._chains.insert(index, self)
 
-    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
+        specs = Specs()
         if not context:
-            return []
+            return specs
         channel_strip_synthdef = build_channel_strip_synthdef(
             self.effective_channel_count
         )
-        specs: list[Spec] = []
         for parameter in self.parameters.values():
-            specs.extend(parameter._resolve_specs(context=context))
-        specs.extend(
+            specs.update(parameter._resolve_specs(context=context))
+        specs.synthdef_specs.append(
+            SynthDefSpec(
+                component=self,
+                context=context,
+                name=channel_strip_synthdef.effective_name,
+                synthdef=channel_strip_synthdef,
+            ),
+        )
+        specs.bus_specs.extend(
             [
                 BusSpec(
                     calculation_rate=CalculationRate.AUDIO,
@@ -268,6 +281,10 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     default=0.0,
                     name=Names.OUTPUT_LEVELS,
                 ),
+            ]
+        )
+        specs.group_specs.extend(
+            [
                 self._resolve_container_spec(
                     context=context,
                     destroy_strategy={"gate": 0},
@@ -283,6 +300,10 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     parent_node=None,
                     target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
                 ),
+            ]
+        )
+        specs.synth_specs.extend(
+            [
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,

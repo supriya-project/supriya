@@ -2,7 +2,7 @@ import contextlib
 import dataclasses
 import itertools
 from collections import ChainMap, deque
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Iterator, Optional
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
 from ..enums import AddAction, CalculationRate, DoneAction
@@ -666,6 +666,33 @@ class SynthSpec(NodeSpec):
         ):
             return True
         return False
+
+
+@dataclasses.dataclass
+class Specs:
+    buffer_specs: list[BufferSpec] = dataclasses.field(default_factory=list)
+    bus_specs: list[BusSpec] = dataclasses.field(default_factory=list)
+    group_specs: list[GroupSpec] = dataclasses.field(default_factory=list)
+    synth_specs: list[SynthSpec] = dataclasses.field(default_factory=list)
+    synthdef_specs: list[SynthDefSpec] = dataclasses.field(default_factory=list)
+
+    def __iter__(self) -> Iterator[Spec]:
+        for specs in (
+            self.synthdef_specs,
+            self.buffer_specs,
+            self.bus_specs,
+            self.group_specs,
+            self.synth_specs,
+        ):
+            for spec in specs:
+                yield spec
+
+    def update(self, other: "Specs") -> None:
+        self.buffer_specs.extend(other.buffer_specs)
+        self.bus_specs.extend(other.bus_specs)
+        self.group_specs.extend(other.group_specs)
+        self.synth_specs.extend(other.synth_specs)
+        self.synthdef_specs.extend(other.synthdef_specs)
 
 
 @dataclasses.dataclass

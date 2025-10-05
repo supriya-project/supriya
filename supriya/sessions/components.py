@@ -27,6 +27,7 @@ from .specs import (
     GroupSpec,
     Spec,
     SpecChange,
+    Specs,
 )
 
 C = TypeVar("C", bound="Component")
@@ -136,9 +137,7 @@ class Component(Generic[C]):
         destroy_reconciliation: Reconciliation,
     ) -> list[SpecChange]:
         old_specs = {spec.address: spec for spec in self._specs}
-        self._specs = self._resolve_specs(
-            context=new_context,
-        )
+        self._specs = list(self._resolve_specs(context=new_context))
         self._context = new_context
         new_specs = {spec.address: spec for spec in self._specs}
         return SpecChange.gather(
@@ -325,7 +324,7 @@ class Component(Generic[C]):
             target_node=group_target,
         )
 
-    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
         raise NotImplementedError
 
     def _set_parameter(self, name: str, value: float) -> bool:

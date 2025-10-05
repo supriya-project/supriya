@@ -10,7 +10,7 @@ from ..ugens.system import build_patch_cable_synthdef
 from .components import C, Component, Deletable, LevelsCheckable, Movable, NameSettable
 from .constants import IO, Address, ChannelCount, Names, PatchMode
 from .parameters import Field
-from .specs import BusSpec, Spec, SynthDefSpec, SynthSpec
+from .specs import BusSpec, Spec, Specs, SynthDefSpec, SynthSpec
 
 if TYPE_CHECKING:
     from .chains import Chain, Rack
@@ -308,14 +308,13 @@ class Sidechain:
                 related.append(new_input)
         return related
 
-    def _resolve_specs(
-        self, context: AsyncServer | None, **parameters: float
-    ) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None, **parameters: float) -> Specs:
+        specs = Specs()
         if context is None:
-            return []
+            return specs
         effective_channel_count = self.component.effective_channel_count
         # add the audio bus spec
-        specs: list[Spec] = [
+        specs.bus_specs.append(
             BusSpec(
                 calculation_rate=CalculationRate.AUDIO,
                 channel_count=(
@@ -326,8 +325,8 @@ class Sidechain:
                 component=self.component,
                 context=context,
                 name=self.name,
-            ),
-        ]
+            )
+        )
         # bail if we don't need a patch-cable spec
         if not self.input or self.conditional and not self.conditional(**parameters):
             return specs
@@ -343,42 +342,40 @@ class Sidechain:
             target_channel_count=effective_channel_count,
             feedback=input_feedsback,
         )
-        specs.extend(
-            [
-                SynthDefSpec(
-                    component=self.component,
-                    context=context,
-                    name=input_patch_cable_synthdef.effective_name,
-                    synthdef=input_patch_cable_synthdef,
-                ),
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    component=self.component,
-                    context=context,
-                    # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
-                    name=self.name,
-                    kwargs={
-                        # "active": ...?
-                        "in_": Spec.get_address(
-                            self.input,
-                            Names.AUDIO_BUSES,
-                            Names.MAIN,
-                        ),
-                        "out": Spec.get_address(
-                            self.component, Names.AUDIO_BUSES, self.name
-                        ),
-                    },
-                    parent_node=None,
-                    synthdef=Spec.get_address(
-                        None,
-                        Names.SYNTHDEFS,
-                        input_patch_cable_synthdef.effective_name,
+        specs.synthdef_specs.append(
+            SynthDefSpec(
+                component=self.component,
+                context=context,
+                name=input_patch_cable_synthdef.effective_name,
+                synthdef=input_patch_cable_synthdef,
+            )
+        )
+        specs.synth_specs.append(
+            SynthSpec(
+                add_action=AddAction.ADD_TO_HEAD,
+                component=self.component,
+                context=context,
+                # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
+                name=self.name,
+                kwargs={
+                    # "active": ...?
+                    "in_": Spec.get_address(
+                        self.input,
+                        Names.AUDIO_BUSES,
+                        Names.MAIN,
                     ),
-                    target_node=Spec.get_address(
-                        self.component, Names.NODES, Names.GROUP
+                    "out": Spec.get_address(
+                        self.component, Names.AUDIO_BUSES, self.name
                     ),
+                },
+                parent_node=None,
+                synthdef=Spec.get_address(
+                    None,
+                    Names.SYNTHDEFS,
+                    input_patch_cable_synthdef.effective_name,
                 ),
-            ]
+                target_node=Spec.get_address(self.component, Names.NODES, Names.GROUP),
+            )
         )
         return specs
 
@@ -478,12 +475,13 @@ class Device(DeviceBase):
             related.extend(sidechain._reconcile_connections(deleting=deleting))
         return sorted(set(related), key=lambda x: x.graph_order), deleted
 
-    def _resolve_specs(self, context: AsyncServer | None) -> list[Spec]:
+    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
+        specs = Specs()
         if context is None:
-            return []
+            return specs
         parent = self._ensure_parent()
         effective_channel_count = self.effective_channel_count
-        specs: list[Spec] = [
+        specs.group_specs.append(
             self._resolve_container_spec(
                 context=context,
                 destroy_strategy={
@@ -494,15 +492,15 @@ class Device(DeviceBase):
                 parent_container=parent.devices,
                 parent_container_group_name=Names.DEVICES,
             )
-        ]
+        )
         options: dict[str, float] = {}
         for parameter in self._parameters.values():
             if parameter.field.has_bus:
-                specs.extend(parameter._resolve_specs(context))
+                specs.update(parameter._resolve_specs(context))
             else:
                 options[parameter.name] = parameter.value
         for sidechain in self._sidechains.values():
-            specs.extend(sidechain._resolve_specs(context, **options))
+            specs.update(sidechain._resolve_specs(context, **options))
         # n.b. ordering synths is tricky :thinking:
         for index, synth_config in enumerate(self._synth_configs):
             if (
@@ -539,29 +537,29 @@ class Device(DeviceBase):
                         )
                     else:
                         raise ValueError(rate)
-            specs.extend(
-                [
-                    SynthDefSpec(
-                        component=self,
-                        context=context,
-                        name=synthdef.effective_name,
-                        synthdef=synthdef,
+            specs.synthdef_specs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=synthdef.effective_name,
+                    synthdef=synthdef,
+                ),
+            )
+            specs.synth_specs.append(
+                SynthSpec(
+                    add_action=AddAction.ADD_TO_TAIL,
+                    component=self,
+                    context=context,
+                    kwargs=synth_parameters,
+                    name=f"synth-{index}",
+                    parent_node=None,
+                    synthdef=Spec.get_address(
+                        None,
+                        Names.SYNTHDEFS,
+                        synthdef.effective_name,
                     ),
-                    SynthSpec(
-                        add_action=AddAction.ADD_TO_TAIL,
-                        component=self,
-                        context=context,
-                        kwargs=synth_parameters,
-                        name=f"synth-{index}",
-                        parent_node=None,
-                        synthdef=Spec.get_address(
-                            None,
-                            Names.SYNTHDEFS,
-                            synthdef.effective_name,
-                        ),
-                        target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-                    ),
-                ]
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                )
             )
         return specs
 
