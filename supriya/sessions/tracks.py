@@ -19,6 +19,7 @@ from .components import (
 from .constants import IO, Address, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
+from .routing import Input
 from .specs import (
     BusSpec,
     GroupSpec,
@@ -303,9 +304,17 @@ class Track(
         Component.__init__(self, id_=id_, name=name, parent=parent)
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
-        self._cached_input: Track | None = None
         self._cached_output: TrackContainer | None = None
-        self._input: BusGroup | Track | None = None
+        self._input: Input[Track] = Input(
+            add_action=AddAction.ADD_TO_HEAD,
+            component=self,
+            kwargs=dict(
+                active=Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
+            ),
+            name=Names.INPUT,
+            target_bus_name=Names.MAIN,
+            target_node_name=Names.GROUP,
+        )
         self._is_muted: bool = False
         self._is_soloed: bool = False
         self._output: BusGroup | Default | TrackContainer | None = DEFAULT
@@ -389,8 +398,7 @@ class Track(
         return f"tracks[{self._id}]"
 
     def _notify_disconnected(self, connection: "Component") -> bool:
-        if connection is self._input:
-            self._input = None
+        self._input._notify_disconnected(connection)
         if connection is self._output:
             self._output = None
         return False
@@ -425,45 +433,28 @@ class Track(
         related, deleted = super()._reconcile_connections(
             deleting=deleting, roots=roots
         )
-        old_input = self._cached_input
         old_output = self._cached_output
+        related.extend(self._input._reconcile_connections())
         if deleting:
-            if self._cached_input:
-                self._cached_input._connections.pop((self, Names.INPUT), None)
-                related.append(self._cached_input)
             if self._cached_output:
                 self._cached_output._connections.pop((self, Names.OUTPUT), None)
                 related.append(self._cached_output)
         else:
-            new_input: Component | None = None
             new_output: Component | None = None
-            if isinstance(self._input, Track):
-                new_input = self._cached_input = self._input
             if isinstance(self._output, TrackContainer):
                 new_output = self._cached_output = self._output
             elif self._output is DEFAULT:
                 new_output = self._cached_output = self.parent
-            if old_input != new_input:
-                if old_input:
-                    old_input._connections.pop((self, Names.INPUT))
-                if new_input:
-                    new_input._connections[(self, Names.INPUT)] = IO.READ
             if old_output != new_output:
                 if old_output:
                     old_output._connections.pop((self, Names.OUTPUT))
                 if new_output:
                     new_output._connections[(self, Names.OUTPUT)] = IO.WRITE
-            related.extend(
-                sorted(
-                    [
-                        x
-                        for x in set([old_input, old_output, new_input, new_output])
-                        if x is not None
-                    ],
-                    key=lambda x: x.graph_order,
-                )
-            )
-        return related, deleted
+            if old_output:
+                related.append(old_output)
+            if new_output:
+                related.append(new_output)
+        return sorted(set(related), key=lambda x: x.graph_order), deleted
 
     def _resolve_specs(self, context: AsyncServer | None) -> Specs:
         specs = Specs()
@@ -621,53 +612,7 @@ class Track(
                 ),
             ]
         )
-        if isinstance(self.input, Track):
-            input_feedsback = bool(
-                Spec.feedsback(
-                    writer_order=self.input.feedback_graph_order,
-                    reader_order=self.graph_order,
-                )
-            )
-            input_patch_cable_synthdef = build_patch_cable_synthdef(
-                self.effective_channel_count,
-                self.input.effective_channel_count,
-                feedback=input_feedsback,
-            )
-            specs.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=context,
-                    name=input_patch_cable_synthdef.effective_name,
-                    synthdef=input_patch_cable_synthdef,
-                )
-            )
-            specs.synth_specs.append(
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    component=self,
-                    context=context,
-                    # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
-                    name=Names.INPUT,
-                    kwargs={
-                        "active": Spec.get_address(
-                            self, Names.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        "in_": Spec.get_address(
-                            self.input,
-                            Names.AUDIO_BUSES,
-                            Names.MAIN,
-                        ),
-                        "out": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-                    },
-                    parent_node=None,
-                    synthdef=Spec.get_address(
-                        None,
-                        Names.SYNTHDEFS,
-                        input_patch_cable_synthdef.effective_name,
-                    ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-                )
-            )
+        specs.update(self._input._resolve_specs(context))
         if self.output is DEFAULT or isinstance(self.output, TrackContainer):
             output_target_component = parent if self.output is DEFAULT else self.output
             assert isinstance(output_target_component, TrackContainer)
@@ -859,7 +804,7 @@ class Track(
                 raise RuntimeError
             elif isinstance(input_, Track) and input_.mixer is not self.mixer:
                 raise RuntimeError
-            self._input = input_
+            self._input.set(input_)
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[self],
@@ -931,7 +876,7 @@ class Track(
         """
         Get the track's audio input source.
         """
-        return self._input
+        return self._input._input
 
     @property
     def is_active(self) -> bool:
