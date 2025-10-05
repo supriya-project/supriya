@@ -6,10 +6,10 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Default
 from ..ugens import SynthDef
-from ..ugens.system import build_patch_cable_synthdef
 from .components import C, Component, Deletable, LevelsCheckable, Movable, NameSettable
-from .constants import IO, Address, ChannelCount, Names, PatchMode
+from .constants import Address, ChannelCount, Names, PatchMode
 from .parameters import Field
+from .routing import Input
 from .specs import BusSpec, Spec, Specs, SynthDefSpec, SynthSpec
 
 if TYPE_CHECKING:
@@ -275,45 +275,29 @@ class Sidechain:
         conditional: Callable[[], bool] | None = None,
         name: str,
     ) -> None:
-        self._cached_input: Track | None = None
         self._channel_count = channel_count
         self._component = component
         self._conditional = conditional
-        self._input: Track | None = None
+        self._input: Input[Track] = Input(
+            add_action=AddAction.ADD_TO_HEAD,
+            component=component,
+            name=name,
+            target_bus_name=name,
+            target_node_name=Names.GROUP,
+        )
         self._name = name
 
     def _notify_disconnected(self, connection: "Component") -> None:
-        if connection is self._input:
-            self.set(None)
+        self._input._notify_disconnected(connection)
 
     def _reconcile_connections(self, *, deleting: bool = False) -> list[Component]:
-        related: list[Component] = []
-        old_input = self._cached_input
-        if deleting:
-            if self._cached_input:
-                self._cached_input._connections.pop((self.component, Names.INPUT), None)
-                related.append(self._cached_input)
-        else:
-            new_input: Component | None = None
-            if isinstance(self._input, Track):
-                new_input = self._cached_input = self._input
-            if old_input != new_input:
-                if old_input:
-                    old_input._connections.pop((self.component, Names.INPUT))
-                if new_input:
-                    new_input._connections[(self.component, Names.INPUT)] = IO.READ
-            if old_input is not None:
-                related.append(old_input)
-            if new_input is not None:
-                related.append(new_input)
-        return related
+        return self._input._reconcile_connections(deleting=deleting)
 
     def _resolve_specs(self, context: AsyncServer | None, **parameters: float) -> Specs:
         specs = Specs()
         if context is None:
             return specs
         effective_channel_count = self.component.effective_channel_count
-        # add the audio bus spec
         specs.bus_specs.append(
             BusSpec(
                 calculation_rate=CalculationRate.AUDIO,
@@ -327,60 +311,13 @@ class Sidechain:
                 name=self.name,
             )
         )
-        # bail if we don't need a patch-cable spec
-        if not self.input or self.conditional and not self.conditional(**parameters):
+        if not self.input or (self.conditional and not self.conditional(**parameters)):
             return specs
-        # add the patch-cable spec
-        input_feedsback = bool(
-            Spec.feedsback(
-                writer_order=self.input.feedback_graph_order,
-                reader_order=self.component.graph_order,
-            )
-        )
-        input_patch_cable_synthdef = build_patch_cable_synthdef(
-            source_channel_count=self.input.effective_channel_count,
-            target_channel_count=effective_channel_count,
-            feedback=input_feedsback,
-        )
-        specs.synthdef_specs.append(
-            SynthDefSpec(
-                component=self.component,
-                context=context,
-                name=input_patch_cable_synthdef.effective_name,
-                synthdef=input_patch_cable_synthdef,
-            )
-        )
-        specs.synth_specs.append(
-            SynthSpec(
-                add_action=AddAction.ADD_TO_HEAD,
-                component=self.component,
-                context=context,
-                # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
-                name=self.name,
-                kwargs={
-                    # "active": ...?
-                    "in_": Spec.get_address(
-                        self.input,
-                        Names.AUDIO_BUSES,
-                        Names.MAIN,
-                    ),
-                    "out": Spec.get_address(
-                        self.component, Names.AUDIO_BUSES, self.name
-                    ),
-                },
-                parent_node=None,
-                synthdef=Spec.get_address(
-                    None,
-                    Names.SYNTHDEFS,
-                    input_patch_cable_synthdef.effective_name,
-                ),
-                target_node=Spec.get_address(self.component, Names.NODES, Names.GROUP),
-            )
-        )
+        specs.update(self._input._resolve_specs(context))
         return specs
 
     def set(self, input: Optional["Track"]) -> None:
-        self._input = input
+        self._input.set(input)
 
     @property
     def channel_count(self) -> ChannelCount | Default:
@@ -396,7 +333,9 @@ class Sidechain:
 
     @property
     def input(self) -> Optional["Track"]:
-        return self._input
+        input_ = self._input._input
+        assert not isinstance(input_, BusGroup)
+        return input_
 
     @property
     def name(self) -> str:
