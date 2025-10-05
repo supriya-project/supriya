@@ -11,6 +11,7 @@ from .components import (
     ChannelSettable,
     Component,
     Deletable,
+    LevelsCheckable,
     NameSettable,
 )
 from .constants import Address, Names
@@ -34,6 +35,7 @@ class Mixer(
     TrackContainer,
     ChannelSettable,
     Deletable,
+    LevelsCheckable,
     NameSettable,
 ):
     """
@@ -244,27 +246,3 @@ class Mixer(
         if self.parent is None:
             return None
         return self.parent._mixers[self]
-
-    @property
-    def input_levels(self) -> list[float]:
-        """
-        Get the mixers's current input levels.
-
-        Read from server shared memory.
-        """
-        # TODO: Test this.
-        if not (shared_memory := self._ensure_context()._shared_memory):
-            raise RuntimeError
-        return shared_memory[self._artifacts.control_buses[Names.INPUT_LEVELS]]
-
-    @property
-    def output_levels(self) -> list[float]:
-        """
-        Get the mixers's current output levels.
-
-        Read from server shared memory.
-        """
-        # TODO: Test this.
-        if not (shared_memory := self._ensure_context()._shared_memory):
-            raise RuntimeError
-        return shared_memory[self._artifacts.control_buses[Names.OUTPUT_LEVELS]]

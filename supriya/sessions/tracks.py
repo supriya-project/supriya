@@ -8,7 +8,14 @@ from ..ugens.system import (
     build_meters_synthdef,
     build_patch_cable_synthdef,
 )
-from .components import ChannelSettable, Component, Deletable, Movable, NameSettable
+from .components import (
+    ChannelSettable,
+    Component,
+    Deletable,
+    LevelsCheckable,
+    Movable,
+    NameSettable,
+)
 from .constants import IO, Address, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
@@ -279,6 +286,7 @@ class Track(
     TrackContainer,
     ChannelSettable,
     Deletable,
+    LevelsCheckable,
     Movable,
     NameSettable,
 ):
@@ -912,17 +920,6 @@ class Track(
         return self._input
 
     @property
-    def input_levels(self) -> list[float]:
-        """
-        Get the track's current input levels.
-
-        Read from server shared memory.
-        """
-        if not (shared_memory := self._ensure_context()._shared_memory):
-            raise RuntimeError
-        return shared_memory[self._artifacts.control_buses[Names.INPUT_LEVELS]]
-
-    @property
     def is_active(self) -> bool:
         """
         Get the track's active status, as computed from its mute and solo states.
@@ -949,17 +946,6 @@ class Track(
         Get the track's audio output destination.
         """
         return self._output
-
-    @property
-    def output_levels(self) -> list[float]:
-        """
-        Get the track's current output levels.
-
-        Read from server shared memory.
-        """
-        if not (shared_memory := self._ensure_context()._shared_memory):
-            raise RuntimeError
-        return shared_memory[self._artifacts.control_buses[Names.OUTPUT_LEVELS]]
 
     @property
     def sends(self) -> list[TrackSend]:

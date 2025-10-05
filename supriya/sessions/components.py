@@ -16,7 +16,7 @@ from typing import (
     overload,
 )
 
-from ..contexts import AsyncServer, Group
+from ..contexts import AsyncServer, BusGroup, Group
 from ..contexts.responses import QueryTreeGroup
 from ..enums import AddAction, BootStatus
 from ..typing import DEFAULT, Default
@@ -582,3 +582,33 @@ class NameSettable(Component[C]):
         Set the components's name.
         """
         self._name = name
+
+
+class LevelsCheckable(Component[C]):
+    def _get_input_levels_bus_group(self) -> BusGroup:
+        return self._artifacts.control_buses[Names.INPUT_LEVELS]
+
+    def _get_output_levels_bus_group(self) -> BusGroup:
+        return self._artifacts.control_buses[Names.OUTPUT_LEVELS]
+
+    @property
+    def input_levels(self) -> list[float]:
+        """
+        Get the component's current input levels.
+
+        Read from server shared memory.
+        """
+        if not (shared_memory := self._ensure_context()._shared_memory):
+            raise RuntimeError
+        return shared_memory[self._get_input_levels_bus_group()]
+
+    @property
+    def output_levels(self) -> list[float]:
+        """
+        Get the component's current output levels.
+
+        Read from server shared memory.
+        """
+        if not (shared_memory := self._ensure_context()._shared_memory):
+            raise RuntimeError
+        return shared_memory[self._get_output_levels_bus_group()]

@@ -7,7 +7,7 @@ from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Default
 from ..ugens import SynthDef
 from ..ugens.system import build_patch_cable_synthdef
-from .components import C, Component, Deletable, Movable, NameSettable
+from .components import C, Component, Deletable, LevelsCheckable, Movable, NameSettable
 from .constants import IO, Address, ChannelCount, Names, PatchMode
 from .parameters import Field
 from .specs import BusSpec, Spec, SynthDefSpec, SynthSpec
@@ -232,7 +232,7 @@ class DeviceContainer(Component[C]):
         return self._devices[:]
 
 
-class DeviceBase(Deletable[DeviceContainer], Movable, NameSettable):
+class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSettable):
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._devices.remove(self)
         super()._disconnect_parentage()
@@ -264,28 +264,6 @@ class DeviceBase(Deletable[DeviceContainer], Movable, NameSettable):
         old_parent._devices.remove(self)
         self._parent = new_parent
         new_parent._devices.insert(index, self)
-
-    @property
-    def input_levels(self) -> list[float]:
-        """
-        Get the device's current input levels.
-
-        Read from server shared memory.
-        """
-        # TODO: Use the container's input levels if this is the first track,
-        #       otherwise use it's own input levels
-        raise NotImplementedError
-
-    @property
-    def output_levels(self) -> list[float]:
-        """
-        Get the devices's current output levels.
-
-        Read from server shared memory.
-        """
-        # TODO: Use the container's output levels if this is the last track,
-        #       otherwise use it's own output levels
-        raise NotImplementedError
 
 
 class Sidechain:
@@ -361,8 +339,8 @@ class Sidechain:
             )
         )
         input_patch_cable_synthdef = build_patch_cable_synthdef(
-            effective_channel_count,
-            self.input.effective_channel_count,
+            source_channel_count=self.input.effective_channel_count,
+            target_channel_count=effective_channel_count,
             feedback=input_feedsback,
         )
         specs.extend(
