@@ -19,7 +19,7 @@ from .components import (
 from .constants import IO, Address, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
-from .routing import Input
+from .routing import Input, Output
 from .specs import (
     BusSpec,
     GroupSpec,
@@ -317,7 +317,17 @@ class Track(
         )
         self._is_muted: bool = False
         self._is_soloed: bool = False
-        self._output: BusGroup | Default | TrackContainer | None = DEFAULT
+        self._output = Output(
+            add_action=AddAction.ADD_TO_TAIL,
+            component=self,
+            kwargs=dict(
+                active=Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
+            ),
+            name=Names.OUTPUT,
+            output=DEFAULT,
+            source_bus_address=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+            target_node_address=Spec.get_address(self, Names.NODES, Names.GROUP),
+        )
         self._sends: list[TrackSend] = []
         self._add_parameter(name=Names.GAIN, field=FloatField(has_bus=True))
 
@@ -399,8 +409,7 @@ class Track(
 
     def _notify_disconnected(self, connection: "Component") -> bool:
         self._input._notify_disconnected(connection)
-        if connection is self._output:
-            self._output = None
+        self._output._notify_disconnected(connection)
         return False
 
     def _reconcile_activation(self) -> bool:
@@ -433,27 +442,8 @@ class Track(
         related, deleted = super()._reconcile_connections(
             deleting=deleting, roots=roots
         )
-        old_output = self._cached_output
-        related.extend(self._input._reconcile_connections())
-        if deleting:
-            if self._cached_output:
-                self._cached_output._connections.pop((self, Names.OUTPUT), None)
-                related.append(self._cached_output)
-        else:
-            new_output: Component | None = None
-            if isinstance(self._output, TrackContainer):
-                new_output = self._cached_output = self._output
-            elif self._output is DEFAULT:
-                new_output = self._cached_output = self.parent
-            if old_output != new_output:
-                if old_output:
-                    old_output._connections.pop((self, Names.OUTPUT))
-                if new_output:
-                    new_output._connections[(self, Names.OUTPUT)] = IO.WRITE
-            if old_output:
-                related.append(old_output)
-            if new_output:
-                related.append(new_output)
+        related.extend(self._input._reconcile_connections(deleting=deleting))
+        related.extend(self._output._reconcile_connections(deleting=deleting))
         return sorted(set(related), key=lambda x: x.graph_order), deleted
 
     def _resolve_specs(self, context: AsyncServer | None) -> Specs:
@@ -613,90 +603,7 @@ class Track(
             ]
         )
         specs.update(self._input._resolve_specs(context))
-        if self.output is DEFAULT or isinstance(self.output, TrackContainer):
-            output_target_component = parent if self.output is DEFAULT else self.output
-            assert isinstance(output_target_component, TrackContainer)
-            output_feedsback = bool(
-                Spec.feedsback(
-                    writer_order=self.feedback_graph_order,
-                    reader_order=output_target_component.graph_order,
-                )
-            )
-            output_patch_cable_synthdef = build_patch_cable_synthdef(
-                self.effective_channel_count,
-                output_target_component.effective_channel_count,
-            )
-            specs.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=context,
-                    name=output_patch_cable_synthdef.effective_name,
-                    synthdef=output_patch_cable_synthdef,
-                )
-            )
-            specs.synth_specs.append(
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=context,
-                    # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
-                    name=Names.OUTPUT,
-                    kwargs={
-                        "active": Spec.get_address(
-                            self, Names.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-                        "out": Spec.get_address(
-                            output_target_component,
-                            Names.AUDIO_BUSES,
-                            Names.FEEDBACK if output_feedsback else Names.MAIN,
-                        ),
-                    },
-                    parent_node=None,
-                    synthdef=Spec.get_address(
-                        None,
-                        Names.SYNTHDEFS,
-                        output_patch_cable_synthdef.effective_name,
-                    ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-                )
-            )
-        elif isinstance(self.output, BusGroup):
-            output_patch_cable_synthdef = build_patch_cable_synthdef(
-                self.effective_channel_count,
-                len(self.output),
-            )
-            specs.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=context,
-                    name=output_patch_cable_synthdef.effective_name,
-                    synthdef=output_patch_cable_synthdef,
-                )
-            )
-            specs.synth_specs.append(
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=context,
-                    # destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
-                    name=Names.OUTPUT,
-                    kwargs={
-                        "active": Spec.get_address(
-                            self, Names.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-                        "out": self.output,
-                    },
-                    parent_node=None,
-                    synthdef=Spec.get_address(
-                        None,
-                        Names.SYNTHDEFS,
-                        output_patch_cable_synthdef.effective_name,
-                    ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
-                )
-            )
+        specs.update(self._output._resolve_specs(context))
         if Spec.needs_feedback(self):
             feedback_patch_cable_synthdef = build_patch_cable_synthdef(
                 self.effective_channel_count,
@@ -832,7 +739,7 @@ class Track(
                 raise RuntimeError
             elif isinstance(output, TrackContainer) and output.mixer is not self.mixer:
                 raise RuntimeError
-            self._output = output
+            self._output.set(output)
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[self],
@@ -904,7 +811,9 @@ class Track(
         """
         Get the track's audio output destination.
         """
-        return self._output
+        if (output := self._output._output) is not None:
+            assert isinstance(output, (BusGroup, Default, TrackContainer))
+        return output
 
     @property
     def sends(self) -> list[TrackSend]:
