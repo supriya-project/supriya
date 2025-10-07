@@ -306,27 +306,27 @@ class Track(
         TrackContainer.__init__(self)
         self._cached_output: TrackContainer | None = None
         self._input: Input[Track] = Input(
+            add_node_address=Spec.get_address(self, Names.NODES, Names.GROUP),
             add_action=AddAction.ADD_TO_HEAD,
-            component=self,
+            host_component=self,
             kwargs=dict(
                 active=Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
             ),
             name=Names.INPUT,
             target_bus_name=Names.MAIN,
-            target_node_name=Names.GROUP,
         )
         self._is_muted: bool = False
         self._is_soloed: bool = False
         self._output = Output(
             add_action=AddAction.ADD_TO_TAIL,
-            component=self,
+            add_node_address=Spec.get_address(self, Names.NODES, Names.GROUP),
+            host_component=self,
             kwargs=dict(
                 active=Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
             ),
             name=Names.OUTPUT,
             output=DEFAULT,
             source_bus_address=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-            target_node_address=Spec.get_address(self, Names.NODES, Names.GROUP),
         )
         self._sends: list[TrackSend] = []
         self._add_parameter(name=Names.GAIN, field=FloatField(has_bus=True))
