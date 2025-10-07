@@ -17,7 +17,8 @@ class Input(Generic[C]):
         *,
         add_action: AddAction,
         component: Component,
-        kwargs: dict[str, float | str] | None = None,
+        kwargs: dict[str, Callable[[Component], float | str] | float | str]
+        | None = None,
         name: str,
         target_bus_name: str,
         target_node_name: str,
@@ -109,7 +110,10 @@ class Input(Generic[C]):
                     "out": Spec.get_address(
                         self._component, Names.AUDIO_BUSES, self._target_bus_name
                     ),
-                    **self._kwargs,
+                    **{
+                        key: value(self._component) if callable(value) else value
+                        for key, value in self._kwargs.items()
+                    },
                 },
                 parent_node=None,
                 synthdef=Spec.get_address(
@@ -135,9 +139,10 @@ class Output:
         add_action: AddAction,
         component: Component,
         destroy_strategy: dict[str, float] | None = None,
-        kwargs: dict[str, float | str] | None = None,
+        kwargs: dict[str, Callable[[Component], float | str] | float | str]
+        | None = None,
         name: str,
-        output: Default | None = None,
+        output: BusGroup | Component | Default | None = None,
         source_bus_address: Callable[[Component], str] | str,
         target_node_address: Callable[[Component], str] | str,
     ) -> None:
@@ -237,7 +242,10 @@ class Output:
                         else self._source_bus_address
                     ),
                     out=target_bus_address,
-                    **self._kwargs,
+                    **{
+                        key: value(self._component) if callable(value) else value
+                        for key, value in self._kwargs.items()
+                    },
                 ),
                 name=self._name,
                 parent_node=None,
