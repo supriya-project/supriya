@@ -17,15 +17,16 @@ class Input(Generic[C]):
         *,
         add_action: AddAction,
         add_node_address: Callable[[Component], str] | str,
+        destroy_strategy: dict[str, float] | None = None,
         host_component: Component,
-        kwargs: dict[str, Callable[[Component], float | str] | float | str]
-        | None = None,
+        kwargs: dict[str, Callable[[Component], str] | float | str] | None = None,
         name: str,
         target_bus_name: str,
     ) -> None:
         self._add_action = add_action
         self._add_node_address = add_node_address
         self._cached_input: BusGroup | C | None = None
+        self._destroy_strategy = destroy_strategy
         self._host_component = host_component
         self._input: BusGroup | C | None = None
         self._kwargs = kwargs or {}
@@ -72,32 +73,33 @@ class Input(Generic[C]):
         if not (context is not None and self._cached_input):
             return specs
         if isinstance(self._cached_input, BusGroup):
-            source_address: int | str = int(self._cached_input)
-            source_channel_count = len(self._cached_input)
             feedsback = False
-        else:
-            source_address = Spec.get_address(
-                self._cached_input,
-                Names.AUDIO_BUSES,
-                Names.MAIN,
-            )
-            source_channel_count = self._cached_input.effective_channel_count
+            source_bus_address: int | str = int(self._cached_input)
+            source_channel_count = len(self._cached_input)
+        elif isinstance(self._cached_input, Component):
             feedsback = bool(
                 Spec.feedsback(
                     writer_order=self._cached_input.feedback_graph_order,
                     reader_order=self._host_component.graph_order,
                 )
             )
-        patch_cable_synthdef = build_patch_cable_synthdef(
-            source_channel_count=source_channel_count,
-            target_channel_count=self._get_target_channel_count(),
-            feedback=feedsback,
-        )
+            source_bus_address = Spec.get_address(
+                self._cached_input,
+                Names.AUDIO_BUSES,
+                Names.MAIN,
+            )
+            source_channel_count = self._cached_input.effective_channel_count
         specs.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,
                 context=context,
-                name=patch_cable_synthdef.effective_name,
+                name=(
+                    patch_cable_synthdef := build_patch_cable_synthdef(
+                        source_channel_count=source_channel_count,
+                        target_channel_count=self._get_target_channel_count(),
+                        feedback=feedsback,
+                    )
+                ).effective_name,
                 synthdef=patch_cable_synthdef,
             )
         )
@@ -106,9 +108,9 @@ class Input(Generic[C]):
                 add_action=self._add_action,
                 component=self._host_component,
                 context=context,
-                name=self._name,
+                destroy_strategy=self._destroy_strategy,
                 kwargs={
-                    "in_": source_address,
+                    "in_": source_bus_address,
                     "out": Spec.get_address(
                         self._host_component, Names.AUDIO_BUSES, self._target_bus_name
                     ),
@@ -117,6 +119,7 @@ class Input(Generic[C]):
                         for key, value in self._kwargs.items()
                     },
                 },
+                name=self._name,
                 parent_node=None,
                 synthdef=Spec.get_address(
                     None,
@@ -142,48 +145,47 @@ class Output:
         *,
         add_action: AddAction,
         add_node_address: Callable[[Component], str] | str,
-        host_component: Component,
         destroy_strategy: dict[str, float] | None = None,
-        kwargs: dict[str, Callable[[Component], float | str] | float | str]
-        | None = None,
+        host_component: Component,
+        kwargs: dict[str, Callable[[Component], str] | float | str] | None = None,
         name: str,
-        output: BusGroup | Component | Default | None = None,
         source_bus_address: Callable[[Component], str] | str,
+        target: BusGroup | Component | Default | None = None,
     ) -> None:
         self._add_action = add_action
         self._add_node_address = add_node_address
-        self._cached_output: BusGroup | Component | None = None
-        self._host_component = host_component
+        self._cached_target: BusGroup | Component | None = None
         self._destroy_strategy = destroy_strategy
+        self._host_component = host_component
         self._kwargs = kwargs or {}
         self._name = name
-        self._output: BusGroup | Component | Default | None = output
         self._source_bus_address = source_bus_address
+        self._target: BusGroup | Component | Default | None = target
 
     def _get_source_channel_count(self) -> ChannelCount:
         return self._host_component.effective_channel_count
 
     def _notify_disconnected(self, connection: "Component") -> None:
-        if connection is self._output:
+        if connection is self._target:
             self.set(None)
 
     def _reconcile_connections(self, *, deleting: bool = False) -> list[Component]:
         related: list[Component] = []
-        old_output = self._cached_output
+        old_output = self._cached_target
         if deleting:
-            if isinstance(self._cached_output, Component):
-                self._cached_output._connections.pop(
+            if isinstance(self._cached_target, Component):
+                self._cached_target._connections.pop(
                     (self._host_component, Names.OUTPUT), None
                 )
-                related.append(self._cached_output)
+                related.append(self._cached_target)
         else:
             new_output: BusGroup | Component | None
-            if isinstance(self._output, (BusGroup, Component)):
-                new_output = self._cached_output = self._output
-            elif isinstance(self._output, Default):
-                new_output = self._cached_output = self._resolve_default()
+            if isinstance(self._target, (BusGroup, Component)):
+                new_output = self._cached_target = self._target
+            elif isinstance(self._target, Default):
+                new_output = self._cached_target = self._resolve_default()
             else:
-                new_output = self._cached_output = self._output
+                new_output = self._cached_target = self._target
             if old_output != new_output:
                 if isinstance(old_output, Component):
                     old_output._connections.pop((self._host_component, Names.OUTPUT))
@@ -203,25 +205,25 @@ class Output:
 
     def _resolve_specs(self, context: AsyncServer | None) -> Specs:
         specs = Specs()
-        if not (context is not None and self._cached_output):
+        if not (context is not None and self._cached_target):
             return specs
-        if isinstance(self._cached_output, BusGroup):
+        if isinstance(self._cached_target, BusGroup):
             feedsback = False
-            target_bus_address: int | str = int(self._cached_output)
-            target_channel_count = len(self._cached_output)
-        elif isinstance(self._cached_output, Component):
+            target_bus_address: int | str = int(self._cached_target)
+            target_channel_count = len(self._cached_target)
+        elif isinstance(self._cached_target, Component):
             feedsback = bool(
                 Spec.feedsback(
                     writer_order=self._host_component.feedback_graph_order,
-                    reader_order=self._cached_output.graph_order,
+                    reader_order=self._cached_target.graph_order,
                 )
             )
             target_bus_address = Spec.get_address(
-                self._cached_output,
+                self._cached_target,
                 Names.AUDIO_BUSES,
                 Names.FEEDBACK if feedsback else Names.MAIN,
             )
-            target_channel_count = self._cached_output.effective_channel_count
+            target_channel_count = self._cached_target.effective_channel_count
         specs.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,
@@ -269,5 +271,5 @@ class Output:
         )
         return specs
 
-    def set(self, output: BusGroup | Component | Default | None) -> None:
-        self._output = output
+    def set(self, target: BusGroup | Component | Default | None) -> None:
+        self._target = target

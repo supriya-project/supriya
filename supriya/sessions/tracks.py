@@ -325,8 +325,8 @@ class Track(
                 active=Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
             ),
             name=Names.OUTPUT,
-            output=DEFAULT,
             source_bus_address=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+            target=DEFAULT,
         )
         self._sends: list[TrackSend] = []
         self._add_parameter(name=Names.GAIN, field=FloatField(has_bus=True))
@@ -729,17 +729,17 @@ class Track(
                 self._apply_activation()
 
     async def set_output(
-        self, output: Union[BusGroup, Default, TrackContainer] | None
+        self, target: Union[BusGroup, Default, TrackContainer] | None
     ) -> None:
         """
         Set the track's audio output destination.
         """
         async with (session := self._ensure_session())._lock:
-            if output is self:
+            if target is self:
                 raise RuntimeError
-            elif isinstance(output, TrackContainer) and output.mixer is not self.mixer:
+            elif isinstance(target, TrackContainer) and target.mixer is not self.mixer:
                 raise RuntimeError
-            self._output.set(output)
+            self._output.set(target)
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[self],
@@ -811,7 +811,7 @@ class Track(
         """
         Get the track's audio output destination.
         """
-        if (output := self._output._output) is not None:
+        if (output := self._output._target) is not None:
             assert isinstance(output, (BusGroup, Default, TrackContainer))
         return output
 
