@@ -280,12 +280,14 @@ class Sidechain:
         self._conditional = conditional
         self._input = Input(
             add_action=AddAction.ADD_TO_HEAD,
-            add_node_address=Spec.get_address(
-                self._component, Names.NODES, Names.GROUP
-            ),
+            add_node_address=Spec.get_address(component, Names.NODES, Names.GROUP),
             host_component=component,
             name=name,
-            target_bus_name=name,
+            target_bus_address=Spec.get_address(
+                component,
+                Names.AUDIO_BUSES,
+                name,
+            ),
         )
         self._name = name
 

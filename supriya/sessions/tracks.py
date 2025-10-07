@@ -313,7 +313,7 @@ class Track(
                 active=Spec.get_address(self, Names.CONTROL_BUSES, Names.ACTIVE),
             ),
             name=Names.INPUT,
-            target_bus_name=Names.MAIN,
+            target_bus_address=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
         )
         self._is_muted: bool = False
         self._is_soloed: bool = False

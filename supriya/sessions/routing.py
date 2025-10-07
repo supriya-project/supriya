@@ -5,7 +5,7 @@ from ..enums import AddAction
 from ..typing import Default
 from ..ugens.system import build_patch_cable_synthdef
 from .components import Component
-from .constants import IO, ChannelCount, Names
+from .constants import IO, Names
 from .specs import Spec, Specs, SynthDefSpec, SynthSpec
 
 
@@ -21,7 +21,7 @@ class Input:
         name: str,
         source: BusGroup | Component | None = None,
         target: Component | None = None,
-        target_bus_name: str,  # TODO: harmonize like Output.source_bus_address
+        target_bus_address: Callable[[Component], str] | str,
     ) -> None:
         self._add_action = add_action
         self._add_node_address = add_node_address
@@ -32,10 +32,7 @@ class Input:
         self._name = name
         self._source = source
         self._target = target
-        self._target_bus_name = target_bus_name
-
-    def _get_target_channel_count(self) -> ChannelCount:
-        return self._host_component.effective_channel_count
+        self._target_bus_address = target_bus_address
 
     def _notify_disconnected(self, connection: "Component") -> None:
         if connection is self._source:
@@ -100,6 +97,9 @@ class Input:
                 Names.MAIN,
             )
             source_channel_count = self._cached_source.effective_channel_count
+        target_channel_count = (
+            self._target if self._target else self._host_component
+        ).effective_channel_count
         specs.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,
@@ -107,7 +107,7 @@ class Input:
                 name=(
                     patch_cable_synthdef := build_patch_cable_synthdef(
                         source_channel_count=source_channel_count,
-                        target_channel_count=self._get_target_channel_count(),
+                        target_channel_count=target_channel_count,
                         feedback=feedsback,
                     )
                 ).effective_name,
@@ -122,8 +122,10 @@ class Input:
                 destroy_strategy=self._destroy_strategy,
                 kwargs={
                     "in_": source_bus_address,
-                    "out": Spec.get_address(
-                        self._host_component, Names.AUDIO_BUSES, self._target_bus_name
+                    "out": (
+                        self._target_bus_address(self._host_component)
+                        if callable(self._target_bus_address)
+                        else self._target_bus_address
                     ),
                     **{
                         key: value(self._host_component) if callable(value) else value
@@ -174,9 +176,6 @@ class Output:
         self._source = source
         self._source_bus_address = source_bus_address
         self._target: BusGroup | Component | Default | None = target
-
-    def _get_source_channel_count(self) -> ChannelCount:
-        return self._host_component.effective_channel_count
 
     def _notify_disconnected(self, connection: "Component") -> None:
         if connection is self._target:
@@ -243,14 +242,17 @@ class Output:
                 Names.FEEDBACK if feedsback else Names.MAIN,
             )
             target_channel_count = self._cached_target.effective_channel_count
+        source_channel_count = (
+            self._source if self._source else self._host_component
+        ).effective_channel_count
         specs.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,
                 context=context,
                 name=(
                     patch_cable_synthdef := build_patch_cable_synthdef(
-                        self._host_component.effective_channel_count,
-                        target_channel_count,
+                        source_channel_count=source_channel_count,
+                        target_channel_count=target_channel_count,
                     )
                 ).effective_name,
                 synthdef=patch_cable_synthdef,
