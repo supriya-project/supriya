@@ -10,6 +10,10 @@ from .specs import Spec, Specs, SynthDefSpec, SynthSpec
 
 
 class Input:
+    """
+    An input, controlling audio reads from a bus or component to another component.
+    """
+
     def __init__(
         self,
         *,
@@ -153,6 +157,10 @@ class Input:
 
 
 class Output:
+    """
+    An output, controlling audio writes from a source component to another component or bus.
+    """
+
     def __init__(
         self,
         *,
