@@ -1,4 +1,4 @@
-from typing import Callable, Generic, TypeVar
+from typing import Callable
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
@@ -8,10 +8,8 @@ from .components import Component
 from .constants import IO, ChannelCount, Names
 from .specs import Spec, Specs, SynthDefSpec, SynthSpec
 
-C = TypeVar("C", bound=Component)
 
-
-class Input(Generic[C]):
+class Input:
     def __init__(
         self,
         *,
@@ -21,74 +19,87 @@ class Input(Generic[C]):
         host_component: Component,
         kwargs: dict[str, Callable[[Component], str] | float | str] | None = None,
         name: str,
-        target_bus_name: str,
+        source: BusGroup | Component | None = None,
+        target: Component | None = None,
+        target_bus_name: str,  # TODO: harmonize like Output.source_bus_address
     ) -> None:
         self._add_action = add_action
         self._add_node_address = add_node_address
-        self._cached_input: BusGroup | C | None = None
+        self._cached_source: BusGroup | Component | None = None
         self._destroy_strategy = destroy_strategy
         self._host_component = host_component
-        self._input: BusGroup | C | None = None
         self._kwargs = kwargs or {}
         self._name = name
+        self._source = source
+        self._target = target
         self._target_bus_name = target_bus_name
 
     def _get_target_channel_count(self) -> ChannelCount:
         return self._host_component.effective_channel_count
 
     def _notify_disconnected(self, connection: "Component") -> None:
-        if connection is self._input:
+        if connection is self._source:
             self.set(None)
 
     def _reconcile_connections(self, *, deleting: bool = False) -> list[Component]:
         related: list[Component] = []
-        old_input = self._cached_input
+        if self._target:
+            related.append(self._target)
+        old_source = self._cached_source
         if deleting:
-            if isinstance(self._cached_input, Component):
-                self._cached_input._connections.pop(
+            if self._target:
+                self._target._connections.pop(
+                    (self._host_component, Names.OUTPUT), None
+                )
+            if isinstance(self._cached_source, Component):
+                self._cached_source._connections.pop(
                     (self._host_component, Names.INPUT), None
                 )
-                related.append(self._cached_input)
+                related.append(self._cached_source)
         else:
-            new_input: BusGroup | Component | None
-            if isinstance(self._input, (BusGroup, Component)):
-                new_input = self._cached_input = self._input
+            if self._target:
+                self._target._connections[(self._host_component, Names.OUTPUT)] = (
+                    IO.WRITE
+                )
+            new_source: BusGroup | Component | None
+            if isinstance(self._source, (BusGroup, Component)):
+                new_source = self._cached_source = self._source
             else:
-                new_input = self._cached_input = None
-            if old_input != new_input:
-                if isinstance(old_input, Component):
-                    old_input._connections.pop((self._host_component, Names.INPUT))
-                if isinstance(new_input, Component):
-                    new_input._connections[(self._host_component, Names.INPUT)] = (
+                new_source = self._cached_source = None
+            if old_source != new_source:
+                if isinstance(old_source, Component):
+                    old_source._connections.pop((self._host_component, Names.INPUT))
+                if isinstance(new_source, Component):
+                    new_source._connections[(self._host_component, Names.INPUT)] = (
                         IO.READ
                     )
-            if isinstance(old_input, Component):
-                related.append(old_input)
-            if isinstance(new_input, Component):
-                related.append(new_input)
+            if isinstance(old_source, Component):
+                related.append(old_source)
+            if isinstance(new_source, Component):
+                related.append(new_source)
         return sorted(set(related), key=lambda x: x.graph_order)
 
     def _resolve_specs(self, context: AsyncServer | None) -> Specs:
         specs = Specs()
-        if not (context is not None and self._cached_input):
+        if not (context is not None and self._cached_source):
             return specs
-        if isinstance(self._cached_input, BusGroup):
+        if isinstance(self._cached_source, BusGroup):
             feedsback = False
-            source_bus_address: int | str = int(self._cached_input)
-            source_channel_count = len(self._cached_input)
-        elif isinstance(self._cached_input, Component):
+            source_bus_address: int | str = int(self._cached_source)
+            source_channel_count = len(self._cached_source)
+        elif isinstance(self._cached_source, Component):
             feedsback = bool(
                 Spec.feedsback(
-                    writer_order=self._cached_input.feedback_graph_order,
+                    writer_order=self._cached_source.feedback_graph_order,
                     reader_order=self._host_component.graph_order,
                 )
             )
             source_bus_address = Spec.get_address(
-                self._cached_input,
+                self._cached_source,
                 Names.AUDIO_BUSES,
                 Names.MAIN,
             )
-            source_channel_count = self._cached_input.effective_channel_count
+            source_channel_count = self._cached_source.effective_channel_count
         specs.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,
@@ -135,8 +146,8 @@ class Input(Generic[C]):
         )
         return specs
 
-    def set(self, input: BusGroup | C | None) -> None:
-        self._input = input
+    def set(self, source: BusGroup | Component | None) -> None:
+        self._source = source
 
 
 class Output:
@@ -149,6 +160,7 @@ class Output:
         host_component: Component,
         kwargs: dict[str, Callable[[Component], str] | float | str] | None = None,
         name: str,
+        source: Component | None = None,
         source_bus_address: Callable[[Component], str] | str,
         target: BusGroup | Component | Default | None = None,
     ) -> None:
@@ -159,6 +171,7 @@ class Output:
         self._host_component = host_component
         self._kwargs = kwargs or {}
         self._name = name
+        self._source = source
         self._source_bus_address = source_bus_address
         self._target: BusGroup | Component | Default | None = target
 
@@ -171,32 +184,38 @@ class Output:
 
     def _reconcile_connections(self, *, deleting: bool = False) -> list[Component]:
         related: list[Component] = []
-        old_output = self._cached_target
+        if self._source:
+            related.append(self._source)
+        old_target = self._cached_target
         if deleting:
+            if self._source:
+                self._source._connections.pop((self._host_component, Names.INPUT), None)
             if isinstance(self._cached_target, Component):
                 self._cached_target._connections.pop(
                     (self._host_component, Names.OUTPUT), None
                 )
                 related.append(self._cached_target)
         else:
-            new_output: BusGroup | Component | None
+            if self._source:
+                self._source._connections[(self._host_component, Names.INPUT)] = IO.READ
+            new_target: BusGroup | Component | None
             if isinstance(self._target, (BusGroup, Component)):
-                new_output = self._cached_target = self._target
+                new_target = self._cached_target = self._target
             elif isinstance(self._target, Default):
-                new_output = self._cached_target = self._resolve_default()
+                new_target = self._cached_target = self._resolve_default()
             else:
-                new_output = self._cached_target = self._target
-            if old_output != new_output:
-                if isinstance(old_output, Component):
-                    old_output._connections.pop((self._host_component, Names.OUTPUT))
-                if isinstance(new_output, Component):
-                    new_output._connections[(self._host_component, Names.OUTPUT)] = (
+                new_target = self._cached_target = self._target
+            if old_target != new_target:
+                if isinstance(old_target, Component):
+                    old_target._connections.pop((self._host_component, Names.OUTPUT))
+                if isinstance(new_target, Component):
+                    new_target._connections[(self._host_component, Names.OUTPUT)] = (
                         IO.WRITE
                     )
-            if isinstance(old_output, Component):
-                related.append(old_output)
-            if isinstance(new_output, Component):
-                related.append(new_output)
+            if isinstance(old_target, Component):
+                related.append(old_target)
+            if isinstance(new_target, Component):
+                related.append(new_target)
         return sorted(set(related), key=lambda x: x.graph_order)
 
     def _resolve_default(self) -> Component:

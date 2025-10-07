@@ -278,7 +278,7 @@ class Sidechain:
         self._channel_count = channel_count
         self._component = component
         self._conditional = conditional
-        self._input: Input[Track] = Input(
+        self._input = Input(
             add_action=AddAction.ADD_TO_HEAD,
             add_node_address=Spec.get_address(
                 self._component, Names.NODES, Names.GROUP
@@ -335,8 +335,9 @@ class Sidechain:
 
     @property
     def input(self) -> Optional["Track"]:
-        input_ = self._input._input
-        assert not isinstance(input_, BusGroup)
+        from .tracks import Track
+
+        assert isinstance(input_ := self._input._source, Track)
         return input_
 
     @property

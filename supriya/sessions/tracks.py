@@ -305,7 +305,7 @@ class Track(
         DeviceContainer.__init__(self)
         TrackContainer.__init__(self)
         self._cached_output: TrackContainer | None = None
-        self._input: Input[Track] = Input(
+        self._input = Input(
             add_node_address=Spec.get_address(self, Names.NODES, Names.GROUP),
             add_action=AddAction.ADD_TO_HEAD,
             host_component=self,
@@ -729,17 +729,17 @@ class Track(
                 self._apply_activation()
 
     async def set_output(
-        self, target: Union[BusGroup, Default, TrackContainer] | None
+        self, output: Union[BusGroup, Default, TrackContainer] | None
     ) -> None:
         """
         Set the track's audio output destination.
         """
         async with (session := self._ensure_session())._lock:
-            if target is self:
+            if output is self:
                 raise RuntimeError
-            elif isinstance(target, TrackContainer) and target.mixer is not self.mixer:
+            elif isinstance(output, TrackContainer) and output.mixer is not self.mixer:
                 raise RuntimeError
-            self._output.set(target)
+            self._output.set(output)
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[self],
@@ -783,7 +783,9 @@ class Track(
         """
         Get the track's audio input source.
         """
-        return self._input._input
+        if (input_ := self._input._source) is not None:
+            assert isinstance(input_, (BusGroup, Track))
+        return input_
 
     @property
     def is_active(self) -> bool:
