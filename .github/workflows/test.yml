@@ -29,9 +29,9 @@ jobs:
         python-version: ["3.13"]
     timeout-minutes: 30
     steps:
+    - uses: actions/checkout@v4
     - name: Tune GitHub Actions
       uses: ./.github/actions/tune-github-actions
-    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -128,9 +128,9 @@ jobs:
         - {os: windows-latest, python-version: "3.13"}
     timeout-minutes: 45
     steps:
+    - uses: actions/checkout@v4
     - name: Tune GitHub Actions
       uses: ./.github/actions/tune-github-actions
-    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
