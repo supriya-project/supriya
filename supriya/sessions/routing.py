@@ -24,7 +24,7 @@ class Input:
         kwargs: dict[str, Callable[[Component], str] | float | str] | None = None,
         name: str,
         source: BusGroup | Component | None = None,
-        target: Component | None = None,
+        target: Callable[[Component], Component] | Component | None = None,
         target_bus_address: Callable[[Component], str] | str,
     ) -> None:
         self._add_action = add_action
@@ -44,24 +44,24 @@ class Input:
 
     def _reconcile_connections(self, *, deleting: bool = False) -> list[Component]:
         related: list[Component] = []
-        if self._target:
-            related.append(self._target)
+        if target := (
+            self._target(self._host_component)
+            if callable(self._target)
+            else self._target
+        ):
+            related.append(target)
         old_source = self._cached_source
         if deleting:
-            if self._target:
-                self._target._connections.pop(
-                    (self._host_component, Names.OUTPUT), None
-                )
+            if target:
+                target._connections.pop((self._host_component, Names.OUTPUT), None)
             if isinstance(self._cached_source, Component):
                 self._cached_source._connections.pop(
                     (self._host_component, Names.INPUT), None
                 )
                 related.append(self._cached_source)
         else:
-            if self._target:
-                self._target._connections[(self._host_component, Names.OUTPUT)] = (
-                    IO.WRITE
-                )
+            if target:
+                target._connections[(self._host_component, Names.OUTPUT)] = IO.WRITE
             new_source: BusGroup | Component | None
             if isinstance(self._source, (BusGroup, Component)):
                 new_source = self._cached_source = self._source
@@ -101,9 +101,12 @@ class Input:
                 Names.MAIN,
             )
             source_channel_count = self._cached_source.effective_channel_count
-        target_channel_count = (
-            self._target if self._target else self._host_component
-        ).effective_channel_count
+        target = (
+            self._target(self._host_component)
+            if callable(self._target)
+            else self._target or self._host_component
+        )
+        target_channel_count = target.effective_channel_count
         specs.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,
@@ -170,7 +173,7 @@ class Output:
         host_component: Component,
         kwargs: dict[str, Callable[[Component], str] | float | str] | None = None,
         name: str,
-        source: Component | None = None,
+        source: Callable[[Component], Component] | Component | None = None,
         source_bus_address: Callable[[Component], str] | str,
         target: BusGroup | Component | Default | None = None,
     ) -> None:
@@ -191,20 +194,24 @@ class Output:
 
     def _reconcile_connections(self, *, deleting: bool = False) -> list[Component]:
         related: list[Component] = []
-        if self._source:
-            related.append(self._source)
+        if source := (
+            self._source(self._host_component)
+            if callable(self._source)
+            else self._source
+        ):
+            related.append(source)
         old_target = self._cached_target
         if deleting:
-            if self._source:
-                self._source._connections.pop((self._host_component, Names.INPUT), None)
+            if source:
+                source._connections.pop((self._host_component, Names.INPUT), None)
             if isinstance(self._cached_target, Component):
                 self._cached_target._connections.pop(
                     (self._host_component, Names.OUTPUT), None
                 )
                 related.append(self._cached_target)
         else:
-            if self._source:
-                self._source._connections[(self._host_component, Names.INPUT)] = IO.READ
+            if source:
+                source._connections[(self._host_component, Names.INPUT)] = IO.READ
             new_target: BusGroup | Component | None
             if isinstance(self._target, (BusGroup, Component)):
                 new_target = self._cached_target = self._target
@@ -250,9 +257,12 @@ class Output:
                 Names.FEEDBACK if feedsback else Names.MAIN,
             )
             target_channel_count = self._cached_target.effective_channel_count
-        source_channel_count = (
-            self._source if self._source else self._host_component
-        ).effective_channel_count
+        source = (
+            self._source(self._host_component)
+            if callable(self._source)
+            else self._source or self._host_component
+        )
+        source_channel_count = source.effective_channel_count
         specs.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,

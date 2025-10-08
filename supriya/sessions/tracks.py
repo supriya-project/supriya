@@ -153,6 +153,27 @@ class TrackSend(Deletable["Track"]):
         self._postfader = postfader
         self._target = target
         self._add_parameter(name=Names.GAIN, field=FloatField(has_bus=True))
+        self._output = Output(
+            add_action=AddAction.ADD_AFTER if self._postfader else AddAction.ADD_BEFORE,
+            add_node_address=lambda component: Spec.get_address(
+                component._ensure_parent(),
+                Names.NODES,
+                Names.CHANNEL_STRIP,
+            ),
+            host_component=self,
+            kwargs=dict(
+                active=lambda component: Spec.get_address(
+                    component._ensure_parent(), Names.CONTROL_BUSES, Names.ACTIVE
+                ),
+                gain=Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
+            ),
+            name=Names.SYNTH,
+            source=lambda component: component._ensure_parent(),
+            source_bus_address=lambda component: Spec.get_address(
+                component._ensure_parent(), Names.AUDIO_BUSES, Names.MAIN
+            ),
+            target=target,
+        )
 
     def __repr__(self) -> str:
         return (
