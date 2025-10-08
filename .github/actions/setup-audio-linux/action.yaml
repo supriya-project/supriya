@@ -3,13 +3,11 @@ description: Setup audio under Linux
 runs:
   using: "composite"
   steps:
-
     - name: Install jack
       run: |
         sudo apt-get update
         sudo apt-get install --yes jackd2
       shell: bash
-
     - name: Setup Jack
       run: |
         echo "Setting up Jack..."

@@ -1,0 +1,11 @@
+name: Tune GitHub Actions
+description: Tune GitHub Actions
+runs:
+  using: "composite"
+  steps:
+    - name: Disable man-db update
+      if: runner.os == 'Linux'
+      run: |
+        echo "set man-db/auto-update false" | sudo debconf-communicate
+        sudo dpkg-reconfigure man-db
+      shell: bash
