@@ -32,8 +32,8 @@ jobs:
     - name: Disable man-db update
       if: runner.os == 'Linux'
       run: |
-        echo "set man-db/auto-update false" | debconf-communicate
-        dpkg-reconfigure man-db
+        sudo echo "set man-db/auto-update false" | debconf-communicate
+        sudo dpkg-reconfigure man-db
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
