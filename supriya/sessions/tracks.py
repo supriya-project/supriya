@@ -16,7 +16,7 @@ from .components import (
     Movable,
     NameSettable,
 )
-from .constants import IO, Address, Names
+from .constants import Address, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
 from .routing import Input, Output
@@ -151,7 +151,6 @@ class TrackSend(Deletable["Track"]):
     ) -> None:
         Component.__init__(self, id_=id_, name=name, parent=parent)
         self._postfader = postfader
-        self._target = target
         self._add_parameter(name=Names.GAIN, field=FloatField(has_bus=True))
         self._output = Output(
             add_action=AddAction.ADD_AFTER if self._postfader else AddAction.ADD_BEFORE,
@@ -160,6 +159,7 @@ class TrackSend(Deletable["Track"]):
                 Names.NODES,
                 Names.CHANNEL_STRIP,
             ),
+            destroy_strategy=dict(done_action=DoneAction.FREE_SYNTH, gate=0),
             host_component=self,
             kwargs=dict(
                 active=lambda component: Spec.get_address(
@@ -200,7 +200,7 @@ class TrackSend(Deletable["Track"]):
         return f"sends[{self._id}]"
 
     def _notify_disconnected(self, connection: "Component") -> bool:
-        return connection is self._target
+        return connection is self._output._target
 
     def _reconcile_connections(
         self,
@@ -208,76 +208,19 @@ class TrackSend(Deletable["Track"]):
         deleting: bool = False,
         roots: list[Component] | None = None,
     ) -> tuple[list[Component], set[Component]]:
-        parent = self._ensure_parent()
         related, deleted = super()._reconcile_connections(
             deleting=deleting, roots=roots
         )
-        components: list[Component] = [parent, self.target]
-        if deleting:
-            parent._connections.pop((self, Names.INPUT), None)
-            self.target._connections.pop((self, Names.OUTPUT), None)
-        else:
-            parent._connections[(self, Names.INPUT)] = IO.READ
-            self.target._connections[(self, Names.OUTPUT)] = IO.WRITE
-        related.extend(sorted(components, key=lambda x: x.graph_order))
-        return related, deleted
+        related.extend(self._output._reconcile_connections(deleting=deleting))
+        return sorted(set(related), key=lambda x: x.graph_order), deleted
 
     def _resolve_specs(self, context: AsyncServer | None) -> Specs:
         specs = Specs()
         if not context:
             return specs
-        parent = self._ensure_parent()
-        feedsback = bool(
-            Spec.feedsback(
-                writer_order=parent.graph_order,
-                reader_order=self.target.graph_order,
-            )
-        )
         for parameter in self.parameters.values():
             specs.update(parameter._resolve_specs(context=context))
-        specs.synthdef_specs.append(
-            SynthDefSpec(
-                component=self,
-                context=context,
-                name=(
-                    patch_cable_synthdef := build_patch_cable_synthdef(
-                        parent.effective_channel_count,
-                        self.target.effective_channel_count,
-                    )
-                ).effective_name,
-                synthdef=patch_cable_synthdef,
-            )
-        )
-        specs.synth_specs.append(
-            SynthSpec(
-                add_action=(
-                    AddAction.ADD_AFTER if self.postfader else AddAction.ADD_BEFORE
-                ),
-                component=self,
-                context=context,
-                destroy_strategy={"done_action": DoneAction.FREE_SYNTH, "gate": 0},
-                kwargs={
-                    "active": Spec.get_address(
-                        parent, Names.CONTROL_BUSES, Names.ACTIVE
-                    ),
-                    "gain": Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
-                    "in_": Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
-                    "out": Spec.get_address(
-                        self.target,
-                        Names.AUDIO_BUSES,
-                        Names.FEEDBACK if feedsback else Names.MAIN,
-                    ),
-                },
-                name=Names.SYNTH,
-                parent_node=None,
-                synthdef=Spec.get_address(
-                    None,
-                    Names.SYNTHDEFS,
-                    patch_cable_synthdef.effective_name,
-                ),
-                target_node=Spec.get_address(parent, Names.NODES, Names.CHANNEL_STRIP),
-            )
-        )
+        specs.update(self._output._resolve_specs(context))
         return specs
 
     @property
@@ -299,7 +242,8 @@ class TrackSend(Deletable["Track"]):
         """
         Get the send's target track container.
         """
-        return self._target
+        assert isinstance(target := self._output._target, TrackContainer)
+        return target
 
 
 class Track(
