@@ -8,6 +8,7 @@ from .constants import ChannelCount, Names
 from .devices import (
     Device,
     DeviceBase,
+    DeviceConfig,
     DeviceContainer,
     ParameterConfig,
     SidechainConfig,
@@ -25,6 +26,7 @@ __all__ = [
     "Component",
     "Device",
     "DeviceBase",
+    "DeviceConfig",
     "DeviceContainer",
     "Field",
     "FloatField",

@@ -315,7 +315,9 @@ class Sidechain:
                 name=self.name,
             )
         )
-        if not self.input or (self.conditional and not self.conditional(**parameters)):
+        if not self._input._source or (
+            self.conditional and not self.conditional(**parameters)
+        ):
             return specs
         specs.update(self._input._resolve_specs(context))
         return specs
@@ -336,16 +338,16 @@ class Sidechain:
         return self._conditional
 
     @property
-    def input(self) -> Optional["Track"]:
-        from .tracks import Track
-
-        if (input_ := self._input._source) is not None:
-            assert isinstance(input_, Track)
-        return input_
-
-    @property
     def name(self) -> str:
         return self._name
+
+    @property
+    def source(self) -> Optional["Track"]:
+        from .tracks import Track
+
+        if (source := self._input._source) is not None:
+            assert isinstance(source, Track)
+        return source
 
 
 class Device(DeviceBase):
@@ -508,9 +510,9 @@ class Device(DeviceBase):
             )
         return specs
 
-    async def set_sidechain(self, name: str, input: Optional["Track"]) -> None:
+    async def set_sidechain(self, name: str, source: Optional["Track"]) -> None:
         async with (session := self._ensure_session())._lock:
-            self._sidechains[name].set(input)
+            self._sidechains[name].set(source)
             await Component._reconcile(
                 context=self.context,
                 reconciling_components=[self],
