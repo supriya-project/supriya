@@ -8,12 +8,14 @@ from supriya.sessions import (
     Device,
     DeviceContainer,
     FloatField,
+    Names,
     ParameterConfig,
     Rack,
     Session,
     SidechainConfig,
     SynthConfig,
 )
+from supriya.typing import DEFAULT
 from supriya.ugens import In, ReplaceOut, SynthDefBuilder
 
 from .conftest import run_test
@@ -28,6 +30,16 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
     return builder.build(f"test:effect:{channel_count}")
 
 
+def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
+    with SynthDefBuilder(bus=0, sidechain_bus=0, multiplier=1, offset=0) as builder:
+        source = In.ar(bus=builder["bus"], channel_count=channel_count)
+        source *= In.ar(bus=builder["sidechain_bus"], channel_count=channel_count)
+        source *= builder["multiplier"]
+        source += builder["offset"]
+        ReplaceOut.ar(bus=builder["bus"], source=source)
+    return builder.build(f"test:sidechain:{channel_count}")
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     (
@@ -37,34 +49,31 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
     [
         # effect with one synth, no parameter specs
         (
-            [
-                (None, "add_mixer", {"name": "Mixer"}),
-                ("mixers[0]", "add_track", {"name": "Track"}),
-            ],
+            [(None, "add_mixer", {"name": "Mixer"})],
             "mixers[0]",
             None,
             None,
             [
                 SynthConfig(synthdef=build_effect_synthdef),
             ],
-            """
+            lambda session: f"""
             --- initial
             +++ mutation
-            @@ -2,3 +2,4 @@
+            @@ -1,3 +1,4 @@
+             <Session 0 {session.boot_status.name}>
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
-                         <Track 2 'Track'>
-            +            <Device 3 'Device'>
+            +            <Device 2 'Device'>
             """,
             """
             --- initial
             +++ mutation
-            @@ -15,6 +15,9 @@
+            @@ -4,6 +4,9 @@
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
-            +            1014 group (session.mixers[0].devices[0]:group)
-            +                1015 test:effect:2 (session.mixers[0].devices[0]:synth-0)
+            +            1007 group (session.mixers[0].devices[0]:group)
+            +                1008 test:effect:2 (session.mixers[0].devices[0]:synth-0)
             +                    bus: 16.0, multiplier: 1.0, offset: 0.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
@@ -73,15 +82,12 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
             """
             - ['/d_recv', <SynthDef: test:effect:2>]
             - ['/sync', 3]
-            - [None, [['/g_new', 1014, 0, 1002], ['/s_new', 'test:effect:2', 1015, 1, 1014, 'bus', 16.0]]]
+            - [None, [['/g_new', 1007, 0, 1002], ['/s_new', 'test:effect:2', 1008, 1, 1007, 'bus', 16.0]]]
             """,
         ),
         # effect with one synth, two parameter specs
         (
-            [
-                (None, "add_mixer", {"name": "Mixer"}),
-                ("mixers[0]", "add_track", {"name": "Track"}),
-            ],
+            [(None, "add_mixer", {"name": "Mixer"})],
             "mixers[0]",
             [
                 ParameterConfig(
@@ -101,25 +107,25 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
                     },
                 ),
             ],
-            """
+            lambda session: f"""
             --- initial
             +++ mutation
-            @@ -2,3 +2,4 @@
+            @@ -1,3 +1,4 @@
+             <Session 0 {session.boot_status.name}>
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
-                         <Track 2 'Track'>
-            +            <Device 3 'Device'>
+            +            <Device 2 'Device'>
             """,
             """
             --- initial
             +++ mutation
-            @@ -15,6 +15,9 @@
+            @@ -4,6 +4,9 @@
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
-            +            1014 group (session.mixers[0].devices[0]:group)
-            +                1015 test:effect:2 (session.mixers[0].devices[0]:synth-0)
-            +                    bus: 16.0, multiplier: c12, offset: c11
+            +            1007 group (session.mixers[0].devices[0]:group)
+            +                1008 test:effect:2 (session.mixers[0].devices[0]:synth-0)
+            +                    bus: 16.0, multiplier: c6, offset: c5
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
@@ -127,10 +133,53 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
             """
             - ['/d_recv', <SynthDef: test:effect:2>]
             - ['/sync', 3]
-            - ['/c_set', 11, 0.25, 12, 0.5]
+            - ['/c_set', 5, 0.25, 6, 0.5]
             - [None,
-               [['/g_new', 1014, 0, 1002],
-                ['/s_new', 'test:effect:2', 1015, 1, 1014, 'bus', 16.0, 'multiplier', 'c12', 'offset', 'c11']]]
+               [['/g_new', 1007, 0, 1002],
+                ['/s_new', 'test:effect:2', 1008, 1, 1007, 'bus', 16.0, 'multiplier', 'c6', 'offset', 'c5']]]
+            """,
+        ),
+        # effect with one synth, one default-channeled sidechain
+        (
+            [(None, "add_mixer", {"name": "Mixer"})],
+            "mixers[0]",
+            [],
+            [SidechainConfig(name=Names.SIDECHAIN, channel_count=DEFAULT)],
+            [
+                SynthConfig(
+                    synthdef=build_sidechain_synthdef,
+                    parameters={
+                        "sidechain_bus": (CalculationRate.AUDIO, Names.SIDECHAIN),
+                    },
+                ),
+            ],
+            lambda session: f"""
+            --- initial
+            +++ mutation
+            @@ -1,3 +1,4 @@
+             <Session 0 {session.boot_status.name}>
+                 <session.contexts[0]>
+                     <Mixer 1 'Mixer'>
+            +            <Device 2 'Device'>
+            """,
+            """
+            --- initial
+            +++ mutation
+            @@ -4,6 +4,9 @@
+                     1004 supriya:meters:2 (session.mixers[0]:input-levels)
+                         in_: 16.0, out: 1.0
+                     1002 group (session.mixers[0]:devices)
+            +            1007 group (session.mixers[0].devices[0]:group)
+            +                1008 test:sidechain:2 (session.mixers[0].devices[0]:synth-0)
+            +                    bus: 16.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 18.0
+                     1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
+                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
+                     1005 supriya:meters:2 (session.mixers[0]:output-levels)
+            """,
+            """
+            - ['/d_recv', <SynthDef: test:sidechain:2>]
+            - ['/sync', 3]
+            - [None, [['/g_new', 1007, 0, 1002], ['/s_new', 'test:sidechain:2', 1008, 1, 1007, 'bus', 16.0, 'sidechain_bus', 18.0]]]
             """,
         ),
     ],

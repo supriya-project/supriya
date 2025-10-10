@@ -339,7 +339,8 @@ class Sidechain:
     def input(self) -> Optional["Track"]:
         from .tracks import Track
 
-        assert isinstance(input_ := self._input._source, Track)
+        if (input_ := self._input._source) is not None:
+            assert isinstance(input_, Track)
         return input_
 
     @property

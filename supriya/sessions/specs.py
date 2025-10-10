@@ -177,7 +177,10 @@ class Spec:
                         new_artifacts=new_artifacts,
                         old_artifacts=old_artifacts,
                     )
-                if key in ("bus", "in_", "out"):
+                if (
+                    key in ("bus", "in_", "out")
+                    or bus.calculation_rate is CalculationRate.AUDIO
+                ):
                     set_kwargs[key] = int(bus)
                 else:
                     map_kwargs[key] = bus.map_symbol()

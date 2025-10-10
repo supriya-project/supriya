@@ -41,6 +41,7 @@ class Names(StrEnum):
     NODES = "nodes"
     OUTPUT = "output"
     OUTPUT_LEVELS = "output-levels"
+    SIDECHAIN = "sidechain"
     SYNTH = "synth"
     SYNTHDEFS = "synthdefs"
     TRACKS = "tracks"

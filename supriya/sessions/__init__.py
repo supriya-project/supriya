@@ -4,7 +4,7 @@ Affordances for building DAW-like applications.
 
 from .chains import Chain, Rack
 from .components import Component
-from .constants import ChannelCount
+from .constants import ChannelCount, Names
 from .devices import (
     Device,
     DeviceBase,
@@ -30,6 +30,7 @@ __all__ = [
     "FloatField",
     "IntField",
     "Mixer",
+    "Names",
     "Parameter",
     "ParameterConfig",
     "Rack",
