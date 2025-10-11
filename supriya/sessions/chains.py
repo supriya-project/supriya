@@ -19,6 +19,38 @@ class Rack(DeviceBase, ChannelSettable):
     #       Can we find some optimization to ensure that, when parallelization
     #       is no concern, buses are re-used?
 
+    # track:2ch, 0 chains, read:ignore, rack:2ch
+    # track:2ch, 0 chains, read:ignore, rack:4ch
+    # track:2ch, 0 chains, read:replac, rack:2ch
+    # track:2ch, 0 chains, read:replac, rack:4ch
+    #     nothing
+
+    # track:2ch, 1 chains, read:ignore, rack:2ch
+    # track:2ch, 1 chains, read:ignore, rack:4ch
+    #     rack w/ main bus
+    #     chain zeroes rack:main
+    #     chain uses rack:main
+
+    # track:2ch, 1 chains, read:replac, rack:2ch
+    # track:2ch, 1 chains, read:replac, rack:4ch
+    #     rack w/ main bus
+    #     chain inputs patch:replace track:main to rack:main
+    #     rack outputs rack:main to track:main
+
+    # track:2ch, 2 chains, read:ignore, rack:2ch
+    # track:2ch, 2 chains, read:ignore, rack:4ch
+    #     rack w/ main and aux buses
+    #     chains zero rack:aux
+    #     chains output patch:sum rack:aux to rack:main
+    #     rack outputs rack:main to track:main
+
+    # track:2ch, 2 chains, read:replac, rack:2ch
+    # track:2ch, 2 chains, read:replac, rack:4ch
+    #     rack w/ main and aux bus
+    #     chains input patch:replace track:main to rack:aux
+    #     chains output patch:sum rack:aux to rack:main
+    #     rack outputs rack:main to track:main
+
     def __init__(
         self,
         *,
@@ -59,29 +91,30 @@ class Rack(DeviceBase, ChannelSettable):
         #       E.g. multiple racks in serial with the same channel-count
         #       should be able to re-use the same aux audio bus?
         specs = Specs()
-        if not context:
+        if not context or not self.chains:
             return specs
         parent = self._ensure_parent()
         parent_effective_channel_count = parent.effective_channel_count
         effective_channel_count = self.effective_channel_count
-        specs.bus_specs.extend(
-            [
-                BusSpec(
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=effective_channel_count,
-                    component=self,
-                    context=context,
-                    name=Names.MAIN,
-                ),
+        specs.bus_specs.append(
+            BusSpec(
+                calculation_rate=CalculationRate.AUDIO,
+                channel_count=effective_channel_count,
+                component=self,
+                context=context,
+                name=Names.MAIN,
+            )
+        )
+        if len(self.chains) > 1:
+            specs.bus_specs.append(
                 BusSpec(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=effective_channel_count,
                     component=self,
                     context=context,
                     name=Names.AUX,
-                ),
-            ]
-        )
+                )
+            )
         specs.group_specs.extend(
             [
                 self._resolve_container_spec(

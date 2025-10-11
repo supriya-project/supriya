@@ -94,12 +94,15 @@ class DeviceContainer(Component[C]):
     def _add_rack(
         self,
         *,
+        chain_count: int = 1,
         name: str | None = None,
         read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
         write_mode: PatchMode = PatchMode.SUM,
-    ) -> tuple["Rack", "Chain"]:
+    ) -> tuple["Rack", Optional["Chain"]]:
         from .chains import Chain, Rack
 
+        if chain_count < 0:
+            raise ValueError(chain_count)
         self._devices.append(
             rack := Rack(
                 id_=self._ensure_session()._get_next_id(),
@@ -107,13 +110,14 @@ class DeviceContainer(Component[C]):
                 parent=self,
             )
         )
-        rack._chains.append(
-            chain := Chain(
-                id_=self._ensure_session()._get_next_id(),
-                parent=rack,
+        for _ in range(chain_count):
+            rack._chains.append(
+                Chain(
+                    id_=self._ensure_session()._get_next_id(),
+                    parent=rack,
+                )
             )
-        )
-        return rack, chain
+        return rack, rack._chains[0] if rack._chains else None
 
     def _group_devices(
         self,
@@ -130,19 +134,12 @@ class DeviceContainer(Component[C]):
             raise RuntimeError(count)
         elif (index + count) > len(self.devices):
             raise RuntimeError(index, count)
-        rack = Rack(
-            id_=self._ensure_session()._get_next_id(),
+        rack, chain = self._add_rack(
             name=name,
-            parent=self,
             read_mode=read_mode,
             write_mode=write_mode,
         )
-        rack._chains.append(
-            chain := Chain(
-                id_=self._ensure_session()._get_next_id(),
-                parent=rack,
-            )
-        )
+        assert chain is not None
         child_devices = self._devices[index : index + count]
         chain._devices[:] = child_devices
         self._devices[index : index + count] = [rack]
@@ -182,13 +179,17 @@ class DeviceContainer(Component[C]):
     async def add_rack(
         self,
         *,
+        chain_count: int = 1,
         name: str | None = None,
         read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
         write_mode: PatchMode = PatchMode.SUM,
     ) -> "Rack":
         async with (session := self._ensure_session())._lock:
             rack, _ = self._add_rack(
-                name=name, read_mode=read_mode, write_mode=write_mode
+                chain_count=chain_count,
+                name=name,
+                read_mode=read_mode,
+                write_mode=write_mode,
             )
             await Component._reconcile(
                 context=self.context,
