@@ -39,6 +39,7 @@ from . import (
     UGenVector,
     VarSaw,
     XLine,
+    XOut,
 )
 
 LAG_TIME = 0.05
@@ -330,12 +331,17 @@ def build_meters_synthdef(channel_count: int = 2) -> SynthDef:
     return builder.build(f"supriya:meters:{channel_count}")
 
 
-@lru_cache(maxsize=32)
+@lru_cache(maxsize=256)
 def build_patch_cable_synthdef(
     source_channel_count: int = 2,
     target_channel_count: int = 2,
     feedback: bool = False,
+    write_mode: Literal["mix", "replace", "sum"] = "sum",
 ) -> SynthDef:
+    name = (
+        f"supriya:{'fb-' if feedback else ''}"
+        f"patch-cable:{source_channel_count}x{target_channel_count}"
+    )
     # TODO: Implement up/down channel mixing
     builder = SynthDefBuilder(
         active=1,
@@ -373,7 +379,6 @@ def build_patch_cable_synthdef(
             source *= gain
         # TODO: up/down mixing goes here
         mix_factor = source_channel_count / target_channel_count
-
         # equal channel counts
         if source_channel_count == target_channel_count:
             pass
@@ -451,12 +456,15 @@ def build_patch_cable_synthdef(
         # gain stage with the smallest number of binops
         if target_channel_count <= source_channel_count:
             source *= gain
-        Out.ar(bus=builder["out"], source=source)
-
-    name = (
-        f"supriya:{'fb-' if feedback else ''}"
-        f"patch-cable:{source_channel_count}x{target_channel_count}"
-    )
+        if write_mode == "sum":
+            Out.ar(bus=builder["out"], source=source)
+        elif write_mode == "replace":
+            ReplaceOut.ar(bus=builder["out"], source=source)
+            name += ":replace"
+        else:
+            mix = builder.add_parameter(name="mix", value=0.0)
+            XOut.ar(bus=builder["out"], crossfade=mix, source=source)
+            name += ":mix"
     return builder.build(name)
 
 

@@ -26,9 +26,10 @@ class Names(StrEnum):
 
     ACTIVE = "active"
     AUDIO_BUSES = "audio-buses"
+    AUX = "aux"
     BUFFERS = "buffers"
-    CHANNEL_STRIP = "channel-strip"
     CHAINS = "chains"
+    CHANNEL_STRIP = "channel-strip"
     CONTROL_BUSES = "control-buses"
     DEVICES = "devices"
     FEEDBACK = "feedback"

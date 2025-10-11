@@ -2,7 +2,7 @@ from typing import Literal
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
-from ..ugens.system import build_channel_strip_synthdef
+from ..ugens.system import build_channel_strip_synthdef, build_patch_cable_synthdef
 from .components import ChannelSettable, Component, Deletable, Movable, NameSettable
 from .constants import Address, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
@@ -14,18 +14,6 @@ class Rack(DeviceBase, ChannelSettable):
     """
     A device rack.
     """
-
-    # TODO: Rack and Device aren't really similar, so fix inheritance with a
-    #       shared base? Or maybe we just support union types for
-    #       DeviceContainer children.
-
-    # TODO: How to define how racks sum/replace with their parent's audio?
-    #       Should they have a mix parameter e.g. XOut?
-    #       Or a parameter to mix vs replace vs sum?
-    #       Yes to the latter, because mixing is different from summing.
-    #       But this will require extending patch-cable logic
-
-    # TODO: How to define how rack's read their parent's audio, or don't?
 
     # TODO: Can we ensure that we don't over-allocate buses?
     #       Can we find some optimization to ensure that, when parallelization
@@ -74,14 +62,25 @@ class Rack(DeviceBase, ChannelSettable):
         if not context:
             return specs
         parent = self._ensure_parent()
-        specs.bus_specs.append(
-            BusSpec(
-                calculation_rate=CalculationRate.AUDIO,
-                channel_count=self.effective_channel_count,
-                component=self,
-                context=context,
-                name=Names.MAIN,
-            )
+        parent_effective_channel_count = parent.effective_channel_count
+        effective_channel_count = self.effective_channel_count
+        specs.bus_specs.extend(
+            [
+                BusSpec(
+                    calculation_rate=CalculationRate.AUDIO,
+                    channel_count=effective_channel_count,
+                    component=self,
+                    context=context,
+                    name=Names.MAIN,
+                ),
+                BusSpec(
+                    calculation_rate=CalculationRate.AUDIO,
+                    channel_count=effective_channel_count,
+                    component=self,
+                    context=context,
+                    name=Names.AUX,
+                ),
+            ]
         )
         specs.group_specs.extend(
             [
@@ -102,6 +101,87 @@ class Rack(DeviceBase, ChannelSettable):
                 ),
             ]
         )
+        # input
+        if self._read_mode == PatchMode.REPLACE:
+            specs.synthdef_specs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=(
+                        read_synthdef := build_patch_cable_synthdef(
+                            source_channel_count=parent_effective_channel_count,
+                            target_channel_count=effective_channel_count,
+                            write_mode="replace",
+                        )
+                    ).effective_name,
+                    synthdef=read_synthdef,
+                )
+            )
+            specs.synth_specs.append(
+                SynthSpec(
+                    add_action=AddAction.ADD_TO_HEAD,
+                    component=self,
+                    context=context,
+                    destroy_strategy=dict(
+                        done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                    ),
+                    kwargs=dict(
+                        in_=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        out=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                    ),
+                    name=Names.INPUT,
+                    parent_node=None,
+                    synthdef=Spec.get_address(
+                        None, Names.SYNTHDEFS, read_synthdef.effective_name
+                    ),
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                )
+            )
+        # output
+        if self._write_mode in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM):
+            specs.synthdef_specs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=(
+                        write_synthdef := build_patch_cable_synthdef(
+                            source_channel_count=parent_effective_channel_count,
+                            target_channel_count=effective_channel_count,
+                            write_mode=self._write_mode,
+                        )
+                    ).effective_name,
+                    synthdef=write_synthdef,
+                )
+            )
+            specs.synth_specs.append(
+                SynthSpec(
+                    add_action=AddAction.ADD_TO_TAIL,
+                    component=self,
+                    context=context,
+                    destroy_strategy=dict(
+                        done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                    ),
+                    kwargs=dict(
+                        in_=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        out=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        **(
+                            dict(
+                                mix=Spec.get_address(
+                                    self, Names.CONTROL_BUSES, Names.MIX
+                                )
+                            )
+                            if self._write_mode == PatchMode.MIX
+                            else {}
+                        ),
+                    ),
+                    name=Names.OUTPUT,
+                    parent_node=None,
+                    synthdef=Spec.get_address(
+                        None, Names.SYNTHDEFS, write_synthdef.effective_name
+                    ),
+                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                )
+            )
         return specs
 
     def _ungroup(self) -> list[DeviceBase]:
