@@ -37,6 +37,7 @@ class Names(StrEnum):
     GROUP = "group"
     INPUT = "input"
     INPUT_LEVELS = "input-levels"
+    LEVELS = "levels"
     MAIN = "main"
     MIX = "mix"
     NODES = "nodes"

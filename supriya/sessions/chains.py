@@ -2,7 +2,11 @@ from typing import Literal
 
 from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
-from ..ugens.system import build_channel_strip_synthdef, build_patch_cable_synthdef
+from ..ugens.system import (
+    build_channel_strip_synthdef,
+    build_meters_synthdef,
+    build_patch_cable_synthdef,
+)
 from .components import ChannelSettable, Component, Deletable, Movable, NameSettable
 from .constants import Address, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
@@ -50,6 +54,10 @@ class Rack(DeviceBase, ChannelSettable):
     #     chains input patch:replace track:main to rack:aux
     #     chains output patch:sum rack:aux to rack:main
     #     rack outputs rack:main to track:main
+
+    # N.B. swap rack:aux for rack:main above..
+    #      chain need to use rack main so that device parent's main matches
+    #      and then they can sum to aux
 
     def __init__(
         self,
@@ -213,6 +221,47 @@ class Rack(DeviceBase, ChannelSettable):
                         None, Names.SYNTHDEFS, write_synthdef.effective_name
                     ),
                     target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                )
+            )
+        if parent._devices.index(self) < (len(parent._devices) - 1):
+            # will the meters synth follow the group on move?
+            specs.bus_specs.append(
+                BusSpec(
+                    calculation_rate=CalculationRate.CONTROL,
+                    channel_count=self.effective_channel_count,
+                    component=self,
+                    context=context,
+                    default=0.0,
+                    name=Names.LEVELS,
+                ),
+            )
+            specs.synthdef_specs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=(
+                        meters_synthdef := build_meters_synthdef(
+                            parent_effective_channel_count
+                        )
+                    ).effective_name,
+                    synthdef=meters_synthdef,
+                )
+            )
+            specs.synth_specs.append(
+                SynthSpec(
+                    add_action=AddAction.ADD_AFTER,
+                    component=self,
+                    context=context,
+                    kwargs=dict(
+                        in_=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        out=Spec.get_address(self, Names.CONTROL_BUSES, Names.LEVELS),
+                    ),
+                    name=Names.LEVELS,
+                    parent_node=None,
+                    synthdef=Spec.get_address(
+                        None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                    ),
+                    target_node=Spec.get_address(self, Names.NODES, Names.OUTPUT),
                 )
             )
         return specs

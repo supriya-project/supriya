@@ -6,6 +6,7 @@ from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Inherit
 from ..ugens import SynthDef
+from ..ugens.system import build_meters_synthdef
 from .components import C, Component, Deletable, LevelsCheckable, Movable, NameSettable
 from .constants import Address, ChannelCount, Names, PatchMode
 from .parameters import Field
@@ -234,9 +235,28 @@ class DeviceContainer(Component[C]):
 
 
 class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSettable):
+    def __init__(
+        self,
+        *,
+        id_: int,
+        name: str | None = None,
+        parent: DeviceContainer | None = None,
+    ) -> None:
+        Component.__init__(self, id_=id_, name=name, parent=parent)
+        self._cached_previous_device: DeviceBase | None = None
+
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._devices.remove(self)
         super()._disconnect_parentage()
+
+    def _get_input_levels_bus_group(self) -> BusGroup:
+        parent = self._ensure_parent()
+        index = parent._devices.index(self)
+        # if we're the first device, return parent's input levels
+        if not index:
+            return parent._artifacts.control_buses[Names.INPUT_LEVELS]
+        # otherwise return parent's input levels
+        return parent._devices[index - 1]._artifacts.control_buses[Names.LEVELS]
 
     def _get_nested_address(self) -> Address:
         if self.parent is None:
@@ -244,10 +264,21 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
         index = self.parent.devices.index(self)
         return f"{self.parent.address}.devices[{index}]"
 
+    def _get_output_levels_bus_group(self) -> BusGroup:
+        parent = self._ensure_parent()
+        return (
+            self._artifacts.control_buses.get(Names.LEVELS)
+            or parent._artifacts.control_buses[Names.OUTPUT_LEVELS]
+        )
+
     def _get_numeric_address(self) -> Address:
         return f"devices[{self._id}]"
 
     def _move(self, *, new_parent: DeviceContainer, index: int) -> None:
+        # TODO: We /also/ need to reconcile the previous device in the old
+        #       parent (if any) And the previous device in the new parent (if
+        #       any) because per-device meters are position-dependent.
+        #       Maybe this can be done on a connection level?
         # Validate if moving is possible
         if self.mixer is not new_parent.mixer:
             raise RuntimeError
@@ -265,6 +296,29 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
         old_parent._devices.remove(self)
         self._parent = new_parent
         new_parent._devices.insert(index, self)
+
+    def _reconcile_connections(
+        self,
+        *,
+        deleting: bool = False,
+        roots: list[Component] | None = None,
+    ) -> tuple[list[Component], set[Component]]:
+        related, deleted = super()._reconcile_connections(
+            deleting=deleting, roots=roots
+        )
+        parent = self._ensure_parent()
+        index = parent._devices.index(self)
+        old_previous_device = self._cached_previous_device
+        new_previous_device: DeviceBase | None = None
+        if index:
+            new_previous_device = parent._devices[index - 1]
+        if old_previous_device is not new_previous_device:
+            if old_previous_device:
+                related.append(old_previous_device)
+            if new_previous_device:
+                related.append(new_previous_device)
+        self._cached_previous_device = new_previous_device
+        return sorted(set(related), key=lambda x: x.graph_order), deleted
 
 
 class Sidechain:
@@ -449,7 +503,8 @@ class Device(DeviceBase):
                 options[parameter.name] = parameter.value
         for sidechain in self._sidechains.values():
             specs.update(sidechain._resolve_specs(context, **options))
-        # n.b. ordering synths is tricky :thinking:
+        # n.b. ordering synths is tricky :thinking:.
+        #      increasingly feels like we need a NodeOrderSpec.
         for index, synth_config in enumerate(self._synth_configs):
             if (
                 synthdef := (
@@ -507,6 +562,58 @@ class Device(DeviceBase):
                         synthdef.effective_name,
                     ),
                     target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                )
+            )
+        # meters
+        if parent._devices.index(self) < (len(parent._devices) - 1):
+            # will the meters synth follow the group on move?
+            specs.bus_specs.append(
+                BusSpec(
+                    calculation_rate=CalculationRate.CONTROL,
+                    channel_count=self.effective_channel_count,
+                    component=self,
+                    context=context,
+                    default=0.0,
+                    name=Names.LEVELS,
+                ),
+            )
+            specs.synthdef_specs.append(
+                SynthDefSpec(
+                    component=self,
+                    context=context,
+                    name=(
+                        meters_synthdef := build_meters_synthdef(
+                            self.effective_channel_count
+                        )
+                    ).effective_name,
+                    synthdef=meters_synthdef,
+                )
+            )
+            specs.synth_specs.append(
+                SynthSpec(
+                    add_action=(
+                        AddAction.ADD_AFTER
+                        if self._synth_configs
+                        else AddAction.ADD_TO_TAIL
+                    ),
+                    component=self,
+                    context=context,
+                    kwargs=dict(
+                        in_=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        out=Spec.get_address(self, Names.CONTROL_BUSES, Names.LEVELS),
+                    ),
+                    name=Names.LEVELS,
+                    parent_node=None,
+                    synthdef=Spec.get_address(
+                        None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                    ),
+                    target_node=(
+                        Spec.get_address(
+                            self, Names.NODES, f"synth-{len(self._synth_configs) - 1}"
+                        )
+                        if self._synth_configs
+                        else Spec.get_address(self, Names.NODES, Names.GROUP)
+                    ),
                 )
             )
         return specs

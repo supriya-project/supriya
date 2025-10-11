@@ -306,24 +306,32 @@ async def test_DeviceBase_delete(
             """
             --- initial
             +++ mutation
-            @@ -4,11 +4,11 @@
+            @@ -4,13 +4,13 @@
                      1004 supriya:meters:2 (mixers[1]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
-            +            1009 group (devices[3]:group)
-            +                1010 supriya:dc-tester:2 (devices[3]:synth-0)
+            +            1010 group (devices[3]:group)
+            +                1011 supriya:dc-tester:2 (devices[3]:synth-0)
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            +                1012 supriya:meters:2 (devices[3]:levels)
+            +                    in_: 16.0, out: 7.0
                          1007 group (devices[2]:group)
                              1008 supriya:dc-tester:2 (devices[2]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            -            1009 group (devices[3]:group)
-            -                1010 supriya:dc-tester:2 (devices[3]:synth-0)
+            -                1009 supriya:meters:2 (devices[2]:levels)
+            -                    in_: 16.0, out: 5.0
+            -            1010 group (devices[3]:group)
+            -                1011 supriya:dc-tester:2 (devices[3]:synth-0)
                                  out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
             """,
             """
-            - ['/g_head', 1002, 1009]
+            - ['/c_fill', 7, 2, 0.0]
+            - ['/s_new', 'supriya:meters:2', 1012, 3, 1011, 'in_', 16.0, 'out', 7.0]
+            - ['/g_head', 1002, 1010]
+            - ['/n_after', 1007, 1010]
+            - ['/n_free', 1009]
             """,
         ),
         # 6
@@ -371,24 +379,32 @@ async def test_DeviceBase_delete(
             """
             --- initial
             +++ mutation
-            @@ -4,11 +4,11 @@
+            @@ -4,13 +4,13 @@
                      1004 supriya:meters:2 (mixers[1]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
-            +            1009 group (devices[3]:group)
-            +                1010 supriya:dc-tester:2 (devices[3]:synth-0)
+            +            1010 group (devices[3]:group)
+            +                1011 supriya:dc-tester:2 (devices[3]:synth-0)
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            +                1012 supriya:meters:2 (devices[3]:levels)
+            +                    in_: 16.0, out: 7.0
                          1007 group (devices[2]:group)
                              1008 supriya:dc-tester:2 (devices[2]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            -            1009 group (devices[3]:group)
-            -                1010 supriya:dc-tester:2 (devices[3]:synth-0)
+            -                1009 supriya:meters:2 (devices[2]:levels)
+            -                    in_: 16.0, out: 5.0
+            -            1010 group (devices[3]:group)
+            -                1011 supriya:dc-tester:2 (devices[3]:synth-0)
                                  out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
             """,
             """
-            - ['/n_after', 1007, 1009]
+            - ['/c_fill', 7, 2, 0.0]
+            - ['/s_new', 'supriya:meters:2', 1012, 3, 1011, 'in_', 16.0, 'out', 7.0]
+            - ['/n_after', 1007, 1010]
+            - ['/g_head', 1002, 1010]
+            - ['/n_free', 1009]
             """,
         ),
     ],
