@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Callable, Literal, Mapping, Optional, Type
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
-from ..typing import Default
+from ..typing import Inherit
 from ..ugens import SynthDef
 from .components import C, Component, Deletable, LevelsCheckable, Movable, NameSettable
 from .constants import Address, ChannelCount, Names, PatchMode
@@ -31,7 +31,7 @@ class ParameterConfig:
 @dataclasses.dataclass
 class SidechainConfig:
     name: str
-    channel_count: Default | ChannelCount
+    channel_count: Inherit | ChannelCount
     conditional: Callable[[], bool] | None = None
 
 
@@ -270,7 +270,7 @@ class Sidechain:
     def __init__(
         self,
         *,
-        channel_count: Default | ChannelCount,
+        channel_count: Inherit | ChannelCount,
         component: Component,
         conditional: Callable[[], bool] | None = None,
         name: str,
@@ -307,7 +307,7 @@ class Sidechain:
                 calculation_rate=CalculationRate.AUDIO,
                 channel_count=(
                     effective_channel_count
-                    if isinstance(self.channel_count, Default)
+                    if isinstance(self.channel_count, Inherit)
                     else self.channel_count
                 ),
                 component=self.component,
@@ -326,7 +326,7 @@ class Sidechain:
         self._input.set(input)
 
     @property
-    def channel_count(self) -> ChannelCount | Default:
+    def channel_count(self) -> ChannelCount | Inherit:
         return self._channel_count
 
     @property
@@ -390,7 +390,7 @@ class Device(DeviceBase):
         self,
         *,
         name: str,
-        channel_count: ChannelCount | Default,
+        channel_count: ChannelCount | Inherit,
         conditional: Callable[[], bool] | None = None,
     ) -> Sidechain:
         if name in self._sidechains:

@@ -19,7 +19,7 @@ from typing import (
 from ..contexts import AsyncServer, BusGroup, Group
 from ..contexts.responses import QueryTreeGroup
 from ..enums import AddAction, BootStatus
-from ..typing import DEFAULT, Default
+from ..typing import INHERIT, Inherit
 from ..utils import iterate_nwise
 from .constants import IO, Address, ChannelCount, Names, Reconciliation
 from .specs import (
@@ -60,7 +60,7 @@ class Component(Generic[C]):
         from .parameters import Parameter
 
         self._artifacts = Artifacts()
-        self._channel_count: ChannelCount | Default = DEFAULT
+        self._channel_count: ChannelCount | Inherit = INHERIT
         self._connections: dict[tuple[Component, str], IO] = {}
         self._context: AsyncServer | None = None
         self._id: int = id_
@@ -406,7 +406,7 @@ class Component(Generic[C]):
         return self._get_nested_address()
 
     @property
-    def channel_count(self) -> ChannelCount | Default:
+    def channel_count(self) -> ChannelCount | Inherit:
         """
         Get the component's explicit channel count.
         """
@@ -431,7 +431,7 @@ class Component(Generic[C]):
         """
         Get the component's implicit channel count.
 
-        If the component's explicit channel count is ``Default``, inherit from
+        If the component's explicit channel count is ``Inherit``, inherit from
         the next non-default channel count in the component's parentage.
         """
         for component in self._iterate_parentage():
@@ -531,7 +531,7 @@ class Component(Generic[C]):
 
 
 class ChannelSettable(Component[C]):
-    async def set_channel_count(self, channel_count: ChannelCount | Default) -> None:
+    async def set_channel_count(self, channel_count: ChannelCount | Inherit) -> None:
         """
         Set the component's channel count.
         """

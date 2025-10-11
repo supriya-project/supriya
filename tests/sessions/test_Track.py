@@ -14,7 +14,7 @@ from supriya.sessions import (
     TrackSend,
 )
 from supriya.sessions.constants import ChannelCount
-from supriya.typing import DEFAULT, Default
+from supriya.typing import INHERIT, Inherit
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
 from .conftest import apply_commands, does_not_raise, run_test
@@ -2190,7 +2190,7 @@ async def test_Track_move(
 )
 @pytest.mark.asyncio
 async def test_Track_set_channel_count(
-    channel_count: ChannelCount | Default,
+    channel_count: ChannelCount | Inherit,
     commands: list[tuple[str | None, str, dict | None]],
     expected_messages: str,
     expected_tree_diff: str,
@@ -3174,7 +3174,7 @@ async def test_Track_set_name(online: bool) -> None:
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             "mixers[0].tracks[0].tracks[0]",
-            DEFAULT,
+            INHERIT,
             does_not_raise,
             """
             """,
@@ -3507,7 +3507,7 @@ async def test_Track_set_output(
     maybe_raises,
     online: bool,
     output_from: str,
-    output_to: Default | str | None,
+    output_to: Inherit | str | None,
 ) -> None:
     async with run_test(
         commands=commands,
@@ -3517,10 +3517,10 @@ async def test_Track_set_output(
         online=online,
     ) as session:
         output_from_ = session[output_from]
-        output_to_: BusGroup | Default | TrackContainer | None = None
+        output_to_: BusGroup | Inherit | TrackContainer | None = None
         assert isinstance(output_from_, Track)
-        if isinstance(output_to, Default):
-            output_to_ = DEFAULT
+        if isinstance(output_to, Inherit):
+            output_to_ = INHERIT
         elif isinstance(output_to, str):
             output_to_component = session[output_to]
             assert isinstance(output_to_component, TrackContainer)

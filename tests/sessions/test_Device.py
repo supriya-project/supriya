@@ -13,7 +13,7 @@ from supriya.sessions import (
     SynthConfig,
     Track,
 )
-from supriya.typing import DEFAULT
+from supriya.typing import INHERIT
 from supriya.ugens import In, ReplaceOut, SynthDef, SynthDefBuilder
 
 from .conftest import does_not_raise, run_test
@@ -31,7 +31,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
 
 SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
     name="Self",
-    sidechain_configs=[SidechainConfig(name=Names.SIDECHAIN, channel_count=DEFAULT)],
+    sidechain_configs=[SidechainConfig(name=Names.SIDECHAIN, channel_count=INHERIT)],
     synth_configs=[
         SynthConfig(
             synthdef=build_sidechain_synthdef,

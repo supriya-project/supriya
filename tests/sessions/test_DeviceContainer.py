@@ -15,7 +15,7 @@ from supriya.sessions import (
     SidechainConfig,
     SynthConfig,
 )
-from supriya.typing import DEFAULT
+from supriya.typing import INHERIT
 from supriya.ugens import In, ReplaceOut, SynthDefBuilder
 
 from .conftest import run_test
@@ -144,7 +144,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
             [(None, "add_mixer", {"name": "Mixer"})],
             "mixers[0]",
             [],
-            [SidechainConfig(name=Names.SIDECHAIN, channel_count=DEFAULT)],
+            [SidechainConfig(name=Names.SIDECHAIN, channel_count=INHERIT)],
             [
                 SynthConfig(
                     synthdef=build_sidechain_synthdef,

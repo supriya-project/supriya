@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING, Iterable, Optional, Union
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
-from ..typing import DEFAULT, Default
+from ..typing import INHERIT, Inherit
 from ..ugens.system import (
     build_channel_strip_synthdef,
     build_meters_synthdef,
@@ -291,7 +291,7 @@ class Track(
             ),
             name=Names.OUTPUT,
             source_bus_address=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-            target=DEFAULT,
+            target=INHERIT,
         )
         self._sends: list[TrackSend] = []
         self._add_parameter(name=Names.GAIN, field=FloatField(has_bus=True))
@@ -694,7 +694,7 @@ class Track(
                 self._apply_activation()
 
     async def set_output(
-        self, output: Union[BusGroup, Default, TrackContainer] | None
+        self, output: Union[BusGroup, Inherit, TrackContainer] | None
     ) -> None:
         """
         Set the track's audio output destination.
@@ -774,12 +774,12 @@ class Track(
         return self._is_soloed
 
     @property
-    def output(self) -> Union[BusGroup, Default, TrackContainer] | None:
+    def output(self) -> Union[BusGroup, Inherit, TrackContainer] | None:
         """
         Get the track's audio output destination.
         """
         if (output := self._output._target) is not None:
-            assert isinstance(output, (BusGroup, Default, TrackContainer))
+            assert isinstance(output, (BusGroup, Inherit, TrackContainer))
         return output
 
     @property

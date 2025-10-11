@@ -2,7 +2,7 @@ from typing import Callable
 
 from ..contexts import AsyncServer, BusGroup
 from ..enums import AddAction
-from ..typing import Default
+from ..typing import Inherit
 from ..ugens.system import build_patch_cable_synthdef
 from .components import Component
 from .constants import IO, Names
@@ -175,7 +175,7 @@ class Output:
         name: str,
         source: Callable[[Component], Component] | Component | None = None,
         source_bus_address: Callable[[Component], str] | str,
-        target: BusGroup | Component | Default | None = None,
+        target: BusGroup | Component | Inherit | None = None,
     ) -> None:
         self._add_action = add_action
         self._add_node_address = add_node_address
@@ -186,7 +186,7 @@ class Output:
         self._name = name
         self._source = source
         self._source_bus_address = source_bus_address
-        self._target: BusGroup | Component | Default | None = target
+        self._target: BusGroup | Component | Inherit | None = target
 
     def _notify_disconnected(self, connection: "Component") -> None:
         if connection is self._target:
@@ -215,7 +215,7 @@ class Output:
             new_target: BusGroup | Component | None
             if isinstance(self._target, (BusGroup, Component)):
                 new_target = self._cached_target = self._target
-            elif isinstance(self._target, Default):
+            elif isinstance(self._target, Inherit):
                 new_target = self._cached_target = self._resolve_default()
             else:
                 new_target = self._cached_target = self._target
@@ -310,5 +310,5 @@ class Output:
         )
         return specs
 
-    def set(self, target: BusGroup | Component | Default | None) -> None:
+    def set(self, target: BusGroup | Component | Inherit | None) -> None:
         self._target = target
