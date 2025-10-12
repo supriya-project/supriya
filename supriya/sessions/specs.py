@@ -338,14 +338,6 @@ class BusSpec(Spec):
             hashes.pop(self.address)
         old_buses.pop(self.address).free()
 
-    def mutate(
-        self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
-        old_spec: "Spec",
-    ) -> None:
-        raise NotImplementedError
-
     def requires_recreation(self, old_spec: "Spec") -> bool:
         if not isinstance(old_spec, BusSpec):
             raise ValueError(old_spec)
@@ -395,14 +387,6 @@ class SynthDefSpec(Spec):
         reconciliation: Reconciliation,
     ) -> None:
         return
-
-    def mutate(
-        self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
-        old_spec: "Spec",
-    ) -> None:
-        raise NotImplementedError
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return self != old_spec

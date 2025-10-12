@@ -240,26 +240,35 @@ async def test_DeviceContainer_add_device(
             """
             --- initial
             +++ mutation
-            @@ -15,6 +15,12 @@
+            @@ -15,6 +15,16 @@
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             +            1014 group (session.mixers[0].devices[0]:group)
+            +                1016 supriya:patch-cable:2x2:replace (session.mixers[0].devices[0]:input)
+            +                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 20.0
             +                1015 group (session.mixers[0].devices[0]:chains)
-            +                    1016 group (session.mixers[0].devices[0].chains[0]:group)
-            +                        1017 group (session.mixers[0].devices[0].chains[0]:devices)
-            +                        1018 supriya:channel-strip:2 (session.mixers[0].devices[0].chains[0]:channel-strip)
+            +                    1018 group (session.mixers[0].devices[0].chains[0]:group)
+            +                        1019 group (session.mixers[0].devices[0].chains[0]:devices)
+            +                        1020 supriya:channel-strip:2 (session.mixers[0].devices[0].chains[0]:channel-strip)
             +                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 22.0
+            +                1017 supriya:patch-cable:2x2 (session.mixers[0].devices[0]:output)
+            +                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
             """
+            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
+            - ['/sync', 3]
             - [None, [['/c_set', 11, 1.0, 12, 0.0], ['/c_fill', 13, 2, 0.0, 15, 2, 0.0]]]
-            - ['/g_new', 1014, 0, 1002, 1015, 0, 1014]
             - [None,
-               [['/g_new', 1016, 0, 1015, 1017, 1, 1016],
-                ['/s_new', 'supriya:channel-strip:2', 1018, 1, 1016, 'active', 'c11', 'gain', 'c12', 'out', 22.0]]]
+               [['/g_new', 1014, 0, 1002, 1015, 0, 1014],
+                ['/s_new', 'supriya:patch-cable:2x2:replace', 1016, 0, 1014, 'in_', 16.0, 'out', 20.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1017, 1, 1014, 'in_', 20.0, 'out', 16.0]]]
+            - [None,
+               [['/g_new', 1018, 0, 1015, 1019, 1, 1018],
+                ['/s_new', 'supriya:channel-strip:2', 1020, 1, 1018, 'active', 'c11', 'gain', 'c12', 'out', 22.0]]]
             """,
         )
     ],
