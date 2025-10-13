@@ -482,17 +482,14 @@ class Device(DeviceBase):
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         parent = self._ensure_parent()
         effective_channel_count = self.effective_channel_count
-        spec_factory.group_specs.append(
-            self._resolve_container_spec(
-                context=spec_factory.context,
-                destroy_strategy={
-                    "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP,
-                    "gate": 0,
-                },
-                parent=(parent := self._ensure_parent()),
-                parent_container=parent.devices,
-                parent_container_group_name=Names.DEVICES,
-            )
+        container_group_address = spec_factory.add_container_group(
+            destroy_strategy=dict(
+                done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP,
+                gate=0,
+            ),
+            parent=(parent := self._ensure_parent()),
+            parent_container=parent.devices,
+            parent_container_group_name=Names.DEVICES,
         )
         options: dict[str, float] = {}
         for parameter in self._parameters.values():
@@ -552,7 +549,7 @@ class Device(DeviceBase):
                     name=f"synth-{index}",
                     parent_node=None,
                     synthdef=synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+                    target_node=container_group_address,
                 )
             )
         # meters
@@ -601,7 +598,7 @@ class Device(DeviceBase):
                             f"synth-{len(self._synth_configs) - 1}",
                         )
                         if self._synth_configs
-                        else Spec.get_address(self, Entities.NODES, Names.GROUP)
+                        else container_group_address
                     ),
                 )
             )

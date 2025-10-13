@@ -10,7 +10,7 @@ from .components import ChannelSettable, Component, Deletable, Movable, NameSett
 from .constants import Address, Entities, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
-from .specs import BusSpec, GroupSpec, Spec, SpecFactory, SynthSpec
+from .specs import BusSpec, Spec, SpecFactory, SynthSpec
 
 
 class Rack(DeviceBase, ChannelSettable):
@@ -121,24 +121,16 @@ class Rack(DeviceBase, ChannelSettable):
                     name=Names.AUX,
                 )
             )
-        spec_factory.group_specs.extend(
-            [
-                self._resolve_container_spec(
-                    context=spec_factory.context,
-                    destroy_strategy={"gate": 0},
-                    parent=(parent := self._ensure_parent()),
-                    parent_container=parent.devices,
-                    parent_container_group_name=Names.DEVICES,
-                ),
-                GroupSpec(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.CHAINS,
-                    parent_node=None,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
-                ),
-            ]
+        container_group_address = spec_factory.add_container_group(
+            destroy_strategy={"gate": 0},
+            parent=(parent := self._ensure_parent()),
+            parent_container=parent.devices,
+            parent_container_group_name=Names.DEVICES,
+        )
+        _ = spec_factory.add_group(
+            add_action=AddAction.ADD_TO_HEAD,
+            name=Names.CHAINS,
+            target_node=container_group_address,
         )
         # input
         if self._read_mode == PatchMode.REPLACE:
@@ -167,7 +159,7 @@ class Rack(DeviceBase, ChannelSettable):
                     name=Names.INPUT,
                     parent_node=None,
                     synthdef=read_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+                    target_node=container_group_address,
                 )
             )
         # output
@@ -206,7 +198,7 @@ class Rack(DeviceBase, ChannelSettable):
                     name=Names.OUTPUT,
                     parent_node=None,
                     synthdef=write_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+                    target_node=container_group_address,
                 )
             )
         if parent._devices.index(self) < (len(parent._devices) - 1):
@@ -425,24 +417,16 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                 ),
             ]
         )
-        spec_factory.group_specs.extend(
-            [
-                self._resolve_container_spec(
-                    context=spec_factory.context,
-                    destroy_strategy={"gate": 0},
-                    parent=(parent := self._ensure_parent()),
-                    parent_container=parent.chains,
-                    parent_container_group_name=Names.CHAINS,
-                ),
-                GroupSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.DEVICES,
-                    parent_node=None,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
-                ),
-            ]
+        container_group_address = spec_factory.add_container_group(
+            destroy_strategy={"gate": 0},
+            parent=(parent := self._ensure_parent()),
+            parent_container=parent.chains,
+            parent_container_group_name=Names.CHAINS,
+        )
+        _ = spec_factory.add_group(
+            add_action=AddAction.ADD_TO_TAIL,
+            name=Names.DEVICES,
+            target_node=container_group_address,
         )
         spec_factory.synth_specs.extend(
             [
@@ -463,7 +447,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
                     synthdef=channel_strip_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+                    target_node=container_group_address,
                 ),
             ]
         )

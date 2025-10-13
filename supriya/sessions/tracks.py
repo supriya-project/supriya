@@ -22,7 +22,6 @@ from .parameters import FloatField
 from .routing import Input, Output
 from .specs import (
     BusSpec,
-    GroupSpec,
     Spec,
     SpecFactory,
     SynthSpec,
@@ -458,32 +457,21 @@ class Track(
                 ),
             ]
         )
-        spec_factory.group_specs.extend(
-            [
-                self._resolve_container_spec(
-                    context=spec_factory.context,
-                    destroy_strategy={"gate": 0},
-                    parent=(parent := self._ensure_parent()),
-                    parent_container=parent.tracks,
-                    parent_container_group_name=Names.TRACKS,
-                ),
-                GroupSpec(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.TRACKS,
-                    parent_node=None,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
-                ),
-                GroupSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.DEVICES,
-                    parent_node=None,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
-                ),
-            ]
+        container_group_address = spec_factory.add_container_group(
+            destroy_strategy={"gate": 0},
+            parent=(parent := self._ensure_parent()),
+            parent_container=parent.tracks,
+            parent_container_group_name=Names.TRACKS,
+        )
+        tracks_group_address = spec_factory.add_group(
+            add_action=AddAction.ADD_TO_HEAD,
+            name=Names.TRACKS,
+            target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+        )
+        _ = spec_factory.add_group(
+            add_action=AddAction.ADD_TO_TAIL,
+            name=Names.DEVICES,
+            target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
         )
         spec_factory.synth_specs.extend(
             [
@@ -506,7 +494,7 @@ class Track(
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
                     synthdef=channel_strip_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+                    target_node=container_group_address,
                 ),
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
@@ -524,7 +512,7 @@ class Track(
                     name=Names.INPUT_LEVELS,
                     parent_node=None,
                     synthdef=meters_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.TRACKS),
+                    target_node=tracks_group_address,
                 ),
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
@@ -587,7 +575,7 @@ class Track(
                     },
                     parent_node=None,
                     synthdef=feedback_patch_cable_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+                    target_node=container_group_address,
                 )
             )
         return spec_factory

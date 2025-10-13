@@ -19,7 +19,6 @@ from .devices import DeviceContainer
 from .parameters import FloatField
 from .specs import (
     BusSpec,
-    GroupSpec,
     Spec,
     SpecFactory,
     SynthSpec,
@@ -129,34 +128,21 @@ class Mixer(
                 ),
             ]
         )
-        spec_factory.group_specs.extend(
-            [
-                GroupSpec(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    component=self,
-                    context=spec_factory.context,
-                    destroy_strategy={"gate": 0},
-                    name=Names.GROUP,
-                    parent_node=None,
-                    target_node=None,
-                ),
-                GroupSpec(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.TRACKS,
-                    parent_node=None,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
-                ),
-                GroupSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.DEVICES,
-                    parent_node=None,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
-                ),
-            ]
+        container_group_address = spec_factory.add_group(
+            add_action=AddAction.ADD_TO_HEAD,
+            destroy_strategy={"gate": 0},
+            name=Names.GROUP,
+            target_node=None,
+        )
+        tracks_group_address = spec_factory.add_group(
+            add_action=AddAction.ADD_TO_HEAD,
+            name=Names.TRACKS,
+            target_node=container_group_address,
+        )
+        _ = spec_factory.add_group(
+            add_action=AddAction.ADD_TO_TAIL,
+            name=Names.DEVICES,
+            target_node=container_group_address,
         )
         spec_factory.synth_specs.extend(
             [
@@ -176,7 +162,7 @@ class Mixer(
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
                     synthdef=channel_strip_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+                    target_node=container_group_address,
                 ),
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
@@ -191,7 +177,7 @@ class Mixer(
                     name=Names.INPUT_LEVELS,
                     parent_node=None,
                     synthdef=meters_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.TRACKS),
+                    target_node=tracks_group_address,
                 ),
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
@@ -221,7 +207,7 @@ class Mixer(
                     name=Names.OUTPUT,
                     parent_node=None,
                     synthdef=patch_cable_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+                    target_node=container_group_address,
                 ),
             ]
         )

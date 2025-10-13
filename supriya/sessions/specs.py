@@ -2,12 +2,12 @@ import contextlib
 import dataclasses
 import itertools
 from collections import ChainMap, deque
-from typing import TYPE_CHECKING, Iterator, Optional
+from typing import TYPE_CHECKING, Iterator, Optional, Sequence
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens import SynthDef
-from .constants import IO, Address, Entities, Reconciliation
+from .constants import IO, Address, Entities, Names, Reconciliation
 
 if TYPE_CHECKING:
     from .components import Component
@@ -661,7 +661,7 @@ class SpecFactory:
     context: AsyncServer
     _buffers: list[BufferSpec] = dataclasses.field(default_factory=list, init=False)
     bus_specs: list[BusSpec] = dataclasses.field(default_factory=list, init=False)
-    group_specs: list[GroupSpec] = dataclasses.field(default_factory=list, init=False)
+    _groups: list[GroupSpec] = dataclasses.field(default_factory=list, init=False)
     synth_specs: list[SynthSpec] = dataclasses.field(default_factory=list, init=False)
     _synthdefs: list[SynthDefSpec] = dataclasses.field(default_factory=list, init=False)
 
@@ -670,11 +670,69 @@ class SpecFactory:
             self._synthdefs,
             self._buffers,
             self.bus_specs,
-            self.group_specs,
+            self._groups,
             self.synth_specs,
         ):
             for spec in specs:
                 yield spec
+
+    def add_container_group(
+        self,
+        *,
+        component: Optional["Component"] = None,
+        destroy_strategy: dict[str, float] | None = None,
+        parent: "Component",
+        parent_container: Sequence["Component"],
+        parent_container_group_name: str,
+    ) -> Address:
+        component = component or self.component
+        if index := parent_container.index(component):
+            # relative to previous member's group
+            group_add_action: AddAction = AddAction.ADD_AFTER
+            group_target: Address = Spec.get_address(
+                parent_container[index - 1],
+                Entities.NODES,
+                Names.GROUP,
+            )
+        else:
+            # first member in the group
+            group_add_action = AddAction.ADD_TO_HEAD
+            group_target = Spec.get_address(
+                parent, Entities.NODES, parent_container_group_name
+            )
+        return self.add_group(
+            add_action=group_add_action,
+            component=component,
+            destroy_strategy=destroy_strategy,
+            name=Names.GROUP,
+            parent_node=Spec.get_address(
+                parent, Entities.NODES, parent_container_group_name
+            ),
+            target_node=group_target,
+        )
+
+    def add_group(
+        self,
+        *,
+        add_action: AddAction,
+        component: Optional["Component"] = None,
+        destroy_strategy: dict[str, float] | None = None,
+        name: str,
+        parent_node: Address | None = None,
+        target_node: Address | None,
+    ) -> Address:
+        self._groups.append(
+            spec := GroupSpec(
+                add_action=add_action,
+                component=component or self.component,
+                context=self.context,
+                destroy_strategy=destroy_strategy,
+                name=name,
+                parent_node=parent_node,
+                target_node=target_node,
+            )
+        )
+        return spec.address
 
     def add_synthdef(
         self,
@@ -696,7 +754,7 @@ class SpecFactory:
     def update(self, other: "SpecFactory") -> None:
         self._buffers.extend(other._buffers)
         self.bus_specs.extend(other.bus_specs)
-        self.group_specs.extend(other.group_specs)
+        self._groups.extend(other._groups)
         self.synth_specs.extend(other.synth_specs)
         self._synthdefs.extend(other._synthdefs)
 
