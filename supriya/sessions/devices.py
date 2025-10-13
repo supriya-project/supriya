@@ -537,7 +537,6 @@ class Device(DeviceBase):
                     else:
                         raise ValueError(rate)
             synthdef_address = spec_factory.add_synthdef(
-                name=synthdef.effective_name,
                 synthdef=synthdef,
             )
             spec_factory.synth_specs.append(
@@ -566,12 +565,7 @@ class Device(DeviceBase):
                 ),
             )
             meters_synthdef_address = spec_factory.add_synthdef(
-                name=(
-                    meters_synthdef := build_meters_synthdef(
-                        self.effective_channel_count
-                    )
-                ).effective_name,
-                synthdef=meters_synthdef,
+                synthdef=build_meters_synthdef(self.effective_channel_count)
             )
             spec_factory.synth_specs.append(
                 SynthSpec(

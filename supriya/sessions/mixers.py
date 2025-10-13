@@ -76,32 +76,21 @@ class Mixer(
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
         channel_strip_synthdef_address = spec_factory.add_synthdef(
-            name=(
-                channel_strip_synthdef := build_channel_strip_synthdef(
-                    self.effective_channel_count
-                )
-            ).effective_name,
-            synthdef=channel_strip_synthdef,
+            synthdef=build_channel_strip_synthdef(self.effective_channel_count)
         )
         meters_synthdef_address = spec_factory.add_synthdef(
-            name=(
-                meters_synthdef := build_meters_synthdef(self.effective_channel_count)
-            ).effective_name,
-            synthdef=meters_synthdef,
+            synthdef=build_meters_synthdef(self.effective_channel_count)
         )
         patch_cable_synthdef_address = spec_factory.add_synthdef(
-            name=(
-                patch_cable_synthdef := build_patch_cable_synthdef(
-                    self.effective_channel_count,
-                    min(
-                        [
-                            self.effective_channel_count,
-                            len(spec_factory.context.audio_output_bus_group),
-                        ]
-                    ),
-                )
-            ).effective_name,
-            synthdef=patch_cable_synthdef,
+            synthdef=build_patch_cable_synthdef(
+                self.effective_channel_count,
+                min(
+                    [
+                        self.effective_channel_count,
+                        len(spec_factory.context.audio_output_bus_group),
+                    ]
+                ),
+            )
         )
         spec_factory.bus_specs.extend(
             [

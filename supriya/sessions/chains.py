@@ -135,14 +135,11 @@ class Rack(DeviceBase, ChannelSettable):
         # input
         if self._read_mode == PatchMode.REPLACE:
             read_synthdef_address = spec_factory.add_synthdef(
-                name=(
-                    read_synthdef := build_patch_cable_synthdef(
-                        source_channel_count=parent_effective_channel_count,
-                        target_channel_count=effective_channel_count,
-                        write_mode="replace",
-                    )
-                ).effective_name,
-                synthdef=read_synthdef,
+                synthdef=build_patch_cable_synthdef(
+                    source_channel_count=parent_effective_channel_count,
+                    target_channel_count=effective_channel_count,
+                    write_mode="replace",
+                )
             )
             spec_factory.synth_specs.append(
                 SynthSpec(
@@ -165,14 +162,11 @@ class Rack(DeviceBase, ChannelSettable):
         # output
         if self._write_mode in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM):
             write_synthdef_address = spec_factory.add_synthdef(
-                name=(
-                    write_synthdef := build_patch_cable_synthdef(
-                        source_channel_count=parent_effective_channel_count,
-                        target_channel_count=effective_channel_count,
-                        write_mode=self._write_mode,
-                    )
-                ).effective_name,
-                synthdef=write_synthdef,
+                synthdef=build_patch_cable_synthdef(
+                    source_channel_count=parent_effective_channel_count,
+                    target_channel_count=effective_channel_count,
+                    write_mode=self._write_mode,
+                )
             )
             spec_factory.synth_specs.append(
                 SynthSpec(
@@ -214,12 +208,7 @@ class Rack(DeviceBase, ChannelSettable):
                 ),
             )
             meters_synthdef_address = spec_factory.add_synthdef(
-                name=(
-                    meters_synthdef := build_meters_synthdef(
-                        parent_effective_channel_count
-                    )
-                ).effective_name,
-                synthdef=meters_synthdef,
+                synthdef=build_meters_synthdef(parent_effective_channel_count)
             )
             spec_factory.synth_specs.append(
                 SynthSpec(
@@ -378,14 +367,10 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         new_parent._chains.insert(index, self)
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
-        channel_strip_synthdef = build_channel_strip_synthdef(
-            self.effective_channel_count
-        )
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
         channel_strip_synthdef_address = spec_factory.add_synthdef(
-            name=channel_strip_synthdef.effective_name,
-            synthdef=channel_strip_synthdef,
+            synthdef=build_channel_strip_synthdef(self.effective_channel_count)
         )
         spec_factory.bus_specs.extend(
             [

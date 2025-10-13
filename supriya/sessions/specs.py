@@ -738,14 +738,13 @@ class SpecFactory:
         self,
         *,
         component: Optional["Component"] = None,
-        name: str,
         synthdef: SynthDef,
     ) -> Address:
         self._synthdefs.append(
             spec := SynthDefSpec(
                 component=component or self.component,
                 context=self.context,
-                name=name,
+                name=synthdef.effective_name,
                 synthdef=synthdef,
             )
         )

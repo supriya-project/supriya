@@ -410,17 +410,11 @@ class Track(
         parent = self._ensure_parent()
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
-        channel_strip_synthdef = build_channel_strip_synthdef(
-            self.effective_channel_count
-        )
-        meters_synthdef = build_meters_synthdef(self.effective_channel_count)
         channel_strip_synthdef_address = spec_factory.add_synthdef(
-            name=channel_strip_synthdef.effective_name,
-            synthdef=channel_strip_synthdef,
+            synthdef=build_channel_strip_synthdef(self.effective_channel_count)
         )
         meters_synthdef_address = spec_factory.add_synthdef(
-            name=meters_synthdef.effective_name,
-            synthdef=meters_synthdef,
+            synthdef=build_meters_synthdef(self.effective_channel_count)
         )
         spec_factory.bus_specs.extend(
             [
@@ -539,14 +533,12 @@ class Track(
         self._input._resolve_specs(spec_factory)
         self._output._resolve_specs(spec_factory)
         if Spec.needs_feedback(self):
-            feedback_patch_cable_synthdef = build_patch_cable_synthdef(
-                self.effective_channel_count,
-                self.effective_channel_count,
-                feedback=True,
-            )
             feedback_patch_cable_synthdef_address = spec_factory.add_synthdef(
-                name=feedback_patch_cable_synthdef.effective_name,
-                synthdef=feedback_patch_cable_synthdef,
+                synthdef=build_patch_cable_synthdef(
+                    self.effective_channel_count,
+                    self.effective_channel_count,
+                    feedback=True,
+                )
             )
             spec_factory.bus_specs.append(
                 BusSpec(

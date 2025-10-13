@@ -107,14 +107,11 @@ class Input:
         )
         target_channel_count = target.effective_channel_count
         patch_cable_synthdef_address = spec_factory.add_synthdef(
-            name=(
-                patch_cable_synthdef := build_patch_cable_synthdef(
-                    source_channel_count=source_channel_count,
-                    target_channel_count=target_channel_count,
-                    feedback=feedsback,
-                )
-            ).effective_name,
-            synthdef=patch_cable_synthdef,
+            synthdef=build_patch_cable_synthdef(
+                source_channel_count=source_channel_count,
+                target_channel_count=target_channel_count,
+                feedback=feedsback,
+            )
         )
         spec_factory.synth_specs.append(
             SynthSpec(
@@ -254,13 +251,10 @@ class Output:
         )
         source_channel_count = source.effective_channel_count
         patch_cable_synthdef_address = spec_factory.add_synthdef(
-            name=(
-                patch_cable_synthdef := build_patch_cable_synthdef(
-                    source_channel_count=source_channel_count,
-                    target_channel_count=target_channel_count,
-                )
-            ).effective_name,
-            synthdef=patch_cable_synthdef,
+            synthdef=build_patch_cable_synthdef(
+                source_channel_count=source_channel_count,
+                target_channel_count=target_channel_count,
+            )
         )
         spec_factory.synth_specs.append(
             SynthSpec(
