@@ -1,8 +1,7 @@
 import dataclasses
 from typing import TYPE_CHECKING, SupportsFloat
 
-from ..enums import CalculationRate
-from .specs import BusSpec, SpecFactory
+from .specs import SpecFactory
 
 if TYPE_CHECKING:
     from .components import Component
@@ -65,15 +64,10 @@ class Parameter:
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         if not self._field.has_bus:
             return spec_factory
-        spec_factory.bus_specs.append(
-            BusSpec(
-                calculation_rate=CalculationRate.CONTROL,
-                channel_count=1,
-                component=self.component,
-                context=spec_factory.context,
-                default=self._value,
-                name=self.name,
-            )
+        spec_factory.add_control_bus(
+            channel_count=1,
+            default=self._value,
+            name=self.name,
         )
         return spec_factory
 

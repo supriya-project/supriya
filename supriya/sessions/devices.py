@@ -11,7 +11,7 @@ from .components import C, Component, Deletable, LevelsCheckable, Movable, NameS
 from .constants import Address, ChannelCount, Entities, Names, PatchMode
 from .parameters import Field
 from .routing import Input
-from .specs import BusSpec, Spec, SpecFactory
+from .specs import Spec, SpecFactory
 
 if TYPE_CHECKING:
     from .chains import Chain, Rack
@@ -359,18 +359,13 @@ class Sidechain:
         self, spec_factory: SpecFactory, **parameters: float
     ) -> SpecFactory:
         effective_channel_count = self.component.effective_channel_count
-        spec_factory.bus_specs.append(
-            BusSpec(
-                calculation_rate=CalculationRate.AUDIO,
-                channel_count=(
-                    effective_channel_count
-                    if isinstance(self.channel_count, Inherit)
-                    else self.channel_count
-                ),
-                component=self.component,
-                context=spec_factory.context,
-                name=self.name,
-            )
+        spec_factory.add_audio_bus(
+            channel_count=(
+                effective_channel_count
+                if isinstance(self.channel_count, Inherit)
+                else self.channel_count
+            ),
+            name=self.name,
         )
         if not self._input._source or (
             self.conditional and not self.conditional(**parameters)
@@ -549,15 +544,10 @@ class Device(DeviceBase):
         # meters
         if parent._devices.index(self) < (len(parent._devices) - 1):
             # will the meters synth follow the group on move?
-            spec_factory.bus_specs.append(
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    default=0.0,
-                    name=Names.LEVELS,
-                ),
+            spec_factory.add_control_bus(
+                channel_count=self.effective_channel_count,
+                default=0.0,
+                name=Names.LEVELS,
             )
             meters_synthdef_address = spec_factory.add_synthdef(
                 synthdef=build_meters_synthdef(self.effective_channel_count)

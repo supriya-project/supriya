@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Iterable, Optional, Union
 
 from ..contexts import BusGroup
-from ..enums import AddAction, CalculationRate, DoneAction
+from ..enums import AddAction, DoneAction
 from ..typing import INHERIT, Inherit
 from ..ugens.system import (
     build_channel_strip_synthdef,
@@ -21,7 +21,6 @@ from .devices import DeviceContainer
 from .parameters import FloatField
 from .routing import Input, Output
 from .specs import (
-    BusSpec,
     Spec,
     SpecFactory,
 )
@@ -415,40 +414,24 @@ class Track(
         meters_synthdef_address = spec_factory.add_synthdef(
             synthdef=build_meters_synthdef(self.effective_channel_count)
         )
-        spec_factory.bus_specs.extend(
-            [
-                BusSpec(
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.MAIN,
-                ),
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=1,
-                    component=self,
-                    context=spec_factory.context,
-                    default=float(self._is_active),
-                    name=Names.ACTIVE,
-                ),
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    default=0.0,
-                    name=Names.INPUT_LEVELS,
-                ),
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    default=0.0,
-                    name=Names.OUTPUT_LEVELS,
-                ),
-            ]
+        main_audio_bus_address = spec_factory.add_audio_bus(
+            channel_count=self.effective_channel_count,
+            name=Names.MAIN,
+        )
+        active_control_bus_address = spec_factory.add_control_bus(
+            channel_count=1,
+            default=float(self._is_active),
+            name=Names.ACTIVE,
+        )
+        input_levels_control_bus_address = spec_factory.add_control_bus(
+            channel_count=self.effective_channel_count,
+            default=0.0,
+            name=Names.INPUT_LEVELS,
+        )
+        output_levels_control_bus_address = spec_factory.add_control_bus(
+            channel_count=self.effective_channel_count,
+            default=0.0,
+            name=Names.OUTPUT_LEVELS,
         )
         container_group_address = spec_factory.add_container_group(
             destroy_strategy={"gate": 0},
@@ -459,20 +442,20 @@ class Track(
         tracks_group_address = spec_factory.add_group(
             add_action=AddAction.ADD_TO_HEAD,
             name=Names.TRACKS,
-            target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+            target_node=container_group_address,
         )
         _ = spec_factory.add_group(
             add_action=AddAction.ADD_TO_TAIL,
             name=Names.DEVICES,
-            target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+            target_node=container_group_address,
         )
         channel_strip_synth_address = spec_factory.add_synth(
             add_action=AddAction.ADD_TO_TAIL,
             destroy_strategy={"done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP},
             kwargs={
-                "active": Spec.get_address(self, Entities.CONTROL_BUSES, Names.ACTIVE),
+                "active": active_control_bus_address,
                 "gain": Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
-                "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                "out": main_audio_bus_address,
             },
             name=Names.CHANNEL_STRIP,
             synthdef=channel_strip_synthdef_address,
@@ -481,11 +464,9 @@ class Track(
         spec_factory.add_synth(
             add_action=AddAction.ADD_AFTER,
             kwargs={
-                "active": Spec.get_address(self, Entities.CONTROL_BUSES, Names.ACTIVE),
-                "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                "out": Spec.get_address(
-                    self, Entities.CONTROL_BUSES, Names.INPUT_LEVELS
-                ),
+                "active": active_control_bus_address,
+                "in_": main_audio_bus_address,
+                "out": input_levels_control_bus_address,
             },
             name=Names.INPUT_LEVELS,
             synthdef=meters_synthdef_address,
@@ -494,11 +475,9 @@ class Track(
         spec_factory.add_synth(
             add_action=AddAction.ADD_AFTER,
             kwargs={
-                "active": Spec.get_address(self, Entities.CONTROL_BUSES, Names.ACTIVE),
-                "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                "out": Spec.get_address(
-                    self, Entities.CONTROL_BUSES, Names.OUTPUT_LEVELS
-                ),
+                "active": active_control_bus_address,
+                "in_": main_audio_bus_address,
+                "out": output_levels_control_bus_address,
             },
             name=Names.OUTPUT_LEVELS,
             synthdef=meters_synthdef_address,
@@ -514,25 +493,18 @@ class Track(
                     feedback=True,
                 )
             )
-            spec_factory.bus_specs.append(
-                BusSpec(
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.FEEDBACK,
-                )
+            feedback_audio_bus_address = spec_factory.add_audio_bus(
+                channel_count=self.effective_channel_count,
+                name=Names.FEEDBACK,
             )
             spec_factory.add_synth(
                 add_action=AddAction.ADD_TO_HEAD,
                 destroy_strategy={"gate": 0},
                 name=Names.FEEDBACK,
                 kwargs={
-                    "active": Spec.get_address(
-                        self, Entities.CONTROL_BUSES, Names.ACTIVE
-                    ),
-                    "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.FEEDBACK),
-                    "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                    "active": active_control_bus_address,
+                    "in_": feedback_audio_bus_address,
+                    "out": main_audio_bus_address,
                 },
                 synthdef=feedback_patch_cable_synthdef_address,
                 target_node=container_group_address,

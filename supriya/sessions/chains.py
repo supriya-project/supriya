@@ -1,6 +1,6 @@
 from typing import Literal
 
-from ..enums import AddAction, CalculationRate, DoneAction
+from ..enums import AddAction, DoneAction
 from ..ugens.system import (
     build_channel_strip_synthdef,
     build_meters_synthdef,
@@ -10,7 +10,7 @@ from .components import ChannelSettable, Component, Deletable, Movable, NameSett
 from .constants import Address, Entities, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
-from .specs import BusSpec, Spec, SpecFactory
+from .specs import Spec, SpecFactory
 
 
 class Rack(DeviceBase, ChannelSettable):
@@ -102,24 +102,14 @@ class Rack(DeviceBase, ChannelSettable):
         parent = self._ensure_parent()
         parent_effective_channel_count = parent.effective_channel_count
         effective_channel_count = self.effective_channel_count
-        spec_factory.bus_specs.append(
-            BusSpec(
-                calculation_rate=CalculationRate.AUDIO,
-                channel_count=effective_channel_count,
-                component=self,
-                context=spec_factory.context,
-                name=Names.MAIN,
-            )
+        main_audio_bus_address = spec_factory.add_audio_bus(
+            channel_count=effective_channel_count,
+            name=Names.MAIN,
         )
         if len(self.chains) > 1:
-            spec_factory.bus_specs.append(
-                BusSpec(
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.AUX,
-                )
+            _ = spec_factory.add_audio_bus(
+                channel_count=effective_channel_count,
+                name=Names.AUX,
             )
         container_group_address = spec_factory.add_container_group(
             destroy_strategy={"gate": 0},
@@ -148,7 +138,7 @@ class Rack(DeviceBase, ChannelSettable):
                 ),
                 kwargs=dict(
                     in_=parent._get_main_bus_address(),
-                    out=Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                    out=main_audio_bus_address,
                 ),
                 name=Names.INPUT,
                 synthdef=read_synthdef_address,
@@ -169,7 +159,7 @@ class Rack(DeviceBase, ChannelSettable):
                     done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                 ),
                 kwargs=dict(
-                    in_=Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                    in_=main_audio_bus_address,
                     out=parent._get_main_bus_address(),
                     **(
                         dict(
@@ -187,15 +177,11 @@ class Rack(DeviceBase, ChannelSettable):
             )
         if parent._devices.index(self) < (len(parent._devices) - 1):
             # will the meters synth follow the group on move?
-            spec_factory.bus_specs.append(
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    default=0.0,
-                    name=Names.LEVELS,
-                ),
+            # we're referencing the output node, but does it even exist?
+            levels_control_bus_address = spec_factory.add_control_bus(
+                channel_count=self.effective_channel_count,
+                default=0.0,
+                name=Names.LEVELS,
             )
             meters_synthdef_address = spec_factory.add_synthdef(
                 synthdef=build_meters_synthdef(parent_effective_channel_count)
@@ -204,7 +190,7 @@ class Rack(DeviceBase, ChannelSettable):
                 add_action=AddAction.ADD_AFTER,
                 kwargs=dict(
                     in_=parent._get_main_bus_address(),
-                    out=Spec.get_address(self, Entities.CONTROL_BUSES, Names.LEVELS),
+                    out=levels_control_bus_address,
                 ),
                 name=Names.LEVELS,
                 synthdef=meters_synthdef_address,
@@ -352,35 +338,24 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
-        spec_factory.bus_specs.extend(
-            [
-                # TODO: Re-use the rack's main bus.
-                #       Don't allocate fresh.
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=1,
-                    component=self,
-                    context=spec_factory.context,
-                    default=float(self._is_active),
-                    name=Names.ACTIVE,
-                ),
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    default=0.0,
-                    name=Names.INPUT_LEVELS,
-                ),
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    default=0.0,
-                    name=Names.OUTPUT_LEVELS,
-                ),
-            ]
+        # TODO: Re-use the rack's main bus.
+        #       Don't allocate fresh.
+        spec_factory.add_control_bus(
+            channel_count=1,
+            default=float(self._is_active),
+            name=Names.ACTIVE,
+        )
+        # TODO: Do we even need input levels?
+        spec_factory.add_control_bus(
+            channel_count=self.effective_channel_count,
+            default=0.0,
+            name=Names.INPUT_LEVELS,
+        )
+        # TODO: Don't we need a meters synthdef?
+        spec_factory.add_control_bus(
+            channel_count=self.effective_channel_count,
+            default=0.0,
+            name=Names.OUTPUT_LEVELS,
         )
         container_group_address = spec_factory.add_container_group(
             destroy_strategy={"gate": 0},

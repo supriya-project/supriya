@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer
-from ..enums import AddAction, CalculationRate, DoneAction
+from ..enums import AddAction, DoneAction
 from ..ugens.system import (
     build_channel_strip_synthdef,
     build_meters_synthdef,
@@ -18,7 +18,6 @@ from .constants import Address, Entities, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
 from .specs import (
-    BusSpec,
     Spec,
     SpecFactory,
 )
@@ -91,30 +90,17 @@ class Mixer(
                 ),
             )
         )
-        spec_factory.bus_specs.extend(
-            [
-                BusSpec(
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.MAIN,
-                ),
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.INPUT_LEVELS,
-                ),
-                BusSpec(
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=spec_factory.context,
-                    name=Names.OUTPUT_LEVELS,
-                ),
-            ]
+        main_audio_bus_address = spec_factory.add_audio_bus(
+            channel_count=self.effective_channel_count,
+            name=Names.MAIN,
+        )
+        input_levels_control_bus_address = spec_factory.add_control_bus(
+            channel_count=self.effective_channel_count,
+            name=Names.INPUT_LEVELS,
+        )
+        output_levels_control_bus_address = spec_factory.add_control_bus(
+            channel_count=self.effective_channel_count,
+            name=Names.OUTPUT_LEVELS,
         )
         container_group_address = spec_factory.add_group(
             add_action=AddAction.ADD_TO_HEAD,
@@ -137,7 +123,7 @@ class Mixer(
             destroy_strategy={"done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP},
             kwargs={
                 "gain": Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
-                "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                "out": main_audio_bus_address,
             },
             name=Names.CHANNEL_STRIP,
             synthdef=channel_strip_synthdef_address,
@@ -146,10 +132,8 @@ class Mixer(
         spec_factory.add_synth(
             add_action=AddAction.ADD_AFTER,
             kwargs={
-                "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                "out": Spec.get_address(
-                    self, Entities.CONTROL_BUSES, Names.INPUT_LEVELS
-                ),
+                "in_": main_audio_bus_address,
+                "out": input_levels_control_bus_address,
             },
             name=Names.INPUT_LEVELS,
             synthdef=meters_synthdef_address,
@@ -158,10 +142,8 @@ class Mixer(
         spec_factory.add_synth(
             add_action=AddAction.ADD_AFTER,
             kwargs={
-                "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                "out": Spec.get_address(
-                    self, Entities.CONTROL_BUSES, Names.OUTPUT_LEVELS
-                ),
+                "in_": main_audio_bus_address,
+                "out": output_levels_control_bus_address,
             },
             name=Names.OUTPUT_LEVELS,
             synthdef=meters_synthdef_address,
@@ -170,7 +152,7 @@ class Mixer(
         spec_factory.add_synth(
             add_action=AddAction.ADD_TO_TAIL,
             kwargs={
-                "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                "in_": main_audio_bus_address,
                 "out": spec_factory.context.audio_output_bus_group,
             },
             name=Names.OUTPUT,

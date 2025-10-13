@@ -660,7 +660,7 @@ class SpecFactory:
     component: "Component"
     context: AsyncServer
     _buffers: list[BufferSpec] = dataclasses.field(default_factory=list, init=False)
-    bus_specs: list[BusSpec] = dataclasses.field(default_factory=list, init=False)
+    _buses: list[BusSpec] = dataclasses.field(default_factory=list, init=False)
     _groups: list[GroupSpec] = dataclasses.field(default_factory=list, init=False)
     _synths: list[SynthSpec] = dataclasses.field(default_factory=list, init=False)
     _synthdefs: list[SynthDefSpec] = dataclasses.field(default_factory=list, init=False)
@@ -669,12 +669,30 @@ class SpecFactory:
         for specs in (
             self._synthdefs,
             self._buffers,
-            self.bus_specs,
+            self._buses,
             self._groups,
             self._synths,
         ):
             for spec in specs:
                 yield spec
+
+    def add_audio_bus(
+        self,
+        *,
+        channel_count: int,
+        component: Optional["Component"] = None,
+        name: str,
+    ) -> Address:
+        self._buses.append(
+            spec := BusSpec(
+                calculation_rate=CalculationRate.AUDIO,
+                channel_count=channel_count,
+                component=component or self.component,
+                context=self.context,
+                name=name,
+            )
+        )
+        return spec.address
 
     def add_container_group(
         self,
@@ -710,6 +728,26 @@ class SpecFactory:
             ),
             target_node=group_target,
         )
+
+    def add_control_bus(
+        self,
+        *,
+        channel_count: int,
+        component: Optional["Component"] = None,
+        default: float = 0.0,
+        name: str,
+    ) -> Address:
+        self._buses.append(
+            spec := BusSpec(
+                calculation_rate=CalculationRate.CONTROL,
+                channel_count=channel_count,
+                component=component or self.component,
+                context=self.context,
+                default=default,
+                name=name,
+            )
+        )
+        return spec.address
 
     def add_group(
         self,
@@ -776,13 +814,6 @@ class SpecFactory:
             )
         )
         return spec.address
-
-    def update(self, other: "SpecFactory") -> None:
-        self._buffers.extend(other._buffers)
-        self.bus_specs.extend(other.bus_specs)
-        self._groups.extend(other._groups)
-        self._synths.extend(other._synths)
-        self._synthdefs.extend(other._synthdefs)
 
 
 @dataclasses.dataclass
