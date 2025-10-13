@@ -21,7 +21,7 @@ from ..contexts.responses import QueryTreeGroup
 from ..enums import AddAction, BootStatus
 from ..typing import INHERIT, Inherit
 from ..utils import iterate_nwise
-from .constants import IO, Address, ChannelCount, Names, Reconciliation
+from .constants import IO, Address, ChannelCount, Entities, Names, Reconciliation
 from .specs import (
     Artifacts,
     GroupSpec,
@@ -303,14 +303,14 @@ class Component(Generic[C]):
             group_add_action: AddAction = AddAction.ADD_AFTER
             group_target: Address = Spec.get_address(
                 parent_container[index - 1],
-                Names.NODES,
+                Entities.NODES,
                 Names.GROUP,
             )
         else:
             # first member in the group
             group_add_action = AddAction.ADD_TO_HEAD
             group_target = Spec.get_address(
-                parent, Names.NODES, parent_container_group_name
+                parent, Entities.NODES, parent_container_group_name
             )
         return GroupSpec(
             add_action=group_add_action,
@@ -319,7 +319,7 @@ class Component(Generic[C]):
             destroy_strategy=dict(destroy_strategy) if destroy_strategy else None,
             name=Names.GROUP,
             parent_node=Spec.get_address(
-                parent, Names.NODES, parent_container_group_name
+                parent, Entities.NODES, parent_container_group_name
             ),
             target_node=group_target,
         )

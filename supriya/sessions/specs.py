@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Iterator, Optional
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens import SynthDef
-from .constants import IO, Address, Names, Reconciliation
+from .constants import IO, Address, Entities, Reconciliation
 
 if TYPE_CHECKING:
     from .components import Component
@@ -119,10 +119,10 @@ class Spec:
 
     @staticmethod
     def get_address(
-        component: Optional["Component"], type_: Names, name: str
+        component: Optional["Component"], type_: Entities, name: str
     ) -> Address:
-        if type_ == Names.SYNTHDEFS:
-            return f"{Names.SYNTHDEFS}:{name}"
+        if type_ == Entities.SYNTHDEFS:
+            return f"{Entities.SYNTHDEFS}:{name}"
         elif component is None:
             raise ValueError
         return f"{component.numeric_address}:{type_}:{name}"
@@ -272,7 +272,7 @@ class BufferSpec(Spec):
 
     @property
     def address(self) -> Address:
-        return Spec.get_address(self.component, Names.BUFFERS, self.name)
+        return Spec.get_address(self.component, Entities.BUFFERS, self.name)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -346,9 +346,9 @@ class BusSpec(Spec):
     @property
     def address(self) -> Address:
         if self.calculation_rate == CalculationRate.AUDIO:
-            return Spec.get_address(self.component, Names.AUDIO_BUSES, self.name)
+            return Spec.get_address(self.component, Entities.AUDIO_BUSES, self.name)
         elif self.calculation_rate == CalculationRate.CONTROL:
-            return Spec.get_address(self.component, Names.CONTROL_BUSES, self.name)
+            return Spec.get_address(self.component, Entities.CONTROL_BUSES, self.name)
         raise ValueError
 
 
@@ -393,7 +393,7 @@ class SynthDefSpec(Spec):
 
     @property
     def address(self) -> Address:
-        return Spec.get_address(None, Names.SYNTHDEFS, self.synthdef.effective_name)
+        return Spec.get_address(None, Entities.SYNTHDEFS, self.synthdef.effective_name)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -415,7 +415,7 @@ class NodeSpec(Spec):
 
     @property
     def address(self) -> Address:
-        return Spec.get_address(self.component, Names.NODES, self.name)
+        return Spec.get_address(self.component, Entities.NODES, self.name)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -846,7 +846,8 @@ class SpecChange:
                         [
                             address
                             for address in spec.requires()
-                            if f":{Names.NODES}:" in address and address in spec_changes
+                            if f":{Entities.NODES}:" in address
+                            and address in spec_changes
                         ]
                     )
                     unordered_nodes.append((spec_change, dependencies))

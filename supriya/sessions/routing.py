@@ -5,7 +5,7 @@ from ..enums import AddAction
 from ..typing import Inherit
 from ..ugens.system import build_patch_cable_synthdef
 from .components import Component
-from .constants import IO, Names
+from .constants import IO, Entities, Names
 from .specs import Spec, Specs, SynthDefSpec, SynthSpec
 
 
@@ -97,7 +97,7 @@ class Input:
             )
             source_bus_address = Spec.get_address(
                 self._cached_source,
-                Names.AUDIO_BUSES,
+                Entities.AUDIO_BUSES,
                 Names.MAIN,
             )
             source_channel_count = self._cached_source.effective_channel_count
@@ -143,7 +143,7 @@ class Input:
                 parent_node=None,
                 synthdef=Spec.get_address(
                     None,
-                    Names.SYNTHDEFS,
+                    Entities.SYNTHDEFS,
                     patch_cable_synthdef.effective_name,
                 ),
                 target_node=(
@@ -253,7 +253,7 @@ class Output:
             )
             target_bus_address = Spec.get_address(
                 self._cached_target,
-                Names.AUDIO_BUSES,
+                Entities.AUDIO_BUSES,
                 Names.FEEDBACK if feedsback else Names.MAIN,
             )
             target_channel_count = self._cached_target.effective_channel_count
@@ -298,7 +298,7 @@ class Output:
                 parent_node=None,
                 synthdef=Spec.get_address(
                     None,
-                    Names.SYNTHDEFS,
+                    Entities.SYNTHDEFS,
                     patch_cable_synthdef.effective_name,
                 ),
                 target_node=(

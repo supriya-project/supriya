@@ -8,7 +8,7 @@ from ..typing import Inherit
 from ..ugens import SynthDef
 from ..ugens.system import build_meters_synthdef
 from .components import C, Component, Deletable, LevelsCheckable, Movable, NameSettable
-from .constants import Address, ChannelCount, Names, PatchMode
+from .constants import Address, ChannelCount, Entities, Names, PatchMode
 from .parameters import Field
 from .routing import Input
 from .specs import BusSpec, Spec, Specs, SynthDefSpec, SynthSpec
@@ -121,7 +121,7 @@ class DeviceContainer(Component[C]):
         return rack, rack._chains[0] if rack._chains else None
 
     def _get_main_bus_address(self) -> Address:
-        return Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN)
+        return Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN)
 
     def _group_devices(
         self,
@@ -338,12 +338,12 @@ class Sidechain:
         self._conditional = conditional
         self._input = Input(
             add_action=AddAction.ADD_TO_HEAD,
-            add_node_address=Spec.get_address(component, Names.NODES, Names.GROUP),
+            add_node_address=Spec.get_address(component, Entities.NODES, Names.GROUP),
             host_component=component,
             name=name,
             target_bus_address=Spec.get_address(
                 component,
-                Names.AUDIO_BUSES,
+                Entities.AUDIO_BUSES,
                 name,
             ),
         )
@@ -522,7 +522,7 @@ class Device(DeviceBase):
                 if key not in synthdef.parameters:
                     continue
                 synth_parameters[key] = Spec.get_address(
-                    parent, Names.AUDIO_BUSES, Names.MAIN
+                    parent, Entities.AUDIO_BUSES, Names.MAIN
                 )
             for key, value in (synth_config.parameters or {}).items():
                 if key not in synthdef.parameters:
@@ -535,11 +535,11 @@ class Device(DeviceBase):
                     rate, name = value_
                     if rate == CalculationRate.CONTROL:
                         synth_parameters[key] = Spec.get_address(
-                            self, Names.CONTROL_BUSES, name
+                            self, Entities.CONTROL_BUSES, name
                         )
                     elif rate == CalculationRate.AUDIO:
                         synth_parameters[key] = Spec.get_address(
-                            self, Names.AUDIO_BUSES, name
+                            self, Entities.AUDIO_BUSES, name
                         )
                     else:
                         raise ValueError(rate)
@@ -561,10 +561,10 @@ class Device(DeviceBase):
                     parent_node=None,
                     synthdef=Spec.get_address(
                         None,
-                        Names.SYNTHDEFS,
+                        Entities.SYNTHDEFS,
                         synthdef.effective_name,
                     ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 )
             )
         # meters
@@ -603,19 +603,23 @@ class Device(DeviceBase):
                     context=context,
                     kwargs=dict(
                         in_=parent._get_main_bus_address(),
-                        out=Spec.get_address(self, Names.CONTROL_BUSES, Names.LEVELS),
+                        out=Spec.get_address(
+                            self, Entities.CONTROL_BUSES, Names.LEVELS
+                        ),
                     ),
                     name=Names.LEVELS,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
                     ),
                     target_node=(
                         Spec.get_address(
-                            self, Names.NODES, f"synth-{len(self._synth_configs) - 1}"
+                            self,
+                            Entities.NODES,
+                            f"synth-{len(self._synth_configs) - 1}",
                         )
                         if self._synth_configs
-                        else Spec.get_address(self, Names.NODES, Names.GROUP)
+                        else Spec.get_address(self, Entities.NODES, Names.GROUP)
                     ),
                 )
             )

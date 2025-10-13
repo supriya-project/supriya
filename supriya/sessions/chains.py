@@ -8,7 +8,7 @@ from ..ugens.system import (
     build_patch_cable_synthdef,
 )
 from .components import ChannelSettable, Component, Deletable, Movable, NameSettable
-from .constants import Address, Names, PatchMode
+from .constants import Address, Entities, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
 from .specs import BusSpec, GroupSpec, Spec, Specs, SynthDefSpec, SynthSpec
@@ -138,7 +138,7 @@ class Rack(DeviceBase, ChannelSettable):
                     context=context,
                     name=Names.CHAINS,
                     parent_node=None,
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]
         )
@@ -168,14 +168,14 @@ class Rack(DeviceBase, ChannelSettable):
                     ),
                     kwargs=dict(
                         in_=parent._get_main_bus_address(),
-                        out=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        out=Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                     ),
                     name=Names.INPUT,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, read_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, read_synthdef.effective_name
                     ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 )
             )
         # output
@@ -203,12 +203,12 @@ class Rack(DeviceBase, ChannelSettable):
                         done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     ),
                     kwargs=dict(
-                        in_=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        in_=Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                         out=parent._get_main_bus_address(),
                         **(
                             dict(
                                 mix=Spec.get_address(
-                                    self, Names.CONTROL_BUSES, Names.MIX
+                                    self, Entities.CONTROL_BUSES, Names.MIX
                                 )
                             )
                             if self._write_mode == PatchMode.MIX
@@ -218,9 +218,9 @@ class Rack(DeviceBase, ChannelSettable):
                     name=Names.OUTPUT,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, write_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, write_synthdef.effective_name
                     ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 )
             )
         if parent._devices.index(self) < (len(parent._devices) - 1):
@@ -254,14 +254,16 @@ class Rack(DeviceBase, ChannelSettable):
                     context=context,
                     kwargs=dict(
                         in_=parent._get_main_bus_address(),
-                        out=Spec.get_address(self, Names.CONTROL_BUSES, Names.LEVELS),
+                        out=Spec.get_address(
+                            self, Entities.CONTROL_BUSES, Names.LEVELS
+                        ),
                     ),
                     name=Names.LEVELS,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
                     ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.OUTPUT),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.OUTPUT),
                 )
             )
         return specs
@@ -371,7 +373,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         #       instruments.
         return Spec.get_address(
             parent := self._ensure_parent(),
-            Names.AUDIO_BUSES,
+            Entities.AUDIO_BUSES,
             Names.AUX if len(parent.chains) > 1 else Names.MAIN,
         )
 
@@ -465,7 +467,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     context=context,
                     name=Names.DEVICES,
                     parent_node=None,
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]
         )
@@ -480,17 +482,17 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     ),
                     kwargs=dict(
                         active=Spec.get_address(
-                            self, Names.CONTROL_BUSES, Names.ACTIVE
+                            self, Entities.CONTROL_BUSES, Names.ACTIVE
                         ),
-                        gain=Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
-                        out=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        gain=Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
+                        out=Spec.get_address(parent, Entities.AUDIO_BUSES, Names.MAIN),
                     ),
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, channel_strip_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, channel_strip_synthdef.effective_name
                     ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]
         )

@@ -10,6 +10,14 @@ Address: TypeAlias = str
 ChannelCount: TypeAlias = Literal[1, 2, 4, 8]
 
 
+class Entities(StrEnum):
+    AUDIO_BUSES = "audio-buses"
+    BUFFERS = "buffers"
+    CONTROL_BUSES = "control-buses"
+    NODES = "nodes"
+    SYNTHDEFS = "synthdefs"
+
+
 class IO(StrEnum):
     """
     What type of IO a connection between components is performing.
@@ -25,12 +33,9 @@ class Names(StrEnum):
     """
 
     ACTIVE = "active"
-    AUDIO_BUSES = "audio-buses"
     AUX = "aux"
-    BUFFERS = "buffers"
     CHAINS = "chains"
     CHANNEL_STRIP = "channel-strip"
-    CONTROL_BUSES = "control-buses"
     DEVICES = "devices"
     FEEDBACK = "feedback"
     GAIN = "gain"
@@ -40,12 +45,10 @@ class Names(StrEnum):
     LEVELS = "levels"
     MAIN = "main"
     MIX = "mix"
-    NODES = "nodes"
     OUTPUT = "output"
     OUTPUT_LEVELS = "output-levels"
     SIDECHAIN = "sidechain"
     SYNTH = "synth"
-    SYNTHDEFS = "synthdefs"
     TRACKS = "tracks"
 
 

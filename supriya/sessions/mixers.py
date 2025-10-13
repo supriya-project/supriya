@@ -14,7 +14,7 @@ from .components import (
     LevelsCheckable,
     NameSettable,
 )
-from .constants import Address, Names
+from .constants import Address, Entities, Names
 from .devices import DeviceContainer
 from .parameters import FloatField
 from .specs import (
@@ -162,7 +162,7 @@ class Mixer(
                     context=context,
                     name=Names.TRACKS,
                     parent_node=None,
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
                 GroupSpec(
                     add_action=AddAction.ADD_TO_TAIL,
@@ -170,7 +170,7 @@ class Mixer(
                     context=context,
                     name=Names.DEVICES,
                     parent_node=None,
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]
         )
@@ -184,50 +184,52 @@ class Mixer(
                         "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     },
                     kwargs={
-                        "gain": Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
-                        "out": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        "gain": Spec.get_address(
+                            self, Entities.CONTROL_BUSES, Names.GAIN
+                        ),
+                        "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                     },
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, channel_strip_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, channel_strip_synthdef.effective_name
                     ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
                     component=self,
                     context=context,
                     kwargs={
-                        "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                         "out": Spec.get_address(
-                            self, Names.CONTROL_BUSES, Names.INPUT_LEVELS
+                            self, Entities.CONTROL_BUSES, Names.INPUT_LEVELS
                         ),
                     },
                     name=Names.INPUT_LEVELS,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
                     ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.TRACKS),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.TRACKS),
                 ),
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
                     component=self,
                     context=context,
                     kwargs={
-                        "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                         "out": Spec.get_address(
-                            self, Names.CONTROL_BUSES, Names.OUTPUT_LEVELS
+                            self, Entities.CONTROL_BUSES, Names.OUTPUT_LEVELS
                         ),
                     },
                     name=Names.OUTPUT_LEVELS,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, meters_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
                     ),
                     target_node=Spec.get_address(
-                        self, Names.NODES, Names.CHANNEL_STRIP
+                        self, Entities.NODES, Names.CHANNEL_STRIP
                     ),
                 ),
                 SynthSpec(
@@ -235,15 +237,15 @@ class Mixer(
                     component=self,
                     context=context,
                     kwargs={
-                        "in_": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
+                        "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                         "out": context.audio_output_bus_group,
                     },
                     name=Names.OUTPUT,
                     parent_node=None,
                     synthdef=Spec.get_address(
-                        None, Names.SYNTHDEFS, patch_cable_synthdef.effective_name
+                        None, Entities.SYNTHDEFS, patch_cable_synthdef.effective_name
                     ),
-                    target_node=Spec.get_address(self, Names.NODES, Names.GROUP),
+                    target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]
         )
