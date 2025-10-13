@@ -659,7 +659,7 @@ class SynthSpec(NodeSpec):
 class SpecFactory:
     component: "Component"
     context: AsyncServer
-    buffer_specs: list[BufferSpec] = dataclasses.field(default_factory=list, init=False)
+    _buffers: list[BufferSpec] = dataclasses.field(default_factory=list, init=False)
     bus_specs: list[BusSpec] = dataclasses.field(default_factory=list, init=False)
     group_specs: list[GroupSpec] = dataclasses.field(default_factory=list, init=False)
     synth_specs: list[SynthSpec] = dataclasses.field(default_factory=list, init=False)
@@ -670,7 +670,7 @@ class SpecFactory:
     def __iter__(self) -> Iterator[Spec]:
         for specs in (
             self.synthdef_specs,
-            self.buffer_specs,
+            self._buffers,
             self.bus_specs,
             self.group_specs,
             self.synth_specs,
@@ -679,7 +679,7 @@ class SpecFactory:
                 yield spec
 
     def update(self, other: "SpecFactory") -> None:
-        self.buffer_specs.extend(other.buffer_specs)
+        self._buffers.extend(other._buffers)
         self.bus_specs.extend(other.bus_specs)
         self.group_specs.extend(other.group_specs)
         self.synth_specs.extend(other.synth_specs)
