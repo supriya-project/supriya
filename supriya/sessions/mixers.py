@@ -22,7 +22,6 @@ from .specs import (
     GroupSpec,
     Spec,
     SpecFactory,
-    SynthDefSpec,
     SynthSpec,
 )
 from .tracks import TrackContainer
@@ -77,45 +76,33 @@ class Mixer(
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
-        spec_factory.synthdef_specs.extend(
-            [
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=(
-                        channel_strip_synthdef := build_channel_strip_synthdef(
-                            self.effective_channel_count
-                        )
-                    ).effective_name,
-                    synthdef=channel_strip_synthdef,
-                ),
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=(
-                        meters_synthdef := build_meters_synthdef(
-                            self.effective_channel_count
-                        )
-                    ).effective_name,
-                    synthdef=meters_synthdef,
-                ),
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=(
-                        patch_cable_synthdef := build_patch_cable_synthdef(
+        channel_strip_synthdef_address = spec_factory.add_synthdef(
+            name=(
+                channel_strip_synthdef := build_channel_strip_synthdef(
+                    self.effective_channel_count
+                )
+            ).effective_name,
+            synthdef=channel_strip_synthdef,
+        )
+        meters_synthdef_address = spec_factory.add_synthdef(
+            name=(
+                meters_synthdef := build_meters_synthdef(self.effective_channel_count)
+            ).effective_name,
+            synthdef=meters_synthdef,
+        )
+        patch_cable_synthdef_address = spec_factory.add_synthdef(
+            name=(
+                patch_cable_synthdef := build_patch_cable_synthdef(
+                    self.effective_channel_count,
+                    min(
+                        [
                             self.effective_channel_count,
-                            min(
-                                [
-                                    self.effective_channel_count,
-                                    len(spec_factory.context.audio_output_bus_group),
-                                ]
-                            ),
-                        )
-                    ).effective_name,
-                    synthdef=patch_cable_synthdef,
-                ),
-            ]
+                            len(spec_factory.context.audio_output_bus_group),
+                        ]
+                    ),
+                )
+            ).effective_name,
+            synthdef=patch_cable_synthdef,
         )
         spec_factory.bus_specs.extend(
             [
@@ -188,9 +175,7 @@ class Mixer(
                     },
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, channel_strip_synthdef.effective_name
-                    ),
+                    synthdef=channel_strip_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
                 SynthSpec(
@@ -205,9 +190,7 @@ class Mixer(
                     },
                     name=Names.INPUT_LEVELS,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
-                    ),
+                    synthdef=meters_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.TRACKS),
                 ),
                 SynthSpec(
@@ -222,9 +205,7 @@ class Mixer(
                     },
                     name=Names.OUTPUT_LEVELS,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
-                    ),
+                    synthdef=meters_synthdef_address,
                     target_node=Spec.get_address(
                         self, Entities.NODES, Names.CHANNEL_STRIP
                     ),
@@ -239,9 +220,7 @@ class Mixer(
                     },
                     name=Names.OUTPUT,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, patch_cable_synthdef.effective_name
-                    ),
+                    synthdef=patch_cable_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]

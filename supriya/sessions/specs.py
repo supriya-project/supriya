@@ -663,13 +663,11 @@ class SpecFactory:
     bus_specs: list[BusSpec] = dataclasses.field(default_factory=list, init=False)
     group_specs: list[GroupSpec] = dataclasses.field(default_factory=list, init=False)
     synth_specs: list[SynthSpec] = dataclasses.field(default_factory=list, init=False)
-    synthdef_specs: list[SynthDefSpec] = dataclasses.field(
-        default_factory=list, init=False
-    )
+    _synthdefs: list[SynthDefSpec] = dataclasses.field(default_factory=list, init=False)
 
     def __iter__(self) -> Iterator[Spec]:
         for specs in (
-            self.synthdef_specs,
+            self._synthdefs,
             self._buffers,
             self.bus_specs,
             self.group_specs,
@@ -678,12 +676,29 @@ class SpecFactory:
             for spec in specs:
                 yield spec
 
+    def add_synthdef(
+        self,
+        *,
+        component: Optional["Component"] = None,
+        name: str,
+        synthdef: SynthDef,
+    ) -> Address:
+        self._synthdefs.append(
+            spec := SynthDefSpec(
+                component=component or self.component,
+                context=self.context,
+                name=name,
+                synthdef=synthdef,
+            )
+        )
+        return spec.address
+
     def update(self, other: "SpecFactory") -> None:
         self._buffers.extend(other._buffers)
         self.bus_specs.extend(other.bus_specs)
         self.group_specs.extend(other.group_specs)
         self.synth_specs.extend(other.synth_specs)
-        self.synthdef_specs.extend(other.synthdef_specs)
+        self._synthdefs.extend(other._synthdefs)
 
 
 @dataclasses.dataclass

@@ -10,7 +10,7 @@ from .components import ChannelSettable, Component, Deletable, Movable, NameSett
 from .constants import Address, Entities, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
-from .specs import BusSpec, GroupSpec, Spec, SpecFactory, SynthDefSpec, SynthSpec
+from .specs import BusSpec, GroupSpec, Spec, SpecFactory, SynthSpec
 
 
 class Rack(DeviceBase, ChannelSettable):
@@ -142,19 +142,15 @@ class Rack(DeviceBase, ChannelSettable):
         )
         # input
         if self._read_mode == PatchMode.REPLACE:
-            spec_factory.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=(
-                        read_synthdef := build_patch_cable_synthdef(
-                            source_channel_count=parent_effective_channel_count,
-                            target_channel_count=effective_channel_count,
-                            write_mode="replace",
-                        )
-                    ).effective_name,
-                    synthdef=read_synthdef,
-                )
+            read_synthdef_address = spec_factory.add_synthdef(
+                name=(
+                    read_synthdef := build_patch_cable_synthdef(
+                        source_channel_count=parent_effective_channel_count,
+                        target_channel_count=effective_channel_count,
+                        write_mode="replace",
+                    )
+                ).effective_name,
+                synthdef=read_synthdef,
             )
             spec_factory.synth_specs.append(
                 SynthSpec(
@@ -170,27 +166,21 @@ class Rack(DeviceBase, ChannelSettable):
                     ),
                     name=Names.INPUT,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, read_synthdef.effective_name
-                    ),
+                    synthdef=read_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 )
             )
         # output
         if self._write_mode in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM):
-            spec_factory.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=(
-                        write_synthdef := build_patch_cable_synthdef(
-                            source_channel_count=parent_effective_channel_count,
-                            target_channel_count=effective_channel_count,
-                            write_mode=self._write_mode,
-                        )
-                    ).effective_name,
-                    synthdef=write_synthdef,
-                )
+            write_synthdef_address = spec_factory.add_synthdef(
+                name=(
+                    write_synthdef := build_patch_cable_synthdef(
+                        source_channel_count=parent_effective_channel_count,
+                        target_channel_count=effective_channel_count,
+                        write_mode=self._write_mode,
+                    )
+                ).effective_name,
+                synthdef=write_synthdef,
             )
             spec_factory.synth_specs.append(
                 SynthSpec(
@@ -215,9 +205,7 @@ class Rack(DeviceBase, ChannelSettable):
                     ),
                     name=Names.OUTPUT,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, write_synthdef.effective_name
-                    ),
+                    synthdef=write_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 )
             )
@@ -233,17 +221,13 @@ class Rack(DeviceBase, ChannelSettable):
                     name=Names.LEVELS,
                 ),
             )
-            spec_factory.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=(
-                        meters_synthdef := build_meters_synthdef(
-                            parent_effective_channel_count
-                        )
-                    ).effective_name,
-                    synthdef=meters_synthdef,
-                )
+            meters_synthdef_address = spec_factory.add_synthdef(
+                name=(
+                    meters_synthdef := build_meters_synthdef(
+                        parent_effective_channel_count
+                    )
+                ).effective_name,
+                synthdef=meters_synthdef,
             )
             spec_factory.synth_specs.append(
                 SynthSpec(
@@ -258,9 +242,7 @@ class Rack(DeviceBase, ChannelSettable):
                     ),
                     name=Names.LEVELS,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
-                    ),
+                    synthdef=meters_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.OUTPUT),
                 )
             )
@@ -409,13 +391,9 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         )
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
-        spec_factory.synthdef_specs.append(
-            SynthDefSpec(
-                component=self,
-                context=spec_factory.context,
-                name=channel_strip_synthdef.effective_name,
-                synthdef=channel_strip_synthdef,
-            ),
+        channel_strip_synthdef_address = spec_factory.add_synthdef(
+            name=channel_strip_synthdef.effective_name,
+            synthdef=channel_strip_synthdef,
         )
         spec_factory.bus_specs.extend(
             [
@@ -484,9 +462,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     ),
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, channel_strip_synthdef.effective_name
-                    ),
+                    synthdef=channel_strip_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]

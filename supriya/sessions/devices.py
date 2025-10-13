@@ -11,7 +11,7 @@ from .components import C, Component, Deletable, LevelsCheckable, Movable, NameS
 from .constants import Address, ChannelCount, Entities, Names, PatchMode
 from .parameters import Field
 from .routing import Input
-from .specs import BusSpec, Spec, SpecFactory, SynthDefSpec, SynthSpec
+from .specs import BusSpec, Spec, SpecFactory, SynthSpec
 
 if TYPE_CHECKING:
     from .chains import Chain, Rack
@@ -539,13 +539,9 @@ class Device(DeviceBase):
                         )
                     else:
                         raise ValueError(rate)
-            spec_factory.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=synthdef.effective_name,
-                    synthdef=synthdef,
-                ),
+            synthdef_address = spec_factory.add_synthdef(
+                name=synthdef.effective_name,
+                synthdef=synthdef,
             )
             spec_factory.synth_specs.append(
                 SynthSpec(
@@ -555,11 +551,7 @@ class Device(DeviceBase):
                     kwargs=synth_parameters,
                     name=f"synth-{index}",
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None,
-                        Entities.SYNTHDEFS,
-                        synthdef.effective_name,
-                    ),
+                    synthdef=synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 )
             )
@@ -576,17 +568,13 @@ class Device(DeviceBase):
                     name=Names.LEVELS,
                 ),
             )
-            spec_factory.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=(
-                        meters_synthdef := build_meters_synthdef(
-                            self.effective_channel_count
-                        )
-                    ).effective_name,
-                    synthdef=meters_synthdef,
-                )
+            meters_synthdef_address = spec_factory.add_synthdef(
+                name=(
+                    meters_synthdef := build_meters_synthdef(
+                        self.effective_channel_count
+                    )
+                ).effective_name,
+                synthdef=meters_synthdef,
             )
             spec_factory.synth_specs.append(
                 SynthSpec(
@@ -605,9 +593,7 @@ class Device(DeviceBase):
                     ),
                     name=Names.LEVELS,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
-                    ),
+                    synthdef=meters_synthdef_address,
                     target_node=(
                         Spec.get_address(
                             self,

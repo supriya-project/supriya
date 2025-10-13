@@ -25,7 +25,6 @@ from .specs import (
     GroupSpec,
     Spec,
     SpecFactory,
-    SynthDefSpec,
     SynthSpec,
 )
 
@@ -416,21 +415,13 @@ class Track(
             self.effective_channel_count
         )
         meters_synthdef = build_meters_synthdef(self.effective_channel_count)
-        spec_factory.synthdef_specs.extend(
-            [
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=channel_strip_synthdef.effective_name,
-                    synthdef=channel_strip_synthdef,
-                ),
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=meters_synthdef.effective_name,
-                    synthdef=meters_synthdef,
-                ),
-            ]
+        channel_strip_synthdef_address = spec_factory.add_synthdef(
+            name=channel_strip_synthdef.effective_name,
+            synthdef=channel_strip_synthdef,
+        )
+        meters_synthdef_address = spec_factory.add_synthdef(
+            name=meters_synthdef.effective_name,
+            synthdef=meters_synthdef,
         )
         spec_factory.bus_specs.extend(
             [
@@ -514,9 +505,7 @@ class Track(
                     },
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, channel_strip_synthdef.effective_name
-                    ),
+                    synthdef=channel_strip_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
                 SynthSpec(
@@ -534,9 +523,7 @@ class Track(
                     },
                     name=Names.INPUT_LEVELS,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
-                    ),
+                    synthdef=meters_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.TRACKS),
                 ),
                 SynthSpec(
@@ -554,9 +541,7 @@ class Track(
                     },
                     name=Names.OUTPUT_LEVELS,
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None, Entities.SYNTHDEFS, meters_synthdef.effective_name
-                    ),
+                    synthdef=meters_synthdef_address,
                     target_node=Spec.get_address(
                         self, Entities.NODES, Names.CHANNEL_STRIP
                     ),
@@ -571,13 +556,9 @@ class Track(
                 self.effective_channel_count,
                 feedback=True,
             )
-            spec_factory.synthdef_specs.append(
-                SynthDefSpec(
-                    component=self,
-                    context=spec_factory.context,
-                    name=feedback_patch_cable_synthdef.effective_name,
-                    synthdef=feedback_patch_cable_synthdef,
-                )
+            feedback_patch_cable_synthdef_address = spec_factory.add_synthdef(
+                name=feedback_patch_cable_synthdef.effective_name,
+                synthdef=feedback_patch_cable_synthdef,
             )
             spec_factory.bus_specs.append(
                 BusSpec(
@@ -605,11 +586,7 @@ class Track(
                         "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                     },
                     parent_node=None,
-                    synthdef=Spec.get_address(
-                        None,
-                        Entities.SYNTHDEFS,
-                        feedback_patch_cable_synthdef.effective_name,
-                    ),
+                    synthdef=feedback_patch_cable_synthdef_address,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 )
             )
