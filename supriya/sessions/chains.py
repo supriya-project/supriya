@@ -167,7 +167,7 @@ class Rack(DeviceBase, ChannelSettable):
                         done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     ),
                     kwargs=dict(
-                        in_=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        in_=parent._get_main_bus_address(),
                         out=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
                     ),
                     name=Names.INPUT,
@@ -204,7 +204,7 @@ class Rack(DeviceBase, ChannelSettable):
                     ),
                     kwargs=dict(
                         in_=Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-                        out=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        out=parent._get_main_bus_address(),
                         **(
                             dict(
                                 mix=Spec.get_address(
@@ -253,7 +253,7 @@ class Rack(DeviceBase, ChannelSettable):
                     component=self,
                     context=context,
                     kwargs=dict(
-                        in_=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        in_=parent._get_main_bus_address(),
                         out=Spec.get_address(self, Names.CONTROL_BUSES, Names.LEVELS),
                     ),
                     name=Names.LEVELS,
@@ -365,6 +365,16 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         self._ensure_parent()._chains.remove(self)
         super()._disconnect_parentage()
 
+    def _get_main_bus_address(self) -> Address:
+        # TODO: We may want to just pre-allocated :shrug: because changing
+        #       chain count will have odd interactions with held notes in
+        #       instruments.
+        return Spec.get_address(
+            parent := self._ensure_parent(),
+            Names.AUDIO_BUSES,
+            Names.AUX if len(parent.chains) > 1 else Names.MAIN,
+        )
+
     def _get_nested_address(self) -> Address:
         if self.parent is None:
             return "chains[?]"
@@ -412,13 +422,8 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         )
         specs.bus_specs.extend(
             [
-                BusSpec(
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=self.effective_channel_count,
-                    component=self,
-                    context=context,
-                    name=Names.MAIN,
-                ),
+                # TODO: Re-use the rack's main bus.
+                #       Don't allocate fresh.
                 BusSpec(
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=1,
@@ -470,16 +475,16 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
                     context=context,
-                    destroy_strategy={
-                        "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
-                    },
-                    kwargs={
-                        "active": Spec.get_address(
+                    destroy_strategy=dict(
+                        done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                    ),
+                    kwargs=dict(
+                        active=Spec.get_address(
                             self, Names.CONTROL_BUSES, Names.ACTIVE
                         ),
-                        "gain": Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
-                        "out": Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN),
-                    },
+                        gain=Spec.get_address(self, Names.CONTROL_BUSES, Names.GAIN),
+                        out=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                    ),
                     name=Names.CHANNEL_STRIP,
                     parent_node=None,
                     synthdef=Spec.get_address(

@@ -120,6 +120,9 @@ class DeviceContainer(Component[C]):
             )
         return rack, rack._chains[0] if rack._chains else None
 
+    def _get_main_bus_address(self) -> Address:
+        return Spec.get_address(self, Names.AUDIO_BUSES, Names.MAIN)
+
     def _group_devices(
         self,
         *,
@@ -599,7 +602,7 @@ class Device(DeviceBase):
                     component=self,
                     context=context,
                     kwargs=dict(
-                        in_=Spec.get_address(parent, Names.AUDIO_BUSES, Names.MAIN),
+                        in_=parent._get_main_bus_address(),
                         out=Spec.get_address(self, Names.CONTROL_BUSES, Names.LEVELS),
                     ),
                     name=Names.LEVELS,
