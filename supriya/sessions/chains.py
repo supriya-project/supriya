@@ -10,7 +10,7 @@ from .components import ChannelSettable, Component, Deletable, Movable, NameSett
 from .constants import Address, Entities, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
-from .specs import BusSpec, Spec, SpecFactory, SynthSpec
+from .specs import BusSpec, Spec, SpecFactory
 
 
 class Rack(DeviceBase, ChannelSettable):
@@ -141,23 +141,18 @@ class Rack(DeviceBase, ChannelSettable):
                     write_mode="replace",
                 )
             )
-            spec_factory.synth_specs.append(
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    component=self,
-                    context=spec_factory.context,
-                    destroy_strategy=dict(
-                        done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
-                    ),
-                    kwargs=dict(
-                        in_=parent._get_main_bus_address(),
-                        out=Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                    ),
-                    name=Names.INPUT,
-                    parent_node=None,
-                    synthdef=read_synthdef_address,
-                    target_node=container_group_address,
-                )
+            spec_factory.add_synth(
+                add_action=AddAction.ADD_TO_HEAD,
+                destroy_strategy=dict(
+                    done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                ),
+                kwargs=dict(
+                    in_=parent._get_main_bus_address(),
+                    out=Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                ),
+                name=Names.INPUT,
+                synthdef=read_synthdef_address,
+                target_node=container_group_address,
             )
         # output
         if self._write_mode in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM):
@@ -168,32 +163,27 @@ class Rack(DeviceBase, ChannelSettable):
                     write_mode=self._write_mode,
                 )
             )
-            spec_factory.synth_specs.append(
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=spec_factory.context,
-                    destroy_strategy=dict(
-                        done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
-                    ),
-                    kwargs=dict(
-                        in_=Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                        out=parent._get_main_bus_address(),
-                        **(
-                            dict(
-                                mix=Spec.get_address(
-                                    self, Entities.CONTROL_BUSES, Names.MIX
-                                )
+            spec_factory.add_synth(
+                add_action=AddAction.ADD_TO_TAIL,
+                destroy_strategy=dict(
+                    done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                ),
+                kwargs=dict(
+                    in_=Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                    out=parent._get_main_bus_address(),
+                    **(
+                        dict(
+                            mix=Spec.get_address(
+                                self, Entities.CONTROL_BUSES, Names.MIX
                             )
-                            if self._write_mode == PatchMode.MIX
-                            else {}
-                        ),
+                        )
+                        if self._write_mode == PatchMode.MIX
+                        else {}
                     ),
-                    name=Names.OUTPUT,
-                    parent_node=None,
-                    synthdef=write_synthdef_address,
-                    target_node=container_group_address,
-                )
+                ),
+                name=Names.OUTPUT,
+                synthdef=write_synthdef_address,
+                target_node=container_group_address,
             )
         if parent._devices.index(self) < (len(parent._devices) - 1):
             # will the meters synth follow the group on move?
@@ -210,22 +200,15 @@ class Rack(DeviceBase, ChannelSettable):
             meters_synthdef_address = spec_factory.add_synthdef(
                 synthdef=build_meters_synthdef(parent_effective_channel_count)
             )
-            spec_factory.synth_specs.append(
-                SynthSpec(
-                    add_action=AddAction.ADD_AFTER,
-                    component=self,
-                    context=spec_factory.context,
-                    kwargs=dict(
-                        in_=parent._get_main_bus_address(),
-                        out=Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.LEVELS
-                        ),
-                    ),
-                    name=Names.LEVELS,
-                    parent_node=None,
-                    synthdef=meters_synthdef_address,
-                    target_node=Spec.get_address(self, Entities.NODES, Names.OUTPUT),
-                )
+            spec_factory.add_synth(
+                add_action=AddAction.ADD_AFTER,
+                kwargs=dict(
+                    in_=parent._get_main_bus_address(),
+                    out=Spec.get_address(self, Entities.CONTROL_BUSES, Names.LEVELS),
+                ),
+                name=Names.LEVELS,
+                synthdef=meters_synthdef_address,
+                target_node=Spec.get_address(self, Entities.NODES, Names.OUTPUT),
             )
         return spec_factory
 
@@ -369,9 +352,6 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
-        channel_strip_synthdef_address = spec_factory.add_synthdef(
-            synthdef=build_channel_strip_synthdef(self.effective_channel_count)
-        )
         spec_factory.bus_specs.extend(
             [
                 # TODO: Re-use the rack's main bus.
@@ -413,28 +393,22 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
             name=Names.DEVICES,
             target_node=container_group_address,
         )
-        spec_factory.synth_specs.extend(
-            [
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=spec_factory.context,
-                    destroy_strategy=dict(
-                        done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
-                    ),
-                    kwargs=dict(
-                        active=Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        gain=Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
-                        out=Spec.get_address(parent, Entities.AUDIO_BUSES, Names.MAIN),
-                    ),
-                    name=Names.CHANNEL_STRIP,
-                    parent_node=None,
-                    synthdef=channel_strip_synthdef_address,
-                    target_node=container_group_address,
-                ),
-            ]
+        channel_strip_synthdef_address = spec_factory.add_synthdef(
+            synthdef=build_channel_strip_synthdef(self.effective_channel_count)
+        )
+        spec_factory.add_synth(
+            add_action=AddAction.ADD_TO_TAIL,
+            destroy_strategy=dict(
+                done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+            ),
+            kwargs=dict(
+                active=Spec.get_address(self, Entities.CONTROL_BUSES, Names.ACTIVE),
+                gain=Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
+                out=Spec.get_address(parent, Entities.AUDIO_BUSES, Names.MAIN),
+            ),
+            name=Names.CHANNEL_STRIP,
+            synthdef=channel_strip_synthdef_address,
+            target_node=container_group_address,
         )
         return spec_factory
 

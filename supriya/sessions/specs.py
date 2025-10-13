@@ -662,7 +662,7 @@ class SpecFactory:
     _buffers: list[BufferSpec] = dataclasses.field(default_factory=list, init=False)
     bus_specs: list[BusSpec] = dataclasses.field(default_factory=list, init=False)
     _groups: list[GroupSpec] = dataclasses.field(default_factory=list, init=False)
-    synth_specs: list[SynthSpec] = dataclasses.field(default_factory=list, init=False)
+    _synths: list[SynthSpec] = dataclasses.field(default_factory=list, init=False)
     _synthdefs: list[SynthDefSpec] = dataclasses.field(default_factory=list, init=False)
 
     def __iter__(self) -> Iterator[Spec]:
@@ -671,7 +671,7 @@ class SpecFactory:
             self._buffers,
             self.bus_specs,
             self._groups,
-            self.synth_specs,
+            self._synths,
         ):
             for spec in specs:
                 yield spec
@@ -734,6 +734,33 @@ class SpecFactory:
         )
         return spec.address
 
+    def add_synth(
+        self,
+        *,
+        add_action: AddAction,
+        component: Optional["Component"] = None,
+        destroy_strategy: dict[str, float] | None = None,
+        kwargs: dict[str, Address | BusGroup | float] | None = None,
+        name: str,
+        parent_node: Address | None = None,
+        synthdef: Address,
+        target_node: Address | None,
+    ) -> Address:
+        self._synths.append(
+            spec := SynthSpec(
+                add_action=add_action,
+                component=component or self.component,
+                context=self.context,
+                destroy_strategy=destroy_strategy,
+                kwargs=kwargs or {},
+                name=name,
+                parent_node=parent_node,
+                synthdef=synthdef,
+                target_node=target_node,
+            )
+        )
+        return spec.address
+
     def add_synthdef(
         self,
         *,
@@ -754,7 +781,7 @@ class SpecFactory:
         self._buffers.extend(other._buffers)
         self.bus_specs.extend(other.bus_specs)
         self._groups.extend(other._groups)
-        self.synth_specs.extend(other.synth_specs)
+        self._synths.extend(other._synths)
         self._synthdefs.extend(other._synthdefs)
 
 

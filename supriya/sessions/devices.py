@@ -11,7 +11,7 @@ from .components import C, Component, Deletable, LevelsCheckable, Movable, NameS
 from .constants import Address, ChannelCount, Entities, Names, PatchMode
 from .parameters import Field
 from .routing import Input
-from .specs import BusSpec, Spec, SpecFactory, SynthSpec
+from .specs import BusSpec, Spec, SpecFactory
 
 if TYPE_CHECKING:
     from .chains import Chain, Rack
@@ -539,17 +539,12 @@ class Device(DeviceBase):
             synthdef_address = spec_factory.add_synthdef(
                 synthdef=synthdef,
             )
-            spec_factory.synth_specs.append(
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=spec_factory.context,
-                    kwargs=synth_parameters,
-                    name=f"synth-{index}",
-                    parent_node=None,
-                    synthdef=synthdef_address,
-                    target_node=container_group_address,
-                )
+            spec_factory.add_synth(
+                add_action=AddAction.ADD_TO_TAIL,
+                kwargs=synth_parameters,
+                name=f"synth-{index}",
+                synthdef=synthdef_address,
+                target_node=container_group_address,
             )
         # meters
         if parent._devices.index(self) < (len(parent._devices) - 1):
@@ -567,34 +562,27 @@ class Device(DeviceBase):
             meters_synthdef_address = spec_factory.add_synthdef(
                 synthdef=build_meters_synthdef(self.effective_channel_count)
             )
-            spec_factory.synth_specs.append(
-                SynthSpec(
-                    add_action=(
-                        AddAction.ADD_AFTER
-                        if self._synth_configs
-                        else AddAction.ADD_TO_TAIL
-                    ),
-                    component=self,
-                    context=spec_factory.context,
-                    kwargs=dict(
-                        in_=parent._get_main_bus_address(),
-                        out=Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.LEVELS
-                        ),
-                    ),
-                    name=Names.LEVELS,
-                    parent_node=None,
-                    synthdef=meters_synthdef_address,
-                    target_node=(
-                        Spec.get_address(
-                            self,
-                            Entities.NODES,
-                            f"synth-{len(self._synth_configs) - 1}",
-                        )
-                        if self._synth_configs
-                        else container_group_address
-                    ),
-                )
+            spec_factory.add_synth(
+                add_action=(
+                    AddAction.ADD_AFTER
+                    if self._synth_configs
+                    else AddAction.ADD_TO_TAIL
+                ),
+                kwargs=dict(
+                    in_=parent._get_main_bus_address(),
+                    out=Spec.get_address(self, Entities.CONTROL_BUSES, Names.LEVELS),
+                ),
+                name=Names.LEVELS,
+                synthdef=meters_synthdef_address,
+                target_node=(
+                    Spec.get_address(
+                        self,
+                        Entities.NODES,
+                        f"synth-{len(self._synth_configs) - 1}",
+                    )
+                    if self._synth_configs
+                    else container_group_address
+                ),
             )
         return spec_factory
 

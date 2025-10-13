@@ -6,7 +6,7 @@ from ..typing import Inherit
 from ..ugens.system import build_patch_cable_synthdef
 from .components import Component
 from .constants import IO, Entities, Names
-from .specs import Spec, SpecFactory, SynthSpec
+from .specs import Spec, SpecFactory
 
 
 class Input:
@@ -113,33 +113,28 @@ class Input:
                 feedback=feedsback,
             )
         )
-        spec_factory.synth_specs.append(
-            SynthSpec(
-                add_action=self._add_action,
-                component=self._host_component,
-                context=spec_factory.context,
-                destroy_strategy=self._destroy_strategy,
-                kwargs={
-                    "in_": source_bus_address,
-                    "out": (
-                        self._target_bus_address(self._host_component)
-                        if callable(self._target_bus_address)
-                        else self._target_bus_address
-                    ),
-                    **{
-                        key: value(self._host_component) if callable(value) else value
-                        for key, value in self._kwargs.items()
-                    },
-                },
-                name=self._name,
-                parent_node=None,
-                synthdef=patch_cable_synthdef_address,
-                target_node=(
-                    self._add_node_address(self._host_component)
-                    if callable(self._add_node_address)
-                    else self._add_node_address
+        spec_factory.add_synth(
+            add_action=self._add_action,
+            destroy_strategy=self._destroy_strategy,
+            kwargs={
+                "in_": source_bus_address,
+                "out": (
+                    self._target_bus_address(self._host_component)
+                    if callable(self._target_bus_address)
+                    else self._target_bus_address
                 ),
-            )
+                **{
+                    key: value(self._host_component) if callable(value) else value
+                    for key, value in self._kwargs.items()
+                },
+            },
+            name=self._name,
+            synthdef=patch_cable_synthdef_address,
+            target_node=(
+                self._add_node_address(self._host_component)
+                if callable(self._add_node_address)
+                else self._add_node_address
+            ),
         )
         return spec_factory
 
@@ -256,33 +251,28 @@ class Output:
                 target_channel_count=target_channel_count,
             )
         )
-        spec_factory.synth_specs.append(
-            SynthSpec(
-                add_action=self._add_action,
-                component=self._host_component,
-                context=spec_factory.context,
-                destroy_strategy=self._destroy_strategy,
-                kwargs=dict(
-                    in_=(
-                        self._source_bus_address(self._host_component)
-                        if callable(self._source_bus_address)
-                        else self._source_bus_address
-                    ),
-                    out=target_bus_address,
-                    **{
-                        key: value(self._host_component) if callable(value) else value
-                        for key, value in self._kwargs.items()
-                    },
+        spec_factory.add_synth(
+            add_action=self._add_action,
+            destroy_strategy=self._destroy_strategy,
+            kwargs=dict(
+                in_=(
+                    self._source_bus_address(self._host_component)
+                    if callable(self._source_bus_address)
+                    else self._source_bus_address
                 ),
-                name=self._name,
-                parent_node=None,
-                synthdef=patch_cable_synthdef_address,
-                target_node=(
-                    self._add_node_address(self._host_component)
-                    if callable(self._add_node_address)
-                    else self._add_node_address
-                ),
-            )
+                out=target_bus_address,
+                **{
+                    key: value(self._host_component) if callable(value) else value
+                    for key, value in self._kwargs.items()
+                },
+            ),
+            name=self._name,
+            synthdef=patch_cable_synthdef_address,
+            target_node=(
+                self._add_node_address(self._host_component)
+                if callable(self._add_node_address)
+                else self._add_node_address
+            ),
         )
         return spec_factory
 

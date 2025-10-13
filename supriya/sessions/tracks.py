@@ -24,7 +24,6 @@ from .specs import (
     BusSpec,
     Spec,
     SpecFactory,
-    SynthSpec,
 )
 
 if TYPE_CHECKING:
@@ -467,68 +466,43 @@ class Track(
             name=Names.DEVICES,
             target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
         )
-        spec_factory.synth_specs.extend(
-            [
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_TAIL,
-                    component=self,
-                    context=spec_factory.context,
-                    destroy_strategy={
-                        "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
-                    },
-                    kwargs={
-                        "active": Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        "gain": Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.GAIN
-                        ),
-                        "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                    },
-                    name=Names.CHANNEL_STRIP,
-                    parent_node=None,
-                    synthdef=channel_strip_synthdef_address,
-                    target_node=container_group_address,
+        channel_strip_synth_address = spec_factory.add_synth(
+            add_action=AddAction.ADD_TO_TAIL,
+            destroy_strategy={"done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP},
+            kwargs={
+                "active": Spec.get_address(self, Entities.CONTROL_BUSES, Names.ACTIVE),
+                "gain": Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
+                "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+            },
+            name=Names.CHANNEL_STRIP,
+            synthdef=channel_strip_synthdef_address,
+            target_node=container_group_address,
+        )
+        spec_factory.add_synth(
+            add_action=AddAction.ADD_AFTER,
+            kwargs={
+                "active": Spec.get_address(self, Entities.CONTROL_BUSES, Names.ACTIVE),
+                "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                "out": Spec.get_address(
+                    self, Entities.CONTROL_BUSES, Names.INPUT_LEVELS
                 ),
-                SynthSpec(
-                    add_action=AddAction.ADD_AFTER,
-                    component=self,
-                    context=spec_factory.context,
-                    kwargs={
-                        "active": Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                        "out": Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.INPUT_LEVELS
-                        ),
-                    },
-                    name=Names.INPUT_LEVELS,
-                    parent_node=None,
-                    synthdef=meters_synthdef_address,
-                    target_node=tracks_group_address,
+            },
+            name=Names.INPUT_LEVELS,
+            synthdef=meters_synthdef_address,
+            target_node=tracks_group_address,
+        )
+        spec_factory.add_synth(
+            add_action=AddAction.ADD_AFTER,
+            kwargs={
+                "active": Spec.get_address(self, Entities.CONTROL_BUSES, Names.ACTIVE),
+                "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                "out": Spec.get_address(
+                    self, Entities.CONTROL_BUSES, Names.OUTPUT_LEVELS
                 ),
-                SynthSpec(
-                    add_action=AddAction.ADD_AFTER,
-                    component=self,
-                    context=spec_factory.context,
-                    kwargs={
-                        "active": Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                        "out": Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.OUTPUT_LEVELS
-                        ),
-                    },
-                    name=Names.OUTPUT_LEVELS,
-                    parent_node=None,
-                    synthdef=meters_synthdef_address,
-                    target_node=Spec.get_address(
-                        self, Entities.NODES, Names.CHANNEL_STRIP
-                    ),
-                ),
-            ]
+            },
+            name=Names.OUTPUT_LEVELS,
+            synthdef=meters_synthdef_address,
+            target_node=channel_strip_synth_address,
         )
         self._input._resolve_specs(spec_factory)
         self._output._resolve_specs(spec_factory)
@@ -549,26 +523,19 @@ class Track(
                     name=Names.FEEDBACK,
                 )
             )
-            spec_factory.synth_specs.append(
-                SynthSpec(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    component=self,
-                    context=spec_factory.context,
-                    destroy_strategy={"gate": 0},
-                    name=Names.FEEDBACK,
-                    kwargs={
-                        "active": Spec.get_address(
-                            self, Entities.CONTROL_BUSES, Names.ACTIVE
-                        ),
-                        "in_": Spec.get_address(
-                            self, Entities.AUDIO_BUSES, Names.FEEDBACK
-                        ),
-                        "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                    },
-                    parent_node=None,
-                    synthdef=feedback_patch_cable_synthdef_address,
-                    target_node=container_group_address,
-                )
+            spec_factory.add_synth(
+                add_action=AddAction.ADD_TO_HEAD,
+                destroy_strategy={"gate": 0},
+                name=Names.FEEDBACK,
+                kwargs={
+                    "active": Spec.get_address(
+                        self, Entities.CONTROL_BUSES, Names.ACTIVE
+                    ),
+                    "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.FEEDBACK),
+                    "out": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
+                },
+                synthdef=feedback_patch_cable_synthdef_address,
+                target_node=container_group_address,
             )
         return spec_factory
 
