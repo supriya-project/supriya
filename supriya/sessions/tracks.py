@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Iterable, Optional, Union
 
-from ..contexts import AsyncServer, BusGroup
+from ..contexts import BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import INHERIT, Inherit
 from ..ugens.system import (
@@ -24,7 +24,7 @@ from .specs import (
     BusSpec,
     GroupSpec,
     Spec,
-    Specs,
+    SpecFactory,
     SynthDefSpec,
     SynthSpec,
 )
@@ -214,14 +214,11 @@ class TrackSend(Deletable["Track"]):
         related.extend(self._output._reconcile_connections(deleting=deleting))
         return sorted(set(related), key=lambda x: x.graph_order), deleted
 
-    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
-        specs = Specs()
-        if not context:
-            return specs
+    def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         for parameter in self.parameters.values():
-            specs.update(parameter._resolve_specs(context=context))
-        specs.update(self._output._resolve_specs(context))
-        return specs
+            parameter._resolve_specs(spec_factory)
+        self._output._resolve_specs(spec_factory)
+        return spec_factory
 
     @property
     def feedback_graph_order(self) -> tuple[int, ...]:
@@ -411,47 +408,44 @@ class Track(
         related.extend(self._output._reconcile_connections(deleting=deleting))
         return sorted(set(related), key=lambda x: x.graph_order), deleted
 
-    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
-        specs = Specs()
-        if not context:
-            return specs
+    def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         parent = self._ensure_parent()
         for parameter in self.parameters.values():
-            specs.update(parameter._resolve_specs(context=context))
+            parameter._resolve_specs(spec_factory)
         channel_strip_synthdef = build_channel_strip_synthdef(
             self.effective_channel_count
         )
         meters_synthdef = build_meters_synthdef(self.effective_channel_count)
-        specs.synthdef_specs.extend(
+        spec_factory.synthdef_specs.extend(
             [
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=channel_strip_synthdef.effective_name,
                     synthdef=channel_strip_synthdef,
                 ),
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=meters_synthdef.effective_name,
                     synthdef=meters_synthdef,
                 ),
             ]
         )
-        specs.bus_specs.extend(
+        spec_factory.bus_specs.extend(
             [
                 BusSpec(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.MAIN,
                 ),
                 BusSpec(
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=1,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     default=float(self._is_active),
                     name=Names.ACTIVE,
                 ),
@@ -459,7 +453,7 @@ class Track(
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     default=0.0,
                     name=Names.INPUT_LEVELS,
                 ),
@@ -467,16 +461,16 @@ class Track(
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     default=0.0,
                     name=Names.OUTPUT_LEVELS,
                 ),
             ]
         )
-        specs.group_specs.extend(
+        spec_factory.group_specs.extend(
             [
                 self._resolve_container_spec(
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy={"gate": 0},
                     parent=(parent := self._ensure_parent()),
                     parent_container=parent.tracks,
@@ -485,7 +479,7 @@ class Track(
                 GroupSpec(
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.TRACKS,
                     parent_node=None,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
@@ -493,19 +487,19 @@ class Track(
                 GroupSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.DEVICES,
                     parent_node=None,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]
         )
-        specs.synth_specs.extend(
+        spec_factory.synth_specs.extend(
             [
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy={
                         "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     },
@@ -528,7 +522,7 @@ class Track(
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     kwargs={
                         "active": Spec.get_address(
                             self, Entities.CONTROL_BUSES, Names.ACTIVE
@@ -548,7 +542,7 @@ class Track(
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     kwargs={
                         "active": Spec.get_address(
                             self, Entities.CONTROL_BUSES, Names.ACTIVE
@@ -569,36 +563,36 @@ class Track(
                 ),
             ]
         )
-        specs.update(self._input._resolve_specs(context))
-        specs.update(self._output._resolve_specs(context))
+        self._input._resolve_specs(spec_factory)
+        self._output._resolve_specs(spec_factory)
         if Spec.needs_feedback(self):
             feedback_patch_cable_synthdef = build_patch_cable_synthdef(
                 self.effective_channel_count,
                 self.effective_channel_count,
                 feedback=True,
             )
-            specs.synthdef_specs.append(
+            spec_factory.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=feedback_patch_cable_synthdef.effective_name,
                     synthdef=feedback_patch_cable_synthdef,
                 )
             )
-            specs.bus_specs.append(
+            spec_factory.bus_specs.append(
                 BusSpec(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.FEEDBACK,
                 )
             )
-            specs.synth_specs.append(
+            spec_factory.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy={"gate": 0},
                     name=Names.FEEDBACK,
                     kwargs={
@@ -619,7 +613,7 @@ class Track(
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 )
             )
-        return specs
+        return spec_factory
 
     def _set_muted(self, *, muted: bool) -> None:
         self._is_muted = bool(muted)

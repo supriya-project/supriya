@@ -21,7 +21,7 @@ from .specs import (
     BusSpec,
     GroupSpec,
     Spec,
-    Specs,
+    SpecFactory,
     SynthDefSpec,
     SynthSpec,
 )
@@ -74,17 +74,14 @@ class Mixer(
     def _get_numeric_address(self) -> Address:
         return f"mixers[{self._id}]"
 
-    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
-        specs = Specs()
-        if not context:
-            return specs
+    def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         for parameter in self.parameters.values():
-            specs.update(parameter._resolve_specs(context=context))
-        specs.synthdef_specs.extend(
+            parameter._resolve_specs(spec_factory)
+        spec_factory.synthdef_specs.extend(
             [
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=(
                         channel_strip_synthdef := build_channel_strip_synthdef(
                             self.effective_channel_count
@@ -94,7 +91,7 @@ class Mixer(
                 ),
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=(
                         meters_synthdef := build_meters_synthdef(
                             self.effective_channel_count
@@ -104,14 +101,14 @@ class Mixer(
                 ),
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=(
                         patch_cable_synthdef := build_patch_cable_synthdef(
                             self.effective_channel_count,
                             min(
                                 [
                                     self.effective_channel_count,
-                                    len(context.audio_output_bus_group),
+                                    len(spec_factory.context.audio_output_bus_group),
                                 ]
                             ),
                         )
@@ -120,37 +117,37 @@ class Mixer(
                 ),
             ]
         )
-        specs.bus_specs.extend(
+        spec_factory.bus_specs.extend(
             [
                 BusSpec(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.MAIN,
                 ),
                 BusSpec(
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.INPUT_LEVELS,
                 ),
                 BusSpec(
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.OUTPUT_LEVELS,
                 ),
             ]
         )
-        specs.group_specs.extend(
+        spec_factory.group_specs.extend(
             [
                 GroupSpec(
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy={"gate": 0},
                     name=Names.GROUP,
                     parent_node=None,
@@ -159,7 +156,7 @@ class Mixer(
                 GroupSpec(
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.TRACKS,
                     parent_node=None,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
@@ -167,19 +164,19 @@ class Mixer(
                 GroupSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.DEVICES,
                     parent_node=None,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]
         )
-        specs.synth_specs.extend(
+        spec_factory.synth_specs.extend(
             [
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy={
                         "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     },
@@ -199,7 +196,7 @@ class Mixer(
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     kwargs={
                         "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                         "out": Spec.get_address(
@@ -216,7 +213,7 @@ class Mixer(
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     kwargs={
                         "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
                         "out": Spec.get_address(
@@ -235,10 +232,10 @@ class Mixer(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     kwargs={
                         "in_": Spec.get_address(self, Entities.AUDIO_BUSES, Names.MAIN),
-                        "out": context.audio_output_bus_group,
+                        "out": spec_factory.context.audio_output_bus_group,
                     },
                     name=Names.OUTPUT,
                     parent_node=None,
@@ -249,7 +246,7 @@ class Mixer(
                 ),
             ]
         )
-        return specs
+        return spec_factory
 
     @property
     def children(self) -> list[Component]:

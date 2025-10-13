@@ -1,12 +1,12 @@
 from typing import Callable
 
-from ..contexts import AsyncServer, BusGroup
+from ..contexts import BusGroup
 from ..enums import AddAction
 from ..typing import Inherit
 from ..ugens.system import build_patch_cable_synthdef
 from .components import Component
 from .constants import IO, Entities, Names
-from .specs import Spec, Specs, SynthDefSpec, SynthSpec
+from .specs import Spec, SpecFactory, SynthDefSpec, SynthSpec
 
 
 class Input:
@@ -80,10 +80,9 @@ class Input:
                 related.append(new_source)
         return sorted(set(related), key=lambda x: x.graph_order)
 
-    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
-        specs = Specs()
-        if not (context is not None and self._cached_source):
-            return specs
+    def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
+        if not self._cached_source:
+            return spec_factory
         if isinstance(self._cached_source, BusGroup):
             feedsback = False
             source_bus_address: int | str = int(self._cached_source)
@@ -107,10 +106,10 @@ class Input:
             else self._target or self._host_component
         )
         target_channel_count = target.effective_channel_count
-        specs.synthdef_specs.append(
+        spec_factory.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,
-                context=context,
+                context=spec_factory.context,
                 name=(
                     patch_cable_synthdef := build_patch_cable_synthdef(
                         source_channel_count=source_channel_count,
@@ -121,11 +120,11 @@ class Input:
                 synthdef=patch_cable_synthdef,
             )
         )
-        specs.synth_specs.append(
+        spec_factory.synth_specs.append(
             SynthSpec(
                 add_action=self._add_action,
                 component=self._host_component,
-                context=context,
+                context=spec_factory.context,
                 destroy_strategy=self._destroy_strategy,
                 kwargs={
                     "in_": source_bus_address,
@@ -153,7 +152,7 @@ class Input:
                 ),
             )
         )
-        return specs
+        return spec_factory
 
     def set(self, source: BusGroup | Component | None) -> None:
         self._source = source
@@ -236,10 +235,9 @@ class Output:
         assert isinstance(parent := self._host_component.parent, Component)
         return parent
 
-    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
-        specs = Specs()
-        if not (context is not None and self._cached_target):
-            return specs
+    def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
+        if not self._cached_target:
+            return spec_factory
         if isinstance(self._cached_target, BusGroup):
             feedsback = False
             target_bus_address: int | str = int(self._cached_target)
@@ -263,10 +261,10 @@ class Output:
             else self._source or self._host_component
         )
         source_channel_count = source.effective_channel_count
-        specs.synthdef_specs.append(
+        spec_factory.synthdef_specs.append(
             SynthDefSpec(
                 component=self._host_component,
-                context=context,
+                context=spec_factory.context,
                 name=(
                     patch_cable_synthdef := build_patch_cable_synthdef(
                         source_channel_count=source_channel_count,
@@ -276,11 +274,11 @@ class Output:
                 synthdef=patch_cable_synthdef,
             )
         )
-        specs.synth_specs.append(
+        spec_factory.synth_specs.append(
             SynthSpec(
                 add_action=self._add_action,
                 component=self._host_component,
-                context=context,
+                context=spec_factory.context,
                 destroy_strategy=self._destroy_strategy,
                 kwargs=dict(
                     in_=(
@@ -308,7 +306,7 @@ class Output:
                 ),
             )
         )
-        return specs
+        return spec_factory
 
     def set(self, target: BusGroup | Component | Inherit | None) -> None:
         self._target = target

@@ -2,7 +2,7 @@ import dataclasses
 from types import MappingProxyType
 from typing import TYPE_CHECKING, Callable, Literal, Mapping, Optional, Type
 
-from ..contexts import AsyncServer, BusGroup
+from ..contexts import BusGroup
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Inherit
 from ..ugens import SynthDef
@@ -11,7 +11,7 @@ from .components import C, Component, Deletable, LevelsCheckable, Movable, NameS
 from .constants import Address, ChannelCount, Entities, Names, PatchMode
 from .parameters import Field
 from .routing import Input
-from .specs import BusSpec, Spec, Specs, SynthDefSpec, SynthSpec
+from .specs import BusSpec, Spec, SpecFactory, SynthDefSpec, SynthSpec
 
 if TYPE_CHECKING:
     from .chains import Chain, Rack
@@ -355,12 +355,11 @@ class Sidechain:
     def _reconcile_connections(self, *, deleting: bool = False) -> list[Component]:
         return self._input._reconcile_connections(deleting=deleting)
 
-    def _resolve_specs(self, context: AsyncServer | None, **parameters: float) -> Specs:
-        specs = Specs()
-        if context is None:
-            return specs
+    def _resolve_specs(
+        self, spec_factory: SpecFactory, **parameters: float
+    ) -> SpecFactory:
         effective_channel_count = self.component.effective_channel_count
-        specs.bus_specs.append(
+        spec_factory.bus_specs.append(
             BusSpec(
                 calculation_rate=CalculationRate.AUDIO,
                 channel_count=(
@@ -369,16 +368,16 @@ class Sidechain:
                     else self.channel_count
                 ),
                 component=self.component,
-                context=context,
+                context=spec_factory.context,
                 name=self.name,
             )
         )
         if not self._input._source or (
             self.conditional and not self.conditional(**parameters)
         ):
-            return specs
-        specs.update(self._input._resolve_specs(context))
-        return specs
+            return spec_factory
+        self._input._resolve_specs(spec_factory)
+        return spec_factory
 
     def set(self, input: Optional["Track"]) -> None:
         self._input.set(input)
@@ -480,15 +479,12 @@ class Device(DeviceBase):
             related.extend(sidechain._reconcile_connections(deleting=deleting))
         return sorted(set(related), key=lambda x: x.graph_order), deleted
 
-    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
-        specs = Specs()
-        if context is None:
-            return specs
+    def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         parent = self._ensure_parent()
         effective_channel_count = self.effective_channel_count
-        specs.group_specs.append(
+        spec_factory.group_specs.append(
             self._resolve_container_spec(
-                context=context,
+                context=spec_factory.context,
                 destroy_strategy={
                     "done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP,
                     "gate": 0,
@@ -501,11 +497,11 @@ class Device(DeviceBase):
         options: dict[str, float] = {}
         for parameter in self._parameters.values():
             if parameter.field.has_bus:
-                specs.update(parameter._resolve_specs(context))
+                parameter._resolve_specs(spec_factory)
             else:
                 options[parameter.name] = parameter.value
         for sidechain in self._sidechains.values():
-            specs.update(sidechain._resolve_specs(context, **options))
+            sidechain._resolve_specs(spec_factory, **options)
         # n.b. ordering synths is tricky :thinking:.
         #      increasingly feels like we need a NodeOrderSpec.
         for index, synth_config in enumerate(self._synth_configs):
@@ -543,19 +539,19 @@ class Device(DeviceBase):
                         )
                     else:
                         raise ValueError(rate)
-            specs.synthdef_specs.append(
+            spec_factory.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=synthdef.effective_name,
                     synthdef=synthdef,
                 ),
             )
-            specs.synth_specs.append(
+            spec_factory.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     kwargs=synth_parameters,
                     name=f"synth-{index}",
                     parent_node=None,
@@ -570,20 +566,20 @@ class Device(DeviceBase):
         # meters
         if parent._devices.index(self) < (len(parent._devices) - 1):
             # will the meters synth follow the group on move?
-            specs.bus_specs.append(
+            spec_factory.bus_specs.append(
                 BusSpec(
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     default=0.0,
                     name=Names.LEVELS,
                 ),
             )
-            specs.synthdef_specs.append(
+            spec_factory.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=(
                         meters_synthdef := build_meters_synthdef(
                             self.effective_channel_count
@@ -592,7 +588,7 @@ class Device(DeviceBase):
                     synthdef=meters_synthdef,
                 )
             )
-            specs.synth_specs.append(
+            spec_factory.synth_specs.append(
                 SynthSpec(
                     add_action=(
                         AddAction.ADD_AFTER
@@ -600,7 +596,7 @@ class Device(DeviceBase):
                         else AddAction.ADD_TO_TAIL
                     ),
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     kwargs=dict(
                         in_=parent._get_main_bus_address(),
                         out=Spec.get_address(
@@ -623,7 +619,7 @@ class Device(DeviceBase):
                     ),
                 )
             )
-        return specs
+        return spec_factory
 
     async def set_sidechain(self, name: str, source: Optional["Track"]) -> None:
         async with (session := self._ensure_session())._lock:

@@ -1,6 +1,5 @@
 from typing import Literal
 
-from ..contexts import AsyncServer
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens.system import (
     build_channel_strip_synthdef,
@@ -11,7 +10,7 @@ from .components import ChannelSettable, Component, Deletable, Movable, NameSett
 from .constants import Address, Entities, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
-from .specs import BusSpec, GroupSpec, Spec, Specs, SynthDefSpec, SynthSpec
+from .specs import BusSpec, GroupSpec, Spec, SpecFactory, SynthDefSpec, SynthSpec
 
 
 class Rack(DeviceBase, ChannelSettable):
@@ -94,39 +93,38 @@ class Rack(DeviceBase, ChannelSettable):
     def _get_numeric_address(self) -> Address:
         return f"devices[{self._id}]"
 
-    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
+    def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         # TODO: Can we re-use a shared aux bus?
         #       E.g. multiple racks in serial with the same channel-count
         #       should be able to re-use the same aux audio bus?
-        specs = Specs()
-        if not context or not self.chains:
-            return specs
+        if not self.chains:
+            return spec_factory
         parent = self._ensure_parent()
         parent_effective_channel_count = parent.effective_channel_count
         effective_channel_count = self.effective_channel_count
-        specs.bus_specs.append(
+        spec_factory.bus_specs.append(
             BusSpec(
                 calculation_rate=CalculationRate.AUDIO,
                 channel_count=effective_channel_count,
                 component=self,
-                context=context,
+                context=spec_factory.context,
                 name=Names.MAIN,
             )
         )
         if len(self.chains) > 1:
-            specs.bus_specs.append(
+            spec_factory.bus_specs.append(
                 BusSpec(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.AUX,
                 )
             )
-        specs.group_specs.extend(
+        spec_factory.group_specs.extend(
             [
                 self._resolve_container_spec(
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy={"gate": 0},
                     parent=(parent := self._ensure_parent()),
                     parent_container=parent.devices,
@@ -135,7 +133,7 @@ class Rack(DeviceBase, ChannelSettable):
                 GroupSpec(
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.CHAINS,
                     parent_node=None,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
@@ -144,10 +142,10 @@ class Rack(DeviceBase, ChannelSettable):
         )
         # input
         if self._read_mode == PatchMode.REPLACE:
-            specs.synthdef_specs.append(
+            spec_factory.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=(
                         read_synthdef := build_patch_cable_synthdef(
                             source_channel_count=parent_effective_channel_count,
@@ -158,11 +156,11 @@ class Rack(DeviceBase, ChannelSettable):
                     synthdef=read_synthdef,
                 )
             )
-            specs.synth_specs.append(
+            spec_factory.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_HEAD,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy=dict(
                         done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     ),
@@ -180,10 +178,10 @@ class Rack(DeviceBase, ChannelSettable):
             )
         # output
         if self._write_mode in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM):
-            specs.synthdef_specs.append(
+            spec_factory.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=(
                         write_synthdef := build_patch_cable_synthdef(
                             source_channel_count=parent_effective_channel_count,
@@ -194,11 +192,11 @@ class Rack(DeviceBase, ChannelSettable):
                     synthdef=write_synthdef,
                 )
             )
-            specs.synth_specs.append(
+            spec_factory.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy=dict(
                         done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     ),
@@ -225,20 +223,20 @@ class Rack(DeviceBase, ChannelSettable):
             )
         if parent._devices.index(self) < (len(parent._devices) - 1):
             # will the meters synth follow the group on move?
-            specs.bus_specs.append(
+            spec_factory.bus_specs.append(
                 BusSpec(
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     default=0.0,
                     name=Names.LEVELS,
                 ),
             )
-            specs.synthdef_specs.append(
+            spec_factory.synthdef_specs.append(
                 SynthDefSpec(
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=(
                         meters_synthdef := build_meters_synthdef(
                             parent_effective_channel_count
@@ -247,11 +245,11 @@ class Rack(DeviceBase, ChannelSettable):
                     synthdef=meters_synthdef,
                 )
             )
-            specs.synth_specs.append(
+            spec_factory.synth_specs.append(
                 SynthSpec(
                     add_action=AddAction.ADD_AFTER,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     kwargs=dict(
                         in_=parent._get_main_bus_address(),
                         out=Spec.get_address(
@@ -266,7 +264,7 @@ class Rack(DeviceBase, ChannelSettable):
                     target_node=Spec.get_address(self, Entities.NODES, Names.OUTPUT),
                 )
             )
-        return specs
+        return spec_factory
 
     def _ungroup(self) -> list[DeviceBase]:
         parent = self._ensure_parent()
@@ -405,24 +403,21 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         self._parent = new_parent
         new_parent._chains.insert(index, self)
 
-    def _resolve_specs(self, context: AsyncServer | None) -> Specs:
-        specs = Specs()
-        if not context:
-            return specs
+    def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         channel_strip_synthdef = build_channel_strip_synthdef(
             self.effective_channel_count
         )
         for parameter in self.parameters.values():
-            specs.update(parameter._resolve_specs(context=context))
-        specs.synthdef_specs.append(
+            parameter._resolve_specs(spec_factory)
+        spec_factory.synthdef_specs.append(
             SynthDefSpec(
                 component=self,
-                context=context,
+                context=spec_factory.context,
                 name=channel_strip_synthdef.effective_name,
                 synthdef=channel_strip_synthdef,
             ),
         )
-        specs.bus_specs.extend(
+        spec_factory.bus_specs.extend(
             [
                 # TODO: Re-use the rack's main bus.
                 #       Don't allocate fresh.
@@ -430,7 +425,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=1,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     default=float(self._is_active),
                     name=Names.ACTIVE,
                 ),
@@ -438,7 +433,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     default=0.0,
                     name=Names.INPUT_LEVELS,
                 ),
@@ -446,16 +441,16 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                     calculation_rate=CalculationRate.CONTROL,
                     channel_count=self.effective_channel_count,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     default=0.0,
                     name=Names.OUTPUT_LEVELS,
                 ),
             ]
         )
-        specs.group_specs.extend(
+        spec_factory.group_specs.extend(
             [
                 self._resolve_container_spec(
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy={"gate": 0},
                     parent=(parent := self._ensure_parent()),
                     parent_container=parent.chains,
@@ -464,19 +459,19 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                 GroupSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     name=Names.DEVICES,
                     parent_node=None,
                     target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
                 ),
             ]
         )
-        specs.synth_specs.extend(
+        spec_factory.synth_specs.extend(
             [
                 SynthSpec(
                     add_action=AddAction.ADD_TO_TAIL,
                     component=self,
-                    context=context,
+                    context=spec_factory.context,
                     destroy_strategy=dict(
                         done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     ),
@@ -496,7 +491,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                 ),
             ]
         )
-        return specs
+        return spec_factory
 
     @property
     def children(self) -> list[Component]:
