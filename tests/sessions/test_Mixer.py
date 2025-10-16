@@ -1,26 +1,28 @@
 import asyncio
-from typing import Callable
+import dataclasses
+from typing import Any
 
 import pytest
 
-from supriya.sessions import Component, Mixer, Session, SynthConfig, Track
+from supriya.sessions import ChannelCount, Component, Mixer, Session, SynthConfig, Track
+from supriya.typing import Inherit
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
-from .conftest import does_not_raise, run_test
+from .conftest import Scenario, does_not_raise, run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
             ],
-            "mixers[0]",
-            lambda session: f"""
+            target="mixers[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,3 @@
@@ -30,7 +32,7 @@ from .conftest import does_not_raise, run_test
             -            <Track 2 'Track'>
                      <Mixer 3 'Mixer Two'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,26 +1,4 @@
@@ -61,18 +63,18 @@ from .conftest import does_not_raise, run_test
                      1015 group
                      1018 supriya:meters:2
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1000, 'gate', 0.0], ['/n_set', 1003, 'done_action', 14.0]]]
             """,
         ),
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
             ],
-            "mixers[1]",
-            """
+            target="mixers[1]",
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,3 @@
@@ -81,7 +83,7 @@ from .conftest import does_not_raise, run_test
                          <Track 2 'Track'>
             -        <Mixer 3 'Mixer Two'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -21,14 +21,3 @@
@@ -100,7 +102,7 @@ from .conftest import does_not_raise, run_test
             -        1020 supriya:patch-cable:2x2
             -            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1014, 'gate', 0.0], ['/n_set', 1017, 'done_action', 14.0]]]
             """,
         ),
@@ -108,35 +110,31 @@ from .conftest import does_not_raise, run_test
 )
 @pytest.mark.asyncio
 async def test_Mixer_delete(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
     online: bool,
-    target: str,
+    scenario: Scenario,
 ) -> None:
     async with run_test(
         annotation=None,
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, Mixer)
-        await target_.delete()
+        target = session[scenario.target]
+        assert isinstance(target, Mixer)
+        await target.delete()
     # N.B. The diff looks like the mixer immediately disappeared, but it hasn't.
     #      Session.dump_tree() just queries each mixer's group node, and
     #      because the mixer doesn't exist from the session's perspective, it
     #      doesn't query that group anymore.  We do this to save horizontal
     #      space, but querying the underlying context directly would show the
     #      nodes are still there, although about to be released.
-    assert target_ not in session.mixers
-    assert target_.address == "mixers[?]"
-    assert target_.context is None
-    assert target_.parent is None
-    assert target_.session is None
+    assert target not in session.mixers
+    assert target.address == "mixers[?]"
+    assert target.context is None
+    assert target.parent is None
+    assert target.session is None
 
 
 @pytest.mark.parametrize(
@@ -189,37 +187,43 @@ async def test_Mixer_gain(
     assert actual_levels == expected_levels
 
 
+@dataclasses.dataclass(frozen=True)
+class SetChannelCountScenario(Scenario):
+    channel_count: ChannelCount | Inherit
+    maybe_raises: Any
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, channel_count, maybe_raises, expected_tree_diff, expected_messages",
+    "scenario",
     [
         # 0
         # mixer: set channel count to 2
         # - no-op
-        (
-            [
+        SetChannelCountScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            "mixers[0]",
-            2,
-            does_not_raise,
-            "",
-            "",
+            target="mixers[0]",
+            channel_count=2,
+            maybe_raises=does_not_raise,
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 1
         # mixer: set channel count to 4
         # - mixer changes to 4
         # - track changes to 4
-        (
-            [
+        SetChannelCountScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            "mixers[0]",
-            4,
-            does_not_raise,
-            """
+            target="mixers[0]",
+            channel_count=4,
+            maybe_raises=does_not_raise,
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -3,21 +3,29 @@
@@ -269,7 +273,7 @@ async def test_Mixer_gain(
             +        1017 supriya:patch-cable:4x4 (session.mixers[0]:output)
             +            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:channel-strip:4>]
             - ['/d_recv', <SynthDef: supriya:meters:4>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:4x4>]
@@ -302,16 +306,16 @@ async def test_Mixer_gain(
         # mixer: set channel count to 4
         # - mixer changes to 4
         # - track changes to 4
-        (
-            [
+        SetChannelCountScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
                 ("mixers[0].tracks[0]", "set_channel_count", {"channel_count": 2}),
             ],
-            "mixers[0]",
-            4,
-            does_not_raise,
-            """
+            target="mixers[0]",
+            channel_count=4,
+            maybe_raises=does_not_raise,
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -10,14 +10,20 @@
@@ -346,7 +350,7 @@ async def test_Mixer_gain(
             +        1017 supriya:patch-cable:4x4 (session.mixers[0]:output)
             +            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:channel-strip:4>]
             - ['/d_recv', <SynthDef: supriya:meters:4>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x4>]
@@ -371,25 +375,20 @@ async def test_Mixer_gain(
 )
 @pytest.mark.asyncio
 async def test_Mixer_set_channel_count(
-    commands: list[tuple[str | None, str, dict | None]],
-    channel_count,
-    expected_messages: str,
-    expected_tree_diff: str,
-    maybe_raises,
+    scenario: SetChannelCountScenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, Mixer)
-        with maybe_raises:
-            await target_.set_channel_count(channel_count=channel_count)
-    assert target_.channel_count == channel_count
+        target = session[scenario.target]
+        assert isinstance(target, Mixer)
+        with scenario.maybe_raises:
+            await target.set_channel_count(channel_count=scenario.channel_count)
+    assert target.channel_count == scenario.channel_count
 
 
 @pytest.mark.parametrize("online", [False, True])

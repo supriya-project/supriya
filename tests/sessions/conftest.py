@@ -15,10 +15,14 @@ from supriya.ugens import decompile_synthdefs
 
 @dataclasses.dataclass(frozen=True)
 class Scenario:
-    commands: list[tuple[str | None, str, dict | None]]
-    expected_components_diff: Callable[[Session], str] | str
-    expected_messages: str
-    expected_tree_diff: str
+    commands: list[tuple[str | None, str, dict | None]] | None = dataclasses.field(
+        default=None, kw_only=True
+    )
+    expected_components_diff: Callable[[Session], str] | str | None = dataclasses.field(
+        default=None, kw_only=True
+    )
+    expected_messages: str | None = dataclasses.field(default=None, kw_only=True)
+    expected_tree_diff: str | None = dataclasses.field(default=None, kw_only=True)
     target: str
 
 

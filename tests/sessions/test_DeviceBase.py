@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Any, Callable
+from typing import Any, Sequence
 
 import pytest
 
@@ -88,7 +88,7 @@ async def test_DeviceBase_delete(
 
 @dataclasses.dataclass(frozen=True)
 class MoveScenario(Scenario):
-    expected_graph_order: list[int]
+    expected_graph_order: Sequence[int]
     index: int
     maybe_raises: Any
     parent: str

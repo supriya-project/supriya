@@ -50,7 +50,7 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
 class SetSidechainScenario(Scenario):
     target: str
     sidechain_name: str
-    sidechain_target: str
+    sidechain_target: str | None
     maybe_raises: Any
 
 

@@ -1,5 +1,4 @@
 import dataclasses
-from typing import Callable
 
 import pytest
 
@@ -12,7 +11,6 @@ from supriya.sessions import (
     Names,
     ParameterConfig,
     Rack,
-    Session,
     SidechainConfig,
     SynthConfig,
 )
@@ -149,7 +147,9 @@ class AddDeviceScenario(Scenario):
             commands=[(None, "add_mixer", {"name": "Mixer"})],
             target="mixers[0]",
             parameter_configs=[],
-            sidechain_configs=[SidechainConfig(name=Names.SIDECHAIN, channel_count=INHERIT)],
+            sidechain_configs=[
+                SidechainConfig(name=Names.SIDECHAIN, channel_count=INHERIT)
+            ],
             synth_configs=[
                 SynthConfig(
                     synthdef=build_sidechain_synthdef,
