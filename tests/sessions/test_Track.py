@@ -1,6 +1,6 @@
 import asyncio
 import dataclasses
-from typing import Any, Callable
+from typing import Any, Callable, Sequence
 
 import pytest
 
@@ -1263,106 +1263,114 @@ async def test_Track_gain(
     assert actual_levels == expected_levels
 
 
+@dataclasses.dataclass(frozen=True)
+class MoveScenario(Scenario):
+    expected_graph_order: Sequence[int]
+    index: int
+    maybe_raises: Any
+    parent: str
+
+
 # @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, parent, index, maybe_raises, expected_graph_order, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
         # 0
         # move to other mixer: raises
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[1]",
-            0,
-            pytest.raises(RuntimeError),
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].tracks[0]",
+            parent="mixers[1]",
+            index=0,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 1
         # move under child: raises
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[0].tracks[0]",
-            0,
-            pytest.raises(RuntimeError),
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].tracks[0]",
+            parent="mixers[0].tracks[0].tracks[0]",
+            index=0,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 2
         # move to same parent, index too low: raises
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0]",
-            -1,
-            pytest.raises(RuntimeError),
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].tracks[0]",
+            parent="mixers[0]",
+            index=-1,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 3
         # move to same parent, index too high: raises
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0]",
-            2,
-            pytest.raises(RuntimeError),
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].tracks[0]",
+            parent="mixers[0]",
+            index=2,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 4
         # move to same parent, same index: no-op
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0]",
-            0,
-            does_not_raise,
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].tracks[0]",
+            parent="mixers[0]",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 5
         # move after younger sibling
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0]",
-            1,
-            does_not_raise,
-            (0, 1),
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            parent="mixers[0]",
+            index=1,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 1),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -1373,7 +1381,7 @@ async def test_Track_gain(
                          <Track 2 'Self'>
             -            <Track 3 'Younger Sibling'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,6 +1,17 @@
@@ -1413,25 +1421,25 @@ async def test_Track_gain(
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             """,
-            """
+            expected_messages="""
             - ['/n_after', 1007, 1014]
             """,
         ),
         # 6
         # move before older sibling
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Eldest Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[2]",
-            "mixers[0]",
-            0,
-            does_not_raise,
-            (0, 0),
-            lambda session: f"""
+            target="mixers[0].tracks[2]",
+            parent="mixers[0]",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 0),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1443,7 +1451,7 @@ async def test_Track_gain(
                          <Track 3 'Older Sibling'>
             -            <Track 4 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,6 +1,17 @@
@@ -1483,24 +1491,24 @@ async def test_Track_gain(
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             """,
-            """
+            expected_messages="""
             - ['/g_head', 1001, 1021]
             """,
         ),
         # 7
         # move under sibling
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[1]",
-            0,
-            does_not_raise,
-            (0, 0, 0),
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            parent="mixers[0].tracks[1]",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 0, 0),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -1511,7 +1519,7 @@ async def test_Track_gain(
                          <Track 3 'Younger Sibling'>
             +                <Track 2 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,19 +1,21 @@
@@ -1548,7 +1556,7 @@ async def test_Track_gain(
                                  in_: 20.0, out: 13.0
                              1016 group (tracks[3]:devices)
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1021, 1, 1007, 'active', 'c5', 'in_', 18.0, 'out', 20.0]
             - ['/g_head', 1015, 1007]
             - ['/g_head', 1001, 1014]
@@ -1557,19 +1565,19 @@ async def test_Track_gain(
         ),
         # 8
         # move after younger sibling, with sends in self.
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0]",
-            1,
-            does_not_raise,
-            (0, 1),
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            parent="mixers[0]",
+            index=1,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 1),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1581,7 +1589,7 @@ async def test_Track_gain(
                              <TrackSend 4 postfader target=<Track 3 'Younger Sibling'>>
             -            <Track 3 'Younger Sibling'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,20 +1,9 @@
@@ -1630,7 +1638,7 @@ async def test_Track_gain(
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/s_new', 'supriya:patch-cable:2x2', 1022, 3, 1010, 'active', 'c5', 'gain', 'c11', 'in_', 18.0, 'out', 22.0]
@@ -1642,19 +1650,19 @@ async def test_Track_gain(
         ),
         # 9
         # move before older sibling, with send in self.
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            "mixers[0].tracks[1]",
-            "mixers[0]",
-            0,
-            does_not_raise,
-            (0, 0),
-            lambda session: f"""
+            target="mixers[0].tracks[1]",
+            parent="mixers[0]",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 0),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1666,7 +1674,7 @@ async def test_Track_gain(
                              <TrackSend 4 postfader target=<Track 2 'Older Sibling'>>
             +            <Track 2 'Older Sibling'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,9 +1,24 @@
@@ -1717,7 +1725,7 @@ async def test_Track_gain(
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1023, 3, 1018, 'active', 'c11', 'gain', 'c17', 'in_', 22.0, 'out', 20.0]
             - ['/g_head', 1001, 1015]
             - ['/n_after', 1007, 1015]
@@ -1727,19 +1735,19 @@ async def test_Track_gain(
         ),
         # 10
         # move after younger sibling, with sends in sibling.
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0]",
-            1,
-            does_not_raise,
-            (0, 1),
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            parent="mixers[0]",
+            index=1,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 1),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1751,7 +1759,7 @@ async def test_Track_gain(
                              <TrackSend 4 postfader target=<Track 2 'Self'>>
             +            <Track 2 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,9 +1,24 @@
@@ -1802,7 +1810,7 @@ async def test_Track_gain(
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1023, 3, 1018, 'active', 'c11', 'gain', 'c17', 'in_', 22.0, 'out', 20.0]
             - ['/n_after', 1007, 1015]
             - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
@@ -1811,19 +1819,19 @@ async def test_Track_gain(
         ),
         # 11
         # move before older sibling, with send in sibling.
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
-            "mixers[0].tracks[1]",
-            "mixers[0]",
-            0,
-            does_not_raise,
-            (0, 0),
-            lambda session: f"""
+            target="mixers[0].tracks[1]",
+            parent="mixers[0]",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 0),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1835,7 +1843,7 @@ async def test_Track_gain(
                              <TrackSend 4 postfader target=<Track 3 'Self'>>
             -            <Track 3 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,20 +1,9 @@
@@ -1884,7 +1892,7 @@ async def test_Track_gain(
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/s_new', 'supriya:fb-patch-cable:2x2', 1022, 0, 1015, 'active', 'c12', 'in_', 22.0, 'out', 20.0]
@@ -1897,73 +1905,71 @@ async def test_Track_gain(
 )
 @pytest.mark.asyncio
 async def test_Track_move(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_graph_order: list[int],
-    expected_messages: str,
-    expected_tree_diff: str,
-    index: int,
-    maybe_raises,
-    parent: str,
-    target: str,
+    scenario: MoveScenario,
     online: bool = True,
 ) -> None:
     async with run_test(
         annotation="numeric",
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        parent_ = session[parent]
-        old_parent = target_.parent
+        target = session[scenario.target]
+        parent = session[scenario.parent]
+        old_parent = target.parent
         assert isinstance(old_parent, TrackContainer)
-        assert isinstance(parent_, TrackContainer)
-        assert isinstance(target_, Track)
+        assert isinstance(parent, TrackContainer)
+        assert isinstance(target, Track)
         raised = True
-        with maybe_raises:
-            await target_.move(index=index, parent=parent_)
+        with scenario.maybe_raises:
+            await target.move(index=scenario.index, parent=parent)
             raised = False
-    assert target_.graph_order == expected_graph_order
+    assert target.graph_order == scenario.expected_graph_order
     if not raised:
-        assert target_.parent is parent_
-        assert target_ in parent_.tracks
-        if parent_ is not old_parent:
-            assert target_ not in old_parent.tracks
+        assert target.parent is parent
+        assert target in parent.tracks
+        if parent is not old_parent:
+            assert target not in old_parent.tracks
+
+
+@dataclasses.dataclass(frozen=True)
+class SetChannelCountScenario(Scenario):
+    channel_count: ChannelCount | Inherit
+    maybe_raises: Any
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, channel_count, maybe_raises, expected_tree_diff, expected_messages",
+    "scenario",
     [
         # 0
         # track: set channel count to 2
         # - no-op
-        (
-            [
+        SetChannelCountScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            2,
-            does_not_raise,
-            "",
-            "",
+            target="mixers[0].tracks[0]",
+            channel_count=2,
+            maybe_raises=does_not_raise,
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 1
         # track: set channel count to 4
         # - track changes to 4
-        (
-            [
+        SetChannelCountScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            4,
-            does_not_raise,
-            """
+            target="mixers[0].tracks[0]",
+            channel_count=4,
+            maybe_raises=does_not_raise,
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -3,15 +3,19 @@
@@ -1995,7 +2001,7 @@ async def test_Track_move(
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:channel-strip:4>]
             - ['/d_recv', <SynthDef: supriya:meters:4>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:4x2>]
@@ -2017,16 +2023,16 @@ async def test_Track_move(
         # track: set channel count to 4
         # - track changes to 4
         # - child track changes to 4 also
-        (
-            [
+        SetChannelCountScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            "mixers[0].tracks[0]",
-            4,
-            does_not_raise,
-            """
+            target="mixers[0].tracks[0]",
+            channel_count=4,
+            maybe_raises=does_not_raise,
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -5,24 +5,32 @@
@@ -2079,7 +2085,7 @@ async def test_Track_move(
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:channel-strip:4>]
             - ['/d_recv', <SynthDef: supriya:meters:4>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:4x2>]
@@ -2114,8 +2120,8 @@ async def test_Track_move(
         # track: set channel count to 4
         # - track changes to 4
         # - child track changes back to 2
-        (
-            [
+        SetChannelCountScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
@@ -2125,10 +2131,10 @@ async def test_Track_move(
                     {"channel_count": 2},
                 ),
             ],
-            "mixers[0].tracks[0]",
-            4,
-            does_not_raise,
-            """
+            target="mixers[0].tracks[0]",
+            channel_count=4,
+            maybe_raises=does_not_raise,
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -12,17 +12,23 @@
@@ -2166,7 +2172,7 @@ async def test_Track_move(
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:channel-strip:4>]
             - ['/d_recv', <SynthDef: supriya:meters:4>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x4>]
@@ -2191,25 +2197,20 @@ async def test_Track_move(
 )
 @pytest.mark.asyncio
 async def test_Track_set_channel_count(
-    channel_count: ChannelCount | Inherit,
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_messages: str,
-    expected_tree_diff: str,
-    maybe_raises,
+    scenario: SetChannelCountScenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
+        target_ = session[scenario.target]
         assert isinstance(target_, Track)
-        with maybe_raises:
-            await target_.set_channel_count(channel_count=channel_count)
-    assert target_.channel_count == channel_count
+        with scenario.maybe_raises:
+            await target_.set_channel_count(channel_count=scenario.channel_count)
+    assert target_.channel_count == scenario.channel_count
 
 
 @dataclasses.dataclass(frozen=True)
