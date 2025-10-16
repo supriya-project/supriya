@@ -1,26 +1,24 @@
-from typing import Callable
+import dataclasses
+from typing import Any
 
 import pytest
 
-from supriya.sessions import Session, Track, TrackContainer
+from supriya.sessions import Track, TrackContainer
 
-from .conftest import (
-    does_not_raise,
-    run_test,
-)
+from .conftest import Scenario, does_not_raise, run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            "mixers[0]",
-            """
+            target="mixers[0]",
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,3 +2,4 @@
@@ -29,7 +27,7 @@ from .conftest import (
                          <Track 2 'Track'>
             +            <Track 3 'Child Track'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -12,6 +12,17 @@
@@ -51,7 +49,7 @@ from .conftest import (
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             """,
-            """
+            expected_messages="""
             - [None, [['/c_set', 11, 1.0, 12, 0.0], ['/c_fill', 13, 2, 0.0, 15, 2, 0.0]]]
             - [None,
                [['/g_new', 1014, 3, 1007, 1015, 0, 1014, 1016, 1, 1014],
@@ -61,13 +59,13 @@ from .conftest import (
                 ['/s_new', 'supriya:patch-cable:2x2', 1020, 1, 1014, 'active', 'c11', 'in_', 20.0, 'out', 16.0]]]
             """,
         ),
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            "mixers[0].tracks[0]",
-            """
+            target="mixers[0].tracks[0]",
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,3 +2,4 @@
@@ -76,7 +74,7 @@ from .conftest import (
                          <Track 2 'Track'>
             +                <Track 3 'Child Track'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -3,6 +3,17 @@
@@ -98,7 +96,7 @@ from .conftest import (
                                  in_: 18.0, out: 7.0
                              1009 group (session.mixers[0].tracks[0]:devices)
             """,
-            """
+            expected_messages="""
             - [None, [['/c_set', 11, 1.0, 12, 0.0], ['/c_fill', 13, 2, 0.0, 15, 2, 0.0]]]
             - [None,
                [['/g_new', 1014, 0, 1008, 1015, 0, 1014, 1016, 1, 1014],
@@ -112,45 +110,48 @@ from .conftest import (
 )
 @pytest.mark.asyncio
 async def test_TrackContainer_add_track(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
+    scenario: Scenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, TrackContainer)
-        track = await target_.add_track(name="Child Track")
+        target = session[scenario.target]
+        assert isinstance(target, TrackContainer)
+        track = await target.add_track(name="Child Track")
     assert isinstance(track, Track)
-    assert track in target_.tracks
-    assert track.parent is target_
-    assert target_.tracks[-1] is track
+    assert track in target.tracks
+    assert track.parent is target
+    assert target.tracks[-1] is track
+
+
+@dataclasses.dataclass(frozen=True)
+class GroupTracksScenario(Scenario):
+    count: int
+    index: int
+    maybe_raises: Any
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, index, count, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
         # mixers can group
-        (
-            [
+        GroupTracksScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
             ],
-            "mixers[0]",
-            0,
-            2,
-            does_not_raise,
-            lambda session: f"""
+            target="mixers[0]",
+            index=0,
+            count=2,
+            maybe_raises=does_not_raise,
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,6 @@
@@ -163,7 +164,7 @@ async def test_TrackContainer_add_track(
             +                <Track 2 'Track One'>
             +                <Track 3 'Track Two'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,28 +1,43 @@
@@ -233,7 +234,7 @@ async def test_TrackContainer_add_track(
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             """,
-            """
+            expected_messages="""
             - [None, [['/c_set', 17, 1.0, 18, 0.0], ['/c_fill', 19, 2, 0.0, 21, 2, 0.0]]]
             - [None,
                [['/g_new', 1021, 0, 1001, 1022, 0, 1021, 1023, 1, 1021],
@@ -250,19 +251,19 @@ async def test_TrackContainer_add_track(
             """,
         ),
         # tracks can group
-        (
-            [
+        GroupTracksScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Track Two"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Track Three"}),
             ],
-            "mixers[0].tracks[0]",
-            1,
-            2,
-            does_not_raise,
-            """
+            target="mixers[0].tracks[0]",
+            index=1,
+            count=2,
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,5 +3,6 @@
@@ -275,7 +276,7 @@ async def test_TrackContainer_add_track(
             +                    <Track 4 'Track Two'>
             +                    <Track 5 'Track Three'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -14,28 +14,43 @@
@@ -345,7 +346,7 @@ async def test_TrackContainer_add_track(
                                  in_: 18.0, out: 7.0
                              1009 group (tracks[2]:devices)
             """,
-            """
+            expected_messages="""
             - [None, [['/c_set', 29, 1.0, 30, 0.0], ['/c_fill', 31, 2, 0.0, 33, 2, 0.0]]]
             - [None,
                [['/g_new', 1035, 3, 1014, 1036, 0, 1035, 1037, 1, 1035],
@@ -362,83 +363,76 @@ async def test_TrackContainer_add_track(
             """,
         ),
         # no children: raise
-        (
-            [
+        GroupTracksScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Self"}),
             ],
-            "mixers[0]",
-            0,
-            1,
-            pytest.raises(RuntimeError),
-            "",
-            "",
-            "",
+            target="mixers[0]",
+            index=0,
+            count=1,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # index less than zero: raise
-        (
-            [
+        GroupTracksScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
             ],
-            "mixers[0]",
-            -1,
-            1,
-            pytest.raises(RuntimeError),
-            "",
-            "",
-            "",
+            target="mixers[0]",
+            index=-1,
+            count=1,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # index plus count greater than length: raise
-        (
-            [
+        GroupTracksScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
             ],
-            "mixers[0]",
-            0,
-            666,
-            pytest.raises(RuntimeError),
-            "",
-            "",
-            "",
+            target="mixers[0]",
+            index=0,
+            count=666,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
     ],
 )
 @pytest.mark.asyncio
-async def test_TrackContainer_group(
-    commands: list[tuple[str | None, str, dict | None]],
-    count: int,
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
-    index: int,
-    maybe_raises,
+async def test_TrackContainer_group_tracks(
+    scenario: GroupTracksScenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
         annotation="numeric",
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
         raised = True
         group_track: Track | None = None
-        with maybe_raises:
-            target_ = session[target]
-            assert isinstance(target_, TrackContainer)
-            group_track = await target_.group_tracks(
-                index=index, count=count, name="Group Track"
+        with scenario.maybe_raises:
+            target = session[scenario.target]
+            assert isinstance(target, TrackContainer)
+            group_track = await target.group_tracks(
+                index=scenario.index, count=scenario.count, name="Group Track"
             )
             raised = False
     if raised:
         assert group_track is None
     else:
         assert isinstance(group_track, Track)
-        assert group_track in target_.tracks
-        assert group_track.parent is target_
-        assert target_.tracks[index] is group_track
+        assert group_track in target.tracks
+        assert group_track.parent is target
+        assert target.tracks[scenario.index] is group_track

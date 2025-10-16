@@ -1,27 +1,26 @@
 import asyncio
-from typing import Callable
+import dataclasses
 
 import pytest
 
 from supriya.sessions import (
     Component,
     Mixer,
-    Session,
     SynthConfig,
     Track,
     TrackSend,
 )
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
-from .conftest import run_test
+from .conftest import Scenario, run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
@@ -31,8 +30,8 @@ from .conftest import run_test
                     {"name": "Self", "target": "mixers[0].tracks[1]"},
                 ),
             ],
-            "mixers[0].tracks[0].sends[0]",
-            """
+            target="mixers[0].tracks[0].sends[0]",
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,5 +2,4 @@
@@ -42,7 +41,7 @@ from .conftest import run_test
             -                <TrackSend 4 'Self' postfader target=<Track 3 'Track Two'>>
                          <Track 3 'Track Two'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -8,8 +8,8 @@
@@ -57,12 +56,12 @@ from .conftest import run_test
                                  in_: 18.0, out: 9.0
                              1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
@@ -72,8 +71,8 @@ from .conftest import run_test
                     {"name": "Self", "target": "mixers[0].tracks[0]"},
                 ),
             ],
-            "mixers[0].tracks[1].sends[0]",
-            """
+            target="mixers[0].tracks[1].sends[0]",
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,4 +3,3 @@
@@ -82,7 +81,7 @@ from .conftest import run_test
                          <Track 3 'Track Two'>
             -                <TrackSend 4 'Self' postfader target=<Track 2 'Track One'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -2,8 +2,8 @@
@@ -108,7 +107,7 @@ from .conftest import run_test
                                  in_: 22.0, out: 15.0
                              1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:output)
             """,
-            """
+            expected_messages="""
             - ['/n_set', 1022, 'done_action', 2.0, 'gate', 0.0]
             - ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0]
             """,
@@ -117,39 +116,43 @@ from .conftest import run_test
 )
 @pytest.mark.asyncio
 async def test_TrackSend_delete(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
+    scenario: Scenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, TrackSend)
-        parent = target_.parent
-        await target_.delete()
+        target = session[scenario.target]
+        assert isinstance(target, TrackSend)
+        parent = target.parent
+        await target.delete()
     # Post-conditions
     assert parent
-    assert target_ not in parent.sends
-    assert target_.address == "sends[?]"
-    assert target_.context is None
-    assert target_.parent is None
-    assert target_.mixer is None
-    assert target_.session is None
+    assert target not in parent.sends
+    assert target.address == "sends[?]"
+    assert target.context is None
+    assert target.parent is None
+    assert target.mixer is None
+    assert target.session is None
+
+
+@dataclasses.dataclass(frozen=True)
+class GainScenario:
+    commands: list[tuple[str | None, str, dict | None]]
+    expected_levels: list[tuple[str, list[float], list[float]]]
+    gain: float
+    target: str
 
 
 @pytest.mark.parametrize(
-    "commands, target, gain, expected_levels",
+    "scenario",
     [
-        (
-            [
+        GainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
@@ -164,16 +167,16 @@ async def test_TrackSend_delete(
                 ),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
-            "mixers[0].tracks[0].sends[0]",
-            -6,
-            [
+            target="mixers[0].tracks[0].sends[0]",
+            gain=-6,
+            expected_levels=[
                 ("Mixer", [1.5, 1.5], [1.5, 1.5]),
                 ("Track One", [0.0, 0.0], [1.0, 1.0]),
                 ("Track Two", [0.5, 0.5], [0.5, 0.5]),
             ],
         ),
-        (
-            [
+        GainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
@@ -188,9 +191,9 @@ async def test_TrackSend_delete(
                 ),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            "mixers[0].tracks[1].sends[0]",
-            -6,
-            [
+            target="mixers[0].tracks[1].sends[0]",
+            gain=-6,
+            expected_levels=[
                 ("Mixer", [1.5, 1.5], [1.5, 1.5]),
                 ("Track One", [0.5, 0.5], [0.5, 0.5]),
                 ("Track Two", [0.0, 0.0], [1.0, 1.0]),
@@ -200,19 +203,16 @@ async def test_TrackSend_delete(
 )
 @pytest.mark.asyncio
 async def test_TrackSend_gain(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_levels: list[tuple[str, list[float], list[float]]],
-    gain: float,
-    target: str,
+    scenario: GainScenario,
 ) -> None:
     async with run_test(
         annotation=None,
-        commands=commands,
+        commands=scenario.commands,
         online=True,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, TrackSend)
-        target_.parameters["gain"].set(gain)
+        target = session[scenario.target]
+        assert isinstance(target, TrackSend)
+        target.parameters["gain"].set(scenario.gain)
     await asyncio.sleep(system.LAG_TIME * 2)
     actual_levels = [
         (
@@ -223,4 +223,4 @@ async def test_TrackSend_gain(
         for component in session.walk(Component)
         if isinstance(component, (Mixer, Track))
     ]
-    assert actual_levels == expected_levels
+    assert actual_levels == scenario.expected_levels
