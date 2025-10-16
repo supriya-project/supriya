@@ -2212,79 +2212,76 @@ async def test_Track_set_channel_count(
     assert target_.channel_count == channel_count
 
 
+@dataclasses.dataclass(frozen=True)
+class SetInputScenario(Scenario):
+    maybe_raises: Any
+    input_from: str | None
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, input_to, input_from, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
         # 0
         # input from other mixer
         # - raises
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", None),
                 ("mixers[1]", "add_track", None),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[1].tracks[0]",
-            pytest.raises(RuntimeError),
-            """
-            """,
-            """
-            """,
-            """
-            """,
+            target="mixers[0].tracks[0]",
+            input_from="mixers[1].tracks[0]",
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 1
         # input from self
         # - raises
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[0]",
-            pytest.raises(RuntimeError),
-            """
-            """,
-            """
-            """,
-            """
-            """,
+            target="mixers[0].tracks[0]",
+            input_from="mixers[0].tracks[0]",
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 2
         # input is none
         # - no input
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            None,
-            does_not_raise,
-            """
-            """,
-            """
-            """,
-            """
-            """,
+            target="mixers[0].tracks[0]",
+            input_from=None,
+            maybe_raises=does_not_raise,
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 3
         # input from younger sibling
         # - self: expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[1]",
-            does_not_raise,
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            input_from="mixers[0].tracks[1]",
+            maybe_raises=does_not_raise,
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -2295,7 +2292,7 @@ async def test_Track_set_channel_count(
             +            <Track 2 'Self' input=<Track 3 'Younger Sibling'>>
                          <Track 3 'Younger Sibling'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -2,6 +2,8 @@
@@ -2308,7 +2305,7 @@ async def test_Track_set_channel_count(
                              1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
                                  in_: 18.0, out: 7.0
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/s_new', 'supriya:fb-patch-cable:2x2', 1021, 0, 1007, 'active', 'c5', 'in_', 20.0, 'out', 18.0]
@@ -2317,16 +2314,16 @@ async def test_Track_set_channel_count(
         # 4
         # input from older sibling
         # - self: do not expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[1]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            target="mixers[0].tracks[1]",
+            input_from="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,4 @@
@@ -2336,7 +2333,7 @@ async def test_Track_set_channel_count(
             -            <Track 3 'Self'>
             +            <Track 3 'Self' input=<Track 2 'Older Sibling'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -13,6 +13,8 @@
@@ -2349,23 +2346,23 @@ async def test_Track_set_channel_count(
                              1018 supriya:meters:2 (session.mixers[0].tracks[1]:input-levels)
                                  in_: 20.0, out: 13.0
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1021, 0, 1014, 'active', 'c11', 'in_', 18.0, 'out', 20.0]
             """,
         ),
         # 5
         # input from child
         # - self: do not expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[0].tracks[0]",
-            does_not_raise,
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            input_from="mixers[0].tracks[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -2376,7 +2373,7 @@ async def test_Track_set_channel_count(
             +            <Track 2 'Self' input=<Track 3 'Child'>>
                              <Track 3 'Child'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -2,6 +2,8 @@
@@ -2389,23 +2386,23 @@ async def test_Track_set_channel_count(
                                  1014 group (session.mixers[0].tracks[0].tracks[0]:group)
                                      1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1021, 0, 1007, 'active', 'c5', 'in_', 20.0, 'out', 18.0]
             """,
         ),
         # 6
         # input from parent
         # - self: expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0].tracks[0]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            target="mixers[0].tracks[0].tracks[0]",
+            input_from="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,4 @@
@@ -2415,7 +2412,7 @@ async def test_Track_set_channel_count(
             -                <Track 3 'Self'>
             +                <Track 3 'Self' input=<Track 2 'Parent'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,6 +4,8 @@
@@ -2428,7 +2425,7 @@ async def test_Track_set_channel_count(
                                      1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
                                          in_: 20.0, out: 13.0
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/s_new', 'supriya:fb-patch-cable:2x2', 1021, 0, 1014, 'active', 'c11', 'in_', 18.0, 'out', 20.0]
@@ -2437,17 +2434,17 @@ async def test_Track_set_channel_count(
         # 7
         # input from grandparent
         # - self: expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Grandparent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0].tracks[0].tracks[0]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            target="mixers[0].tracks[0].tracks[0].tracks[0]",
+            input_from="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,4 +3,4 @@
@@ -2457,7 +2454,7 @@ async def test_Track_set_channel_count(
             -                    <Track 4 'Self'>
             +                    <Track 4 'Self' input=<Track 2 'Grandparent'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -6,6 +6,8 @@
@@ -2470,7 +2467,7 @@ async def test_Track_set_channel_count(
                                              1025 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:input-levels)
                                                  in_: 22.0, out: 19.0
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/s_new', 'supriya:fb-patch-cable:2x2', 1028, 0, 1021, 'active', 'c17', 'in_', 18.0, 'out', 22.0]
@@ -2479,17 +2476,17 @@ async def test_Track_set_channel_count(
         # 8
         # input from grandchild
         # - self: do not expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Grandchild"}),
             ],
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[0].tracks[0].tracks[0]",
-            does_not_raise,
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            input_from="mixers[0].tracks[0].tracks[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -2501,7 +2498,7 @@ async def test_Track_set_channel_count(
                              <Track 3 'Child'>
                                  <Track 4 'Grandchild'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -2,6 +2,8 @@
@@ -2514,24 +2511,24 @@ async def test_Track_set_channel_count(
                                  1014 group (session.mixers[0].tracks[0].tracks[0]:group)
                                      1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1028, 0, 1007, 'active', 'c5', 'in_', 22.0, 'out', 18.0]
             """,
         ),
         # 9
         # input from older auntie
         # - self: do not expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[1].tracks[0]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            target="mixers[0].tracks[1].tracks[0]",
+            input_from="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,4 +3,4 @@
@@ -2541,7 +2538,7 @@ async def test_Track_set_channel_count(
             -                <Track 4 'Self'>
             +                <Track 4 'Self' input=<Track 2 'Older Auntie'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -15,6 +15,8 @@
@@ -2554,24 +2551,24 @@ async def test_Track_set_channel_count(
                                      1025 supriya:meters:2 (session.mixers[0].tracks[1].tracks[0]:input-levels)
                                          in_: 22.0, out: 19.0
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1028, 0, 1021, 'active', 'c17', 'in_', 18.0, 'out', 22.0]
             """,
         ),
         # 10
         # input from younger auntie
         # - self: expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0].tracks[0]",
-            "mixers[0].tracks[1]",
-            does_not_raise,
-            """
+            target="mixers[0].tracks[0].tracks[0]",
+            input_from="mixers[0].tracks[1]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,5 +2,5 @@
@@ -2582,7 +2579,7 @@ async def test_Track_set_channel_count(
             +                <Track 4 'Self' input=<Track 3 'Younger Auntie'>>
                          <Track 3 'Younger Auntie'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,6 +4,8 @@
@@ -2595,7 +2592,7 @@ async def test_Track_set_channel_count(
                                      1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
                                          in_: 20.0, out: 13.0
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/s_new', 'supriya:fb-patch-cable:2x2', 1028, 0, 1014, 'active', 'c11', 'in_', 22.0, 'out', 20.0]
@@ -2604,18 +2601,18 @@ async def test_Track_set_channel_count(
         # 11
         # input from older cousin
         # - self: do not expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Older Cousin"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[1].tracks[0]",
-            "mixers[0].tracks[0].tracks[0]",
-            does_not_raise,
-            """
+            target="mixers[0].tracks[1].tracks[0]",
+            input_from="mixers[0].tracks[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -4,4 +4,4 @@
@@ -2625,7 +2622,7 @@ async def test_Track_set_channel_count(
             -                <Track 5 'Self'>
             +                <Track 5 'Self' input=<Track 4 'Older Cousin'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -26,6 +26,8 @@
@@ -2638,25 +2635,25 @@ async def test_Track_set_channel_count(
                                      1032 supriya:meters:2 (session.mixers[0].tracks[1].tracks[0]:input-levels)
                                          in_: 24.0, out: 25.0
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1035, 0, 1028, 'active', 'c23', 'in_', 20.0, 'out', 24.0]
             """,
         ),
         # 12
         # input from younger cousin
         # - self: expect feedback
-        (
-            [
+        SetInputScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Younger Cousin"}),
             ],
-            "mixers[0].tracks[0].tracks[0]",
-            "mixers[0].tracks[1].tracks[0]",
-            does_not_raise,
-            """
+            target="mixers[0].tracks[0].tracks[0]",
+            input_from="mixers[0].tracks[1].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,6 +2,6 @@
@@ -2668,7 +2665,7 @@ async def test_Track_set_channel_count(
                          <Track 3 'Younger Auntie'>
                              <Track 5 'Younger Cousin'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,6 +4,8 @@
@@ -2681,7 +2678,7 @@ async def test_Track_set_channel_count(
                                      1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
                                          in_: 20.0, out: 13.0
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/s_new', 'supriya:fb-patch-cable:2x2', 1035, 0, 1014, 'active', 'c11', 'in_', 24.0, 'out', 20.0]
@@ -2691,29 +2688,23 @@ async def test_Track_set_channel_count(
 )
 @pytest.mark.asyncio
 async def test_Track_set_input(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
-    input_from: str | tuple[int, int] | None,
-    input_to: str,
-    maybe_raises,
+    scenario: SetInputScenario,
     online: bool,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        input_to_ = session[input_to]
-        input_from_: BusGroup | Track | None = None
-        assert isinstance(input_to_, Track)
-        if isinstance(input_from, str):
-            input_from_component = session[input_from]
+        target = session[scenario.target]
+        input_from: BusGroup | Track | None = None
+        assert isinstance(target, Track)
+        if isinstance(scenario.input_from, str):
+            input_from_component = session[scenario.input_from]
             assert isinstance(input_from_component, Track)
-            input_from_ = input_from_component
+            input_from = input_from_component
         # TODO: Because the context could be null, we need the "promise" of a bus group.
         # elif isinstance(target, tuple):
         #     index, count = target
@@ -2724,8 +2715,8 @@ async def test_Track_set_input(
         #         count=count,
         #     )
         # Operation
-        with maybe_raises:
-            await input_to_.set_input(input_from_)
+        with scenario.maybe_raises:
+            await target.set_input(input_from)
 
 
 SET_MUTED_COMMANDS: list[tuple[str | None, str, dict | None]] = [
