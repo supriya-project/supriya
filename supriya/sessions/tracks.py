@@ -195,7 +195,7 @@ class TrackSend(Deletable["Track"]):
     def _get_numeric_address(self) -> Address:
         return f"sends[{self._id}]"
 
-    def _notify_disconnected(self, connection: "Component") -> bool:
+    def _on_connection_deleted(self, connection: "Component") -> bool:
         return connection is self._output._target
 
     def _reconcile_connections(
@@ -365,9 +365,9 @@ class Track(
     def _get_numeric_address(self) -> Address:
         return f"tracks[{self._id}]"
 
-    def _notify_disconnected(self, connection: "Component") -> bool:
-        self._input._notify_disconnected(connection)
-        self._output._notify_disconnected(connection)
+    def _on_connection_deleted(self, connection: "Component") -> bool:
+        self._input._on_connection_deleted(connection)
+        self._output._on_connection_deleted(connection)
         return False
 
     def _reconcile_activation(self) -> bool:

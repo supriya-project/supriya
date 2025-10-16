@@ -38,7 +38,7 @@ class Input:
         self._target = target
         self._target_bus_address = target_bus_address
 
-    def _notify_disconnected(self, connection: "Component") -> None:
+    def _on_connection_deleted(self, connection: "Component") -> None:
         if connection is self._source:
             self.set(None)
 
@@ -171,7 +171,7 @@ class Output:
         self._source_bus_address = source_bus_address
         self._target: BusGroup | Component | Inherit | None = target
 
-    def _notify_disconnected(self, connection: "Component") -> None:
+    def _on_connection_deleted(self, connection: "Component") -> None:
         if connection is self._target:
             self.set(None)
 

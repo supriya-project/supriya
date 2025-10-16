@@ -349,8 +349,8 @@ class Sidechain:
         )
         self._name = name
 
-    def _notify_disconnected(self, connection: "Component") -> None:
-        self._input._notify_disconnected(connection)
+    def _on_connection_deleted(self, connection: "Component") -> None:
+        self._input._on_connection_deleted(connection)
 
     def _reconcile_connections(self, *, deleting: bool = False) -> list[Component]:
         return self._input._reconcile_connections(deleting=deleting)
@@ -455,9 +455,9 @@ class Device(DeviceBase):
         )
         return sidechain
 
-    def _notify_disconnected(self, connection: "Component") -> bool:
+    def _on_connection_deleted(self, connection: "Component") -> bool:
         for sidechain in self._sidechains.values():
-            sidechain._notify_disconnected(connection)
+            sidechain._on_connection_deleted(connection)
         return False
 
     def _reconcile_connections(

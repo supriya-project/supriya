@@ -1,5 +1,6 @@
 import asyncio
-from typing import Callable
+import dataclasses
+from typing import Any, Callable
 
 import pytest
 
@@ -17,7 +18,7 @@ from supriya.sessions.constants import ChannelCount
 from supriya.typing import INHERIT, Inherit
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
-from .conftest import apply_commands, does_not_raise, run_test
+from .conftest import Scenario, apply_commands, does_not_raise, run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -3747,33 +3748,38 @@ async def test_Track_set_soloed(
     ] == expected_state
 
 
+@dataclasses.dataclass(frozen=True)
+class UngroupScenario(Scenario):
+    maybe_raises: Any
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
         # track without child tracks: raises
-        (
-            [
+        UngroupScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            pytest.raises(RuntimeError),
-            "",
-            "",
-            "",
+            target="mixers[0].tracks[0]",
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # track with child tracks
-        (
-            [
+        UngroupScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Older Child"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Younger Child"}),
             ],
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,5 @@
@@ -3786,7 +3792,7 @@ async def test_Track_set_soloed(
             +            <Track 3 'Older Child'>
             +            <Track 4 'Younger Child'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,39 +1,43 @@
@@ -3865,7 +3871,7 @@ async def test_Track_set_soloed(
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1028, 1, 1014, 'active', 'c11', 'in_', 20.0, 'out', 16.0]
             - ['/s_new', 'supriya:patch-cable:2x2', 1029, 1, 1021, 'active', 'c17', 'in_', 22.0, 'out', 16.0]
             - ['/n_after', 1014, 1007]
@@ -3879,23 +3885,18 @@ async def test_Track_set_soloed(
 )
 @pytest.mark.asyncio
 async def test_Track_ungroup(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_tree_diff: str,
-    expected_messages: str,
-    maybe_raises,
+    scenario: UngroupScenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
         annotation="numeric",
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, Track)
-        with maybe_raises:
-            await target_.ungroup()
+        target = session[scenario.target]
+        assert isinstance(target, Track)
+        with scenario.maybe_raises:
+            await target.ungroup()

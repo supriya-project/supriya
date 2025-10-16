@@ -100,7 +100,7 @@ class Component(Generic[C]):
             if roots and any([root in component.parentage for root in roots]):
                 continue
             related.append(component)
-            if component._notify_disconnected(self):
+            if component._on_connection_deleted(self):
                 deleted.add(component)
         return related, deleted
 
@@ -169,14 +169,14 @@ class Component(Generic[C]):
     def _nonrecursive_repr(self) -> str:
         return repr(self)
 
-    def _notify_disconnected(self, connection: "Component") -> bool:
+    def _on_connection_deleted(self, connection: "Component") -> bool:
         """
         Determines if a connection should self-delete.
 
         E.g. a track is deleted, then a send from out-of-tree to that track
         should be deleted too. When the track is deleted, it calls
         _disconnect_connections(), which loops over its connections and calls
-        _notify_disconnected on each.
+        _on_connection_deleted on each.
 
         In practice, only sends get deleted in this way.
         """
