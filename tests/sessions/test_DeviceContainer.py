@@ -1,3 +1,4 @@
+import dataclasses
 from typing import Callable
 
 import pytest
@@ -18,7 +19,7 @@ from supriya.sessions import (
 from supriya.typing import INHERIT
 from supriya.ugens import In, ReplaceOut, SynthDefBuilder
 
-from .conftest import run_test
+from .conftest import Scenario, run_test
 
 
 def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
@@ -40,23 +41,27 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
     return builder.build(f"test:sidechain:{channel_count}")
 
 
+@dataclasses.dataclass(frozen=True)
+class AddDeviceScenario(Scenario):
+    parameter_configs: list[ParameterConfig] | None
+    sidechain_configs: list[SidechainConfig] | None
+    synth_configs: list[SynthConfig]
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    (
-        "commands, target, parameter_configs, sidechain_configs, synth_configs, "
-        "expected_components_diff, expected_tree_diff, expected_messages"
-    ),
+    "scenario",
     [
         # effect with one synth, no parameter specs
-        (
-            [(None, "add_mixer", {"name": "Mixer"})],
-            "mixers[0]",
-            None,
-            None,
-            [
+        AddDeviceScenario(
+            commands=[(None, "add_mixer", {"name": "Mixer"})],
+            target="mixers[0]",
+            parameter_configs=None,
+            sidechain_configs=None,
+            synth_configs=[
                 SynthConfig(synthdef=build_effect_synthdef),
             ],
-            lambda session: f"""
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,4 @@
@@ -65,7 +70,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,6 +4,9 @@
@@ -79,17 +84,17 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: test:effect:2>]
             - ['/sync', 3]
             - [None, [['/g_new', 1007, 0, 1002], ['/s_new', 'test:effect:2', 1008, 1, 1007, 'bus', 16.0]]]
             """,
         ),
         # effect with one synth, two parameter specs
-        (
-            [(None, "add_mixer", {"name": "Mixer"})],
-            "mixers[0]",
-            [
+        AddDeviceScenario(
+            commands=[(None, "add_mixer", {"name": "Mixer"})],
+            target="mixers[0]",
+            parameter_configs=[
                 ParameterConfig(
                     name="mult", field=FloatField(default=0.5, has_bus=True)
                 ),
@@ -97,8 +102,8 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                     name="add", field=FloatField(default=0.25, has_bus=True)
                 ),
             ],
-            None,
-            [
+            sidechain_configs=None,
+            synth_configs=[
                 SynthConfig(
                     synthdef=build_effect_synthdef,
                     parameters={
@@ -107,7 +112,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                     },
                 ),
             ],
-            lambda session: f"""
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,4 @@
@@ -116,7 +121,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,6 +4,9 @@
@@ -130,7 +135,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: test:effect:2>]
             - ['/sync', 3]
             - ['/c_set', 5, 0.25, 6, 0.5]
@@ -140,12 +145,12 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
             """,
         ),
         # effect with one synth, one default-channeled sidechain
-        (
-            [(None, "add_mixer", {"name": "Mixer"})],
-            "mixers[0]",
-            [],
-            [SidechainConfig(name=Names.SIDECHAIN, channel_count=INHERIT)],
-            [
+        AddDeviceScenario(
+            commands=[(None, "add_mixer", {"name": "Mixer"})],
+            target="mixers[0]",
+            parameter_configs=[],
+            sidechain_configs=[SidechainConfig(name=Names.SIDECHAIN, channel_count=INHERIT)],
+            synth_configs=[
                 SynthConfig(
                     synthdef=build_sidechain_synthdef,
                     parameters={
@@ -153,7 +158,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                     },
                 ),
             ],
-            lambda session: f"""
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,4 @@
@@ -162,7 +167,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,6 +4,9 @@
@@ -176,7 +181,7 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: test:sidechain:2>]
             - ['/sync', 3]
             - [None, [['/g_new', 1007, 0, 1002], ['/s_new', 'test:sidechain:2', 1008, 1, 1007, 'bus', 16.0, 'sidechain_bus', 18.0]]]
@@ -186,48 +191,42 @@ def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
 )
 @pytest.mark.asyncio
 async def test_DeviceContainer_add_device(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
+    scenario: AddDeviceScenario,
     online: bool,
-    parameter_configs: list[ParameterConfig] | None,
-    sidechain_configs: list[SidechainConfig] | None,
-    synth_configs: list[SynthConfig],
-    target: str,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, DeviceContainer)
-        device = await target_.add_device(
+        target = session[scenario.target]
+        assert isinstance(target, DeviceContainer)
+        device = await target.add_device(
             name="Device",
-            parameter_configs=parameter_configs,
-            sidechain_configs=sidechain_configs,
-            synth_configs=synth_configs,
+            parameter_configs=scenario.parameter_configs,
+            sidechain_configs=scenario.sidechain_configs,
+            synth_configs=scenario.synth_configs,
         )
     assert isinstance(device, Device)
-    assert device in target_.devices
-    assert device.parent is target_
-    assert target_.devices[0] is device
+    assert device in target.devices
+    assert device.parent is target
+    assert target.devices[0] is device
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
+    # "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
     [
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            "mixers[0]",
-            """
+            target="mixers[0]",
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,3 +2,5 @@
@@ -237,7 +236,7 @@ async def test_DeviceContainer_add_device(
             +            <Rack 3 'Rack'>
             +                <Chain 4>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -15,6 +15,16 @@
@@ -258,7 +257,7 @@ async def test_DeviceContainer_add_device(
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
             - ['/sync', 3]
             - ['/c_set', 11, 1.0]
@@ -276,26 +275,22 @@ async def test_DeviceContainer_add_device(
 )
 @pytest.mark.asyncio
 async def test_DeviceContainer_add_rack(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
+    scenario: Scenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, DeviceContainer)
-        rack = await target_.add_rack(
+        target = session[scenario.target]
+        assert isinstance(target, DeviceContainer)
+        rack = await target.add_rack(
             name="Rack",
         )
     assert isinstance(rack, Rack)
-    assert rack in target_.devices
-    assert rack.parent is target_
-    assert target_.devices[0] is rack
+    assert rack in target.devices
+    assert rack.parent is target
+    assert target.devices[0] is rack
