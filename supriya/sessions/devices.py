@@ -496,6 +496,8 @@ class Device(DeviceBase):
             sidechain._resolve_specs(spec_factory, **options)
         # n.b. ordering synths is tricky :thinking:.
         #      increasingly feels like we need a NodeOrderSpec.
+        add_action = AddAction.ADD_TO_TAIL
+        target_node_address = container_group_address
         for index, synth_config in enumerate(self._synth_configs):
             if (
                 synthdef := (
@@ -531,20 +533,19 @@ class Device(DeviceBase):
                         )
                     else:
                         raise ValueError(rate)
-            synthdef_address = spec_factory.add_synthdef(
-                synthdef=synthdef,
-            )
-            spec_factory.add_synth(
-                add_action=AddAction.ADD_TO_TAIL,
+            synthdef_address = spec_factory.add_synthdef(synthdef=synthdef)
+            target_node_address = spec_factory.add_synth(
+                add_action=add_action,
                 kwargs=synth_parameters,
                 name=f"synth-{index}",
                 synthdef=synthdef_address,
-                target_node=container_group_address,
+                target_node=target_node_address,
             )
+            add_action = AddAction.ADD_AFTER
         # meters
         if parent._devices.index(self) < (len(parent._devices) - 1):
             # will the meters synth follow the group on move?
-            spec_factory.add_control_bus(
+            levels_control_bus_address = spec_factory.add_control_bus(
                 channel_count=self.effective_channel_count,
                 default=0.0,
                 name=Names.LEVELS,
@@ -553,26 +554,14 @@ class Device(DeviceBase):
                 synthdef=build_meters_synthdef(self.effective_channel_count)
             )
             spec_factory.add_synth(
-                add_action=(
-                    AddAction.ADD_AFTER
-                    if self._synth_configs
-                    else AddAction.ADD_TO_TAIL
-                ),
+                add_action=add_action,
                 kwargs=dict(
                     in_=parent._get_main_bus_address(),
-                    out=Spec.get_address(self, Entities.CONTROL_BUSES, Names.LEVELS),
+                    out=levels_control_bus_address,
                 ),
                 name=Names.LEVELS,
                 synthdef=meters_synthdef_address,
-                target_node=(
-                    Spec.get_address(
-                        self,
-                        Entities.NODES,
-                        f"synth-{len(self._synth_configs) - 1}",
-                    )
-                    if self._synth_configs
-                    else container_group_address
-                ),
+                target_node=target_node_address,
             )
         return spec_factory
 

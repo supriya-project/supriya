@@ -405,19 +405,22 @@ class Track(
         return sorted(set(related), key=lambda x: x.graph_order), deleted
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
-        parent = self._ensure_parent()
+        # parameters
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
+        # synthdefs
         channel_strip_synthdef_address = spec_factory.add_synthdef(
             synthdef=build_channel_strip_synthdef(self.effective_channel_count)
         )
         meters_synthdef_address = spec_factory.add_synthdef(
             synthdef=build_meters_synthdef(self.effective_channel_count)
         )
+        # audio buses
         main_audio_bus_address = spec_factory.add_audio_bus(
             channel_count=self.effective_channel_count,
             name=Names.MAIN,
         )
+        # control buses
         active_control_bus_address = spec_factory.add_control_bus(
             channel_count=1,
             default=float(self._is_active),
@@ -433,6 +436,8 @@ class Track(
             default=0.0,
             name=Names.OUTPUT_LEVELS,
         )
+        # groups
+        parent = self._ensure_parent()
         container_group_address = spec_factory.add_container_group(
             destroy_strategy={"gate": 0},
             parent=(parent := self._ensure_parent()),
@@ -449,40 +454,44 @@ class Track(
             name=Names.DEVICES,
             target_node=container_group_address,
         )
+        # synths
         channel_strip_synth_address = spec_factory.add_synth(
             add_action=AddAction.ADD_TO_TAIL,
-            destroy_strategy={"done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP},
-            kwargs={
-                "active": active_control_bus_address,
-                "gain": Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
-                "out": main_audio_bus_address,
-            },
+            destroy_strategy=dict(
+                done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+            ),
+            kwargs=dict(
+                active=active_control_bus_address,
+                gain=Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
+                out=main_audio_bus_address,
+            ),
             name=Names.CHANNEL_STRIP,
             synthdef=channel_strip_synthdef_address,
             target_node=container_group_address,
         )
         spec_factory.add_synth(
             add_action=AddAction.ADD_AFTER,
-            kwargs={
-                "active": active_control_bus_address,
-                "in_": main_audio_bus_address,
-                "out": input_levels_control_bus_address,
-            },
+            kwargs=dict(
+                active=active_control_bus_address,
+                in_=main_audio_bus_address,
+                out=input_levels_control_bus_address,
+            ),
             name=Names.INPUT_LEVELS,
             synthdef=meters_synthdef_address,
             target_node=tracks_group_address,
         )
         spec_factory.add_synth(
             add_action=AddAction.ADD_AFTER,
-            kwargs={
-                "active": active_control_bus_address,
-                "in_": main_audio_bus_address,
-                "out": output_levels_control_bus_address,
-            },
+            kwargs=dict(
+                active=active_control_bus_address,
+                in_=main_audio_bus_address,
+                out=output_levels_control_bus_address,
+            ),
             name=Names.OUTPUT_LEVELS,
             synthdef=meters_synthdef_address,
             target_node=channel_strip_synth_address,
         )
+        # conditional synths
         self._input._resolve_specs(spec_factory)
         self._output._resolve_specs(spec_factory)
         if Spec.needs_feedback(self):
@@ -499,13 +508,13 @@ class Track(
             )
             spec_factory.add_synth(
                 add_action=AddAction.ADD_TO_HEAD,
-                destroy_strategy={"gate": 0},
+                destroy_strategy=dict(gate=0),
                 name=Names.FEEDBACK,
-                kwargs={
-                    "active": active_control_bus_address,
-                    "in_": feedback_audio_bus_address,
-                    "out": main_audio_bus_address,
-                },
+                kwargs=dict(
+                    active=active_control_bus_address,
+                    in_=feedback_audio_bus_address,
+                    out=main_audio_bus_address,
+                ),
                 synthdef=feedback_patch_cable_synthdef_address,
                 target_node=container_group_address,
             )

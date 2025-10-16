@@ -1,19 +1,20 @@
-from typing import Callable
+import dataclasses
+from typing import Any, Callable
 
 import pytest
 
 from supriya.sessions import DeviceBase, DeviceContainer, Session, SynthConfig
 from supriya.ugens.system import build_dc_tester_synthdef
 
-from .conftest import does_not_raise, run_test
+from .conftest import Scenario, does_not_raise, run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 (
                     "mixers[0]",
@@ -26,8 +27,8 @@ from .conftest import does_not_raise, run_test
                     },
                 ),
             ],
-            "mixers[0].devices[0]",
-            lambda session: f"""
+            target="mixers[0].devices[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,4 +1,3 @@
@@ -36,7 +37,7 @@ from .conftest import does_not_raise, run_test
                      <Mixer 1 'Mixer'>
             -            <Device 2 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,9 +4,9 @@
@@ -53,7 +54,7 @@ from .conftest import does_not_raise, run_test
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (mixers[1]:output-levels)
             """,
-            """
+            expected_messages="""
             - ['/n_set', 1007, 'done_action', 14.0, 'gate', 0.0]
             """,
         ),
@@ -61,45 +62,46 @@ from .conftest import does_not_raise, run_test
 )
 @pytest.mark.asyncio
 async def test_DeviceBase_delete(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
+    scenario: Scenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
         annotation="numeric",
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, DeviceBase)
-        parent = target_.parent
-        await target_.delete()
+        target = session[scenario.target]
+        assert isinstance(target, DeviceBase)
+        parent = target.parent
+        await target.delete()
     assert parent
-    assert target_ not in parent.devices
-    assert target_.address == "devices[?]"
-    assert target_.context is None
-    assert target_.mixer is None
-    assert target_.parent is None
-    assert target_.session is None
+    assert target not in parent.devices
+    assert target.address == "devices[?]"
+    assert target.context is None
+    assert target.mixer is None
+    assert target.parent is None
+    assert target.session is None
+
+
+@dataclasses.dataclass(frozen=True)
+class MoveScenario(Scenario):
+    expected_graph_order: list[int]
+    index: int
+    maybe_raises: Any
+    parent: str
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    (
-        "commands, target, parent, index, maybe_raises, "
-        "expected_graph_order, expected_components_diff, expected_tree_diff, expected_messages"
-    ),
+    "scenario",
     [
         # 0
         # move to other mixer: raises
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
                 (
@@ -113,19 +115,19 @@ async def test_DeviceBase_delete(
                     },
                 ),
             ],
-            "mixers[0].devices[0]",
-            "mixers[1]",
-            0,
-            pytest.raises(RuntimeError),
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].devices[0]",
+            parent="mixers[1]",
+            index=0,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 1
         # move to same parent, same index: no-op
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (
                     "mixers[0]",
@@ -138,19 +140,19 @@ async def test_DeviceBase_delete(
                     },
                 ),
             ],
-            "mixers[0].devices[0]",
-            "mixers[0]",
-            0,
-            does_not_raise,
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].devices[0]",
+            parent="mixers[0]",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 2
         # move to same parent, index too low: raises
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (
                     "mixers[0]",
@@ -163,19 +165,19 @@ async def test_DeviceBase_delete(
                     },
                 ),
             ],
-            "mixers[0].devices[0]",
-            "mixers[0]",
-            -1,
-            pytest.raises(RuntimeError),
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].devices[0]",
+            parent="mixers[0]",
+            index=-1,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 3
         # move to same parent, index too high: raises
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (
                     "mixers[0]",
@@ -188,19 +190,19 @@ async def test_DeviceBase_delete(
                     },
                 ),
             ],
-            "mixers[0].devices[0]",
-            "mixers[0]",
-            2,
-            pytest.raises(RuntimeError),
-            (0, 0),
-            "",
-            "",
-            "",
+            target="mixers[0].devices[0]",
+            parent="mixers[0]",
+            index=2,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_graph_order=(0, 0),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 4
         # move to other device container
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
                 (
@@ -214,12 +216,12 @@ async def test_DeviceBase_delete(
                     },
                 ),
             ],
-            "mixers[0].devices[0]",
-            "mixers[0].tracks[0]",
-            0,
-            does_not_raise,
-            (0, 0, 0),
-            """
+            target="mixers[0].devices[0]",
+            parent="mixers[0].tracks[0]",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 0, 0),
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,4 @@
@@ -229,7 +231,7 @@ async def test_DeviceBase_delete(
             -            <Device 3 'Self'>
             +                <Device 3 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -6,6 +6,11 @@
@@ -255,7 +257,7 @@ async def test_DeviceBase_delete(
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (mixers[1]:output-levels)
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:dc-tester:2', 1016, 1, 1014, 'out', 18.0]
             - ['/g_head', 1009, 1014]
             - ['/n_set', 1015, 'done_action', 2.0, 'gate', 0.0]
@@ -263,8 +265,8 @@ async def test_DeviceBase_delete(
         ),
         # 5
         # move before sibling
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 (
                     "mixers[0]",
@@ -287,12 +289,12 @@ async def test_DeviceBase_delete(
                     },
                 ),
             ],
-            "mixers[0].devices[1]",
-            "mixers[0]",
-            0,
-            does_not_raise,
-            (0, 0),
-            lambda session: f"""
+            target="mixers[0].devices[1]",
+            parent="mixers[0]",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 0),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -303,7 +305,7 @@ async def test_DeviceBase_delete(
                          <Device 2 'Older Sibling'>
             -            <Device 3 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,13 +4,13 @@
@@ -326,7 +328,7 @@ async def test_DeviceBase_delete(
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
             """,
-            """
+            expected_messages="""
             - ['/c_fill', 7, 2, 0.0]
             - ['/s_new', 'supriya:meters:2', 1012, 3, 1011, 'in_', 16.0, 'out', 7.0]
             - ['/g_head', 1002, 1010]
@@ -336,8 +338,8 @@ async def test_DeviceBase_delete(
         ),
         # 6
         # move after sibling
-        (
-            [
+        MoveScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 (
                     "mixers[0]",
@@ -360,12 +362,12 @@ async def test_DeviceBase_delete(
                     },
                 ),
             ],
-            "mixers[0].devices[0]",
-            "mixers[0]",
-            1,
-            does_not_raise,
-            (0, 1),
-            lambda session: f"""
+            target="mixers[0].devices[0]",
+            parent="mixers[0]",
+            index=1,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(0, 1),
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -376,7 +378,7 @@ async def test_DeviceBase_delete(
                          <Device 2 'Self'>
             -            <Device 3 'Younger Sibling'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,13 +4,13 @@
@@ -399,7 +401,7 @@ async def test_DeviceBase_delete(
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
             """,
-            """
+            expected_messages="""
             - ['/c_fill', 7, 2, 0.0]
             - ['/s_new', 'supriya:meters:2', 1012, 3, 1011, 'in_', 16.0, 'out', 7.0]
             - ['/n_after', 1007, 1010]
@@ -411,41 +413,33 @@ async def test_DeviceBase_delete(
 )
 @pytest.mark.asyncio
 async def test_DeviceBase_move(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_graph_order: list[int],
-    expected_messages: str,
-    expected_tree_diff: str,
-    index: int,
-    maybe_raises,
+    scenario: MoveScenario,
     online: bool,
-    parent: str,
-    target: str,
 ) -> None:
     async with run_test(
         annotation="numeric",
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        parent_ = session[parent]
-        old_parent = target_.parent
+        target = session[scenario.target]
+        parent = session[scenario.parent]
+        old_parent = target.parent
         assert isinstance(old_parent, DeviceContainer)
-        assert isinstance(parent_, DeviceContainer)
-        assert isinstance(target_, DeviceBase)
+        assert isinstance(parent, DeviceContainer)
+        assert isinstance(target, DeviceBase)
         raised = True
-        with maybe_raises:
-            await target_.move(index=index, parent=parent_)
+        with scenario.maybe_raises:
+            await target.move(index=scenario.index, parent=parent)
             raised = False
-    assert target_.graph_order == expected_graph_order
+    assert target.graph_order == scenario.expected_graph_order
     if not raised:
-        assert target_.parent is parent_
-        assert target_ in parent_.devices
-        if parent_ is not old_parent:
-            assert target_ not in old_parent.devices
+        assert target.parent is parent
+        assert target in parent.devices
+        if parent is not old_parent:
+            assert target not in old_parent.devices
 
 
 @pytest.mark.parametrize("online", [False, True])

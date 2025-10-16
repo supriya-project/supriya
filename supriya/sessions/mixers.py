@@ -71,8 +71,10 @@ class Mixer(
         return f"mixers[{self._id}]"
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
+        # parameters
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
+        # synthdefs
         channel_strip_synthdef_address = spec_factory.add_synthdef(
             synthdef=build_channel_strip_synthdef(self.effective_channel_count)
         )
@@ -90,10 +92,12 @@ class Mixer(
                 ),
             )
         )
+        # audio_buses
         main_audio_bus_address = spec_factory.add_audio_bus(
             channel_count=self.effective_channel_count,
             name=Names.MAIN,
         )
+        # control buses
         input_levels_control_bus_address = spec_factory.add_control_bus(
             channel_count=self.effective_channel_count,
             name=Names.INPUT_LEVELS,
@@ -102,9 +106,10 @@ class Mixer(
             channel_count=self.effective_channel_count,
             name=Names.OUTPUT_LEVELS,
         )
+        # groups
         container_group_address = spec_factory.add_group(
             add_action=AddAction.ADD_TO_HEAD,
-            destroy_strategy={"gate": 0},
+            destroy_strategy=dict(gate=0),
             name=Names.GROUP,
             target_node=None,
         )
@@ -118,43 +123,46 @@ class Mixer(
             name=Names.DEVICES,
             target_node=container_group_address,
         )
+        # synths
         channel_strip_synth_address = spec_factory.add_synth(
             add_action=AddAction.ADD_TO_TAIL,
-            destroy_strategy={"done_action": DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP},
-            kwargs={
-                "gain": Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
-                "out": main_audio_bus_address,
-            },
+            destroy_strategy=dict(
+                done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+            ),
+            kwargs=dict(
+                gain=Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
+                out=main_audio_bus_address,
+            ),
             name=Names.CHANNEL_STRIP,
             synthdef=channel_strip_synthdef_address,
             target_node=container_group_address,
         )
         spec_factory.add_synth(
             add_action=AddAction.ADD_AFTER,
-            kwargs={
-                "in_": main_audio_bus_address,
-                "out": input_levels_control_bus_address,
-            },
+            kwargs=dict(
+                in_=main_audio_bus_address,
+                out=input_levels_control_bus_address,
+            ),
             name=Names.INPUT_LEVELS,
             synthdef=meters_synthdef_address,
             target_node=tracks_group_address,
         )
         spec_factory.add_synth(
             add_action=AddAction.ADD_AFTER,
-            kwargs={
-                "in_": main_audio_bus_address,
-                "out": output_levels_control_bus_address,
-            },
+            kwargs=dict(
+                in_=main_audio_bus_address,
+                out=output_levels_control_bus_address,
+            ),
             name=Names.OUTPUT_LEVELS,
             synthdef=meters_synthdef_address,
             target_node=channel_strip_synth_address,
         )
         spec_factory.add_synth(
             add_action=AddAction.ADD_TO_TAIL,
-            kwargs={
-                "in_": main_audio_bus_address,
-                "out": spec_factory.context.audio_output_bus_group,
-            },
+            kwargs=dict(
+                in_=main_audio_bus_address,
+                out=spec_factory.context.audio_output_bus_group,
+            ),
             name=Names.OUTPUT,
             synthdef=patch_cable_synthdef_address,
             target_node=container_group_address,

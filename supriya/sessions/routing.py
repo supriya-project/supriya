@@ -116,9 +116,9 @@ class Input:
         spec_factory.add_synth(
             add_action=self._add_action,
             destroy_strategy=self._destroy_strategy,
-            kwargs={
-                "in_": source_bus_address,
-                "out": (
+            kwargs=dict(
+                in_=source_bus_address,
+                out=(
                     self._target_bus_address(self._host_component)
                     if callable(self._target_bus_address)
                     else self._target_bus_address
@@ -127,7 +127,7 @@ class Input:
                     key: value(self._host_component) if callable(value) else value
                     for key, value in self._kwargs.items()
                 },
-            },
+            ),
             name=self._name,
             synthdef=patch_cable_synthdef_address,
             target_node=(

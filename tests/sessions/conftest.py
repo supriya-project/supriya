@@ -1,4 +1,5 @@
 import contextlib
+import dataclasses
 import difflib
 import inspect
 import pprint
@@ -10,6 +11,15 @@ from uqbar.strings import normalize
 from supriya import AsyncServer, BootStatus, OscBundle, OscMessage
 from supriya.sessions import Session
 from supriya.ugens import decompile_synthdefs
+
+
+@dataclasses.dataclass(frozen=True)
+class Scenario:
+    commands: list[tuple[str | None, str, dict | None]]
+    expected_components_diff: Callable[[Session], str] | str
+    expected_messages: str
+    expected_tree_diff: str
+    target: str
 
 
 async def apply_commands(

@@ -102,6 +102,10 @@ class Rack(DeviceBase, ChannelSettable):
         parent = self._ensure_parent()
         parent_effective_channel_count = parent.effective_channel_count
         effective_channel_count = self.effective_channel_count
+        # parameters
+        for parameter in self.parameters.values():
+            parameter._resolve_specs(spec_factory)
+        # audio buses
         main_audio_bus_address = spec_factory.add_audio_bus(
             channel_count=effective_channel_count,
             name=Names.MAIN,
@@ -111,13 +115,14 @@ class Rack(DeviceBase, ChannelSettable):
                 channel_count=effective_channel_count,
                 name=Names.AUX,
             )
+        # groups
         container_group_address = spec_factory.add_container_group(
             destroy_strategy={"gate": 0},
             parent=(parent := self._ensure_parent()),
             parent_container=parent.devices,
             parent_container_group_name=Names.DEVICES,
         )
-        _ = spec_factory.add_group(
+        chains_group_address = spec_factory.add_group(
             add_action=AddAction.ADD_TO_HEAD,
             name=Names.CHAINS,
             target_node=container_group_address,
@@ -132,7 +137,7 @@ class Rack(DeviceBase, ChannelSettable):
                 )
             )
             spec_factory.add_synth(
-                add_action=AddAction.ADD_TO_HEAD,
+                add_action=AddAction.ADD_BEFORE,
                 destroy_strategy=dict(
                     done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                 ),
@@ -142,7 +147,7 @@ class Rack(DeviceBase, ChannelSettable):
                 ),
                 name=Names.INPUT,
                 synthdef=read_synthdef_address,
-                target_node=container_group_address,
+                target_node=chains_group_address,
             )
         # output
         if self._write_mode in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM):
@@ -154,7 +159,7 @@ class Rack(DeviceBase, ChannelSettable):
                 )
             )
             spec_factory.add_synth(
-                add_action=AddAction.ADD_TO_TAIL,
+                add_action=AddAction.ADD_AFTER,
                 destroy_strategy=dict(
                     done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                 ),
@@ -173,8 +178,9 @@ class Rack(DeviceBase, ChannelSettable):
                 ),
                 name=Names.OUTPUT,
                 synthdef=write_synthdef_address,
-                target_node=container_group_address,
+                target_node=chains_group_address,
             )
+        # levels
         if parent._devices.index(self) < (len(parent._devices) - 1):
             # will the meters synth follow the group on move?
             # we're referencing the output node, but does it even exist?
@@ -187,14 +193,14 @@ class Rack(DeviceBase, ChannelSettable):
                 synthdef=build_meters_synthdef(parent_effective_channel_count)
             )
             spec_factory.add_synth(
-                add_action=AddAction.ADD_AFTER,
+                add_action=AddAction.ADD_TO_TAIL,
                 kwargs=dict(
                     in_=parent._get_main_bus_address(),
                     out=levels_control_bus_address,
                 ),
                 name=Names.LEVELS,
                 synthdef=meters_synthdef_address,
-                target_node=Spec.get_address(self, Entities.NODES, Names.OUTPUT),
+                target_node=container_group_address,
             )
         return spec_factory
 
@@ -336,11 +342,12 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         new_parent._chains.insert(index, self)
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
+        # parameters
         for parameter in self.parameters.values():
             parameter._resolve_specs(spec_factory)
         # TODO: Re-use the rack's main bus.
         #       Don't allocate fresh.
-        spec_factory.add_control_bus(
+        active_control_bus_address = spec_factory.add_control_bus(
             channel_count=1,
             default=float(self._is_active),
             name=Names.ACTIVE,
@@ -377,7 +384,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
                 done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
             ),
             kwargs=dict(
-                active=Spec.get_address(self, Entities.CONTROL_BUSES, Names.ACTIVE),
+                active=active_control_bus_address,
                 gain=Spec.get_address(self, Entities.CONTROL_BUSES, Names.GAIN),
                 out=Spec.get_address(parent, Entities.AUDIO_BUSES, Names.MAIN),
             ),

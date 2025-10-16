@@ -1,4 +1,5 @@
-from typing import Callable
+import dataclasses
+from typing import Any
 
 import pytest
 
@@ -8,7 +9,6 @@ from supriya.sessions import (
     Device,
     DeviceConfig,
     Names,
-    Session,
     SidechainConfig,
     SynthConfig,
     Track,
@@ -16,7 +16,7 @@ from supriya.sessions import (
 from supriya.typing import INHERIT
 from supriya.ugens import In, ReplaceOut, SynthDef, SynthDefBuilder
 
-from .conftest import does_not_raise, run_test
+from .conftest import Scenario, does_not_raise, run_test
 
 
 def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
@@ -46,16 +46,21 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
 )
 
 
+@dataclasses.dataclass(frozen=True)
+class SetSidechainScenario(Scenario):
+    target: str
+    sidechain_name: str
+    sidechain_target: str
+    maybe_raises: Any
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    (
-        "commands, device_target, sidechain_name, track_target, "
-        "maybe_raises, expected_components_diff, expected_tree_diff, expected_messages"
-    ),
+    "scenario",
     [
         # sidechain from older auntie
-        (
-            [
+        SetSidechainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -65,12 +70,12 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
                     {"device_config": SIDECHAIN_DEVICE_CONFIG},
                 ),
             ],
-            "mixers[0].tracks[1].devices[0]",
-            Names.SIDECHAIN,
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            "",
-            """
+            target="mixers[0].tracks[1].devices[0]",
+            sidechain_name=Names.SIDECHAIN,
+            sidechain_target="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="",
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -18,6 +18,8 @@
@@ -83,13 +88,13 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
                                          bus: 20.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 22.0
                              1017 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
             """,
-            """
+            expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1023, 0, 1021, 'in_', 18.0, 'out', 22.0]
             """,
         ),
         # sidechain from younger auntie
-        (
-            [
+        SetSidechainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
@@ -99,12 +104,12 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
                     {"device_config": SIDECHAIN_DEVICE_CONFIG},
                 ),
             ],
-            "mixers[0].tracks[0].devices[0]",
-            Names.SIDECHAIN,
-            "mixers[0].tracks[1]",
-            does_not_raise,
-            "",
-            """
+            target="mixers[0].tracks[0].devices[0]",
+            sidechain_name=Names.SIDECHAIN,
+            sidechain_target="mixers[0].tracks[1]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="",
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -7,6 +7,8 @@
@@ -117,15 +122,15 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
                                          bus: 18.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 20.0
                              1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/s_new', 'supriya:fb-patch-cable:2x2', 1023, 0, 1014, 'in_', 22.0, 'out', 20.0]
             """,
         ),
         # sidechain from younger auntie to none
-        (
-            [
+        SetSidechainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
@@ -140,12 +145,12 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
                     {"name": Names.SIDECHAIN, "source": "mixers[0].tracks[1]"},
                 ),
             ],
-            "mixers[0].tracks[0].devices[0]",
-            Names.SIDECHAIN,
-            None,
-            does_not_raise,
-            "",
-            """
+            target="mixers[0].tracks[0].devices[0]",
+            sidechain_name=Names.SIDECHAIN,
+            sidechain_target=None,
+            maybe_raises=does_not_raise,
+            expected_components_diff="",
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -7,8 +7,8 @@
@@ -160,7 +165,7 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
                                          bus: 18.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 20.0
                              1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
             """,
-            """
+            expected_messages="""
             - ['/n_set', 1015, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
@@ -168,33 +173,26 @@ SIDECHAIN_DEVICE_CONFIG = DeviceConfig(
 )
 @pytest.mark.asyncio
 async def test_Device_set_sidechain(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
-    maybe_raises,
     online: bool,
-    device_target: str,
-    sidechain_name: str,
-    track_target: str | None,
+    scenario: SetSidechainScenario,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        device = session[device_target]
+        device = session[scenario.target]
         assert isinstance(device, Device)
-        if track_target is not None:
-            track = session[track_target]
+        if scenario.sidechain_target is not None:
+            track = session[scenario.sidechain_target]
             assert isinstance(track, Track)
         else:
             track = None
         raised = True
-        with maybe_raises:
-            await device.set_sidechain(name=sidechain_name, source=track)
+        with scenario.maybe_raises:
+            await device.set_sidechain(name=scenario.sidechain_name, source=track)
             raised = False
     if not raised:
-        assert device.sidechains[sidechain_name].source is track
+        assert device.sidechains[scenario.sidechain_name].source is track

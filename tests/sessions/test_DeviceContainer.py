@@ -251,7 +251,7 @@ async def test_DeviceContainer_add_device(
             +                    1018 group (session.mixers[0].devices[0].chains[0]:group)
             +                        1019 group (session.mixers[0].devices[0].chains[0]:devices)
             +                        1020 supriya:channel-strip:2 (session.mixers[0].devices[0].chains[0]:channel-strip)
-            +                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            +                            active: c12, done_action: 2.0, gain: c13, gate: 1.0, out: 20.0
             +                1017 supriya:patch-cable:2x2 (session.mixers[0].devices[0]:output)
             +                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
@@ -261,14 +261,15 @@ async def test_DeviceContainer_add_device(
             """
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
             - ['/sync', 3]
-            - [None, [['/c_set', 11, 1.0, 12, 0.0], ['/c_fill', 13, 2, 0.0, 15, 2, 0.0]]]
+            - ['/c_set', 11, 1.0]
+            - [None, [['/c_set', 12, 1.0, 13, 0.0], ['/c_fill', 14, 2, 0.0, 16, 2, 0.0]]]
             - [None,
                [['/g_new', 1014, 0, 1002, 1015, 0, 1014],
-                ['/s_new', 'supriya:patch-cable:2x2:replace', 1016, 0, 1014, 'in_', 16.0, 'out', 20.0],
-                ['/s_new', 'supriya:patch-cable:2x2', 1017, 1, 1014, 'in_', 20.0, 'out', 16.0]]]
+                ['/s_new', 'supriya:patch-cable:2x2:replace', 1016, 2, 1015, 'in_', 16.0, 'out', 20.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1017, 3, 1015, 'in_', 20.0, 'out', 16.0]]]
             - [None,
                [['/g_new', 1018, 0, 1015, 1019, 1, 1018],
-                ['/s_new', 'supriya:channel-strip:2', 1020, 1, 1018, 'active', 'c11', 'gain', 'c12', 'out', 20.0]]]
+                ['/s_new', 'supriya:channel-strip:2', 1020, 1, 1018, 'active', 'c12', 'gain', 'c13', 'out', 20.0]]]
             """,
         )
     ],
