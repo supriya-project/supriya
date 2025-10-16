@@ -3539,29 +3539,35 @@ async def test_Track_set_output(
             await output_from_.set_output(output_to_)
 
 
+SET_SOLOED_COMMANDS: list[tuple[str | None, str, dict | None]] = [
+    (None, "add_mixer", {"name": "Mixer"}),
+    ("mixers[0]", "add_track", {"name": "A"}),
+    ("mixers[0].tracks[0]", "add_track", {"name": "AA"}),
+    ("mixers[0].tracks[0]", "add_track", {"name": "AB"}),
+    ("mixers[0].tracks[0]", "add_track", {"name": "AC"}),
+    ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "AAA"}),
+    ("mixers[0]", "add_track", {"name": "B"}),
+]
+
+
+@dataclasses.dataclass(frozen=True)
+class SetSoloedScenario:
+    commands: list[tuple[str | None, str, dict | None]]
+    actions: list[tuple[str | None, str, dict | None]]
+    expected_messages: str
+    expected_state: list[tuple[str, bool, bool, bool]]
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands",
-    [
-        [
-            (None, "add_mixer", {"name": "Mixer"}),
-            ("mixers[0]", "add_track", {"name": "A"}),
-            ("mixers[0].tracks[0]", "add_track", {"name": "AA"}),
-            ("mixers[0].tracks[0]", "add_track", {"name": "AB"}),
-            ("mixers[0].tracks[0]", "add_track", {"name": "AC"}),
-            ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "AAA"}),
-            ("mixers[0]", "add_track", {"name": "B"}),
-        ],
-    ],
-)
-@pytest.mark.parametrize(
-    "actions, expected_state, expected_messages",
+    "scenario",
     [
         # 0
         # sololing mutes sibling tree
-        (
-            [("mixers[0].tracks[0]", "set_soloed", {"soloed": True})],
-            [
+        SetSoloedScenario(
+            commands=SET_SOLOED_COMMANDS,
+            actions=[("mixers[0].tracks[0]", "set_soloed", {"soloed": True})],
+            expected_state=[
                 ("A", True, False, True),
                 ("AA", True, False, False),
                 ("AAA", True, False, False),
@@ -3569,15 +3575,16 @@ async def test_Track_set_output(
                 ("AC", True, False, False),
                 ("B", False, False, False),
             ],
-            """
+            expected_messages="""
             - ['/c_set', 35, 0.0]
             """,
         ),
         # 1
         # soloing mutes sibling tree
-        (
-            [("mixers[0].tracks[1]", "set_soloed", {"soloed": True})],
-            [
+        SetSoloedScenario(
+            commands=SET_SOLOED_COMMANDS,
+            actions=[("mixers[0].tracks[1]", "set_soloed", {"soloed": True})],
+            expected_state=[
                 ("A", False, False, False),
                 ("AA", False, False, False),
                 ("AAA", False, False, False),
@@ -3585,15 +3592,16 @@ async def test_Track_set_output(
                 ("AC", False, False, False),
                 ("B", True, False, True),
             ],
-            """
+            expected_messages="""
             - ['/c_set', 5, 0.0, 11, 0.0, 17, 0.0, 23, 0.0, 29, 0.0]
             """,
         ),
         # 2
         # soloing includes parentage, 1
-        (
-            [("mixers[0].tracks[0].tracks[0]", "set_soloed", {"soloed": True})],
-            [
+        SetSoloedScenario(
+            commands=SET_SOLOED_COMMANDS,
+            actions=[("mixers[0].tracks[0].tracks[0]", "set_soloed", {"soloed": True})],
+            expected_state=[
                 ("A", True, False, False),
                 ("AA", True, False, True),
                 ("AAA", True, False, False),
@@ -3601,21 +3609,22 @@ async def test_Track_set_output(
                 ("AC", False, False, False),
                 ("B", False, False, False),
             ],
-            """
+            expected_messages="""
             - ['/c_set', 23, 0.0, 29, 0.0, 35, 0.0]
             """,
         ),
         # 3
         # soloing includes parentage, 2
-        (
-            [
+        SetSoloedScenario(
+            commands=SET_SOLOED_COMMANDS,
+            actions=[
                 (
                     "mixers[0].tracks[0].tracks[0].tracks[0]",
                     "set_soloed",
                     {"soloed": True},
                 )
             ],
-            [
+            expected_state=[
                 ("A", True, False, False),
                 ("AA", True, False, False),
                 ("AAA", True, False, True),
@@ -3623,18 +3632,19 @@ async def test_Track_set_output(
                 ("AC", False, False, False),
                 ("B", False, False, False),
             ],
-            """
+            expected_messages="""
             - ['/c_set', 23, 0.0, 29, 0.0, 35, 0.0]
             """,
         ),
         # 4
         # soloing is exclusive by default, and toggles off other solos
-        (
-            [
+        SetSoloedScenario(
+            commands=SET_SOLOED_COMMANDS,
+            actions=[
                 ("mixers[0].tracks[0]", "set_soloed", {"soloed": True}),
                 ("mixers[0].tracks[1]", "set_soloed", {"soloed": True}),
             ],
-            [
+            expected_state=[
                 ("A", False, False, False),
                 ("AA", False, False, False),
                 ("AAA", False, False, False),
@@ -3642,15 +3652,16 @@ async def test_Track_set_output(
                 ("AC", False, False, False),
                 ("B", True, False, True),
             ],
-            """ 
+            expected_messages=""" 
             - ['/c_set', 35, 0.0]
             - ['/c_set', 5, 0.0, 11, 0.0, 17, 0.0, 23, 0.0, 29, 0.0, 35, 1.0]
             """,
         ),
         # 5
         # soloing can be non-exclusive
-        (
-            [
+        SetSoloedScenario(
+            commands=SET_SOLOED_COMMANDS,
+            actions=[
                 ("mixers[0].tracks[0].tracks[0]", "set_soloed", {"soloed": True}),
                 (
                     "mixers[0].tracks[0].tracks[1]",
@@ -3658,7 +3669,7 @@ async def test_Track_set_output(
                     {"exclusive": False, "soloed": True},
                 ),
             ],
-            [
+            expected_state=[
                 ("A", True, False, False),
                 ("AA", True, False, True),
                 ("AAA", True, False, False),
@@ -3666,26 +3677,27 @@ async def test_Track_set_output(
                 ("AC", False, False, False),
                 ("B", False, False, False),
             ],
-            """
+            expected_messages="""
             - ['/c_set', 23, 0.0, 29, 0.0, 35, 0.0]
             - ['/c_set', 23, 1.0]
             """,
         ),
         # 6
         # deleting a soloed track unmutes other tracks
-        (
-            [
+        SetSoloedScenario(
+            commands=SET_SOLOED_COMMANDS,
+            actions=[
                 ("mixers[0].tracks[1]", "set_soloed", {"soloed": True}),
                 ("mixers[0].tracks[1]", "delete", {}),
             ],
-            [
+            expected_state=[
                 ("A", True, False, False),
                 ("AA", True, False, False),
                 ("AAA", True, False, False),
                 ("AB", True, False, False),
                 ("AC", True, False, False),
             ],
-            """
+            expected_messages="""
             - ['/c_set', 5, 0.0, 11, 0.0, 17, 0.0, 23, 0.0, 29, 0.0]
             - [None, [['/n_set', 1042, 'gate', 0.0], ['/n_set', 1045, 'done_action', 14.0]]]
             - ['/c_set', 5, 1.0, 11, 1.0, 17, 1.0, 23, 1.0, 29, 1.0]
@@ -3693,8 +3705,9 @@ async def test_Track_set_output(
         ),
         # 7
         # moving a soloed track toggles parentage muting
-        (
-            [
+        SetSoloedScenario(
+            commands=SET_SOLOED_COMMANDS,
+            actions=[
                 ("mixers[0].tracks[0].tracks[0]", "set_soloed", {"soloed": True}),
                 (
                     "mixers[0].tracks[0].tracks[0]",
@@ -3702,7 +3715,7 @@ async def test_Track_set_output(
                     {"parent": "mixers[0].tracks[1]", "index": 0},
                 ),
             ],
-            [
+            expected_state=[
                 # This is wrong, A should be inactive, B should be active
                 ("A", False, False, False),
                 ("AB", False, False, False),
@@ -3711,7 +3724,7 @@ async def test_Track_set_output(
                 ("AA", True, False, True),
                 ("AAA", True, False, False),
             ],
-            """
+            expected_messages="""
             - ['/c_set', 23, 0.0, 29, 0.0, 35, 0.0]
             - ['/s_new', 'supriya:patch-cable:2x2', 1049, 1, 1014, 'active', 'c11', 'in_', 20.0, 'out', 28.0]
             - ['/g_head', 1043, 1014]
@@ -3723,20 +3736,17 @@ async def test_Track_set_output(
 )
 @pytest.mark.asyncio
 async def test_Track_set_soloed(
-    actions: list[tuple[str | None, str, dict | None]],
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_messages: str,
-    expected_state: list[tuple[str, bool, bool, bool]],
+    scenario: SetSoloedScenario,
     online: bool,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_messages=expected_messages,
+        commands=scenario.commands,
+        expected_messages=scenario.expected_messages,
         expected_components_diff=None,
         expected_tree_diff=None,
         online=online,
     ) as session:
-        await apply_commands(session, actions)
+        await apply_commands(session, scenario.actions)
     assert [
         (
             track.name,
@@ -3745,7 +3755,7 @@ async def test_Track_set_soloed(
             track.is_soloed,
         )
         for track in session.walk(Track)
-    ] == expected_state
+    ] == scenario.expected_state
 
 
 @dataclasses.dataclass(frozen=True)
