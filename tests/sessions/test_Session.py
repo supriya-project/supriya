@@ -1,12 +1,10 @@
 import dataclasses
-from typing import Callable
 
 import pytest
 
 from supriya.enums import BootStatus
 from supriya.osc import find_free_port
 from supriya.scsynth import Options
-from supriya.sessions import Session
 
 from .conftest import Scenario, run_test
 
@@ -208,23 +206,23 @@ async def test_Session_boot(
     assert session.boot_status == BootStatus.ONLINE
 
 
+@dataclasses.dataclass(frozen=True)
+class DeleteContextScenario(Scenario):
+    context_index: int
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands",
+    "scenario",
     [
-        [
-            (None, "add_mixer", {"name": "Mixer"}),
-            ("mixers[0]", "add_track", {"name": "Track"}),
-            (None, "add_context", {"options": Options(port=find_free_port())}),
-        ],
-    ],
-)
-@pytest.mark.parametrize(
-    "context_index, expected_components_diff, expected_tree_diff",
-    [
-        (
-            0,
-            lambda session: f"""
+        DeleteContextScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+                (None, "add_context", {"options": Options(port=find_free_port())}),
+            ],
+            context_index=0,
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,2 @@
@@ -234,7 +232,7 @@ async def test_Session_boot(
             -            <Track 2 'Track'>
             -    <session.contexts[1]>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,24 +1 @@
@@ -264,9 +262,14 @@ async def test_Session_boot(
             -<session.contexts[1]>
             """,
         ),
-        (
-            1,
-            """
+        DeleteContextScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+                (None, "add_context", {"options": Options(port=find_free_port())}),
+            ],
+            context_index=1,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,3 @@
@@ -275,7 +278,7 @@ async def test_Session_boot(
                          <Track 2 'Track'>
             -    <session.contexts[1]>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -21,4 +21,3 @@
@@ -289,33 +292,30 @@ async def test_Session_boot(
 )
 @pytest.mark.asyncio
 async def test_Session_delete_context(
-    commands: list[tuple[str | None, str, dict | None]],
-    context_index: int,
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_tree_diff: str,
+    scenario: DeleteContextScenario,
     online: bool,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
         expected_messages=None,
-        expected_tree_diff=expected_tree_diff,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        await session.delete_context(session.contexts[context_index])
+        await session.delete_context(session.contexts[scenario.context_index])
     assert len(session.contexts) == 1
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, expected_messages",
+    "scenario",
     [
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            """
+            expected_messages="""
             - [None,
                [['/n_set', 1003, 'done_action', 2.0, 'gate', 0.0],
                 ['/n_free', 1004],
@@ -333,13 +333,12 @@ async def test_Session_delete_context(
 )
 @pytest.mark.asyncio
 async def test_Session_quit(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_messages: str,
+    scenario: Scenario,
     online: bool,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_messages=expected_messages,
+        commands=scenario.commands,
+        expected_messages=scenario.expected_messages,
         expected_tree_diff=None,
         online=online,
     ) as session:
@@ -347,26 +346,38 @@ async def test_Session_quit(
     assert session.boot_status == BootStatus.OFFLINE
 
 
+@dataclasses.dataclass(frozen=True)
+class SetMixerContextScenario(Scenario):
+    mixer_index: int
+    context_index: int
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands",
+    "scenario",
     [
-        [
-            (None, "add_mixer", {"name": "Mixer One"}),
-            ("mixers[0]", "add_track", {"name": "Track"}),
-            (None, "add_mixer", {"name": "Mixer Two"}),
-            (None, "add_context", {"options": Options(port=find_free_port())}),
-        ],
-    ],
-)
-@pytest.mark.parametrize(
-    "mixer_index, context_index, expected_components_diff, expected_tree_diff",
-    [
-        (0, 0, "", ""),
-        (
-            0,
-            1,
-            lambda session: f"""
+        SetMixerContextScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer One"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+                (None, "add_mixer", {"name": "Mixer Two"}),
+                (None, "add_context", {"options": Options(port=find_free_port())}),
+            ],
+            mixer_index=0,
+            context_index=0,
+            expected_components_diff="",
+            expected_tree_diff="",
+        ),
+        SetMixerContextScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer One"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+                (None, "add_mixer", {"name": "Mixer Two"}),
+                (None, "add_context", {"options": Options(port=find_free_port())}),
+            ],
+            mixer_index=0,
+            context_index=1,
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -379,7 +390,7 @@ async def test_Session_quit(
             -        <Mixer 3 'Mixer Two'>
             -    <session.contexts[1]>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -1,4 +1,16 @@
@@ -417,11 +428,28 @@ async def test_Session_quit(
             -<session.contexts[1]>
             """,
         ),
-        (1, 0, "", ""),
-        (
-            1,
-            1,
-            """
+        SetMixerContextScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer One"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+                (None, "add_mixer", {"name": "Mixer Two"}),
+                (None, "add_context", {"options": Options(port=find_free_port())}),
+            ],
+            mixer_index=1,
+            context_index=0,
+            expected_components_diff="",
+            expected_tree_diff="",
+        ),
+        SetMixerContextScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer One"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+                (None, "add_mixer", {"name": "Mixer Two"}),
+                (None, "add_context", {"options": Options(port=find_free_port())}),
+            ],
+            mixer_index=1,
+            context_index=1,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,5 +2,5 @@
@@ -432,7 +460,7 @@ async def test_Session_quit(
                      <Mixer 3 'Mixer Two'>
             -    <session.contexts[1]>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -21,15 +21,15 @@
@@ -468,22 +496,19 @@ async def test_Session_quit(
 )
 @pytest.mark.asyncio
 async def test_Session_set_mixer_context(
-    commands: list[tuple[str | None, str, dict | None]],
-    context_index: int,
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_tree_diff: str,
-    mixer_index: int,
+    scenario: SetMixerContextScenario,
     online: bool,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
         expected_messages=None,
-        expected_tree_diff=expected_tree_diff,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
         assert len(session.contexts) == 2
         assert len(session.mixers) == 2
         await session.set_mixer_context(
-            mixer=session.mixers[mixer_index], context=session.contexts[context_index]
+            mixer=session.mixers[scenario.mixer_index],
+            context=session.contexts[scenario.context_index],
         )
