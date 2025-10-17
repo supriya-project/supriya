@@ -17,7 +17,7 @@ from .conftest import Scenario, does_not_raise, run_test
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             expected_components_diff="""
             --- initial
             +++ mutation
@@ -64,7 +64,7 @@ from .conftest import Scenario, does_not_raise, run_test
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff="""
             --- initial
             +++ mutation
@@ -120,13 +120,13 @@ async def test_TrackContainer_add_track(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, TrackContainer)
-        track = await target.add_track(name="Child Track")
+        subject = session[scenario.subject]
+        assert isinstance(subject, TrackContainer)
+        track = await subject.add_track(name="Child Track")
     assert isinstance(track, Track)
-    assert track in target.tracks
-    assert track.parent is target
-    assert target.tracks[-1] is track
+    assert track in subject.tracks
+    assert track.parent is subject
+    assert subject.tracks[-1] is track
 
 
 @dataclasses.dataclass(frozen=True)
@@ -147,7 +147,7 @@ class GroupTracksScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             index=0,
             count=2,
             maybe_raises=does_not_raise,
@@ -259,7 +259,7 @@ class GroupTracksScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Track Two"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Track Three"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             index=1,
             count=2,
             maybe_raises=does_not_raise,
@@ -367,7 +367,7 @@ class GroupTracksScenario(Scenario):
             commands=[
                 (None, "add_mixer", {"name": "Self"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             index=0,
             count=1,
             maybe_raises=pytest.raises(RuntimeError),
@@ -382,7 +382,7 @@ class GroupTracksScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             index=-1,
             count=1,
             maybe_raises=pytest.raises(RuntimeError),
@@ -397,7 +397,7 @@ class GroupTracksScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Track One"}),
                 ("mixers[0]", "add_track", {"name": "Track Two"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             index=0,
             count=666,
             maybe_raises=pytest.raises(RuntimeError),
@@ -423,9 +423,9 @@ async def test_TrackContainer_group_tracks(
         raised = True
         group_track: Track | None = None
         with scenario.maybe_raises:
-            target = session[scenario.target]
-            assert isinstance(target, TrackContainer)
-            group_track = await target.group_tracks(
+            subject = session[scenario.subject]
+            assert isinstance(subject, TrackContainer)
+            group_track = await subject.group_tracks(
                 index=scenario.index, count=scenario.count, name="Group Track"
             )
             raised = False
@@ -433,6 +433,6 @@ async def test_TrackContainer_group_tracks(
         assert group_track is None
     else:
         assert isinstance(group_track, Track)
-        assert group_track in target.tracks
-        assert group_track.parent is target
-        assert target.tracks[scenario.index] is group_track
+        assert group_track in subject.tracks
+        assert group_track.parent is subject
+        assert subject.tracks[scenario.index] is group_track

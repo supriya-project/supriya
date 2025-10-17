@@ -30,7 +30,7 @@ from .conftest import Scenario, run_test
                     {"name": "Self", "target": "mixers[0].tracks[1]"},
                 ),
             ],
-            target="mixers[0].tracks[0].sends[0]",
+            subject="mixers[0].tracks[0].sends[0]",
             expected_components_diff="""
             --- initial
             +++ mutation
@@ -71,7 +71,7 @@ from .conftest import Scenario, run_test
                     {"name": "Self", "target": "mixers[0].tracks[0]"},
                 ),
             ],
-            target="mixers[0].tracks[1].sends[0]",
+            subject="mixers[0].tracks[1].sends[0]",
             expected_components_diff="""
             --- initial
             +++ mutation
@@ -126,18 +126,18 @@ async def test_TrackSend_delete(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, TrackSend)
-        parent = target.parent
-        await target.delete()
+        subject = session[scenario.subject]
+        assert isinstance(subject, TrackSend)
+        parent = subject.parent
+        await subject.delete()
     # Post-conditions
     assert parent
-    assert target not in parent.sends
-    assert target.address == "sends[?]"
-    assert target.context is None
-    assert target.parent is None
-    assert target.mixer is None
-    assert target.session is None
+    assert subject not in parent.sends
+    assert subject.address == "sends[?]"
+    assert subject.context is None
+    assert subject.parent is None
+    assert subject.mixer is None
+    assert subject.session is None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -145,7 +145,7 @@ class GainScenario:
     commands: list[tuple[str | None, str, dict | None]]
     expected_levels: list[tuple[str, list[float], list[float]]]
     gain: float
-    target: str
+    subject: str
 
 
 @pytest.mark.parametrize(
@@ -167,7 +167,7 @@ class GainScenario:
                 ),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
-            target="mixers[0].tracks[0].sends[0]",
+            subject="mixers[0].tracks[0].sends[0]",
             gain=-6,
             expected_levels=[
                 ("Mixer", [1.5, 1.5], [1.5, 1.5]),
@@ -191,7 +191,7 @@ class GainScenario:
                 ),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            target="mixers[0].tracks[1].sends[0]",
+            subject="mixers[0].tracks[1].sends[0]",
             gain=-6,
             expected_levels=[
                 ("Mixer", [1.5, 1.5], [1.5, 1.5]),
@@ -210,9 +210,9 @@ async def test_TrackSend_gain(
         commands=scenario.commands,
         online=True,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, TrackSend)
-        target.parameters["gain"].set(scenario.gain)
+        subject = session[scenario.subject]
+        assert isinstance(subject, TrackSend)
+        subject.parameters["gain"].set(scenario.gain)
     await asyncio.sleep(system.LAG_TIME * 2)
     actual_levels = [
         (

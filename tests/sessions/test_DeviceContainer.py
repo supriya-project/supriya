@@ -53,7 +53,7 @@ class AddDeviceScenario(Scenario):
         # effect with one synth, no parameter specs
         AddDeviceScenario(
             commands=[(None, "add_mixer", {"name": "Mixer"})],
-            target="mixers[0]",
+            subject="mixers[0]",
             parameter_configs=None,
             sidechain_configs=None,
             synth_configs=[
@@ -91,7 +91,7 @@ class AddDeviceScenario(Scenario):
         # effect with one synth, two parameter specs
         AddDeviceScenario(
             commands=[(None, "add_mixer", {"name": "Mixer"})],
-            target="mixers[0]",
+            subject="mixers[0]",
             parameter_configs=[
                 ParameterConfig(
                     name="mult", field=FloatField(default=0.5, has_bus=True)
@@ -145,7 +145,7 @@ class AddDeviceScenario(Scenario):
         # effect with one synth, one default-channeled sidechain
         AddDeviceScenario(
             commands=[(None, "add_mixer", {"name": "Mixer"})],
-            target="mixers[0]",
+            subject="mixers[0]",
             parameter_configs=[],
             sidechain_configs=[
                 SidechainConfig(name=Names.SIDECHAIN, channel_count=INHERIT)
@@ -201,31 +201,30 @@ async def test_DeviceContainer_add_device(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, DeviceContainer)
-        device = await target.add_device(
+        subject = session[scenario.subject]
+        assert isinstance(subject, DeviceContainer)
+        device = await subject.add_device(
             name="Device",
             parameter_configs=scenario.parameter_configs,
             sidechain_configs=scenario.sidechain_configs,
             synth_configs=scenario.synth_configs,
         )
     assert isinstance(device, Device)
-    assert device in target.devices
-    assert device.parent is target
-    assert target.devices[0] is device
+    assert device in subject.devices
+    assert device.parent is subject
+    assert subject.devices[0] is device
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "scenario",
-    # "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
     [
         Scenario(
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             expected_components_diff="""
             --- initial
             +++ mutation
@@ -285,12 +284,12 @@ async def test_DeviceContainer_add_rack(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, DeviceContainer)
-        rack = await target.add_rack(
+        subject = session[scenario.subject]
+        assert isinstance(subject, DeviceContainer)
+        rack = await subject.add_rack(
             name="Rack",
         )
     assert isinstance(rack, Rack)
-    assert rack in target.devices
-    assert rack.parent is target
-    assert target.devices[0] is rack
+    assert rack in subject.devices
+    assert rack.parent is subject
+    assert subject.devices[0] is rack

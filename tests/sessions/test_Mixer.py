@@ -21,7 +21,7 @@ from .conftest import Scenario, does_not_raise, run_test
                 ("mixers[0]", "add_track", {"name": "Track"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -73,7 +73,7 @@ from .conftest import Scenario, does_not_raise, run_test
                 ("mixers[0]", "add_track", {"name": "Track"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
             ],
-            target="mixers[1]",
+            subject="mixers[1]",
             expected_components_diff="""
             --- initial
             +++ mutation
@@ -121,20 +121,20 @@ async def test_Mixer_delete(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, Mixer)
-        await target.delete()
+        subject = session[scenario.subject]
+        assert isinstance(subject, Mixer)
+        await subject.delete()
     # N.B. The diff looks like the mixer immediately disappeared, but it hasn't.
     #      Session.dump_tree() just queries each mixer's group node, and
     #      because the mixer doesn't exist from the session's perspective, it
     #      doesn't query that group anymore.  We do this to save horizontal
     #      space, but querying the underlying context directly would show the
     #      nodes are still there, although about to be released.
-    assert target not in session.mixers
-    assert target.address == "mixers[?]"
-    assert target.context is None
-    assert target.parent is None
-    assert target.session is None
+    assert subject not in session.mixers
+    assert subject.address == "mixers[?]"
+    assert subject.context is None
+    assert subject.parent is None
+    assert subject.session is None
 
 
 @pytest.mark.parametrize(
@@ -205,7 +205,7 @@ class SetChannelCountScenario(Scenario):
                 (None, "add_mixer", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             channel_count=2,
             maybe_raises=does_not_raise,
             expected_tree_diff="",
@@ -220,7 +220,7 @@ class SetChannelCountScenario(Scenario):
                 (None, "add_mixer", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             channel_count=4,
             maybe_raises=does_not_raise,
             expected_tree_diff="""
@@ -312,7 +312,7 @@ class SetChannelCountScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Track"}),
                 ("mixers[0].tracks[0]", "set_channel_count", {"channel_count": 2}),
             ],
-            target="mixers[0]",
+            subject="mixers[0]",
             channel_count=4,
             maybe_raises=does_not_raise,
             expected_tree_diff="""
@@ -384,11 +384,11 @@ async def test_Mixer_set_channel_count(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, Mixer)
+        subject = session[scenario.subject]
+        assert isinstance(subject, Mixer)
         with scenario.maybe_raises:
-            await target.set_channel_count(channel_count=scenario.channel_count)
-    assert target.channel_count == scenario.channel_count
+            await subject.set_channel_count(channel_count=scenario.channel_count)
+    assert subject.channel_count == scenario.channel_count
 
 
 @pytest.mark.parametrize("online", [False, True])

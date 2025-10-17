@@ -27,7 +27,7 @@ from .conftest import Scenario, does_not_raise, run_test
                     },
                 ),
             ],
-            target="mixers[0].devices[0]",
+            subject="mixers[0].devices[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -73,17 +73,17 @@ async def test_DeviceBase_delete(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, DeviceBase)
-        parent = target.parent
-        await target.delete()
+        subject = session[scenario.subject]
+        assert isinstance(subject, DeviceBase)
+        parent = subject.parent
+        await subject.delete()
     assert parent
-    assert target not in parent.devices
-    assert target.address == "devices[?]"
-    assert target.context is None
-    assert target.mixer is None
-    assert target.parent is None
-    assert target.session is None
+    assert subject not in parent.devices
+    assert subject.address == "devices[?]"
+    assert subject.context is None
+    assert subject.mixer is None
+    assert subject.parent is None
+    assert subject.session is None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -115,7 +115,7 @@ class MoveScenario(Scenario):
                     },
                 ),
             ],
-            target="mixers[0].devices[0]",
+            subject="mixers[0].devices[0]",
             parent="mixers[1]",
             index=0,
             maybe_raises=pytest.raises(RuntimeError),
@@ -140,7 +140,7 @@ class MoveScenario(Scenario):
                     },
                 ),
             ],
-            target="mixers[0].devices[0]",
+            subject="mixers[0].devices[0]",
             parent="mixers[0]",
             index=0,
             maybe_raises=does_not_raise,
@@ -165,7 +165,7 @@ class MoveScenario(Scenario):
                     },
                 ),
             ],
-            target="mixers[0].devices[0]",
+            subject="mixers[0].devices[0]",
             parent="mixers[0]",
             index=-1,
             maybe_raises=pytest.raises(RuntimeError),
@@ -190,7 +190,7 @@ class MoveScenario(Scenario):
                     },
                 ),
             ],
-            target="mixers[0].devices[0]",
+            subject="mixers[0].devices[0]",
             parent="mixers[0]",
             index=2,
             maybe_raises=pytest.raises(RuntimeError),
@@ -216,7 +216,7 @@ class MoveScenario(Scenario):
                     },
                 ),
             ],
-            target="mixers[0].devices[0]",
+            subject="mixers[0].devices[0]",
             parent="mixers[0].tracks[0]",
             index=0,
             maybe_raises=does_not_raise,
@@ -289,7 +289,7 @@ class MoveScenario(Scenario):
                     },
                 ),
             ],
-            target="mixers[0].devices[1]",
+            subject="mixers[0].devices[1]",
             parent="mixers[0]",
             index=0,
             maybe_raises=does_not_raise,
@@ -362,7 +362,7 @@ class MoveScenario(Scenario):
                     },
                 ),
             ],
-            target="mixers[0].devices[0]",
+            subject="mixers[0].devices[0]",
             parent="mixers[0]",
             index=1,
             maybe_raises=does_not_raise,
@@ -424,22 +424,22 @@ async def test_DeviceBase_move(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
+        subject = session[scenario.subject]
         parent = session[scenario.parent]
-        old_parent = target.parent
+        old_parent = subject.parent
         assert isinstance(old_parent, DeviceContainer)
         assert isinstance(parent, DeviceContainer)
-        assert isinstance(target, DeviceBase)
+        assert isinstance(subject, DeviceBase)
         raised = True
         with scenario.maybe_raises:
-            await target.move(index=scenario.index, parent=parent)
+            await subject.move(index=scenario.index, parent=parent)
             raised = False
-    assert target.graph_order == scenario.expected_graph_order
+    assert subject.graph_order == scenario.expected_graph_order
     if not raised:
-        assert target.parent is parent
-        assert target in parent.devices
+        assert subject.parent is parent
+        assert subject in parent.devices
         if parent is not old_parent:
-            assert target not in old_parent.devices
+            assert subject not in old_parent.devices
 
 
 @pytest.mark.parametrize("online", [False, True])

@@ -25,7 +25,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
 class AddSendScenario(Scenario):
     maybe_raises: Any
     postfader: bool
-    send_to: str
+    target: str
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -43,8 +43,8 @@ class AddSendScenario(Scenario):
                 ("mixers[1]", "add_track", None),
             ],
             postfader=True,
-            target="mixers[0].tracks[0]",
-            send_to="mixers[1].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[1].tracks[0]",
             maybe_raises=pytest.raises(RuntimeError),
             expected_components_diff="",
             expected_tree_diff="",
@@ -60,8 +60,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             postfader=True,
+            subject="mixers[0].tracks[0]",
             target="mixers[0].tracks[0]",
-            send_to="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -112,8 +112,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[1]",
-            send_to="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[1]",
+            target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -164,8 +164,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[0]",
-            send_to="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[0].tracks[1]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -205,8 +205,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
             postfader=False,
-            target="mixers[0].tracks[0]",
-            send_to="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[0].tracks[1]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -246,8 +246,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[0]",
-            send_to="mixers[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -298,8 +298,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[0].tracks[0]",
-            send_to="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -339,8 +339,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[0].tracks[0].tracks[0]",
-            send_to="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0].tracks[0]",
+            target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -380,8 +380,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Grandchild"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[0]",
-            send_to="mixers[0].tracks[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[0].tracks[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -433,8 +433,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[1].tracks[0]",
-            send_to="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[1].tracks[0]",
+            target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -486,8 +486,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[0].tracks[0]",
-            send_to="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            target="mixers[0].tracks[1]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -529,8 +529,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[1].tracks[0]",
-            send_to="mixers[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[1].tracks[0]",
+            target="mixers[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -583,8 +583,8 @@ class AddSendScenario(Scenario):
                 ("mixers[0].tracks[1]", "add_track", {"name": "Younger Cousin"}),
             ],
             postfader=True,
-            target="mixers[0].tracks[0].tracks[0]",
-            send_to="mixers[0].tracks[1].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            target="mixers[0].tracks[1].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -629,21 +629,21 @@ async def test_Track_add_send(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[scenario.target]
-        send_to_ = session[scenario.send_to]
-        assert isinstance(target_, Track)
-        assert isinstance(send_to_, TrackContainer)
+        subject = session[scenario.subject]
+        target = session[scenario.target]
+        assert isinstance(subject, Track)
+        assert isinstance(target, TrackContainer)
         send: TrackSend | None = None
         with scenario.maybe_raises:
-            send = await target_.add_send(postfader=scenario.postfader, target=send_to_)
+            send = await subject.add_send(postfader=scenario.postfader, target=target)
     if send is None:
         return
     assert isinstance(send, TrackSend)
-    assert send in target_.sends
-    assert send.parent is target_
+    assert send in subject.sends
+    assert send.parent is subject
     assert send.postfader == scenario.postfader
-    assert send.target is send_to_
-    assert target_.sends[-1] is send
+    assert send.target is target
+    assert subject.sends[-1] is send
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -657,7 +657,7 @@ async def test_Track_add_send(
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -697,7 +697,7 @@ async def test_Track_add_send(
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -749,7 +749,7 @@ async def test_Track_add_send(
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0]",
             expected_components_diff="""
             --- initial
             +++ mutation
@@ -789,7 +789,7 @@ async def test_Track_add_send(
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -841,7 +841,7 @@ async def test_Track_add_send(
                 ("mixers[0]", "add_track", {"name": "Other"}),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -887,7 +887,7 @@ async def test_Track_add_send(
                 ("mixers[0]", "add_track", {"name": "Other"}),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -952,7 +952,7 @@ async def test_Track_add_send(
                     {"target": "mixers[0].tracks[0].tracks[0]"},
                 ),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -1028,7 +1028,7 @@ async def test_Track_add_send(
                     {"output": "mixers[0].tracks[0]"},
                 ),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -1088,7 +1088,7 @@ async def test_Track_add_send(
                 ("mixers[0]", "add_track", {"name": "Other"}),
                 ("mixers[0].tracks[1]", "set_input", {"input_": "mixers[0].tracks[0]"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -1142,17 +1142,17 @@ async def test_Track_delete(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, Track)
-        parent = target.parent
-        await target.delete()
+        subject = session[scenario.subject]
+        assert isinstance(subject, Track)
+        parent = subject.parent
+        await subject.delete()
     assert parent
-    assert target not in parent.tracks
-    assert target.address == "tracks[?]"
-    assert target.context is None
-    assert target.parent is None
-    assert target.mixer is None
-    assert target.session is None
+    assert subject not in parent.tracks
+    assert subject.address == "tracks[?]"
+    assert subject.context is None
+    assert subject.parent is None
+    assert subject.mixer is None
+    assert subject.session is None
 
 
 @pytest.mark.parametrize(
@@ -1276,7 +1276,7 @@ class MoveScenario(Scenario):
                 (None, "add_mixer", {"name": "Mixer Two"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[1]",
             index=0,
             maybe_raises=pytest.raises(RuntimeError),
@@ -1293,7 +1293,7 @@ class MoveScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[0].tracks[0].tracks[0]",
             index=0,
             maybe_raises=pytest.raises(RuntimeError),
@@ -1309,7 +1309,7 @@ class MoveScenario(Scenario):
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[0]",
             index=-1,
             maybe_raises=pytest.raises(RuntimeError),
@@ -1325,7 +1325,7 @@ class MoveScenario(Scenario):
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[0]",
             index=2,
             maybe_raises=pytest.raises(RuntimeError),
@@ -1341,7 +1341,7 @@ class MoveScenario(Scenario):
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[0]",
             index=0,
             maybe_raises=does_not_raise,
@@ -1358,7 +1358,7 @@ class MoveScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[0]",
             index=1,
             maybe_raises=does_not_raise,
@@ -1427,7 +1427,7 @@ class MoveScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[2]",
+            subject="mixers[0].tracks[2]",
             parent="mixers[0]",
             index=0,
             maybe_raises=does_not_raise,
@@ -1496,7 +1496,7 @@ class MoveScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[0].tracks[1]",
             index=0,
             maybe_raises=does_not_raise,
@@ -1565,7 +1565,7 @@ class MoveScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[0]",
             index=1,
             maybe_raises=does_not_raise,
@@ -1650,7 +1650,7 @@ class MoveScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            target="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[1]",
             parent="mixers[0]",
             index=0,
             maybe_raises=does_not_raise,
@@ -1735,7 +1735,7 @@ class MoveScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             parent="mixers[0]",
             index=1,
             maybe_raises=does_not_raise,
@@ -1819,7 +1819,7 @@ class MoveScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
-            target="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[1]",
             parent="mixers[0]",
             index=0,
             maybe_raises=does_not_raise,
@@ -1909,22 +1909,22 @@ async def test_Track_move(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
+        subject = session[scenario.subject]
         parent = session[scenario.parent]
-        old_parent = target.parent
+        old_parent = subject.parent
         assert isinstance(old_parent, TrackContainer)
         assert isinstance(parent, TrackContainer)
-        assert isinstance(target, Track)
+        assert isinstance(subject, Track)
         raised = True
         with scenario.maybe_raises:
-            await target.move(index=scenario.index, parent=parent)
+            await subject.move(index=scenario.index, parent=parent)
             raised = False
-    assert target.graph_order == scenario.expected_graph_order
+    assert subject.graph_order == scenario.expected_graph_order
     if not raised:
-        assert target.parent is parent
-        assert target in parent.tracks
+        assert subject.parent is parent
+        assert subject in parent.tracks
         if parent is not old_parent:
-            assert target not in old_parent.tracks
+            assert subject not in old_parent.tracks
 
 
 @dataclasses.dataclass(frozen=True)
@@ -1945,7 +1945,7 @@ class SetChannelCountScenario(Scenario):
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             channel_count=2,
             maybe_raises=does_not_raise,
             expected_tree_diff="",
@@ -1959,7 +1959,7 @@ class SetChannelCountScenario(Scenario):
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             channel_count=4,
             maybe_raises=does_not_raise,
             expected_tree_diff="""
@@ -2022,7 +2022,7 @@ class SetChannelCountScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             channel_count=4,
             maybe_raises=does_not_raise,
             expected_tree_diff="""
@@ -2124,7 +2124,7 @@ class SetChannelCountScenario(Scenario):
                     {"channel_count": 2},
                 ),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             channel_count=4,
             maybe_raises=does_not_raise,
             expected_tree_diff="""
@@ -2199,17 +2199,17 @@ async def test_Track_set_channel_count(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[scenario.target]
-        assert isinstance(target_, Track)
+        subject = session[scenario.subject]
+        assert isinstance(subject, Track)
         with scenario.maybe_raises:
-            await target_.set_channel_count(channel_count=scenario.channel_count)
-    assert target_.channel_count == scenario.channel_count
+            await subject.set_channel_count(channel_count=scenario.channel_count)
+    assert subject.channel_count == scenario.channel_count
 
 
 @dataclasses.dataclass(frozen=True)
 class SetInputScenario(Scenario):
     maybe_raises: Any
-    input_from: str | None
+    source: str | None
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -2226,8 +2226,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0]", "add_track", None),
                 ("mixers[1]", "add_track", None),
             ],
-            target="mixers[0].tracks[0]",
-            input_from="mixers[1].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            source="mixers[1].tracks[0]",
             maybe_raises=pytest.raises(RuntimeError),
             expected_components_diff="",
             expected_tree_diff="",
@@ -2241,8 +2241,8 @@ class SetInputScenario(Scenario):
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
-            input_from="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            source="mixers[0].tracks[0]",
             maybe_raises=pytest.raises(RuntimeError),
             expected_components_diff="",
             expected_tree_diff="",
@@ -2256,8 +2256,8 @@ class SetInputScenario(Scenario):
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
-            input_from=None,
+            subject="mixers[0].tracks[0]",
+            source=None,
             maybe_raises=does_not_raise,
             expected_components_diff="",
             expected_tree_diff="",
@@ -2272,8 +2272,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            target="mixers[0].tracks[0]",
-            input_from="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[0]",
+            source="mixers[0].tracks[1]",
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -2314,8 +2314,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[1]",
-            input_from="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[1]",
+            source="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -2353,8 +2353,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            target="mixers[0].tracks[0]",
-            input_from="mixers[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            source="mixers[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -2393,8 +2393,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0].tracks[0]",
-            input_from="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            source="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -2435,8 +2435,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0].tracks[0].tracks[0]",
-            input_from="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0].tracks[0]",
+            source="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -2477,8 +2477,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Grandchild"}),
             ],
-            target="mixers[0].tracks[0]",
-            input_from="mixers[0].tracks[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            source="mixers[0].tracks[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -2519,8 +2519,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[1].tracks[0]",
-            input_from="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[1].tracks[0]",
+            source="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -2559,8 +2559,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0].tracks[0]",
-            input_from="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            source="mixers[0].tracks[1]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -2603,8 +2603,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Older Cousin"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[1].tracks[0]",
-            input_from="mixers[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[1].tracks[0]",
+            source="mixers[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -2644,8 +2644,8 @@ class SetInputScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Younger Cousin"}),
             ],
-            target="mixers[0].tracks[0].tracks[0]",
-            input_from="mixers[0].tracks[1].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            source="mixers[0].tracks[1].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -2692,17 +2692,17 @@ async def test_Track_set_input(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        input_from: BusGroup | Track | None = None
-        assert isinstance(target, Track)
-        if isinstance(scenario.input_from, str):
-            input_from_component = session[scenario.input_from]
-            assert isinstance(input_from_component, Track)
-            input_from = input_from_component
+        subject = session[scenario.subject]
+        source: BusGroup | Track | None = None
+        assert isinstance(subject, Track)
+        if isinstance(scenario.source, str):
+            source_component = session[scenario.source]
+            assert isinstance(source_component, Track)
+            source = source_component
         # TODO: Because the context could be null, we need the "promise" of a bus group.
-        # elif isinstance(target, tuple):
-        #     index, count = target
-        #     target_ = BusGroup(
+        # elif isinstance(subject, tuple):
+        #     index, count = subject
+        #     subject_ = BusGroup(
         #         context=session["mixers[0]"].context,
         #         calculation_rate=CalculationRate.AUDIO,
         #         id_=index,
@@ -2710,7 +2710,7 @@ async def test_Track_set_input(
         #     )
         # Operation
         with scenario.maybe_raises:
-            await target.set_input(input_from)
+            await subject.set_input(source)
 
 
 SET_MUTED_COMMANDS: list[tuple[str | None, str, dict | None]] = [
@@ -2855,7 +2855,7 @@ async def test_Track_set_name(online: bool) -> None:
 @dataclasses.dataclass(frozen=True)
 class SetOutputScenario(Scenario):
     maybe_raises: Any
-    output_to: Inherit | str | None
+    target: Inherit | str | None
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -2872,8 +2872,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0]", "add_track", None),
                 ("mixers[1]", "add_track", None),
             ],
-            target="mixers[0].tracks[0]",
-            output_to="mixers[1].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[1].tracks[0]",
             maybe_raises=pytest.raises(RuntimeError),
             expected_components_diff="",
             expected_tree_diff="",
@@ -2887,8 +2887,8 @@ class SetOutputScenario(Scenario):
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
+            subject="mixers[0].tracks[0]",
             target="mixers[0].tracks[0]",
-            output_to="mixers[0].tracks[0]",
             maybe_raises=pytest.raises(RuntimeError),
             expected_components_diff="",
             expected_tree_diff="",
@@ -2902,8 +2902,8 @@ class SetOutputScenario(Scenario):
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
-            output_to=None,
+            subject="mixers[0].tracks[0]",
+            target=None,
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -2943,8 +2943,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            target="mixers[0].tracks[0]",
-            output_to="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[0].tracks[1]",
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -2988,8 +2988,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[1]",
-            output_to="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[1]",
+            target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -3044,8 +3044,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            target="mixers[0].tracks[0]",
-            output_to="mixers[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -3101,8 +3101,8 @@ class SetOutputScenario(Scenario):
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
-            output_to="mixers[0]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[0]",
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -3127,8 +3127,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0].tracks[0]",
-            output_to="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -3154,8 +3154,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0].tracks[0]",
-            output_to=INHERIT,
+            subject="mixers[0].tracks[0].tracks[0]",
+            target=INHERIT,
             maybe_raises=does_not_raise,
             expected_components_diff="",
             expected_tree_diff="",
@@ -3171,8 +3171,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0].tracks[0].tracks[0]",
-            output_to="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0].tracks[0]",
+            target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -3216,8 +3216,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Grandchild"}),
             ],
-            target="mixers[0].tracks[0]",
-            output_to="mixers[0].tracks[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
+            target="mixers[0].tracks[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -3275,8 +3275,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[1].tracks[0]",
-            output_to="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[1].tracks[0]",
+            target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -3332,8 +3332,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0].tracks[0]",
-            output_to="mixers[0].tracks[1]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            target="mixers[0].tracks[1]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -3379,8 +3379,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Older Cousin"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[1].tracks[0]",
-            output_to="mixers[0].tracks[0].tracks[0]",
+            subject="mixers[0].tracks[1].tracks[0]",
+            target="mixers[0].tracks[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -3437,8 +3437,8 @@ class SetOutputScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Younger Cousin"}),
             ],
-            target="mixers[0].tracks[0].tracks[0]",
-            output_to="mixers[0].tracks[1].tracks[0]",
+            subject="mixers[0].tracks[0].tracks[0]",
+            target="mixers[0].tracks[1].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
@@ -3488,26 +3488,26 @@ async def test_Track_set_output(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        output_from_ = session[scenario.target]
-        output_to_: BusGroup | Inherit | TrackContainer | None = None
+        output_from_ = session[scenario.subject]
+        target: BusGroup | Inherit | TrackContainer | None = None
         assert isinstance(output_from_, Track)
-        if isinstance(scenario.output_to, Inherit):
-            output_to_ = INHERIT
-        elif isinstance(scenario.output_to, str):
-            output_to_component = session[scenario.output_to]
-            assert isinstance(output_to_component, TrackContainer)
-            output_to_ = output_to_component
+        if isinstance(scenario.target, Inherit):
+            target = INHERIT
+        elif isinstance(scenario.target, str):
+            targetcomponent = session[scenario.target]
+            assert isinstance(targetcomponent, TrackContainer)
+            target = targetcomponent
         # TODO: Because the context could be null, we need the "promise" of a bus group.
-        # elif isinstance(target, tuple):
-        #     index, count = target
-        #     target_ = BusGroup(
+        # elif isinstance(subject, tuple):
+        #     index, count = subject
+        #     subject_ = BusGroup(
         #         context=session["mixers[0]"].context,
         #         calculation_rate=CalculationRate.AUDIO,
         #         id_=index,
         #         count=count,
         #     )
         with scenario.maybe_raises:
-            await output_from_.set_output(output_to_)
+            await output_from_.set_output(target)
 
 
 SET_SOLOED_COMMANDS: list[tuple[str | None, str, dict | None]] = [
@@ -3744,7 +3744,7 @@ class UngroupScenario(Scenario):
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             maybe_raises=pytest.raises(RuntimeError),
             expected_components_diff="",
             expected_tree_diff="",
@@ -3758,7 +3758,7 @@ class UngroupScenario(Scenario):
                 ("mixers[0].tracks[0]", "add_track", {"name": "Older Child"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Younger Child"}),
             ],
-            target="mixers[0].tracks[0]",
+            subject="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
@@ -3877,7 +3877,7 @@ async def test_Track_ungroup(
         expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target = session[scenario.target]
-        assert isinstance(target, Track)
+        subject = session[scenario.subject]
+        assert isinstance(subject, Track)
         with scenario.maybe_raises:
-            await target.ungroup()
+            await subject.ungroup()
