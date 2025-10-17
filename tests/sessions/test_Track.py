@@ -1,6 +1,6 @@
 import asyncio
 import dataclasses
-from typing import Any, Callable, Sequence
+from typing import Any, Sequence
 
 import pytest
 
@@ -21,45 +21,49 @@ from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatc
 from .conftest import Scenario, apply_commands, does_not_raise, run_test
 
 
+@dataclasses.dataclass(frozen=True)
+class AddSendScenario(Scenario):
+    maybe_raises: Any
+    postfader: bool
+    send_to: str
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, postfader, send_from, send_to, maybe_raises, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
         # 0
         # send to other mixer
         # - raises
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", None),
                 ("mixers[1]", "add_track", None),
             ],
-            True,
-            "mixers[0].tracks[0]",
-            "mixers[1].tracks[0]",
-            pytest.raises(RuntimeError),
-            """
-            """,
-            """
-            """,
-            """
-            """,
+            postfader=True,
+            target="mixers[0].tracks[0]",
+            send_to="mixers[1].tracks[0]",
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_components_diff="",
+            expected_tree_diff="",
+            expected_messages="",
         ),
         # 1
         # send to other mixer
         # send to self
         # - track: expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            True,
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[0]",
+            send_to="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,3 +2,4 @@
@@ -68,7 +72,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                          <Track 2 'Self'>
             +                <TrackSend 3 postfader target=<Track 2 'Self'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -2,12 +2,16 @@
@@ -89,7 +93,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                  in_: 18.0, out: 9.0
                              1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/c_set', 11, 0.0]
@@ -101,17 +105,17 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # send to other mixer
         # send to older sibling
         # - sibling: expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            True,
-            "mixers[0].tracks[1]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[1]",
+            send_to="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,3 +3,4 @@
@@ -120,7 +124,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                          <Track 3 'Self'>
             +                <TrackSend 4 postfader target=<Track 2 'Older Sibling'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -2,6 +2,8 @@
@@ -142,7 +146,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                  in_: 20.0, out: 15.0
                              1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:output)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/c_set', 17, 0.0]
@@ -153,17 +157,17 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 3
         # send to younger sibling
         # - sibling: do not expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            True,
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[1]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[0]",
+            send_to="mixers[0].tracks[1]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,5 @@
@@ -173,7 +177,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
             +                <TrackSend 4 postfader target=<Track 3 'Younger Sibling'>>
                          <Track 3 'Younger Sibling'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -8,6 +8,8 @@
@@ -186,7 +190,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                  in_: 18.0, out: 9.0
                              1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/c_set', 17, 0.0]
             - ['/s_new', 'supriya:patch-cable:2x2', 1021, 3, 1010, 'active', 'c5', 'gain', 'c17', 'in_', 18.0, 'out', 20.0]
             """,
@@ -194,17 +198,17 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 4
         # send to younger sibling, prefader
         # - sibling: do not expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Younger Sibling"}),
             ],
-            False,
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[1]",
-            does_not_raise,
-            """
+            postfader=False,
+            target="mixers[0].tracks[0]",
+            send_to="mixers[0].tracks[1]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,5 @@
@@ -214,7 +218,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
             +                <TrackSend 4 prefader target=<Track 3 'Younger Sibling'>>
                          <Track 3 'Younger Sibling'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -6,6 +6,8 @@
@@ -227,7 +231,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                  active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
                              1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
             """,
-            """
+            expected_messages="""
             - ['/c_set', 17, 0.0]
             - ['/s_new', 'supriya:patch-cable:2x2', 1021, 2, 1010, 'active', 'c5', 'gain', 'c17', 'in_', 18.0, 'out', 20.0]
             """,
@@ -235,17 +239,17 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 5
         # send to child
         # - child: expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            True,
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[0].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[0]",
+            send_to="mixers[0].tracks[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,3 +3,4 @@
@@ -254,7 +258,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                              <Track 3 'Child'>
             +                <TrackSend 4 postfader target=<Track 3 'Child'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,6 +4,8 @@
@@ -276,7 +280,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                  in_: 18.0, out: 9.0
                              1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/c_set', 17, 0.0]
@@ -287,17 +291,17 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 6
         # send to parent
         # - parent: do not expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            True,
-            "mixers[0].tracks[0].tracks[0]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[0].tracks[0]",
+            send_to="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,3 +3,4 @@
@@ -306,7 +310,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                              <Track 3 'Self'>
             +                    <TrackSend 4 postfader target=<Track 2 'Parent'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -10,6 +10,8 @@
@@ -319,7 +323,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                          in_: 20.0, out: 15.0
                                      1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/c_set', 17, 0.0]
             - ['/s_new', 'supriya:patch-cable:2x2', 1021, 3, 1017, 'active', 'c11', 'gain', 'c17', 'in_', 20.0, 'out', 18.0]
             """,
@@ -327,18 +331,18 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 7
         # send to grandparent
         # - grandparent: do not expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Grandparent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            True,
-            "mixers[0].tracks[0].tracks[0].tracks[0]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[0].tracks[0].tracks[0]",
+            send_to="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -4,3 +4,4 @@
@@ -347,7 +351,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                  <Track 4 'Self'>
             +                        <TrackSend 5 postfader target=<Track 2 'Grandparent'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -12,6 +12,8 @@
@@ -360,7 +364,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                                  in_: 22.0, out: 21.0
                                              1027 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/c_set', 23, 0.0]
             - ['/s_new', 'supriya:patch-cable:2x2', 1028, 3, 1024, 'active', 'c17', 'gain', 'c23', 'in_', 22.0, 'out', 18.0]
             """,
@@ -368,18 +372,18 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 8
         # send to grandchild
         # - grandchild: expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
                 ("mixers[0].tracks[0].tracks[0]", "add_track", {"name": "Grandchild"}),
             ],
-            True,
-            "mixers[0].tracks[0]",
-            "mixers[0].tracks[0].tracks[0].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[0]",
+            send_to="mixers[0].tracks[0].tracks[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -4,3 +4,4 @@
@@ -388,7 +392,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                  <Track 4 'Grandchild'>
             +                <TrackSend 5 postfader target=<Track 4 'Grandchild'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -6,6 +6,8 @@
@@ -410,7 +414,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                  in_: 18.0, out: 9.0
                              1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/c_set', 23, 0.0]
@@ -421,18 +425,18 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 9
         # send to older auntie
         # - auntie: expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
-            True,
-            "mixers[0].tracks[1].tracks[0]",
-            "mixers[0].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[1].tracks[0]",
+            send_to="mixers[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -4,3 +4,4 @@
@@ -441,7 +445,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                              <Track 4 'Self'>
             +                    <TrackSend 5 postfader target=<Track 2 'Older Auntie'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -2,6 +2,8 @@
@@ -463,7 +467,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                          in_: 22.0, out: 21.0
                                      1027 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/c_set', 23, 0.0]
@@ -474,18 +478,18 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 10
         # send to younger auntie
         # - auntie: do not expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            True,
-            "mixers[0].tracks[0].tracks[0]",
-            "mixers[0].tracks[1]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[0].tracks[0]",
+            send_to="mixers[0].tracks[1]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,4 +3,5 @@
@@ -495,7 +499,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
             +                    <TrackSend 5 postfader target=<Track 3 'Younger Auntie'>>
                          <Track 3 'Younger Auntie'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -10,6 +10,8 @@
@@ -508,7 +512,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                          in_: 20.0, out: 15.0
                                      1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/c_set', 23, 0.0]
             - ['/s_new', 'supriya:patch-cable:2x2', 1028, 3, 1017, 'active', 'c11', 'gain', 'c23', 'in_', 20.0, 'out', 22.0]
             """,
@@ -516,19 +520,19 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 11
         # send to older cousin
         # - older cousin: expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Older Cousin"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Self"}),
             ],
-            True,
-            "mixers[0].tracks[1].tracks[0]",
-            "mixers[0].tracks[0].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[1].tracks[0]",
+            send_to="mixers[0].tracks[0].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -5,3 +5,4 @@
@@ -537,7 +541,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                              <Track 5 'Self'>
             +                    <TrackSend 6 postfader target=<Track 4 'Older Cousin'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -4,6 +4,8 @@
@@ -559,7 +563,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                          in_: 24.0, out: 27.0
                                      1034 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
             - ['/sync', 3]
             - ['/c_set', 29, 0.0]
@@ -570,19 +574,19 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
         # 12
         # send to younger cousin
         # - younger cousin: do not expect :feedback
-        (
-            [
+        AddSendScenario(
+            commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0]", "add_track", {"name": "Younger Auntie"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[1]", "add_track", {"name": "Younger Cousin"}),
             ],
-            True,
-            "mixers[0].tracks[0].tracks[0]",
-            "mixers[0].tracks[1].tracks[0]",
-            does_not_raise,
-            """
+            postfader=True,
+            target="mixers[0].tracks[0].tracks[0]",
+            send_to="mixers[0].tracks[1].tracks[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,5 +3,6 @@
@@ -593,7 +597,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                          <Track 3 'Younger Auntie'>
                              <Track 5 'Younger Cousin'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -10,6 +10,8 @@
@@ -606,7 +610,7 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
                                          in_: 20.0, out: 15.0
                                      1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             """,
-            """
+            expected_messages="""
             - ['/c_set', 29, 0.0]
             - ['/s_new', 'supriya:patch-cable:2x2', 1035, 3, 1017, 'active', 'c11', 'gain', 'c29', 'in_', 20.0, 'out', 24.0]
             """,
@@ -615,53 +619,46 @@ from .conftest import Scenario, apply_commands, does_not_raise, run_test
 )
 @pytest.mark.asyncio
 async def test_Track_add_send(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
-    maybe_raises,
+    scenario: AddSendScenario,
     online: bool,
-    postfader: bool,
-    send_from: str,
-    send_to: str,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        send_from_ = session[send_from]
-        send_to_ = session[send_to]
-        assert isinstance(send_from_, Track)
+        target_ = session[scenario.target]
+        send_to_ = session[scenario.send_to]
+        assert isinstance(target_, Track)
         assert isinstance(send_to_, TrackContainer)
         send: TrackSend | None = None
-        with maybe_raises:
-            send = await send_from_.add_send(postfader=postfader, target=send_to_)
+        with scenario.maybe_raises:
+            send = await target_.add_send(postfader=scenario.postfader, target=send_to_)
     if send is None:
         return
     assert isinstance(send, TrackSend)
-    assert send in send_from_.sends
-    assert send.parent is send_from_
-    assert send.postfader == postfader
+    assert send in target_.sends
+    assert send.parent is target_
+    assert send.postfader == scenario.postfader
     assert send.target is send_to_
-    assert send_from_.sends[-1] is send
+    assert target_.sends[-1] is send
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
         # 0
         # just a track
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0]",
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,4 +1,3 @@
@@ -670,7 +667,7 @@ async def test_Track_add_send(
                      <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -7,11 +7,11 @@
@@ -688,20 +685,20 @@ async def test_Track_add_send(
                          in_: 16.0, out: 1.0
                      1002 group
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             """,
         ),
         # 1
         # parent track with child
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
-            "mixers[0].tracks[0]",
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,3 @@
@@ -711,7 +708,7 @@ async def test_Track_add_send(
             -            <Track 2 'Self'>
             -                <Track 3 'Child'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -9,20 +9,20 @@
@@ -740,20 +737,20 @@ async def test_Track_add_send(
                          in_: 16.0, out: 1.0
                      1002 group
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             """,
         ),
         # 2
         # child track
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Self"}),
             ],
-            "mixers[0].tracks[0].tracks[0]",
-            """
+            target="mixers[0].tracks[0].tracks[0]",
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,3 @@
@@ -762,7 +759,7 @@ async def test_Track_add_send(
                          <Track 2 'Parent'>
             -                <Track 3 'Self'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -9,11 +9,11 @@
@@ -780,20 +777,20 @@ async def test_Track_add_send(
                                  in_: 18.0, out: 7.0
                              1009 group
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1014, 'gate', 0.0], ['/n_set', 1017, 'done_action', 14.0]]]
             """,
         ),
         # 3
         # in-tree send to self
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            "mixers[0].tracks[0]",
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,3 @@
@@ -803,7 +800,7 @@ async def test_Track_add_send(
             -            <Track 2 'Self'>
             -                <TrackSend 3 postfader target=<Track 2 'Self'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -3,19 +3,19 @@
@@ -831,21 +828,21 @@ async def test_Track_add_send(
                          in_: 16.0, out: 1.0
                      1002 group
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0], ['/n_set', 1014, 'gate', 0.0]]]
             """,
         ),
         # 4
         # in-tree send to out-of-tree stack
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Other"}),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
-            "mixers[0].tracks[0]",
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,4 @@
@@ -856,7 +853,7 @@ async def test_Track_add_send(
             -                <TrackSend 4 postfader target=<Track 3 'Other'>>
                          <Track 3 'Other'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -7,13 +7,13 @@
@@ -877,21 +874,21 @@ async def test_Track_add_send(
                              1016 group
                              1019 supriya:meters:2
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             """,
         ),
         # 5
         # out-of-tree send to in-tree track
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Other"}),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
-            "mixers[0].tracks[0]",
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,4 @@
@@ -902,7 +899,7 @@ async def test_Track_add_send(
                          <Track 3 'Other'>
             -                <TrackSend 4 postfader target=<Track 2 'Self'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -3,17 +3,17 @@
@@ -936,15 +933,15 @@ async def test_Track_add_send(
                                  in_: 22.0, out: 15.0
                              1021 supriya:patch-cable:2x2
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0], ['/n_set', 1014, 'gate', 0.0]]]
             - ['/n_set', 1022, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
         # 6
         # out-of-tree send to in-tree child track
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Other"}),
@@ -955,8 +952,8 @@ async def test_Track_add_send(
                     {"target": "mixers[0].tracks[0].tracks[0]"},
                 ),
             ],
-            "mixers[0].tracks[0]",
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,7 +1,4 @@
@@ -968,7 +965,7 @@ async def test_Track_add_send(
                          <Track 3 'Other'>
             -                <TrackSend 5 postfader target=<Track 4 'Child'>>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -5,26 +5,26 @@
@@ -1013,15 +1010,15 @@ async def test_Track_add_send(
                                  in_: 24.0, out: 21.0
                              1028 supriya:patch-cable:2x2
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             - ['/n_set', 1029, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
         # 7
         # out-of-tree track output
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Other"}),
@@ -1031,8 +1028,8 @@ async def test_Track_add_send(
                     {"output": "mixers[0].tracks[0]"},
                 ),
             ],
-            "mixers[0].tracks[0]",
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,4 @@
@@ -1043,7 +1040,7 @@ async def test_Track_add_send(
             -            <Track 3 'Other' output=<Track 2 'Self'>>
             +            <Track 3 'Other' output=None>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -3,17 +3,17 @@
@@ -1077,22 +1074,22 @@ async def test_Track_add_send(
                          in_: 16.0, out: 1.0
                      1002 group
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0], ['/n_set', 1014, 'gate', 0.0]]]
             - ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
         # 8
         # out-of-tree track input
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0]", "add_track", {"name": "Other"}),
                 ("mixers[0].tracks[1]", "set_input", {"input_": "mixers[0].tracks[0]"}),
             ],
-            "mixers[0].tracks[0]",
-            lambda session: f"""
+            target="mixers[0].tracks[0]",
+            expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,4 @@
@@ -1103,7 +1100,7 @@ async def test_Track_add_send(
             -            <Track 3 'Other' input=<Track 2 'Self'>>
             +            <Track 3 'Other'>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -7,14 +7,14 @@
@@ -1125,7 +1122,7 @@ async def test_Track_add_send(
                              1018 supriya:meters:2
                                  in_: 20.0, out: 13.0
             """,
-            """
+            expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             - ['/n_set', 1020, 'done_action', 2.0, 'gate', 0.0]
             """,
@@ -1134,32 +1131,28 @@ async def test_Track_add_send(
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_tree_diff: str,
-    expected_messages: str,
+    scenario: Scenario,
     online: bool,
-    target: str,
 ) -> None:
     async with run_test(
         annotation=None,
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
-        target_ = session[target]
-        assert isinstance(target_, Track)
-        parent = target_.parent
-        await target_.delete()
+        target = session[scenario.target]
+        assert isinstance(target, Track)
+        parent = target.parent
+        await target.delete()
     assert parent
-    assert target_ not in parent.tracks
-    assert target_.address == "tracks[?]"
-    assert target_.context is None
-    assert target_.parent is None
-    assert target_.mixer is None
-    assert target_.session is None
+    assert target not in parent.tracks
+    assert target.address == "tracks[?]"
+    assert target.context is None
+    assert target.parent is None
+    assert target.mixer is None
+    assert target.session is None
 
 
 @pytest.mark.parametrize(
