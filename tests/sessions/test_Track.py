@@ -36,6 +36,7 @@ class AddSendScenario(Scenario):
         # send to other mixer
         # - raises
         AddSendScenario(
+            id="send to other mixer",
             commands=[
                 (None, "add_mixer", None),
                 (None, "add_mixer", None),
@@ -51,10 +52,10 @@ class AddSendScenario(Scenario):
             expected_messages="",
         ),
         # 1
-        # send to other mixer
         # send to self
         # - track: expect :feedback
         AddSendScenario(
+            id="send to self",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -102,10 +103,10 @@ class AddSendScenario(Scenario):
             """,
         ),
         # 2
-        # send to other mixer
         # send to older sibling
         # - sibling: expect :feedback
         AddSendScenario(
+            id="send to older sibling",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
@@ -158,6 +159,7 @@ class AddSendScenario(Scenario):
         # send to younger sibling
         # - sibling: do not expect :feedback
         AddSendScenario(
+            id="send to younger sibling",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -199,6 +201,7 @@ class AddSendScenario(Scenario):
         # send to younger sibling, prefader
         # - sibling: do not expect :feedback
         AddSendScenario(
+            id="send to younger sibling, prefader",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -240,6 +243,7 @@ class AddSendScenario(Scenario):
         # send to child
         # - child: expect :feedback
         AddSendScenario(
+            id="send to child",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -292,6 +296,7 @@ class AddSendScenario(Scenario):
         # send to parent
         # - parent: do not expect :feedback
         AddSendScenario(
+            id="sent to parent",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -332,6 +337,7 @@ class AddSendScenario(Scenario):
         # send to grandparent
         # - grandparent: do not expect :feedback
         AddSendScenario(
+            id="send to grandparent",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Grandparent"}),
@@ -373,6 +379,7 @@ class AddSendScenario(Scenario):
         # send to grandchild
         # - grandchild: expect :feedback
         AddSendScenario(
+            id="send to grandchild",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -426,6 +433,7 @@ class AddSendScenario(Scenario):
         # send to older auntie
         # - auntie: expect :feedback
         AddSendScenario(
+            id="send to older auntie",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
@@ -479,6 +487,7 @@ class AddSendScenario(Scenario):
         # send to younger auntie
         # - auntie: do not expect :feedback
         AddSendScenario(
+            id="send to younger auntie",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -521,6 +530,7 @@ class AddSendScenario(Scenario):
         # send to older cousin
         # - older cousin: expect :feedback
         AddSendScenario(
+            id="send to older cousin",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
@@ -575,6 +585,7 @@ class AddSendScenario(Scenario):
         # send to younger cousin
         # - younger cousin: do not expect :feedback
         AddSendScenario(
+            id="send to younger cousin",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -616,6 +627,7 @@ class AddSendScenario(Scenario):
             """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
 async def test_Track_add_send(
@@ -653,6 +665,7 @@ async def test_Track_add_send(
         # 0
         # just a track
         Scenario(
+            id="just a track",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -692,6 +705,7 @@ async def test_Track_add_send(
         # 1
         # parent track with child
         Scenario(
+            id="parent track with child",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -744,6 +758,7 @@ async def test_Track_add_send(
         # 2
         # child track
         Scenario(
+            id="child track",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -784,6 +799,7 @@ async def test_Track_add_send(
         # 3
         # in-tree send to self
         Scenario(
+            id="in-tree send to self",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -835,6 +851,7 @@ async def test_Track_add_send(
         # 4
         # in-tree send to out-of-tree stack
         Scenario(
+            id="in-tree send to out-of-tree stack",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -881,6 +898,7 @@ async def test_Track_add_send(
         # 5
         # out-of-tree send to in-tree track
         Scenario(
+            id="out-of-tree send to in-tree track",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -941,6 +959,7 @@ async def test_Track_add_send(
         # 6
         # out-of-tree send to in-tree child track
         Scenario(
+            id="out-of-tree send to in-tree child track",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1018,6 +1037,7 @@ async def test_Track_add_send(
         # 7
         # out-of-tree track output
         Scenario(
+            id="out-of-tree track output",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1082,6 +1102,7 @@ async def test_Track_add_send(
         # 8
         # out-of-tree track input
         Scenario(
+            id="out-of-tree track input",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1128,6 +1149,7 @@ async def test_Track_add_send(
             """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
@@ -1271,6 +1293,7 @@ class MoveScenario(Scenario):
         # 0
         # move to other mixer: raises
         MoveScenario(
+            id="move to other mixer",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
@@ -1288,6 +1311,7 @@ class MoveScenario(Scenario):
         # 1
         # move under child: raises
         MoveScenario(
+            id="move under child",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1305,6 +1329,7 @@ class MoveScenario(Scenario):
         # 2
         # move to same parent, index too low: raises
         MoveScenario(
+            id="move to same parent, index too low",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1321,6 +1346,7 @@ class MoveScenario(Scenario):
         # 3
         # move to same parent, index too high: raises
         MoveScenario(
+            id="move to same parent, index too high",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1337,6 +1363,7 @@ class MoveScenario(Scenario):
         # 4
         # move to same parent, same index: no-op
         MoveScenario(
+            id="move to same parent, same index",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1353,6 +1380,7 @@ class MoveScenario(Scenario):
         # 5
         # move after younger sibling
         MoveScenario(
+            id="move after younger sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1421,6 +1449,7 @@ class MoveScenario(Scenario):
         # 6
         # move before older sibling
         MoveScenario(
+            id="move before older sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Eldest Sibling"}),
@@ -1491,6 +1520,7 @@ class MoveScenario(Scenario):
         # 7
         # move under sibling
         MoveScenario(
+            id="move under sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1557,8 +1587,9 @@ class MoveScenario(Scenario):
             """,
         ),
         # 8
-        # move after younger sibling, with sends in self.
+        # move after younger sibling, with send in self
         MoveScenario(
+            id="move after younger sibling, with send in self",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1642,8 +1673,9 @@ class MoveScenario(Scenario):
             """,
         ),
         # 9
-        # move before older sibling, with send in self.
+        # move before older sibling, with send in self
         MoveScenario(
+            id="move before older sibling, with send in self",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
@@ -1727,8 +1759,9 @@ class MoveScenario(Scenario):
             """,
         ),
         # 10
-        # move after younger sibling, with sends in sibling.
+        # move after younger sibling, with send in sibling
         MoveScenario(
+            id="move after younger sibling, with send in sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1811,8 +1844,9 @@ class MoveScenario(Scenario):
             """,
         ),
         # 11
-        # move before older sibling, with send in sibling.
+        # move before older sibling, with send in sibling
         MoveScenario(
+            id="move before older sibling, with send in sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
@@ -1895,6 +1929,7 @@ class MoveScenario(Scenario):
             """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
 async def test_Track_move(
@@ -2187,6 +2222,7 @@ class SetChannelCountScenario(Scenario):
             """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
 async def test_Track_set_channel_count(
@@ -2220,6 +2256,7 @@ class SetInputScenario(Scenario):
         # input from other mixer
         # - raises
         SetInputScenario(
+            id="input from other mixer",
             commands=[
                 (None, "add_mixer", None),
                 (None, "add_mixer", None),
@@ -2237,6 +2274,7 @@ class SetInputScenario(Scenario):
         # input from self
         # - raises
         SetInputScenario(
+            id="input from self",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2252,6 +2290,7 @@ class SetInputScenario(Scenario):
         # input is none
         # - no input
         SetInputScenario(
+            id="input is none",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2267,6 +2306,7 @@ class SetInputScenario(Scenario):
         # input from younger sibling
         # - self: expect feedback
         SetInputScenario(
+            id="input from younger sibling",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2309,6 +2349,7 @@ class SetInputScenario(Scenario):
         # input from older sibling
         # - self: do not expect feedback
         SetInputScenario(
+            id="input from older sibing",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
@@ -2348,6 +2389,7 @@ class SetInputScenario(Scenario):
         # input from child
         # - self: do not expect feedback
         SetInputScenario(
+            id="input from child",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2388,6 +2430,7 @@ class SetInputScenario(Scenario):
         # input from parent
         # - self: expect feedback
         SetInputScenario(
+            id="input from parent",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -2429,6 +2472,7 @@ class SetInputScenario(Scenario):
         # input from grandparent
         # - self: expect feedback
         SetInputScenario(
+            id="input from grandparent",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Grandparent"}),
@@ -2471,6 +2515,7 @@ class SetInputScenario(Scenario):
         # input from grandchild
         # - self: do not expect feedback
         SetInputScenario(
+            id="input from grandchild",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2513,6 +2558,7 @@ class SetInputScenario(Scenario):
         # input from older auntie
         # - self: do not expect feedback
         SetInputScenario(
+            id="input from older auntie",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
@@ -2553,6 +2599,7 @@ class SetInputScenario(Scenario):
         # input from younger auntie
         # - self: expect feedback
         SetInputScenario(
+            id="input from younger auntie",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -2596,6 +2643,7 @@ class SetInputScenario(Scenario):
         # input from older cousin
         # - self: do not expect feedback
         SetInputScenario(
+            id="input from older cousin", 
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
@@ -2637,6 +2685,7 @@ class SetInputScenario(Scenario):
         # input from younger cousin
         # - self: expect feedback
         SetInputScenario(
+            id="input from younger cousin", 
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -2679,6 +2728,7 @@ class SetInputScenario(Scenario):
             """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
 async def test_Track_set_input(
@@ -2866,6 +2916,7 @@ class SetOutputScenario(Scenario):
         # output to other mixer
         # - raises
         SetOutputScenario(
+            id="output to the mixer",
             commands=[
                 (None, "add_mixer", None),
                 (None, "add_mixer", None),
@@ -2898,6 +2949,7 @@ class SetOutputScenario(Scenario):
         # output is none
         # - no output
         SetOutputScenario(
+            id="output is none",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2938,6 +2990,7 @@ class SetOutputScenario(Scenario):
         # output to younger sibling
         # - younger sibling: do not expect :feedback
         SetOutputScenario(
+            id="output to younger sibling",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2983,6 +3036,7 @@ class SetOutputScenario(Scenario):
         # output to older sibling
         # - older sibling: expect :feedback
         SetOutputScenario(
+            id="output to older sibling",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Sibling"}),
@@ -3039,6 +3093,7 @@ class SetOutputScenario(Scenario):
         # output to child
         # - child: expect :feedback
         SetOutputScenario(
+            id="output to child",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -3097,6 +3152,7 @@ class SetOutputScenario(Scenario):
         # - this is a no-op
         # - mixer: do not expect :feedback
         SetOutputScenario(
+            id="output to mixer",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -3122,6 +3178,7 @@ class SetOutputScenario(Scenario):
         # - this is a no-op except for the Track repr
         # - parent: do not expect :feedback
         SetOutputScenario(
+            id="output to parent",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -3165,6 +3222,7 @@ class SetOutputScenario(Scenario):
         # output to grandparent
         # - grandparent: do not expect :feedback
         SetOutputScenario(
+            id="output to grandparent",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Grandparent"}),
@@ -3210,6 +3268,7 @@ class SetOutputScenario(Scenario):
         # output to grandchild
         # - grandchild: expect :feedback
         SetOutputScenario(
+            id="output to grandchild",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -3269,6 +3328,7 @@ class SetOutputScenario(Scenario):
         # output to older auntie
         # - older auntie: expect :feedback
         SetOutputScenario(
+            id="output to older auntie",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
@@ -3326,6 +3386,7 @@ class SetOutputScenario(Scenario):
         # output to younger auntie
         # - younger auntie: do not expect :feedback
         SetOutputScenario(
+            id="output to younger cousin",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -3372,6 +3433,7 @@ class SetOutputScenario(Scenario):
         # output to older cousin
         # - older cousin: expect :feedback
         SetOutputScenario(
+            id="output to older cousin",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
@@ -3430,6 +3492,7 @@ class SetOutputScenario(Scenario):
         # output to younger cousin
         # - younger cousin: do not expect :feedback
         SetOutputScenario(
+            id="output to younger cousin",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -3475,6 +3538,7 @@ class SetOutputScenario(Scenario):
             """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
 async def test_Track_set_output(

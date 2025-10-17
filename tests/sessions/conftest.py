@@ -15,6 +15,7 @@ from supriya.ugens import decompile_synthdefs
 
 @dataclasses.dataclass(frozen=True)
 class Scenario:
+    id: str | None = dataclasses.field(default=None, kw_only=True)
     commands: list[tuple[str | None, str, dict | None]] | None = dataclasses.field(
         default=None, kw_only=True
     )
