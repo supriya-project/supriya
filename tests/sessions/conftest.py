@@ -23,7 +23,7 @@ class Scenario:
     )
     expected_messages: str | None = dataclasses.field(default=None, kw_only=True)
     expected_tree_diff: str | None = dataclasses.field(default=None, kw_only=True)
-    target: str
+    target: str = dataclasses.field(default="", kw_only=True)
 
 
 async def apply_commands(

@@ -1,3 +1,4 @@
+import dataclasses
 from typing import Callable
 
 import pytest
@@ -7,19 +8,19 @@ from supriya.osc import find_free_port
 from supriya.scsynth import Options
 from supriya.sessions import Session
 
-from .conftest import run_test
+from .conftest import Scenario, run_test
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, expected_components_diff, expected_tree_diff",
+    "scenario",
     [
-        (
-            [
+        Scenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            """
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,3 +2,4 @@
@@ -28,7 +29,7 @@ from .conftest import run_test
                          <Track 2 'Track'>
             +    <session.contexts[1]>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -21,3 +21,4 @@
@@ -42,15 +43,13 @@ from .conftest import run_test
 )
 @pytest.mark.asyncio
 async def test_Session_add_context(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_tree_diff: str,
+    scenario: Scenario,
     online: bool,
 ) -> None:
     async with run_test(
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
         assert len(session.contexts) == 1
@@ -61,18 +60,23 @@ async def test_Session_add_context(
     assert context.boot_status == session.boot_status
 
 
+@dataclasses.dataclass(frozen=True)
+class AddMixerScenario(Scenario):
+    reuse_context: bool
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, reuse_context, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [
-        (
-            [
+        AddMixerScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 (None, "add_context", {"options": Options(port=find_free_port())}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            False,
-            """
+            reuse_context=False,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -3,3 +3,4 @@
@@ -81,7 +85,7 @@ async def test_Session_add_context(
                  <session.contexts[1]>
             +        <Mixer 3>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -22,3 +22,14 @@
@@ -100,7 +104,7 @@ async def test_Session_add_context(
             +        1006 supriya:patch-cable:2x2 (session.mixers[1]:output)
             +            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
             """,
-            r"""
+            expected_messages=r"""
             - ['/d_recv', <SynthDef: supriya:channel-strip:2>]
             - ['/d_recv', <SynthDef: supriya:meters:2>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2>]
@@ -114,14 +118,14 @@ async def test_Session_add_context(
                 ['/s_new', 'supriya:patch-cable:2x2', 1006, 1, 1000, 'in_', 16.0]]]
             """,
         ),
-        (
-            [
+        AddMixerScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 (None, "add_context", {"options": Options(port=find_free_port())}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
-            True,
-            """
+            reuse_context=True,
+            expected_components_diff="""
             --- initial
             +++ mutation
             @@ -2,4 +2,5 @@
@@ -131,7 +135,7 @@ async def test_Session_add_context(
             +        <Mixer 3>
                  <session.contexts[1]>
             """,
-            """
+            expected_tree_diff="""
             --- initial
             +++ mutation
             @@ -21,4 +21,15 @@
@@ -151,7 +155,7 @@ async def test_Session_add_context(
             +            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
              <session.contexts[1]>
             """,
-            """
+            expected_messages="""
             - [None, [['/c_set', 11, 0.0], ['/c_fill', 12, 2, 0.0, 14, 2, 0.0]]]
             - [None,
                [['/g_new', 1014, 0, 1, 1015, 0, 1014, 1016, 1, 1014],
@@ -165,24 +169,22 @@ async def test_Session_add_context(
 )
 @pytest.mark.asyncio
 async def test_Session_add_mixer(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
+    scenario: AddMixerScenario,
     online: bool,
-    reuse_context: bool,
 ) -> None:
     async with run_test(
-        commands=commands,
-        context_index=0 if reuse_context else 1,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
+        commands=scenario.commands,
+        context_index=0 if scenario.reuse_context else 1,
+        expected_components_diff=scenario.expected_components_diff,
+        expected_messages=scenario.expected_messages,
+        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
         assert len(session.contexts) == 2
         assert len(session.mixers) == 1
-        await session.add_mixer(context=None if reuse_context else session.contexts[1])
+        await session.add_mixer(
+            context=None if scenario.reuse_context else session.contexts[1]
+        )
     assert len(session.mixers) == 2
 
 
