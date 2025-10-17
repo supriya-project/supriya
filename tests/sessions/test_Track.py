@@ -1187,11 +1187,7 @@ async def test_Track_delete(
                 (
                     "mixers[0].tracks[0]",
                     "add_device",
-                    {
-                        "synth_configs": [
-                            SynthConfig(synthdef=system.build_dc_tester_synthdef)
-                        ]
-                    },
+                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
             ],
             "mixers[0].tracks[0]",
@@ -1209,11 +1205,7 @@ async def test_Track_delete(
                 (
                     "mixers[0].tracks[0].tracks[0]",
                     "add_device",
-                    {
-                        "synth_configs": [
-                            SynthConfig(synthdef=system.build_dc_tester_synthdef)
-                        ]
-                    },
+                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
             ],
             "mixers[0].tracks[0]",
@@ -1232,11 +1224,7 @@ async def test_Track_delete(
                 (
                     "mixers[0].tracks[0].tracks[0]",
                     "add_device",
-                    {
-                        "synth_configs": [
-                            SynthConfig(synthdef=system.build_dc_tester_synthdef)
-                        ]
-                    },
+                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
                 ("mixers[0].tracks[0]", "set_parameter", {"name": "gain", "value": -6}),
             ],
@@ -2643,7 +2631,7 @@ class SetInputScenario(Scenario):
         # input from older cousin
         # - self: do not expect feedback
         SetInputScenario(
-            id="input from older cousin", 
+            id="input from older cousin",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Older Auntie"}),
@@ -2685,7 +2673,7 @@ class SetInputScenario(Scenario):
         # input from younger cousin
         # - self: expect feedback
         SetInputScenario(
-            id="input from younger cousin", 
+            id="input from younger cousin",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),

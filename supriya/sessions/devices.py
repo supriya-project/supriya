@@ -14,7 +14,7 @@ from .routing import Input
 from .specs import Spec, SpecFactory
 
 if TYPE_CHECKING:
-    from .chains import Chain, Rack
+    from .racks import Chain, Rack
     from .tracks import Track
 
 

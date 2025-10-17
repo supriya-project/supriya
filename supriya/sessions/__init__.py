@@ -2,7 +2,6 @@
 Affordances for building DAW-like applications.
 """
 
-from .chains import Chain, Rack
 from .components import Component
 from .constants import ChannelCount, Names
 from .devices import (
@@ -16,6 +15,7 @@ from .devices import (
 )
 from .mixers import Mixer
 from .parameters import BoolField, Field, FloatField, IntField, Parameter
+from .racks import Chain, Rack
 from .sessions import Session
 from .tracks import Track, TrackContainer, TrackSend
 

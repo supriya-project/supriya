@@ -33,7 +33,6 @@ class Names(StrEnum):
     """
 
     ACTIVE = "active"
-    AUX = "aux"
     CHAINS = "chains"
     CHANNEL_STRIP = "channel-strip"
     DEVICES = "devices"

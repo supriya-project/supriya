@@ -159,11 +159,7 @@ class GainScenario:
                 (
                     "mixers[0].tracks[0]",
                     "add_device",
-                    {
-                        "synth_configs": [
-                            SynthConfig(synthdef=system.build_dc_tester_synthdef)
-                        ]
-                    },
+                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
@@ -183,11 +179,7 @@ class GainScenario:
                 (
                     "mixers[0].tracks[1]",
                     "add_device",
-                    {
-                        "synth_configs": [
-                            SynthConfig(synthdef=system.build_dc_tester_synthdef)
-                        ]
-                    },
+                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],

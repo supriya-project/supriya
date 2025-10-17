@@ -46,7 +46,11 @@ LAG_TIME = 0.05
 
 
 @lru_cache(maxsize=32)
-def build_dc_tester_synthdef(channel_count: int) -> SynthDef:
+def build_dc_synthdef(
+    channel_count: int,
+    write_mode: Literal["mix", "replace", "sum"] = "sum",
+) -> SynthDef:
+    name = f"supriya:dc:{channel_count}"
     with SynthDefBuilder(
         out=Parameter(rate=ParameterRate.SCALAR, value=0),
         active=1,
@@ -67,8 +71,16 @@ def build_dc_tester_synthdef(channel_count: int) -> SynthDef:
         )
         source = DC.ar(source=builder["dc"])
         source *= active_gate * free_gate
-        Out.ar(bus=builder["out"], source=source)
-    return builder.build(f"supriya:dc-tester:{channel_count}")
+        if write_mode == "sum":
+            Out.ar(bus=builder["out"], source=source)
+        elif write_mode == "replace":
+            ReplaceOut.ar(bus=builder["out"], source=source)
+            name += ":replace"
+        else:
+            mix = builder.add_parameter(name="mix", value=0.0)
+            XOut.ar(bus=builder["out"], crossfade=mix, source=source)
+            name += ":mix"
+    return builder.build(name)
 
 
 @lru_cache(maxsize=1)
@@ -665,7 +677,7 @@ __all__ = [
     "SYSTEM_SYNTHDEFS",
     "build_amplitude_scope_synthdef",
     "build_channel_strip_synthdef",
-    "build_dc_tester_synthdef",
+    "build_dc_synthdef",
     "build_default_synthdef",
     "build_frequency_scope_synthdef",
     "build_link_audio_synthdef",

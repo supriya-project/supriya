@@ -4,7 +4,7 @@ from typing import Any, Sequence
 import pytest
 
 from supriya.sessions import DeviceBase, DeviceContainer, Session, SynthConfig
-from supriya.ugens.system import build_dc_tester_synthdef
+from supriya.ugens.system import build_dc_synthdef
 
 from .conftest import Scenario, does_not_raise, run_test
 
@@ -20,9 +20,7 @@ from .conftest import Scenario, does_not_raise, run_test
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Self",
                     },
                 ),
@@ -45,10 +43,10 @@ from .conftest import Scenario, does_not_raise, run_test
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             -            1007 group (devices[2]:group)
-            -                1008 supriya:dc-tester:2 (devices[2]:synth-0)
+            -                1008 supriya:dc:2 (devices[2]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
             +            1007 group
-            +                1008 supriya:dc-tester:2
+            +                1008 supriya:dc:2
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 14.0, gate: 0.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
@@ -101,6 +99,7 @@ class MoveScenario(Scenario):
         # 0
         # move to other mixer: raises
         MoveScenario(
+            id="move to other mixer",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (None, "add_mixer", {"name": "Mixer Two"}),
@@ -108,9 +107,7 @@ class MoveScenario(Scenario):
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Self",
                     },
                 ),
@@ -127,15 +124,14 @@ class MoveScenario(Scenario):
         # 1
         # move to same parent, same index: no-op
         MoveScenario(
+            id="move to same parent, same index",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Self",
                     },
                 ),
@@ -152,15 +148,14 @@ class MoveScenario(Scenario):
         # 2
         # move to same parent, index too low: raises
         MoveScenario(
+            id="move to same parent, index too low",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Self",
                     },
                 ),
@@ -177,15 +172,14 @@ class MoveScenario(Scenario):
         # 3
         # move to same parent, index too high: raises
         MoveScenario(
+            id="move to same parent, index too high",
             commands=[
                 (None, "add_mixer", {"name": "Mixer One"}),
                 (
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Self",
                     },
                 ),
@@ -200,8 +194,9 @@ class MoveScenario(Scenario):
             expected_messages="",
         ),
         # 4
-        # move to other device container
+        # move to other parent
         MoveScenario(
+            id="move to other parent",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track"}),
@@ -209,9 +204,7 @@ class MoveScenario(Scenario):
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Self",
                     },
                 ),
@@ -239,9 +232,9 @@ class MoveScenario(Scenario):
                                  in_: 18.0, out: 7.0
                              1009 group (tracks[2]:devices)
             +                    1014 group (devices[3]:group)
-            +                        1015 supriya:dc-tester:2
+            +                        1015 supriya:dc:2
             +                            out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 0.0
-            +                        1016 supriya:dc-tester:2 (devices[3]:synth-0)
+            +                        1016 supriya:dc:2 (devices[3]:synth-0)
             +                            out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
                              1010 supriya:channel-strip:2 (tracks[2]:channel-strip)
                                  active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
@@ -251,14 +244,14 @@ class MoveScenario(Scenario):
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             -            1014 group (devices[3]:group)
-            -                1015 supriya:dc-tester:2 (devices[3]:synth-0)
+            -                1015 supriya:dc:2 (devices[3]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (mixers[1]:output-levels)
             """,
             expected_messages="""
-            - ['/s_new', 'supriya:dc-tester:2', 1016, 1, 1014, 'out', 18.0]
+            - ['/s_new', 'supriya:dc:2', 1016, 1, 1014, 'out', 18.0]
             - ['/g_head', 1009, 1014]
             - ['/n_set', 1015, 'done_action', 2.0, 'gate', 0.0]
             """,
@@ -266,15 +259,14 @@ class MoveScenario(Scenario):
         # 5
         # move before sibling
         MoveScenario(
+            id="move before sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 (
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Older Sibling",
                     },
                 ),
@@ -282,9 +274,7 @@ class MoveScenario(Scenario):
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Self",
                     },
                 ),
@@ -313,17 +303,17 @@ class MoveScenario(Scenario):
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             +            1010 group (devices[3]:group)
-            +                1011 supriya:dc-tester:2 (devices[3]:synth-0)
+            +                1011 supriya:dc:2 (devices[3]:synth-0)
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
             +                1012 supriya:meters:2 (devices[3]:levels)
             +                    in_: 16.0, out: 7.0
                          1007 group (devices[2]:group)
-                             1008 supriya:dc-tester:2 (devices[2]:synth-0)
+                             1008 supriya:dc:2 (devices[2]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
             -                1009 supriya:meters:2 (devices[2]:levels)
             -                    in_: 16.0, out: 5.0
             -            1010 group (devices[3]:group)
-            -                1011 supriya:dc-tester:2 (devices[3]:synth-0)
+            -                1011 supriya:dc:2 (devices[3]:synth-0)
                                  out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
@@ -339,15 +329,14 @@ class MoveScenario(Scenario):
         # 6
         # move after sibling
         MoveScenario(
+            id="move after sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 (
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Self",
                     },
                 ),
@@ -355,9 +344,7 @@ class MoveScenario(Scenario):
                     "mixers[0]",
                     "add_device",
                     {
-                        "synth_configs": [
-                            SynthConfig(synthdef=build_dc_tester_synthdef)
-                        ],
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
                         "name": "Younger Sibling",
                     },
                 ),
@@ -386,17 +373,17 @@ class MoveScenario(Scenario):
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             +            1010 group (devices[3]:group)
-            +                1011 supriya:dc-tester:2 (devices[3]:synth-0)
+            +                1011 supriya:dc:2 (devices[3]:synth-0)
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
             +                1012 supriya:meters:2 (devices[3]:levels)
             +                    in_: 16.0, out: 7.0
                          1007 group (devices[2]:group)
-                             1008 supriya:dc-tester:2 (devices[2]:synth-0)
+                             1008 supriya:dc:2 (devices[2]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
             -                1009 supriya:meters:2 (devices[2]:levels)
             -                    in_: 16.0, out: 5.0
             -            1010 group (devices[3]:group)
-            -                1011 supriya:dc-tester:2 (devices[3]:synth-0)
+            -                1011 supriya:dc:2 (devices[3]:synth-0)
                                  out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
@@ -410,6 +397,7 @@ class MoveScenario(Scenario):
             """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
 async def test_DeviceBase_move(
@@ -448,7 +436,7 @@ async def test_DeviceBase_set_name(online: bool) -> None:
     session = Session()
     mixer = await session.add_mixer()
     device = await mixer.add_device(
-        synth_configs=[SynthConfig(synthdef=build_dc_tester_synthdef)]
+        synth_configs=[SynthConfig(synthdef=build_dc_synthdef)]
     )
     if online:
         await session.boot()

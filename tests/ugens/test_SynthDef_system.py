@@ -1246,7 +1246,7 @@ def test_patch_cable_routing(
     # TODO: Validate that mixing works for non-power-of-2 channel counts.
     assert len(input_levels) in [1, 2, 4, 8]
     assert len(expected_output_levels) in [1, 2, 4, 8]
-    dc_tester_synthdef = system.build_dc_tester_synthdef(input_count)
+    dc_synthdef = system.build_dc_synthdef(input_count)
     patch_cable_synthdef = system.build_patch_cable_synthdef(input_count, output_count)
     meters_synthdef = system.build_meters_synthdef(output_count)
     server = Server().boot()
@@ -1261,13 +1261,13 @@ def test_patch_cable_routing(
     )
     with server.at():
         with server.add_synthdefs(
-            dc_tester_synthdef, patch_cable_synthdef, meters_synthdef
+            dc_synthdef, patch_cable_synthdef, meters_synthdef
         ):
             server.add_synth(
                 add_action=AddAction.ADD_TO_TAIL,
                 dc=input_levels,
                 out=audio_input_bus,
-                synthdef=dc_tester_synthdef,
+                synthdef=dc_synthdef,
             )
             server.add_synth(
                 add_action=AddAction.ADD_TO_TAIL,

@@ -146,11 +146,7 @@ async def test_Mixer_delete(
                 (
                     "mixers[0]",
                     "add_device",
-                    {
-                        "synth_configs": [
-                            SynthConfig(synthdef=system.build_dc_tester_synthdef)
-                        ]
-                    },
+                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
             ],
             "mixers[0]",

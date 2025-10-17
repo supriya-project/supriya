@@ -110,11 +110,10 @@ class Rack(DeviceBase, ChannelSettable):
             channel_count=effective_channel_count,
             name=Names.MAIN,
         )
-        if len(self.chains) > 1:
-            _ = spec_factory.add_audio_bus(
-                channel_count=effective_channel_count,
-                name=Names.AUX,
-            )
+        mix_audio_bus_address = spec_factory.add_audio_bus(
+            channel_count=effective_channel_count,
+            name=Names.MIX,
+        )
         # groups
         container_group_address = spec_factory.add_container_group(
             destroy_strategy={"gate": 0},
@@ -127,59 +126,60 @@ class Rack(DeviceBase, ChannelSettable):
             name=Names.CHAINS,
             target_node=container_group_address,
         )
-        # input
-        if self._read_mode == PatchMode.REPLACE:
-            read_synthdef_address = spec_factory.add_synthdef(
-                synthdef=build_patch_cable_synthdef(
-                    source_channel_count=parent_effective_channel_count,
-                    target_channel_count=effective_channel_count,
-                    write_mode="replace",
+        if self._chains:
+            # input
+            if self._read_mode == PatchMode.REPLACE:
+                read_synthdef_address = spec_factory.add_synthdef(
+                    synthdef=build_patch_cable_synthdef(
+                        source_channel_count=parent_effective_channel_count,
+                        target_channel_count=effective_channel_count,
+                        write_mode="replace",
+                    )
                 )
-            )
-            spec_factory.add_synth(
-                add_action=AddAction.ADD_BEFORE,
-                destroy_strategy=dict(
-                    done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
-                ),
-                kwargs=dict(
-                    in_=parent._get_main_bus_address(),
-                    out=main_audio_bus_address,
-                ),
-                name=Names.INPUT,
-                synthdef=read_synthdef_address,
-                target_node=chains_group_address,
-            )
-        # output
-        if self._write_mode in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM):
-            write_synthdef_address = spec_factory.add_synthdef(
-                synthdef=build_patch_cable_synthdef(
-                    source_channel_count=parent_effective_channel_count,
-                    target_channel_count=effective_channel_count,
-                    write_mode=self._write_mode,
-                )
-            )
-            spec_factory.add_synth(
-                add_action=AddAction.ADD_AFTER,
-                destroy_strategy=dict(
-                    done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
-                ),
-                kwargs=dict(
-                    in_=main_audio_bus_address,
-                    out=parent._get_main_bus_address(),
-                    **(
-                        dict(
-                            mix=Spec.get_address(
-                                self, Entities.CONTROL_BUSES, Names.MIX
-                            )
-                        )
-                        if self._write_mode == PatchMode.MIX
-                        else {}
+                spec_factory.add_synth(
+                    add_action=AddAction.ADD_BEFORE,
+                    destroy_strategy=dict(
+                        done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                     ),
-                ),
-                name=Names.OUTPUT,
-                synthdef=write_synthdef_address,
-                target_node=chains_group_address,
-            )
+                    kwargs=dict(
+                        in_=parent._get_main_bus_address(),
+                        out=main_audio_bus_address,
+                    ),
+                    name=Names.INPUT,
+                    synthdef=read_synthdef_address,
+                    target_node=chains_group_address,
+                )
+            # output
+            if self._write_mode in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM):
+                write_synthdef_address = spec_factory.add_synthdef(
+                    synthdef=build_patch_cable_synthdef(
+                        source_channel_count=parent_effective_channel_count,
+                        target_channel_count=effective_channel_count,
+                        write_mode=self._write_mode,
+                    )
+                )
+                spec_factory.add_synth(
+                    add_action=AddAction.ADD_AFTER,
+                    destroy_strategy=dict(
+                        done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+                    ),
+                    kwargs=dict(
+                        in_=mix_audio_bus_address,
+                        out=parent._get_main_bus_address(),
+                        **(
+                            dict(
+                                mix=Spec.get_address(
+                                    self, Entities.CONTROL_BUSES, Names.MIX
+                                )
+                            )
+                            if self._write_mode == PatchMode.MIX
+                            else {}
+                        ),
+                    ),
+                    name=Names.OUTPUT,
+                    synthdef=write_synthdef_address,
+                    target_node=chains_group_address,
+                )
         # levels
         if parent._devices.index(self) < (len(parent._devices) - 1):
             # will the meters synth follow the group on move?
@@ -308,9 +308,9 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         #       chain count will have odd interactions with held notes in
         #       instruments.
         return Spec.get_address(
-            parent := self._ensure_parent(),
+            self._ensure_parent(),
             Entities.AUDIO_BUSES,
-            Names.AUX if len(parent.chains) > 1 else Names.MAIN,
+            Names.MAIN,
         )
 
     def _get_nested_address(self) -> Address:
