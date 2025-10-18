@@ -1260,9 +1260,7 @@ def test_patch_cable_routing(
         count=output_count, calculation_rate=CalculationRate.CONTROL
     )
     with server.at():
-        with server.add_synthdefs(
-            dc_synthdef, patch_cable_synthdef, meters_synthdef
-        ):
+        with server.add_synthdefs(dc_synthdef, patch_cable_synthdef, meters_synthdef):
             server.add_synth(
                 add_action=AddAction.ADD_TO_TAIL,
                 dc=input_levels,

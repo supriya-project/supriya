@@ -3,7 +3,7 @@ Affordances for building DAW-like applications.
 """
 
 from .components import Component
-from .constants import ChannelCount, Names
+from .constants import ChannelCount, Names, PatchMode
 from .devices import (
     Device,
     DeviceBase,
@@ -35,6 +35,7 @@ __all__ = [
     "Names",
     "Parameter",
     "ParameterConfig",
+    "PatchMode",
     "Rack",
     "Session",
     "SidechainConfig",

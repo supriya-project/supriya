@@ -100,7 +100,7 @@ class DeviceContainer(Component[C]):
         read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
         write_mode: PatchMode = PatchMode.SUM,
     ) -> tuple["Rack", Optional["Chain"]]:
-        from .chains import Chain, Rack
+        from .racks import Chain, Rack
 
         if chain_count < 0:
             raise ValueError(chain_count)
@@ -109,6 +109,8 @@ class DeviceContainer(Component[C]):
                 id_=self._ensure_session()._get_next_id(),
                 name=name,
                 parent=self,
+                read_mode=read_mode,
+                write_mode=write_mode,
             )
         )
         for _ in range(chain_count):

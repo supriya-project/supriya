@@ -83,6 +83,17 @@ def build_dc_synthdef(
     return builder.build(name)
 
 
+@lru_cache(maxsize=32)
+def build_zero_synthdef(channel_count: int) -> SynthDef:
+    name = f"supriya:zero:{channel_count}"
+    with SynthDefBuilder(
+        out=Parameter(rate=ParameterRate.SCALAR, value=0),
+    ) as builder:
+        source = DC.ar(source=[0.0] * channel_count)
+        ReplaceOut.ar(bus=builder["out"], source=source)
+    return builder.build(name)
+
+
 @lru_cache(maxsize=1)
 def build_default_synthdef() -> SynthDef:
     with SynthDefBuilder(
