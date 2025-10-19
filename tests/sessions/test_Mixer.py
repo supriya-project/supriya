@@ -8,7 +8,7 @@ from supriya.sessions import ChannelCount, Component, Mixer, Session, SynthConfi
 from supriya.typing import Inherit
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
-from .conftest import Scenario, does_not_raise, run_test
+from .conftest import Scenario, does_not_raise
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -113,14 +113,7 @@ async def test_Mixer_delete(
     online: bool,
     scenario: Scenario,
 ) -> None:
-    async with run_test(
-        annotation=None,
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(annotation=None, online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Mixer)
         await subject.delete()
@@ -137,11 +130,17 @@ async def test_Mixer_delete(
     assert subject.session is None
 
 
+@dataclasses.dataclass(frozen=True)
+class GainScenario(Scenario):
+    expected_levels: list[tuple[str, list[float], list[float]]]
+    gain: float
+
+
 @pytest.mark.parametrize(
-    "commands, target, gain, expected_levels",
+    "scenario",
     [
-        (
-            [
+        GainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Self"}),
                 (
                     "mixers[0]",
@@ -149,27 +148,20 @@ async def test_Mixer_delete(
                     {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
             ],
-            "mixers[0]",
-            -6,
-            [("Self", [0.0, 0.0], [0.5, 0.5])],
+            subject="mixers[0]",
+            gain=-6,
+            expected_levels=[("Self", [0.0, 0.0], [0.5, 0.5])],
         ),
     ],
 )
 @pytest.mark.asyncio
 async def test_Mixer_gain(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_levels: list[tuple[str, list[float], list[float]]],
-    gain: float,
-    target: str,
+    scenario: GainScenario,
 ) -> None:
-    async with run_test(
-        annotation=None,
-        commands=commands,
-        online=True,
-    ) as session:
-        target_ = session[target]
-        assert isinstance(target_, Mixer)
-        target_.parameters["gain"].set(gain)
+    async with scenario.run(online=True) as session:
+        subject = session[scenario.subject]
+        assert isinstance(subject, Mixer)
+        subject.parameters["gain"].set(scenario.gain)
     await asyncio.sleep(system.LAG_TIME * 2)
     actual_levels = [
         (
@@ -180,7 +172,7 @@ async def test_Mixer_gain(
         for component in session.walk(Component)
         if isinstance(component, (Mixer, Track))
     ]
-    assert actual_levels == expected_levels
+    assert actual_levels == scenario.expected_levels
 
 
 @dataclasses.dataclass(frozen=True)
@@ -374,12 +366,7 @@ async def test_Mixer_set_channel_count(
     scenario: SetChannelCountScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Mixer)
         with scenario.maybe_raises:

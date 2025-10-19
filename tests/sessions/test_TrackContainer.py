@@ -5,7 +5,7 @@ import pytest
 
 from supriya.sessions import Track, TrackContainer
 
-from .conftest import Scenario, does_not_raise, run_test
+from .conftest import Scenario, does_not_raise
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -113,13 +113,7 @@ async def test_TrackContainer_add_track(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, TrackContainer)
         track = await subject.add_track(name="Child Track")
@@ -412,14 +406,7 @@ async def test_TrackContainer_group_tracks(
     scenario: GroupTracksScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        annotation="numeric",
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(annotation="numeric", online=online) as session:
         raised = True
         group_track: Track | None = None
         with scenario.maybe_raises:

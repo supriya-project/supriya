@@ -199,7 +199,7 @@ class Spec:
                 address
             )
         ):
-            raise ValueError
+            raise ValueError(address)
         return target_node or self.context.default_group
 
     def resolve_synthdef(

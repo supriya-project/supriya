@@ -6,7 +6,7 @@ from supriya.enums import BootStatus
 from supriya.osc import find_free_port
 from supriya.scsynth import Options
 
-from .conftest import Scenario, run_test
+from .conftest import Scenario
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -44,12 +44,7 @@ async def test_Session_add_context(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         assert len(session.contexts) == 1
         # unique port ensure unique context index in debug_components
         context = await session.add_context(Options(port=find_free_port()))
@@ -170,12 +165,8 @@ async def test_Session_add_mixer(
     scenario: AddMixerScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
+    async with scenario.run(
         context_index=0 if scenario.reuse_context else 1,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
         online=online,
     ) as session:
         assert len(session.contexts) == 2
@@ -188,20 +179,22 @@ async def test_Session_add_mixer(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands",
+    "scenario",
     [
-        [
-            (None, "add_mixer", {"name": "Mixer"}),
-            ("mixers[0]", "add_track", {"name": "Track"}),
-        ],
+        Scenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_track", {"name": "Track"}),
+            ],
+        )
     ],
 )
 @pytest.mark.asyncio
 async def test_Session_boot(
-    commands: list[tuple[str | None, str, dict | None]],
+    scenario: Scenario,
     online: bool,
 ) -> None:
-    async with run_test(commands=commands, online=online) as session:
+    async with scenario.run(online=online) as session:
         await session.boot()  # idempotent
     assert session.boot_status == BootStatus.ONLINE
 
@@ -295,13 +288,7 @@ async def test_Session_delete_context(
     scenario: DeleteContextScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=None,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         await session.delete_context(session.contexts[scenario.context_index])
     assert len(session.contexts) == 1
 
@@ -336,12 +323,7 @@ async def test_Session_quit(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=None,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         await session.quit()  # idempotent
     assert session.boot_status == BootStatus.OFFLINE
 
@@ -499,13 +481,7 @@ async def test_Session_set_mixer_context(
     scenario: SetMixerContextScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=None,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         assert len(session.contexts) == 2
         assert len(session.mixers) == 2
         await session.set_mixer_context(

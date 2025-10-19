@@ -324,6 +324,19 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         self._parent = new_parent
         new_parent._chains.insert(index, self)
 
+    def _reconcile_connections(
+        self,
+        *,
+        deleting: bool = False,
+        roots: list[Component] | None = None,
+    ) -> tuple[list[Component], set[Component]]:
+        related, deleted = super()._reconcile_connections(
+            deleting=deleting,
+            roots=roots,
+        )
+        related.append(self._ensure_parent())
+        return related, deleted
+
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         rack = self._ensure_parent()
         rack_container = rack._ensure_parent()

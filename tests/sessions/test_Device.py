@@ -16,7 +16,7 @@ from supriya.sessions import (
 from supriya.typing import INHERIT
 from supriya.ugens import In, ReplaceOut, SynthDef, SynthDefBuilder
 
-from .conftest import Scenario, does_not_raise, run_test
+from .conftest import Scenario, does_not_raise
 
 
 def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
@@ -173,16 +173,10 @@ class SetSidechainScenario(Scenario):
 )
 @pytest.mark.asyncio
 async def test_Device_set_sidechain(
-    online: bool,
     scenario: SetSidechainScenario,
+    online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         device = session[scenario.target]
         assert isinstance(device, Device)
         if scenario.sidechain_target is not None:

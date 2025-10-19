@@ -18,7 +18,7 @@ from supriya.sessions.constants import ChannelCount
 from supriya.typing import INHERIT, Inherit
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
-from .conftest import Scenario, apply_commands, does_not_raise, run_test
+from .conftest import Scenario, apply_commands, does_not_raise
 
 
 @dataclasses.dataclass(frozen=True)
@@ -634,13 +634,7 @@ async def test_Track_add_send(
     scenario: AddSendScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         target = session[scenario.target]
         assert isinstance(subject, Track)
@@ -1156,14 +1150,7 @@ async def test_Track_delete(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        annotation=None,
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(annotation=None, online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Track)
         parent = subject.parent
@@ -1177,11 +1164,17 @@ async def test_Track_delete(
     assert subject.session is None
 
 
+@dataclasses.dataclass(frozen=True)
+class GainScenario(Scenario):
+    expected_levels: list[tuple[str, list[float], list[float]]]
+    gain: float
+
+
 @pytest.mark.parametrize(
-    "commands, target, gain, expected_levels",
+    "scenario",
     [
-        (
-            [
+        GainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 (
@@ -1190,15 +1183,15 @@ async def test_Track_delete(
                     {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
             ],
-            "mixers[0].tracks[0]",
-            -6,
-            [
+            subject="mixers[0].tracks[0]",
+            gain=-6,
+            expected_levels=[
                 ("Mixer", [0.5, 0.5], [0.5, 0.5]),
                 ("Self", [0.0, 0.0], [0.5, 0.5]),
             ],
         ),
-        (
-            [
+        GainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child Track"}),
@@ -1208,16 +1201,16 @@ async def test_Track_delete(
                     {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
                 ),
             ],
-            "mixers[0].tracks[0]",
-            -6,
-            [
+            subject="mixers[0].tracks[0]",
+            gain=-6,
+            expected_levels=[
                 ("Mixer", [0.5, 0.5], [0.5, 0.5]),
                 ("Self", [1.0, 1.0], [0.5, 0.5]),
                 ("Child Track", [0.0, 0.0], [1.0, 1.0]),
             ],
         ),
-        (
-            [
+        GainScenario(
+            commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child Track"}),
@@ -1228,9 +1221,9 @@ async def test_Track_delete(
                 ),
                 ("mixers[0].tracks[0]", "set_parameter", {"name": "gain", "value": -6}),
             ],
-            "mixers[0].tracks[0].tracks[0]",
-            -6,
-            [
+            subject="mixers[0].tracks[0].tracks[0]",
+            gain=-6,
+            expected_levels=[
                 ("Mixer", [0.25, 0.25], [0.25, 0.25]),
                 ("Self", [0.5, 0.5], [0.25, 0.25]),
                 ("Child Track", [0.0, 0.0], [0.5, 0.5]),
@@ -1240,19 +1233,12 @@ async def test_Track_delete(
 )
 @pytest.mark.asyncio
 async def test_Track_gain(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_levels: list[tuple[str, list[float], list[float]]],
-    gain: float,
-    target: str,
+    scenario: GainScenario,
 ) -> None:
-    async with run_test(
-        annotation=None,
-        commands=commands,
-        online=True,
-    ) as session:
-        target_ = session[target]
-        assert isinstance(target_, Track)
-        target_.parameters["gain"].set(gain)
+    async with scenario.run(online=True) as session:
+        subject = session[scenario.subject]
+        assert isinstance(subject, Track)
+        subject.parameters["gain"].set(scenario.gain)
     await asyncio.sleep(system.LAG_TIME * 2)
     actual_levels = [
         (
@@ -1263,7 +1249,7 @@ async def test_Track_gain(
         for component in session.walk(Component)
         if isinstance(component, (Mixer, Track))
     ]
-    assert actual_levels == expected_levels
+    assert actual_levels == scenario.expected_levels
 
 
 @dataclasses.dataclass(frozen=True)
@@ -1924,14 +1910,7 @@ async def test_Track_move(
     scenario: MoveScenario,
     online: bool = True,
 ) -> None:
-    async with run_test(
-        annotation="numeric",
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(annotation="numeric", online=online) as session:
         subject = session[scenario.subject]
         parent = session[scenario.parent]
         old_parent = subject.parent
@@ -2217,12 +2196,7 @@ async def test_Track_set_channel_count(
     scenario: SetChannelCountScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Track)
         with scenario.maybe_raises:
@@ -2723,13 +2697,7 @@ async def test_Track_set_input(
     scenario: SetInputScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         source: BusGroup | Track | None = None
         assert isinstance(subject, Track)
@@ -2763,10 +2731,8 @@ SET_MUTED_COMMANDS: list[tuple[str | None, str, dict | None]] = [
 
 
 @dataclasses.dataclass(frozen=True)
-class SetMutedScenario:
-    commands: list[tuple[str | None, str, dict | None]]
+class SetMutedScenario(Scenario):
     actions: list[tuple[str | None, str, dict | None]]
-    expected_messages: str
     expected_state: list[tuple[str, bool, bool, bool]]
 
 
@@ -2855,13 +2821,7 @@ async def test_Track_set_muted(
     scenario: SetMutedScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_messages=scenario.expected_messages,
-        expected_components_diff=None,
-        expected_tree_diff=None,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         await apply_commands(session, scenario.actions)
     assert [
         (
@@ -3533,13 +3493,7 @@ async def test_Track_set_output(
     scenario: SetOutputScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         output_from_ = session[scenario.subject]
         target: BusGroup | Inherit | TrackContainer | None = None
         assert isinstance(output_from_, Track)
@@ -3574,10 +3528,8 @@ SET_SOLOED_COMMANDS: list[tuple[str | None, str, dict | None]] = [
 
 
 @dataclasses.dataclass(frozen=True)
-class SetSoloedScenario:
-    commands: list[tuple[str | None, str, dict | None]]
+class SetSoloedScenario(Scenario):
     actions: list[tuple[str | None, str, dict | None]]
-    expected_messages: str
     expected_state: list[tuple[str, bool, bool, bool]]
 
 
@@ -3762,13 +3714,7 @@ async def test_Track_set_soloed(
     scenario: SetSoloedScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_messages=scenario.expected_messages,
-        expected_components_diff=None,
-        expected_tree_diff=None,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         await apply_commands(session, scenario.actions)
     assert [
         (
@@ -3921,14 +3867,7 @@ async def test_Track_ungroup(
     scenario: UngroupScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        annotation="numeric",
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(annotation="numeric", online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Track)
         with scenario.maybe_raises:

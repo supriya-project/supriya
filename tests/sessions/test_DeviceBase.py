@@ -6,7 +6,7 @@ import pytest
 from supriya.sessions import DeviceBase, DeviceContainer, Session, SynthConfig
 from supriya.ugens.system import build_dc_synthdef
 
-from .conftest import Scenario, does_not_raise, run_test
+from .conftest import Scenario, does_not_raise
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -63,14 +63,7 @@ async def test_DeviceBase_delete(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        annotation="numeric",
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(annotation="numeric", online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, DeviceBase)
         parent = subject.parent
@@ -404,14 +397,7 @@ async def test_DeviceBase_move(
     scenario: MoveScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        annotation="numeric",
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(annotation="numeric", online=online) as session:
         subject = session[scenario.subject]
         parent = session[scenario.parent]
         old_parent = subject.parent

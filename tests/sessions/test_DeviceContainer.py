@@ -19,7 +19,7 @@ from supriya.sessions import (
 from supriya.typing import INHERIT
 from supriya.ugens import In, ReplaceOut, SynthDefBuilder
 
-from .conftest import Scenario, run_test
+from .conftest import Scenario
 
 
 def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
@@ -193,16 +193,9 @@ class AddDeviceScenario(Scenario):
 )
 @pytest.mark.asyncio
 async def test_DeviceContainer_add_device(
-    scenario: AddDeviceScenario,
-    online: bool,
+    scenario: AddDeviceScenario, online: bool
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, DeviceContainer)
         device = await subject.add_device(
@@ -495,13 +488,7 @@ async def test_DeviceContainer_add_rack(
     scenario: AddRackScenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, DeviceContainer)
         rack = await subject.add_rack(

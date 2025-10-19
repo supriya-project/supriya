@@ -26,6 +26,25 @@ class Scenario:
     expected_tree_diff: str | None = dataclasses.field(default=None, kw_only=True)
     subject: str = dataclasses.field(default="", kw_only=True)
 
+    @contextlib.asynccontextmanager
+    async def run(
+        self,
+        *,
+        annotation: Literal["nested", "numeric"] | None = "nested",
+        context_index: int = 0,
+        online: bool,
+    ) -> AsyncGenerator[Session, None]:
+        async with run_test(
+            annotation=annotation,
+            commands=self.commands,
+            context_index=context_index,
+            expected_components_diff=self.expected_components_diff,
+            expected_messages=self.expected_messages,
+            expected_tree_diff=self.expected_tree_diff,
+            online=online,
+        ) as session:
+            yield session
+
 
 async def apply_commands(
     session: Session,
@@ -178,7 +197,7 @@ async def run_test(
     annotation: Literal["nested", "numeric"] | None = "nested",
     commands: list[tuple[str | None, str, dict | None]] | None = None,
     context_index: int = 0,
-    expected_components_diff: Callable[[Session], str] | str | None = None,
+    expected_components_diff: Callable[[Session], str] | str | None = "",
     expected_messages: str | None = "",
     expected_tree_diff: str | None = "",
     online: bool,

@@ -1,35 +1,25 @@
-from typing import Callable
+import dataclasses
+from typing import Any, Sequence
 
 import pytest
 
 from supriya.sessions import Chain, Rack, Session
 
-from .conftest import run_test
+from .conftest import Scenario
 
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    "commands, target, expected_components_diff, expected_tree_diff, expected_messages",
+    "scenario",
     [],
 )
 @pytest.mark.asyncio
 async def test_Chain_delete(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_messages: str,
-    expected_tree_diff: str,
+    scenario: Scenario,
     online: bool,
-    target: str,
 ) -> None:
-    async with run_test(
-        annotation="numeric",
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
-        online=online,
-    ) as session:
-        target_ = session[target]
+    async with scenario.run(annotation=None, online=online) as session:
+        target_ = session[scenario.subject]
         assert isinstance(target_, Chain)
         parent = target_.parent
         await target_.delete()
@@ -42,51 +32,41 @@ async def test_Chain_delete(
     assert target_.session is None
 
 
+@dataclasses.dataclass(frozen=True)
+class MoveScenario(Scenario):
+    expected_graph_order: Sequence[int]
+    index: int
+    maybe_raises: Any
+    parent: str
+
+
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
-    (
-        "commands, target, parent, index, maybe_raises, "
-        "expected_graph_order, expected_components_diff, expected_tree_diff, expected_messages"
-    ),
+    "scenario",
     [],
 )
 @pytest.mark.asyncio
 async def test_Chain_move(
-    commands: list[tuple[str | None, str, dict | None]],
-    expected_components_diff: Callable[[Session], str] | str,
-    expected_graph_order: list[int],
-    expected_messages: str,
-    expected_tree_diff: str,
-    index: int,
-    maybe_raises,
+    scenario: MoveScenario,
     online: bool,
-    parent: str,
-    target: str,
 ) -> None:
-    async with run_test(
-        annotation="numeric",
-        commands=commands,
-        expected_components_diff=expected_components_diff,
-        expected_messages=expected_messages,
-        expected_tree_diff=expected_tree_diff,
-        online=online,
-    ) as session:
-        target_ = session[target]
-        parent_ = session[parent]
-        old_parent = target_.parent
+    async with scenario.run(annotation="numeric", online=online) as session:
+        subject = session[scenario.subject]
+        parent = session[scenario.parent]
+        old_parent = subject.parent
         assert isinstance(old_parent, Rack)
-        assert isinstance(parent_, Rack)
-        assert isinstance(target_, Chain)
+        assert isinstance(parent, Rack)
+        assert isinstance(subject, Chain)
         raised = True
-        with maybe_raises:
-            await target_.move(index=index, parent=parent_)
+        with scenario.maybe_raises:
+            await subject.move(index=scenario.index, parent=parent)
             raised = False
-    assert target_.graph_order == expected_graph_order
+    assert subject.graph_order == scenario.expected_graph_order
     if not raised:
-        assert target_.parent is parent_
-        assert target_ in parent_.chains
-        if parent_ is not old_parent:
-            assert target_ not in old_parent.chains
+        assert subject.parent is parent
+        assert subject in parent.chains
+        if parent is not old_parent:
+            assert subject not in old_parent.chains
 
 
 @pytest.mark.parametrize("online", [False, True])

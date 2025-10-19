@@ -12,7 +12,7 @@ from supriya.sessions import (
 )
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
-from .conftest import Scenario, run_test
+from .conftest import Scenario
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -119,13 +119,7 @@ async def test_TrackSend_delete(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with run_test(
-        commands=scenario.commands,
-        expected_components_diff=scenario.expected_components_diff,
-        expected_messages=scenario.expected_messages,
-        expected_tree_diff=scenario.expected_tree_diff,
-        online=online,
-    ) as session:
+    async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, TrackSend)
         parent = subject.parent
@@ -141,11 +135,9 @@ async def test_TrackSend_delete(
 
 
 @dataclasses.dataclass(frozen=True)
-class GainScenario:
-    commands: list[tuple[str | None, str, dict | None]]
+class GainScenario(Scenario):
     expected_levels: list[tuple[str, list[float], list[float]]]
     gain: float
-    subject: str
 
 
 @pytest.mark.parametrize(
@@ -197,11 +189,7 @@ class GainScenario:
 async def test_TrackSend_gain(
     scenario: GainScenario,
 ) -> None:
-    async with run_test(
-        annotation=None,
-        commands=scenario.commands,
-        online=True,
-    ) as session:
+    async with scenario.run(online=True) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, TrackSend)
         subject.parameters["gain"].set(scenario.gain)
