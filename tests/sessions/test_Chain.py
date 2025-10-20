@@ -11,14 +11,79 @@ from .conftest import Scenario
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "scenario",
-    [],
+    [
+        Scenario(
+            id="1/1 chains",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+                ("mixers[0].devices[0].chains[0]", "set_name", {"name": "Self"}),
+            ],
+            subject="mixers[0].devices[0].chains[0]",
+            expected_components_diff="""
+            --- initial
+            +++ mutation
+            @@ -2,4 +2,3 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'Mixer'>
+                         <Rack 2 'Rack'>
+            -                <Chain 3 'Self'>
+            """,
+            expected_tree_diff="""
+            """,
+            expected_messages="",
+        ),
+        Scenario(
+            id="1/2 chains",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+                ("mixers[0].devices[0].chains[0]", "set_name", {"name": "Self"}),
+                ("mixers[0].devices[0]", "add_chain", {"name": "Younger Sibling"})
+            ],
+            subject="mixers[0].devices[0].chains[0]",
+            expected_components_diff="""
+            --- initial
+            +++ mutation
+            @@ -2,5 +2,4 @@
+                 <session.contexts[0]>
+                     <Mixer 1 'Mixer'>
+                         <Rack 2 'Rack'>
+            -                <Chain 3 'Self'>
+                             <Chain 4 'Younger Sibling'>
+            """,
+            expected_tree_diff="",
+            expected_messages="",
+        ),
+        Scenario(
+            id="1/2 chains",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+                ("mixers[0].devices[0].chains[0]", "set_name", {"name": "Older Sibling"}),
+                ("mixers[0].devices[0]", "add_chain", {"name": "Self"})
+            ],
+            subject="mixers[0].devices[0].chains[1]",
+            expected_components_diff="""
+            --- initial
+            +++ mutation
+            @@ -3,4 +3,3 @@
+                     <Mixer 1 'Mixer'>
+                         <Rack 2 'Rack'>
+                             <Chain 3 'Older Sibling'>
+            -                <Chain 4 'Self'>
+            """,
+            expected_tree_diff="",
+            expected_messages="",
+        ),
+   ],
 )
 @pytest.mark.asyncio
 async def test_Chain_delete(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with scenario.run(annotation=None, online=online) as session:
+    async with scenario.run(annotation="numeric", online=online) as session:
         target_ = session[scenario.subject]
         assert isinstance(target_, Chain)
         parent = target_.parent

@@ -134,6 +134,10 @@ class Rack(DeviceBase, ChannelSettable):
             PatchMode.REPLACE,
             PatchMode.SUM,
         ):
+            # TODO: Reimplement replace and mix in terms of XOut only where
+            #       releasing means multiplying the crossfade parameter of the
+            #       XOut with the gate envelope, and the gate envelope does not
+            #       multiply the source.
             write_synthdef_address = spec_factory.add_synthdef(
                 synthdef=build_patch_cable_synthdef(
                     source_channel_count=parent_effective_channel_count,
