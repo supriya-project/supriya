@@ -74,7 +74,8 @@ runs:
         curl -L https://www.steinberg.net/asiosdk -o asio.zip
         7z x asio.zip -y
         mkdir -p "/tmp/supercollider/external_libraries/portaudio/asiosdk"
-        mv asiosdk_* "/tmp/supercollider/external_libraries/portaudio/asiosdk"
+        shopt -s nocaseglob  # https://github.com/supercollider/supercollider/commit/4707cbcd4a4da330e6d210b87dc853e96fa2af1f
+        mv asiosdk* "/tmp/supercollider/external_libraries/portaudio/asiosdk"
       shell: bash
 
     - name: Install readline
