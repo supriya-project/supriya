@@ -261,12 +261,12 @@ class Component(Generic[C]):
             # gather spec changes
             spec_changes.extend(
                 component._gather_spec_changes(
-                    new_context=(
-                        None if component in deleted_components else component._context
-                    ),
                     destroy_reconciliation=Reconciliation.DESTROY_SHALLOW,
                     global_specs_by_context=session._global_specs_by_context,
                     global_artifacts_by_context=old_global_artifacts_by_context,
+                    new_context=(
+                        None if component in deleted_components else component._context
+                    ),
                 ),
             )
 
@@ -278,8 +278,8 @@ class Component(Generic[C]):
                 spec_change_group.apply(
                     context=context_,
                     global_specs=session._global_specs_by_context[context_],
-                    new_artifacts=new_global_artifacts_by_context[context_],
-                    old_artifacts=old_global_artifacts_by_context[context_],
+                    new_global_artifacts=new_global_artifacts_by_context[context_],
+                    old_global_artifacts=old_global_artifacts_by_context[context_],
                     related=related_components,
                     roots=roots,
                 )

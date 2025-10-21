@@ -71,15 +71,17 @@ class Spec:
     def create(
         self,
         *,
-        new_artifacts: Artifacts,
-        old_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        new_global_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
     ) -> None:
         raise NotImplementedError
 
     def destroy(
         self,
         *,
-        old_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
         raise NotImplementedError
@@ -106,17 +108,6 @@ class Spec:
             feedsback = reader_order <= writer_order
         return feedsback
 
-    @classmethod
-    def needs_feedback(cls, component: "Component") -> bool:
-        graph_order = component.graph_order
-        for (connection, _), io in component._connections.items():
-            if io is IO.WRITE and Spec.feedsback(
-                writer_order=connection.feedback_graph_order,
-                reader_order=graph_order,
-            ):
-                return True
-        return False
-
     @staticmethod
     def get_address(
         component: Optional["Component"], type_: Entities, name: str
@@ -130,11 +121,23 @@ class Spec:
     def mutate(
         self,
         *,
-        new_artifacts: Artifacts,
-        old_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        new_global_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
         old_spec: "Spec",
     ) -> None:
         raise NotImplementedError
+
+    @classmethod
+    def needs_feedback(cls, component: "Component") -> bool:
+        graph_order = component.graph_order
+        for (connection, _), io in component._connections.items():
+            if io is IO.WRITE and Spec.feedsback(
+                writer_order=connection.feedback_graph_order,
+                reader_order=graph_order,
+            ):
+                return True
+        return False
 
     def requires(self) -> list[Address]:
         return []
@@ -146,22 +149,22 @@ class Spec:
         self,
         *,
         address: Address,
-        new_artifacts: Artifacts,
-        old_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
     ) -> BusGroup:
         return ChainMap(
-            new_artifacts.audio_buses,
-            new_artifacts.control_buses,
-            old_artifacts.audio_buses,
-            old_artifacts.control_buses,
+            new_global_artifacts.audio_buses,
+            new_global_artifacts.control_buses,
+            old_global_artifacts.audio_buses,
+            old_global_artifacts.control_buses,
         )[address]
 
     def resolve_kwargs(
         self,
         *,
         kwargs: dict[str, Address | BusGroup | float],
-        new_artifacts: Artifacts,
-        old_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
     ) -> tuple[dict[str, float], dict[str, str]]:
         map_kwargs: dict[str, str] = {}
         set_kwargs: dict[str, float] = {}
@@ -169,8 +172,8 @@ class Spec:
             if isinstance(value, Address):
                 value = self.resolve_bus(
                     address=value,
-                    new_artifacts=new_artifacts,
-                    old_artifacts=old_artifacts,
+                    new_global_artifacts=new_global_artifacts,
+                    old_global_artifacts=old_global_artifacts,
                 )
             assert not isinstance(value, Address)
             if isinstance(value, BusGroup):
@@ -189,14 +192,14 @@ class Spec:
         self,
         *,
         address: Address | None,
-        new_artifacts: Artifacts,
-        old_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
     ) -> Node:
         target_node: Node | None = None
         if address and not (
-            target_node := ChainMap(new_artifacts.nodes, old_artifacts.nodes).get(
-                address
-            )
+            target_node := ChainMap(
+                new_global_artifacts.nodes, old_global_artifacts.nodes
+            ).get(address)
         ):
             raise ValueError(address)
         return target_node or self.context.default_group
@@ -205,12 +208,12 @@ class Spec:
         self,
         *,
         address: Address,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
     ) -> SynthDef:
         return ChainMap(
-            new_artifacts.synthdefs,
-            old_artifacts.synthdefs,
+            new_global_artifacts.synthdefs,
+            old_global_artifacts.synthdefs,
         )[address]
 
     @property
@@ -241,14 +244,16 @@ class BufferSpec(Spec):
 
     def create(
         self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
     ) -> None:
         raise NotImplementedError
 
     def destroy(
         self,
-        old_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
         buffers = self.component._local_artifacts.buffers
@@ -256,12 +261,13 @@ class BufferSpec(Spec):
         if hashes[self.address] == hash(self):
             buffers.pop(self.name)
             hashes.pop(self.address)
-        old_artifacts.buffers.pop(self.address).free()
+        old_global_artifacts.buffers.pop(self.address).free()
 
     def mutate(
         self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
         old_spec: "Spec",
     ) -> None:
         raise NotImplementedError
@@ -298,15 +304,16 @@ class BusSpec(Spec):
 
     def create(
         self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
     ) -> None:
         if self.calculation_rate == CalculationRate.AUDIO:
             bus_group = self.context.add_bus_group(
                 calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
-            new_artifacts.audio_buses[self.address] = bus_group
+            new_global_artifacts.audio_buses[self.address] = bus_group
             self.component._local_artifacts.audio_buses[self.name] = bus_group
         elif self.calculation_rate == CalculationRate.CONTROL:
             bus_group = self.context.add_bus_group(
@@ -314,7 +321,7 @@ class BusSpec(Spec):
                 count=self.channel_count,
             )
             bus_group.set(self.default)
-            new_artifacts.control_buses[self.address] = bus_group
+            new_global_artifacts.control_buses[self.address] = bus_group
             self.component._local_artifacts.control_buses[self.name] = bus_group
         else:
             raise ValueError
@@ -322,16 +329,17 @@ class BusSpec(Spec):
 
     def destroy(
         self,
-        old_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
         hashes = self.component._local_artifacts.hashes
         if self.calculation_rate == CalculationRate.AUDIO:
             buses = self.component._local_artifacts.audio_buses
-            old_buses = old_artifacts.audio_buses
+            old_buses = old_global_artifacts.audio_buses
         elif self.calculation_rate == CalculationRate.CONTROL:
             buses = self.component._local_artifacts.control_buses
-            old_buses = old_artifacts.control_buses
+            old_buses = old_global_artifacts.control_buses
         if hashes[self.address] == hash(self):
             buses.pop(self.name)
             hashes.pop(self.address)
@@ -372,20 +380,23 @@ class SynthDefSpec(Spec):
 
     def create(
         self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
     ) -> None:
-        if self.address in old_artifacts.synthdefs:
+        if self.address in old_global_artifacts.synthdefs:
             return
         self.context.add_synthdefs(self.synthdef)
-        new_artifacts.synthdefs[self.address] = self.synthdef
+        new_global_artifacts.synthdefs[self.address] = self.synthdef
 
     def destroy(
         self,
-        old_artifacts: Artifacts,
+        *,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
-        return
+        pass
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return self != old_spec
@@ -445,24 +456,28 @@ class GroupSpec(NodeSpec):
 
     def create(
         self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        *,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
     ) -> None:
         group = self.context.add_group(
             add_action=self.add_action,
             target_node=self.resolve_node(
                 address=self.target_node,
-                new_artifacts=new_artifacts,
-                old_artifacts=old_artifacts,
+                new_global_artifacts=new_global_artifacts,
+                old_global_artifacts=old_global_artifacts,
             ),
         )
-        new_artifacts.nodes[self.address] = group
+        new_global_artifacts.nodes[self.address] = group
         self.component._local_artifacts.nodes[self.name] = group
         self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
-        old_artifacts: Artifacts,
+        *,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
         # N.B.: We need to compare new vs old spec hashes before deleting from
@@ -474,14 +489,16 @@ class GroupSpec(NodeSpec):
         if hashes[self.address] == hash(self):
             nodes.pop(self.name)
             hashes.pop(self.address)
-        node = old_artifacts.nodes.pop(self.address)
+        node = old_global_artifacts.nodes.pop(self.address)
         if reconciliation is Reconciliation.DESTROY_ROOT and self.destroy_strategy:
             node.set(**self.destroy_strategy)
 
     def mutate(
         self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        *,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
         old_spec: "Spec",
     ) -> None:
         if not isinstance(old_spec, GroupSpec):
@@ -491,12 +508,12 @@ class GroupSpec(NodeSpec):
             or self.add_action != old_spec.add_action
             or self.target_node != old_spec.target_node
         ):
-            old_artifacts.nodes[self.address].move(
+            old_global_artifacts.nodes[self.address].move(
                 add_action=self.add_action,
                 target_node=self.resolve_node(
                     address=self.target_node,
-                    new_artifacts=new_artifacts,
-                    old_artifacts=old_artifacts,
+                    new_global_artifacts=new_global_artifacts,
+                    old_global_artifacts=old_global_artifacts,
                 ),
             )
         self.component._local_artifacts.hashes[self.address] = hash(self)
@@ -537,37 +554,41 @@ class SynthSpec(NodeSpec):
 
     def create(
         self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        *,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
     ) -> None:
         set_kwargs, map_kwargs = self.resolve_kwargs(
             kwargs=self.kwargs,
-            new_artifacts=new_artifacts,
-            old_artifacts=old_artifacts,
+            new_global_artifacts=new_global_artifacts,
+            old_global_artifacts=old_global_artifacts,
         )
         synth = self.context.add_synth(
             add_action=self.add_action,
             synthdef=self.resolve_synthdef(
                 address=self.synthdef,
-                new_artifacts=new_artifacts,
-                old_artifacts=old_artifacts,
+                new_global_artifacts=new_global_artifacts,
+                old_global_artifacts=old_global_artifacts,
             ),
             target_node=self.resolve_node(
                 address=self.target_node,
-                new_artifacts=new_artifacts,
-                old_artifacts=old_artifacts,
+                new_global_artifacts=new_global_artifacts,
+                old_global_artifacts=old_global_artifacts,
             ),
             permanent=False,
             **set_kwargs,
             **map_kwargs,
         )
-        new_artifacts.nodes[self.address] = synth
+        new_global_artifacts.nodes[self.address] = synth
         self.component._local_artifacts.nodes[self.name] = synth
         self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
-        old_artifacts: Artifacts,
+        *,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
         # N.B.: We need to compare new vs old spec hashes before deleting from
@@ -579,22 +600,24 @@ class SynthSpec(NodeSpec):
         if hashes[self.address] == hash(self):
             nodes.pop(self.name)
             hashes.pop(self.address)
-        synth = old_artifacts.nodes.pop(self.address)
+        synth = old_global_artifacts.nodes.pop(self.address)
         if reconciliation in (Reconciliation.DESTROY_SHALLOW, Reconciliation.RECREATE):
-            if old_artifacts.synthdefs[self.synthdef].has_gate:
+            if old_global_artifacts.synthdefs[self.synthdef].has_gate:
                 synth.set(done_action=DoneAction.FREE_SYNTH, gate=0)
             else:
                 synth.free()
         elif reconciliation is Reconciliation.DESTROY_ROOT and self.destroy_strategy:
-            if old_artifacts.synthdefs[self.synthdef].has_gate:
+            if old_global_artifacts.synthdefs[self.synthdef].has_gate:
                 synth.set(**self.destroy_strategy)
             else:
                 synth.free()
 
     def mutate(
         self,
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        *,
+        global_specs: dict[Address, "Spec"],
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
         old_spec: "Spec",
     ) -> None:
         if not isinstance(old_spec, SynthSpec):
@@ -604,24 +627,24 @@ class SynthSpec(NodeSpec):
             or self.add_action != old_spec.add_action
             or self.target_node != old_spec.target_node
         ):
-            old_artifacts.nodes[self.address].move(
+            old_global_artifacts.nodes[self.address].move(
                 add_action=self.add_action,
                 target_node=self.resolve_node(
                     address=self.target_node,
-                    new_artifacts=new_artifacts,
-                    old_artifacts=old_artifacts,
+                    new_global_artifacts=new_global_artifacts,
+                    old_global_artifacts=old_global_artifacts,
                 ),
             )
         if self.kwargs != old_spec.kwargs:
             old_set_kwargs, old_map_kwargs = self.resolve_kwargs(
                 kwargs=old_spec.kwargs,
-                new_artifacts=new_artifacts,
-                old_artifacts=old_artifacts,
+                new_global_artifacts=new_global_artifacts,
+                old_global_artifacts=old_global_artifacts,
             )
             new_set_kwargs, new_map_kwargs = self.resolve_kwargs(
                 kwargs=self.kwargs,
-                new_artifacts=new_artifacts,
-                old_artifacts=old_artifacts,
+                new_global_artifacts=new_global_artifacts,
+                old_global_artifacts=old_global_artifacts,
             )
             for key in old_set_kwargs:
                 if old_set_kwargs[key] == new_set_kwargs[key]:
@@ -630,9 +653,9 @@ class SynthSpec(NodeSpec):
                 if old_map_kwargs[key] == new_map_kwargs[key]:
                     new_map_kwargs.pop(key)
             if new_map_kwargs:
-                old_artifacts.nodes[self.address].map(**new_map_kwargs)
+                old_global_artifacts.nodes[self.address].map(**new_map_kwargs)
             if new_set_kwargs:
-                old_artifacts.nodes[self.address].set(**new_set_kwargs)
+                old_global_artifacts.nodes[self.address].set(**new_set_kwargs)
         self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def requires(self) -> list[Address]:
@@ -831,42 +854,45 @@ class SpecChange:
     def create(
         self,
         global_specs: dict[Address, Spec],
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
     ) -> None:
         if self.new_spec is None:
             raise ValueError
         self.new_spec.create(
-            new_artifacts=new_artifacts,
-            old_artifacts=old_artifacts,
+            global_specs=global_specs,
+            new_global_artifacts=new_global_artifacts,
+            old_global_artifacts=old_global_artifacts,
         )
 
     def mutate(
         self,
         global_specs: dict[Address, Spec],
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
     ) -> None:
         if self.new_spec is None or self.old_spec is None:
             raise ValueError
         self.new_spec.mutate(
-            new_artifacts=new_artifacts,
-            old_artifacts=old_artifacts,
+            global_specs=global_specs,
+            new_global_artifacts=new_global_artifacts,
+            old_global_artifacts=old_global_artifacts,
             old_spec=self.old_spec,
         )
 
     def destroy(
         self,
         global_specs: dict[Address, Spec],
-        old_artifacts: Artifacts,
-        new_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
         related: bool = False,
         rooted: bool = False,
     ) -> None:
         if self.old_spec is None:
             raise ValueError
         self.old_spec.destroy(
-            old_artifacts=old_artifacts,
+            global_specs=global_specs,
+            old_global_artifacts=old_global_artifacts,
             reconciliation=self.reconciliation,
         )
 
@@ -1105,8 +1131,8 @@ class SpecChangeGroup:
         *,
         context: AsyncServer,
         global_specs: dict[Address, Spec],
-        new_artifacts: Artifacts,
-        old_artifacts: Artifacts,
+        new_global_artifacts: Artifacts,
+        old_global_artifacts: Artifacts,
         related: list["Component"],
         roots: list["Component"],
     ) -> None:
@@ -1117,22 +1143,22 @@ class SpecChangeGroup:
                 for spec_change in self.spec_changes:
                     spec_change.create(
                         global_specs=global_specs,
-                        new_artifacts=new_artifacts,
-                        old_artifacts=old_artifacts,
+                        new_global_artifacts=new_global_artifacts,
+                        old_global_artifacts=old_global_artifacts,
                     )
             elif self.reconciliation is Reconciliation.MUTATE:
                 for spec_change in self.spec_changes:
                     spec_change.mutate(
                         global_specs=global_specs,
-                        new_artifacts=new_artifacts,
-                        old_artifacts=old_artifacts,
+                        new_global_artifacts=new_global_artifacts,
+                        old_global_artifacts=old_global_artifacts,
                     )
             elif self.reconciliation in Reconciliation.DESTROY:
                 for spec_change in self.spec_changes:
                     spec_change.destroy(
                         global_specs=global_specs,
-                        new_artifacts=new_artifacts,
-                        old_artifacts=old_artifacts,
+                        new_global_artifacts=new_global_artifacts,
+                        old_global_artifacts=old_global_artifacts,
                         related=spec_change.component in related,
                         rooted=spec_change.component in roots,
                     )
