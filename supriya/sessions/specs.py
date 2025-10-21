@@ -256,12 +256,7 @@ class BufferSpec(Spec):
         old_global_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
-        buffers = self.component._local_artifacts.buffers
-        hashes = self.component._local_artifacts.hashes
-        if hashes[self.address] == hash(self):
-            buffers.pop(self.name)
-            hashes.pop(self.address)
-        old_global_artifacts.buffers.pop(self.address).free()
+        raise NotImplementedError
 
     def mutate(
         self,
@@ -308,13 +303,14 @@ class BusSpec(Spec):
         old_global_artifacts: Artifacts,
         new_global_artifacts: Artifacts,
     ) -> None:
+        local_artifacts = self.component._local_artifacts
         if self.calculation_rate == CalculationRate.AUDIO:
             bus_group = self.context.add_bus_group(
                 calculation_rate=self.calculation_rate,
                 count=self.channel_count,
             )
             new_global_artifacts.audio_buses[self.address] = bus_group
-            self.component._local_artifacts.audio_buses[self.name] = bus_group
+            local_artifacts.audio_buses[self.name] = bus_group
         elif self.calculation_rate == CalculationRate.CONTROL:
             bus_group = self.context.add_bus_group(
                 calculation_rate=self.calculation_rate,
@@ -322,10 +318,11 @@ class BusSpec(Spec):
             )
             bus_group.set(self.default)
             new_global_artifacts.control_buses[self.address] = bus_group
-            self.component._local_artifacts.control_buses[self.name] = bus_group
+            local_artifacts.control_buses[self.name] = bus_group
         else:
             raise ValueError
-        self.component._local_artifacts.hashes[self.address] = hash(self)
+        local_artifacts.hashes[self.address] = hash(self)
+        global_specs[self.address] = self
 
     def destroy(
         self,
@@ -333,17 +330,18 @@ class BusSpec(Spec):
         old_global_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
-        hashes = self.component._local_artifacts.hashes
+        local_artifacts = self.component._local_artifacts
         if self.calculation_rate == CalculationRate.AUDIO:
-            buses = self.component._local_artifacts.audio_buses
+            buses = local_artifacts.audio_buses
             old_buses = old_global_artifacts.audio_buses
         elif self.calculation_rate == CalculationRate.CONTROL:
-            buses = self.component._local_artifacts.control_buses
+            buses = local_artifacts.control_buses
             old_buses = old_global_artifacts.control_buses
-        if hashes[self.address] == hash(self):
+        if local_artifacts.hashes[self.address] == hash(self):
             buses.pop(self.name)
-            hashes.pop(self.address)
+            local_artifacts.hashes.pop(self.address)
         old_buses.pop(self.address).free()
+        global_specs.pop(self.address)
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
         if not isinstance(old_spec, BusSpec):
@@ -388,6 +386,7 @@ class SynthDefSpec(Spec):
             return
         self.context.add_synthdefs(self.synthdef)
         new_global_artifacts.synthdefs[self.address] = self.synthdef
+        global_specs[self.address] = self
 
     def destroy(
         self,
@@ -469,9 +468,11 @@ class GroupSpec(NodeSpec):
                 old_global_artifacts=old_global_artifacts,
             ),
         )
+        global_specs[self.address] = self
+        local_artifacts = self.component._local_artifacts
+        local_artifacts.hashes[self.address] = hash(self)
+        local_artifacts.nodes[self.name] = group
         new_global_artifacts.nodes[self.address] = group
-        self.component._local_artifacts.nodes[self.name] = group
-        self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
@@ -484,14 +485,14 @@ class GroupSpec(NodeSpec):
         # component artifacts to handle the case of re-creation where a new
         # node was created and added to the component artifacts but with a
         # different hash than this spec's hash.
-        nodes = self.component._local_artifacts.nodes
-        hashes = self.component._local_artifacts.hashes
-        if hashes[self.address] == hash(self):
-            nodes.pop(self.name)
-            hashes.pop(self.address)
-        node = old_global_artifacts.nodes.pop(self.address)
+        local_artifacts = self.component._local_artifacts
+        if local_artifacts.hashes[self.address] == hash(self):
+            local_artifacts.nodes.pop(self.name)
+            local_artifacts.hashes.pop(self.address)
+        group = old_global_artifacts.nodes.pop(self.address)
         if reconciliation is Reconciliation.DESTROY_ROOT and self.destroy_strategy:
-            node.set(**self.destroy_strategy)
+            group.set(**self.destroy_strategy)
+        global_specs.pop(self.address)
 
     def mutate(
         self,
@@ -516,7 +517,9 @@ class GroupSpec(NodeSpec):
                     old_global_artifacts=old_global_artifacts,
                 ),
             )
-        self.component._local_artifacts.hashes[self.address] = hash(self)
+        global_specs[self.address] = self
+        local_artifacts = self.component._local_artifacts
+        local_artifacts.hashes[self.address] = hash(self)
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return False
@@ -580,9 +583,11 @@ class SynthSpec(NodeSpec):
             **set_kwargs,
             **map_kwargs,
         )
+        global_specs[self.address] = self
+        local_artifacts = self.component._local_artifacts
+        local_artifacts.hashes[self.address] = hash(self)
+        local_artifacts.nodes[self.name] = synth
         new_global_artifacts.nodes[self.address] = synth
-        self.component._local_artifacts.nodes[self.name] = synth
-        self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
@@ -595,11 +600,10 @@ class SynthSpec(NodeSpec):
         # component artifacts to handle the case of re-creation where a new
         # node was created and added to the component artifacts but with a
         # different hash than this spec's hash.
-        nodes = self.component._local_artifacts.nodes
-        hashes = self.component._local_artifacts.hashes
-        if hashes[self.address] == hash(self):
-            nodes.pop(self.name)
-            hashes.pop(self.address)
+        local_artifacts = self.component._local_artifacts
+        if local_artifacts.hashes[self.address] == hash(self):
+            local_artifacts.nodes.pop(self.name)
+            local_artifacts.hashes.pop(self.address)
         synth = old_global_artifacts.nodes.pop(self.address)
         if reconciliation in (Reconciliation.DESTROY_SHALLOW, Reconciliation.RECREATE):
             if old_global_artifacts.synthdefs[self.synthdef].has_gate:
@@ -611,6 +615,7 @@ class SynthSpec(NodeSpec):
                 synth.set(**self.destroy_strategy)
             else:
                 synth.free()
+        global_specs.pop(self.address)
 
     def mutate(
         self,
@@ -656,7 +661,9 @@ class SynthSpec(NodeSpec):
                 old_global_artifacts.nodes[self.address].map(**new_map_kwargs)
             if new_set_kwargs:
                 old_global_artifacts.nodes[self.address].set(**new_set_kwargs)
-        self.component._local_artifacts.hashes[self.address] = hash(self)
+        global_specs[self.address] = self
+        local_artifacts = self.component._local_artifacts
+        local_artifacts.hashes[self.address] = hash(self)
 
     def requires(self) -> list[Address]:
         return [
