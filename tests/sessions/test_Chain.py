@@ -8,7 +8,6 @@ from supriya.sessions import Chain, Rack, Session
 from .conftest import Scenario
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "scenario",
@@ -31,8 +30,45 @@ from .conftest import Scenario
             -                <Chain 3 'Self'>
             """,
             expected_tree_diff="""
+            --- initial
+            +++ mutation
+            @@ -6,20 +6,20 @@
+                     1002 group (mixers[1]:devices)
+                         1007 group (devices[2]:group)
+                             1008 group (devices[2]:chains)
+            -                    1010 group (chains[3]:group)
+            -                        1012 supriya:patch-cable:2x2:replace (chains[3]:input)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 18.0
+            -                        1013 supriya:meters:2 (chains[3]:input-levels)
+            +                    1010 group
+            +                        1012 supriya:patch-cable:2x2:replace
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 16.0, out: 18.0
+            +                        1013 supriya:meters:2
+                                         in_: 18.0, out: 8.0
+            -                        1011 group (chains[3]:devices)
+            -                        1014 supriya:channel-strip:2 (chains[3]:channel-strip)
+            -                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 18.0
+            -                        1016 supriya:patch-cable:2x2 (chains[3]:output)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            -                        1015 supriya:meters:2 (chains[3]:output-levels)
+            +                        1011 group
+            +                        1014 supriya:channel-strip:2
+            +                            active: c6, done_action: 14.0, gain: c7, gate: 0.0, out: 18.0
+            +                        1016 supriya:patch-cable:2x2
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
+            +                        1015 supriya:meters:2
+                                         in_: 18.0, out: 10.0
+                             1009 supriya:patch-cable:2x2 (devices[2]:output)
+            -                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            +                    active: 0.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+                     1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
+                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
+                     1005 supriya:meters:2 (mixers[1]:output-levels)
             """,
-            expected_messages="",
+            expected_messages="""
+            - ['/n_set', 1009, 'active', 0.0]
+            - [None, [['/n_set', 1010, 'gate', 0.0], ['/n_set', 1014, 'done_action', 14.0]]]
+            """,
         ),
         Scenario(
             id="1/2 chains",
@@ -53,8 +89,41 @@ from .conftest import Scenario
             -                <Chain 3 'Self'>
                              <Chain 4 'Younger Sibling'>
             """,
-            expected_tree_diff="",
-            expected_messages="",
+            expected_tree_diff="""
+            --- initial
+            +++ mutation
+            @@ -6,17 +6,17 @@
+                     1002 group (mixers[1]:devices)
+                         1007 group (devices[2]:group)
+                             1008 group (devices[2]:chains)
+            -                    1010 group (chains[3]:group)
+            -                        1012 supriya:patch-cable:2x2:replace (chains[3]:input)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 18.0
+            -                        1013 supriya:meters:2 (chains[3]:input-levels)
+            +                    1010 group
+            +                        1012 supriya:patch-cable:2x2:replace
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 16.0, out: 18.0
+            +                        1013 supriya:meters:2
+                                         in_: 18.0, out: 8.0
+            -                        1011 group (chains[3]:devices)
+            -                        1014 supriya:channel-strip:2 (chains[3]:channel-strip)
+            -                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 18.0
+            -                        1016 supriya:patch-cable:2x2 (chains[3]:output)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            -                        1015 supriya:meters:2 (chains[3]:output-levels)
+            +                        1011 group
+            +                        1014 supriya:channel-strip:2
+            +                            active: c6, done_action: 14.0, gain: c7, gate: 0.0, out: 18.0
+            +                        1016 supriya:patch-cable:2x2
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
+            +                        1015 supriya:meters:2
+                                         in_: 18.0, out: 10.0
+                                 1017 group (chains[4]:group)
+                                     1019 supriya:patch-cable:2x2:replace (chains[4]:input)
+            """,
+            expected_messages="""
+            - [None, [['/n_set', 1010, 'gate', 0.0], ['/n_set', 1014, 'done_action', 14.0]]]
+            """,
         ),
         Scenario(
             id="1/2 chains",
@@ -78,16 +147,47 @@ from .conftest import Scenario
                              <Chain 3 'Older Sibling'>
             -                <Chain 4 'Self'>
             """,
-            expected_tree_diff="",
-            expected_messages="",
+            expected_tree_diff="""
+            --- initial
+            +++ mutation
+            @@ -18,17 +18,17 @@
+                                         active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+                                     1015 supriya:meters:2 (chains[3]:output-levels)
+                                         in_: 18.0, out: 10.0
+            -                    1017 group (chains[4]:group)
+            -                        1019 supriya:patch-cable:2x2:replace (chains[4]:input)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 18.0
+            -                        1020 supriya:meters:2 (chains[4]:input-levels)
+            +                    1017 group
+            +                        1019 supriya:patch-cable:2x2:replace
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 16.0, out: 18.0
+            +                        1020 supriya:meters:2
+                                         in_: 18.0, out: 14.0
+            -                        1018 group (chains[4]:devices)
+            -                        1021 supriya:channel-strip:2 (chains[4]:channel-strip)
+            -                            active: c12, done_action: 2.0, gain: c13, gate: 1.0, out: 18.0
+            -                        1023 supriya:patch-cable:2x2 (chains[4]:output)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            -                        1022 supriya:meters:2 (chains[4]:output-levels)
+            +                        1018 group
+            +                        1021 supriya:channel-strip:2
+            +                            active: c12, done_action: 14.0, gain: c13, gate: 0.0, out: 18.0
+            +                        1023 supriya:patch-cable:2x2
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
+            +                        1022 supriya:meters:2
+                                         in_: 18.0, out: 16.0
+                             1009 supriya:patch-cable:2x2 (devices[2]:output)
+                                 active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            """,
+            expected_messages="""
+            - [None, [['/n_set', 1017, 'gate', 0.0], ['/n_set', 1021, 'done_action', 14.0]]]
+            """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
-async def test_Chain_delete(
-    scenario: Scenario,
-    online: bool,
-) -> None:
+async def test_Chain_delete(scenario: Scenario, online: bool) -> None:
     async with scenario.run(annotation="numeric", online=online) as session:
         target_ = session[scenario.subject]
         assert isinstance(target_, Chain)
@@ -116,10 +216,7 @@ class MoveScenario(Scenario):
     [],
 )
 @pytest.mark.asyncio
-async def test_Chain_move(
-    scenario: MoveScenario,
-    online: bool,
-) -> None:
+async def test_Chain_move(scenario: MoveScenario, online: bool) -> None:
     async with scenario.run(annotation="numeric", online=online) as session:
         subject = session[scenario.subject]
         parent = session[scenario.parent]
