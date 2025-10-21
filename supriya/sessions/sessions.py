@@ -47,7 +47,7 @@ class Session(Component):
         self._boot_status = BootStatus.OFFLINE
         self._channel_count: ChannelCount = 2
         self._global_artifacts_by_context: dict[AsyncServer, Artifacts] = {}
-        self._context_specs: dict[AsyncServer, dict[Address, Spec]] = {}
+        self._global_specs_by_context: dict[AsyncServer, dict[Address, Spec]] = {}
         self._contexts: dict[AsyncServer, list[Mixer]] = {}
         self._lock = asyncio.Lock()
         self._mixers: dict[Mixer, AsyncServer] = {}
@@ -81,7 +81,7 @@ class Session(Component):
         context = AsyncServer(options)
         self._contexts[context] = []
         self._global_artifacts_by_context[context] = Artifacts()
-        self._context_specs[context] = {}
+        self._global_specs_by_context[context] = {}
         return context
 
     def _add_mixer(self, context: AsyncServer, name: str | None) -> "Mixer":
@@ -229,7 +229,7 @@ class Session(Component):
                 )
             await context.quit()
             self._global_artifacts_by_context.pop(context)
-            self._context_specs.pop(context)
+            self._global_specs_by_context.pop(context)
 
     def dump_components(self) -> str:
         """
@@ -280,7 +280,7 @@ class Session(Component):
                                 session=self,
                             )
                     self._global_artifacts_by_context[context].clear()
-                    self._context_specs[context].clear()
+                    self._global_specs_by_context[context].clear()
                 await asyncio.gather(*[context.quit() for context in self._contexts])
                 self._boot_status = BootStatus.OFFLINE
                 self._quit_future.set_result(True)

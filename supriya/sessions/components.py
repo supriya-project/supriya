@@ -65,10 +65,10 @@ class Component(Generic[C]):
         self._id: int = id_
         self._is_active: bool = True
         self._local_artifacts = Artifacts()
+        self._local_specs: dict[Address, Spec] = {}
         self._name: str | None = name
         self._parameters: dict[str, Parameter] = {}
         self._parent: C | None = parent
-        self._specs: dict[Address, Spec] = {}
 
     def __repr__(self) -> str:
         if self._name:
@@ -131,19 +131,19 @@ class Component(Generic[C]):
         *,
         new_context: AsyncServer | None,
         global_artifacts_by_context: dict[AsyncServer, Artifacts],
-        old_context_specs: dict[AsyncServer, dict[Address, Spec]],
+        global_specs_by_context: dict[AsyncServer, dict[Address, Spec]],
         destroy_reconciliation: Reconciliation,
     ) -> list[SpecChange]:
-        old_specs = self._specs
+        old_specs = self._local_specs
         if new_context:
-            self._specs = new_specs = {
+            self._local_specs = new_specs = {
                 spec.address: spec
                 for spec in self._resolve_specs(
                     SpecFactory(component=self, context=new_context)
                 )
             }
         else:
-            self._specs = new_specs = {}
+            self._local_specs = new_specs = {}
         self._context = new_context
         return SpecChange.gather(
             destroy_reconciliation=destroy_reconciliation,
@@ -231,9 +231,9 @@ class Component(Generic[C]):
                 spec_changes.extend(
                     component._gather_spec_changes(
                         destroy_reconciliation=destroy_reconciliation,
-                        new_context=None if deleting_ else context,
-                        old_context_specs=session._context_specs,
                         global_artifacts_by_context=old_global_artifacts_by_context,
+                        global_specs_by_context=session._global_specs_by_context,
+                        new_context=None if deleting_ else context,
                     ),
                 )
                 visited_components.add(component)
@@ -265,7 +265,7 @@ class Component(Generic[C]):
                         None if component in deleted_components else component._context
                     ),
                     destroy_reconciliation=Reconciliation.DESTROY_SHALLOW,
-                    old_context_specs=session._context_specs,
+                    global_specs_by_context=session._global_specs_by_context,
                     global_artifacts_by_context=old_global_artifacts_by_context,
                 ),
             )
@@ -277,11 +277,11 @@ class Component(Generic[C]):
             for spec_change_group in spec_change_groups:
                 spec_change_group.apply(
                     context=context_,
-                    old_context_specs=session._context_specs[context_],
-                    old_artifacts=old_global_artifacts_by_context[context_],
+                    global_specs=session._global_specs_by_context[context_],
                     new_artifacts=new_global_artifacts_by_context[context_],
-                    roots=roots,
+                    old_artifacts=old_global_artifacts_by_context[context_],
                     related=related_components,
+                    roots=roots,
                 )
                 if spec_change_group.sync:
                     await context_.sync()

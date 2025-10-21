@@ -830,8 +830,8 @@ class SpecChange:
 
     def create(
         self,
+        global_specs: dict[Address, Spec],
         old_artifacts: Artifacts,
-        old_context_specs: dict[Address, Spec],
         new_artifacts: Artifacts,
     ) -> None:
         if self.new_spec is None:
@@ -843,8 +843,8 @@ class SpecChange:
 
     def mutate(
         self,
+        global_specs: dict[Address, Spec],
         old_artifacts: Artifacts,
-        old_context_specs: dict[Address, Spec],
         new_artifacts: Artifacts,
     ) -> None:
         if self.new_spec is None or self.old_spec is None:
@@ -857,8 +857,8 @@ class SpecChange:
 
     def destroy(
         self,
+        global_specs: dict[Address, Spec],
         old_artifacts: Artifacts,
-        old_context_specs: dict[Address, Spec],
         new_artifacts: Artifacts,
         related: bool = False,
         rooted: bool = False,
@@ -1104,11 +1104,11 @@ class SpecChangeGroup:
         self,
         *,
         context: AsyncServer,
-        old_artifacts: Artifacts,
-        old_context_specs: dict[Address, Spec],
+        global_specs: dict[Address, Spec],
         new_artifacts: Artifacts,
-        roots: list["Component"],
+        old_artifacts: Artifacts,
         related: list["Component"],
+        roots: list["Component"],
     ) -> None:
         with contextlib.ExitStack() as exit_stack:
             if self.group:
@@ -1116,25 +1116,25 @@ class SpecChangeGroup:
             if self.reconciliation is Reconciliation.CREATE:
                 for spec_change in self.spec_changes:
                     spec_change.create(
-                        old_artifacts=old_artifacts,
-                        old_context_specs=old_context_specs,
+                        global_specs=global_specs,
                         new_artifacts=new_artifacts,
+                        old_artifacts=old_artifacts,
                     )
             elif self.reconciliation is Reconciliation.MUTATE:
                 for spec_change in self.spec_changes:
                     spec_change.mutate(
-                        old_artifacts=old_artifacts,
-                        old_context_specs=old_context_specs,
+                        global_specs=global_specs,
                         new_artifacts=new_artifacts,
+                        old_artifacts=old_artifacts,
                     )
             elif self.reconciliation in Reconciliation.DESTROY:
                 for spec_change in self.spec_changes:
                     spec_change.destroy(
-                        old_artifacts=old_artifacts,
-                        old_context_specs=old_context_specs,
+                        global_specs=global_specs,
                         new_artifacts=new_artifacts,
-                        rooted=spec_change.component in roots,
+                        old_artifacts=old_artifacts,
                         related=spec_change.component in related,
+                        rooted=spec_change.component in roots,
                     )
             else:
                 raise ValueError(self.reconciliation)
