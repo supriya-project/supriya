@@ -301,7 +301,9 @@ class Track(
         return f"{repr_[:-1]}{input_}{output}>"
 
     def _apply_activation(self) -> None:
-        if (active_bus := self._artifacts.control_buses.get(Names.ACTIVE)) is None:
+        if (
+            active_bus := self._local_artifacts.control_buses.get(Names.ACTIVE)
+        ) is None:
             return
         active_bus.set(float(self._is_active))
 

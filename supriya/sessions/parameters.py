@@ -73,8 +73,8 @@ class Parameter:
 
     def set(self, value: float) -> None:
         value_ = self._field(value)
-        if self._name in self._component._artifacts.control_buses:
-            self._component._artifacts.control_buses[self._name].set(
+        if self._name in self._component._local_artifacts.control_buses:
+            self._component._local_artifacts.control_buses[self._name].set(
                 value_, use_shared_memory=True
             )
         else:

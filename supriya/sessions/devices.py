@@ -258,9 +258,9 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
         index = parent._devices.index(self)
         # if we're the first device, return parent's input levels
         if not index:
-            return parent._artifacts.control_buses[Names.INPUT_LEVELS]
+            return parent._local_artifacts.control_buses[Names.INPUT_LEVELS]
         # otherwise return parent's input levels
-        return parent._devices[index - 1]._artifacts.control_buses[Names.LEVELS]
+        return parent._devices[index - 1]._local_artifacts.control_buses[Names.LEVELS]
 
     def _get_nested_address(self) -> Address:
         if self.parent is None:
@@ -271,8 +271,8 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
     def _get_output_levels_bus_group(self) -> BusGroup:
         parent = self._ensure_parent()
         return (
-            self._artifacts.control_buses.get(Names.LEVELS)
-            or parent._artifacts.control_buses[Names.OUTPUT_LEVELS]
+            self._local_artifacts.control_buses.get(Names.LEVELS)
+            or parent._local_artifacts.control_buses[Names.OUTPUT_LEVELS]
         )
 
     def _get_numeric_address(self) -> Address:

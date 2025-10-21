@@ -251,8 +251,8 @@ class BufferSpec(Spec):
         old_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
-        buffers = self.component._artifacts.buffers
-        hashes = self.component._artifacts.hashes
+        buffers = self.component._local_artifacts.buffers
+        hashes = self.component._local_artifacts.hashes
         if hashes[self.address] == hash(self):
             buffers.pop(self.name)
             hashes.pop(self.address)
@@ -307,7 +307,7 @@ class BusSpec(Spec):
                 count=self.channel_count,
             )
             new_artifacts.audio_buses[self.address] = bus_group
-            self.component._artifacts.audio_buses[self.name] = bus_group
+            self.component._local_artifacts.audio_buses[self.name] = bus_group
         elif self.calculation_rate == CalculationRate.CONTROL:
             bus_group = self.context.add_bus_group(
                 calculation_rate=self.calculation_rate,
@@ -315,22 +315,22 @@ class BusSpec(Spec):
             )
             bus_group.set(self.default)
             new_artifacts.control_buses[self.address] = bus_group
-            self.component._artifacts.control_buses[self.name] = bus_group
+            self.component._local_artifacts.control_buses[self.name] = bus_group
         else:
             raise ValueError
-        self.component._artifacts.hashes[self.address] = hash(self)
+        self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
         old_artifacts: Artifacts,
         reconciliation: Reconciliation,
     ) -> None:
-        hashes = self.component._artifacts.hashes
+        hashes = self.component._local_artifacts.hashes
         if self.calculation_rate == CalculationRate.AUDIO:
-            buses = self.component._artifacts.audio_buses
+            buses = self.component._local_artifacts.audio_buses
             old_buses = old_artifacts.audio_buses
         elif self.calculation_rate == CalculationRate.CONTROL:
-            buses = self.component._artifacts.control_buses
+            buses = self.component._local_artifacts.control_buses
             old_buses = old_artifacts.control_buses
         if hashes[self.address] == hash(self):
             buses.pop(self.name)
@@ -457,8 +457,8 @@ class GroupSpec(NodeSpec):
             ),
         )
         new_artifacts.nodes[self.address] = group
-        self.component._artifacts.nodes[self.name] = group
-        self.component._artifacts.hashes[self.address] = hash(self)
+        self.component._local_artifacts.nodes[self.name] = group
+        self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
@@ -469,8 +469,8 @@ class GroupSpec(NodeSpec):
         # component artifacts to handle the case of re-creation where a new
         # node was created and added to the component artifacts but with a
         # different hash than this spec's hash.
-        nodes = self.component._artifacts.nodes
-        hashes = self.component._artifacts.hashes
+        nodes = self.component._local_artifacts.nodes
+        hashes = self.component._local_artifacts.hashes
         if hashes[self.address] == hash(self):
             nodes.pop(self.name)
             hashes.pop(self.address)
@@ -499,7 +499,7 @@ class GroupSpec(NodeSpec):
                     old_artifacts=old_artifacts,
                 ),
             )
-        self.component._artifacts.hashes[self.address] = hash(self)
+        self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return False
@@ -562,8 +562,8 @@ class SynthSpec(NodeSpec):
             **map_kwargs,
         )
         new_artifacts.nodes[self.address] = synth
-        self.component._artifacts.nodes[self.name] = synth
-        self.component._artifacts.hashes[self.address] = hash(self)
+        self.component._local_artifacts.nodes[self.name] = synth
+        self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def destroy(
         self,
@@ -574,8 +574,8 @@ class SynthSpec(NodeSpec):
         # component artifacts to handle the case of re-creation where a new
         # node was created and added to the component artifacts but with a
         # different hash than this spec's hash.
-        nodes = self.component._artifacts.nodes
-        hashes = self.component._artifacts.hashes
+        nodes = self.component._local_artifacts.nodes
+        hashes = self.component._local_artifacts.hashes
         if hashes[self.address] == hash(self):
             nodes.pop(self.name)
             hashes.pop(self.address)
@@ -633,7 +633,7 @@ class SynthSpec(NodeSpec):
                 old_artifacts.nodes[self.address].map(**new_map_kwargs)
             if new_set_kwargs:
                 old_artifacts.nodes[self.address].set(**new_set_kwargs)
-        self.component._artifacts.hashes[self.address] = hash(self)
+        self.component._local_artifacts.hashes[self.address] = hash(self)
 
     def requires(self) -> list[Address]:
         return [
@@ -831,6 +831,7 @@ class SpecChange:
     def create(
         self,
         old_artifacts: Artifacts,
+        old_context_specs: dict[Address, Spec],
         new_artifacts: Artifacts,
     ) -> None:
         if self.new_spec is None:
@@ -843,6 +844,7 @@ class SpecChange:
     def mutate(
         self,
         old_artifacts: Artifacts,
+        old_context_specs: dict[Address, Spec],
         new_artifacts: Artifacts,
     ) -> None:
         if self.new_spec is None or self.old_spec is None:
@@ -856,6 +858,7 @@ class SpecChange:
     def destroy(
         self,
         old_artifacts: Artifacts,
+        old_context_specs: dict[Address, Spec],
         new_artifacts: Artifacts,
         related: bool = False,
         rooted: bool = False,
@@ -871,16 +874,18 @@ class SpecChange:
     def gather(
         cls,
         *,
-        old_specs: dict[Address, Spec],
-        new_specs: dict[Address, Spec],
-        old_context_artifacts: dict[AsyncServer, Artifacts],
         destroy_reconciliation: Reconciliation,
+        global_artifacts_by_context: dict[AsyncServer, Artifacts],
+        new_specs: dict[Address, Spec],
+        old_specs: dict[Address, Spec],
     ) -> list["SpecChange"]:
         spec_changes: list[SpecChange] = []
         for address, old_spec in old_specs.items():
             if new_spec := new_specs.pop(address, None):
+                # unchanged spec
                 if new_spec == old_spec:
                     continue
+                # context change: destroy and create
                 if old_spec.context != new_spec.context:
                     spec_changes.extend(
                         [
@@ -900,6 +905,7 @@ class SpecChange:
                             ),
                         ]
                     )
+                # new and old specs: recreate
                 elif new_spec.requires_recreation(old_spec):
                     spec_changes.append(
                         SpecChange(
@@ -911,6 +917,7 @@ class SpecChange:
                             reconciliation=Reconciliation.RECREATE,
                         )
                     )
+                # new and old specs: mutate
                 else:
                     spec_changes.append(
                         SpecChange(
@@ -922,6 +929,7 @@ class SpecChange:
                             reconciliation=Reconciliation.MUTATE,
                         )
                     )
+            # no new spec: destroy the old
             else:
                 spec_changes.append(
                     SpecChange(
@@ -936,11 +944,12 @@ class SpecChange:
             if (
                 isinstance(new_spec, SynthDefSpec)
                 and new_spec.address
-                in old_context_artifacts[new_spec.context].synthdefs
+                in global_artifacts_by_context[new_spec.context].synthdefs
             ):
                 # SynthDefs are global to the context,
                 # so check that they don't need to be created
                 continue
+            # no old spec: create the new
             spec_changes.append(
                 SpecChange(
                     address=address,
@@ -1096,6 +1105,7 @@ class SpecChangeGroup:
         *,
         context: AsyncServer,
         old_artifacts: Artifacts,
+        old_context_specs: dict[Address, Spec],
         new_artifacts: Artifacts,
         roots: list["Component"],
         related: list["Component"],
@@ -1107,18 +1117,21 @@ class SpecChangeGroup:
                 for spec_change in self.spec_changes:
                     spec_change.create(
                         old_artifacts=old_artifacts,
+                        old_context_specs=old_context_specs,
                         new_artifacts=new_artifacts,
                     )
             elif self.reconciliation is Reconciliation.MUTATE:
                 for spec_change in self.spec_changes:
                     spec_change.mutate(
                         old_artifacts=old_artifacts,
+                        old_context_specs=old_context_specs,
                         new_artifacts=new_artifacts,
                     )
             elif self.reconciliation in Reconciliation.DESTROY:
                 for spec_change in self.spec_changes:
                     spec_change.destroy(
                         old_artifacts=old_artifacts,
+                        old_context_specs=old_context_specs,
                         new_artifacts=new_artifacts,
                         rooted=spec_change.component in roots,
                         related=spec_change.component in related,

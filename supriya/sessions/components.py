@@ -59,16 +59,16 @@ class Component(Generic[C]):
     ) -> None:
         from .parameters import Parameter
 
-        self._artifacts = Artifacts()
         self._channel_count: ChannelCount | Inherit = INHERIT
         self._connections: dict[tuple[Component, str], IO] = {}
         self._context: AsyncServer | None = None
         self._id: int = id_
         self._is_active: bool = True
+        self._local_artifacts = Artifacts()
         self._name: str | None = name
         self._parameters: dict[str, Parameter] = {}
         self._parent: C | None = parent
-        self._specs: list[Spec] = []
+        self._specs: dict[Address, Spec] = {}
 
     def __repr__(self) -> str:
         if self._name:
@@ -130,23 +130,26 @@ class Component(Generic[C]):
         self,
         *,
         new_context: AsyncServer | None,
-        old_context_artifacts: dict[AsyncServer, Artifacts],
+        global_artifacts_by_context: dict[AsyncServer, Artifacts],
+        old_context_specs: dict[AsyncServer, dict[Address, Spec]],
         destroy_reconciliation: Reconciliation,
     ) -> list[SpecChange]:
-        old_specs: dict[Address, Spec] = {spec.address: spec for spec in self._specs}
-        if not new_context:
-            new_specs: dict[Address, Spec] = {}
-            self._specs = []
+        old_specs = self._specs
+        if new_context:
+            self._specs = new_specs = {
+                spec.address: spec
+                for spec in self._resolve_specs(
+                    SpecFactory(component=self, context=new_context)
+                )
+            }
         else:
-            spec_factory = SpecFactory(component=self, context=new_context)
-            self._specs = list(self._resolve_specs(spec_factory))
-            new_specs = {spec.address: spec for spec in self._specs}
+            self._specs = new_specs = {}
         self._context = new_context
         return SpecChange.gather(
-            old_specs=old_specs,
-            new_specs=new_specs,
-            old_context_artifacts=old_context_artifacts,
             destroy_reconciliation=destroy_reconciliation,
+            global_artifacts_by_context=global_artifacts_by_context,
+            new_specs=new_specs,
+            old_specs=old_specs,
         )
 
     def _get_nested_address(self) -> str:
@@ -191,13 +194,13 @@ class Component(Generic[C]):
         # treat offline contexts as null
         if context and not context.boot_status == BootStatus.ONLINE:
             context = None
-        # setup artifacts
-        old_context_artifacts: dict[AsyncServer, Artifacts] = session._context_artifacts
-        new_context_artifacts: dict[AsyncServer, Artifacts] = {
-            context_: Artifacts() for context_ in old_context_artifacts
+        # setup context artifacts
+        old_global_artifacts_by_context = session._global_artifacts_by_context
+        new_global_artifacts_by_context: dict[AsyncServer, Artifacts] = {
+            context_: Artifacts() for context_ in old_global_artifacts_by_context
         }
-        if context and context not in new_context_artifacts:
-            new_context_artifacts[context] = Artifacts()
+        if context and context not in new_global_artifacts_by_context:
+            new_global_artifacts_by_context[context] = Artifacts()
         # setup collections
         visited_components: set[Component] = set()
         related_components: list[Component] = []
@@ -227,9 +230,10 @@ class Component(Generic[C]):
                     destroy_reconciliation = Reconciliation.DESTROY_SHALLOW
                 spec_changes.extend(
                     component._gather_spec_changes(
-                        new_context=None if deleting_ else context,
-                        old_context_artifacts=old_context_artifacts,
                         destroy_reconciliation=destroy_reconciliation,
+                        new_context=None if deleting_ else context,
+                        old_context_specs=session._context_specs,
+                        global_artifacts_by_context=old_global_artifacts_by_context,
                     ),
                 )
                 visited_components.add(component)
@@ -260,8 +264,9 @@ class Component(Generic[C]):
                     new_context=(
                         None if component in deleted_components else component._context
                     ),
-                    old_context_artifacts=old_context_artifacts,
                     destroy_reconciliation=Reconciliation.DESTROY_SHALLOW,
+                    old_context_specs=session._context_specs,
+                    global_artifacts_by_context=old_global_artifacts_by_context,
                 ),
             )
 
@@ -272,16 +277,21 @@ class Component(Generic[C]):
             for spec_change_group in spec_change_groups:
                 spec_change_group.apply(
                     context=context_,
-                    old_artifacts=old_context_artifacts[context_],
-                    new_artifacts=new_context_artifacts[context_],
+                    old_context_specs=session._context_specs[context_],
+                    old_artifacts=old_global_artifacts_by_context[context_],
+                    new_artifacts=new_global_artifacts_by_context[context_],
                     roots=roots,
                     related=related_components,
                 )
                 if spec_change_group.sync:
                     await context_.sync()
         # merge artifacts
-        for context_ in set(old_context_artifacts) | set(new_context_artifacts):
-            old_context_artifacts[context_].merge(new_context_artifacts[context_])
+        for context_ in set(old_global_artifacts_by_context) | set(
+            new_global_artifacts_by_context
+        ):
+            old_global_artifacts_by_context[context_].merge(
+                new_global_artifacts_by_context[context_]
+            )
         # ... actually we want a stack of components to delete here, because sends might get deleted too if deleting:
         for component in deleted_components:
             # component._delete()
@@ -360,7 +370,7 @@ class Component(Generic[C]):
             raise RuntimeError
         tree = await cast(
             Awaitable[QueryTreeGroup],
-            cast(Group, self._artifacts.nodes[Names.GROUP]).dump_tree(),
+            cast(Group, self._local_artifacts.nodes[Names.GROUP]).dump_tree(),
         )
         if annotation:
             annotations: dict[int, str] = {}
@@ -369,7 +379,7 @@ class Component(Generic[C]):
                     address = component.numeric_address
                 else:
                     address = component.address
-                for name, node in component._artifacts.nodes.items():
+                for name, node in component._local_artifacts.nodes.items():
                     annotations[node.id_] = f"{address}:{name}"
             return str(tree.annotate(annotations))
         return str(tree)
@@ -599,10 +609,10 @@ class NameSettable(Component[C]):
 
 class LevelsCheckable(Component[C]):
     def _get_input_levels_bus_group(self) -> BusGroup:
-        return self._artifacts.control_buses[Names.INPUT_LEVELS]
+        return self._local_artifacts.control_buses[Names.INPUT_LEVELS]
 
     def _get_output_levels_bus_group(self) -> BusGroup:
-        return self._artifacts.control_buses[Names.OUTPUT_LEVELS]
+        return self._local_artifacts.control_buses[Names.OUTPUT_LEVELS]
 
     @property
     def input_levels(self) -> list[float]:
