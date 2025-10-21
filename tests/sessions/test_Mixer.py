@@ -37,31 +37,31 @@ from .conftest import Scenario, does_not_raise
             +++ mutation
             @@ -1,26 +1,4 @@
              <session.contexts[0]>
-            -    NODE TREE 1000 group
-            -        1001 group
-            -            1007 group
-            -                1008 group
-            -                1011 supriya:meters:2
+            -    NODE TREE 1000 group (mixers[1]:group)
+            -        1001 group (mixers[1]:tracks)
+            -            1007 group (tracks[2]:group)
+            -                1008 group (tracks[2]:tracks)
+            -                1011 supriya:meters:2 (tracks[2]:input-levels)
             -                    in_: 18.0, out: 7.0
-            -                1009 group
-            -                1010 supriya:channel-strip:2
+            -                1009 group (tracks[2]:devices)
+            -                1010 supriya:channel-strip:2 (tracks[2]:channel-strip)
             -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
-            -                1012 supriya:meters:2
+            -                1012 supriya:meters:2 (tracks[2]:output-levels)
             -                    in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2
+            -                1013 supriya:patch-cable:2x2 (tracks[2]:output)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            -        1004 supriya:meters:2
+            -        1004 supriya:meters:2 (mixers[1]:input-levels)
             -            in_: 16.0, out: 1.0
-            -        1002 group
-            -        1003 supriya:channel-strip:2
+            -        1002 group (mixers[1]:devices)
+            -        1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
             -            active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
-            -        1005 supriya:meters:2
+            -        1005 supriya:meters:2 (mixers[1]:output-levels)
             -            in_: 16.0, out: 3.0
-            -        1006 supriya:patch-cable:2x2
+            -        1006 supriya:patch-cable:2x2 (mixers[1]:output)
             -            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
-                 NODE TREE 1014 group
-                     1015 group
-                     1018 supriya:meters:2
+                 NODE TREE 1014 group (mixers[3]:group)
+                     1015 group (mixers[3]:tracks)
+                     1018 supriya:meters:2 (mixers[3]:input-levels)
             """,
             expected_messages="""
             - [None, [['/n_set', 1000, 'gate', 0.0], ['/n_set', 1003, 'done_action', 14.0]]]
@@ -88,18 +88,18 @@ from .conftest import Scenario, does_not_raise
             +++ mutation
             @@ -21,14 +21,3 @@
                          in_: 16.0, out: 3.0
-                     1006 supriya:patch-cable:2x2
+                     1006 supriya:patch-cable:2x2 (mixers[1]:output)
                          active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 0.0
-            -    NODE TREE 1014 group
-            -        1015 group
-            -        1018 supriya:meters:2
+            -    NODE TREE 1014 group (mixers[3]:group)
+            -        1015 group (mixers[3]:tracks)
+            -        1018 supriya:meters:2 (mixers[3]:input-levels)
             -            in_: 20.0, out: 12.0
-            -        1016 group
-            -        1017 supriya:channel-strip:2
+            -        1016 group (mixers[3]:devices)
+            -        1017 supriya:channel-strip:2 (mixers[3]:channel-strip)
             -            active: 1.0, done_action: 2.0, gain: c11, gate: 1.0, out: 20.0
-            -        1019 supriya:meters:2
+            -        1019 supriya:meters:2 (mixers[3]:output-levels)
             -            in_: 20.0, out: 14.0
-            -        1020 supriya:patch-cable:2x2
+            -        1020 supriya:patch-cable:2x2 (mixers[3]:output)
             -            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 0.0
             """,
             expected_messages="""
@@ -113,7 +113,7 @@ async def test_Mixer_delete(
     online: bool,
     scenario: Scenario,
 ) -> None:
-    async with scenario.run(annotation_style=None, online=online) as session:
+    async with scenario.run(annotation_style="numeric", online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Mixer)
         await subject.delete()
