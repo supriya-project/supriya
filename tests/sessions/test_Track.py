@@ -1545,7 +1545,7 @@ class MoveScenario(Scenario):
             +                            active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
             +                        1012 supriya:meters:2 (tracks[2]:output-levels)
             +                            in_: 18.0, out: 9.0
-            +                        1013 supriya:patch-cable:2x2
+            +                        1013 supriya:patch-cable:2x2 (tracks[2]:output)
             +                            active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +                        1021 supriya:patch-cable:2x2 (tracks[2]:output)
             +                            active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
@@ -1626,7 +1626,7 @@ class MoveScenario(Scenario):
             +                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
             +                1022 supriya:patch-cable:2x2 (sends[4]:synth)
             +                    active: c5, done_action: 2.0, gain: c11, gate: 1.0, in_: 18.0, out: 22.0
-            +                1014 supriya:patch-cable:2x2
+            +                1014 supriya:patch-cable:2x2 (sends[4]:synth)
             +                    active: c5, done_action: 2.0, gain: c11, gate: 0.0, in_: 18.0, out: 20.0
             +                1012 supriya:meters:2 (tracks[2]:output-levels)
             +                    in_: 18.0, out: 9.0
@@ -1689,16 +1689,15 @@ class MoveScenario(Scenario):
             +                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 22.0
             +                1023 supriya:patch-cable:2x2 (sends[4]:synth)
             +                    active: c11, done_action: 2.0, gain: c17, gate: 1.0, in_: 22.0, out: 20.0
-            +                1022 supriya:patch-cable:2x2
+            +                1022 supriya:patch-cable:2x2 (sends[4]:synth)
             +                    active: c11, done_action: 2.0, gain: c17, gate: 0.0, in_: 22.0, out: 18.0
             +                1020 supriya:meters:2 (tracks[3]:output-levels)
             +                    in_: 22.0, out: 15.0
             +                1021 supriya:patch-cable:2x2 (tracks[3]:output)
             +                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 16.0
                          1007 group (tracks[2]:group)
-            -                1014 supriya:fb-patch-cable:2x2 (tracks[2]:feedback)
+                             1014 supriya:fb-patch-cable:2x2 (tracks[2]:feedback)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
-            +                1014 supriya:fb-patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
                              1008 group (tracks[2]:tracks)
                              1011 supriya:meters:2 (tracks[2]:input-levels)
@@ -1775,16 +1774,15 @@ class MoveScenario(Scenario):
             +                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 22.0
             +                1023 supriya:patch-cable:2x2 (sends[4]:synth)
             +                    active: c11, done_action: 2.0, gain: c17, gate: 1.0, in_: 22.0, out: 20.0
-            +                1022 supriya:patch-cable:2x2
+            +                1022 supriya:patch-cable:2x2 (sends[4]:synth)
             +                    active: c11, done_action: 2.0, gain: c17, gate: 0.0, in_: 22.0, out: 18.0
             +                1020 supriya:meters:2 (tracks[3]:output-levels)
             +                    in_: 22.0, out: 15.0
             +                1021 supriya:patch-cable:2x2 (tracks[3]:output)
             +                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 16.0
                          1007 group (tracks[2]:group)
-            -                1014 supriya:fb-patch-cable:2x2 (tracks[2]:feedback)
+                             1014 supriya:fb-patch-cable:2x2 (tracks[2]:feedback)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
-            +                1014 supriya:fb-patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
                              1008 group (tracks[2]:tracks)
                              1011 supriya:meters:2 (tracks[2]:input-levels)
@@ -1883,7 +1881,7 @@ class MoveScenario(Scenario):
             +                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
             +                1023 supriya:patch-cable:2x2 (sends[4]:synth)
             +                    active: c5, done_action: 2.0, gain: c11, gate: 1.0, in_: 18.0, out: 22.0
-            +                1014 supriya:patch-cable:2x2
+            +                1014 supriya:patch-cable:2x2 (sends[4]:synth)
             +                    active: c5, done_action: 2.0, gain: c11, gate: 0.0, in_: 18.0, out: 20.0
             +                1012 supriya:meters:2 (tracks[2]:output-levels)
             +                    in_: 18.0, out: 9.0
@@ -1943,6 +1941,7 @@ class SetChannelCountScenario(Scenario):
         # track: set channel count to 2
         # - no-op
         SetChannelCountScenario(
+            id="track -> 2",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1957,6 +1956,7 @@ class SetChannelCountScenario(Scenario):
         # track: set channel count to 4
         # - track changes to 4
         SetChannelCountScenario(
+            id="track -> 4",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -1976,15 +1976,13 @@ class SetChannelCountScenario(Scenario):
             +                1015 supriya:meters:4 (session.mixers[0].tracks[0]:input-levels)
             +                    in_: 20.0, out: 11.0
                              1009 group (session.mixers[0].tracks[0]:devices)
-            -                1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
             -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
             -                1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
             -                    in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
-            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                1010 supriya:channel-strip:2
             +                    active: c5, done_action: 2.0, gain: c6, gate: 0.0, out: 18.0
-            +                1013 supriya:patch-cable:2x2
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +                1014 supriya:channel-strip:4 (session.mixers[0].tracks[0]:channel-strip)
             +                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 20.0
@@ -2019,6 +2017,7 @@ class SetChannelCountScenario(Scenario):
         # - track changes to 4
         # - child track changes to 4 also
         SetChannelCountScenario(
+            id="track -> 4, child -> 4",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2039,17 +2038,15 @@ class SetChannelCountScenario(Scenario):
             +                        1026 supriya:meters:4 (session.mixers[0].tracks[0].tracks[0]:input-levels)
             +                            in_: 26.0, out: 25.0
                                      1016 group (session.mixers[0].tracks[0].tracks[0]:devices)
-            -                        1017 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[0]:channel-strip)
+                                     1017 supriya:channel-strip:2 (session.mixers[0].tracks[0].tracks[0]:channel-strip)
             -                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
             -                        1019 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
             -                            in_: 20.0, out: 15.0
-            -                        1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
+            +                            active: c11, done_action: 2.0, gain: c12, gate: 0.0, out: 20.0
+                                     1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
             -                1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
             -                    in_: 18.0, out: 7.0
-            +                        1017 supriya:channel-strip:2
-            +                            active: c11, done_action: 2.0, gain: c12, gate: 0.0, out: 20.0
-            +                        1020 supriya:patch-cable:2x2
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
             +                        1025 supriya:channel-strip:4 (session.mixers[0].tracks[0].tracks[0]:channel-strip)
             +                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 26.0
@@ -2060,15 +2057,13 @@ class SetChannelCountScenario(Scenario):
             +                1022 supriya:meters:4 (session.mixers[0].tracks[0]:input-levels)
             +                    in_: 22.0, out: 17.0
                              1009 group (session.mixers[0].tracks[0]:devices)
-            -                1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
             -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
             -                1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
             -                    in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
-            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                1010 supriya:channel-strip:2
             +                    active: c5, done_action: 2.0, gain: c6, gate: 0.0, out: 18.0
-            +                1013 supriya:patch-cable:2x2
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +                1021 supriya:channel-strip:4 (session.mixers[0].tracks[0]:channel-strip)
             +                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 22.0
@@ -2116,6 +2111,7 @@ class SetChannelCountScenario(Scenario):
         # - track changes to 4
         # - child track changes back to 2
         SetChannelCountScenario(
+            id="track:2, child:2, track -> 4, child -> 2",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2132,30 +2128,26 @@ class SetChannelCountScenario(Scenario):
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -12,17 +12,23 @@
-                                         active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            @@ -13,16 +13,22 @@
                                      1019 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
                                          in_: 20.0, out: 15.0
-            -                        1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
+                                     1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
             -                1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
             -                    in_: 18.0, out: 7.0
-            +                        1020 supriya:patch-cable:2x2
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
             +                        1025 supriya:patch-cable:2x4 (session.mixers[0].tracks[0].tracks[0]:output)
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 22.0
             +                1022 supriya:meters:4 (session.mixers[0].tracks[0]:input-levels)
             +                    in_: 22.0, out: 17.0
                              1009 group (session.mixers[0].tracks[0]:devices)
-            -                1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
             -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
             -                1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
             -                    in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
-            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                1010 supriya:channel-strip:2
             +                    active: c5, done_action: 2.0, gain: c6, gate: 0.0, out: 18.0
-            +                1013 supriya:patch-cable:2x2
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+            -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +                1021 supriya:channel-strip:4 (session.mixers[0].tracks[0]:channel-strip)
             +                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 22.0
@@ -2882,6 +2874,7 @@ class SetOutputScenario(Scenario):
         # output to self
         # - raises
         SetOutputScenario(
+            id="output to self",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -2918,13 +2911,11 @@ class SetOutputScenario(Scenario):
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -10,8 +10,8 @@
-                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            @@ -11,7 +11,7 @@
                              1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                                  in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                1013 supriya:patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
@@ -2961,13 +2952,11 @@ class SetOutputScenario(Scenario):
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -10,8 +10,10 @@
-                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            @@ -11,7 +11,9 @@
                              1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                                  in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                1013 supriya:patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
@@ -3015,13 +3004,11 @@ class SetOutputScenario(Scenario):
                              1008 group (session.mixers[0].tracks[0]:tracks)
                              1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
                                  in_: 18.0, out: 7.0
-            @@ -21,8 +23,10 @@
-                                 active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            @@ -22,7 +24,9 @@
                              1019 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
                                  in_: 20.0, out: 15.0
-            -                1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:output)
+                             1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:output)
             -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
-            +                1020 supriya:patch-cable:2x2
             +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
             +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[1]:output)
             +                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 22.0
@@ -3073,13 +3060,11 @@ class SetOutputScenario(Scenario):
                                      1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
                                      1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
                                          in_: 20.0, out: 13.0
-            @@ -21,8 +23,10 @@
-                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            @@ -22,7 +24,9 @@
                              1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                                  in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                1013 supriya:patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +                1021 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 22.0
@@ -3154,6 +3139,7 @@ class SetOutputScenario(Scenario):
         # - outputs to parent
         # - parent: do not expect :feedback
         SetOutputScenario(
+            id="output is default",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -3193,13 +3179,11 @@ class SetOutputScenario(Scenario):
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -14,8 +14,10 @@
-                                                 active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
+            @@ -15,7 +15,9 @@
                                              1026 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output-levels)
                                                  in_: 22.0, out: 21.0
-            -                                1027 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
+                                             1027 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
             -                                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
-            +                                1027 supriya:patch-cable:2x2
             +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
             +                                1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:output)
             +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 18.0
@@ -3250,13 +3234,11 @@ class SetOutputScenario(Scenario):
                                              1022 group (session.mixers[0].tracks[0].tracks[0].tracks[0]:tracks)
                                              1025 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0].tracks[0]:input-levels)
                                                  in_: 22.0, out: 19.0
-            @@ -32,8 +34,10 @@
-                                 active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            @@ -33,7 +35,9 @@
                              1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                                  in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
+                             1013 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                1013 supriya:patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +                1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[0]:output)
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 24.0
@@ -3308,13 +3290,11 @@ class SetOutputScenario(Scenario):
                              1008 group (session.mixers[0].tracks[0]:tracks)
                              1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
                                  in_: 18.0, out: 7.0
-            @@ -23,8 +25,10 @@
-                                         active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
+            @@ -24,7 +26,9 @@
                                      1026 supriya:meters:2 (session.mixers[0].tracks[1].tracks[0]:output-levels)
                                          in_: 22.0, out: 21.0
-            -                        1027 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
+                                     1027 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
             -                            active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
-            +                        1027 supriya:patch-cable:2x2
             +                            active: c17, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
             +                        1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
             +                            active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 24.0
@@ -3334,7 +3314,7 @@ class SetOutputScenario(Scenario):
         # output to younger auntie
         # - younger auntie: do not expect :feedback
         SetOutputScenario(
-            id="output to younger cousin",
+            id="output to younger auntie",
             commands=[
                 (None, "add_mixer", None),
                 ("mixers[0]", "add_track", {"name": "Parent"}),
@@ -3358,13 +3338,11 @@ class SetOutputScenario(Scenario):
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -12,8 +12,10 @@
-                                         active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            @@ -13,7 +13,9 @@
                                      1019 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
                                          in_: 20.0, out: 15.0
-            -                        1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
+                                     1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
-            +                        1020 supriya:patch-cable:2x2
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
             +                        1028 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 22.0
@@ -3414,13 +3392,11 @@ class SetOutputScenario(Scenario):
                                      1015 group (session.mixers[0].tracks[0].tracks[0]:tracks)
                                      1018 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:input-levels)
                                          in_: 20.0, out: 13.0
-            @@ -34,8 +36,10 @@
-                                         active: c23, done_action: 2.0, gain: c24, gate: 1.0, out: 24.0
+            @@ -35,7 +37,9 @@
                                      1033 supriya:meters:2 (session.mixers[0].tracks[1].tracks[0]:output-levels)
                                          in_: 24.0, out: 27.0
-            -                        1034 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
+                                     1034 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
             -                            active: c23, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 22.0
-            +                        1034 supriya:patch-cable:2x2
             +                            active: c23, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 24.0, out: 22.0
             +                        1035 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].tracks[0]:output)
             +                            active: c23, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 26.0
@@ -3466,13 +3442,11 @@ class SetOutputScenario(Scenario):
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -12,8 +12,10 @@
-                                         active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
+            @@ -13,7 +13,9 @@
                                      1019 supriya:meters:2 (session.mixers[0].tracks[0].tracks[0]:output-levels)
                                          in_: 20.0, out: 15.0
-            -                        1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
+                                     1020 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             -                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 18.0
-            +                        1020 supriya:patch-cable:2x2
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
             +                        1035 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].tracks[0]:output)
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 24.0
@@ -3774,12 +3748,10 @@ class UngroupScenario(Scenario):
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -1,39 +1,43 @@
-             <session.contexts[0]>
-                 NODE TREE 1000 group (mixers[1]:group)
+            @@ -3,37 +3,41 @@
                      1001 group (mixers[1]:tracks)
-            -            1007 group (tracks[2]:group)
-            -                1008 group (tracks[2]:tracks)
+                         1007 group (tracks[2]:group)
+                             1008 group (tracks[2]:tracks)
             -                    1014 group (tracks[3]:group)
             -                        1015 group (tracks[3]:tracks)
             -                        1018 supriya:meters:2 (tracks[3]:input-levels)
@@ -3802,23 +3774,16 @@ class UngroupScenario(Scenario):
             -                            in_: 22.0, out: 21.0
             -                        1027 supriya:patch-cable:2x2 (tracks[4]:output)
             -                            active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 18.0
-            -                1011 supriya:meters:2 (tracks[2]:input-levels)
-            +            1007 group
-            +                1008 group
-            +                1011 supriya:meters:2
+                             1011 supriya:meters:2 (tracks[2]:input-levels)
                                  in_: 18.0, out: 7.0
-            -                1009 group (tracks[2]:devices)
-            -                1010 supriya:channel-strip:2 (tracks[2]:channel-strip)
+                             1009 group (tracks[2]:devices)
+                             1010 supriya:channel-strip:2 (tracks[2]:channel-strip)
             -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
-            -                1012 supriya:meters:2 (tracks[2]:output-levels)
-            +                1009 group
-            +                1010 supriya:channel-strip:2
             +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
-            +                1012 supriya:meters:2
+                             1012 supriya:meters:2 (tracks[2]:output-levels)
                                  in_: 18.0, out: 9.0
-            -                1013 supriya:patch-cable:2x2 (tracks[2]:output)
+                             1013 supriya:patch-cable:2x2 (tracks[2]:output)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                1013 supriya:patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +            1014 group (tracks[3]:group)
             +                1015 group (tracks[3]:tracks)
@@ -3829,7 +3794,7 @@ class UngroupScenario(Scenario):
             +                    active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
             +                1019 supriya:meters:2 (tracks[3]:output-levels)
             +                    in_: 20.0, out: 15.0
-            +                1020 supriya:patch-cable:2x2
+            +                1020 supriya:patch-cable:2x2 (tracks[3]:output)
             +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 18.0
             +                1028 supriya:patch-cable:2x2 (tracks[3]:output)
             +                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
@@ -3842,7 +3807,7 @@ class UngroupScenario(Scenario):
             +                    active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
             +                1026 supriya:meters:2 (tracks[4]:output-levels)
             +                    in_: 22.0, out: 21.0
-            +                1027 supriya:patch-cable:2x2
+            +                1027 supriya:patch-cable:2x2 (tracks[4]:output)
             +                    active: c17, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 18.0
             +                1029 supriya:patch-cable:2x2 (tracks[4]:output)
             +                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 16.0
