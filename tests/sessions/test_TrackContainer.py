@@ -198,7 +198,7 @@ class GroupTracksScenario(Scenario):
             +                            active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
             +                        1012 supriya:meters:2 (tracks[2]:output-levels)
             +                            in_: 18.0, out: 9.0
-            +                        1013 supriya:patch-cable:2x2
+            +                        1013 supriya:patch-cable:2x2 (tracks[2]:output)
             +                            active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
             +                        1028 supriya:patch-cable:2x2 (tracks[2]:output)
             +                            active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 22.0
@@ -211,7 +211,7 @@ class GroupTracksScenario(Scenario):
             +                            active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 20.0
             +                        1019 supriya:meters:2 (tracks[3]:output-levels)
             +                            in_: 20.0, out: 15.0
-            +                        1020 supriya:patch-cable:2x2
+            +                        1020 supriya:patch-cable:2x2 (tracks[3]:output)
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
             +                        1029 supriya:patch-cable:2x2 (tracks[3]:output)
             +                            active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 22.0
@@ -310,7 +310,7 @@ class GroupTracksScenario(Scenario):
             +                                    active: c17, done_action: 2.0, gain: c18, gate: 1.0, out: 22.0
             +                                1026 supriya:meters:2 (tracks[4]:output-levels)
             +                                    in_: 22.0, out: 21.0
-            +                                1027 supriya:patch-cable:2x2
+            +                                1027 supriya:patch-cable:2x2 (tracks[4]:output)
             +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 18.0
             +                                1042 supriya:patch-cable:2x2 (tracks[4]:output)
             +                                    active: c17, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 26.0
@@ -323,7 +323,7 @@ class GroupTracksScenario(Scenario):
             +                                    active: c23, done_action: 2.0, gain: c24, gate: 1.0, out: 24.0
             +                                1033 supriya:meters:2 (tracks[5]:output-levels)
             +                                    in_: 24.0, out: 27.0
-            +                                1034 supriya:patch-cable:2x2
+            +                                1034 supriya:patch-cable:2x2 (tracks[5]:output)
             +                                    active: c23, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 24.0, out: 18.0
             +                                1043 supriya:patch-cable:2x2 (tracks[5]:output)
             +                                    active: c23, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 24.0, out: 26.0

@@ -38,15 +38,11 @@ from .conftest import Scenario, does_not_raise
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -4,9 +4,9 @@
-                     1004 supriya:meters:2 (mixers[1]:input-levels)
-                         in_: 16.0, out: 1.0
+            @@ -6,7 +6,7 @@
                      1002 group (mixers[1]:devices)
-            -            1007 group (devices[2]:group)
-            -                1008 supriya:dc:2 (devices[2]:synth-0)
+                         1007 group (devices[2]:group)
+                             1008 supriya:dc:2 (devices[2]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            +            1007 group
-            +                1008 supriya:dc:2
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 14.0, gate: 0.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
@@ -225,7 +221,7 @@ class MoveScenario(Scenario):
                                  in_: 18.0, out: 7.0
                              1009 group (tracks[2]:devices)
             +                    1014 group (devices[3]:group)
-            +                        1015 supriya:dc:2
+            +                        1015 supriya:dc:2 (devices[3]:synth-0)
             +                            out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 0.0
             +                        1016 supriya:dc:2 (devices[3]:synth-0)
             +                            out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0

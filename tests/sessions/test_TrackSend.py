@@ -20,6 +20,7 @@ from .conftest import Scenario
     "scenario",
     [
         Scenario(
+            id="send to younger sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
@@ -44,13 +45,11 @@ from .conftest import Scenario
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -8,8 +8,8 @@
-                             1009 group (session.mixers[0].tracks[0]:devices)
+            @@ -9,7 +9,7 @@
                              1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
                                  active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
-            -                1014 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
+                             1014 supriya:patch-cable:2x2 (session.mixers[0].tracks[0].sends[0]:synth)
             -                    active: c5, done_action: 2.0, gain: c11, gate: 1.0, in_: 18.0, out: 20.0
-            +                1014 supriya:patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: c11, gate: 0.0, in_: 18.0, out: 20.0
                              1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
                                  in_: 18.0, out: 9.0
@@ -61,6 +60,7 @@ from .conftest import Scenario
             """,
         ),
         Scenario(
+            id="send to older sibling",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Track One"}),
@@ -84,24 +84,20 @@ from .conftest import Scenario
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -2,8 +2,8 @@
-                 NODE TREE 1000 group (session.mixers[0]:group)
+            @@ -3,7 +3,7 @@
                      1001 group (session.mixers[0]:tracks)
                          1007 group (session.mixers[0].tracks[0]:group)
-            -                1014 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0]:feedback)
+                             1014 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0]:feedback)
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
-            +                1014 supriya:fb-patch-cable:2x2
             +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
                              1008 group (session.mixers[0].tracks[0]:tracks)
                              1011 supriya:meters:2 (session.mixers[0].tracks[0]:input-levels)
                                  in_: 20.0, out: 7.0
-            @@ -21,8 +21,8 @@
-                             1017 group (session.mixers[0].tracks[1]:devices)
+            @@ -22,7 +22,7 @@
                              1018 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
                                  active: c11, done_action: 2.0, gain: c12, gate: 1.0, out: 22.0
-            -                1022 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
+                             1022 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].sends[0]:synth)
             -                    active: c11, done_action: 2.0, gain: c17, gate: 1.0, in_: 22.0, out: 18.0
-            +                1022 supriya:patch-cable:2x2
             +                    active: c11, done_action: 2.0, gain: c17, gate: 0.0, in_: 22.0, out: 18.0
                              1020 supriya:meters:2 (session.mixers[0].tracks[1]:output-levels)
                                  in_: 22.0, out: 15.0
@@ -113,6 +109,7 @@ from .conftest import Scenario
             """,
         ),
     ],
+    ids=lambda value: value.id,
 )
 @pytest.mark.asyncio
 async def test_TrackSend_delete(
