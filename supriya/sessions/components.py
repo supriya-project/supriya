@@ -1,4 +1,5 @@
 import dataclasses
+from collections import ChainMap
 from types import MappingProxyType
 from typing import (
     TYPE_CHECKING,
@@ -113,6 +114,28 @@ class Component(Generic[C]):
             parts.extend(indent + line for line in child._dump_components())
         return parts
 
+    async def _dump_tree(
+        self,
+        annotation: Literal["nested", "numeric"] | None = "nested",
+        fallback_annotations: dict[int, Address] | None = None,
+    ) -> str:
+        """
+        Dump the component's node tree, optionally annotated, as a string representation.
+        """
+        if self._ensure_session().boot_status != BootStatus.ONLINE:
+            raise RuntimeError
+        tree = await cast(
+            Awaitable[QueryTreeGroup],
+            cast(Group, self._local_artifacts.nodes[Names.GROUP]).dump_tree(),
+        )
+        if annotation:
+            annotations = ChainMap(
+                self._gather_annotations(annotation),
+                fallback_annotations or {},
+            )
+            return str(tree.annotate(annotations))
+        return str(tree)
+
     def _ensure_context(self) -> AsyncServer:
         if self.context is None:
             raise RuntimeError
@@ -127,6 +150,20 @@ class Component(Generic[C]):
         if self.session is None:
             raise RuntimeError
         return self.session
+
+    def _gather_annotations(
+        self,
+        annotation: Literal["nested", "numeric"] | None = "nested",
+    ) -> dict[int, str]:
+        annotations: dict[int, str] = {}
+        for component in self.walk(Component):
+            if annotation == "numeric":
+                address = component.numeric_address
+            else:
+                address = component.address
+            for name, node in component._local_artifacts.nodes.items():
+                annotations[node.id_] = f"{address}:{name}"
+        return annotations
 
     def _gather_spec_changes(
         self,
@@ -403,36 +440,6 @@ class Component(Generic[C]):
         if not parameter._field.has_bus:
             return True
         return False
-
-    def dump_components(self) -> str:
-        """
-        Dump the component's component tree as a string representation.
-        """
-        return "\n".join(self._dump_components())
-
-    async def dump_tree(
-        self, annotation: Literal["nested", "numeric"] | None = "nested"
-    ) -> str:
-        """
-        Dump the component's node tree, optionally annotated, as a string representation.
-        """
-        if self._ensure_session().boot_status != BootStatus.ONLINE:
-            raise RuntimeError
-        tree = await cast(
-            Awaitable[QueryTreeGroup],
-            cast(Group, self._local_artifacts.nodes[Names.GROUP]).dump_tree(),
-        )
-        if annotation:
-            annotations: dict[int, str] = {}
-            for component in self.walk(Component):
-                if annotation == "numeric":
-                    address = component.numeric_address
-                else:
-                    address = component.address
-                for name, node in component._local_artifacts.nodes.items():
-                    annotations[node.id_] = f"{address}:{name}"
-            return str(tree.annotate(annotations))
-        return str(tree)
 
     async def set_parameter(self, name: str, value: float) -> None:
         """

@@ -153,13 +153,11 @@ class SetSidechainScenario(Scenario):
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -7,8 +7,8 @@
-                                 in_: 18.0, out: 7.0
+            @@ -8,7 +8,7 @@
                              1009 group (session.mixers[0].tracks[0]:devices)
                                  1014 group (session.mixers[0].tracks[0].devices[0]:group)
-            -                        1015 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].devices[0]:sidechain)
+                                     1015 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].devices[0]:sidechain)
             -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
-            +                        1015 supriya:fb-patch-cable:2x2
             +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
                                      1016 test:sidechain:2 (session.mixers[0].tracks[0].devices[0]:synth-0)
                                          bus: 18.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 20.0

@@ -93,6 +93,18 @@ class Session(Component):
         self._mixers[mixer] = context
         return mixer
 
+    def _gather_annotations_by_context(
+        self,
+        annotation: Literal["nested", "numeric"] | None = "nested",
+    ) -> dict[AsyncServer, dict[int, str]]:
+        annotations: dict[AsyncServer, dict[int, str]] = {}
+        for context, mixers in self._contexts.items():
+            for mixer in mixers:
+                annotations.setdefault(context, {}).update(
+                    mixer._gather_annotations(annotation)
+                )
+        return annotations
+
     def _get_nested_address(self) -> Address:
         return "session"
 
@@ -244,7 +256,9 @@ class Session(Component):
         return "\n".join(parts)
 
     async def dump_tree(
-        self, annotation: Literal["nested", "numeric"] | None = "nested"
+        self,
+        annotation: Literal["nested", "numeric"] | None = "nested",
+        fallback_annotations: dict[AsyncServer, dict[int, str]] | None = None,
     ) -> str:
         """
         Dump the sessions's node tree, optionally annotated, as a string representation.
@@ -255,7 +269,12 @@ class Session(Component):
         for context, mixers in self._contexts.items():
             parts.append(repr(context))
             for mixer in mixers:
-                for line in (await mixer.dump_tree(annotation=annotation)).splitlines():
+                for line in (
+                    await mixer._dump_tree(
+                        annotation=annotation,
+                        fallback_annotations=(fallback_annotations or {}).get(context),
+                    )
+                ).splitlines():
                     parts.append(f"    {line}")
         return "\n".join(parts)
 

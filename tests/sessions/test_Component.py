@@ -3,11 +3,7 @@ from uqbar.strings import normalize
 
 from supriya.sessions import Session
 
-from .conftest import (
-    capture,
-    debug_tree,
-    format_messages,
-)
+from .conftest import capture, format_messages
 
 
 @pytest.mark.asyncio
@@ -41,12 +37,10 @@ async def test_Component_connections_02():
     track_two = await mixer.add_track()
     await track_one.add_send(target=track_two)
     await session.boot()
-    initial_tree = await debug_tree(session, annotation=None)
     # Operation
     with capture(session.contexts[0]) as messages:
         await track_one.delete()
     # Post-conditions
-    print(initial_tree)
     assert format_messages(messages) == normalize(
         """
         - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
@@ -64,12 +58,10 @@ async def test_Component_connections_03():
     track_two = await mixer.add_track()
     await track_one.add_send(target=track_two)
     await session.boot()
-    initial_tree = await debug_tree(session, annotation=None)
     # Operation
     with capture(session.contexts[0]) as messages:
         await track_two.delete()
     # Post-conditions
-    print(initial_tree)
     assert format_messages(messages) == normalize(
         """
         - [None, [['/n_set', 1015, 'gate', 0.0], ['/n_set', 1018, 'done_action', 14.0]]]

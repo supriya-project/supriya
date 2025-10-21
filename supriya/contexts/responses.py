@@ -8,6 +8,7 @@ from collections import deque
 from typing import (
     Deque,
     Generator,
+    Mapping,
     Sequence,
     Type,
     cast,
@@ -419,7 +420,7 @@ class QueryTreeGroup(QueryTreeNode):
 
     ### PUBLIC METHODS ###
 
-    def annotate(self, annotations: dict[int, str]) -> "QueryTreeGroup":
+    def annotate(self, annotations: Mapping[int, str]) -> "QueryTreeGroup":
         root = self
         if root.node_id in annotations:
             root = dataclasses.replace(root, annotation=annotations[root.node_id])
