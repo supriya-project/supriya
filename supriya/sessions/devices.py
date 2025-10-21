@@ -252,7 +252,6 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
 
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._devices.remove(self)
-        super()._disconnect_parentage()
 
     def _get_input_levels_bus_group(self) -> BusGroup:
         parent = self._ensure_parent()

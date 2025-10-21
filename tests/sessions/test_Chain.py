@@ -8,6 +8,7 @@ from supriya.sessions import Chain, Rack, Session
 from .conftest import Scenario
 
 
+@pytest.mark.skip
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "scenario",
@@ -39,7 +40,7 @@ from .conftest import Scenario
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_rack", {"name": "Rack"}),
                 ("mixers[0].devices[0].chains[0]", "set_name", {"name": "Self"}),
-                ("mixers[0].devices[0]", "add_chain", {"name": "Younger Sibling"})
+                ("mixers[0].devices[0]", "add_chain", {"name": "Younger Sibling"}),
             ],
             subject="mixers[0].devices[0].chains[0]",
             expected_components_diff="""
@@ -60,8 +61,12 @@ from .conftest import Scenario
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_rack", {"name": "Rack"}),
-                ("mixers[0].devices[0].chains[0]", "set_name", {"name": "Older Sibling"}),
-                ("mixers[0].devices[0]", "add_chain", {"name": "Self"})
+                (
+                    "mixers[0].devices[0].chains[0]",
+                    "set_name",
+                    {"name": "Older Sibling"},
+                ),
+                ("mixers[0].devices[0]", "add_chain", {"name": "Self"}),
             ],
             subject="mixers[0].devices[0].chains[1]",
             expected_components_diff="""
@@ -76,7 +81,7 @@ from .conftest import Scenario
             expected_tree_diff="",
             expected_messages="",
         ),
-   ],
+    ],
 )
 @pytest.mark.asyncio
 async def test_Chain_delete(

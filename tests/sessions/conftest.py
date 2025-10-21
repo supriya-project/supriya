@@ -224,6 +224,8 @@ async def run_test(
         assert_components_diff(session, expected_components_diff, initial_components)
     if not online:
         return
+    if expected_messages is not None:
+        assert format_messages(messages) == normalize(expected_messages)
     # in case of an explicit session quit
     if expected_tree_diff is not None:
         await assert_tree_diff(
@@ -232,8 +234,6 @@ async def run_test(
             expected_initial_tree=initial_tree,
             annotation=annotation,
         )
-    if expected_messages is not None:
-        assert format_messages(messages) == normalize(expected_messages)
 
 
 @pytest_asyncio.fixture

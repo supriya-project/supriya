@@ -59,7 +59,6 @@ class Mixer(
             mixers := session._contexts.get(session._mixers.pop(self), [])
         ):
             mixers.remove(self)
-        super()._disconnect_parentage()
 
     def _get_nested_address(self) -> Address:
         if self.session is None:

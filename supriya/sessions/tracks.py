@@ -184,7 +184,6 @@ class TrackSend(Deletable["Track"]):
 
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._sends.remove(self)
-        super()._disconnect_parentage()
 
     def _get_nested_address(self) -> Address:
         if self.parent is None:
@@ -326,13 +325,9 @@ class Track(
         )
         return send
 
-    def _delete(self) -> None:
-        self._ensure_parent()._unsolo_tracks(tracks=self._soloed_tracks)
-        super()._delete()
-
     def _disconnect_parentage(self) -> None:
+        self._ensure_parent()._unsolo_tracks(tracks=self._soloed_tracks)
         self._ensure_parent()._tracks.remove(self)
-        super()._disconnect_parentage()
 
     def _move(self, *, new_parent: TrackContainer, index: int) -> None:
         # Validate if moving is possible

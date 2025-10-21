@@ -88,9 +88,6 @@ class Component(Generic[C]):
         self._parameters[name] = parameter
         return parameter
 
-    def _delete(self) -> None:
-        self._disconnect_parentage()
-
     def _disconnect_connections(
         self, roots: Optional[list["Component"]] = None
     ) -> tuple[list["Component"], set["Component"]]:
@@ -105,7 +102,7 @@ class Component(Generic[C]):
         return related, deleted
 
     def _disconnect_parentage(self) -> None:
-        self._parent = None
+        pass
 
     def _dump_components(self) -> list[str]:
         indent = "    "
@@ -236,10 +233,20 @@ class Component(Generic[C]):
                     ),
                 )
                 visited_components.add(component)
+        graph_orders: dict[Component, tuple[int, ...]] = {
+            component: component.graph_order
+            for component in (set(related_components) | deleted_components)
+        }
+        # TODO: Need to remove components from their parents, but not null
+        #       their parent references here.
+        for component in sorted(
+            deleted_components, key=lambda x: graph_orders[x], reverse=True
+        ):
+            component._disconnect_parentage()
         # omit visited components (walk once!) and sort by graph order
         related_components = sorted(
             set([x for x in related_components if x not in visited_components]),
-            key=lambda x: x.graph_order,
+            key=lambda x: graph_orders[x],
         )
         # walk related compnthonents, but don't add new ones
         for component in related_components:
@@ -276,10 +283,9 @@ class Component(Generic[C]):
         for context_ in set(old_context_artifacts) | set(new_context_artifacts):
             old_context_artifacts[context_].merge(new_context_artifacts[context_])
         # ... actually we want a stack of components to delete here, because sends might get deleted too if deleting:
-        for component in sorted(
-            deleted_components, key=lambda x: x.graph_order, reverse=True
-        ):
-            component._delete()
+        for component in deleted_components:
+            # component._delete()
+            component._parent = None
         # update track activation, post deletion, as soloed tracks may have been deleted
         session._update_track_activation()
 
@@ -459,7 +465,10 @@ class Component(Generic[C]):
         # TODO: Cache this
         graph_order = []
         for parent, child in iterate_nwise(reversed(list(self._iterate_parentage()))):
-            graph_order.append(parent.children.index(child))
+            try:
+                graph_order.append(parent.children.index(child))
+            except ValueError:  # we're in progress of deletion
+                return tuple(graph_order)
         return tuple(graph_order)
 
     @property

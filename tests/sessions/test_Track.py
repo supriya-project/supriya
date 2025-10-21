@@ -843,9 +843,9 @@ async def test_Track_add_send(
             """,
         ),
         # 4
-        # in-tree send to out-of-tree stack
+        # in-tree send to out-of-tree track
         Scenario(
-            id="in-tree send to out-of-tree stack",
+            id="in-tree send to out-of-tree track",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_track", {"name": "Self"}),
@@ -867,25 +867,49 @@ async def test_Track_add_send(
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -7,13 +7,13 @@
-                                 in_: 18.0, out: 7.0
-                             1009 group
-                             1010 supriya:channel-strip:2
+            @@ -1,19 +1,6 @@
+             <session.contexts[0]>
+                 NODE TREE 1000 group
+                     1001 group
+            -            1007 group
+            -                1008 group
+            -                1011 supriya:meters:2
+            -                    in_: 18.0, out: 7.0
+            -                1009 group
+            -                1010 supriya:channel-strip:2
             -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
-            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
-                             1014 supriya:patch-cable:2x2
+            -                1014 supriya:patch-cable:2x2
             -                    active: c5, done_action: 2.0, gain: c11, gate: 1.0, in_: 18.0, out: 20.0
-            +                    active: c5, done_action: 2.0, gain: c11, gate: 0.0, in_: 18.0, out: 20.0
-                             1012 supriya:meters:2
-                                 in_: 18.0, out: 9.0
-                             1013 supriya:patch-cable:2x2
+            -                1012 supriya:meters:2
+            -                    in_: 18.0, out: 9.0
+            -                1013 supriya:patch-cable:2x2
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
                          1015 group
                              1016 group
                              1019 supriya:meters:2
+            @@ -25,6 +12,19 @@
+                                 in_: 20.0, out: 16.0
+                             1021 supriya:patch-cable:2x2
+                                 active: c12, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            +            1007 group
+            +                1008 group
+            +                1011 supriya:meters:2
+            +                    in_: 18.0, out: 7.0
+            +                1009 group
+            +                1010 supriya:channel-strip:2
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
+            +                1014 supriya:patch-cable:2x2
+            +                    active: c5, done_action: 2.0, gain: c11, gate: 0.0, in_: 18.0, out: 20.0
+            +                1012 supriya:meters:2
+            +                    in_: 18.0, out: 9.0
+            +                1013 supriya:patch-cable:2x2
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                     1004 supriya:meters:2
+                         in_: 16.0, out: 1.0
+                     1002 group
             """,
             expected_messages="""
+            - ['/g_head', 1001, 1015]
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             """,
         ),
@@ -1057,38 +1081,51 @@ async def test_Track_add_send(
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -3,17 +3,17 @@
+            @@ -1,19 +1,6 @@
+             <session.contexts[0]>
+                 NODE TREE 1000 group
                      1001 group
-                         1007 group
-                             1014 supriya:fb-patch-cable:2x2
+            -            1007 group
+            -                1014 supriya:fb-patch-cable:2x2
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
-            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
-                             1008 group
-                             1011 supriya:meters:2
-                                 in_: 20.0, out: 7.0
-                             1009 group
-                             1010 supriya:channel-strip:2
+            -                1008 group
+            -                1011 supriya:meters:2
+            -                    in_: 20.0, out: 7.0
+            -                1009 group
+            -                1010 supriya:channel-strip:2
             -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 20.0
-            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 20.0
-                             1012 supriya:meters:2
-                                 in_: 20.0, out: 9.0
-                             1013 supriya:patch-cable:2x2
+            -                1012 supriya:meters:2
+            -                    in_: 20.0, out: 9.0
+            -                1013 supriya:patch-cable:2x2
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
-            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
                          1015 group
                              1016 group
                              1019 supriya:meters:2
-            @@ -24,7 +24,7 @@
+            @@ -24,7 +11,20 @@
                              1020 supriya:meters:2
                                  in_: 22.0, out: 15.0
                              1021 supriya:patch-cable:2x2
             -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 18.0
             +                    active: c11, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 18.0
+            +            1007 group
+            +                1014 supriya:fb-patch-cable:2x2
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
+            +                1008 group
+            +                1011 supriya:meters:2
+            +                    in_: 20.0, out: 7.0
+            +                1009 group
+            +                1010 supriya:channel-strip:2
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 20.0
+            +                1012 supriya:meters:2
+            +                    in_: 20.0, out: 9.0
+            +                1013 supriya:patch-cable:2x2
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
                      1004 supriya:meters:2
                          in_: 16.0, out: 1.0
                      1002 group
             """,
             expected_messages="""
+            - ['/g_head', 1001, 1015]
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0], ['/n_set', 1014, 'gate', 0.0]]]
             - ['/n_set', 1021, 'done_action', 2.0, 'gate', 0.0]
             """,
@@ -1118,17 +1155,21 @@ async def test_Track_add_send(
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -7,14 +7,14 @@
-                                 in_: 18.0, out: 7.0
-                             1009 group
-                             1010 supriya:channel-strip:2
+            @@ -1,20 +1,9 @@
+             <session.contexts[0]>
+                 NODE TREE 1000 group
+                     1001 group
+            -            1007 group
+            -                1008 group
+            -                1011 supriya:meters:2
+            -                    in_: 18.0, out: 7.0
+            -                1009 group
+            -                1010 supriya:channel-strip:2
             -                    active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
-            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
-                             1012 supriya:meters:2
-                                 in_: 18.0, out: 9.0
-                             1013 supriya:patch-cable:2x2
+            -                1012 supriya:meters:2
+            -                    in_: 18.0, out: 9.0
+            -                1013 supriya:patch-cable:2x2
             -                    active: c5, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 16.0
-            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
                          1014 group
                              1020 supriya:patch-cable:2x2
             -                    active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
@@ -1136,8 +1177,27 @@ async def test_Track_add_send(
                              1015 group
                              1018 supriya:meters:2
                                  in_: 20.0, out: 13.0
+            @@ -25,6 +14,17 @@
+                                 in_: 20.0, out: 15.0
+                             1021 supriya:patch-cable:2x2
+                                 active: c11, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            +            1007 group
+            +                1008 group
+            +                1011 supriya:meters:2
+            +                    in_: 18.0, out: 7.0
+            +                1009 group
+            +                1010 supriya:channel-strip:2
+            +                    active: c5, done_action: 14.0, gain: c6, gate: 0.0, out: 18.0
+            +                1012 supriya:meters:2
+            +                    in_: 18.0, out: 9.0
+            +                1013 supriya:patch-cable:2x2
+            +                    active: c5, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 16.0
+                     1004 supriya:meters:2
+                         in_: 16.0, out: 1.0
+                     1002 group
             """,
             expected_messages="""
+            - ['/g_head', 1001, 1014]
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
             - ['/n_set', 1020, 'done_action', 2.0, 'gate', 0.0]
             """,

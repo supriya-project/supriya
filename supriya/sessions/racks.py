@@ -99,8 +99,6 @@ class Rack(DeviceBase, ChannelSettable):
         # TODO: Can we re-use a shared aux bus?
         #       E.g. multiple racks in serial with the same channel-count
         #       should be able to re-use the same aux audio bus?
-        if not self.chains:
-            return spec_factory
         parent = self._ensure_parent()
         parent_effective_channel_count = parent.effective_channel_count
         effective_channel_count = self.effective_channel_count
@@ -129,7 +127,7 @@ class Rack(DeviceBase, ChannelSettable):
             target_node=container_group_address,
         )
         # output
-        if self._chains and self._write_mode in (
+        if self._write_mode in (
             PatchMode.MIX,
             PatchMode.REPLACE,
             PatchMode.SUM,
@@ -151,6 +149,7 @@ class Rack(DeviceBase, ChannelSettable):
                     done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
                 ),
                 kwargs=dict(
+                    active=bool(self._chains),
                     in_=mix_audio_bus_address,
                     out=parent._get_main_bus_address(),
                     **(
@@ -288,7 +287,6 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
 
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._chains.remove(self)
-        super()._disconnect_parentage()
 
     def _get_main_bus_address(self) -> Address:
         # TODO: We may want to just pre-allocated :shrug: because changing

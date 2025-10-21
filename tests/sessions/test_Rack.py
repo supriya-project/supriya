@@ -79,25 +79,24 @@ from .conftest import Scenario
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -4,6 +4,22 @@
-                     1004 supriya:meters:2 (session.mixers[0]:input-levels)
-                         in_: 16.0, out: 1.0
+            @@ -6,8 +6,20 @@
                      1002 group (session.mixers[0]:devices)
-            +            1007 group (session.mixers[0].devices[0]:group)
-            +                1008 group (session.mixers[0].devices[0]:chains)
+                         1007 group (session.mixers[0].devices[0]:group)
+                             1008 group (session.mixers[0].devices[0]:chains)
             +                    1010 group (session.mixers[0].devices[0].chains[0]:group)
             +                        1012 supriya:patch-cable:2x2:replace (session.mixers[0].devices[0].chains[0]:input)
             +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 18.0
             +                        1013 supriya:meters:2 (session.mixers[0].devices[0].chains[0]:input-levels)
-            +                            in_: 18.0, out: 7.0
+            +                            in_: 18.0, out: 8.0
             +                        1011 group (session.mixers[0].devices[0].chains[0]:devices)
             +                        1014 supriya:channel-strip:2 (session.mixers[0].devices[0].chains[0]:channel-strip)
-            +                            active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
+            +                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 18.0
             +                        1016 supriya:patch-cable:2x2 (session.mixers[0].devices[0].chains[0]:output)
             +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
             +                        1015 supriya:meters:2 (session.mixers[0].devices[0].chains[0]:output-levels)
-            +                            in_: 18.0, out: 9.0
-            +                1009 supriya:patch-cable:2x2 (session.mixers[0].devices[0]:output)
+            +                            in_: 18.0, out: 10.0
+                             1009 supriya:patch-cable:2x2 (session.mixers[0].devices[0]:output)
+            -                    active: 0.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
             +                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
@@ -106,18 +105,15 @@ from .conftest import Scenario
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
             - ['/sync', 3]
-            - [None, [['/c_set', 5, 1.0, 6, 0.0], ['/c_fill', 7, 2, 0.0, 9, 2, 0.0]]]
-            - ['/c_set', 11, 1.0]
-            - [None,
-               [['/g_new', 1007, 0, 1002, 1008, 0, 1007],
-                ['/s_new', 'supriya:patch-cable:2x2', 1009, 3, 1008, 'in_', 20.0, 'out', 16.0]]]
+            - [None, [['/c_set', 6, 1.0, 7, 0.0], ['/c_fill', 8, 2, 0.0, 10, 2, 0.0]]]
             - [None,
                [['/g_new', 1010, 0, 1008, 1011, 1, 1010],
                 ['/s_new', 'supriya:patch-cable:2x2:replace', 1012, 2, 1011, 'in_', 16.0, 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1013, 3, 1012, 'in_', 18.0, 'out', 7.0],
-                ['/s_new', 'supriya:channel-strip:2', 1014, 3, 1011, 'active', 'c5', 'gain', 'c6', 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1015, 3, 1014, 'in_', 18.0, 'out', 9.0],
+                ['/s_new', 'supriya:meters:2', 1013, 3, 1012, 'in_', 18.0, 'out', 8.0],
+                ['/s_new', 'supriya:channel-strip:2', 1014, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1015, 3, 1014, 'in_', 18.0, 'out', 10.0],
                 ['/s_new', 'supriya:patch-cable:2x2', 1016, 3, 1014, 'in_', 18.0, 'out', 20.0]]]
+            - ['/n_set', 1009, 'active', 1.0]
             """,
         ),
     ],

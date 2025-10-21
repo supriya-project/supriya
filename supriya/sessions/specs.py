@@ -166,24 +166,23 @@ class Spec:
         map_kwargs: dict[str, str] = {}
         set_kwargs: dict[str, float] = {}
         for key, value in kwargs.items():
-            if isinstance(value, float):
-                set_kwargs[key] = value
-            else:
-                if isinstance(value, BusGroup):
-                    bus = value
-                elif isinstance(value, Address):
-                    bus = self.resolve_bus(
-                        address=value,
-                        new_artifacts=new_artifacts,
-                        old_artifacts=old_artifacts,
-                    )
+            if isinstance(value, Address):
+                value = self.resolve_bus(
+                    address=value,
+                    new_artifacts=new_artifacts,
+                    old_artifacts=old_artifacts,
+                )
+            assert not isinstance(value, Address)
+            if isinstance(value, BusGroup):
                 if (
                     key in ("bus", "in_", "out")
-                    or bus.calculation_rate is CalculationRate.AUDIO
+                    or value.calculation_rate is CalculationRate.AUDIO
                 ):
-                    set_kwargs[key] = int(bus)
+                    set_kwargs[key] = int(value)
                 else:
-                    map_kwargs[key] = bus.map_symbol()
+                    map_kwargs[key] = value.map_symbol()
+            else:
+                set_kwargs[key] = float(value)
         return set_kwargs, map_kwargs
 
     def resolve_node(
