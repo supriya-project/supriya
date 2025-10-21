@@ -1,3 +1,4 @@
+import dataclasses
 from types import MappingProxyType
 from typing import (
     TYPE_CHECKING,
@@ -25,6 +26,7 @@ from .constants import IO, Address, ChannelCount, Entities, Names, Reconciliatio
 from .specs import (
     Artifacts,
     GroupSpec,
+    NodeSpec,
     Spec,
     SpecChange,
     SpecFactory,
@@ -129,27 +131,37 @@ class Component(Generic[C]):
     def _gather_spec_changes(
         self,
         *,
-        new_context: AsyncServer | None,
+        deleted_components: set["Component"] | None = None,
+        destroy_reconciliation: Reconciliation,
         global_artifacts_by_context: dict[AsyncServer, Artifacts],
         global_specs_by_context: dict[AsyncServer, dict[Address, Spec]],
-        destroy_reconciliation: Reconciliation,
+        new_context: AsyncServer | None,
     ) -> list[SpecChange]:
-        old_specs = self._local_specs
+        old_local_specs = self._local_specs
         if new_context:
-            self._local_specs = new_specs = {
+            self._local_specs = new_local_specs = {
                 spec.address: spec
                 for spec in self._resolve_specs(
                     SpecFactory(component=self, context=new_context)
                 )
             }
         else:
-            self._local_specs = new_specs = {}
+            self._local_specs = new_local_specs = {}
         self._context = new_context
+        if deleted_components:
+            old_local_specs = self._rewrite_old_specs(
+                deleted_components={
+                    component.numeric_address: component
+                    for component in deleted_components
+                },
+                global_specs_by_context=global_specs_by_context,
+                old_local_specs=old_local_specs,
+            )
         return SpecChange.gather(
             destroy_reconciliation=destroy_reconciliation,
             global_artifacts_by_context=global_artifacts_by_context,
-            new_specs=new_specs,
-            old_specs=old_specs,
+            new_specs=new_local_specs,
+            old_specs=old_local_specs,
         )
 
     def _get_nested_address(self) -> str:
@@ -261,6 +273,7 @@ class Component(Generic[C]):
             # gather spec changes
             spec_changes.extend(
                 component._gather_spec_changes(
+                    deleted_components=deleted_components,
                     destroy_reconciliation=Reconciliation.DESTROY_SHALLOW,
                     global_specs_by_context=session._global_specs_by_context,
                     global_artifacts_by_context=old_global_artifacts_by_context,
@@ -347,6 +360,43 @@ class Component(Generic[C]):
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         raise NotImplementedError
+
+    def _rewrite_old_specs(
+        self,
+        *,
+        deleted_components: dict[Address, "Component"] | None = None,
+        global_specs_by_context: dict[AsyncServer, dict[Address, Spec]],
+        old_local_specs: dict[Address, Spec],
+    ) -> dict[Address, Spec]:
+        """
+        If components are being deleted, their younger sibling can borrow their
+        position to prevent spurious moves.
+        """
+        if not deleted_components:
+            return old_local_specs
+        for address, spec in old_local_specs.items():
+            # is it a NodeSpec?
+            if not isinstance(spec, NodeSpec):
+                continue
+            # does it have an address for the target node?
+            if not spec.target_node:
+                continue
+            # does the target node address correspond to a deleted component?
+            if not deleted_components.get(spec.target_node.partition(":")[0]):
+                continue
+            # copy the old target spec's targets: we "borrow" their positioning
+            assert isinstance(
+                old_target_spec := global_specs_by_context[spec.context][
+                    spec.target_node
+                ],
+                NodeSpec,
+            )
+            old_local_specs[address] = dataclasses.replace(
+                spec,
+                add_action=old_target_spec.add_action,
+                target_node=old_target_spec.target_node,
+            )
+        return old_local_specs
 
     def _set_parameter(self, name: str, value: float) -> bool:
         (parameter := self._parameters[name]).set(value)

@@ -49,7 +49,6 @@ async def test_Component_connections_02():
     print(initial_tree)
     assert format_messages(messages) == normalize(
         """
-        - ['/g_head', 1001, 1015]
         - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1010, 'done_action', 14.0]]]
         """,
     )

@@ -202,7 +202,7 @@ async def run_test(
     expected_tree_diff: str | None = "",
     online: bool,
 ) -> AsyncGenerator[Session, None]:
-    print("Pre-conditions")
+    # print("Pre-conditions")
     session = Session()
     if commands:
         await apply_commands(session, commands)
@@ -214,12 +214,12 @@ async def run_test(
         await session.sync()
         initial_tree = await debug_tree(session, annotation=annotation)
     initial_components = debug_components(session)
-    print("Operation")
+    # print("Operation")
     with capture(
         session.contexts[context_index] if session.contexts else None
     ) as messages:
         yield session
-    print("Post-conditions")
+    # print("Post-conditions")
     if expected_components_diff is not None:
         assert_components_diff(session, expected_components_diff, initial_components)
     if not online:
