@@ -116,7 +116,7 @@ class Component(Generic[C]):
 
     async def _dump_tree(
         self,
-        annotation: Literal["nested", "numeric"] | None = "nested",
+        annotation_style: Literal["nested", "numeric"] | None = "nested",
         fallback_annotations: dict[int, Address] | None = None,
     ) -> str:
         """
@@ -128,9 +128,9 @@ class Component(Generic[C]):
             Awaitable[QueryTreeGroup],
             cast(Group, self._local_artifacts.nodes[Names.GROUP]).dump_tree(),
         )
-        if annotation:
+        if annotation_style:
             annotations = ChainMap(
-                self._gather_annotations(annotation),
+                self._gather_annotations(annotation_style),
                 fallback_annotations or {},
             )
             return str(tree.annotate(annotations))
@@ -153,11 +153,11 @@ class Component(Generic[C]):
 
     def _gather_annotations(
         self,
-        annotation: Literal["nested", "numeric"] | None = "nested",
+        annotation_style: Literal["nested", "numeric"] | None = "nested",
     ) -> dict[int, str]:
         annotations: dict[int, str] = {}
         for component in self.walk(Component):
-            if annotation == "numeric":
+            if annotation_style == "numeric":
                 address = component.numeric_address
             else:
                 address = component.address

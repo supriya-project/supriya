@@ -29,12 +29,12 @@ class Scenario:
     async def run(
         self,
         *,
-        annotation: Literal["nested", "numeric"] | None = "nested",
+        annotation_style: Literal["nested", "numeric"] | None = "nested",
         context_index: int = 0,
         online: bool,
     ) -> AsyncGenerator[Session, None]:
         async with run_test(
-            annotation=annotation,
+            annotation_style=annotation_style,
             commands=self.commands,
             context_index=context_index,
             expected_components_diff=self.expected_components_diff,
@@ -119,7 +119,7 @@ def debug_components(session: Session) -> str:
 
 async def debug_tree(
     *,
-    annotation: Literal["nested", "numeric"] | None = "nested",
+    annotation_style: Literal["nested", "numeric"] | None = "nested",
     fallback_annotations: dict[AsyncServer, dict[int, str]] | None = None,
     label: str = "initial tree",
     session: Session,
@@ -129,7 +129,8 @@ async def debug_tree(
     tree = normalize(
         str(
             await session.dump_tree(
-                annotation=annotation, fallback_annotations=fallback_annotations
+                annotation_style=annotation_style,
+                fallback_annotations=fallback_annotations,
             )
         )
     )
@@ -176,11 +177,11 @@ async def compute_tree_diff(
     *,
     session: Session,
     initial_tree: str,
-    annotation: Literal["nested", "numeric"] | None = "nested",
+    annotation_style: Literal["nested", "numeric"] | None = "nested",
     fallback_annotations: dict[AsyncServer, dict[int, str]] | None = None,
 ) -> str:
     actual_tree = await debug_tree(
-        annotation=annotation,
+        annotation_style=annotation_style,
         fallback_annotations=fallback_annotations,
         label="actual tree",
         session=session,
@@ -193,11 +194,11 @@ async def assert_tree_diff(
     session: Session,
     expected_diff: str,
     expected_initial_tree: str,
-    annotation: Literal["nested", "numeric"] | None = "nested",
+    annotation_style: Literal["nested", "numeric"] | None = "nested",
     fallback_annotations: dict[AsyncServer, dict[int, str]] | None = None,
 ) -> None:
     actual_diff = await compute_tree_diff(
-        annotation=annotation,
+        annotation_style=annotation_style,
         fallback_annotations=fallback_annotations,
         initial_tree=expected_initial_tree,
         session=session,
@@ -211,7 +212,7 @@ does_not_raise = contextlib.nullcontext()
 @contextlib.asynccontextmanager
 async def run_test(
     *,
-    annotation: Literal["nested", "numeric"] | None = "nested",
+    annotation_style: Literal["nested", "numeric"] | None = "nested",
     commands: list[tuple[str | None, str, dict | None]] | None = None,
     context_index: int = 0,
     expected_components_diff: Callable[[Session], str] | str | None = "",
@@ -229,9 +230,11 @@ async def run_test(
         await session.boot()
         assert session.boot_status == BootStatus.ONLINE
         await session.sync()
-        initial_tree = await debug_tree(session=session, annotation=annotation)
+        initial_tree = await debug_tree(
+            session=session, annotation_style=annotation_style
+        )
         fallback_annotations = session._gather_annotations_by_context(
-            annotation=annotation
+            annotation_style=annotation_style
         )
     initial_components = debug_components(session)
     # print("Operation")
@@ -249,7 +252,7 @@ async def run_test(
     # in case of an explicit session quit
     if expected_tree_diff is not None:
         await assert_tree_diff(
-            annotation=annotation,
+            annotation_style=annotation_style,
             expected_diff=expected_tree_diff,
             expected_initial_tree=initial_tree,
             fallback_annotations=fallback_annotations,

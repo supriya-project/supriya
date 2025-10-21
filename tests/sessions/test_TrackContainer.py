@@ -406,7 +406,7 @@ async def test_TrackContainer_group_tracks(
     scenario: GroupTracksScenario,
     online: bool,
 ) -> None:
-    async with scenario.run(annotation="numeric", online=online) as session:
+    async with scenario.run(annotation_style="numeric", online=online) as session:
         raised = True
         group_track: Track | None = None
         with scenario.maybe_raises:

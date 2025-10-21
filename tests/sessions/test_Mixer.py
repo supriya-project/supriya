@@ -113,7 +113,7 @@ async def test_Mixer_delete(
     online: bool,
     scenario: Scenario,
 ) -> None:
-    async with scenario.run(annotation=None, online=online) as session:
+    async with scenario.run(annotation_style=None, online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Mixer)
         await subject.delete()

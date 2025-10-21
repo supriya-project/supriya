@@ -95,13 +95,13 @@ class Session(Component):
 
     def _gather_annotations_by_context(
         self,
-        annotation: Literal["nested", "numeric"] | None = "nested",
+        annotation_style: Literal["nested", "numeric"] | None = "nested",
     ) -> dict[AsyncServer, dict[int, str]]:
         annotations: dict[AsyncServer, dict[int, str]] = {}
         for context, mixers in self._contexts.items():
             for mixer in mixers:
                 annotations.setdefault(context, {}).update(
-                    mixer._gather_annotations(annotation)
+                    mixer._gather_annotations(annotation_style)
                 )
         return annotations
 
@@ -257,7 +257,7 @@ class Session(Component):
 
     async def dump_tree(
         self,
-        annotation: Literal["nested", "numeric"] | None = "nested",
+        annotation_style: Literal["nested", "numeric"] | None = "nested",
         fallback_annotations: dict[AsyncServer, dict[int, str]] | None = None,
     ) -> str:
         """
@@ -271,7 +271,7 @@ class Session(Component):
             for mixer in mixers:
                 for line in (
                     await mixer._dump_tree(
-                        annotation=annotation,
+                        annotation_style=annotation_style,
                         fallback_annotations=(fallback_annotations or {}).get(context),
                     )
                 ).splitlines():

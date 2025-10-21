@@ -59,7 +59,7 @@ async def test_DeviceBase_delete(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with scenario.run(annotation="numeric", online=online) as session:
+    async with scenario.run(annotation_style="numeric", online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, DeviceBase)
         parent = subject.parent
@@ -393,7 +393,7 @@ async def test_DeviceBase_move(
     scenario: MoveScenario,
     online: bool,
 ) -> None:
-    async with scenario.run(annotation="numeric", online=online) as session:
+    async with scenario.run(annotation_style="numeric", online=online) as session:
         subject = session[scenario.subject]
         parent = session[scenario.parent]
         old_parent = subject.parent

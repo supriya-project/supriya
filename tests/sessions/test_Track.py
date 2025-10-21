@@ -1150,7 +1150,7 @@ async def test_Track_delete(
     scenario: Scenario,
     online: bool,
 ) -> None:
-    async with scenario.run(annotation=None, online=online) as session:
+    async with scenario.run(annotation_style=None, online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Track)
         parent = subject.parent
@@ -1908,7 +1908,7 @@ async def test_Track_move(
     scenario: MoveScenario,
     online: bool = True,
 ) -> None:
-    async with scenario.run(annotation="numeric", online=online) as session:
+    async with scenario.run(annotation_style="numeric", online=online) as session:
         subject = session[scenario.subject]
         parent = session[scenario.parent]
         old_parent = subject.parent
@@ -3832,7 +3832,7 @@ async def test_Track_ungroup(
     scenario: UngroupScenario,
     online: bool,
 ) -> None:
-    async with scenario.run(annotation="numeric", online=online) as session:
+    async with scenario.run(annotation_style="numeric", online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Track)
         with scenario.maybe_raises:
