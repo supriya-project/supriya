@@ -386,7 +386,7 @@ class MoveScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_DeviceBase_move(

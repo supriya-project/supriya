@@ -5,7 +5,7 @@ import pytest
 
 from supriya.sessions import Chain, Rack, Session
 
-from .conftest import Scenario
+from .conftest import Scenario, does_not_raise
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -155,7 +155,7 @@ from .conftest import Scenario
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Chain_delete(scenario: Scenario, online: bool) -> None:
@@ -184,7 +184,134 @@ class MoveScenario(Scenario):
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "scenario",
-    [],
+    [
+        MoveScenario(
+            id="move to other mixer: raises",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                (None, "add_mixer", {"name": "Other Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+                ("mixers[1]", "add_rack", {"name": "Other Rack"}),
+            ],
+            subject="mixers[0].devices[0].chains[0]",
+            parent="mixers[1].devices[0]",
+            index=0,
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_graph_order=(0, 0, 0),
+            expected_components_diff=lambda session: "",
+            expected_tree_diff="",
+            expected_messages="",
+        ),
+        MoveScenario(
+            id="move to same parent, same index: no-op",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+            ],
+            subject="",
+            parent="",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(),
+            expected_components_diff=lambda session: """
+            """,
+            expected_tree_diff="""
+            """,
+            expected_messages="""
+            """,
+        ),
+        MoveScenario(
+            id="move to same parent, index too low",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+            ],
+            subject="",
+            parent="",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(),
+            expected_components_diff=lambda session: """
+            """,
+            expected_tree_diff="""
+            """,
+            expected_messages="""
+            """,
+        ),
+        MoveScenario(
+            id="move to same parent, index too high",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+            ],
+            subject="",
+            parent="",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(),
+            expected_components_diff=lambda session: """
+            """,
+            expected_tree_diff="""
+            """,
+            expected_messages="""
+            """,
+        ),
+        MoveScenario(
+            id="move to other rack",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+            ],
+            subject="",
+            parent="",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(),
+            expected_components_diff=lambda session: """
+            """,
+            expected_tree_diff="""
+            """,
+            expected_messages="""
+            """,
+        ),
+        MoveScenario(
+            id="move before sibling",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+            ],
+            subject="",
+            parent="",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(),
+            expected_components_diff=lambda session: """
+            """,
+            expected_tree_diff="""
+            """,
+            expected_messages="""
+            """,
+        ),
+        MoveScenario(
+            id="move after sibling",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Rack"}),
+            ],
+            subject="",
+            parent="",
+            index=0,
+            maybe_raises=does_not_raise,
+            expected_graph_order=(),
+            expected_components_diff=lambda session: """
+            """,
+            expected_tree_diff="""
+            """,
+            expected_messages="""
+            """,
+        ),
+    ],
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Chain_move(scenario: MoveScenario, online: bool) -> None:

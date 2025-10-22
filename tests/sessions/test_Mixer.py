@@ -355,7 +355,7 @@ class SetChannelCountScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Mixer_set_channel_count(

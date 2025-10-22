@@ -481,7 +481,7 @@ class AddRackScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_DeviceContainer_add_rack(

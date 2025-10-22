@@ -627,7 +627,7 @@ class AddSendScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Track_add_send(
@@ -1143,7 +1143,7 @@ async def test_Track_add_send(
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Track_delete(
@@ -1901,7 +1901,7 @@ class MoveScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Track_move(
@@ -2181,7 +2181,7 @@ class SetChannelCountScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Track_set_channel_count(
@@ -2682,7 +2682,7 @@ class SetInputScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Track_set_input(
@@ -3460,7 +3460,7 @@ class SetOutputScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Track_set_output(

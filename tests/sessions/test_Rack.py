@@ -122,7 +122,7 @@ from .conftest import Scenario, does_not_raise
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Rack_add_chain(scenario: Scenario, online: bool) -> None:
@@ -233,7 +233,7 @@ class SetChannelCountScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Rack_set_channel_count(
@@ -368,7 +368,7 @@ class SetReadModeScenario(Scenario):
             expected_messages="",
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Rack_set_read_mode(scenario: SetReadModeScenario, online: bool) -> None:
@@ -477,7 +477,7 @@ class SetWriteModeScenario(Scenario):
             """,
         ),
     ],
-    ids=lambda value: value.id,
+    ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
 async def test_Rack_set_write_mode(
@@ -490,8 +490,150 @@ async def test_Rack_set_write_mode(
     assert subject.write_mode == scenario.mode
 
 
-@pytest.mark.xfail
+@dataclasses.dataclass(frozen=True)
+class UngroupScenario(Scenario):
+    maybe_raises: Any
+
+
 @pytest.mark.parametrize("online", [False, True])
+@pytest.mark.parametrize(
+    "scenario",
+    [
+        UngroupScenario(
+            id="0 chains",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Self"}),
+                ("mixers[0].devices[0].chains[0]", "delete", {}),
+            ],
+            subject="mixers[0].devices[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff=lambda session: f"""
+            --- initial
+            +++ mutation
+            @@ -1,4 +1,3 @@
+             <Session 0 {session.boot_status.name}>
+                 <session.contexts[0]>
+                     <Mixer 1 'Mixer'>
+            -            <Rack 2 'Self'>
+            """,
+            expected_tree_diff="""
+            --- initial
+            +++ mutation
+            @@ -7,7 +7,7 @@
+                         1007 group (devices[2]:group)
+                             1008 group (devices[2]:chains)
+                             1009 supriya:patch-cable:2x2 (devices[2]:output)
+            -                    active: 0.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            +                    active: 0.0, done_action: 14.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
+                     1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
+                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
+                     1005 supriya:meters:2 (mixers[1]:output-levels)
+            """,
+            expected_messages="""
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
+            """,
+        ),
+        UngroupScenario(
+            id="1 chain",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Self"}),
+                (
+                    "mixers[0].devices[0].chains[0]",
+                    "add_device",
+                    {"synth_configs": [SynthConfig(synthdef=build_dc_synthdef)]},
+                ),
+            ],
+            subject="mixers[0].devices[0]",
+            maybe_raises=does_not_raise,
+            expected_components_diff=lambda session: f"""
+            --- initial
+            +++ mutation
+            @@ -1,6 +1,4 @@
+             <Session 0 {session.boot_status.name}>
+                 <session.contexts[0]>
+                     <Mixer 1 'Mixer'>
+            -            <Rack 2 'Self'>
+            -                <Chain 3>
+            -                    <Device 4>
+            +            <Device 4>
+            """,
+            expected_tree_diff="""
+            --- initial
+            +++ mutation
+            @@ -8,21 +8,23 @@
+                             1008 group (devices[2]:chains)
+                                 1010 group (chains[3]:group)
+                                     1012 supriya:patch-cable:2x2:replace (chains[3]:input)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 18.0
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 16.0, out: 18.0
+                                     1013 supriya:meters:2 (chains[3]:input-levels)
+                                         in_: 18.0, out: 8.0
+                                     1011 group (chains[3]:devices)
+            -                            1017 group (devices[4]:group)
+            -                                1018 supriya:dc:2 (devices[4]:synth-0)
+            -                                    out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+                                     1014 supriya:channel-strip:2 (chains[3]:channel-strip)
+            -                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 18.0
+            +                            active: c6, done_action: 2.0, gain: c7, gate: 0.0, out: 18.0
+                                     1016 supriya:patch-cable:2x2 (chains[3]:output)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
+                                     1015 supriya:meters:2 (chains[3]:output-levels)
+                                         in_: 18.0, out: 10.0
+                             1009 supriya:patch-cable:2x2 (devices[2]:output)
+            -                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            +                    active: 1.0, done_action: 14.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
+            +            1017 group (devices[4]:group)
+            +                1018 supriya:dc:2 (devices[4]:synth-0)
+            +                    out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 0.0
+            +                1019 supriya:dc:2 (devices[4]:synth-0)
+            +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+                     1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
+                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
+                     1005 supriya:meters:2 (mixers[1]:output-levels)
+            """,
+            expected_messages="""
+            - ['/s_new', 'supriya:dc:2', 1019, 1, 1017, 'out', 16.0]
+            - ['/n_after', 1017, 1007]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
+            - ['/n_set', 1018, 'done_action', 2.0, 'gate', 0.0]
+            """,
+        ),
+        UngroupScenario(
+            id="2 chains: raises",
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_rack", {"name": "Self"}),
+                ("mixers[0].devices[0]", "add_chain", {}),
+                (
+                    "mixers[0].devices[0].chains[0]",
+                    "add_device",
+                    {"synth_configs": [SynthConfig(synthdef=build_dc_synthdef)]},
+                ),
+                (
+                    "mixers[0].devices[0].chains[1]",
+                    "add_device",
+                    {"synth_configs": [SynthConfig(synthdef=build_dc_synthdef)]},
+                ),
+            ],
+            subject="mixers[0].devices[0]",
+            maybe_raises=pytest.raises(RuntimeError),
+            expected_components_diff=lambda session: """
+            """,
+            expected_tree_diff="""
+            """,
+            expected_messages="""
+            """,
+        ),
+    ],
+    ids=lambda scenario: scenario.id,
+)
 @pytest.mark.asyncio
-async def test_Rack_ungroup(online: bool) -> None:
-    raise RuntimeError
+async def test_Rack_ungroup(scenario: UngroupScenario, online: bool) -> None:
+    async with scenario.run(annotation_style="numeric", online=online) as session:
+        subject = session[scenario.subject]
+        assert isinstance(subject, Rack)
+        with scenario.maybe_raises:
+            await subject.ungroup()

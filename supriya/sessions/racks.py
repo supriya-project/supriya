@@ -192,16 +192,18 @@ class Rack(DeviceBase, ChannelSettable):
 
     def _ungroup(self) -> list[DeviceBase]:
         parent = self._ensure_parent()
-        if not self.chains:
-            raise RuntimeError
-        elif len(self.chains) > 1:
+        if len(self.chains) > 1:
             raise RuntimeError
         index = parent.devices.index(self)
-        devices = self.chains[0].devices[:]
+        if self.chains:
+            devices = self.chains[0].devices[:]
+        else:
+            devices = []
         parent._devices[index + 1 : index + 1] = devices
         for device in devices:
             device._parent = parent
-        self._chains[0]._devices[:] = []
+        if self.chains:
+            self._chains[0]._devices[:] = []
         return devices
 
     async def add_chain(self, name: str | None = None) -> "Chain":
