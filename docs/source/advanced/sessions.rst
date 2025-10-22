@@ -151,8 +151,8 @@ Nodes in the ``dump_tree()`` output are annotated with the component's *nested*
 address by default, but can we request *numeric* annotations or no annotations
 at all::
 
-    >>> print(await session.dump_tree(annotation="numeric"))
-    >>> print(await session.dump_tree(annotation=None))
+    >>> print(await session.dump_tree(annotation_style="numeric"))
+    >>> print(await session.dump_tree(annotation_style=None))
 
 .. hint::
 
