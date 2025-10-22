@@ -264,9 +264,23 @@ class Rack(DeviceBase, ChannelSettable):
     @property
     def children(self) -> list[Component]:
         """
-        Get the track's child components.
+        Get the rack's child components.
         """
         return [*self._chains]
+
+    @property
+    def read_mode(self) -> PatchMode:
+        """
+        Get the rack's read mode.
+        """
+        return self._read_mode
+
+    @property
+    def write_mode(self) -> PatchMode:
+        """
+        Get the rack's write mode.
+        """
+        return self._write_mode
 
 
 class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):

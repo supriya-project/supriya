@@ -512,9 +512,7 @@ class Device(DeviceBase):
             for key in ["bus", "in_", "out"]:
                 if key not in synthdef.parameters:
                     continue
-                synth_parameters[key] = Spec.get_address(
-                    parent, Entities.AUDIO_BUSES, Names.MAIN
-                )
+                synth_parameters[key] = parent._get_main_bus_address()
             for key, value in (synth_config.parameters or {}).items():
                 if key not in synthdef.parameters:
                     continue
