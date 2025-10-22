@@ -147,16 +147,12 @@ of the standard ``AsyncServer.query_tree()`` output::
     synthesis contexts at once, and a session's server tree output will reflect
     each of them.
 
-Individual component server trees can also be dumped::
-
-    >>> print(await track_one.dump_tree())
-
 Nodes in the ``dump_tree()`` output are annotated with the component's *nested*
 address by default, but can we request *numeric* annotations or no annotations
 at all::
 
-    >>> print(await track_one.dump_tree(annotation="numeric"))
-    >>> print(await track_one.dump_tree(annotation=None))
+    >>> print(await session.dump_tree(annotation="numeric"))
+    >>> print(await session.dump_tree(annotation=None))
 
 .. hint::
 
