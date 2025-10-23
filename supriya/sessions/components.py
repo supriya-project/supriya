@@ -197,7 +197,7 @@ class Component(Generic[C]):
         return SpecChange.gather(
             destroy_reconciliation=destroy_reconciliation,
             global_artifacts_by_context=global_artifacts_by_context,
-            new_specs=new_local_specs,
+            new_specs=new_local_specs.copy(),  # guard against mutation
             old_specs=old_local_specs,
         )
 
