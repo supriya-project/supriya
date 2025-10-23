@@ -1140,7 +1140,7 @@ class SpecChangeGroup:
         global_specs: dict[Address, Spec],
         new_global_artifacts: Artifacts,
         old_global_artifacts: Artifacts,
-        related: list["Component"],
+        related: set["Component"],
         roots: list["Component"],
     ) -> None:
         with contextlib.ExitStack() as exit_stack:

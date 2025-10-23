@@ -348,7 +348,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         *,
         deleting: bool = False,
         roots: list[Component] | None = None,
-    ) -> tuple[list[Component], set[Component]]:
+    ) -> tuple[set[Component], set[Component]]:
         related, deleted = super()._reconcile_connections(
             deleting=deleting,
             roots=roots,
@@ -356,9 +356,9 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         old_parent = self._cached_parent
         self._cached_parent = new_parent = self._ensure_parent()
         if old_parent:
-            related.append(old_parent)
+            related.add(old_parent)
         if new_parent:
-            related.append(new_parent)
+            related.add(new_parent)
         return related, deleted
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:

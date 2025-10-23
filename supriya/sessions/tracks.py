@@ -202,12 +202,12 @@ class TrackSend(Deletable["Track"]):
         *,
         deleting: bool = False,
         roots: list[Component] | None = None,
-    ) -> tuple[list[Component], set[Component]]:
+    ) -> tuple[set[Component], set[Component]]:
         related, deleted = super()._reconcile_connections(
             deleting=deleting, roots=roots
         )
-        related.extend(self._output._reconcile_connections(deleting=deleting))
-        return sorted(set(related), key=lambda x: x.graph_order), deleted
+        related.update(self._output._reconcile_connections(deleting=deleting))
+        return related, deleted
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         for parameter in self.parameters.values():
@@ -393,13 +393,13 @@ class Track(
         *,
         deleting: bool = False,
         roots: list[Component] | None = None,
-    ) -> tuple[list[Component], set[Component]]:
+    ) -> tuple[set[Component], set[Component]]:
         related, deleted = super()._reconcile_connections(
             deleting=deleting, roots=roots
         )
-        related.extend(self._input._reconcile_connections(deleting=deleting))
-        related.extend(self._output._reconcile_connections(deleting=deleting))
-        return sorted(set(related), key=lambda x: x.graph_order), deleted
+        related.update(self._input._reconcile_connections(deleting=deleting))
+        related.update(self._output._reconcile_connections(deleting=deleting))
+        return related, deleted
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         # parameters

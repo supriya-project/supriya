@@ -93,13 +93,13 @@ class Component(Generic[C]):
 
     def _disconnect_connections(
         self, roots: Optional[list["Component"]] = None
-    ) -> tuple[list["Component"], set["Component"]]:
-        related: list[Component] = []
+    ) -> tuple[set["Component"], set["Component"]]:
+        related: set[Component] = set()
         deleted: set[Component] = set()
         for component, _ in self._connections:
             if roots and any([root in component.parentage for root in roots]):
                 continue
-            related.append(component)
+            related.add(component)
             if component._on_connection_deleted(self):
                 deleted.add(component)
         return related, deleted
@@ -252,7 +252,7 @@ class Component(Generic[C]):
             new_global_artifacts_by_context[context] = Artifacts()
         # setup collections
         visited_components: set[Component] = set()
-        related_components: list[Component] = []
+        related_components: set[Component] = set()
         deleted_components: set[Component] = set(deleting_components or [])
         # gather spec changes
         spec_changes: list[SpecChange] = []
@@ -266,7 +266,7 @@ class Component(Generic[C]):
                 related, deleted = component._reconcile_connections(
                     deleting=deleting_, roots=reconciling_components
                 )
-                related_components.extend(related)
+                related_components.update(related)
                 deleted_components.update(deleted)
                 # gather spec changes
                 if deleting_:
@@ -297,12 +297,12 @@ class Component(Generic[C]):
         ):
             component._disconnect_parentage()
         # omit visited components (walk once!) and sort by graph order
-        related_components = sorted(
-            set([x for x in related_components if x not in visited_components]),
+        related_components -= visited_components
+        # walk related components, sorted by graph order, but don't add new ones
+        for component in sorted(
+            related_components,
             key=lambda x: graph_orders[x],
-        )
-        # walk related compnthonents, but don't add new ones
-        for component in related_components:
+        ):
             # patch up cyclic relationships
             component._reconcile_connections(
                 deleting=component in deleted_components, roots=reconciling_components
@@ -354,10 +354,10 @@ class Component(Generic[C]):
         *,
         deleting: bool = False,
         roots: Optional[list["Component"]] = None,
-    ) -> tuple[list["Component"], set["Component"]]:
+    ) -> tuple[set["Component"], set["Component"]]:
         if deleting:
             return self._disconnect_connections(roots=roots)
-        return [component for component, _ in self._connections], set()
+        return set([component for component, _ in self._connections]), set()
 
     def _resolve_container_spec(
         self,

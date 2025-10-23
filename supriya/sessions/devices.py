@@ -306,7 +306,7 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
         *,
         deleting: bool = False,
         roots: list[Component] | None = None,
-    ) -> tuple[list[Component], set[Component]]:
+    ) -> tuple[set[Component], set[Component]]:
         related, deleted = super()._reconcile_connections(
             deleting=deleting, roots=roots
         )
@@ -318,11 +318,11 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
             new_previous_device = parent._devices[index - 1]
         if old_previous_device is not new_previous_device:
             if old_previous_device:
-                related.append(old_previous_device)
+                related.add(old_previous_device)
             if new_previous_device:
-                related.append(new_previous_device)
+                related.add(new_previous_device)
         self._cached_previous_device = new_previous_device
-        return sorted(set(related), key=lambda x: x.graph_order), deleted
+        return related, deleted
 
 
 class Sidechain:
@@ -466,14 +466,14 @@ class Device(DeviceBase):
         *,
         deleting: bool = False,
         roots: list[Component] | None = None,
-    ) -> tuple[list[Component], set[Component]]:
+    ) -> tuple[set[Component], set[Component]]:
         related, deleted = super()._reconcile_connections(
             deleting=deleting, roots=roots
         )
         # check each sidechain
         for sidechain in self._sidechains.values():
-            related.extend(sidechain._reconcile_connections(deleting=deleting))
-        return sorted(set(related), key=lambda x: x.graph_order), deleted
+            related.update(sidechain._reconcile_connections(deleting=deleting))
+        return related, deleted
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         parent = self._ensure_parent()
