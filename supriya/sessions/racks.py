@@ -300,6 +300,7 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
         Component.__init__(self, id_=id_, name=name, parent=parent)
         DeviceContainer.__init__(self)
         self._add_parameter(name=Names.GAIN, field=FloatField(has_bus=True))
+        self._cached_parent: Rack | None = None
 
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._chains.remove(self)
@@ -352,7 +353,12 @@ class Chain(DeviceContainer[Rack], Deletable, Movable, NameSettable):
             deleting=deleting,
             roots=roots,
         )
-        related.append(self._ensure_parent())
+        old_parent = self._cached_parent
+        self._cached_parent = new_parent = self._ensure_parent()
+        if old_parent:
+            related.append(old_parent)
+        if new_parent:
+            related.append(new_parent)
         return related, deleted
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
