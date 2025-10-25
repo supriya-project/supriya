@@ -459,7 +459,7 @@ class ThreadedProcessProtocol(ProcessProtocol):
             list(options),
             stderr=subprocess.STDOUT,
             stdout=subprocess.PIPE,
-            start_new_session=True,
+            start_new_session=False,
         ) as process:
             self.process = process
             read_thread = threading.Thread(
@@ -549,7 +549,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         self.boot_future = loop.create_future()
         self.exit_future = loop.create_future()
         await loop.subprocess_exec(
-            lambda: self, *options, stdin=None, stderr=None, start_new_session=True
+            lambda: self, *options, stdin=None, stderr=None, start_new_session=False
         )
         if not (await self.boot_future):
             await self.exit_future
