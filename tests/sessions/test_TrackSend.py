@@ -1,16 +1,9 @@
-import asyncio
 import dataclasses
 
 import pytest
 
-from supriya.sessions import (
-    Component,
-    Mixer,
-    SynthConfig,
-    Track,
-    TrackSend,
-)
-from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
+from supriya.sessions import SynthConfig, TrackSend
+from supriya.ugens.system import build_dc_synthdef
 
 from .conftest import Scenario
 
@@ -133,7 +126,6 @@ async def test_TrackSend_delete(
 
 @dataclasses.dataclass(frozen=True)
 class GainScenario(Scenario):
-    expected_levels: list[tuple[str, list[float], list[float]]]
     gain: float
 
 
@@ -148,7 +140,10 @@ class GainScenario(Scenario):
                 (
                     "mixers[0].tracks[0]",
                     "add_device",
-                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
+                    {
+                        "name": "Device",
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
+                    },
                 ),
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
@@ -157,6 +152,7 @@ class GainScenario(Scenario):
             expected_levels=[
                 ("Mixer", [1.5, 1.5], [1.5, 1.5]),
                 ("Track One", [0.0, 0.0], [1.0, 1.0]),
+                ("Device", [0.0, 0.0], [1.0, 1.0]),
                 ("Track Two", [0.5, 0.5], [0.5, 0.5]),
             ],
         ),
@@ -168,7 +164,10 @@ class GainScenario(Scenario):
                 (
                     "mixers[0].tracks[1]",
                     "add_device",
-                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
+                    {
+                        "name": "Device",
+                        "synth_configs": [SynthConfig(synthdef=build_dc_synthdef)],
+                    },
                 ),
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
@@ -178,6 +177,7 @@ class GainScenario(Scenario):
                 ("Mixer", [1.5, 1.5], [1.5, 1.5]),
                 ("Track One", [0.5, 0.5], [0.5, 0.5]),
                 ("Track Two", [0.0, 0.0], [1.0, 1.0]),
+                ("Device", [0.0, 0.0], [1.0, 1.0]),
             ],
         ),
     ],
@@ -190,14 +190,3 @@ async def test_TrackSend_gain(
         subject = session[scenario.subject]
         assert isinstance(subject, TrackSend)
         subject.parameters["gain"].set(scenario.gain)
-    await asyncio.sleep(system.LAG_TIME * 2)
-    actual_levels = [
-        (
-            component.name,
-            [round(x, 2) for x in component.input_levels],
-            [round(x, 2) for x in component.output_levels],
-        )
-        for component in session.walk(Component)
-        if isinstance(component, (Mixer, Track))
-    ]
-    assert actual_levels == scenario.expected_levels

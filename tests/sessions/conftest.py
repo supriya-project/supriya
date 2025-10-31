@@ -1,3 +1,4 @@
+import asyncio
 import contextlib
 import dataclasses
 import difflib
@@ -8,8 +9,12 @@ from typing import AsyncGenerator, Callable, Generator, Literal
 from uqbar.strings import normalize
 
 from supriya import AsyncServer, BootStatus, OscBundle, OscMessage
-from supriya.sessions import Session
-from supriya.ugens import decompile_synthdefs
+from supriya.sessions import Component, Session
+from supriya.sessions.components import LevelsCheckable
+from supriya.ugens import (
+    decompile_synthdefs,
+    system,  # lookup system.LAG_TIME to support monkeypatching
+)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -20,6 +25,9 @@ class Scenario:
     )
     expected_components_diff: Callable[[Session], str] | str | None = dataclasses.field(
         default=None, kw_only=True
+    )
+    expected_levels: list[tuple[str, list[float], list[float]]] | None = (
+        dataclasses.field(default=None, kw_only=True)
     )
     expected_messages: str | None = dataclasses.field(default=None, kw_only=True)
     expected_tree_diff: str | None = dataclasses.field(default=None, kw_only=True)
@@ -38,6 +46,7 @@ class Scenario:
             commands=self.commands,
             context_index=context_index,
             expected_components_diff=self.expected_components_diff,
+            expected_levels=self.expected_levels,
             expected_messages=self.expected_messages,
             expected_tree_diff=self.expected_tree_diff,
             online=online,
@@ -216,6 +225,7 @@ async def run_test(
     commands: list[tuple[str | None, str, dict | None]] | None = None,
     context_index: int = 0,
     expected_components_diff: Callable[[Session], str] | str | None = "",
+    expected_levels: list[tuple[str, list[float], list[float]]] | None = None,
     expected_messages: str | None = "",
     expected_tree_diff: str | None = "",
     online: bool,
@@ -258,3 +268,15 @@ async def run_test(
             fallback_annotations=fallback_annotations,
             session=session,
         )
+    if expected_levels is not None:
+        await asyncio.sleep(system.LAG_TIME * 2)
+        actual_levels = [
+            (
+                component.name or component.address,
+                [round(x, 2) for x in component.input_levels],
+                [round(x, 2) for x in component.output_levels],
+            )
+            for component in session.walk(Component)
+            if isinstance(component, LevelsCheckable)
+        ]
+        assert actual_levels == expected_levels

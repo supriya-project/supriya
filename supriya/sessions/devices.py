@@ -269,11 +269,7 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
         return f"{self.parent.address}.devices[{index}]"
 
     def _get_output_levels_bus_group(self) -> BusGroup:
-        parent = self._ensure_parent()
-        return (
-            self._local_artifacts.control_buses.get(Names.LEVELS)
-            or parent._local_artifacts.control_buses[Names.OUTPUT_LEVELS]
-        )
+        return self._local_artifacts.control_buses[Names.OUTPUT_LEVELS]
 
     def _get_numeric_address(self) -> Address:
         return f"devices[{self._id}]"
@@ -541,27 +537,25 @@ class Device(DeviceBase):
                 target_node=target_node_address,
             )
             add_action = AddAction.ADD_AFTER
-        # meters
-        if parent._devices.index(self) < (len(parent._devices) - 1):
-            # will the meters synth follow the group on move?
-            levels_control_bus_address = spec_factory.add_control_bus(
-                channel_count=self.effective_channel_count,
-                default=0.0,
-                name=Names.LEVELS,
-            )
-            meters_synthdef_address = spec_factory.add_synthdef(
-                synthdef=build_meters_synthdef(self.effective_channel_count)
-            )
-            spec_factory.add_synth(
-                add_action=add_action,
-                kwargs=dict(
-                    in_=parent._get_main_bus_address(),
-                    out=levels_control_bus_address,
-                ),
-                name=Names.LEVELS,
-                synthdef=meters_synthdef_address,
-                target_node=target_node_address,
-            )
+        # levels
+        levels_control_bus_address = spec_factory.add_control_bus(
+            channel_count=self.effective_channel_count,
+            default=0.0,
+            name=Names.OUTPUT_LEVELS,
+        )
+        meters_synthdef_address = spec_factory.add_synthdef(
+            synthdef=build_meters_synthdef(self.effective_channel_count)
+        )
+        spec_factory.add_synth(
+            add_action=add_action,
+            kwargs=dict(
+                in_=parent._get_main_bus_address(),
+                out=levels_control_bus_address,
+            ),
+            name=Names.OUTPUT_LEVELS,
+            synthdef=meters_synthdef_address,
+            target_node=target_node_address,
+        )
         return spec_factory
 
     async def set_sidechain(self, name: str, source: Optional["Track"]) -> None:

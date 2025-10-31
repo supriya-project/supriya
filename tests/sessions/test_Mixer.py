@@ -1,10 +1,9 @@
-import asyncio
 import dataclasses
 from typing import Any
 
 import pytest
 
-from supriya.sessions import ChannelCount, Component, Mixer, Session, SynthConfig, Track
+from supriya.sessions import ChannelCount, Mixer, Session, SynthConfig
 from supriya.typing import Inherit
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
@@ -132,7 +131,6 @@ async def test_Mixer_delete(
 
 @dataclasses.dataclass(frozen=True)
 class GainScenario(Scenario):
-    expected_levels: list[tuple[str, list[float], list[float]]]
     gain: float
 
 
@@ -145,12 +143,20 @@ class GainScenario(Scenario):
                 (
                     "mixers[0]",
                     "add_device",
-                    {"synth_configs": [SynthConfig(synthdef=system.build_dc_synthdef)]},
+                    {
+                        "name": "Device",
+                        "synth_configs": [
+                            SynthConfig(synthdef=system.build_dc_synthdef)
+                        ],
+                    },
                 ),
             ],
             subject="mixers[0]",
             gain=-6,
-            expected_levels=[("Self", [0.0, 0.0], [0.5, 0.5])],
+            expected_levels=[
+                ("Self", [0.0, 0.0], [0.5, 0.5]),
+                ("Device", [0.0, 0.0], [1.0, 1.0]),
+            ],
         ),
     ],
 )
@@ -162,17 +168,6 @@ async def test_Mixer_gain(
         subject = session[scenario.subject]
         assert isinstance(subject, Mixer)
         subject.parameters["gain"].set(scenario.gain)
-    await asyncio.sleep(system.LAG_TIME * 2)
-    actual_levels = [
-        (
-            component.name,
-            [round(x, 2) for x in component.input_levels],
-            [round(x, 2) for x in component.output_levels],
-        )
-        for component in session.walk(Component)
-        if isinstance(component, (Mixer, Track))
-    ]
-    assert actual_levels == scenario.expected_levels
 
 
 @dataclasses.dataclass(frozen=True)
