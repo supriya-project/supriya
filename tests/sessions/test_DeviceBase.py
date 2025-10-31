@@ -35,6 +35,9 @@ from .conftest import Scenario, does_not_raise
                      <Mixer 1 'Mixer'>
             -            <Device 2 'Self'>
             """,
+            expected_messages="""
+            - ['/n_set', 1007, 'done_action', 14.0, 'gate', 0.0]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -44,12 +47,9 @@ from .conftest import Scenario, does_not_raise
                              1008 supriya:dc:2 (devices[2]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 14.0, gate: 0.0
+                             1009 supriya:meters:2 (devices[2]:output-levels)
+                                 in_: 16.0, out: 5.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
-                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
-                     1005 supriya:meters:2 (mixers[1]:output-levels)
-            """,
-            expected_messages="""
-            - ['/n_set', 1007, 'done_action', 14.0, 'gate', 0.0]
             """,
         ),
     ],
@@ -107,8 +107,8 @@ class MoveScenario(Scenario):
             maybe_raises=pytest.raises(RuntimeError),
             expected_graph_order=(0, 0),
             expected_components_diff="",
-            expected_tree_diff="",
             expected_messages="",
+            expected_tree_diff="",
         ),
         # 1
         # move to same parent, same index: no-op
@@ -131,8 +131,8 @@ class MoveScenario(Scenario):
             maybe_raises=does_not_raise,
             expected_graph_order=(0, 0),
             expected_components_diff="",
-            expected_tree_diff="",
             expected_messages="",
+            expected_tree_diff="",
         ),
         # 2
         # move to same parent, index too low: raises
@@ -155,8 +155,8 @@ class MoveScenario(Scenario):
             maybe_raises=pytest.raises(RuntimeError),
             expected_graph_order=(0, 0),
             expected_components_diff="",
-            expected_tree_diff="",
             expected_messages="",
+            expected_tree_diff="",
         ),
         # 3
         # move to same parent, index too high: raises
@@ -179,8 +179,8 @@ class MoveScenario(Scenario):
             maybe_raises=pytest.raises(RuntimeError),
             expected_graph_order=(0, 0),
             expected_components_diff="",
-            expected_tree_diff="",
             expected_messages="",
+            expected_tree_diff="",
         ),
         # 4
         # move to other parent
@@ -213,36 +213,42 @@ class MoveScenario(Scenario):
             -            <Device 3 'Self'>
             +                <Device 3 'Self'>
             """,
+            expected_messages="""
+            - [None,
+               [['/s_new', 'supriya:dc:2', 1017, 1, 1014, 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1018, 3, 1017, 'in_', 18.0, 'out', 11.0]]]
+            - ['/g_head', 1009, 1014]
+            - [None, [['/n_set', 1015, 'done_action', 2.0, 'gate', 0.0], ['/n_free', 1016]]]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -6,6 +6,11 @@
+            @@ -6,6 +6,13 @@
                              1011 supriya:meters:2 (tracks[2]:input-levels)
                                  in_: 18.0, out: 7.0
                              1009 group (tracks[2]:devices)
             +                    1014 group (devices[3]:group)
             +                        1015 supriya:dc:2 (devices[3]:synth-0)
             +                            out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 0.0
-            +                        1016 supriya:dc:2 (devices[3]:synth-0)
+            +                        1017 supriya:dc:2 (devices[3]:synth-0)
             +                            out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            +                        1018 supriya:meters:2 (devices[3]:output-levels)
+            +                            in_: 18.0, out: 11.0
                              1010 supriya:channel-strip:2 (tracks[2]:channel-strip)
                                  active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
                              1012 supriya:meters:2 (tracks[2]:output-levels)
-            @@ -15,9 +20,6 @@
+            @@ -15,11 +22,6 @@
                      1004 supriya:meters:2 (mixers[1]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             -            1014 group (devices[3]:group)
             -                1015 supriya:dc:2 (devices[3]:synth-0)
             -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            -                1016 supriya:meters:2 (devices[3]:output-levels)
+            -                    in_: 16.0, out: 11.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (mixers[1]:output-levels)
-            """,
-            expected_messages="""
-            - ['/s_new', 'supriya:dc:2', 1016, 1, 1014, 'out', 18.0]
-            - ['/g_head', 1009, 1014]
-            - ['/n_set', 1015, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
         # 5
@@ -284,35 +290,35 @@ class MoveScenario(Scenario):
                          <Device 2 'Older Sibling'>
             -            <Device 3 'Self'>
             """,
+            expected_messages="""
+            - ['/g_head', 1002, 1010]
+            - ['/n_after', 1007, 1010]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -4,13 +4,13 @@
+            @@ -4,16 +4,16 @@
                      1004 supriya:meters:2 (mixers[1]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             +            1010 group (devices[3]:group)
             +                1011 supriya:dc:2 (devices[3]:synth-0)
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            +                1012 supriya:meters:2 (devices[3]:levels)
+            +                1012 supriya:meters:2 (devices[3]:output-levels)
             +                    in_: 16.0, out: 7.0
                          1007 group (devices[2]:group)
                              1008 supriya:dc:2 (devices[2]:synth-0)
-            -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            -                1009 supriya:meters:2 (devices[2]:levels)
-            -                    in_: 16.0, out: 5.0
+                                 out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+                             1009 supriya:meters:2 (devices[2]:output-levels)
+                                 in_: 16.0, out: 5.0
             -            1010 group (devices[3]:group)
             -                1011 supriya:dc:2 (devices[3]:synth-0)
-                                 out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            -                1012 supriya:meters:2 (devices[3]:output-levels)
+            -                    in_: 16.0, out: 7.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
-            """,
-            expected_messages="""
-            - ['/c_fill', 7, 2, 0.0]
-            - ['/s_new', 'supriya:meters:2', 1012, 3, 1011, 'in_', 16.0, 'out', 7.0]
-            - ['/g_head', 1002, 1010]
-            - ['/n_after', 1007, 1010]
-            - ['/n_free', 1009]
+                     1005 supriya:meters:2 (mixers[1]:output-levels)
             """,
         ),
         # 6
@@ -354,35 +360,35 @@ class MoveScenario(Scenario):
                          <Device 2 'Self'>
             -            <Device 3 'Younger Sibling'>
             """,
+            expected_messages="""
+            - ['/n_after', 1007, 1010]
+            - ['/g_head', 1002, 1010]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -4,13 +4,13 @@
+            @@ -4,16 +4,16 @@
                      1004 supriya:meters:2 (mixers[1]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (mixers[1]:devices)
             +            1010 group (devices[3]:group)
             +                1011 supriya:dc:2 (devices[3]:synth-0)
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            +                1012 supriya:meters:2 (devices[3]:levels)
+            +                1012 supriya:meters:2 (devices[3]:output-levels)
             +                    in_: 16.0, out: 7.0
                          1007 group (devices[2]:group)
                              1008 supriya:dc:2 (devices[2]:synth-0)
-            -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            -                1009 supriya:meters:2 (devices[2]:levels)
-            -                    in_: 16.0, out: 5.0
+                                 out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+                             1009 supriya:meters:2 (devices[2]:output-levels)
+                                 in_: 16.0, out: 5.0
             -            1010 group (devices[3]:group)
             -                1011 supriya:dc:2 (devices[3]:synth-0)
-                                 out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            -                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            -                1012 supriya:meters:2 (devices[3]:output-levels)
+            -                    in_: 16.0, out: 7.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
-            """,
-            expected_messages="""
-            - ['/c_fill', 7, 2, 0.0]
-            - ['/s_new', 'supriya:meters:2', 1012, 3, 1011, 'in_', 16.0, 'out', 7.0]
-            - ['/n_after', 1007, 1010]
-            - ['/g_head', 1002, 1010]
-            - ['/n_free', 1009]
+                     1005 supriya:meters:2 (mixers[1]:output-levels)
             """,
         ),
     ],

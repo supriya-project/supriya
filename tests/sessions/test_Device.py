@@ -75,6 +75,9 @@ class SetSidechainScenario(Scenario):
             sidechain_target="mixers[0].tracks[0]",
             maybe_raises=does_not_raise,
             expected_components_diff="",
+            expected_messages="""
+            - ['/s_new', 'supriya:patch-cable:2x2', 1024, 0, 1021, 'in_', 18.0, 'out', 22.0]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -82,14 +85,11 @@ class SetSidechainScenario(Scenario):
                                  in_: 20.0, out: 13.0
                              1016 group (session.mixers[0].tracks[1]:devices)
                                  1021 group (session.mixers[0].tracks[1].devices[0]:group)
-            +                        1023 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].devices[0]:sidechain)
+            +                        1024 supriya:patch-cable:2x2 (session.mixers[0].tracks[1].devices[0]:sidechain)
             +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 22.0
                                      1022 test:sidechain:2 (session.mixers[0].tracks[1].devices[0]:synth-0)
                                          bus: 20.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 22.0
-                             1017 supriya:channel-strip:2 (session.mixers[0].tracks[1]:channel-strip)
-            """,
-            expected_messages="""
-            - ['/s_new', 'supriya:patch-cable:2x2', 1023, 0, 1021, 'in_', 18.0, 'out', 22.0]
+                                     1023 supriya:meters:2 (session.mixers[0].tracks[1].devices[0]:output-levels)
             """,
         ),
         # sidechain from younger auntie
@@ -109,6 +109,11 @@ class SetSidechainScenario(Scenario):
             sidechain_target="mixers[0].tracks[1]",
             maybe_raises=does_not_raise,
             expected_components_diff="",
+            expected_messages="""
+            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
+            - ['/sync', 3]
+            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1024, 0, 1014, 'in_', 22.0, 'out', 20.0]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -116,16 +121,11 @@ class SetSidechainScenario(Scenario):
                                  in_: 18.0, out: 7.0
                              1009 group (session.mixers[0].tracks[0]:devices)
                                  1014 group (session.mixers[0].tracks[0].devices[0]:group)
-            +                        1023 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].devices[0]:sidechain)
+            +                        1024 supriya:fb-patch-cable:2x2 (session.mixers[0].tracks[0].devices[0]:sidechain)
             +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 20.0
                                      1015 test:sidechain:2 (session.mixers[0].tracks[0].devices[0]:synth-0)
                                          bus: 18.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 20.0
-                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
-            """,
-            expected_messages="""
-            - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
-            - ['/sync', 3]
-            - ['/s_new', 'supriya:fb-patch-cable:2x2', 1023, 0, 1014, 'in_', 22.0, 'out', 20.0]
+                                     1016 supriya:meters:2 (session.mixers[0].tracks[0].devices[0]:output-levels)
             """,
         ),
         # sidechain from younger auntie to none
@@ -161,7 +161,7 @@ class SetSidechainScenario(Scenario):
             +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 22.0, out: 20.0
                                      1016 test:sidechain:2 (session.mixers[0].tracks[0].devices[0]:synth-0)
                                          bus: 18.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 20.0
-                             1010 supriya:channel-strip:2 (session.mixers[0].tracks[0]:channel-strip)
+                                     1017 supriya:meters:2 (session.mixers[0].tracks[0].devices[0]:output-levels)
             """,
             expected_messages="""
             - ['/n_set', 1015, 'done_action', 2.0, 'gate', 0.0]

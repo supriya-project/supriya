@@ -160,51 +160,6 @@ class SetChannelCountScenario(Scenario):
             subject="mixers[0].devices[0]",
             channel_count=4,
             maybe_raises=does_not_raise,
-            expected_tree_diff="""
-            --- initial
-            +++ mutation
-            @@ -8,21 +8,31 @@
-                             1008 group (session.mixers[0].devices[0]:chains)
-                                 1010 group (session.mixers[0].devices[0].chains[0]:group)
-                                     1012 supriya:patch-cable:2x2:replace (session.mixers[0].devices[0].chains[0]:input)
-            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 18.0
-            -                        1013 supriya:meters:2 (session.mixers[0].devices[0].chains[0]:input-levels)
-            -                            in_: 18.0, out: 8.0
-            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 16.0, out: 18.0
-            +                        1020 supriya:patch-cable:2x4:replace (session.mixers[0].devices[0].chains[0]:input)
-            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 22.0
-            +                        1021 supriya:meters:4 (session.mixers[0].devices[0].chains[0]:input-levels)
-            +                            in_: 22.0, out: 12.0
-                                     1011 group (session.mixers[0].devices[0].chains[0]:devices)
-                                         1017 group (session.mixers[0].devices[0].chains[0].devices[0]:group)
-                                             1018 supriya:dc:2 (session.mixers[0].devices[0].chains[0].devices[0]:synth-0)
-            -                                    out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            +                                    out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 0.0
-            +                                1025 supriya:dc:4 (session.mixers[0].devices[0].chains[0].devices[0]:synth-0)
-            +                                    out: 22.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
-            +                        1022 supriya:channel-strip:4 (session.mixers[0].devices[0].chains[0]:channel-strip)
-            +                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 22.0
-            +                        1024 supriya:patch-cable:4x4 (session.mixers[0].devices[0].chains[0]:output)
-            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 26.0
-            +                        1023 supriya:meters:4 (session.mixers[0].devices[0].chains[0]:output-levels)
-            +                            in_: 22.0, out: 16.0
-                                     1014 supriya:channel-strip:2 (session.mixers[0].devices[0].chains[0]:channel-strip)
-            -                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 18.0
-            +                            active: c6, done_action: 2.0, gain: c7, gate: 0.0, out: 18.0
-                                     1016 supriya:patch-cable:2x2 (session.mixers[0].devices[0].chains[0]:output)
-            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
-            -                        1015 supriya:meters:2 (session.mixers[0].devices[0].chains[0]:output-levels)
-            -                            in_: 18.0, out: 10.0
-            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
-            +                1019 supriya:patch-cable:2x4 (session.mixers[0].devices[0]:output)
-            +                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
-                             1009 supriya:patch-cable:2x2 (session.mixers[0].devices[0]:output)
-            -                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
-            +                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
-                     1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
-                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
-                     1005 supriya:meters:2 (session.mixers[0]:output-levels)
-            """,
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:channel-strip:4>]
             - ['/d_recv', <SynthDef: supriya:dc:4>]
@@ -213,15 +168,18 @@ class SetChannelCountScenario(Scenario):
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x4:replace>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:4x4>]
             - ['/sync', 3]
-            - ['/c_fill', 12, 4, 0.0, 16, 4, 0.0]
-            - ['/s_new', 'supriya:patch-cable:2x4', 1019, 3, 1008, 'in_', 26.0, 'out', 16.0]
+            - ['/c_fill', 14, 4, 0.0, 18, 4, 0.0]
+            - ['/c_fill', 22, 4, 0.0]
+            - ['/s_new', 'supriya:patch-cable:2x4', 1020, 3, 1008, 'in_', 26.0, 'out', 16.0]
             - [None,
-               [['/s_new', 'supriya:patch-cable:2x4:replace', 1020, 2, 1011, 'in_', 16.0, 'out', 22.0],
-                ['/s_new', 'supriya:meters:4', 1021, 3, 1020, 'in_', 22.0, 'out', 12.0],
-                ['/s_new', 'supriya:channel-strip:4', 1022, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 22.0],
-                ['/s_new', 'supriya:meters:4', 1023, 3, 1022, 'in_', 22.0, 'out', 16.0],
-                ['/s_new', 'supriya:patch-cable:4x4', 1024, 3, 1022, 'in_', 22.0, 'out', 26.0]]]
-            - ['/s_new', 'supriya:dc:4', 1025, 1, 1017, 'out', 22.0]
+               [['/s_new', 'supriya:patch-cable:2x4:replace', 1021, 2, 1011, 'in_', 16.0, 'out', 22.0],
+                ['/s_new', 'supriya:meters:4', 1022, 3, 1021, 'in_', 22.0, 'out', 14.0],
+                ['/s_new', 'supriya:channel-strip:4', 1023, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 22.0],
+                ['/s_new', 'supriya:meters:4', 1024, 3, 1023, 'in_', 22.0, 'out', 18.0],
+                ['/s_new', 'supriya:patch-cable:4x4', 1025, 3, 1023, 'in_', 22.0, 'out', 26.0]]]
+            - [None,
+               [['/s_new', 'supriya:dc:4', 1026, 1, 1017, 'out', 22.0],
+                ['/s_new', 'supriya:meters:4', 1027, 3, 1026, 'in_', 22.0, 'out', 22.0]]]
             - ['/n_set', 1009, 'done_action', 2.0, 'gate', 0.0]
             - [None,
                [['/n_set', 1012, 'done_action', 2.0, 'gate', 0.0],
@@ -229,7 +187,56 @@ class SetChannelCountScenario(Scenario):
                 ['/n_set', 1014, 'done_action', 2.0, 'gate', 0.0],
                 ['/n_free', 1015],
                 ['/n_set', 1016, 'done_action', 2.0, 'gate', 0.0]]]
-            - ['/n_set', 1018, 'done_action', 2.0, 'gate', 0.0]
+            - [None, [['/n_set', 1018, 'done_action', 2.0, 'gate', 0.0], ['/n_free', 1019]]]
+            """,
+            expected_tree_diff="""
+            --- initial
+            +++ mutation
+            @@ -8,23 +8,33 @@
+                             1008 group (session.mixers[0].devices[0]:chains)
+                                 1010 group (session.mixers[0].devices[0].chains[0]:group)
+                                     1012 supriya:patch-cable:2x2:replace (session.mixers[0].devices[0].chains[0]:input)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 18.0
+            -                        1013 supriya:meters:2 (session.mixers[0].devices[0].chains[0]:input-levels)
+            -                            in_: 18.0, out: 8.0
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 16.0, out: 18.0
+            +                        1021 supriya:patch-cable:2x4:replace (session.mixers[0].devices[0].chains[0]:input)
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 16.0, out: 22.0
+            +                        1022 supriya:meters:4 (session.mixers[0].devices[0].chains[0]:input-levels)
+            +                            in_: 22.0, out: 14.0
+                                     1011 group (session.mixers[0].devices[0].chains[0]:devices)
+                                         1017 group (session.mixers[0].devices[0].chains[0].devices[0]:group)
+                                             1018 supriya:dc:2 (session.mixers[0].devices[0].chains[0].devices[0]:synth-0)
+            -                                    out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            -                                1019 supriya:meters:2 (session.mixers[0].devices[0].chains[0].devices[0]:output-levels)
+            -                                    in_: 18.0, out: 12.0
+            +                                    out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 0.0
+            +                                1026 supriya:dc:4 (session.mixers[0].devices[0].chains[0].devices[0]:synth-0)
+            +                                    out: 22.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            +                                1027 supriya:meters:4 (session.mixers[0].devices[0].chains[0].devices[0]:output-levels)
+            +                                    in_: 22.0, out: 22.0
+            +                        1023 supriya:channel-strip:4 (session.mixers[0].devices[0].chains[0]:channel-strip)
+            +                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 22.0
+            +                        1025 supriya:patch-cable:4x4 (session.mixers[0].devices[0].chains[0]:output)
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 22.0, out: 26.0
+            +                        1024 supriya:meters:4 (session.mixers[0].devices[0].chains[0]:output-levels)
+            +                            in_: 22.0, out: 18.0
+                                     1014 supriya:channel-strip:2 (session.mixers[0].devices[0].chains[0]:channel-strip)
+            -                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 18.0
+            +                            active: c6, done_action: 2.0, gain: c7, gate: 0.0, out: 18.0
+                                     1016 supriya:patch-cable:2x2 (session.mixers[0].devices[0].chains[0]:output)
+            -                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 18.0, out: 20.0
+            -                        1015 supriya:meters:2 (session.mixers[0].devices[0].chains[0]:output-levels)
+            -                            in_: 18.0, out: 10.0
+            +                            active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 18.0, out: 20.0
+            +                1020 supriya:patch-cable:2x4 (session.mixers[0].devices[0]:output)
+            +                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 26.0, out: 16.0
+                             1009 supriya:patch-cable:2x2 (session.mixers[0].devices[0]:output)
+            -                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 1.0, in_: 20.0, out: 16.0
+            +                    active: 1.0, done_action: 2.0, gain: 0.0, gate: 0.0, in_: 20.0, out: 16.0
+                     1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
+                         active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
+                     1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
         ),
     ],
@@ -517,6 +524,9 @@ class UngroupScenario(Scenario):
                      <Mixer 1 'Mixer'>
             -            <Rack 2 'Self'>
             """,
+            expected_messages="""
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -529,9 +539,6 @@ class UngroupScenario(Scenario):
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (mixers[1]:output-levels)
-            """,
-            expected_messages="""
-            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
             """,
         ),
         UngroupScenario(
@@ -559,10 +566,18 @@ class UngroupScenario(Scenario):
             -                    <Device 4>
             +            <Device 4>
             """,
+            expected_messages="""
+            - [None,
+               [['/s_new', 'supriya:dc:2', 1020, 1, 1017, 'out', 16.0],
+                ['/s_new', 'supriya:meters:2', 1021, 3, 1020, 'in_', 16.0, 'out', 12.0]]]
+            - ['/n_after', 1017, 1007]
+            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
+            - [None, [['/n_set', 1018, 'done_action', 2.0, 'gate', 0.0], ['/n_free', 1019]]]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -8,21 +8,23 @@
+            @@ -8,23 +8,25 @@
                              1008 group (devices[2]:chains)
                                  1010 group (chains[3]:group)
                                      1012 supriya:patch-cable:2x2:replace (chains[3]:input)
@@ -574,6 +589,8 @@ class UngroupScenario(Scenario):
             -                            1017 group (devices[4]:group)
             -                                1018 supriya:dc:2 (devices[4]:synth-0)
             -                                    out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            -                                1019 supriya:meters:2 (devices[4]:output-levels)
+            -                                    in_: 18.0, out: 12.0
                                      1014 supriya:channel-strip:2 (chains[3]:channel-strip)
             -                            active: c6, done_action: 2.0, gain: c7, gate: 1.0, out: 18.0
             +                            active: c6, done_action: 2.0, gain: c7, gate: 0.0, out: 18.0
@@ -588,17 +605,13 @@ class UngroupScenario(Scenario):
             +            1017 group (devices[4]:group)
             +                1018 supriya:dc:2 (devices[4]:synth-0)
             +                    out: 18.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 0.0
-            +                1019 supriya:dc:2 (devices[4]:synth-0)
+            +                1020 supriya:dc:2 (devices[4]:synth-0)
             +                    out: 16.0, active: 1.0, dc: 1.0, done_action: 2.0, gate: 1.0
+            +                1021 supriya:meters:2 (devices[4]:output-levels)
+            +                    in_: 16.0, out: 12.0
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (mixers[1]:output-levels)
-            """,
-            expected_messages="""
-            - ['/s_new', 'supriya:dc:2', 1019, 1, 1017, 'out', 16.0]
-            - ['/n_after', 1017, 1007]
-            - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
-            - ['/n_set', 1018, 'done_action', 2.0, 'gate', 0.0]
             """,
         ),
         UngroupScenario(
@@ -620,12 +633,9 @@ class UngroupScenario(Scenario):
             ],
             subject="mixers[0].devices[0]",
             maybe_raises=pytest.raises(RuntimeError),
-            expected_components_diff=lambda session: """
-            """,
-            expected_tree_diff="""
-            """,
-            expected_messages="""
-            """,
+            expected_components_diff=lambda session: "",
+            expected_messages="",
+            expected_tree_diff="",
         ),
     ],
     ids=lambda scenario: scenario.id,

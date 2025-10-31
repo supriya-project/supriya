@@ -70,24 +70,30 @@ class AddDeviceScenario(Scenario):
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
             """,
+            expected_messages="""
+            - ['/d_recv', <SynthDef: test:effect:2>]
+            - ['/sync', 3]
+            - ['/c_fill', 5, 2, 0.0]
+            - [None,
+               [['/g_new', 1007, 0, 1002],
+                ['/s_new', 'test:effect:2', 1008, 1, 1007, 'bus', 16.0],
+                ['/s_new', 'supriya:meters:2', 1009, 3, 1008, 'in_', 16.0, 'out', 5.0]]]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -4,6 +4,9 @@
+            @@ -4,6 +4,11 @@
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             +            1007 group (session.mixers[0].devices[0]:group)
             +                1008 test:effect:2 (session.mixers[0].devices[0]:synth-0)
             +                    bus: 16.0, multiplier: 1.0, offset: 0.0
+            +                1009 supriya:meters:2 (session.mixers[0].devices[0]:output-levels)
+            +                    in_: 16.0, out: 5.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
-            """,
-            expected_messages="""
-            - ['/d_recv', <SynthDef: test:effect:2>]
-            - ['/sync', 3]
-            - [None, [['/g_new', 1007, 0, 1002], ['/s_new', 'test:effect:2', 1008, 1, 1007, 'bus', 16.0]]]
             """,
         ),
         # effect with one synth, two parameter specs
@@ -121,27 +127,30 @@ class AddDeviceScenario(Scenario):
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
             """,
+            expected_messages="""
+            - ['/d_recv', <SynthDef: test:effect:2>]
+            - ['/sync', 3]
+            - [None, [['/c_set', 5, 0.25, 6, 0.5], ['/c_fill', 7, 2, 0.0]]]
+            - [None,
+               [['/g_new', 1007, 0, 1002],
+                ['/s_new', 'test:effect:2', 1008, 1, 1007, 'bus', 16.0, 'multiplier', 'c6', 'offset', 'c5'],
+                ['/s_new', 'supriya:meters:2', 1009, 3, 1008, 'in_', 16.0, 'out', 7.0]]]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -4,6 +4,9 @@
+            @@ -4,6 +4,11 @@
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             +            1007 group (session.mixers[0].devices[0]:group)
             +                1008 test:effect:2 (session.mixers[0].devices[0]:synth-0)
             +                    bus: 16.0, multiplier: c6, offset: c5
+            +                1009 supriya:meters:2 (session.mixers[0].devices[0]:output-levels)
+            +                    in_: 16.0, out: 7.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
-            """,
-            expected_messages="""
-            - ['/d_recv', <SynthDef: test:effect:2>]
-            - ['/sync', 3]
-            - ['/c_set', 5, 0.25, 6, 0.5]
-            - [None,
-               [['/g_new', 1007, 0, 1002],
-                ['/s_new', 'test:effect:2', 1008, 1, 1007, 'bus', 16.0, 'multiplier', 'c6', 'offset', 'c5']]]
             """,
         ),
         # effect with one synth, one default-channeled sidechain
@@ -169,24 +178,30 @@ class AddDeviceScenario(Scenario):
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
             """,
+            expected_messages="""
+            - ['/d_recv', <SynthDef: test:sidechain:2>]
+            - ['/sync', 3]
+            - ['/c_fill', 5, 2, 0.0]
+            - [None,
+               [['/g_new', 1007, 0, 1002],
+                ['/s_new', 'test:sidechain:2', 1008, 1, 1007, 'bus', 16.0, 'sidechain_bus', 18.0],
+                ['/s_new', 'supriya:meters:2', 1009, 3, 1008, 'in_', 16.0, 'out', 5.0]]]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
-            @@ -4,6 +4,9 @@
+            @@ -4,6 +4,11 @@
                      1004 supriya:meters:2 (session.mixers[0]:input-levels)
                          in_: 16.0, out: 1.0
                      1002 group (session.mixers[0]:devices)
             +            1007 group (session.mixers[0].devices[0]:group)
             +                1008 test:sidechain:2 (session.mixers[0].devices[0]:synth-0)
             +                    bus: 16.0, multiplier: 1.0, offset: 0.0, sidechain_bus: 18.0
+            +                1009 supriya:meters:2 (session.mixers[0].devices[0]:output-levels)
+            +                    in_: 16.0, out: 5.0
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
-            """,
-            expected_messages="""
-            - ['/d_recv', <SynthDef: test:sidechain:2>]
-            - ['/sync', 3]
-            - [None, [['/g_new', 1007, 0, 1002], ['/s_new', 'test:sidechain:2', 1008, 1, 1007, 'bus', 16.0, 'sidechain_bus', 18.0]]]
             """,
         ),
     ],
@@ -235,6 +250,22 @@ class AddRackScenario(Scenario):
             +            <Rack 2 'Rack'>
             +                <Chain 3>
             """,
+            expected_messages="""
+            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
+            - ['/sync', 3]
+            - ['/c_set', 5, 1.0]
+            - [None, [['/c_set', 6, 1.0, 7, 0.0], ['/c_fill', 8, 2, 0.0, 10, 2, 0.0]]]
+            - [None,
+               [['/g_new', 1007, 0, 1002, 1008, 0, 1007],
+                ['/s_new', 'supriya:patch-cable:2x2', 1009, 3, 1008, 'in_', 20.0, 'out', 16.0]]]
+            - [None,
+               [['/g_new', 1010, 0, 1008, 1011, 1, 1010],
+                ['/s_new', 'supriya:patch-cable:2x2:replace', 1012, 2, 1011, 'in_', 16.0, 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1013, 3, 1012, 'in_', 18.0, 'out', 8.0],
+                ['/s_new', 'supriya:channel-strip:2', 1014, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1015, 3, 1014, 'in_', 18.0, 'out', 10.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1016, 3, 1014, 'in_', 18.0, 'out', 20.0]]]
+            """,
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -262,22 +293,6 @@ class AddRackScenario(Scenario):
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
-            expected_messages="""
-            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
-            - ['/sync', 3]
-            - ['/c_set', 5, 1.0]
-            - [None, [['/c_set', 6, 1.0, 7, 0.0], ['/c_fill', 8, 2, 0.0, 10, 2, 0.0]]]
-            - [None,
-               [['/g_new', 1007, 0, 1002, 1008, 0, 1007],
-                ['/s_new', 'supriya:patch-cable:2x2', 1009, 3, 1008, 'in_', 20.0, 'out', 16.0]]]
-            - [None,
-               [['/g_new', 1010, 0, 1008, 1011, 1, 1010],
-                ['/s_new', 'supriya:patch-cable:2x2:replace', 1012, 2, 1011, 'in_', 16.0, 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1013, 3, 1012, 'in_', 18.0, 'out', 8.0],
-                ['/s_new', 'supriya:channel-strip:2', 1014, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1015, 3, 1014, 'in_', 18.0, 'out', 10.0],
-                ['/s_new', 'supriya:patch-cable:2x2', 1016, 3, 1014, 'in_', 18.0, 'out', 20.0]]]
-            """,
         ),
         AddRackScenario(
             id="add rack to track",
@@ -295,6 +310,22 @@ class AddRackScenario(Scenario):
                          <Track 2 'Track'>
             +                <Rack 3 'Rack'>
             +                    <Chain 4>
+            """,
+            expected_messages="""
+            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
+            - ['/sync', 3]
+            - ['/c_set', 11, 1.0]
+            - [None, [['/c_set', 12, 1.0, 13, 0.0], ['/c_fill', 14, 2, 0.0, 16, 2, 0.0]]]
+            - [None,
+               [['/g_new', 1014, 0, 1009, 1015, 0, 1014],
+                ['/s_new', 'supriya:patch-cable:2x2', 1016, 3, 1015, 'in_', 22.0, 'out', 18.0]]]
+            - [None,
+               [['/g_new', 1017, 0, 1015, 1018, 1, 1017],
+                ['/s_new', 'supriya:patch-cable:2x2:replace', 1019, 2, 1018, 'in_', 18.0, 'out', 20.0],
+                ['/s_new', 'supriya:meters:2', 1020, 3, 1019, 'in_', 20.0, 'out', 14.0],
+                ['/s_new', 'supriya:channel-strip:2', 1021, 3, 1018, 'active', 'c12', 'gain', 'c13', 'out', 20.0],
+                ['/s_new', 'supriya:meters:2', 1022, 3, 1021, 'in_', 20.0, 'out', 16.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1023, 3, 1021, 'in_', 20.0, 'out', 22.0]]]
             """,
             expected_tree_diff="""
             --- initial
@@ -323,22 +354,6 @@ class AddRackScenario(Scenario):
                                  active: c5, done_action: 2.0, gain: c6, gate: 1.0, out: 18.0
                              1012 supriya:meters:2 (session.mixers[0].tracks[0]:output-levels)
             """,
-            expected_messages="""
-            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
-            - ['/sync', 3]
-            - ['/c_set', 11, 1.0]
-            - [None, [['/c_set', 12, 1.0, 13, 0.0], ['/c_fill', 14, 2, 0.0, 16, 2, 0.0]]]
-            - [None,
-               [['/g_new', 1014, 0, 1009, 1015, 0, 1014],
-                ['/s_new', 'supriya:patch-cable:2x2', 1016, 3, 1015, 'in_', 22.0, 'out', 18.0]]]
-            - [None,
-               [['/g_new', 1017, 0, 1015, 1018, 1, 1017],
-                ['/s_new', 'supriya:patch-cable:2x2:replace', 1019, 2, 1018, 'in_', 18.0, 'out', 20.0],
-                ['/s_new', 'supriya:meters:2', 1020, 3, 1019, 'in_', 20.0, 'out', 14.0],
-                ['/s_new', 'supriya:channel-strip:2', 1021, 3, 1018, 'active', 'c12', 'gain', 'c13', 'out', 20.0],
-                ['/s_new', 'supriya:meters:2', 1022, 3, 1021, 'in_', 20.0, 'out', 16.0],
-                ['/s_new', 'supriya:patch-cable:2x2', 1023, 3, 1021, 'in_', 20.0, 'out', 22.0]]]
-            """,
         ),
         AddRackScenario(
             id="add rack to mixer, read:ignore, write:replace",
@@ -355,6 +370,22 @@ class AddRackScenario(Scenario):
                      <Mixer 1 'Mixer'>
             +            <Rack 2 'Rack'>
             +                <Chain 3>
+            """,
+            expected_messages="""
+            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
+            - ['/d_recv', <SynthDef: supriya:zero:2>]
+            - ['/sync', 3]
+            - ['/c_set', 5, 1.0]
+            - [None, [['/c_set', 6, 1.0, 7, 0.0], ['/c_fill', 8, 2, 0.0]]]
+            - [None,
+               [['/g_new', 1007, 0, 1002, 1008, 0, 1007],
+                ['/s_new', 'supriya:patch-cable:2x2:replace', 1009, 3, 1008, 'in_', 20.0, 'out', 16.0]]]
+            - [None,
+               [['/g_new', 1010, 0, 1008, 1011, 1, 1010],
+                ['/s_new', 'supriya:zero:2', 1012, 2, 1011, 'out', 18.0],
+                ['/s_new', 'supriya:channel-strip:2', 1013, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1014, 3, 1013, 'in_', 18.0, 'out', 8.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1015, 3, 1013, 'in_', 18.0, 'out', 20.0]]]
             """,
             expected_tree_diff="""
             --- initial
@@ -381,22 +412,6 @@ class AddRackScenario(Scenario):
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
             """,
-            expected_messages="""
-            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
-            - ['/d_recv', <SynthDef: supriya:zero:2>]
-            - ['/sync', 3]
-            - ['/c_set', 5, 1.0]
-            - [None, [['/c_set', 6, 1.0, 7, 0.0], ['/c_fill', 8, 2, 0.0]]]
-            - [None,
-               [['/g_new', 1007, 0, 1002, 1008, 0, 1007],
-                ['/s_new', 'supriya:patch-cable:2x2:replace', 1009, 3, 1008, 'in_', 20.0, 'out', 16.0]]]
-            - [None,
-               [['/g_new', 1010, 0, 1008, 1011, 1, 1010],
-                ['/s_new', 'supriya:zero:2', 1012, 2, 1011, 'out', 18.0],
-                ['/s_new', 'supriya:channel-strip:2', 1013, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1014, 3, 1013, 'in_', 18.0, 'out', 8.0],
-                ['/s_new', 'supriya:patch-cable:2x2', 1015, 3, 1013, 'in_', 18.0, 'out', 20.0]]]
-            """,
         ),
         AddRackScenario(
             id="add rack to mixer, chains:2, write:mix",
@@ -414,6 +429,31 @@ class AddRackScenario(Scenario):
             +            <Rack 2 'Rack'>
             +                <Chain 3>
             +                <Chain 4>
+            """,
+            expected_messages="""
+            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:mix>]
+            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
+            - ['/sync', 3]
+            - ['/c_set', 5, 1.0]
+            - [None, [['/c_set', 6, 1.0, 7, 0.0], ['/c_fill', 8, 2, 0.0, 10, 2, 0.0]]]
+            - [None, [['/c_set', 12, 1.0, 13, 0.0], ['/c_fill', 14, 2, 0.0, 16, 2, 0.0]]]
+            - [None,
+               [['/g_new', 1007, 0, 1002, 1008, 0, 1007],
+                ['/s_new', 'supriya:patch-cable:2x2:mix', 1009, 3, 1008, 'in_', 20.0, 'mix', 'c5', 'out', 16.0]]]
+            - [None,
+               [['/g_new', 1010, 0, 1008, 1011, 1, 1010],
+                ['/s_new', 'supriya:patch-cable:2x2:replace', 1012, 2, 1011, 'in_', 16.0, 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1013, 3, 1012, 'in_', 18.0, 'out', 8.0],
+                ['/s_new', 'supriya:channel-strip:2', 1014, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1015, 3, 1014, 'in_', 18.0, 'out', 10.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1016, 3, 1014, 'in_', 18.0, 'out', 20.0]]]
+            - [None,
+               [['/g_new', 1017, 3, 1010, 1018, 1, 1017],
+                ['/s_new', 'supriya:patch-cable:2x2:replace', 1019, 2, 1018, 'in_', 16.0, 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1020, 3, 1019, 'in_', 18.0, 'out', 14.0],
+                ['/s_new', 'supriya:channel-strip:2', 1021, 3, 1018, 'active', 'c12', 'gain', 'c13', 'out', 18.0],
+                ['/s_new', 'supriya:meters:2', 1022, 3, 1021, 'in_', 18.0, 'out', 16.0],
+                ['/s_new', 'supriya:patch-cable:2x2', 1023, 3, 1021, 'in_', 18.0, 'out', 20.0]]]
             """,
             expected_tree_diff="""
             --- initial
@@ -453,31 +493,6 @@ class AddRackScenario(Scenario):
                      1003 supriya:channel-strip:2 (session.mixers[0]:channel-strip)
                          active: 1.0, done_action: 2.0, gain: c0, gate: 1.0, out: 16.0
                      1005 supriya:meters:2 (session.mixers[0]:output-levels)
-            """,
-            expected_messages="""
-            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:mix>]
-            - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
-            - ['/sync', 3]
-            - ['/c_set', 5, 1.0]
-            - [None, [['/c_set', 6, 1.0, 7, 0.0], ['/c_fill', 8, 2, 0.0, 10, 2, 0.0]]]
-            - [None, [['/c_set', 12, 1.0, 13, 0.0], ['/c_fill', 14, 2, 0.0, 16, 2, 0.0]]]
-            - [None,
-               [['/g_new', 1007, 0, 1002, 1008, 0, 1007],
-                ['/s_new', 'supriya:patch-cable:2x2:mix', 1009, 3, 1008, 'in_', 20.0, 'mix', 'c5', 'out', 16.0]]]
-            - [None,
-               [['/g_new', 1010, 0, 1008, 1011, 1, 1010],
-                ['/s_new', 'supriya:patch-cable:2x2:replace', 1012, 2, 1011, 'in_', 16.0, 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1013, 3, 1012, 'in_', 18.0, 'out', 8.0],
-                ['/s_new', 'supriya:channel-strip:2', 1014, 3, 1011, 'active', 'c6', 'gain', 'c7', 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1015, 3, 1014, 'in_', 18.0, 'out', 10.0],
-                ['/s_new', 'supriya:patch-cable:2x2', 1016, 3, 1014, 'in_', 18.0, 'out', 20.0]]]
-            - [None,
-               [['/g_new', 1017, 3, 1010, 1018, 1, 1017],
-                ['/s_new', 'supriya:patch-cable:2x2:replace', 1019, 2, 1018, 'in_', 16.0, 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1020, 3, 1019, 'in_', 18.0, 'out', 14.0],
-                ['/s_new', 'supriya:channel-strip:2', 1021, 3, 1018, 'active', 'c12', 'gain', 'c13', 'out', 18.0],
-                ['/s_new', 'supriya:meters:2', 1022, 3, 1021, 'in_', 18.0, 'out', 16.0],
-                ['/s_new', 'supriya:patch-cable:2x2', 1023, 3, 1021, 'in_', 18.0, 'out', 20.0]]]
             """,
         ),
     ],
