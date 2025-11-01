@@ -81,7 +81,9 @@ class Rack(DeviceBase, ChannelSettable):
     def _add_chain(self, name: str | None = None) -> "Chain":
         self._chains.append(
             chain := Chain(
-                id_=self._ensure_session()._get_next_id(), name=name, parent=self
+                id_=self._ensure_session()._get_next_id(),
+                name=name or f"Chain {len(self._chains) + 1}",
+                parent=self,
             )
         )
         return chain

@@ -27,8 +27,8 @@ from .conftest import Scenario, does_not_raise
             @@ -3,3 +3,4 @@
                      <Mixer 1 'Mixer'>
                          <Rack 2 'Self'>
-                             <Chain 3>
-            +                <Chain 4>
+                             <Chain 3 'Chain 1'>
+            +                <Chain 4 'Chain 2'>
             """,
             expected_messages="""
             - [None, [['/c_set', 14, 1.0, 15, 0.0], ['/c_fill', 16, 2, 0.0, 18, 2, 0.0]]]
@@ -79,7 +79,7 @@ from .conftest import Scenario, does_not_raise
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
                          <Rack 2 'Self'>
-            +                <Chain 4>
+            +                <Chain 4 'Chain 1'>
             """,
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
@@ -257,7 +257,7 @@ async def test_Rack_set_channel_count(
 
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.asyncio
-async def test_Rack_set_name(online: bool) -> None:
+async def test_Rack_et_name(online: bool) -> None:
     session = Session()
     mixer = await session.add_mixer()
     rack = await mixer.add_rack()
@@ -569,7 +569,7 @@ class UngroupScenario(Scenario):
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             -            <Rack 2 'Self'>
-            -                <Chain 3>
+            -                <Chain 3 'Chain 1'>
             -                    <Device 4>
             +            <Device 4>
             """,

@@ -248,7 +248,7 @@ class AddRackScenario(Scenario):
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             +            <Rack 2 'Rack'>
-            +                <Chain 3>
+            +                <Chain 3 'Chain 1'>
             """,
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
@@ -312,7 +312,7 @@ class AddRackScenario(Scenario):
                      <Mixer 1 'Mixer'>
                          <Track 2 'Track'>
             +                <Rack 3 'Rack'>
-            +                    <Chain 4>
+            +                    <Chain 4 'Chain 1'>
             """,
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
@@ -375,7 +375,7 @@ class AddRackScenario(Scenario):
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             +            <Rack 2 'Rack'>
-            +                <Chain 3>
+            +                <Chain 3 'Chain 1'>
             """,
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
@@ -436,8 +436,8 @@ class AddRackScenario(Scenario):
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             +            <Rack 2 'Rack'>
-            +                <Chain 3>
-            +                <Chain 4>
+            +                <Chain 3 'Chain 1'>
+            +                <Chain 4 'Chain 2'>
             """,
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:mix>]

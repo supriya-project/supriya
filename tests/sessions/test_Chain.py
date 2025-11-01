@@ -607,7 +607,7 @@ async def test_Chain_set_name(online: bool) -> None:
     chain = rack.chains[0]
     if online:
         await session.boot()
-    assert chain.name is None
+    assert chain.name == "Chain 1"
     for name in ("Foo", "Bar", "Baz"):
         chain.set_name(name=name)
         assert chain.name == name

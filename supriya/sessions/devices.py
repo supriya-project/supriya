@@ -100,7 +100,7 @@ class DeviceContainer(Component[C]):
         read_mode: Literal[PatchMode.IGNORE, PatchMode.REPLACE] = PatchMode.REPLACE,
         write_mode: PatchMode = PatchMode.SUM,
     ) -> tuple["Rack", Optional["Chain"]]:
-        from .racks import Chain, Rack
+        from .racks import Rack
 
         if chain_count < 0:
             raise ValueError(chain_count)
@@ -113,13 +113,8 @@ class DeviceContainer(Component[C]):
                 write_mode=write_mode,
             )
         )
-        for _ in range(chain_count):
-            rack._chains.append(
-                Chain(
-                    id_=self._ensure_session()._get_next_id(),
-                    parent=rack,
-                )
-            )
+        for i in range(chain_count):
+            rack._add_chain()
         return rack, rack._chains[0] if rack._chains else None
 
     def _get_main_bus_address(self) -> Address:
