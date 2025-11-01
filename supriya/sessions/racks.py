@@ -86,15 +86,6 @@ class Rack(DeviceBase, ChannelSettable):
         )
         return chain
 
-    def _get_nested_address(self) -> Address:
-        if self.parent is None:
-            return "devices[?]"
-        index = self.parent.devices.index(self)
-        return f"{self.parent.address}.devices[{index}]"
-
-    def _get_numeric_address(self) -> Address:
-        return f"devices[{self._id}]"
-
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         # TODO: Can we re-use a shared aux bus?
         #       E.g. multiple racks in serial with the same channel-count
@@ -127,67 +118,62 @@ class Rack(DeviceBase, ChannelSettable):
             target_node=container_group_address,
         )
         # output
-        if self._write_mode in (
-            PatchMode.MIX,
-            PatchMode.REPLACE,
-            PatchMode.SUM,
-        ):
-            # TODO: Reimplement replace and mix in terms of XOut only where
-            #       releasing means multiplying the crossfade parameter of the
-            #       XOut with the gate envelope, and the gate envelope does not
-            #       multiply the source.
-            write_synthdef_address = spec_factory.add_synthdef(
-                synthdef=build_patch_cable_synthdef(
-                    source_channel_count=parent_effective_channel_count,
-                    target_channel_count=effective_channel_count,
-                    write_mode=self._write_mode,
-                )
-            )
-            spec_factory.add_synth(
-                add_action=AddAction.ADD_AFTER,
-                destroy_strategy=dict(
-                    done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+        # TODO: Reimplement replace and mix in terms of XOut only where
+        #       releasing means multiplying the crossfade parameter of the
+        #       XOut with the gate envelope, and the gate envelope does not
+        #       multiply the source.
+        write_synthdef_address = spec_factory.add_synthdef(
+            synthdef=build_patch_cable_synthdef(
+                source_channel_count=parent_effective_channel_count,
+                target_channel_count=effective_channel_count,
+                write_mode=(
+                    self._write_mode
+                    if self._write_mode
+                    in (PatchMode.MIX, PatchMode.REPLACE, PatchMode.SUM)
+                    else PatchMode.MIX
                 ),
-                kwargs=dict(
-                    active=bool(self._chains),
-                    in_=mix_audio_bus_address,
-                    out=parent._get_main_bus_address(),
-                    **(
-                        dict(
-                            mix=Spec.get_address(
-                                self, Entities.CONTROL_BUSES, Names.MIX
-                            )
-                        )
-                        if self._write_mode == PatchMode.MIX
-                        else {}
-                    ),
-                ),
-                name=Names.OUTPUT,
-                synthdef=write_synthdef_address,
-                target_node=chains_group_address,
             )
+        )
+        spec_factory.add_synth(
+            add_action=AddAction.ADD_AFTER,
+            destroy_strategy=dict(
+                done_action=DoneAction.FREE_SYNTH_AND_ENCLOSING_GROUP
+            ),
+            kwargs=dict(
+                active=False
+                if self._write_mode == PatchMode.IGNORE
+                else bool(self._chains),
+                in_=mix_audio_bus_address,
+                out=parent._get_main_bus_address(),
+                **(
+                    dict(mix=Spec.get_address(self, Entities.CONTROL_BUSES, Names.MIX))
+                    if self._write_mode == PatchMode.MIX
+                    else {}
+                ),
+            ),
+            name=Names.OUTPUT,
+            synthdef=write_synthdef_address,
+            target_node=chains_group_address,
+        )
         # levels
-        if parent._devices.index(self) < (len(parent._devices) - 1):
-            # will the meters synth follow the group on move?
-            # we're referencing the output node, but does it even exist?
-            levels_control_bus_address = spec_factory.add_control_bus(
-                channel_count=self.effective_channel_count,
-                default=0.0,
-                name=Names.LEVELS,
-            )
-            meters_synthdef_address = spec_factory.add_synthdef(
-                synthdef=build_meters_synthdef(parent_effective_channel_count)
-            )
-            spec_factory.add_synth(
-                add_action=AddAction.ADD_TO_TAIL,
-                kwargs=dict(
-                    in_=parent._get_main_bus_address(),
-                    out=levels_control_bus_address,
-                ),
-                name=Names.LEVELS,
-                synthdef=meters_synthdef_address,
-                target_node=container_group_address,
-            )
+        levels_control_bus_address = spec_factory.add_control_bus(
+            channel_count=self.effective_channel_count,
+            default=0.0,
+            name=Names.OUTPUT_LEVELS,
+        )
+        meters_synthdef_address = spec_factory.add_synthdef(
+            synthdef=build_meters_synthdef(parent_effective_channel_count)
+        )
+        spec_factory.add_synth(
+            add_action=AddAction.ADD_TO_TAIL,
+            kwargs=dict(
+                in_=parent._get_main_bus_address(),
+                out=levels_control_bus_address,
+            ),
+            name=Names.OUTPUT_LEVELS,
+            synthdef=meters_synthdef_address,
+            target_node=container_group_address,
+        )
         return spec_factory
 
     def _ungroup(self) -> list[DeviceBase]:
