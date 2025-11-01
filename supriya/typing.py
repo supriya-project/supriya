@@ -36,13 +36,16 @@ class Default:
     pass
 
 
-DEFAULT = Default()
+class Inherit:
+    pass
 
 
 class Missing:
     pass
 
 
+DEFAULT = Default()
+INHERIT = Inherit()
 MISSING = Missing()
 
 
