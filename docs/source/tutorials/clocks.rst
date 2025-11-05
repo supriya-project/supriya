@@ -7,7 +7,7 @@ Clocks
 
     These docs are still under construction.
 
-Supriya provides a collection of musical-time-aware clocks which permit
+Supriya provides a collection of musical-time-aware clocks for scheduling
 scheduling callbacks relative to both seconds, beats and measures, and which - by
 extension - understand tempo, time signatures and downbeats.
 
@@ -26,6 +26,8 @@ but process their callbacks as fast as possible, regardless of the amount of
 real time consumed. This makes them suitable for unit-testing logic expecting
 online clocks, or for implementing non-realtime rendering of usually-online
 musical patterns.
+
+.. TODDO:: Need a better name than "clock context".
 
 Lifecycle
 ---------
@@ -54,35 +56,94 @@ Scheduling
 Let's consider a simple callback function::
 
     >>> def callback(context):
-    ...     print(f"The current offset is: {context.current_moment.offset}")
+    ...     print(f"The current offset is: {context.desired_moment.offset}")
     ...
 
 All clock callbacks need to accept *at least* a ``context`` argument, to which
-the clock will pass a :py:class:`~supriya.clocks.ephemera.ClockContext` object.
+the clock will pass a :py:class:`~supriya.clocks.core.ClockContext` object.
 
-Scheduling
-``````````
+The ``context`` tells the callback about what time it currently is - at the
+point of execution -, what time we *desired* to execute the callback at - in
+case there's drift that you need to account for -, and what the event that
+triggered the callback is - encoding information about the default args,
+kwargs, and number of invocations to date.
 
-We can schedule that procedure with::
+We'll dig deeper into the :py:class:`~supriya.clocks.core.ClockContext` and
+:py:class:`~supriya.clocks.core.Moment` classes further down.
+
+Scheduling immediately
+``````````````````````
+
+We can schedule that procedure to run immediately with::
 
     >>> clock.schedule(callback)
 
-Scheduling callbacks returns an event ID.
+Note that scheduling callbacks returns an event ID.
+
+If the clock is already running, the callback will be queued and eventually
+executed. If the clock isn't running, the callback will wait until it starts.
+
+Scheduling in the future
+````````````````````````
+
+We can schedule a callback to run at a specific time in the future, e.g. 1
+second from now, with::
+
+    >>> import time
+    >>> id_ = clock.schedule(callback, time.time() + 1)
 
 Canceling
 `````````
 
-We can use the event ID to cancel the callback if it hasn't already occurred::
+We can use the event ID to cancel the callback, assuming it hasn't already
+occurred::
 
-    >>> clock.cancel(0)
+    >>> clock.cancel(id_)
 
 Cueing
 ``````
 
 We can also *cue* callbacks, scheduling them to occur at some quantized offset
-in the future, e.g. on the next beat or downbeat::
+in the future, e.g. on the next 1/4 beat::
 
-    >>> clock.cue(callback)
+    >>> _ = clock.cue(callback, quantization="1/4")
+
+... or the next downbeat::
+
+    >>> _ = clock.cue(callback, quantization="1M")
+
+Valid quantizations include:
+
+- ``8M``
+- ``4M``
+- ``2M``
+- ``1M``
+- ``1/2``
+- ``1/2T``
+- ``1/4``
+- ``1/4T``
+- ``1/8``
+- ``1/8T``
+- ``1/16``
+- ``1/16T``
+- ``1/32``
+- ``1/32T``
+- ``1/64``
+- ``1/64T``
+- ``1/128``
+
+... much like in Ableton Live. ``M`` indicates a measure, regardless of time
+signature. ``T`` indicates a triplet.
+
+Let's start the clock and wait for the scheduled callbacks to run::
+
+    >>> clock.start()
+
+Not very exciting! They all executed at the same time. Why? Because both the
+*immediately* scheduled callback and the two *quantized* callbacks all aligned
+on the initial 0 offset when the clock started.
+
+Let's dig deeper into callbacks so we can get some more interesting output ...
 
 Callbacks
 ---------
@@ -104,18 +165,18 @@ Let's consider a more complicated callback function::
     ...         print("Bailing!")
     ...
 
-Arguments
-`````````
-
-- positional arguments
-- keyword arguments
-
 Deltas
 ``````
 
 - none
 - single float
 - pair of float and time unit or int
+
+Arguments
+`````````
+
+- positional arguments
+- keyword arguments
 
 Contexts, moments, events
 `````````````````````````
@@ -142,13 +203,21 @@ Async clocks
 
 *Async* clocks have identical APIs to *threaded* clocks with three differences:
 
-- their :py:meth:`~supriya.clocks.asynchronous.AsyncClock.start` method is async,
-- their :py:meth:`~supriya.clocks.asynchronous.AsyncClock.stop` method is async, and
+- their :py:meth:`~supriya.clocks.AsyncClock.start` method is async,
+- their :py:meth:`~supriya.clocks.AsyncClock.stop` method is async, and
 - scheduled callbacks may also be async.
 
 Instantiate an *async* clock with::
 
-    >>> clock = supriya.AsyncClock()
+    >>> async_clock = supriya.AsyncClock()
+
+Start the async clock with::
+
+    >>> await async_clock.start()
+
+Stop the async clock with::
+
+    >>> await async_clock.stop()
 
 Offline clocks
 --------------
