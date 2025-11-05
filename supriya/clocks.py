@@ -1,3 +1,5 @@
+import asyncio
+import atexit
 import collections
 import dataclasses
 import enum
@@ -5,14 +7,18 @@ import fractions
 import itertools
 import logging
 import queue
+import threading
 import time
 import traceback
 from collections.abc import Sequence
+from contextlib import asynccontextmanager, contextmanager
 from functools import total_ordering
 from typing import (
     Any,
+    AsyncGenerator,
     Awaitable,
     Deque,
+    Generator,
     Generic,
     Literal,
     NamedTuple,
@@ -21,7 +27,7 @@ from typing import (
     TypeVar,
 )
 
-from .. import conversions
+from . import conversions
 
 logger = logging.getLogger(__name__)
 
@@ -67,16 +73,8 @@ class ClockState(NamedTuple):
     time_signature: tuple[int, int]
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True, slots=True)
 class Moment:
-    __slots__ = (
-        "beats_per_minute",
-        "measure",
-        "measure_offset",
-        "offset",
-        "seconds",
-        "time_signature",
-    )
     beats_per_minute: float
     measure: int
     measure_offset: float
@@ -757,11 +755,11 @@ class BaseClock(Generic[C]):
     def cue(
         self,
         procedure: C,
+        quantization: Quantization | None = None,
         *,
         args: Sequence[Any] | None = None,
         event_type: int = EventType.SCHEDULE,
         kwargs: dict[str, Any] | None = None,
-        quantization: Quantization | None = None,
     ) -> int:
         if event_type <= 0:
             raise ValueError(f"Invalid event type {event_type}")
@@ -783,9 +781,9 @@ class BaseClock(Generic[C]):
 
     def cue_change(
         self,
+        quantization: Quantization | None = None,
         *,
         beats_per_minute: float | None = None,
-        quantization: Quantization | None = None,
         time_signature: tuple[int, int] | None = None,
     ) -> int:
         if quantization is not None and quantization not in self._valid_quantizations:
@@ -806,8 +804,8 @@ class BaseClock(Generic[C]):
     def reschedule(
         self,
         event_id: int,
-        *,
         schedule_at: float = 0.0,
+        *,
         time_unit: TimeUnit = TimeUnit.BEATS,
     ) -> int | None:
         if (event_or_command := self.cancel(event_id)) is None:
@@ -845,11 +843,11 @@ class BaseClock(Generic[C]):
     def schedule(
         self,
         procedure: C,
+        schedule_at: float = 0.0,
         *,
         args: Sequence[Any] | None = None,
         event_type: int = EventType.SCHEDULE,
         kwargs: dict[str, Any] | None = None,
-        schedule_at: float = 0.0,
         time_unit: TimeUnit = TimeUnit.BEATS,
     ) -> int:
         logger.debug(f"[{self.name}] Scheduling {procedure}")
@@ -871,9 +869,9 @@ class BaseClock(Generic[C]):
 
     def schedule_change(
         self,
+        schedule_at: float = 0.0,
         *,
         beats_per_minute: float | None = None,
-        schedule_at: float = 0.0,
         time_signature: tuple[int, int] | None = None,
         time_unit: TimeUnit = TimeUnit.BEATS,
     ) -> int:
@@ -917,3 +915,462 @@ class BaseClock(Generic[C]):
     @property
     def time_signature(self) -> tuple[int, int]:
         return self._state.time_signature
+
+
+class Clock(BaseClock[ClockCallback]):
+    """
+    A threaded clock.
+    """
+
+    ### INITIALIZER ###
+
+    def __init__(self) -> None:
+        BaseClock.__init__(self)
+        self._event = threading.Event()
+        self._thread = threading.Thread(target=self._run, daemon=True)
+        atexit.register(self.stop)
+
+    ### SCHEDULING METHODS ###
+
+    def _enqueue_command(self, command: Command) -> None:
+        super()._enqueue_command(command)
+        self._event.set()
+
+    def _run(self, offline: bool = False) -> None:
+        logger.debug(f"[{self.name}] Thread start")
+        self._process_command_deque(first_run=True)
+        while self._is_running:
+            logger.debug(f"[{self.name}] Loop start")
+            if not self._wait_for_queue():
+                break
+            try:
+                current_moment = self._wait_for_moment()
+            except queue.Empty:
+                continue
+            if current_moment is None:
+                break
+            current_moment = self._perform_events(current_moment)
+            self._state = self._state._replace(
+                previous_seconds=current_moment.seconds,
+                previous_offset=current_moment.offset,
+            )
+            if not offline:
+                self._event.wait(timeout=self._slop)
+        logger.debug(f"[{self.name}] Terminating")
+        self._stop()
+
+    def _wait_for_moment(self, offline: bool = False) -> Moment | None:
+        current_time = self._get_current_time()
+        next_time = self._event_queue.peek().seconds
+        logger.debug(
+            f"[{self.name}] ... Waiting for next moment at {next_time} from {current_time}"
+        )
+        while current_time < next_time:
+            if not offline:
+                self._event.wait(timeout=self._slop)
+            if not self._is_running:
+                return None
+            self._process_command_deque()
+            next_time = self._event_queue.peek().seconds
+            current_time = self._get_current_time()
+            self._event.clear()
+        return self._seconds_to_moment(current_time)
+
+    def _wait_for_queue(self, offline: bool = False) -> bool:
+        logger.debug(f"[{self.name}] ... Waiting for events")
+        self._process_command_deque()
+        self._event.clear()
+        while not self._event_queue.qsize():
+            if not offline:
+                self._event.wait(timeout=self._slop)
+            if not self._is_running:
+                return False
+            self._process_command_deque()
+            self._event.clear()
+        return True
+
+    ### PUBLIC METHODS ###
+
+    def cancel(self, event_id: int) -> Action | None:
+        event = super().cancel(event_id)
+        self._event.set()
+        return event
+
+    def start(
+        self,
+        initial_time: float | None = None,
+        initial_offset: float = 0.0,
+        initial_measure: int = 1,
+        beats_per_minute: float | None = None,
+        time_signature: tuple[int, int] | None = None,
+    ) -> None:
+        self._start(
+            initial_time=initial_time,
+            initial_offset=initial_offset,
+            initial_measure=initial_measure,
+            beats_per_minute=beats_per_minute,
+            time_signature=time_signature,
+        )
+        self._thread = threading.Thread(target=self._run, args=(self,), daemon=True)
+        self._thread.start()
+
+    def stop(self) -> None:
+        if self._stop():
+            self._event.set()
+            self._thread.join()
+
+
+class AsyncClock(BaseClock[AsyncClockCallback]):
+    """
+    An async clock.
+    """
+
+    ### INITIALIZER ###
+
+    def __init__(self) -> None:
+        BaseClock.__init__(self)
+        self._task: Awaitable[None] | None = None
+        self._slop = 1.0
+        try:
+            self._event = asyncio.Event()
+        except RuntimeError:
+            pass
+
+    ### SCHEDULING METHODS ###
+
+    def _enqueue_command(self, command: Command) -> None:
+        super()._enqueue_command(command)
+        self._event.set()
+
+    async def _perform_callback_event_async(
+        self, event: CallbackEvent, current_moment: Moment, desired_moment: Moment
+    ) -> None:
+        logger.debug(
+            f"[{self.name}] ... ... Performing {event.procedure} at "
+            f"{desired_moment.seconds - self._state.initial_seconds}:s / "
+            f"{desired_moment.offset}:o"
+        )
+        context = ClockContext(current_moment, desired_moment, event)
+        args = event.args or ()
+        kwargs = event.kwargs or {}
+        try:
+            if asyncio.iscoroutine(result := event.procedure(context, *args, **kwargs)):
+                result = await result
+        except Exception:
+            traceback.print_exc()
+            return
+        assert not isinstance(result, Awaitable)
+        if isinstance(result, float) or result is None:
+            delta, time_unit = result, TimeUnit.BEATS
+        else:
+            delta, time_unit = result
+        self._process_callback_event_result(desired_moment, event, delta, time_unit)
+
+    async def _perform_events_async(self, current_moment: Moment) -> Moment:
+        logger.debug(
+            f"[{self.name}] ... Ready to perform at "
+            f"{current_moment.seconds - self._state.initial_seconds}:s / "
+            f"{current_moment.offset}:o"
+        )
+        while self._is_running and self._event_queue.qsize():
+            (
+                event,
+                desired_moment,
+                should_continue,
+                should_break,
+            ) = self._process_perform_event_loop(current_moment)
+            if should_continue:
+                continue
+            elif should_break:
+                break
+            if event is None or desired_moment is None:
+                raise ValueError(event, desired_moment)
+            if isinstance(event, ChangeEvent):
+                current_moment, should_continue = self._perform_change_event(
+                    event, current_moment, desired_moment
+                )
+                if not should_continue:
+                    break
+            elif isinstance(event, CallbackEvent):
+                await self._perform_callback_event_async(
+                    event, current_moment, desired_moment
+                )
+                self._process_command_deque()
+            else:
+                raise ValueError(event)
+        return current_moment
+
+    async def _run_async(self, offline: bool = False) -> None:
+        logger.debug(f"[{self.name}] Coroutine start")
+        self._process_command_deque(first_run=True)
+        while self._is_running:
+            logger.debug(f"[{self.name}] Loop start")
+            if not await self._wait_for_queue_async():
+                break
+            try:
+                if (current_moment := await self._wait_for_moment_async()) is None:
+                    break
+            except queue.Empty:
+                continue
+            current_moment = await self._perform_events_async(current_moment)
+            self._state = self._state._replace(
+                previous_seconds=current_moment.seconds,
+                previous_offset=current_moment.offset,
+            )
+        logger.debug(f"[{self.name}] Coroutine terminating")
+        self._stop()
+
+    async def _wait_for_event_async(self, sleep_time: float) -> None:
+        try:
+            await asyncio.wait_for(self._event.wait(), sleep_time)
+        except (asyncio.TimeoutError, RuntimeError):
+            pass
+
+    async def _wait_for_moment_async(self, offline: bool = False) -> Moment | None:
+        current_time = self._get_current_time()
+        next_time = self._event_queue.peek().seconds
+        logger.debug(
+            f"[{self.name}] ... Waiting for next moment at {next_time} from {current_time}"
+        )
+        while current_time < next_time:
+            if not offline:
+                await self._wait_for_event_async(next_time - current_time)
+            if not self._is_running:
+                return None
+            self._process_command_deque()
+            next_time = self._event_queue.peek().seconds
+            current_time = self._get_current_time()
+            self._event.clear()
+        return self._seconds_to_moment(current_time)
+
+    async def _wait_for_queue_async(self, offline: bool = False) -> bool:
+        logger.debug(f"[{self.name}] ... Waiting for events")
+        self._process_command_deque()
+        self._event.clear()
+        while not self._event_queue.qsize():
+            if not offline:
+                await self._event.wait()
+            if not self._is_running:
+                return False
+            self._process_command_deque()
+            self._event.clear()
+        return True
+
+    ### PUBLIC METHODS ###
+
+    def cancel(self, event_id: int) -> Action | None:
+        event = super().cancel(event_id)
+        self._event.set()
+        return event
+
+    async def start(
+        self,
+        initial_time: float | None = None,
+        initial_offset: float = 0.0,
+        initial_measure: int = 1,
+        beats_per_minute: float | None = None,
+        time_signature: tuple[int, int] | None = None,
+    ) -> None:
+        self._start(
+            initial_time=initial_time,
+            initial_offset=initial_offset,
+            initial_measure=initial_measure,
+            beats_per_minute=beats_per_minute,
+            time_signature=time_signature,
+        )
+        loop = asyncio.get_running_loop()
+        self._event = asyncio.Event()
+        self._task = loop.create_task(self._run_async())
+
+    async def stop(self) -> None:
+        if self._stop():
+            self._event.set()
+            if self._task is not None:
+                await self._task
+
+
+class OfflineClock(BaseClock[ClockCallback]):
+    """
+    An offline clock.
+    """
+
+    ### SCHEDULING METHODS ###
+
+    def _get_current_time(self) -> float:
+        return self._state.previous_seconds
+
+    def _get_initial_time(self) -> float:
+        return self._state.initial_seconds
+
+    def _perform_callback_event(
+        self, event: CallbackEvent, current_moment: Moment, desired_moment: Moment
+    ) -> None:
+        logger.debug(
+            f"[{self.name}] ... ... Performing {event.procedure} at "
+            f"{desired_moment.seconds - self._state.initial_seconds}:s / "
+            f"{desired_moment.offset}:o"
+        )
+        context = ClockContext(current_moment, desired_moment, event)
+        args = event.args or ()
+        kwargs = event.kwargs or {}
+        result = event.procedure(context, *args, **kwargs)
+        assert not isinstance(result, Awaitable)
+        if isinstance(result, float) or result is None:
+            delta, time_unit = result, TimeUnit.BEATS
+        else:
+            delta, time_unit = result
+        self._process_callback_event_result(desired_moment, event, delta, time_unit)
+
+    def _run(self, offline: bool = False):
+        logger.debug(f"[{self.name}] Thread start")
+        self._process_command_deque(first_run=True)
+        while self._is_running and self._event_queue.qsize():
+            logger.debug(f"[{self.name}] Loop start")
+            if not self._wait_for_queue():
+                break
+            try:
+                if (current_moment := self._wait_for_moment()) is None:
+                    break
+            except queue.Empty:
+                continue
+            current_moment = self._perform_events(current_moment)
+            self._state = self._state._replace(
+                previous_seconds=current_moment.seconds,
+                previous_offset=current_moment.offset,
+            )
+        logger.debug(f"[{self.name}] Terminating")
+        self._stop()
+
+    def _wait_for_moment(self, offline: bool = False) -> Moment | None:
+        current_time = self._event_queue.peek().seconds
+        return self._seconds_to_moment(current_time)
+
+    def _wait_for_queue(self, offline: bool = False) -> bool:
+        logger.debug(f"[{self.name}] ... Waiting for events")
+        self._process_command_deque()
+        return True
+
+    ### PUBLIC METHODS ###
+
+    @contextmanager
+    def at(
+        self,
+        initial_time: float | None = None,
+        initial_offset: float = 0.0,
+        initial_measure: int = 1,
+        beats_per_minute: float | None = None,
+        time_signature: tuple[int, int] | None = None,
+    ) -> Generator["OfflineClock", None, None]:
+        yield self
+        self.start(
+            initial_time=initial_time,
+            initial_offset=initial_offset,
+            initial_measure=initial_measure,
+            beats_per_minute=beats_per_minute,
+            time_signature=time_signature,
+        )
+
+    def start(
+        self,
+        initial_time: float | None = None,
+        initial_offset: float = 0.0,
+        initial_measure: int = 1,
+        beats_per_minute: float | None = None,
+        time_signature: tuple[int, int] | None = None,
+    ) -> None:
+        self._start(
+            initial_time=initial_time,
+            initial_offset=initial_offset,
+            initial_measure=initial_measure,
+            beats_per_minute=beats_per_minute,
+            time_signature=time_signature,
+        )
+        self._run()
+
+    def stop(self) -> None:
+        return
+
+
+class AsyncOfflineClock(AsyncClock):
+    ### SCHEDULING METHODS ###
+
+    def _get_current_time(self) -> float:
+        return self._state.previous_seconds
+
+    def _get_initial_time(self) -> float:
+        return self._state.initial_seconds
+
+    async def _run_async(self, offline: bool = False) -> None:
+        logger.debug(f"[{self.name}] Coroutine start")
+        self._process_command_deque(first_run=True)
+        while self._is_running and self._event_queue.qsize():
+            logger.debug(f"[{self.name}] Loop start")
+            if not await self._wait_for_queue_async():
+                break
+            try:
+                if (current_moment := await self._wait_for_moment_async()) is None:
+                    break
+            except queue.Empty:
+                continue
+            current_moment = await self._perform_events_async(current_moment)
+            self._state = self._state._replace(
+                previous_seconds=current_moment.seconds,
+                previous_offset=current_moment.offset,
+            )
+        logger.debug(f"[{self.name}] Coroutine terminating")
+        self._stop()
+
+    async def _wait_for_event_async(self, sleep_time: float) -> None:
+        pass
+
+    async def _wait_for_moment_async(self, offline: bool = False) -> Moment | None:
+        current_time = self._event_queue.peek().seconds
+        self._process_command_deque()
+        self._event.clear()
+        return self._seconds_to_moment(current_time)
+
+    async def _wait_for_queue_async(self, offline: bool = False) -> bool:
+        logger.debug(f"[{self.name}] ... Waiting for events")
+        self._process_command_deque()
+        self._event.clear()
+        return True
+
+    ### PUBLIC METHODS ###
+
+    @asynccontextmanager
+    async def at(
+        self,
+        initial_time: float | None = None,
+        initial_offset: float = 0.0,
+        initial_measure: int = 1,
+        beats_per_minute: float | None = None,
+        time_signature: tuple[int, int] | None = None,
+    ) -> AsyncGenerator["AsyncOfflineClock", None]:
+        yield self
+        await self.start(
+            initial_time=initial_time,
+            initial_offset=initial_offset,
+            initial_measure=initial_measure,
+            beats_per_minute=beats_per_minute,
+            time_signature=time_signature,
+        )
+
+    async def start(
+        self,
+        initial_time: float | None = None,
+        initial_offset: float = 0.0,
+        initial_measure: int = 1,
+        beats_per_minute: float | None = None,
+        time_signature: tuple[int, int] | None = None,
+    ) -> None:
+        self._start(
+            initial_time=initial_time,
+            initial_offset=initial_offset,
+            initial_measure=initial_measure,
+            beats_per_minute=beats_per_minute,
+            time_signature=time_signature,
+        )
+        await self._run_async()
+
+    async def stop(self) -> None:
+        return
