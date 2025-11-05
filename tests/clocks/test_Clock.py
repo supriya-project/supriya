@@ -8,7 +8,7 @@ from typing import Generator
 import pytest
 from pytest_mock import MockerFixture
 
-from supriya.clocks import CallbackEvent, Clock, ClockContext, TimeUnit
+from supriya.clocks import CallbackEvent, Clock, ClockCallbackState, TimeUnit
 
 repeat_count = 5
 
@@ -24,27 +24,27 @@ def clock(mocker: MockerFixture) -> Generator[Clock, None, None]:
 
 
 def callback(
-    context: ClockContext,
-    store: list[ClockContext],
+    state: ClockCallbackState,
+    store: list[ClockCallbackState],
     *,
     blow_up_at: int | None = None,
     delta: float = 0.25,
     limit: int | None = 4,
     time_unit: TimeUnit = TimeUnit.BEATS,
 ) -> tuple[float, TimeUnit] | None:
-    assert isinstance(context.event, CallbackEvent)
-    if context.event.invocations == blow_up_at:
+    assert isinstance(state.event, CallbackEvent)
+    if state.event.invocations == blow_up_at:
         raise Exception
-    store.append(context)
+    store.append(state)
     if limit is None:
         return delta, time_unit
-    elif context.event.invocations < limit:
+    elif state.event.invocations < limit:
         return delta, time_unit
     return None
 
 
 def set_time_and_check(
-    time_to_advance: float, clock: Clock, store: list[ClockContext]
+    time_to_advance: float, clock: Clock, store: list[ClockCallbackState]
 ) -> list[tuple[list[float | str], list[float | int], list[float | int]]]:
     clock._get_current_time.return_value = time_to_advance  # type: ignore
     multiplier = 4
@@ -54,30 +54,30 @@ def set_time_and_check(
     return [
         (
             [
-                "{}/{}".format(*context.current_moment.time_signature),
-                context.current_moment.beats_per_minute,
+                "{}/{}".format(*state.current_moment.time_signature),
+                state.current_moment.beats_per_minute,
             ],
             [
-                context.current_moment.measure,
-                round(context.current_moment.measure_offset, 10),
-                context.current_moment.offset,
-                context.current_moment.seconds,
+                state.current_moment.measure,
+                round(state.current_moment.measure_offset, 10),
+                state.current_moment.offset,
+                state.current_moment.seconds,
             ],
             [
-                context.desired_moment.measure,
-                round(context.desired_moment.measure_offset, 10),
-                context.desired_moment.offset,
-                context.desired_moment.seconds,
+                state.desired_moment.measure,
+                round(state.desired_moment.measure_offset, 10),
+                state.desired_moment.offset,
+                state.desired_moment.seconds,
             ],
         )
-        for context in store
+        for state in store
     ]
 
 
-def calculate_skew(store: list[ClockContext]) -> dict[str, float]:
+def calculate_skew(store: list[ClockCallbackState]) -> dict[str, float]:
     skews = [
-        abs(context.current_moment.seconds - context.desired_moment.seconds)
-        for context in store
+        abs(state.current_moment.seconds - state.desired_moment.seconds)
+        for state in store
     ]
     return {
         "min": min(skews),
@@ -103,7 +103,7 @@ def test_realtime_01(
     """
     Start clock, then schedule
     """
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock = Clock()
     assert not clock.is_running
     assert clock.beats_per_minute == 120
@@ -124,7 +124,7 @@ def test_realtime_01(
     assert not clock.is_running
     assert clock.beats_per_minute == 120
     assert len(store) == 5
-    actual = [context.desired_moment.offset for context in store]
+    actual = [state.desired_moment.offset for state in store]
     assert actual == expected
 
 
@@ -140,7 +140,7 @@ def test_realtime_02(
     bpm_schedule: list[tuple[float, float]],
     expected: list[tuple[float, float]],
 ) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock = Clock()
     clock.cue(callback, quantization="1/4", args=[store], kwargs=dict(limit=limit))
     for schedule_at, beats_per_minute in bpm_schedule:
@@ -154,17 +154,17 @@ def test_realtime_02(
     clock.stop()
     actual = [
         (
-            context.desired_moment.offset,
-            context.desired_moment.seconds - clock._state.initial_seconds,
+            state.desired_moment.offset,
+            state.desired_moment.seconds - clock._state.initial_seconds,
         )
-        for context in store
+        for state in store
     ]
     assert actual == expected
 
 
 @pytest.mark.flaky(reruns=5)
 def test_basic(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.start()
     clock.schedule(callback, schedule_at=0.0, args=[store])
     assert set_time_and_check(0.0, clock, store) == [
@@ -196,8 +196,8 @@ def test_basic(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_two_procedures(clock: Clock) -> None:
-    store_one: list[ClockContext] = []
-    store_two: list[ClockContext] = []
+    store_one: list[ClockCallbackState] = []
+    store_two: list[ClockCallbackState] = []
     clock.start()
     clock.schedule(callback, schedule_at=0.0, args=[store_one])
     clock.schedule(callback, schedule_at=0.1, args=[store_two], kwargs={"delta": 0.3})
@@ -249,7 +249,7 @@ def test_two_procedures(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_exception(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.start()
     clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"blow_up_at": 2})
     assert set_time_and_check(0.0, clock, store) == [
@@ -275,7 +275,7 @@ def test_exception(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_change_tempo(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.schedule(callback, schedule_at=0.0, args=[store])
     clock.start()
     assert set_time_and_check(0.0, clock, store) == [
@@ -304,7 +304,7 @@ def test_change_tempo(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_schedule_tempo_change(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.schedule(callback, schedule_at=0.0, args=[store])
     clock.schedule_change(schedule_at=0.5, beats_per_minute=60)
     clock.start()
@@ -341,7 +341,7 @@ def test_schedule_tempo_change(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_cue_basic(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.start()
     clock.cue(callback, quantization=None, args=[store], kwargs={"limit": 0})
     assert set_time_and_check(0.0, clock, store) == [
@@ -412,7 +412,7 @@ def test_cue_measures(clock: Clock) -> None:
     """
     Measure-wise cueing aligns to offset 0.0
     """
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.start()
     clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     assert set_time_and_check(0.0, clock, store) == [
@@ -430,7 +430,7 @@ def test_cue_measures(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_cue_and_reschedule(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.start()
     assert set_time_and_check(0.25, clock, store) == []
     clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
@@ -462,7 +462,7 @@ def test_cue_and_reschedule(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_reschedule_earlier(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.start()
     assert set_time_and_check(0.5, clock, store) == []
     event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
@@ -478,7 +478,7 @@ def test_reschedule_earlier(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_reschedule_later(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.start()
     assert set_time_and_check(0.5, clock, store) == []
     event_id = clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
@@ -502,7 +502,7 @@ def test_change_tempo_not_running(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_change_time_signature_on_downbeat(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -534,7 +534,7 @@ def test_change_time_signature_on_downbeat(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_change_time_signature_on_downbeat_laggy(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -557,7 +557,7 @@ def test_change_time_signature_on_downbeat_laggy(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_change_time_signature_late(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -589,7 +589,7 @@ def test_change_time_signature_late(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_change_time_signature_late_laggy(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -612,7 +612,7 @@ def test_change_time_signature_late_laggy(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_change_time_signature_early(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -644,7 +644,7 @@ def test_change_time_signature_early(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_change_time_signature_early_laggy(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -671,7 +671,7 @@ def test_change_time_signature_shrinking(clock: Clock) -> None:
     within that smaller time signature, maintain the desired measure and
     measure offset.
     """
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"limit": 12})
     clock.schedule_change(schedule_at=1.125, time_signature=(2, 4))
@@ -704,7 +704,7 @@ def test_change_time_signature_shrinking(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_schedule_measure_relative(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -722,7 +722,7 @@ def test_schedule_measure_relative(clock: Clock) -> None:
 
 @pytest.mark.flaky(reruns=5)
 def test_schedule_seconds_relative(clock: Clock) -> None:
-    store: list[ClockContext] = []
+    store: list[ClockCallbackState] = []
     clock.change(beats_per_minute=240)
     clock.schedule(
         callback,
@@ -778,7 +778,7 @@ def test_clock_skew() -> None:
     clock.slop = 0.0001
     all_stats = []
     for _ in range(5):
-        store: list[ClockContext] = []
+        store: list[ClockCallbackState] = []
         for _ in range(20):
             delta = random.random() / 100
             clock.schedule(

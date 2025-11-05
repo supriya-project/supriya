@@ -22,7 +22,7 @@ from uuid import UUID
 
 from uqbar.objects import get_vars
 
-from ..clocks import BaseClock, ClockContext, Quantization
+from ..clocks import BaseClock, ClockCallbackState, Quantization
 from ..contexts import Bus, Context, Node
 from ..typing import UUIDDict
 from .events import CompositeEvent, Event, Priority
@@ -271,7 +271,7 @@ class Pattern(Generic[T], metaclass=abc.ABCMeta):
         *,
         callback: (
             Callable[
-                ["PatternPlayer", ClockContext, Event, Priority],
+                ["PatternPlayer", ClockCallbackState, Event, Priority],
                 None,
             ]
             | None

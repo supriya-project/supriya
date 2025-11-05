@@ -12,7 +12,7 @@ from .clocks import (
     AsyncOfflineClock,
     BaseClock,
     Clock,
-    ClockContext,
+    ClockCallbackState,
     OfflineClock,
     TimeUnit,
 )
@@ -83,7 +83,7 @@ __all__ = [
     "BusGroup",
     "CalculationRate",
     "Clock",
-    "ClockContext",
+    "ClockCallbackState",
     "Context",
     "DoneAction",
     "Envelope",
