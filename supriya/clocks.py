@@ -101,14 +101,14 @@ ClockDelta: TypeAlias = float | tuple[float, TimeUnit] | None
 
 class ClockCallback(Protocol):
     def __call__(
-        self, context: "ClockContext", *args: Any, **kwargs: Any
+        self, state: "ClockCallbackState", *args: Any, **kwargs: Any
     ) -> ClockDelta:
         pass
 
 
 class AsyncClockCallback(Protocol):
     def __call__(
-        self, context: "ClockContext", *args: Any, **kwargs: Any
+        self, state: "ClockCallbackState", *args: Any, **kwargs: Any
     ) -> Awaitable[ClockDelta] | ClockDelta:
         pass
 
@@ -174,10 +174,10 @@ class ChangeEvent(Event):
         return hash((type(self), self.event_id))
 
 
-class ClockContext(NamedTuple):
+class ClockCallbackState(NamedTuple):
     current_moment: Moment
     desired_moment: Moment
-    event: CallbackEvent | ChangeEvent
+    event: CallbackEvent
 
 
 class _EventQueue(queue.PriorityQueue[Event]):
@@ -463,11 +463,11 @@ class BaseClock(Generic[C]):
             f"{desired_moment.seconds - self._state.initial_seconds}:s / "
             f"{desired_moment.offset}:o"
         )
-        context = ClockContext(current_moment, desired_moment, event)
+        state = ClockCallbackState(current_moment, desired_moment, event)
         args = event.args or ()
         kwargs = event.kwargs or {}
         try:
-            result = event.procedure(context, *args, **kwargs)
+            result = event.procedure(state, *args, **kwargs)
         except Exception:
             traceback.print_exc()
             return
@@ -1050,11 +1050,11 @@ class AsyncClock(BaseClock[AsyncClockCallback]):
             f"{desired_moment.seconds - self._state.initial_seconds}:s / "
             f"{desired_moment.offset}:o"
         )
-        context = ClockContext(current_moment, desired_moment, event)
+        state = ClockCallbackState(current_moment, desired_moment, event)
         args = event.args or ()
         kwargs = event.kwargs or {}
         try:
-            if asyncio.iscoroutine(result := event.procedure(context, *args, **kwargs)):
+            if asyncio.iscoroutine(result := event.procedure(state, *args, **kwargs)):
                 result = await result
         except Exception:
             traceback.print_exc()
@@ -1210,10 +1210,10 @@ class OfflineClock(BaseClock[ClockCallback]):
             f"{desired_moment.seconds - self._state.initial_seconds}:s / "
             f"{desired_moment.offset}:o"
         )
-        context = ClockContext(current_moment, desired_moment, event)
+        state = ClockCallbackState(current_moment, desired_moment, event)
         args = event.args or ()
         kwargs = event.kwargs or {}
-        result = event.procedure(context, *args, **kwargs)
+        result = event.procedure(state, *args, **kwargs)
         assert not isinstance(result, Awaitable)
         if isinstance(result, float) or result is None:
             delta, time_unit = result, TimeUnit.BEATS

@@ -13,7 +13,7 @@ from weakref import WeakSet
 from ..clocks import (
     BaseClock,
     CallbackEvent,
-    ClockContext,
+    ClockCallbackState,
     ClockDelta,
     Quantization,
 )
@@ -39,7 +39,8 @@ class PatternPlayer:
         context: Context,
         clock: BaseClock,
         callback: (
-            Callable[["PatternPlayer", ClockContext, Event, Priority], None] | None
+            Callable[["PatternPlayer", ClockCallbackState, Event, Priority], None]
+            | None
         ) = None,
         target_bus: Bus | None = None,
         target_node: Node | None = None,
@@ -70,7 +71,9 @@ class PatternPlayer:
         )
         self._yielded = False
 
-    def _clock_callback(self, context: ClockContext, *args, **kwargs) -> ClockDelta:
+    def _clock_callback(
+        self, context: ClockCallbackState, *args, **kwargs
+    ) -> ClockDelta:
         for clock_context, seconds, offset, events in self._find_events(context):
             if self._initial_seconds is None:
                 self._initial_seconds = seconds
@@ -88,8 +91,10 @@ class PatternPlayer:
         return self._next_delta
 
     def _find_events(
-        self, clock_context: ClockContext
-    ) -> Iterable[tuple[ClockContext, float, float, Sequence[tuple[Event, Priority]]]]:
+        self, clock_context: ClockCallbackState
+    ) -> Iterable[
+        tuple[ClockCallbackState, float, float, Sequence[tuple[Event, Priority]]]
+    ]:
         with self._lock:
             current_offset = float("-inf")
             events: list[tuple[Event, Priority]] = []
@@ -192,7 +197,9 @@ class PatternPlayer:
             pass
         return False
 
-    def _stop_callback(self, context: ClockContext, *args, **kwargs) -> ClockDelta:
+    def _stop_callback(
+        self, context: ClockCallbackState, *args, **kwargs
+    ) -> ClockDelta:
         with self._lock:
             # Do we need to rebuild the queue? Yes.
             # Do we need to free all playing notes? Yes.
