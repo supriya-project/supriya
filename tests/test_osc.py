@@ -7,6 +7,7 @@ from uqbar.strings import normalize
 
 from supriya.enums import BootStatus
 from supriya.osc import (
+    NTP_DELTA,
     AsyncOscProtocol,
     HealthCheck,
     OscBundle,
@@ -14,7 +15,6 @@ from supriya.osc import (
     ThreadedOscProtocol,
     find_free_port,
 )
-from supriya.osc.messages import NTP_DELTA
 from supriya.scsynth import AsyncProcessProtocol, Options, ThreadedProcessProtocol
 
 logger = logging.getLogger(__name__)

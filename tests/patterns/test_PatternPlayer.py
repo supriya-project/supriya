@@ -19,7 +19,7 @@ from supriya import (
 )
 from supriya.clocks import AsyncOfflineClock, OfflineClock
 from supriya.contexts.requests import NewGroup
-from supriya.osc.utils import format_messages
+from supriya.osc import format_messages
 from supriya.patterns import (
     BusPattern,
     Event,
