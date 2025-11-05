@@ -27,7 +27,7 @@ real time consumed. This makes them suitable for unit-testing logic expecting
 online clocks, or for implementing non-realtime rendering of usually-online
 musical patterns.
 
-.. TODDO:: Need a better name than "clock context".
+.. TODO:: Need a better name than "clock context".
 
 Lifecycle
 ---------
