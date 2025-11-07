@@ -18,6 +18,7 @@ from typing import (
     Sequence,
     SupportsInt,
     Type,
+    Union,
     cast,
 )
 
@@ -119,7 +120,9 @@ DEFAULT_HEALTHCHECK = HealthCheck(
 class ServerLifecycleCallback(NamedTuple):
     context: "BaseServer"
     events: tuple[ServerLifecycleEvent, ...]
-    procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None]
+    procedure: Callable[
+        [Union["AsyncServer", "Server"], ServerLifecycleEvent], Awaitable[None] | None
+    ]
     once: bool = False
     args: tuple | None = None
     kwargs: dict | None = None
@@ -294,7 +297,10 @@ class BaseServer(Context):
     def _register_lifecycle_callback(
         self,
         event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
-        procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None],
+        procedure: Callable[
+            [Union["AsyncServer", "Server"], ServerLifecycleEvent],
+            Awaitable[None] | None,
+        ],
         *,
         once: bool = False,
         args: tuple | None = None,
@@ -624,7 +630,9 @@ class Server(BaseServer):
             logger.info(
                 self._log_prefix() + f"lifecycle event: {event.name} {callback}"
             )
-            callback.procedure(event, *(callback.args or ()), **(callback.kwargs or {}))
+            callback.procedure(
+                self, event, *(callback.args or ()), **(callback.kwargs or {})
+            )
             if callback.once:
                 self.unregister_lifecycle_callback(callback)
 
@@ -996,7 +1004,9 @@ class Server(BaseServer):
     def register_lifecycle_callback(
         self,
         event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
-        procedure: Callable[[ServerLifecycleEvent], None],
+        procedure: Callable[
+            [Union["AsyncServer", "Server"], ServerLifecycleEvent], None
+        ],
         *,
         once: bool = False,
         args: tuple | None = None,
@@ -1260,7 +1270,7 @@ class AsyncServer(BaseServer):
             )
             if asyncio.iscoroutine(
                 result := callback.procedure(
-                    event, *(callback.args or ()), **(callback.kwargs or {})
+                    self, event, *(callback.args or ()), **(callback.kwargs or {})
                 )
             ):
                 await result
@@ -1634,7 +1644,10 @@ class AsyncServer(BaseServer):
     def register_lifecycle_callback(
         self,
         event: ServerLifecycleEventLike | Iterable[ServerLifecycleEventLike],
-        procedure: Callable[[ServerLifecycleEvent], Awaitable[None] | None],
+        procedure: Callable[
+            [Union["AsyncServer", "Server"], ServerLifecycleEvent],
+            Awaitable[None] | None,
+        ],
         *,
         once: bool = False,
         args: tuple | None = None,

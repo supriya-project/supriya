@@ -3,7 +3,7 @@ import logging
 import platform
 import random
 import warnings
-from typing import Literal, Type
+from typing import Literal, Type, Union
 
 import pytest
 from pytest import MonkeyPatch
@@ -39,10 +39,14 @@ def setup_context(
     async_callback: bool = False,
     name: str | None = None,
 ) -> tuple[AsyncServer | Server, list[ServerLifecycleEvent]]:
-    def on_event(event: ServerLifecycleEvent) -> None:
+    def on_event(
+        server: Union["AsyncServer", "Server"], event: ServerLifecycleEvent
+    ) -> None:
         events.append(event)
 
-    async def on_event_async(event: ServerLifecycleEvent) -> None:
+    async def on_event_async(
+        server: Union["AsyncServer", "Server"], event: ServerLifecycleEvent
+    ) -> None:
         await asyncio.sleep(0)
         events.append(event)
 
