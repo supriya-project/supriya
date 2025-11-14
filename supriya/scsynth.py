@@ -20,8 +20,7 @@ from typing import (
 )
 
 import psutil
-import uqbar.io
-import uqbar.objects
+from uqbar.io import find_executable
 
 from .enums import BootStatus
 from .exceptions import ServerCannotBoot
@@ -205,7 +204,7 @@ class Options:
         )
 
 
-def find(scsynth_path=None):
+def find(scsynth_path=None) -> Path:
     """
     Find the ``scsynth`` executable.
 
@@ -220,18 +219,17 @@ def find(scsynth_path=None):
     Returns a path to the ``scsynth`` executable. Raises ``RuntimeError`` if no path is
     found.
     """
-    path = Path(scsynth_path or os.environ.get(ENVAR_SERVER_EXECUTABLE) or "scsynth")
-    if path.is_absolute() and uqbar.io.find_executable(str(path)):
+    if find_executable(
+        str(
+            path := Path(
+                scsynth_path or os.environ.get(ENVAR_SERVER_EXECUTABLE) or "scsynth"
+            )
+        )
+    ):
         return path
-    path_candidates = uqbar.io.find_executable(path.name)
-    if path_candidates:
-        return Path(path_candidates[0])
+    executable = path.stem
     paths = []
-    executable = scsynth_path or "scsynth"
-    if Path(executable).stem == "supernova":
-        executable = "supernova"
-    system = platform.system()
-    if system == "Linux":
+    if (system := platform.system()) == "Linux":
         paths.extend(
             [Path("/usr/bin/" + executable), Path("/usr/local/bin/" + executable)]
         )
