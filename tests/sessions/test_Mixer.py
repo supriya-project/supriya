@@ -1,5 +1,4 @@
 import dataclasses
-from typing import Any
 
 import pytest
 
@@ -7,7 +6,7 @@ from supriya.sessions import ChannelCount, Mixer, Session, SynthConfig
 from supriya.typing import Inherit
 from supriya.ugens import system  # lookup system.LAG_TIME to support monkeypatching
 
-from .conftest import Scenario, does_not_raise
+from .conftest import Scenario
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -173,7 +172,6 @@ async def test_Mixer_gain(
 @dataclasses.dataclass(frozen=True)
 class SetChannelCountScenario(Scenario):
     channel_count: ChannelCount | Inherit
-    maybe_raises: Any
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -191,7 +189,6 @@ class SetChannelCountScenario(Scenario):
             ],
             subject="mixers[0]",
             channel_count=2,
-            maybe_raises=does_not_raise,
             expected_tree_diff="",
             expected_messages="",
         ),
@@ -207,7 +204,6 @@ class SetChannelCountScenario(Scenario):
             ],
             subject="mixers[0]",
             channel_count=4,
-            maybe_raises=does_not_raise,
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -296,7 +292,6 @@ class SetChannelCountScenario(Scenario):
             ],
             subject="mixers[0]",
             channel_count=4,
-            maybe_raises=does_not_raise,
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -360,8 +355,7 @@ async def test_Mixer_set_channel_count(
     async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Mixer)
-        with scenario.maybe_raises:
-            await subject.set_channel_count(channel_count=scenario.channel_count)
+        await subject.set_channel_count(channel_count=scenario.channel_count)
     assert subject.channel_count == scenario.channel_count
 
 

@@ -1,11 +1,10 @@
 import dataclasses
-from typing import Any
 
 import pytest
 
 from supriya.sessions import Track, TrackContainer
 
-from .conftest import Scenario, does_not_raise
+from .conftest import Scenario
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -127,7 +126,6 @@ async def test_TrackContainer_add_track(
 class GroupTracksScenario(Scenario):
     count: int
     index: int
-    maybe_raises: Any
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -144,7 +142,6 @@ class GroupTracksScenario(Scenario):
             subject="mixers[0]",
             index=0,
             count=2,
-            maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -256,7 +253,6 @@ class GroupTracksScenario(Scenario):
             subject="mixers[0].tracks[0]",
             index=1,
             count=2,
-            maybe_raises=does_not_raise,
             expected_components_diff="""
             --- initial
             +++ mutation
@@ -364,7 +360,7 @@ class GroupTracksScenario(Scenario):
             subject="mixers[0]",
             index=0,
             count=1,
-            maybe_raises=pytest.raises(RuntimeError),
+            expected_exception=RuntimeError,
             expected_components_diff="",
             expected_tree_diff="",
             expected_messages="",
@@ -379,7 +375,7 @@ class GroupTracksScenario(Scenario):
             subject="mixers[0]",
             index=-1,
             count=1,
-            maybe_raises=pytest.raises(RuntimeError),
+            expected_exception=RuntimeError,
             expected_components_diff="",
             expected_tree_diff="",
             expected_messages="",
@@ -394,7 +390,7 @@ class GroupTracksScenario(Scenario):
             subject="mixers[0]",
             index=0,
             count=666,
-            maybe_raises=pytest.raises(RuntimeError),
+            expected_exception=RuntimeError,
             expected_components_diff="",
             expected_tree_diff="",
             expected_messages="",
@@ -407,19 +403,14 @@ async def test_TrackContainer_group_tracks(
     online: bool,
 ) -> None:
     async with scenario.run(annotation_style="numeric", online=online) as session:
-        raised = True
-        group_track: Track | None = None
-        with scenario.maybe_raises:
-            subject = session[scenario.subject]
-            assert isinstance(subject, TrackContainer)
-            group_track = await subject.group_tracks(
-                index=scenario.index, count=scenario.count, name="Group Track"
-            )
-            raised = False
-    if raised:
-        assert group_track is None
-    else:
-        assert isinstance(group_track, Track)
-        assert group_track in subject.tracks
-        assert group_track.parent is subject
-        assert subject.tracks[scenario.index] is group_track
+        subject = session[scenario.subject]
+        assert isinstance(subject, TrackContainer)
+        group_track = await subject.group_tracks(
+            index=scenario.index, count=scenario.count, name="Group Track"
+        )
+    if scenario.expected_exception:
+        return
+    assert isinstance(group_track, Track)
+    assert group_track in subject.tracks
+    assert group_track.parent is subject
+    assert subject.tracks[scenario.index] is group_track

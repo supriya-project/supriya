@@ -1,12 +1,12 @@
 import dataclasses
-from typing import Any, Sequence
+from typing import Sequence
 
 import pytest
 
 from supriya.sessions import DeviceBase, DeviceContainer, Session, SynthConfig
 from supriya.ugens.system import build_dc_synthdef
 
-from .conftest import Scenario, does_not_raise
+from .conftest import Scenario
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -77,7 +77,6 @@ async def test_DeviceBase_delete(
 class MoveScenario(Scenario):
     expected_graph_order: Sequence[int]
     index: int
-    maybe_raises: Any
     parent: str
 
 
@@ -104,7 +103,7 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0]",
             parent="mixers[1]",
             index=0,
-            maybe_raises=pytest.raises(RuntimeError),
+            expected_exception=RuntimeError,
             expected_graph_order=(0, 0),
             expected_components_diff="",
             expected_messages="",
@@ -128,7 +127,6 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0]",
             parent="mixers[0]",
             index=0,
-            maybe_raises=does_not_raise,
             expected_graph_order=(0, 0),
             expected_components_diff="",
             expected_messages="",
@@ -152,7 +150,7 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0]",
             parent="mixers[0]",
             index=-1,
-            maybe_raises=pytest.raises(RuntimeError),
+            expected_exception=RuntimeError,
             expected_graph_order=(0, 0),
             expected_components_diff="",
             expected_messages="",
@@ -176,7 +174,7 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0]",
             parent="mixers[0]",
             index=2,
-            maybe_raises=pytest.raises(RuntimeError),
+            expected_exception=RuntimeError,
             expected_graph_order=(0, 0),
             expected_components_diff="",
             expected_messages="",
@@ -201,7 +199,6 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0]",
             parent="mixers[0].tracks[0]",
             index=0,
-            maybe_raises=does_not_raise,
             expected_graph_order=(0, 0, 0),
             expected_components_diff="""
             --- initial
@@ -277,7 +274,6 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[1]",
             parent="mixers[0]",
             index=0,
-            maybe_raises=does_not_raise,
             expected_graph_order=(0, 0),
             expected_components_diff=lambda session: f"""
             --- initial
@@ -347,7 +343,6 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0]",
             parent="mixers[0]",
             index=1,
-            maybe_raises=does_not_raise,
             expected_graph_order=(0, 1),
             expected_components_diff=lambda session: f"""
             --- initial
@@ -406,16 +401,14 @@ async def test_DeviceBase_move(
         assert isinstance(old_parent, DeviceContainer)
         assert isinstance(parent, DeviceContainer)
         assert isinstance(subject, DeviceBase)
-        raised = True
-        with scenario.maybe_raises:
-            await subject.move(index=scenario.index, parent=parent)
-            raised = False
+        await subject.move(index=scenario.index, parent=parent)
     assert subject.graph_order == scenario.expected_graph_order
-    if not raised:
-        assert subject.parent is parent
-        assert subject in parent.devices
-        if parent is not old_parent:
-            assert subject not in old_parent.devices
+    if scenario.expected_exception:
+        return
+    assert subject.parent is parent
+    assert subject in parent.devices
+    if parent is not old_parent:
+        assert subject not in old_parent.devices
 
 
 @pytest.mark.parametrize("online", [False, True])

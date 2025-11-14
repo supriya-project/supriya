@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Any, Literal
+from typing import Literal
 
 import pytest
 
@@ -19,7 +19,7 @@ from supriya.typing import Inherit
 from supriya.ugens import In, ReplaceOut, SynthDefBuilder
 from supriya.ugens.system import build_dc_synthdef
 
-from .conftest import Scenario, does_not_raise
+from .conftest import Scenario
 
 
 def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
@@ -160,7 +160,6 @@ async def test_Rack_add_chain(scenario: Scenario, online: bool) -> None:
 @dataclasses.dataclass(frozen=True)
 class SetChannelCountScenario(Scenario):
     channel_count: ChannelCount | Inherit
-    maybe_raises: Any
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -180,7 +179,6 @@ class SetChannelCountScenario(Scenario):
             ],
             subject="mixers[0].devices[0]",
             channel_count=4,
-            maybe_raises=does_not_raise,
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:channel-strip:4>]
             - ['/d_recv', <SynthDef: supriya:dc:4>]
@@ -272,8 +270,7 @@ async def test_Rack_set_channel_count(
     async with scenario.run(online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Rack)
-        with scenario.maybe_raises:
-            await subject.set_channel_count(channel_count=scenario.channel_count)
+        await subject.set_channel_count(channel_count=scenario.channel_count)
     assert subject.channel_count == scenario.channel_count
 
 
@@ -651,16 +648,11 @@ async def test_Rack_set_write_mode(
     assert subject.write_mode == scenario.mode
 
 
-@dataclasses.dataclass(frozen=True)
-class UngroupScenario(Scenario):
-    maybe_raises: Any
-
-
 @pytest.mark.parametrize("online", [False, True])
 @pytest.mark.parametrize(
     "scenario",
     [
-        UngroupScenario(
+        Scenario(
             id="0 chains",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
@@ -668,7 +660,6 @@ class UngroupScenario(Scenario):
                 ("mixers[0].devices[0].chains[0]", "delete", {}),
             ],
             subject="mixers[0].devices[0]",
-            maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -695,7 +686,7 @@ class UngroupScenario(Scenario):
                      1003 supriya:channel-strip:2 (mixers[1]:channel-strip)
             """,
         ),
-        UngroupScenario(
+        Scenario(
             id="1 chain",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
@@ -707,7 +698,6 @@ class UngroupScenario(Scenario):
                 ),
             ],
             subject="mixers[0].devices[0]",
-            maybe_raises=does_not_raise,
             expected_components_diff=lambda session: f"""
             --- initial
             +++ mutation
@@ -770,7 +760,7 @@ class UngroupScenario(Scenario):
                      1005 supriya:meters:2 (mixers[1]:output-levels)
             """,
         ),
-        UngroupScenario(
+        Scenario(
             id="2 chains: raises",
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
@@ -788,7 +778,7 @@ class UngroupScenario(Scenario):
                 ),
             ],
             subject="mixers[0].devices[0]",
-            maybe_raises=pytest.raises(RuntimeError),
+            expected_exception=RuntimeError,
             expected_components_diff=lambda session: "",
             expected_messages="",
             expected_tree_diff="",
@@ -797,9 +787,8 @@ class UngroupScenario(Scenario):
     ids=lambda scenario: scenario.id,
 )
 @pytest.mark.asyncio
-async def test_Rack_ungroup(scenario: UngroupScenario, online: bool) -> None:
+async def test_Rack_ungroup(scenario: Scenario, online: bool) -> None:
     async with scenario.run(annotation_style="numeric", online=online) as session:
         subject = session[scenario.subject]
         assert isinstance(subject, Rack)
-        with scenario.maybe_raises:
-            await subject.ungroup()
+        await subject.ungroup()

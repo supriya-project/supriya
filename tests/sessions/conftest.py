@@ -4,8 +4,9 @@ import dataclasses
 import difflib
 import inspect
 import pprint
-from typing import Any, AsyncGenerator, Callable, Generator, Literal, Protocol
+from typing import AsyncGenerator, Callable, Generator, Literal, Type
 
+import pytest
 from uqbar.strings import normalize
 
 from supriya import AsyncServer, BootStatus, OscBundle, OscMessage
@@ -17,19 +18,13 @@ from supriya.ugens import (
 )
 
 
-# class MaybeRaises
-class MaybeRaises(Protocol):
-    def __enter__(self, *args, **kwargs) -> Any:
-        pass
-
-    def __exit__(self) -> None:
-        pass
-
-
 @dataclasses.dataclass(frozen=True)
 class Scenario:
     id: str | None = dataclasses.field(default=None, kw_only=True)
     commands: list[tuple[str | None, str, dict | None]] | None = dataclasses.field(
+        default=None, kw_only=True
+    )
+    expected_exception: Type[Exception] | None = dataclasses.field(
         default=None, kw_only=True
     )
     expected_components_diff: Callable[[Session], str] | str | None = dataclasses.field(
@@ -50,17 +45,63 @@ class Scenario:
         context_index: int = 0,
         online: bool,
     ) -> AsyncGenerator[Session, None]:
-        async with run_test(
-            annotation_style=annotation_style,
-            commands=self.commands,
-            context_index=context_index,
-            expected_components_diff=self.expected_components_diff,
-            expected_levels=self.expected_levels,
-            expected_messages=self.expected_messages,
-            expected_tree_diff=self.expected_tree_diff,
-            online=online,
-        ) as session:
-            yield session
+        # print("Pre-conditions")
+        session = Session()
+        if self.commands:
+            await apply_commands(session, self.commands)
+        initial_tree: str = ""
+        assert session.boot_status == BootStatus.OFFLINE
+        if online:
+            await session.boot()
+            assert session.boot_status == BootStatus.ONLINE
+            await session.sync()
+            initial_tree = await debug_tree(
+                session=session, annotation_style=annotation_style
+            )
+            fallback_annotations = session._gather_annotations_by_context(
+                annotation_style=annotation_style
+            )
+        initial_components = debug_components(session)
+        # print("Operation")
+        with (
+            pytest.raises(self.expected_exception)
+            if self.expected_exception
+            else contextlib.nullcontext()
+        ):
+            with capture(
+                session.contexts[context_index] if session.contexts else None
+            ) as messages:
+                yield session
+        # print("Post-conditions")
+        if self.expected_components_diff is not None:
+            assert_components_diff(
+                session, self.expected_components_diff, initial_components
+            )
+        if not online:
+            return
+        if self.expected_messages is not None:
+            assert format_messages(messages) == normalize(self.expected_messages)
+        # in case of an explicit session quit
+        if self.expected_tree_diff is not None:
+            await assert_tree_diff(
+                annotation_style=annotation_style,
+                expected_diff=self.expected_tree_diff,
+                expected_initial_tree=initial_tree,
+                fallback_annotations=fallback_annotations,
+                session=session,
+            )
+        if self.expected_levels is not None:
+            await asyncio.sleep(system.LAG_TIME * 2)
+            actual_levels = [
+                (
+                    component.name or component.address,
+                    [round(x, 2) for x in component.input_levels],
+                    [round(x, 2) for x in component.output_levels],
+                )
+                for component in session.walk(Component)
+                if isinstance(component, LevelsCheckable)
+            ]
+            assert actual_levels == self.expected_levels
 
 
 async def apply_commands(
@@ -222,70 +263,3 @@ async def assert_tree_diff(
         session=session,
     )
     assert normalize(expected_diff) == actual_diff
-
-
-does_not_raise = contextlib.nullcontext()
-
-
-@contextlib.asynccontextmanager
-async def run_test(
-    *,
-    annotation_style: Literal["nested", "numeric"] | None = "nested",
-    commands: list[tuple[str | None, str, dict | None]] | None = None,
-    context_index: int = 0,
-    expected_components_diff: Callable[[Session], str] | str | None = "",
-    expected_levels: list[tuple[str, list[float], list[float]]] | None = None,
-    expected_messages: str | None = "",
-    expected_tree_diff: str | None = "",
-    online: bool,
-) -> AsyncGenerator[Session, None]:
-    # print("Pre-conditions")
-    session = Session()
-    if commands:
-        await apply_commands(session, commands)
-    initial_tree: str = ""
-    assert session.boot_status == BootStatus.OFFLINE
-    if online:
-        await session.boot()
-        assert session.boot_status == BootStatus.ONLINE
-        await session.sync()
-        initial_tree = await debug_tree(
-            session=session, annotation_style=annotation_style
-        )
-        fallback_annotations = session._gather_annotations_by_context(
-            annotation_style=annotation_style
-        )
-    initial_components = debug_components(session)
-    # print("Operation")
-    with capture(
-        session.contexts[context_index] if session.contexts else None
-    ) as messages:
-        yield session
-    # print("Post-conditions")
-    if expected_components_diff is not None:
-        assert_components_diff(session, expected_components_diff, initial_components)
-    if not online:
-        return
-    if expected_messages is not None:
-        assert format_messages(messages) == normalize(expected_messages)
-    # in case of an explicit session quit
-    if expected_tree_diff is not None:
-        await assert_tree_diff(
-            annotation_style=annotation_style,
-            expected_diff=expected_tree_diff,
-            expected_initial_tree=initial_tree,
-            fallback_annotations=fallback_annotations,
-            session=session,
-        )
-    if expected_levels is not None:
-        await asyncio.sleep(system.LAG_TIME * 2)
-        actual_levels = [
-            (
-                component.name or component.address,
-                [round(x, 2) for x in component.input_levels],
-                [round(x, 2) for x in component.output_levels],
-            )
-            for component in session.walk(Component)
-            if isinstance(component, LevelsCheckable)
-        ]
-        assert actual_levels == expected_levels

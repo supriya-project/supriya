@@ -1,5 +1,4 @@
 import dataclasses
-from typing import Any
 
 import pytest
 
@@ -16,7 +15,7 @@ from supriya.sessions import (
 from supriya.typing import INHERIT
 from supriya.ugens import In, ReplaceOut, SynthDef, SynthDefBuilder
 
-from .conftest import Scenario, does_not_raise
+from .conftest import Scenario
 
 
 def build_sidechain_synthdef(channel_count: ChannelCount) -> SynthDef:
@@ -51,7 +50,6 @@ class SetSidechainScenario(Scenario):
     target: str
     sidechain_name: str
     sidechain_target: str | None
-    maybe_raises: Any
 
 
 @pytest.mark.parametrize("online", [False, True])
@@ -73,7 +71,6 @@ class SetSidechainScenario(Scenario):
             target="mixers[0].tracks[1].devices[0]",
             sidechain_name=Names.SIDECHAIN,
             sidechain_target="mixers[0].tracks[0]",
-            maybe_raises=does_not_raise,
             expected_components_diff="",
             expected_messages="""
             - ['/s_new', 'supriya:patch-cable:2x2', 1024, 0, 1021, 'in_', 18.0, 'out', 22.0]
@@ -107,7 +104,6 @@ class SetSidechainScenario(Scenario):
             target="mixers[0].tracks[0].devices[0]",
             sidechain_name=Names.SIDECHAIN,
             sidechain_target="mixers[0].tracks[1]",
-            maybe_raises=does_not_raise,
             expected_components_diff="",
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:fb-patch-cable:2x2>]
@@ -148,7 +144,6 @@ class SetSidechainScenario(Scenario):
             target="mixers[0].tracks[0].devices[0]",
             sidechain_name=Names.SIDECHAIN,
             sidechain_target=None,
-            maybe_raises=does_not_raise,
             expected_components_diff="",
             expected_tree_diff="""
             --- initial
@@ -182,9 +177,7 @@ async def test_Device_set_sidechain(
             track_ = session[scenario.sidechain_target]
             assert isinstance(track_, Track)
             track = track_
-        raised = True
-        with scenario.maybe_raises:
-            await device.set_sidechain(name=scenario.sidechain_name, source=track)
-            raised = False
-    if not raised:
-        assert device.sidechains[scenario.sidechain_name].source is track
+        await device.set_sidechain(name=scenario.sidechain_name, source=track)
+    if scenario.expected_exception:
+        return
+    assert device.sidechains[scenario.sidechain_name].source is track
