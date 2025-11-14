@@ -177,11 +177,11 @@ async def test_Device_set_sidechain(
     async with scenario.run(online=online) as session:
         device = session[scenario.target]
         assert isinstance(device, Device)
+        track: Track | None = None
         if scenario.sidechain_target is not None:
-            track = session[scenario.sidechain_target]
-            assert isinstance(track, Track)
-        else:
-            track = None
+            track_ = session[scenario.sidechain_target]
+            assert isinstance(track_, Track)
+            track = track_
         raised = True
         with scenario.maybe_raises:
             await device.set_sidechain(name=scenario.sidechain_name, source=track)

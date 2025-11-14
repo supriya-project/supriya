@@ -4,7 +4,7 @@ import dataclasses
 import difflib
 import inspect
 import pprint
-from typing import AsyncGenerator, Callable, Generator, Literal
+from typing import Any, AsyncGenerator, Callable, Generator, Literal, Protocol
 
 from uqbar.strings import normalize
 
@@ -15,6 +15,15 @@ from supriya.ugens import (
     decompile_synthdefs,
     system,  # lookup system.LAG_TIME to support monkeypatching
 )
+
+
+# class MaybeRaises
+class MaybeRaises(Protocol):
+    def __enter__(self, *args, **kwargs) -> Any:
+        pass
+
+    def __exit__(self) -> None:
+        pass
 
 
 @dataclasses.dataclass(frozen=True)

@@ -2,7 +2,6 @@ import contextlib
 import dataclasses
 import itertools
 from collections import ChainMap, deque
-from functools import lru_cache
 from typing import TYPE_CHECKING, Iterator, Optional, Sequence
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Node
@@ -68,6 +67,13 @@ class Spec:
     component: "Component"
     context: AsyncServer
     name: str
+    address: Address = dataclasses.field(init=False)
+
+    def __post_init__(self):
+        object.__setattr__(self, "address", self._address())
+
+    def _address(self) -> Address:
+        raise NotImplementedError
 
     def create(
         self,
@@ -217,11 +223,6 @@ class Spec:
             old_global_artifacts.synthdefs,
         )[address]
 
-    @property
-    @lru_cache
-    def address(self) -> Address:
-        raise NotImplementedError
-
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class BufferSpec(Spec):
@@ -243,6 +244,9 @@ class BufferSpec(Spec):
                 self.count,
             ),
         )
+
+    def _address(self) -> Address:
+        return Spec.get_address(self.component, Entities.BUFFERS, self.name)
 
     def create(
         self,
@@ -272,11 +276,6 @@ class BufferSpec(Spec):
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return self != old_spec
 
-    @property
-    @lru_cache
-    def address(self) -> Address:
-        return Spec.get_address(self.component, Entities.BUFFERS, self.name)
-
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class BusSpec(Spec):
@@ -299,6 +298,13 @@ class BusSpec(Spec):
                 self.channel_count,
             ),
         )
+
+    def _address(self) -> Address:
+        if self.calculation_rate == CalculationRate.AUDIO:
+            return Spec.get_address(self.component, Entities.AUDIO_BUSES, self.name)
+        elif self.calculation_rate == CalculationRate.CONTROL:
+            return Spec.get_address(self.component, Entities.CONTROL_BUSES, self.name)
+        raise ValueError
 
     def create(
         self,
@@ -351,15 +357,6 @@ class BusSpec(Spec):
             raise ValueError(old_spec)
         return self != old_spec
 
-    @property
-    @lru_cache
-    def address(self) -> Address:
-        if self.calculation_rate == CalculationRate.AUDIO:
-            return Spec.get_address(self.component, Entities.AUDIO_BUSES, self.name)
-        elif self.calculation_rate == CalculationRate.CONTROL:
-            return Spec.get_address(self.component, Entities.CONTROL_BUSES, self.name)
-        raise ValueError
-
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class SynthDefSpec(Spec):
@@ -379,6 +376,9 @@ class SynthDefSpec(Spec):
                 self.synthdef,
             ),
         )
+
+    def _address(self) -> Address:
+        return Spec.get_address(None, Entities.SYNTHDEFS, self.synthdef.effective_name)
 
     def create(
         self,
@@ -404,11 +404,6 @@ class SynthDefSpec(Spec):
     def requires_recreation(self, old_spec: "Spec") -> bool:
         return self != old_spec
 
-    @property
-    @lru_cache
-    def address(self) -> Address:
-        return Spec.get_address(None, Entities.SYNTHDEFS, self.synthdef.effective_name)
-
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class NodeSpec(Spec):
@@ -422,15 +417,13 @@ class NodeSpec(Spec):
     parent_node: Address | None
     target_node: Address | None
 
+    def _address(self) -> Address:
+        return Spec.get_address(self.component, Entities.NODES, self.name)
+
     def requires(self) -> list[Address]:
         if self.target_node is not None:
             return [self.target_node]
         return []
-
-    @property
-    @lru_cache
-    def address(self) -> Address:
-        return Spec.get_address(self.component, Entities.NODES, self.name)
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
