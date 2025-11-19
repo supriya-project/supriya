@@ -84,8 +84,8 @@ class CompanderD(PseudoUGen):
                             maximum_delay_time: 0.01
                             delay_time: 0.01
                     -   Compander.ar:
-                            source: In.ar[0]
-                            control: DelayN.ar[0]
+                            source: DelayN.ar[0]
+                            control: In.ar[0]
                             threshold: 0.5
                             slope_below: 1.0
                             slope_above: 1.0
@@ -94,17 +94,16 @@ class CompanderD(PseudoUGen):
 
         Returns ugen graph.
         """
-        control = DelayN.ar(
-            source=source, maximum_delay_time=clamp_time, delay_time=clamp_time
-        )
         return Compander._new_expanded(
-            clamp_time=clamp_time,
             calculation_rate=CalculationRate.AUDIO,
+            clamp_time=clamp_time,
+            control=source,
             relax_time=relax_time,
             slope_above=slope_above,
             slope_below=slope_below,
-            source=source,
-            control=control,
+            source=DelayN.ar(
+                source=source, maximum_delay_time=clamp_time, delay_time=clamp_time
+            ),
             threshold=threshold,
         )
 
