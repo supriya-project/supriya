@@ -143,7 +143,8 @@ Quit the server::
     tutorials/scores
     tutorials/clocks
     tutorials/patterns
-
+    tutorials/sessions
+    
 ..  toctree::
     :caption: Examples
     :hidden: 
