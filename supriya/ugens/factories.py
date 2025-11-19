@@ -1793,8 +1793,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/1:
                             source: Control.kr[6:band_1_threshold]
                     -   Compander.ar/0:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                            control: DelayN.ar/0[0]
+                            source: DelayN.ar/0[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/1[0]
                             slope_below: Control.kr[5:band_1_slope_below]
                             slope_above: Control.kr[4:band_1_slope_above]
@@ -1817,8 +1817,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/4:
                             source: Control.kr[13:band_2_threshold]
                     -   Compander.ar/1:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                            control: DelayN.ar/1[0]
+                            source: DelayN.ar/1[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/2[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/4[0]
                             slope_below: Control.kr[12:band_2_slope_below]
                             slope_above: Control.kr[11:band_2_slope_above]
@@ -1841,8 +1841,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/7:
                             source: Control.kr[20:band_3_threshold]
                     -   Compander.ar/2:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
-                            control: DelayN.ar/2[0]
+                            source: DelayN.ar/2[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/4[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/7[0]
                             slope_below: Control.kr[19:band_3_slope_below]
                             slope_above: Control.kr[18:band_3_slope_above]
@@ -1865,8 +1865,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/10:
                             source: Control.kr[27:band_4_threshold]
                     -   Compander.ar/3:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
-                            control: DelayN.ar/3[0]
+                            source: DelayN.ar/3[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/6[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/10[0]
                             slope_below: Control.kr[26:band_4_slope_below]
                             slope_above: Control.kr[25:band_4_slope_above]
@@ -2021,8 +2021,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/1:
                             source: Control.kr[6:band_1_threshold]
                     -   Compander.ar/0:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                            control: DelayN.ar/0[0]
+                            source: DelayN.ar/0[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/1[0]
                             slope_below: Control.kr[5:band_1_slope_below]
                             slope_above: Control.kr[4:band_1_slope_above]
@@ -2045,8 +2045,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/4:
                             source: Control.kr[13:band_2_threshold]
                     -   Compander.ar/1:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                            control: DelayN.ar/1[0]
+                            source: DelayN.ar/1[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/2[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/4[0]
                             slope_below: Control.kr[12:band_2_slope_below]
                             slope_above: Control.kr[11:band_2_slope_above]
@@ -2069,8 +2069,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/7:
                             source: Control.kr[20:band_3_threshold]
                     -   Compander.ar/2:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]
-                            control: DelayN.ar/2[0]
+                            source: DelayN.ar/2[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/4[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/7[0]
                             slope_below: Control.kr[19:band_3_slope_below]
                             slope_above: Control.kr[18:band_3_slope_above]
@@ -2093,8 +2093,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/10:
                             source: Control.kr[27:band_4_threshold]
                     -   Compander.ar/3:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]
-                            control: DelayN.ar/3[0]
+                            source: DelayN.ar/3[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/6[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/10[0]
                             slope_below: Control.kr[26:band_4_slope_below]
                             slope_above: Control.kr[25:band_4_slope_above]
@@ -2122,8 +2122,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/13:
                             source: Control.kr[34:band_5_threshold]
                     -   Compander.ar/4:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/8[0]
-                            control: DelayN.ar/4[0]
+                            source: DelayN.ar/4[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/8[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/13[0]
                             slope_below: Control.kr[33:band_5_slope_below]
                             slope_above: Control.kr[32:band_5_slope_above]
@@ -2146,8 +2146,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/16:
                             source: Control.kr[41:band_6_threshold]
                     -   Compander.ar/5:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/10[0]
-                            control: DelayN.ar/5[0]
+                            source: DelayN.ar/5[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/10[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/16[0]
                             slope_below: Control.kr[40:band_6_slope_below]
                             slope_above: Control.kr[39:band_6_slope_above]
@@ -2170,8 +2170,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/19:
                             source: Control.kr[48:band_7_threshold]
                     -   Compander.ar/6:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/12[0]
-                            control: DelayN.ar/6[0]
+                            source: DelayN.ar/6[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/12[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/19[0]
                             slope_below: Control.kr[47:band_7_slope_below]
                             slope_above: Control.kr[46:band_7_slope_above]
@@ -2194,8 +2194,8 @@ class SynthDefFactory:
                     -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/22:
                             source: Control.kr[55:band_8_threshold]
                     -   Compander.ar/7:
-                            source: BinaryOpUGen(MULTIPLICATION).ar/14[0]
-                            control: DelayN.ar/7[0]
+                            source: DelayN.ar/7[0]
+                            control: BinaryOpUGen(MULTIPLICATION).ar/14[0]
                             threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/22[0]
                             slope_below: Control.kr[54:band_8_slope_below]
                             slope_above: Control.kr[53:band_8_slope_above]
