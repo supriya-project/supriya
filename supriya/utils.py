@@ -2,7 +2,10 @@
 Utility functions.
 """
 
+import contextlib
+import cProfile
 import itertools
+import pstats
 from typing import (
     Generator,
     Generic,
@@ -134,3 +137,10 @@ def zip_cycled(*args: Sequence[T]) -> Generator[Sequence[T], None, None]:
         yield result
         if i == maximum_i:
             break
+
+
+@contextlib.contextmanager
+def profile() -> Generator[None, None, None]:
+    with cProfile.Profile() as profiler:
+        yield
+    pstats.Stats(profiler).sort_stats("cumulative").print_stats()
