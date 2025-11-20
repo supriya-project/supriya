@@ -22,6 +22,8 @@ utils
 
 .. autofunction:: iterate_nwise
 
+.. autofunction:: profile
+
 .. autofunction:: repeat_to_length
 
 .. autofunction:: zip_cycled

@@ -23,6 +23,6 @@ digraph "synthdef_..." {
     ugen_2 [fillcolor=lightsteelblue2,
         label="<f_0> Compander\n(audio) | { { <f_1_0_0> source | <f_1_0_1> control | <f_1_0_2> threshold:\n0.5 | <f_1_0_3> slope_below:\n1.0 | <f_1_0_4> slope_above:\n1.0 | <f_1_0_5> clamp_time:\n0.01 | <f_1_0_6> relax_time:\n0.1 } | { <f_1_1_0> 0 } }"];
     ugen_0:f_1_1_0:e -> ugen_1:f_1_0_0:w [color=steelblue];
-    ugen_0:f_1_1_0:e -> ugen_2:f_1_0_0:w [color=steelblue];
-    ugen_1:f_1_1_0:e -> ugen_2:f_1_0_1:w [color=steelblue];
+    ugen_0:f_1_1_0:e -> ugen_2:f_1_0_1:w [color=steelblue];
+    ugen_1:f_1_1_0:e -> ugen_2:f_1_0_0:w [color=steelblue];
 }

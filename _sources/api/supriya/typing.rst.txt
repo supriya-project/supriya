@@ -11,6 +11,10 @@ typing
    :show-inheritance:
 
 
+.. autoclass:: Inherit
+   :show-inheritance:
+
+
 .. autoclass:: Missing
    :show-inheritance:
 

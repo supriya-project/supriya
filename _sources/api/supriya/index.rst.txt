@@ -10,14 +10,14 @@ supriya
 .. toctree::
    :hidden:
 
-   clocks/index
+   clocks
    contexts/index
    conversions
    enums
    exceptions
    ext/index
    io
-   osc/index
+   osc
    patterns/index
    sclang
    scsynth

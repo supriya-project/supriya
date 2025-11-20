@@ -1,20 +1,34 @@
-.. _supriya--clocks--core:
+.. _supriya--clocks:
 
-core
-====
+clocks
+======
 
-.. automodule:: supriya.clocks.core
+.. automodule:: supriya.clocks
 
-.. currentmodule:: supriya.clocks.core
+.. currentmodule:: supriya.clocks
 
 .. autoclass:: Action
    :show-inheritance:
 
 
+.. autoclass:: AsyncClock
+   :show-inheritance:
+
+   .. automethod:: cancel
+   .. automethod:: start
+   .. automethod:: stop
+
 .. autoclass:: AsyncClockCallback
    :show-inheritance:
 
    .. automethod:: __call__
+
+.. autoclass:: AsyncOfflineClock
+   :show-inheritance:
+
+   .. automethod:: at
+   .. automethod:: start
+   .. automethod:: stop
 
 .. autoclass:: BaseClock
    :show-inheritance:
@@ -48,12 +62,19 @@ core
    :show-inheritance:
 
 
+.. autoclass:: Clock
+   :show-inheritance:
+
+   .. automethod:: cancel
+   .. automethod:: start
+   .. automethod:: stop
+
 .. autoclass:: ClockCallback
    :show-inheritance:
 
    .. automethod:: __call__
 
-.. autoclass:: ClockContext
+.. autoclass:: ClockCallbackState
    :show-inheritance:
 
 
@@ -82,6 +103,13 @@ core
 .. autoclass:: Moment
    :show-inheritance:
 
+
+.. autoclass:: OfflineClock
+   :show-inheritance:
+
+   .. automethod:: at
+   .. automethod:: start
+   .. automethod:: stop
 
 .. autoclass:: TimeUnit
    :show-inheritance:

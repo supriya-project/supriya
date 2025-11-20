@@ -1,4 +1,4 @@
-digraph synthdef_7ac4b835f867fbdd57bc099f4366028c {
+digraph synthdef_d7b6fbdecdb3d38240515d8307e516e2 {
     graph [bgcolor=transparent,
         color=lightslategrey,
         dpi=72,
@@ -148,32 +148,32 @@ digraph synthdef_7ac4b835f867fbdd57bc099f4366028c {
     ugen_8:f_1_0_28:e -> ugen_38:f_1_0_1:w [color=goldenrod];
     ugen_9:f_1_1_0:e -> ugen_10:f_1_0_1:w [color=goldenrod];
     ugen_10:f_1_1_0:e -> ugen_11:f_1_0_0:w [color=steelblue];
-    ugen_10:f_1_1_0:e -> ugen_13:f_1_0_0:w [color=steelblue];
-    ugen_11:f_1_1_0:e -> ugen_13:f_1_0_1:w [color=steelblue];
+    ugen_10:f_1_1_0:e -> ugen_13:f_1_0_1:w [color=steelblue];
+    ugen_11:f_1_1_0:e -> ugen_13:f_1_0_0:w [color=steelblue];
     ugen_12:f_1_1_0:e -> ugen_13:f_1_0_2:w [color=goldenrod];
     ugen_13:f_1_1_0:e -> ugen_15:f_1_0_0:w [color=steelblue];
     ugen_14:f_1_1_0:e -> ugen_15:f_1_0_1:w [color=goldenrod];
     ugen_15:f_1_1_0:e -> ugen_37:f_1_0_0:w [color=steelblue];
     ugen_16:f_1_1_0:e -> ugen_17:f_1_0_1:w [color=goldenrod];
     ugen_17:f_1_1_0:e -> ugen_18:f_1_0_0:w [color=steelblue];
-    ugen_17:f_1_1_0:e -> ugen_20:f_1_0_0:w [color=steelblue];
-    ugen_18:f_1_1_0:e -> ugen_20:f_1_0_1:w [color=steelblue];
+    ugen_17:f_1_1_0:e -> ugen_20:f_1_0_1:w [color=steelblue];
+    ugen_18:f_1_1_0:e -> ugen_20:f_1_0_0:w [color=steelblue];
     ugen_19:f_1_1_0:e -> ugen_20:f_1_0_2:w [color=goldenrod];
     ugen_20:f_1_1_0:e -> ugen_22:f_1_0_0:w [color=steelblue];
     ugen_21:f_1_1_0:e -> ugen_22:f_1_0_1:w [color=goldenrod];
     ugen_22:f_1_1_0:e -> ugen_37:f_1_0_1:w [color=steelblue];
     ugen_23:f_1_1_0:e -> ugen_24:f_1_0_1:w [color=goldenrod];
     ugen_24:f_1_1_0:e -> ugen_25:f_1_0_0:w [color=steelblue];
-    ugen_24:f_1_1_0:e -> ugen_27:f_1_0_0:w [color=steelblue];
-    ugen_25:f_1_1_0:e -> ugen_27:f_1_0_1:w [color=steelblue];
+    ugen_24:f_1_1_0:e -> ugen_27:f_1_0_1:w [color=steelblue];
+    ugen_25:f_1_1_0:e -> ugen_27:f_1_0_0:w [color=steelblue];
     ugen_26:f_1_1_0:e -> ugen_27:f_1_0_2:w [color=goldenrod];
     ugen_27:f_1_1_0:e -> ugen_29:f_1_0_0:w [color=steelblue];
     ugen_28:f_1_1_0:e -> ugen_29:f_1_0_1:w [color=goldenrod];
     ugen_29:f_1_1_0:e -> ugen_37:f_1_0_2:w [color=steelblue];
     ugen_30:f_1_1_0:e -> ugen_31:f_1_0_1:w [color=goldenrod];
     ugen_31:f_1_1_0:e -> ugen_32:f_1_0_0:w [color=steelblue];
-    ugen_31:f_1_1_0:e -> ugen_34:f_1_0_0:w [color=steelblue];
-    ugen_32:f_1_1_0:e -> ugen_34:f_1_0_1:w [color=steelblue];
+    ugen_31:f_1_1_0:e -> ugen_34:f_1_0_1:w [color=steelblue];
+    ugen_32:f_1_1_0:e -> ugen_34:f_1_0_0:w [color=steelblue];
     ugen_33:f_1_1_0:e -> ugen_34:f_1_0_2:w [color=goldenrod];
     ugen_34:f_1_1_0:e -> ugen_36:f_1_0_0:w [color=steelblue];
     ugen_35:f_1_1_0:e -> ugen_36:f_1_0_1:w [color=goldenrod];
