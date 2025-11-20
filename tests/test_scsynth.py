@@ -1,6 +1,6 @@
 import os
-import pathlib
 import stat
+from pathlib import Path
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 
 import pytest
@@ -14,32 +14,32 @@ def mock_env_scsynth_path(monkeypatch):
     monkeypatch.setenv("PATH", "")
 
 
-def test_find_argument(mock_env_scsynth_path):
+def test_find_via_argument(mock_env_scsynth_path):
     with NamedTemporaryFile() as tmp:
-        expected = pathlib.Path(tmp.name).absolute()
+        expected = Path(tmp.name).absolute()
         expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
-        got = scsynth.find(expected)
-        assert got == expected
+        actual = scsynth.find(expected)
+        assert actual == expected
 
 
-def test_find_env_var(mock_env_scsynth_path, monkeypatch):
+def test_find_via_env_var(mock_env_scsynth_path, monkeypatch):
     with NamedTemporaryFile() as tmp:
-        expected = pathlib.Path(tmp.name).absolute()
+        expected = Path(tmp.name).absolute()
         expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
         monkeypatch.setenv(scsynth.ENVAR_SERVER_EXECUTABLE, str(expected))
-        got = scsynth.find()
-        assert got == expected
+        actual = scsynth.find()
+        assert actual == expected
 
 
 def test_find_on_path(mock_env_scsynth_path, monkeypatch):
     with TemporaryDirectory() as tmp_dir:
-        scsynth_path = pathlib.Path(tmp_dir) / "scsynth"
+        scsynth_path = Path(tmp_dir) / "scsynth"
         with open(scsynth_path, "w"):
             scsynth_path.chmod(scsynth_path.stat().st_mode | stat.S_IEXEC)
             monkeypatch.setenv("PATH", os.pathsep + tmp_dir)
-            got = scsynth.find()
-            expected = scsynth_path.resolve().absolute()
-            assert got == expected
+            actual = scsynth.find()
+            expected = Path("scsynth")
+            assert actual == expected
 
 
 @pytest.mark.parametrize(
