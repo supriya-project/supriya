@@ -1,5 +1,5 @@
-Core tutorials overview
-=======================
+Tutorials overview
+==================
 
 The following set of tutorials represent Supriya's *core* functionality: how it
 interacts with the :doc:`core concepts <../introduction/concepts>`
