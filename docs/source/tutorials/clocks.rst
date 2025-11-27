@@ -8,7 +8,7 @@ Clocks
     These docs are still under construction.
 
 Supriya provides a collection of musical-time-aware clocks for scheduling
-scheduling callbacks relative to both seconds, beats and measures, and which - by
+callbacks relative to both seconds, beats and measures, and which - by
 extension - understand tempo, time signatures and downbeats.
 
 These clocks come in both *threaded* and *asynchronous* flavors, as well as
@@ -27,7 +27,8 @@ real time consumed. This makes them suitable for unit-testing logic expecting
 online clocks, or for implementing non-realtime rendering of usually-online
 musical patterns.
 
-.. TODO:: Need a better name than "clock context".
+Time
+----
 
 Lifecycle
 ---------
@@ -50,10 +51,21 @@ Stop a *threaded* clock with::
 
     >>> clock.stop()
 
+Starting at a specific time
+```````````````````````````
+
 Scheduling
 ----------
 
-Let's consider a simple callback function::
+We can schedule callbacks to run at some absolute point in time in the future,
+both wall time in seconds or a musical offset. We can also *cue* callbacks on a
+musical grid, relative to the time boundary of some musical event, e.g. "on the
+next 1/4 note" or "on the next downbeat".
+
+Callbacks
+`````````
+
+Let's taks a look at a simple callback function::
 
     >>> def callback(context):
     ...     print(f"The current offset is: {context.desired_moment.offset}")
@@ -100,8 +112,8 @@ occurred::
 
     >>> clock.cancel(id_)
 
-Cueing
-``````
+Cueing on a grid
+`````````````````
 
 We can also *cue* callbacks, scheduling them to occur at some quantized offset
 in the future, e.g. on the next 1/4 beat::
