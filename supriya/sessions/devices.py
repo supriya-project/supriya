@@ -27,6 +27,23 @@ if TYPE_CHECKING:
     from .tracks import Track
 
 
+@dataclasses.dataclass(frozen=True)
+class PerformanceEvent:
+    pass
+
+
+@dataclasses.dataclass(frozen=True)
+class NoteOn(PerformanceEvent):
+    note_number: float
+    velocity: float
+
+
+@dataclasses.dataclass(frozen=True)
+class NoteOff(PerformanceEvent):
+    note_number: float
+    velocity: float
+
+
 # TODO: We need to differentiate the concept of control bus managing parameters
 #       and just general option paramaters with no specific server
 #       representation. And for both, we need concepts of unit, range, etc.
@@ -89,6 +106,46 @@ class SynthConfig:
         | None
     ) = None
     conditional: Conditional | None = None
+
+
+class NoteOnCallable(Protocol):
+    def __call__(
+        self,
+        event: NoteOn, 
+        options: dict[str, float],
+    ) -> dict[str, float]:
+        raise NotImplementedError
+
+
+class NoteOffCallable(Protocol):
+    def __call__(
+        self,
+        event: NoteOff, 
+        options: dict[str, float],
+    ) -> dict[str, float]:
+        raise NotImplementedError
+
+
+
+@dataclasses.dataclass
+class NoteConfig:
+    synth: SynthDef | SynthDefCallable | SynthDefExtendedCallable
+    note_on: NoteOnCallable
+    note_off: NoteOffCallable | None
+    # control mappings
+    controls: (
+        dict[
+            str,
+            float
+            | tuple[CalculationRate, str]
+            | Callable[[], float | tuple[CalculationRate, str]],
+        ]
+        | None
+    ) = None
+    # allow propagation downstream?
+    propagate_events: bool = False
+    # polyphony mode
+    pass
 
 
 @dataclasses.dataclass
