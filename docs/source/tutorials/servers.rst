@@ -180,8 +180,8 @@ quitting, after quitting, or even on server panic:
 
 Define a callback and register it against one or more events:
 
-    >>> def print_event(event):
-    ...     print(repr(event))
+    >>> def print_event(server, event):
+    ...     print(f"Callback: {event!r}")
     ...
     >>> callback = server.register_lifecycle_callback(
     ...     event=list(supriya.ServerLifecycleEvent),
