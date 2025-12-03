@@ -15,6 +15,7 @@ from itertools import zip_longest
 from pathlib import Path
 from types import MappingProxyType
 from typing import (
+    Any,
     Callable,
     Iterable,
     Iterator,
@@ -326,7 +327,7 @@ def ugen(
     channel_count: int = 1,
     fixed_channel_count: bool = False,
     signal_range: int | None = None,
-) -> Callable[[Type["UGen"]], Type["UGen"]]:
+) -> Callable[[Type["UGen"]], Any]:
     """
     Decorate a UGen class.
 
