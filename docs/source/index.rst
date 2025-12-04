@@ -129,7 +129,7 @@ Quit the server::
     introduction/concepts.rst
 
 ..  toctree::
-    :caption: Tutorials
+    :caption: Core tutorials
     :hidden: 
 
     tutorials/index
@@ -144,6 +144,19 @@ Quit the server::
     tutorials/clocks
     tutorials/patterns
 
+..  toctree::
+    :caption: Session tutorials
+    :hidden: 
+
+    sessions/index
+    sessions/sessions
+    sessions/mixers
+    sessions/tracks
+    sessions/devices
+    sessions/racks
+    sessions/parameters
+    sessions/transport
+    
 ..  toctree::
     :caption: Examples
     :hidden: 
