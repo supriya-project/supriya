@@ -14,11 +14,12 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    cast,
 )
 
 T = TypeVar("T")
 IT = Iterable[Union[T, "IT"]]
-ST = list[Union[T, "ST"]]
+LT = list[Union[T, "LT"]]
 
 
 class Expander(Generic[T]):
@@ -61,17 +62,17 @@ def expand(
     return Expander[T]()(mapping, unexpanded, only)
 
 
-def expand_deep(item: list[ST]) -> list[list[ST]]:
+def expand_deep(item: list[LT]) -> list[list[LT]]:
     size = 1
     for x in item:
         if isinstance(x, Sequence):
             size = max(len(x), size)
     should_recurse = False
-    sequences: list[list[ST]] = [[] for _ in range(size)]
+    sequences: list[list[LT]] = [[] for _ in range(size)]
     assert len(sequences) == size
     for x in item:
         for i in range(size):
-            v: ST
+            v: LT
             if isinstance(x, Sequence):
                 v = x[i % len(x)]
                 if isinstance(v, Sequence):
@@ -94,9 +95,9 @@ def flatten(
     iterable: IT, terminal_types: Type | tuple[Type, ...] | None = None
 ) -> Generator[T, None, None]:
     for x in iterable:
-        if isinstance(x, Iterable) and (
-            terminal_types is None or not isinstance(x, terminal_types)
-        ):
+        if terminal_types and isinstance(x, terminal_types):
+            yield cast(T, x)
+        elif isinstance(x, Iterable):
             yield from flatten(x, terminal_types)
         else:
             yield x
