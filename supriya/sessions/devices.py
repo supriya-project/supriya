@@ -111,7 +111,7 @@ class SynthConfig:
 class NoteOnCallable(Protocol):
     def __call__(
         self,
-        event: NoteOn, 
+        event: NoteOn,
         options: dict[str, float],
     ) -> dict[str, float]:
         raise NotImplementedError
@@ -120,11 +120,10 @@ class NoteOnCallable(Protocol):
 class NoteOffCallable(Protocol):
     def __call__(
         self,
-        event: NoteOff, 
+        event: NoteOff,
         options: dict[str, float],
     ) -> dict[str, float]:
         raise NotImplementedError
-
 
 
 @dataclasses.dataclass
