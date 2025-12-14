@@ -1,8 +1,12 @@
 import dataclasses
+from collections import deque
+from functools import singledispatchmethod
 from types import MappingProxyType
 from typing import (
     TYPE_CHECKING,
     Callable,
+    Deque,
+    Generator,
     Literal,
     Mapping,
     Optional,
@@ -17,7 +21,15 @@ from ..typing import Inherit
 from ..ugens import SynthDef
 from ..ugens.system import build_meters_synthdef
 from .components import C, Component, Deletable, LevelsCheckable, Movable, NameSettable
-from .constants import Address, ChannelCount, Entities, Names, PatchMode
+from .constants import (
+    IO,
+    Address,
+    ChannelCount,
+    Entities,
+    Names,
+    PatchMode,
+    PolyphonyMode,
+)
 from .parameters import Field
 from .routing import Input
 from .specs import Spec, SpecFactory
@@ -25,6 +37,11 @@ from .specs import Spec, SpecFactory
 if TYPE_CHECKING:
     from .racks import Chain, Rack
     from .tracks import Track
+
+
+"""
+Performable.perform(events: [PerformanceEvent]) -> [PerformanceEvent], [(Performable, IO])
+"""
 
 
 @dataclasses.dataclass(frozen=True)
@@ -42,6 +59,59 @@ class NoteOn(PerformanceEvent):
 class NoteOff(PerformanceEvent):
     note_number: float
     velocity: float
+
+
+class Performer(Component[C]):
+    def __init__(self) -> None:
+        self._note_numbers: list[float] = []
+
+    def _flush(self) -> None:
+        self._perform_loop(
+            self,
+            IO.READ,
+            [
+                NoteOff(note_number=note_number, velocity=0)
+                for note_number in self._note_numbers
+            ],
+        )
+
+    def _perform(
+        self, io: IO, events: list[PerformanceEvent]
+    ) -> Generator[tuple["Performer", IO, list[PerformanceEvent]], None, None]:
+        raise NotImplementedError
+
+    def _next_performable(self) -> Optional[tuple["Performer", IO]]:
+        raise NotImplementedError
+
+    @singledispatchmethod
+    def _on_event(self, event: PerformanceEvent) -> list[PerformanceEvent]:
+        return [event]
+
+    @_on_event.register
+    def _(self, event: NoteOn) -> list[PerformanceEvent]:
+        if event.note_number in self._note_numbers:
+            return []
+        self._note_numbers.append(event.note_number)
+        return [event]
+
+    @_on_event.register
+    def _(self, event: NoteOff) -> list[PerformanceEvent]:
+        if event.note_number not in self._note_numbers:
+            return []
+        self._note_numbers.remove(event.note_number)
+        return [event]
+
+    def _perform_loop(
+        self, performable: "Performer", io: IO, events: list[PerformanceEvent]
+    ) -> None:
+        stack: Deque[tuple[Performer, IO, list[PerformanceEvent]]] = deque()
+        stack.append((performable, io, events))
+        while stack:
+            performer, io, events = stack.popleft()
+            for performer, io, events in performer._perform(io, events):
+                if not events:
+                    continue
+                stack.append((performer, io, events))
 
 
 # TODO: We need to differentiate the concept of control bus managing parameters
@@ -141,16 +211,13 @@ class NoteConfig:
         ]
         | None
     ) = None
-    # allow propagation downstream?
-    propagate_events: bool = False
-    # polyphony mode
-    pass
 
 
 @dataclasses.dataclass
 class DeviceConfig:
     name: str | None = None
     device_class: Type["Device"] | None = None
+    note_config: NoteConfig | None = None
     parameter_configs: dict[str, Field | ParameterConfig] | None = None
     sidechain_configs: dict[str, ChannelCount | Inherit | SidechainConfig] | None = None
     synth_configs: list[SynthConfig] | None = None
@@ -172,6 +239,7 @@ class DeviceContainer(Component[C]):
         device_config: DeviceConfig | None = None,
         device_class: Type["Device"] | None = None,
         name: str | None = None,
+        note_config: NoteConfig | None = None,
         parameter_configs: dict[str, Field | ParameterConfig] | None = None,
         sidechain_configs: dict[str, ChannelCount | Inherit | SidechainConfig]
         | None = None,
@@ -182,6 +250,7 @@ class DeviceContainer(Component[C]):
             device := (device_class or device_config.device_class or Device)(
                 id_=self._ensure_session()._get_next_id(),
                 name=name or device_config.name,
+                note_config=note_config or device_config.note_config,
                 parameter_configs=parameter_configs or device_config.parameter_configs,
                 parent=self,
                 sidechain_configs=sidechain_configs or device_config.sidechain_configs,
@@ -252,6 +321,7 @@ class DeviceContainer(Component[C]):
         *,
         device_class: Type["Device"] | None = None,
         name: str | None = None,
+        note_config: NoteConfig | None = None,
         parameter_configs: dict[str, Field | ParameterConfig] | None = None,
         sidechain_configs: dict[str, ChannelCount | Inherit | SidechainConfig]
         | None = None,
@@ -265,6 +335,7 @@ class DeviceContainer(Component[C]):
                 device_config=device_config,
                 device_class=device_class,
                 name=name,
+                note_config=note_config,
                 parameter_configs=parameter_configs,
                 sidechain_configs=sidechain_configs,
                 synth_configs=synth_configs,
@@ -343,9 +414,20 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
     ) -> None:
         Component.__init__(self, id_=id_, name=name, parent=parent)
         self._cached_previous_device: DeviceBase | None = None
+        self._note_numbers: list[float] = []
 
     def _disconnect_parentage(self) -> None:
         self._ensure_parent()._devices.remove(self)
+
+    def _flush(self) -> list[PerformanceEvent]:
+        """
+        Flush all notes.
+        """
+        events: list[PerformanceEvent] = []
+        for note_number in self._note_numbers:
+            events.append(NoteOff(note_number=note_number, velocity=0))
+        self._note_numbers.clear()
+        return events
 
     def _get_input_levels_bus_group(self) -> BusGroup:
         parent = self._ensure_parent()
@@ -392,6 +474,14 @@ class DeviceBase(Deletable[DeviceContainer], LevelsCheckable, Movable, NameSetta
         old_parent._devices.remove(self)
         self._parent = new_parent
         new_parent._devices.insert(index, self)
+
+    def _perform(self, event: PerformanceEvent) -> list[PerformanceEvent]:
+        """
+        Perform a performance event.
+
+        Possibly apply polyphony logic to free other notes.
+        """
+        raise NotImplementedError
 
     def _reconcile_connections(
         self,
@@ -509,6 +599,7 @@ class Device(DeviceBase):
         initial_parameters: dict[str, float] | None = None,
         initial_sidechains: dict[str, "Track"] | None = None,
         name: str | None = None,
+        note_config: NoteConfig | None = None,
         parameter_configs: dict[str, Field | ParameterConfig] | None = None,
         parent: DeviceContainer | None = None,
         sidechain_configs: dict[str, ChannelCount | Inherit | SidechainConfig]
@@ -535,7 +626,7 @@ class Device(DeviceBase):
                 conditional=sidechain_config.conditional,
                 name=name,
             )
-        # validate synthdef configs
+        # validate synthdef config
         self._synth_configs: list[SynthConfig] = list(synth_configs or ())
         # set initial parameters, if any
         for name, value in (initial_parameters or {}).items():
@@ -543,6 +634,10 @@ class Device(DeviceBase):
         # set initial sidechains, if any
         for name, source in (initial_sidechains or {}).items():
             self._sidechains[name].set(source)
+        # validate note configs, polyphony
+        self._polyphony_mode: PolyphonyMode = PolyphonyMode.FREE_OLDEST
+        self._polyphone_limit: int | None = None
+        self._note_config = note_config
 
     def _add_sidechain(
         self,
