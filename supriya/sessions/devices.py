@@ -64,6 +64,10 @@ class NoteOff(PerformanceEvent):
 class Performer(Component[C]):
     def __init__(self) -> None:
         self._note_numbers: list[float] = []
+        self._performance_event_handlers: dict[Type[PerformanceEvent], Callable[[PerformanceEvent], list[PerformanceEvent]]] = {
+            NoteOn: self._on_note_on,
+            NoteOff: self._on_note_off,
+        }
 
     def _flush(self) -> None:
         self._perform_loop(
@@ -78,24 +82,23 @@ class Performer(Component[C]):
     def _perform(
         self, io: IO, events: list[PerformanceEvent]
     ) -> Generator[tuple["Performer", IO, list[PerformanceEvent]], None, None]:
+        output_events: list[PerformanceEvent] = []
+        for event in events:
+            if callback := self._performance_event_handlers.get(type(event)):
+                output_events.extend(callback(event))
+        for performer, io in self._next_performers():
+            yield performer, io, events
+
+    def _next_performers(self) -> Generator[tuple["Performer", IO], None, None]:
         raise NotImplementedError
 
-    def _next_performable(self) -> Optional[tuple["Performer", IO]]:
-        raise NotImplementedError
-
-    @singledispatchmethod
-    def _on_event(self, event: PerformanceEvent) -> list[PerformanceEvent]:
-        return [event]
-
-    @_on_event.register
-    def _(self, event: NoteOn) -> list[PerformanceEvent]:
+    def _on_note_on(self, event: NoteOn) -> list[PerformanceEvent]:
         if event.note_number in self._note_numbers:
             return []
         self._note_numbers.append(event.note_number)
         return [event]
 
-    @_on_event.register
-    def _(self, event: NoteOff) -> list[PerformanceEvent]:
+    def _on_note_off(self, event: NoteOff) -> list[PerformanceEvent]:
         if event.note_number not in self._note_numbers:
             return []
         self._note_numbers.remove(event.note_number)
