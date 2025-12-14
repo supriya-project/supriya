@@ -59,6 +59,13 @@ class PatchMode(StrEnum):
     IGNORE = "ignore"
 
 
+class PolyphonyMode(StrEnum):
+    FREE_OLDEST = "free-oldest"
+    FREE_HIGHEST = "free-highest"
+    FREE_LOWEST = "free-lowest"
+    FREE_NEAREST = "free-nearest"
+
+
 class Reconciliation(StrEnum):
     """
     Types of component reconciliation.
