@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Generator, Literal
 
 from ..contexts import BusGroup
 from ..enums import AddAction, DoneAction
@@ -16,9 +16,10 @@ from .components import (
     Movable,
     NameSettable,
 )
-from .constants import Address, Entities, Names, PatchMode
+from .constants import IO, Address, Entities, Names, PatchMode
 from .devices import DeviceBase, DeviceContainer
 from .parameters import FloatField
+from .performers import Performer
 from .specs import Spec, SpecFactory
 
 
@@ -95,6 +96,20 @@ class Rack(DeviceBase, ChannelSettable):
             )
         )
         return chain
+
+    def _next_performers(self, io: IO) -> Generator[tuple[Performer, IO], None, None]:
+        if io == IO.READ:
+            if self.chains:
+                for chain in self.chains:
+                    yield chain, IO.READ
+            else:
+                yield from self._next_performers(io.WRITE)
+        else:
+            parent = self._ensure_parent()
+            if (index := parent.devices.index(self)) < len(parent.devices) - 1:
+                yield parent.devices[index + 1], IO.READ
+            else:
+                yield parent, IO.WRITE
 
     def _resolve_specs(self, spec_factory: SpecFactory) -> SpecFactory:
         # TODO: Can we re-use a shared aux bus?
@@ -343,6 +358,15 @@ class Chain(DeviceContainer[Rack], Deletable, LevelsCheckable, Movable, NameSett
         old_parent._chains.remove(self)
         self._parent = new_parent
         new_parent._chains.insert(index, self)
+
+    def _next_performers(self, io: IO) -> Generator[tuple[Performer, IO], None, None]:
+        if io == IO.READ:
+            if len(self.devices):
+                yield self.devices[0], IO.READ
+            else:
+                yield from self._next_performers(io.WRITE)
+        else:
+            yield self._ensure_parent(), IO.WRITE
 
     def _reconcile_connections(
         self,

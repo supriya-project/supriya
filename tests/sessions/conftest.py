@@ -3,6 +3,7 @@ import contextlib
 import dataclasses
 import difflib
 import inspect
+import logging
 import pprint
 from typing import AsyncGenerator, Callable, Generator, Literal, Type
 
@@ -33,6 +34,7 @@ class Scenario:
     expected_levels: list[tuple[str, list[float], list[float]]] | None = (
         dataclasses.field(default=None, kw_only=True)
     )
+    expected_logs: str | None = dataclasses.field(default=None, kw_only=True)
     expected_messages: str | None = dataclasses.field(default=None, kw_only=True)
     expected_tree_diff: str | None = dataclasses.field(default=None, kw_only=True)
     subject: str = dataclasses.field(default="", kw_only=True)
@@ -44,6 +46,7 @@ class Scenario:
         annotation_style: Literal["nested", "numeric"] | None = "nested",
         context_index: int = 0,
         online: bool,
+        caplog: pytest.LogCaptureFixture | None = None,
     ) -> AsyncGenerator[Session, None]:
         # print("Pre-conditions")
         session = Session()
@@ -63,15 +66,15 @@ class Scenario:
             )
         initial_components = debug_components(session)
         # print("Operation")
-        with (
-            pytest.raises(self.expected_exception)
-            if self.expected_exception
-            else contextlib.nullcontext()
-        ):
-            with capture(
-                session.contexts[context_index] if session.contexts else None
-            ) as messages:
-                yield session
+        with contextlib.ExitStack() as exit_stack:
+            if caplog:
+                exit_stack.enter_context(caplog.at_level(logging.INFO, "supriya"))
+            if self.expected_exception:
+                exit_stack.enter_context(pytest.raises(self.expected_exception))
+            messages = exit_stack.enter_context(
+                capture(session.contexts[context_index] if session.contexts else None)
+            )
+            yield session
         # print("Post-conditions")
         if self.expected_components_diff is not None:
             assert_components_diff(
@@ -102,6 +105,8 @@ class Scenario:
                 if isinstance(component, LevelsCheckable)
             ]
             assert actual_levels == self.expected_levels
+        if caplog and self.expected_logs is not None:
+            assert "\n".join(caplog.messages) == normalize(self.expected_logs)
 
 
 async def apply_commands(
