@@ -32,9 +32,10 @@ class NoteOff(PerformanceEvent):
 
 class Performer:
     def __init__(self) -> None:
-        self._note_numbers: list[float] = []
+        self._input_note_numbers: list[float] = []
+        self._output_note_numbers: set[float] = set()
         self._performance_event_handlers: dict[
-            Type[PerformanceEvent], Callable[[PerformanceEvent], list[PerformanceEvent]]
+            Type[PerformanceEvent], Callable[[PerformanceEvent, IO], list[PerformanceEvent]]
         ] = {
             NoteOn: self._on_note_on,
             NoteOff: self._on_note_off,
@@ -47,7 +48,7 @@ class Performer:
             IO.READ,
             [
                 NoteOff(note_number=note_number, velocity=0)
-                for note_number in self._note_numbers
+                for note_number in self._input_note_numbers
             ],
         )
 
@@ -56,35 +57,45 @@ class Performer:
     ) -> Generator[tuple["Performer", IO, list[PerformanceEvent]], None, None]:
         logger.info("performing: self=%s io=%s events=%s", self, io, events)
         events_: list[PerformanceEvent] = []
-        if io == IO.READ:
-            for event in events:
-                if callback := self._performance_event_handlers.get(type(event)):
-                    events_.extend(callback(event))
-                else:
-                    events_.append(event)
-        else:
-            events_ = events
+        for event in events:
+            if callback := self._performance_event_handlers.get(type(event)):
+                events_.extend(callback(event, io))
+            else:  # pass through
+                events_.append(event)
         if events_:
             for performer, io in self._next_performers(io):
                 yield performer, io, events_
 
     def _next_performers(self, io: IO) -> Generator[tuple["Performer", IO], None, None]:
-        # This needs to be implemented on a per-performer basis
+        # N.B. This needs to be implemented on a per-performer basis because it
+        # depends on the session structure in a type-aware way.
         raise NotImplementedError
 
-    def _on_note_on(self, event: PerformanceEvent) -> list[PerformanceEvent]:
+    def _on_note_on(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
         assert isinstance(event, NoteOn)
-        if event.note_number in self._note_numbers:
-            return []
-        self._note_numbers.append(event.note_number)
-        return [event]
+        if io == IO.READ:
+            if event.note_number in self._input_note_numbers:
+                return []
+            self._input_note_numbers.append(event.note_number)
+            return [event]
+        else:
+            if event.note_number in self._output_note_numbers:
+                return []
+            self._output_note_numbers.add(event.note_number)
+            return [event]
 
-    def _on_note_off(self, event: PerformanceEvent) -> list[PerformanceEvent]:
+    def _on_note_off(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
         assert isinstance(event, NoteOff)
-        if event.note_number not in self._note_numbers:
-            return []
-        self._note_numbers.remove(event.note_number)
-        return [event]
+        if io == IO.READ:
+            if event.note_number not in self._input_note_numbers:
+                return []
+            self._input_note_numbers.remove(event.note_number)
+            return [event]
+        else:
+            if event.note_number not in self._output_note_numbers:
+                return []
+            self._output_note_numbers.add(event.note_number)
+            return [event]
 
     def _perform_loop(
         self, performer: "Performer", io: IO, events: list[PerformanceEvent]
