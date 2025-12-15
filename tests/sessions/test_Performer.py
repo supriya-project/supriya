@@ -41,6 +41,22 @@ class PerformScenario(Scenario):
         PerformScenario(
             commands=[
                 (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_device", {"name": "Device 1"}),
+                ("mixers[0]", "add_device", {"name": "Device 2"}),
+            ],
+            events=[[NoteOn(64, 77)]],
+            expected_logs="""
+            performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
+            performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
+            performing: self=<Device 2 'Device 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
+            performing: self=<Device 3 'Device 2'> io=read events=[NoteOn(note_number=64, velocity=77)]
+            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
+            """,
+            subject="mixers[0]",
+        ),
+        PerformScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_rack", {"name": "Rack"}),
             ],
             events=[[NoteOn(64, 77)]],
@@ -50,7 +66,7 @@ class PerformScenario(Scenario):
             performing: self=<Rack 2 'Rack'> io=read events=[NoteOn(note_number=64, velocity=77)]
             performing: self=<Chain 3 'Chain 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
             performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
-            # should hit mixer:write
+            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
@@ -68,7 +84,8 @@ class PerformScenario(Scenario):
             performing: self=<Chain 3 'Chain 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
             performing: self=<Device 4 'Device'> io=read events=[NoteOn(note_number=64, velocity=77)]
             performing: self=<Chain 3 'Chain 1'> io=write events=[NoteOn(note_number=64, velocity=77)]
-            # should hit rack:write, mixer:write
+            performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
+            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
@@ -86,7 +103,7 @@ class PerformScenario(Scenario):
             performing: self=<Chain 4 'Chain 2'> io=read events=[NoteOn(note_number=64, velocity=77)]
             performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
             performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
-            # should hit mixer:write
+            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
