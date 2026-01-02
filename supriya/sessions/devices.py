@@ -12,7 +12,7 @@ from typing import (
     cast,
 )
 
-from ..contexts import BusGroup
+from ..contexts import BusGroup, Synth
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..typing import Inherit
 from ..ugens import SynthDef
@@ -28,7 +28,7 @@ from .constants import (
     PolyphonyMode,
 )
 from .parameters import Field
-from .performers import NoteOff, NoteOn, Performer
+from .performers import NoteOff, NoteOn, PerformanceEvent, Performer
 from .routing import Input
 from .specs import Spec, SpecFactory
 
@@ -110,20 +110,10 @@ class NoteOnCallable(Protocol):
         raise NotImplementedError
 
 
-class NoteOffCallable(Protocol):
-    def __call__(
-        self,
-        event: NoteOff,
-        options: dict[str, float],
-    ) -> dict[str, float]:
-        raise NotImplementedError
-
-
 @dataclasses.dataclass
 class NoteConfig:
-    synth: SynthDef | SynthDefCallable | SynthDefExtendedCallable
+    synthdef: SynthDef | SynthDefCallable
     note_on: NoteOnCallable
-    note_off: NoteOffCallable | None
     # control mappings
     controls: (
         dict[
@@ -554,10 +544,12 @@ class Device(DeviceBase):
         # set initial sidechains, if any
         for name, source in (initial_sidechains or {}).items():
             self._sidechains[name].set(source)
-        # validate note configs, polyphony
+        # TODO: validate polyphony
+        # TODO: should polyphony live on performer?
         self._polyphony_mode: PolyphonyMode = PolyphonyMode.FREE_OLDEST
         self._polyphone_limit: int | None = None
         self._note_config = note_config
+        self._notes: dict[float, Synth]
 
     def _add_sidechain(
         self,
@@ -580,6 +572,32 @@ class Device(DeviceBase):
         for sidechain in self._sidechains.values():
             sidechain._on_connection_deleted(connection)
         return False
+
+    def _on_note_on(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
+        if not self._note_config:
+            return super()._on_note_on(event, io)
+        assert isinstance(event, NoteOff)
+        if event.note_number in self._input_note_numbers:
+            self._notes.pop(event.note_number).free()
+        if not self.context:
+            return [event]
+        self._notes[event.note_number] = self.context.add_synth(
+            # need to cache the synthdef
+            synthdef=...,
+            # need to calculate params
+            # need to apply control mappings
+        )
+        return [event]
+
+    def _on_note_off(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
+        if not self._note_config:
+            return super()._on_note_off(event, io)
+        assert isinstance(event, NoteOff)
+        if not self.context or event.note_number not in self._input_note_numbers:
+            return [event]
+        self._input_note_numbers.append(event.note_number)
+        self._notes[event.note_number].free()
+        return [event]
 
     def _reconcile_connections(
         self,
@@ -682,6 +700,14 @@ class Device(DeviceBase):
                 target_node=target_node_address,
             )
             add_action = AddAction.ADD_AFTER
+        # notes
+        if self._note_config:
+            if isinstance(self._note_config.synthdef, SynthDef):
+                spec_factory.add_synthdef(synthdef=self._note_config.synthdef)
+            else:
+                spec_factory.add_synthdef(
+                    synthdef=self._note_config.synthdef(effective_channel_count)
+                )
         # meters
         levels_control_bus_address = spec_factory.add_control_bus(
             channel_count=effective_channel_count,
