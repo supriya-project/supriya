@@ -35,7 +35,8 @@ class Performer:
         self._input_note_numbers: list[float] = []
         self._output_note_numbers: set[float] = set()
         self._performance_event_handlers: dict[
-            Type[PerformanceEvent], Callable[[PerformanceEvent, IO], list[PerformanceEvent]]
+            Type[PerformanceEvent],
+            Callable[[PerformanceEvent, IO], list[PerformanceEvent]],
         ] = {
             NoteOn: self._on_note_on,
             NoteOff: self._on_note_off,
