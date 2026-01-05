@@ -546,10 +546,11 @@ class Device(DeviceBase):
             self._sidechains[name].set(source)
         # TODO: validate polyphony
         # TODO: should polyphony live on performer?
-        self._polyphony_mode: PolyphonyMode = PolyphonyMode.FREE_OLDEST
-        self._polyphone_limit: int | None = None
+        self._cached_note_synthdef: SynthDef | None = None
         self._note_config = note_config
         self._notes: dict[float, Synth]
+        self._polyphone_limit: int | None = None
+        self._polyphony_mode: PolyphonyMode = PolyphonyMode.FREE_OLDEST
 
     def _add_sidechain(
         self,
@@ -568,6 +569,44 @@ class Device(DeviceBase):
         )
         return sidechain
 
+    def _build_synth_kwargs(
+        self,
+        *,
+        controls: (
+            dict[
+                str,
+                float
+                | tuple[CalculationRate, str]
+                | Callable[[], float | tuple[CalculationRate, str]],
+            ]
+            | None
+        ),
+        main_bus_address: Address,
+        options: dict[str, float],
+        synthdef: SynthDef,
+    ) -> dict[str, Address | BusGroup | float]:
+        kwargs: dict[str, Address | BusGroup | float] = {}
+        for key in ["bus", "in_", "out"]:
+            if key not in synthdef.parameters:
+                continue
+            kwargs[key] = main_bus_address
+        for key, value in (controls or {}).items():
+            if key not in synthdef.parameters:
+                continue
+            if isinstance(
+                value_ := value(**options) if callable(value) else value, float
+            ):
+                kwargs[key] = value_
+            else:
+                rate, name = value_
+                if rate == CalculationRate.CONTROL:
+                    kwargs[key] = Spec.get_address(self, Entities.CONTROL_BUSES, name)
+                elif rate == CalculationRate.AUDIO:
+                    kwargs[key] = Spec.get_address(self, Entities.AUDIO_BUSES, name)
+                else:
+                    raise ValueError(rate)
+        return kwargs
+
     def _on_connection_deleted(self, connection: "Component") -> bool:
         for sidechain in self._sidechains.values():
             sidechain._on_connection_deleted(connection)
@@ -579,11 +618,11 @@ class Device(DeviceBase):
         assert isinstance(event, NoteOff)
         if event.note_number in self._input_note_numbers:
             self._notes.pop(event.note_number).free()
-        if not self.context:
+        if not self.context or not self._cached_note_synthdef:
             return [event]
         self._notes[event.note_number] = self.context.add_synth(
             # need to cache the synthdef
-            synthdef=...,
+            synthdef=self._cached_note_synthdef,
             # need to calculate params
             # need to apply control mappings
         )
@@ -667,47 +706,34 @@ class Device(DeviceBase):
                     )
             if synthdef is None:
                 continue
-            controls: dict[str, Address | BusGroup | float] = {}
-            for key in ["bus", "in_", "out"]:
-                if key not in synthdef.parameters:
-                    continue
-                controls[key] = main_bus_address
-            for key, value in (synth_config.controls or {}).items():
-                if key not in synthdef.parameters:
-                    continue
-                if isinstance(
-                    value_ := value(**options) if callable(value) else value, float
-                ):
-                    controls[key] = value_
-                else:
-                    rate, name = value_
-                    if rate == CalculationRate.CONTROL:
-                        controls[key] = Spec.get_address(
-                            self, Entities.CONTROL_BUSES, name
-                        )
-                    elif rate == CalculationRate.AUDIO:
-                        controls[key] = Spec.get_address(
-                            self, Entities.AUDIO_BUSES, name
-                        )
-                    else:
-                        raise ValueError(rate)
-            synthdef_address = spec_factory.add_synthdef(synthdef=synthdef)
             target_node_address = spec_factory.add_synth(
                 add_action=add_action,
-                kwargs=controls,
+                kwargs=self._build_synth_kwargs(
+                    controls=synth_config.controls,
+                    main_bus_address=main_bus_address,
+                    options=options,
+                    synthdef=synthdef,
+                ),
                 name=f"synth-{index}",
-                synthdef=synthdef_address,
+                synthdef=spec_factory.add_synthdef(synthdef=synthdef),
                 target_node=target_node_address,
             )
             add_action = AddAction.ADD_AFTER
         # notes
         if self._note_config:
             if isinstance(self._note_config.synthdef, SynthDef):
-                spec_factory.add_synthdef(synthdef=self._note_config.synthdef)
+                spec_factory.add_synthdef(
+                    synthdef=(note_synthdef := self._note_config.synthdef)
+                )
             else:
                 spec_factory.add_synthdef(
-                    synthdef=self._note_config.synthdef(effective_channel_count)
+                    synthdef=(
+                        note_synthdef := self._note_config.synthdef(
+                            effective_channel_count
+                        )
+                    )
                 )
+            self._cached_note_synthdef = note_synthdef
         # meters
         levels_control_bus_address = spec_factory.add_control_bus(
             channel_count=effective_channel_count,
