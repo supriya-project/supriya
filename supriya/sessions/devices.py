@@ -106,6 +106,7 @@ class NoteOnCallable(Protocol):
         self,
         event: NoteOn,
         options: dict[str, float],
+        synthdef: SynthDef,
     ) -> dict[str, float]:
         raise NotImplementedError
 
@@ -615,16 +616,36 @@ class Device(DeviceBase):
     def _on_note_on(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
         if not self._note_config:
             return super()._on_note_on(event, io)
-        assert isinstance(event, NoteOff)
+        assert isinstance(event, NoteOn)
         if event.note_number in self._input_note_numbers:
             self._notes.pop(event.note_number).free()
         if not self.context or not self._cached_note_synthdef:
             return [event]
+        main_bus_address = self._ensure_parent()._get_main_bus_address()
+        options: dict[str, float] = {
+            parameter.name: parameter.value
+            for parameter in self._parameters.values()
+            if not parameter.has_bus
+        }
+        # TODO: Translate Address into BusGroup eagerly.
+        #       We are not performing reconciliation here.
+        kwargs: dict[str, Address | BusGroup | float] = {
+            **self._build_synth_kwargs(
+                controls=self._note_config.controls,
+                main_bus_address=main_bus_address,
+                options=options,
+                synthdef=self._cached_note_synthdef,
+            ),
+            **self._note_config.note_on(
+                event=event, options=options, synthdef=self._cached_note_synthdef
+            ),
+        }
         self._notes[event.note_number] = self.context.add_synth(
-            # need to cache the synthdef
+            add_action=AddAction.ADD_TO_HEAD,
+            permanent=False,
             synthdef=self._cached_note_synthdef,
-            # need to calculate params
-            # need to apply control mappings
+            target_node=...,  # Need an ID, not an address
+            **kwargs,
         )
         return [event]
 
