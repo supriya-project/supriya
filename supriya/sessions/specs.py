@@ -4,7 +4,7 @@ import itertools
 from collections import ChainMap, deque
 from typing import TYPE_CHECKING, Iterator, Optional, Sequence
 
-from ..contexts import AsyncServer, Buffer, BusGroup, Node
+from ..contexts import AsyncServer, Buffer, BusGroup, Node, Synth
 from ..enums import AddAction, CalculationRate, DoneAction
 from ..ugens import SynthDef
 from .constants import IO, Address, Entities, Names, Reconciliation
@@ -32,6 +32,18 @@ class Artifacts:
     nodes: dict[Address, Node] = dataclasses.field(default_factory=dict)
     synthdefs: dict[Address, SynthDef] = dataclasses.field(default_factory=dict)
     hashes: dict[Address, int] = dataclasses.field(default_factory=dict)
+
+    def __getitem__(self, item: Address) -> Buffer | BusGroup | Node | SynthDef:
+        for mapping in (
+            self.control_buses,
+            self.audio_buses,
+            self.nodes,
+            self.buffers,
+            self.synthdefs,
+        ):
+            if item not in mapping:
+                return mapping[item]
+        raise KeyError(item)
 
     def clear(self) -> None:
         """
@@ -153,25 +165,18 @@ class Spec:
         raise NotImplementedError
 
     def resolve_bus(
-        self,
-        *,
-        address: Address,
-        new_global_artifacts: Artifacts,
-        old_global_artifacts: Artifacts,
+        self, *, address: Address, artifacts: Sequence[Artifacts]
     ) -> BusGroup:
         return ChainMap(
-            new_global_artifacts.audio_buses,
-            new_global_artifacts.control_buses,
-            old_global_artifacts.audio_buses,
-            old_global_artifacts.control_buses,
+            *[artifacts_.audio_buses for artifacts_ in artifacts],
+            *[artifacts_.control_buses for artifacts_ in artifacts],
         )[address]
 
     def resolve_kwargs(
         self,
         *,
+        artifacts: Sequence[Artifacts],
         kwargs: dict[str, Address | BusGroup | float],
-        new_global_artifacts: Artifacts,
-        old_global_artifacts: Artifacts,
     ) -> tuple[dict[str, float], dict[str, str]]:
         map_kwargs: dict[str, str] = {}
         set_kwargs: dict[str, float] = {}
@@ -179,8 +184,7 @@ class Spec:
             if isinstance(value, Address):
                 value = self.resolve_bus(
                     address=value,
-                    new_global_artifacts=new_global_artifacts,
-                    old_global_artifacts=old_global_artifacts,
+                    artifacts=artifacts,
                 )
             assert not isinstance(value, Address)
             if isinstance(value, BusGroup):
@@ -199,13 +203,12 @@ class Spec:
         self,
         *,
         address: Address | None,
-        new_global_artifacts: Artifacts,
-        old_global_artifacts: Artifacts,
+        artifacts: Sequence[Artifacts],
     ) -> Node:
         target_node: Node | None = None
         if address and not (
             target_node := ChainMap(
-                new_global_artifacts.nodes, old_global_artifacts.nodes
+                *[artifacts_.nodes for artifacts_ in artifacts]
             ).get(address)
         ):
             raise ValueError(address)
@@ -215,13 +218,9 @@ class Spec:
         self,
         *,
         address: Address,
-        old_global_artifacts: Artifacts,
-        new_global_artifacts: Artifacts,
+        artifacts: Sequence[Artifacts],
     ) -> SynthDef:
-        return ChainMap(
-            new_global_artifacts.synthdefs,
-            old_global_artifacts.synthdefs,
-        )[address]
+        return ChainMap(*[artifacts_.synthdefs for artifacts_ in artifacts])[address]
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
@@ -463,8 +462,7 @@ class GroupSpec(NodeSpec):
             add_action=self.add_action,
             target_node=self.resolve_node(
                 address=self.target_node,
-                new_global_artifacts=new_global_artifacts,
-                old_global_artifacts=old_global_artifacts,
+                artifacts=[new_global_artifacts, old_global_artifacts],
             ),
         )
         global_specs[self.address] = self
@@ -512,8 +510,7 @@ class GroupSpec(NodeSpec):
                 add_action=self.add_action,
                 target_node=self.resolve_node(
                     address=self.target_node,
-                    new_global_artifacts=new_global_artifacts,
-                    old_global_artifacts=old_global_artifacts,
+                    artifacts=[new_global_artifacts, old_global_artifacts],
                 ),
             )
         global_specs[self.address] = self
@@ -561,32 +558,29 @@ class SynthSpec(NodeSpec):
         old_global_artifacts: Artifacts,
         new_global_artifacts: Artifacts,
     ) -> None:
-        set_kwargs, map_kwargs = self.resolve_kwargs(
-            kwargs=self.kwargs,
-            new_global_artifacts=new_global_artifacts,
-            old_global_artifacts=old_global_artifacts,
-        )
-        synth = self.context.add_synth(
-            add_action=self.add_action,
-            synthdef=self.resolve_synthdef(
-                address=self.synthdef,
-                new_global_artifacts=new_global_artifacts,
-                old_global_artifacts=old_global_artifacts,
-            ),
-            target_node=self.resolve_node(
-                address=self.target_node,
-                new_global_artifacts=new_global_artifacts,
-                old_global_artifacts=old_global_artifacts,
-            ),
-            permanent=False,
-            **set_kwargs,
-            **map_kwargs,
+        synth = self.perform(
+            artifacts=[new_global_artifacts, old_global_artifacts],
         )
         global_specs[self.address] = self
         local_artifacts = self.component._local_artifacts
         local_artifacts.hashes[self.address] = hash(self)
         local_artifacts.nodes[self.name] = synth
         new_global_artifacts.nodes[self.address] = synth
+
+    def perform(self, *, artifacts: Sequence[Artifacts]) -> Synth:
+        set_kwargs, map_kwargs = self.resolve_kwargs(
+            artifacts=artifacts, kwargs=self.kwargs
+        )
+        return self.context.add_synth(
+            add_action=self.add_action,
+            synthdef=self.resolve_synthdef(address=self.synthdef, artifacts=artifacts),
+            target_node=self.resolve_node(
+                address=self.target_node, artifacts=artifacts
+            ),
+            permanent=False,
+            **set_kwargs,
+            **map_kwargs,
+        )
 
     def destroy(
         self,
@@ -635,20 +629,17 @@ class SynthSpec(NodeSpec):
                 add_action=self.add_action,
                 target_node=self.resolve_node(
                     address=self.target_node,
-                    new_global_artifacts=new_global_artifacts,
-                    old_global_artifacts=old_global_artifacts,
+                    artifacts=[new_global_artifacts, old_global_artifacts],
                 ),
             )
         if self.kwargs != old_spec.kwargs:
             old_set_kwargs, old_map_kwargs = self.resolve_kwargs(
+                artifacts=[new_global_artifacts, old_global_artifacts],
                 kwargs=old_spec.kwargs,
-                new_global_artifacts=new_global_artifacts,
-                old_global_artifacts=old_global_artifacts,
             )
             new_set_kwargs, new_map_kwargs = self.resolve_kwargs(
+                artifacts=[new_global_artifacts, old_global_artifacts],
                 kwargs=self.kwargs,
-                new_global_artifacts=new_global_artifacts,
-                old_global_artifacts=old_global_artifacts,
             )
             for key in old_set_kwargs:
                 if old_set_kwargs[key] == new_set_kwargs[key]:

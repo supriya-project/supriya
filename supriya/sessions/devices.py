@@ -30,7 +30,7 @@ from .constants import (
 from .parameters import Field
 from .performers import NoteOff, NoteOn, PerformanceEvent, Performer
 from .routing import Input
-from .specs import Spec, SpecFactory
+from .specs import Spec, SpecFactory, SynthSpec
 
 if TYPE_CHECKING:
     from .racks import Chain, Rack
@@ -629,23 +629,31 @@ class Device(DeviceBase):
         }
         # TODO: Translate Address into BusGroup eagerly.
         #       We are not performing reconciliation here.
-        kwargs: dict[str, Address | BusGroup | float] = {
-            **self._build_synth_kwargs(
-                controls=self._note_config.controls,
-                main_bus_address=main_bus_address,
-                options=options,
-                synthdef=self._cached_note_synthdef,
-            ),
-            **self._note_config.note_on(
-                event=event, options=options, synthdef=self._cached_note_synthdef
-            ),
-        }
-        self._notes[event.note_number] = self.context.add_synth(
+        self._notes[event.note_number] = SynthSpec(
             add_action=AddAction.ADD_TO_HEAD,
-            permanent=False,
-            synthdef=self._cached_note_synthdef,
-            target_node=...,  # Need an ID, not an address
-            **kwargs,
+            component=self,
+            context=self.context,
+            kwargs=dict(
+                **self._build_synth_kwargs(
+                    controls=self._note_config.controls,
+                    main_bus_address=main_bus_address,
+                    options=options,
+                    synthdef=self._cached_note_synthdef,
+                ),
+                **self._note_config.note_on(
+                    event=event, options=options, synthdef=self._cached_note_synthdef
+                ),
+            ),
+            name="note",
+            parent_node=None,
+            synthdef=(
+                Entities.SYNTHDEFS + ":" + self._cached_note_synthdef.effective_name
+            ),
+            target_node=Spec.get_address(self, Entities.NODES, Names.GROUP),
+        ).perform(
+            artifacts=[
+                self._ensure_session()._global_artifacts_by_context[self.context]
+            ]
         )
         return [event]
 
@@ -755,6 +763,8 @@ class Device(DeviceBase):
                     )
                 )
             self._cached_note_synthdef = note_synthdef
+        else:
+            self._cached_note_synthdef = None
         # meters
         levels_control_bus_address = spec_factory.add_control_bus(
             channel_count=effective_channel_count,
