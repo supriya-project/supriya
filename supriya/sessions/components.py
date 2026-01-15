@@ -238,6 +238,9 @@ class Component(Generic[C]):
         """
         return False
 
+    def _on_reconcile(self) -> None:
+        pass
+
     @classmethod
     async def _reconcile(
         cls,
@@ -326,6 +329,7 @@ class Component(Generic[C]):
                     ),
                 ),
             )
+            visited_components.add(component)
         # sort and apply spec changes
         sorted_spec_changes = SpecChange.sort(spec_changes)
         roots = [*reconciling_components, *deleted_components]
@@ -354,6 +358,9 @@ class Component(Generic[C]):
             component._parent = None
         # update track activation, post deletion, as soloed tracks may have been deleted
         session._update_track_activation()
+        # post-reconcile hook
+        for component in visited_components:
+            component._on_reconcile()
 
     def _reconcile_connections(
         self,
