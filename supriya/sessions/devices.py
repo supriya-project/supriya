@@ -25,7 +25,6 @@ from .constants import (
     Entities,
     Names,
     PatchMode,
-    PolyphonyMode,
 )
 from .parameters import Field
 from .performers import NoteOff, NoteOn, PerformanceEvent, Performer
@@ -550,8 +549,6 @@ class Device(DeviceBase):
         self._cached_note_synthdef: SynthDef | None = None
         self._note_config = note_config
         self._notes: dict[float, Synth]
-        self._polyphone_limit: int | None = None
-        self._polyphony_mode: PolyphonyMode = PolyphonyMode.FREE_OLDEST
 
     def _add_sidechain(
         self,
