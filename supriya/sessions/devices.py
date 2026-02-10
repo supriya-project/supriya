@@ -126,7 +126,7 @@ class NoteConfig:
         | None
     ) = None
     retrigger: bool = False
-    polyphony_mode: PolyphonyMode.FREE_OLDEST
+    polyphony_mode: PolyphonyMode = PolyphonyMode.FREE_OLDEST
     polyphony_limit: int | None = None
 
 
