@@ -26,7 +26,8 @@ from .conftest import Scenario
                 ),
             ],
             subject="mixers[0].devices[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,4 +1,3 @@
@@ -34,7 +35,8 @@ from .conftest import Scenario
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             -            <Device 2 'Self'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/n_set', 1007, 'done_action', 14.0, 'gate', 0.0]
             """,
@@ -277,7 +279,8 @@ class MoveScenario(Scenario):
             parent="mixers[0]",
             index=0,
             expected_graph_order=(0, 0),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -287,7 +290,8 @@ class MoveScenario(Scenario):
             +            <Device 3 'Self'>
                          <Device 2 'Older Sibling'>
             -            <Device 3 'Self'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/g_head', 1002, 1011]
             - ['/n_after', 1007, 1011]
@@ -349,7 +353,8 @@ class MoveScenario(Scenario):
             parent="mixers[0]",
             index=1,
             expected_graph_order=(0, 1),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -359,7 +364,8 @@ class MoveScenario(Scenario):
             +            <Device 3 'Younger Sibling'>
                          <Device 2 'Self'>
             -            <Device 3 'Younger Sibling'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/n_after', 1007, 1011]
             - ['/g_head', 1002, 1011]

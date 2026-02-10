@@ -215,7 +215,8 @@ class DeleteContextScenario(Scenario):
                 (None, "add_context", {"options": Options(port=find_free_port())}),
             ],
             context_index=0,
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,2 @@
@@ -224,7 +225,8 @@ class DeleteContextScenario(Scenario):
             -        <Mixer 1 'Mixer'>
             -            <Track 2 'Track'>
             -    <session.contexts[1]>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -359,7 +361,8 @@ class SetMixerContextScenario(Scenario):
             ],
             mixer_index=0,
             context_index=1,
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -371,7 +374,8 @@ class SetMixerContextScenario(Scenario):
                          <Track 2 'Track'>
             -        <Mixer 3 'Mixer Two'>
             -    <session.contexts[1]>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation

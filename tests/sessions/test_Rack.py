@@ -41,7 +41,8 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
                 ("mixers[0]", "add_rack", {"name": "Self"}),
             ],
             subject="mixers[0].devices[0]",
-            expected_components_diff=lambda session: """
+            expected_components_diff=lambda session: (
+                """
             --- initial
             +++ mutation
             @@ -3,3 +3,4 @@
@@ -49,7 +50,8 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
                          <Rack 2 'Self'>
                              <Chain 3 'Chain 1'>
             +                <Chain 4 'Chain 2'>
-            """,
+            """
+            ),
             expected_messages="""
             - [None, [['/c_set', 14, 1.0, 15, 0.0], ['/c_fill', 16, 2, 0.0, 18, 2, 0.0]]]
             - [None,
@@ -92,7 +94,8 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
                 ("mixers[0].devices[0].chains[0]", "delete", {}),
             ],
             subject="mixers[0].devices[0]",
-            expected_components_diff=lambda session: """
+            expected_components_diff=lambda session: (
+                """
             --- initial
             +++ mutation
             @@ -2,3 +2,4 @@
@@ -100,7 +103,8 @@ def build_effect_synthdef(channel_count: ChannelCount) -> SynthDef:
                      <Mixer 1 'Mixer'>
                          <Rack 2 'Self'>
             +                <Chain 4 'Chain 1'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
             - ['/sync', 3]
@@ -656,7 +660,8 @@ async def test_Rack_set_write_mode(
                 ("mixers[0].devices[0].chains[0]", "delete", {}),
             ],
             subject="mixers[0].devices[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,4 +1,3 @@
@@ -664,7 +669,8 @@ async def test_Rack_set_write_mode(
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             -            <Rack 2 'Self'>
-            """,
+            """
+            ),
             expected_messages="""
             - [None, [['/n_set', 1007, 'gate', 0.0], ['/n_set', 1009, 'done_action', 14.0]]]
             """,
@@ -694,7 +700,8 @@ async def test_Rack_set_write_mode(
                 ),
             ],
             subject="mixers[0].devices[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,4 @@
@@ -705,7 +712,8 @@ async def test_Rack_set_write_mode(
             -                <Chain 3 'Chain 1'>
             -                    <Device 4>
             +            <Device 4>
-            """,
+            """
+            ),
             expected_messages="""
             - [None,
                [['/s_new', 'supriya:dc:2', 1022, 1, 1019, 'out', 16.0],
