@@ -142,7 +142,8 @@ class GroupTracksScenario(Scenario):
             subject="mixers[0]",
             index=0,
             count=2,
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,6 @@
@@ -154,7 +155,8 @@ class GroupTracksScenario(Scenario):
             +            <Track 4 'Group Track'>
             +                <Track 2 'Track One'>
             +                <Track 3 'Track Two'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation

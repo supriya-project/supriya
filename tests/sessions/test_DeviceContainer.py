@@ -62,7 +62,8 @@ class AddDeviceScenario(Scenario):
             synth_configs=[
                 SynthConfig(synthdef=build_effect_synthdef),
             ],
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,4 @@
@@ -70,7 +71,8 @@ class AddDeviceScenario(Scenario):
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/d_recv', <SynthDef: test:effect:2>]
             - ['/sync', 3]
@@ -116,7 +118,8 @@ class AddDeviceScenario(Scenario):
                     synthdef=build_effect_synthdef,
                 ),
             ],
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,4 @@
@@ -124,7 +127,8 @@ class AddDeviceScenario(Scenario):
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/d_recv', <SynthDef: test:effect:2>]
             - ['/sync', 3]
@@ -166,7 +170,8 @@ class AddDeviceScenario(Scenario):
                     synthdef=build_sidechain_synthdef,
                 ),
             ],
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,4 @@
@@ -174,7 +179,8 @@ class AddDeviceScenario(Scenario):
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             +            <Device 2 'Device'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/d_recv', <SynthDef: test:sidechain:2>]
             - ['/sync', 3]
@@ -238,7 +244,8 @@ class AddRackScenario(Scenario):
             id="add rack to mixer",
             commands=[(None, "add_mixer", {"name": "Mixer"})],
             subject="mixers[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,5 @@
@@ -247,7 +254,8 @@ class AddRackScenario(Scenario):
                      <Mixer 1 'Mixer'>
             +            <Rack 2 'Rack'>
             +                <Chain 3 'Chain 1'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
             - ['/sync', 3]
@@ -302,7 +310,8 @@ class AddRackScenario(Scenario):
                 ("mixers[0]", "add_track", {"name": "Track"}),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: """
+            expected_components_diff=lambda session: (
+                """
             --- initial
             +++ mutation
             @@ -2,3 +2,5 @@
@@ -311,7 +320,8 @@ class AddRackScenario(Scenario):
                          <Track 2 'Track'>
             +                <Rack 3 'Rack'>
             +                    <Chain 4 'Chain 1'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
             - ['/sync', 3]
@@ -365,7 +375,8 @@ class AddRackScenario(Scenario):
             subject="mixers[0]",
             read_mode=PatchMode.IGNORE,
             write_mode=PatchMode.REPLACE,
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,5 @@
@@ -374,7 +385,8 @@ class AddRackScenario(Scenario):
                      <Mixer 1 'Mixer'>
             +            <Rack 2 'Rack'>
             +                <Chain 3 'Chain 1'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]
             - ['/d_recv', <SynthDef: supriya:zero:2>]
@@ -429,7 +441,8 @@ class AddRackScenario(Scenario):
             subject="mixers[0]",
             chain_count=2,
             write_mode=PatchMode.MIX,
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,3 +1,6 @@
@@ -439,7 +452,8 @@ class AddRackScenario(Scenario):
             +            <Rack 2 'Rack'>
             +                <Chain 3 'Chain 1'>
             +                <Chain 4 'Chain 2'>
-            """,
+            """
+            ),
             expected_messages="""
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:mix>]
             - ['/d_recv', <SynthDef: supriya:patch-cable:2x2:replace>]

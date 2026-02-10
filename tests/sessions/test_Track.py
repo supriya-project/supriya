@@ -606,7 +606,8 @@ async def test_Track_add_send(
                 ("mixers[0]", "add_track", {"name": "Self"}),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,4 +1,3 @@
@@ -614,7 +615,8 @@ async def test_Track_add_send(
                  <session.contexts[0]>
                      <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -645,7 +647,8 @@ async def test_Track_add_send(
                 ("mixers[0].tracks[0]", "add_track", {"name": "Child"}),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,3 @@
@@ -654,7 +657,8 @@ async def test_Track_add_send(
                      <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             -                <Track 3 'Child'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -735,7 +739,8 @@ async def test_Track_add_send(
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,3 @@
@@ -744,7 +749,8 @@ async def test_Track_add_send(
                      <Mixer 1 'Mixer'>
             -            <Track 2 'Self'>
             -                <TrackSend 3 postfader target=<Track 2 'Self'>>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -786,7 +792,8 @@ async def test_Track_add_send(
                 ("mixers[0].tracks[0]", "add_send", {"target": "mixers[0].tracks[1]"}),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,4 @@
@@ -796,7 +803,8 @@ async def test_Track_add_send(
             -            <Track 2 'Self'>
             -                <TrackSend 4 postfader target=<Track 3 'Other'>>
                          <Track 3 'Other'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -831,7 +839,8 @@ async def test_Track_add_send(
                 ("mixers[0].tracks[1]", "add_send", {"target": "mixers[0].tracks[0]"}),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,4 @@
@@ -841,7 +850,8 @@ async def test_Track_add_send(
             -            <Track 2 'Self'>
                          <Track 3 'Other'>
             -                <TrackSend 4 postfader target=<Track 2 'Self'>>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -895,7 +905,8 @@ async def test_Track_add_send(
                 ),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,7 +1,4 @@
@@ -906,7 +917,8 @@ async def test_Track_add_send(
             -                <Track 4 'Child'>
                          <Track 3 'Other'>
             -                <TrackSend 5 postfader target=<Track 4 'Child'>>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -970,7 +982,8 @@ async def test_Track_add_send(
                 ),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,4 @@
@@ -980,7 +993,8 @@ async def test_Track_add_send(
             -            <Track 2 'Self'>
             -            <Track 3 'Other' output=<Track 2 'Self'>>
             +            <Track 3 'Other' output=None>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -1029,7 +1043,8 @@ async def test_Track_add_send(
                 ("mixers[0].tracks[1]", "set_input", {"input_": "mixers[0].tracks[0]"}),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,4 @@
@@ -1039,7 +1054,8 @@ async def test_Track_add_send(
             -            <Track 2 'Self'>
             -            <Track 3 'Other' input=<Track 2 'Self'>>
             +            <Track 3 'Other'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -1281,7 +1297,8 @@ class MoveScenario(Scenario):
             parent="mixers[0]",
             index=1,
             expected_graph_order=(0, 1),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -1291,7 +1308,8 @@ class MoveScenario(Scenario):
             +            <Track 3 'Younger Sibling'>
                          <Track 2 'Self'>
             -            <Track 3 'Younger Sibling'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -1348,7 +1366,8 @@ class MoveScenario(Scenario):
             parent="mixers[0]",
             index=0,
             expected_graph_order=(0, 0),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1359,7 +1378,8 @@ class MoveScenario(Scenario):
                          <Track 2 'Eldest Sibling'>
                          <Track 3 'Older Sibling'>
             -            <Track 4 'Self'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -1415,7 +1435,8 @@ class MoveScenario(Scenario):
             parent="mixers[0].tracks[1]",
             index=0,
             expected_graph_order=(0, 0, 0),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -1425,7 +1446,8 @@ class MoveScenario(Scenario):
             -            <Track 2 'Self'>
                          <Track 3 'Younger Sibling'>
             +                <Track 2 'Self'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -1482,7 +1504,8 @@ class MoveScenario(Scenario):
             parent="mixers[0]",
             index=1,
             expected_graph_order=(0, 1),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1493,7 +1516,8 @@ class MoveScenario(Scenario):
                          <Track 2 'Self'>
                              <TrackSend 4 postfader target=<Track 3 'Younger Sibling'>>
             -            <Track 3 'Younger Sibling'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -1565,7 +1589,8 @@ class MoveScenario(Scenario):
             parent="mixers[0]",
             index=0,
             expected_graph_order=(0, 0),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1576,7 +1601,8 @@ class MoveScenario(Scenario):
                          <Track 3 'Self'>
                              <TrackSend 4 postfader target=<Track 2 'Older Sibling'>>
             +            <Track 2 'Older Sibling'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -1647,7 +1673,8 @@ class MoveScenario(Scenario):
             parent="mixers[0]",
             index=1,
             expected_graph_order=(0, 1),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1658,7 +1685,8 @@ class MoveScenario(Scenario):
                          <Track 3 'Younger Sibling'>
                              <TrackSend 4 postfader target=<Track 2 'Self'>>
             +            <Track 2 'Self'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -1728,7 +1756,8 @@ class MoveScenario(Scenario):
             parent="mixers[0]",
             index=0,
             expected_graph_order=(0, 0),
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -1739,7 +1768,8 @@ class MoveScenario(Scenario):
                          <Track 2 'Older Sibling'>
                              <TrackSend 4 postfader target=<Track 3 'Self'>>
             -            <Track 3 'Self'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -2129,7 +2159,8 @@ class SetInputScenario(Scenario):
             ],
             subject="mixers[0].tracks[0]",
             source="mixers[0].tracks[1]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -2139,7 +2170,8 @@ class SetInputScenario(Scenario):
             -            <Track 2 'Self'>
             +            <Track 2 'Self' input=<Track 3 'Younger Sibling'>>
                          <Track 3 'Younger Sibling'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -2204,7 +2236,8 @@ class SetInputScenario(Scenario):
             ],
             subject="mixers[0].tracks[0]",
             source="mixers[0].tracks[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -2214,7 +2247,8 @@ class SetInputScenario(Scenario):
             -            <Track 2 'Self'>
             +            <Track 2 'Self' input=<Track 3 'Child'>>
                              <Track 3 'Child'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -2319,7 +2353,8 @@ class SetInputScenario(Scenario):
             ],
             subject="mixers[0].tracks[0]",
             source="mixers[0].tracks[0].tracks[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -2330,7 +2365,8 @@ class SetInputScenario(Scenario):
             +            <Track 2 'Self' input=<Track 4 'Grandchild'>>
                              <Track 3 'Child'>
                                  <Track 4 'Grandchild'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -2696,7 +2732,8 @@ class SetOutputScenario(Scenario):
             ],
             subject="mixers[0].tracks[0]",
             target=None,
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,4 +1,4 @@
@@ -2705,7 +2742,8 @@ class SetOutputScenario(Scenario):
                      <Mixer 1>
             -            <Track 2 'Self'>
             +            <Track 2 'Self' output=None>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -2732,7 +2770,8 @@ class SetOutputScenario(Scenario):
             ],
             subject="mixers[0].tracks[0]",
             target="mixers[0].tracks[1]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -2742,7 +2781,8 @@ class SetOutputScenario(Scenario):
             -            <Track 2 'Self'>
             +            <Track 2 'Self' output=<Track 3 'Younger Sibling'>>
                          <Track 3 'Younger Sibling'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -2823,7 +2863,8 @@ class SetOutputScenario(Scenario):
             ],
             subject="mixers[0].tracks[0]",
             target="mixers[0].tracks[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,5 @@
@@ -2833,7 +2874,8 @@ class SetOutputScenario(Scenario):
             -            <Track 2 'Self'>
             +            <Track 2 'Self' output=<Track 3 'Child'>>
                              <Track 3 'Child'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -2874,7 +2916,8 @@ class SetOutputScenario(Scenario):
             ],
             subject="mixers[0].tracks[0]",
             target="mixers[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,4 +1,4 @@
@@ -2883,7 +2926,8 @@ class SetOutputScenario(Scenario):
                      <Mixer 1>
             -            <Track 2 'Self'>
             +            <Track 2 'Self' output=<Mixer 1>>
-            """,
+            """
+            ),
             expected_tree_diff="",
             expected_messages="",
         ),
@@ -2972,7 +3016,8 @@ class SetOutputScenario(Scenario):
             ],
             subject="mixers[0].tracks[0]",
             target="mixers[0].tracks[0].tracks[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,6 @@
@@ -2983,7 +3028,8 @@ class SetOutputScenario(Scenario):
             +            <Track 2 'Self' output=<Track 4 'Grandchild'>>
                              <Track 3 'Child'>
                                  <Track 4 'Grandchild'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation
@@ -3445,7 +3491,8 @@ async def test_Track_set_soloed(
                 ("mixers[0].tracks[0]", "add_track", {"name": "Younger Child"}),
             ],
             subject="mixers[0].tracks[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,6 +1,5 @@
@@ -3457,7 +3504,8 @@ async def test_Track_set_soloed(
             -                <Track 4 'Younger Child'>
             +            <Track 3 'Older Child'>
             +            <Track 4 'Younger Child'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation

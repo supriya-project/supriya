@@ -15,7 +15,8 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
     [
         (
             lambda: system.system_link_audio_1,
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:link-ar:1
                 ugens:
@@ -55,11 +56,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                 -   Out.ar:
                         bus: Control.kr[4:out]
                         source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.system_link_audio_2,
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:link-ar:2
                 ugens:
@@ -103,11 +106,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         bus: Control.kr[4:out]
                         source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                         source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.amplitude_scope_audio_1,
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:amp-scope-ar:1
                 ugens:
@@ -124,11 +129,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         max_frames: Control.kr[1:max_frames]
                         scope_frames: Control.kr[2:scope_frames]
                         source[0]: In.ar[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.amplitude_scope_control_2,
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:amp-scope-kr:2
                 ugens:
@@ -150,11 +157,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         scope_frames: Control.kr[2:scope_frames]
                         source[0]: K2A.ar/0[0]
                         source[1]: K2A.ar/1[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.frequency_scope_lin_1,
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:freq-scope-lin:1
                 ugens:
@@ -224,11 +233,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                 -   ScopeOut.ar:
                         buffer_id: Control.ir[2:scope_id]
                         source[0]: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.frequency_scope_log_1,
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:freq-scope-log:1
                 ugens:
@@ -304,11 +315,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                 -   ScopeOut.ar:
                         buffer_id: Control.ir[2:scope_id]
                         source[0]: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.frequency_scope_lin_shm_1,
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:freq-scope-lin-shm:1
                 ugens:
@@ -383,11 +396,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         max_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
                         scope_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
                         source[0]: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.frequency_scope_log_shm_2,
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:freq-scope-log-shm:2
                 ugens:
@@ -468,11 +483,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         max_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
                         scope_frames: BinaryOpUGen(FLOAT_DIVISION).ir/1[0]
                         source[0]: UnaryOpUGen(AMPLITUDE_TO_DB).ar[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.build_channel_strip_synthdef(2),
-            lambda: f"""
+            lambda: (
+                f"""
             synthdef:
                 name: supriya:channel-strip:2
                 ugens:
@@ -526,11 +543,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         bus: LagControl.kr[4:out]
                         source[0]: BinaryOpUGen(MULTIPLICATION).ar/2[0]
                         source[1]: BinaryOpUGen(MULTIPLICATION).ar/5[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.build_meters_synthdef(2),
-            lambda: """
+            lambda: (
+                """
             synthdef:
                 name: supriya:meters:2
                 ugens:
@@ -552,11 +571,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         bus: Control.kr[1:out]
                         source[0]: Amplitude.kr/0[0]
                         source[1]: Amplitude.kr/1[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.build_patch_cable_synthdef(2, 2),
-            lambda: f"""
+            lambda: (
+                f"""
             synthdef:
                 name: supriya:patch-cable:2x2
                 ugens:
@@ -600,11 +621,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         bus: Control.kr[5:out]
                         source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                         source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.build_patch_cable_synthdef(2, 2, feedback=True),
-            lambda: f"""
+            lambda: (
+                f"""
             synthdef:
                 name: supriya:fb-patch-cable:2x2
                 ugens:
@@ -648,11 +671,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         bus: Control.kr[5:out]
                         source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                         source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.build_patch_cable_synthdef(4, 1),
-            lambda: f"""
+            lambda: (
+                f"""
             synthdef:
                 name: supriya:patch-cable:4x1
                 ugens:
@@ -700,11 +725,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                 -   Out.ar:
                         bus: Control.kr[5:out]
                         source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.build_patch_cable_synthdef(1, 4),
-            lambda: f"""
+            lambda: (
+                f"""
             synthdef:
                 name: supriya:patch-cable:1x4
                 ugens:
@@ -747,11 +774,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         source[1]: BinaryOpUGen(MULTIPLICATION).ar[0]
                         source[2]: BinaryOpUGen(MULTIPLICATION).ar[0]
                         source[3]: BinaryOpUGen(MULTIPLICATION).ar[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.build_patch_cable_synthdef(2, 4),
-            lambda: f"""
+            lambda: (
+                f"""
             synthdef:
                 name: supriya:patch-cable:2x4
                 ugens:
@@ -845,11 +874,13 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         source[1]: Sum4.ar/1[0]
                         source[2]: Sum4.ar/2[0]
                         source[3]: Sum4.ar/3[0]
-            """,
+            """
+            ),
         ),
         (
             lambda: system.build_patch_cable_synthdef(4, 2),
-            lambda: f"""
+            lambda: (
+                f"""
             synthdef:
                 name: supriya:patch-cable:4x2
                 ugens:
@@ -931,7 +962,8 @@ from supriya.ugens import SuperColliderSynthDef, decompile_synthdef, system
                         bus: Control.kr[5:out]
                         source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                         source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-            """,
+            """
+            ),
         ),
     ],
 )

@@ -20,7 +20,8 @@ from .conftest import Scenario
                 (None, "add_mixer", {"name": "Mixer Two"}),
             ],
             subject="mixers[0]",
-            expected_components_diff=lambda session: f"""
+            expected_components_diff=lambda session: (
+                f"""
             --- initial
             +++ mutation
             @@ -1,5 +1,3 @@
@@ -29,7 +30,8 @@ from .conftest import Scenario
             -        <Mixer 1 'Mixer One'>
             -            <Track 2 'Track'>
                      <Mixer 3 'Mixer Two'>
-            """,
+            """
+            ),
             expected_tree_diff="""
             --- initial
             +++ mutation

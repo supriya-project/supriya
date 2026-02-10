@@ -114,9 +114,9 @@ COMPRESSOR_CONFIG = DeviceConfig(
     },
     sidechain_configs={
         Names.SIDECHAIN: SidechainConfig(
-            channel_count=lambda channel_count, options: 1
-            if options.get("mono_sidechain")
-            else channel_count,
+            channel_count=lambda channel_count, options: (
+                1 if options.get("mono_sidechain") else channel_count
+            ),
         ),
     },
     synth_configs=[
