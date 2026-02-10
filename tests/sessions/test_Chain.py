@@ -261,7 +261,8 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0].chains[0]",
             parent="mixers[0].devices[1]",
             index=0,
-            expected_components_diff=lambda session: """
+            expected_components_diff=lambda session: (
+                """
             --- initial
             +++ mutation
             @@ -2,6 +2,6 @@
@@ -272,7 +273,8 @@ class MoveScenario(Scenario):
                              <Chain 3 'Self'>
             -            <Rack 4 'Other Rack'>
                              <Chain 5 'Cousin'>
-            """,
+            """
+            ),
             expected_graph_order=(0, 1, 0),
             expected_messages="""
             - [None,
@@ -352,7 +354,8 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0].chains[0]",
             parent="mixers[0].devices[1]",
             index=0,
-            expected_components_diff=lambda session: """
+            expected_components_diff=lambda session: (
+                """
             --- initial
             +++ mutation
             @@ -2,7 +2,7 @@
@@ -364,7 +367,8 @@ class MoveScenario(Scenario):
                          <Rack 5 'Other Rack'>
             +                <Chain 3 'Self'>
                              <Chain 6 'Cousin'>
-            """,
+            """
+            ),
             expected_graph_order=(0, 1, 0),
             expected_messages="""
             - [None,
@@ -441,7 +445,8 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0].chains[1]",
             parent="mixers[0].devices[0]",
             index=0,
-            expected_components_diff=lambda session: """
+            expected_components_diff=lambda session: (
+                """
             --- initial
             +++ mutation
             @@ -2,5 +2,5 @@
@@ -451,7 +456,8 @@ class MoveScenario(Scenario):
             +                <Chain 4 'Self'>
                              <Chain 3 'Sibling'>
             -                <Chain 4 'Self'>
-            """,
+            """
+            ),
             expected_graph_order=(0, 0, 0),
             expected_messages="""
             - ['/g_head', 1008, 1018]
@@ -510,7 +516,8 @@ class MoveScenario(Scenario):
             subject="mixers[0].devices[0].chains[0]",
             parent="mixers[0].devices[0]",
             index=1,
-            expected_components_diff=lambda session: """
+            expected_components_diff=lambda session: (
+                """
             --- initial
             +++ mutation
             @@ -2,5 +2,5 @@
@@ -520,7 +527,8 @@ class MoveScenario(Scenario):
             +                <Chain 4 'Sibling'>
                              <Chain 3 'Self'>
             -                <Chain 4 'Sibling'>
-            """,
+            """
+            ),
             expected_graph_order=(0, 0, 1),
             expected_messages="""
             - ['/n_after', 1011, 1018]
