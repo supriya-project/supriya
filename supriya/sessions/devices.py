@@ -25,6 +25,7 @@ from .constants import (
     Entities,
     Names,
     PatchMode,
+    PolyphonyMode,
 )
 from .parameters import Field
 from .performers import NoteOff, NoteOn, PerformanceEvent, Performer
@@ -124,6 +125,9 @@ class NoteConfig:
         ]
         | None
     ) = None
+    retrigger: bool = False
+    polyphony_mode: PolyphonyMode.FREE_OLDEST
+    polyphony_limit: int | None = None
 
 
 @dataclasses.dataclass
@@ -549,6 +553,11 @@ class Device(DeviceBase):
         self._cached_note_synthdef: SynthDef | None = None
         self._note_config = note_config
         self._notes: dict[float, Synth]
+        # not convinced this should live here
+        if note_config is not None:
+            self._retrigger = note_config.retrigger
+            self._polyphony_mode = note_config.polyphony_mode
+            self._polyphony_limit = note_config.polyphony_limit
 
     def _add_sidechain(
         self,
