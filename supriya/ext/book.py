@@ -149,7 +149,7 @@ class PlotExtension(Extension):
 
         # kludgy replacement for librosa.display.waveshow()
         time = numpy.linspace(
-            [0] * len(array), 
+            [0] * len(array),
             [len(array[0]) / sample_rate] * len(array),
             num=len(array[0]),
         )
