@@ -6,6 +6,7 @@ import asyncio
 import dataclasses
 import hashlib
 import shlex
+import struct
 from os import PathLike
 from pathlib import Path
 
@@ -139,3 +140,28 @@ class Say:
             render_directory_path = Path(output_path).resolve()
             output_file_path = render_directory_path / self._build_file_path()
         return output_file_path
+
+
+def load(path: Path) -> tuple[tuple[tuple[float, ...], ...], int]:
+    """
+    Load an audio file as 2d array of floats, one row per channel.
+
+    This uses the ``audioread`` library under the hood.
+
+    Return the audio data and the sample rate.
+    """
+    import audioread
+
+    scale = 1.0 / float(1 << ((8 * 2) - 1))
+    samples: list[float] = []
+    with audioread.audio_open(path) as audio_file:
+        sample_rate = audio_file.samplerate
+        channel_count = audio_file.channels
+        for frame in audio_file:
+            samples.extend(
+                [x * scale for x in struct.unpack(f"<{len(frame) // 2}h", frame)]
+            )
+    frames = (
+        samples[i : i + channel_count] for i in range(0, len(samples), channel_count)
+    )
+    return tuple(zip(*frames, strict=True)), sample_rate

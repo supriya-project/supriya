@@ -40,7 +40,6 @@ requires-python = ">= 3.10"
 
 [project.optional-dependencies]
 docs = [
-  "supriya[examples]",
   "jupyterlab",
   "jupyterlab-rise",
   "matplotlib",
@@ -49,6 +48,7 @@ docs = [
   "sphinx-immaterial",
   "sphinx-toolbox",
   "sphinxext-opengraph",
+  "supriya[examples]",
 ]
 examples = [
   "pynput",

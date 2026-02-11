@@ -20,6 +20,7 @@ from typing import (
 from ..enums import AddAction, CalculationRate
 from ..exceptions import ContextError, InvalidCalculationRate, InvalidMoment
 from ..io import PlayMemo
+from ..soundfiles import load
 from ..typing import AddActionLike, HeaderFormatLike, SampleFormatLike, SupportsRender
 from ..ugens import SynthDef, default
 from .responses import BufferInfo, NodeInfo, QueryTreeGroup
@@ -96,7 +97,7 @@ class Buffer(ContextObject):
 
     def __plot__(self) -> tuple["numpy.ndarray", float]:
         # TODO: Make this async compatible.
-        import librosa
+        import numpy
 
         from .realtime import Server
 
@@ -106,7 +107,8 @@ class Buffer(ContextObject):
             file_path = Path(temp_directory) / "tmp.wav"
             self.write(file_path=file_path, header_format="wav", sample_format="int32")
             self.context.sync()
-            return librosa.load(file_path, mono=False, sr=None)
+            data, sample_rate = load(file_path)
+            return numpy.array(data), sample_rate
 
     def __render_memo__(
         self,
