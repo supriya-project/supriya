@@ -133,7 +133,9 @@ intersphinx_mapping = {
 ## LINKCHECK ###
 
 linkcheck_ignore = [
-    r"https://www.trevorbaca.com/"  # she always 403s but we love her anyways
+    # she always 403s but we love her anyways
+    "https://lame.sourceforge.io/",
+    "https://www.trevorbaca.com/",
 ]
 
 ### OPENGRAPH ###
