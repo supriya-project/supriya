@@ -5,7 +5,7 @@ Buffers
 
 ..  self-criticism::
 
-    These docs are still under construction.
+    These docs are still under construction. It's true!
 
 :term:`Buffers <buffer>` are fixed-size arrays of sample data. Like sound
 files, they have one or more :term:`channels <channel>`, and one or more

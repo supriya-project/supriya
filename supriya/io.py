@@ -101,14 +101,20 @@ class Plotter:
         open_path(output_path)
 
     def render(self):
-        import librosa.display
+        import numpy
         from matplotlib import pyplot
 
         array, sample_rate = self.plottable.__plot__()
         fig, ax = pyplot.subplots(nrows=1)
-        # TODO: Drop color="blue" after upgrading librosa > 0.10.1
-        #       https://github.com/librosa/librosa/issues/1763
-        librosa.display.waveshow(array, sr=sample_rate, ax=ax, color="blue")
+
+        # kludgy replacement for librosa.display.waveshow()
+        time = numpy.linspace(
+            [0] * len(array), 
+            [len(array[0]) / sample_rate] * len(array),
+            num=len(array[0]),
+        )
+        pyplot.plot(time, array.transpose())
+
         timestamp = (
             datetime.datetime.now().isoformat().replace(".", "-").replace(":", "-")
         )

@@ -6,11 +6,7 @@ import pathlib
 import pickle
 import textwrap
 import typing
-import warnings
 
-import librosa.display
-import matplotlib.axes  # noqa
-import matplotlib.pyplot as plt
 from docutils.nodes import FixedTextElement, General, SkipNode
 from uqbar.apis.documenters import MemberDocumenter
 from uqbar.book.extensions import Extension
@@ -117,10 +113,6 @@ class PlotExtension(Extension):
 
     @classmethod
     def setup_sphinx(cls, app):
-        # Suppress "PySoundFile failed. Trying audioread instead."
-        warnings.filterwarnings(
-            "ignore", category=UserWarning, module="librosa.core.audio"
-        )
         app.add_node(
             cls.plot_block,
             html=[cls.visit_block_html, None],
@@ -142,22 +134,31 @@ class PlotExtension(Extension):
 
     @classmethod
     def render(cls, node, output_path):
+        import numpy
+        from matplotlib import pyplot
+
         output_path.mkdir(exist_ok=True)
         array, sample_rate = pickle.loads(base64.b64decode("".join(node[0].split())))
-        fig, ax = plt.subplots(nrows=1)
+        fig, ax = pyplot.subplots(nrows=1)
         fig.set_size_inches(8, 2)
-        fig.patch.set_alpha(0.0)
+        fig.patch.set_alpha(1.0)
         ax.set_facecolor("white")
         ax.xaxis.label.set_color("white")
-        ax.tick_params(axis="x", colors="white")
-        ax.tick_params(axis="y", colors="white")
-        # TODO: Drop color="blue" after upgrading librosa > 0.10.1
-        #       https://github.com/librosa/librosa/issues/1763
-        librosa.display.waveshow(array, sr=sample_rate, ax=ax, color="blue")
+        ax.tick_params(axis="x", colors="black")
+        ax.tick_params(axis="y", colors="black")
+
+        # kludgy replacement for librosa.display.waveshow()
+        time = numpy.linspace(
+            [0] * len(array), 
+            [len(array[0]) / sample_rate] * len(array),
+            num=len(array[0]),
+        )
+        pyplot.plot(time, array.transpose())
+
         hexdigest = hashlib.sha256(node[0].encode()).hexdigest()
         file_path = output_path / f"plot-{hexdigest}.svg"
         fig.savefig(file_path, bbox_inches="tight")
-        plt.close(fig)
+        pyplot.close(fig)
         return file_path
 
     @staticmethod
