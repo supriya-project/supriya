@@ -129,7 +129,7 @@ Quit the server::
     introduction/concepts.rst
 
 ..  toctree::
-    :caption: Core tutorials
+    :caption: Tutorials
     :hidden: 
 
     tutorials/index
@@ -141,15 +141,8 @@ Quit the server::
     tutorials/synthdefs
     tutorials/osc
     tutorials/scores
-
-..  toctree::
-    :caption: Advanced tutorials
-    :hidden: 
-
-    advanced/index
-    advanced/clocks
-    advanced/patterns
-    advanced/extensions
+    tutorials/clocks
+    tutorials/patterns
 
 ..  toctree::
     :caption: Examples
@@ -170,6 +163,7 @@ Quit the server::
     developers/testing
     developers/documenting
     developers/releasing
+    developers/extensions
 
 ..  toctree::
     :caption: API Reference

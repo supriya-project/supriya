@@ -29,9 +29,9 @@ Booting without any additional options will use default settings for the
 and port ``57110``, and will automatically attempt to detect the location of the
 :term:`scsynth` binary via :py:func:`supriya.scsynth.find`.
 
-You can override the IP address or port via keyword arguments::
+For example, you can override the port via keyword arguments::
 
-    >>> server.boot(ip_address="0.0.0.0", port=56666)
+    >>> server.boot(port=56666)
 
 ..  book::
     :hide:
