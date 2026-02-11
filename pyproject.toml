@@ -24,6 +24,7 @@ classifiers = [
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 dependencies = [
+  "audioread",
   "backports.strenum; python_version < '3.11'",
   "platformdirs >= 4.0.0",
   "psutil",
@@ -39,19 +40,15 @@ requires-python = ">= 3.10"
 
 [project.optional-dependencies]
 docs = [
-  "supriya[examples]",
   "jupyterlab",
   "jupyterlab-rise",
-  "librosa",
   "matplotlib",
   "mypy",
-  "soxr",
   "sphinx",
   "sphinx-immaterial",
   "sphinx-toolbox",
   "sphinxext-opengraph",
-  "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
-  "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
+  "supriya[examples]",
 ]
 examples = [
   "pynput",
@@ -59,7 +56,6 @@ examples = [
 ]
 test = [
   "IPython",
-  "librosa",
   "lxml",
   "matplotlib",
   "mypy",
@@ -70,8 +66,6 @@ test = [
   "pytest-mock",
   "pytest-rerunfailures",
   "ruff",
-  "standard-aifc; python_version >= '3.13'",  # aifc removed in 3.13
-  "standard-sunau; python_version >= '3.13'",  # sunau removed in 3.13
   "types-PyYAML",
   "types-docutils",
   "types-psutil",

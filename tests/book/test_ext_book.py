@@ -44,12 +44,12 @@ def test_sphinx_book_html(caplog, app, status, warning, rm_dirs):
     expected_44100_file_names = expected_file_names + [
         "audio-08abe38d842cbaa19789618fe4675f1cf64de0eb6f9ab7ebd2165c078ce31429.mp3",
         "audio-08abe38d842cbaa19789618fe4675f1cf64de0eb6f9ab7ebd2165c078ce31429.wav",
-        "plot-99e2c0700b9eab6f980db17cc773b1ecdc8cd5db7e9fed14e03622176ef7599c.svg",
+        "plot-c9a9b59bc48f7ad3441bf0137f78bcf3f92bbf7c5748e2a5dfd137351a3f3da4.svg",
     ]
     expected_48000_file_names = expected_file_names + [
         "audio-4f0fd44621b74146c936fab67a7544438ddb60abe59b506082268778ec2e285f.mp3",
         "audio-4f0fd44621b74146c936fab67a7544438ddb60abe59b506082268778ec2e285f.wav",
-        "plot-282e7e88a25aa93b5fcf85a028bbc14b2445171e3c43018124f120579a0d2afe.svg",
+        "plot-02098abc7a5eb5e90123c66fb230725621a255f600a3d501c31b68880cef0aa3.svg",
     ]
     actual_file_names = sorted(path.name for path in image_path.iterdir())
     for file_name in sorted(actual_file_names):

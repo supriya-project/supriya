@@ -2,9 +2,21 @@
 Supriya is a Python API for SuperCollider.
 """
 
+# ruff: noqa: E402
+
 from pathlib import Path
 
 import platformdirs
+
+if not (
+    output_path := Path(platformdirs.user_cache_dir("supriya", "supriya"))
+).exists():
+    try:
+        output_path.mkdir(parents=True, exist_ok=True)
+    except IOError:
+        pass
+
+samples_path = Path(__file__).parent / "samples"
 
 from ._version import __version__, __version_info__
 from .clocks import (
@@ -57,17 +69,6 @@ from .ugens import (
     default,
     synthdef,
 )
-
-if not (
-    output_path := Path(platformdirs.user_cache_dir("supriya", "supriya"))
-).exists():
-    try:
-        output_path.mkdir(parents=True, exist_ok=True)
-    except IOError:
-        pass
-
-samples_path = Path(__file__).parent / "samples"
-
 
 __all__ = [
     "AddAction",
