@@ -3522,7 +3522,7 @@ class UGenOperable:
             left=self,
             right=expr,
             special_index=BinaryOperator.RING1,
-            float_operator=lambda a, b: ((a * b) + a),
+            float_operator=lambda a, b: (a * b) + a,
         )
 
     def ring2(self, expr: "UGenRecursiveInput") -> "UGenOperable":
