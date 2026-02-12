@@ -10,6 +10,7 @@ core
 .. autoclass:: Completion
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __call__
    .. automethod:: __enter__
    .. automethod:: __exit__
@@ -73,5 +74,6 @@ core
 .. autoclass:: Moment
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __enter__
    .. automethod:: __exit__

@@ -46,6 +46,7 @@ core
 .. autoclass:: Param
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: Parameter
    :show-inheritance:
@@ -79,6 +80,7 @@ core
    :show-inheritance:
 
    .. autoclass:: supriya.ugens.core::SynthDefBuilder.SortBundle
+   .. automethod:: __annotate_func__
    .. automethod:: __enter__
    .. automethod:: __exit__
    .. automethod:: __getitem__
@@ -92,6 +94,7 @@ core
 .. autoclass:: UGen
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __getitem__
    .. automethod:: __iter__
    .. automethod:: __len__

@@ -41,6 +41,7 @@ realtime
 .. autoclass:: BaseServer
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __contains__
    .. automethod:: add_amplitude_scope
    .. automethod:: add_frequency_scope
@@ -86,6 +87,7 @@ realtime
 .. autoclass:: ServerLifecycleCallback
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: unregister
 
 .. autoexception:: FailWarning

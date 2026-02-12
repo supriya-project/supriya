@@ -35,10 +35,12 @@ osc
 .. autoclass:: CaptureEntry
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: HealthCheck
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: OscBundle
    :show-inheritance:
@@ -52,6 +54,7 @@ osc
 .. autoclass:: OscCallback
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: unregister
 
 .. autoclass:: OscMessage

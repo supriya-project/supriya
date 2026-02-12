@@ -18,6 +18,7 @@ patterns
    .. automethod:: __abs__
    .. automethod:: __add__
    .. automethod:: __and__
+   .. automethod:: __annotate_func__
    .. automethod:: __floordiv__
    .. automethod:: __ge__
    .. automethod:: __gt__

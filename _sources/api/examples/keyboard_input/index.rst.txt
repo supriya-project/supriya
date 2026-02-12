@@ -15,26 +15,31 @@ keyboard_input
 .. autoclass:: MidiHandler
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: handle
    .. automethod:: listen
 
 .. autoclass:: NoteOff
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: NoteOn
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: PolyphonyManager
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: free_all
    .. automethod:: perform
 
 .. autoclass:: QwertyHandler
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: listen
    .. automethod:: on_press
    .. automethod:: on_release

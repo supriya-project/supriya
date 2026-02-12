@@ -10,6 +10,7 @@ soundfiles
 .. autoclass:: Say
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __post_init__
    .. automethod:: __render__
 

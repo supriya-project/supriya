@@ -10,6 +10,7 @@ entities
 .. autoclass:: Buffer
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __enter__
    .. automethod:: __exit__
    .. automethod:: __plot__
@@ -32,6 +33,7 @@ entities
 .. autoclass:: BufferGroup
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __getitem__
    .. automethod:: __iter__
    .. automethod:: __len__
@@ -41,6 +43,7 @@ entities
 .. autoclass:: Bus
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: fill
    .. automethod:: free
    .. automethod:: get
@@ -52,6 +55,7 @@ entities
 .. autoclass:: BusGroup
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __getitem__
    .. automethod:: __iter__
    .. automethod:: __len__
@@ -64,6 +68,7 @@ entities
 .. autoclass:: ContextObject
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __float__
    .. automethod:: __int__
    .. autoproperty:: allocated
@@ -71,6 +76,7 @@ entities
 .. autoclass:: Group
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: dump_tree
    .. automethod:: free_children
    .. automethod:: query_tree
@@ -108,5 +114,6 @@ entities
 .. autoclass:: Synth
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: get
    .. automethod:: get_range

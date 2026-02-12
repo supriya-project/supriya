@@ -10,6 +10,7 @@ clocks
 .. autoclass:: Action
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: AsyncClock
    :show-inheritance:
@@ -33,6 +34,7 @@ clocks
 .. autoclass:: BaseClock
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: cancel
    .. automethod:: change
    .. automethod:: cue
@@ -49,18 +51,22 @@ clocks
 .. autoclass:: CallbackCommand
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: CallbackEvent
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: ChangeCommand
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: ChangeEvent
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: Clock
    :show-inheritance:
@@ -77,18 +83,22 @@ clocks
 .. autoclass:: ClockCallbackState
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: ClockState
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: Command
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: Event
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
    .. automethod:: __ge__
    .. automethod:: __gt__
    .. automethod:: __le__
@@ -103,6 +113,7 @@ clocks
 .. autoclass:: Moment
    :show-inheritance:
 
+   .. automethod:: __annotate_func__
 
 .. autoclass:: OfflineClock
    :show-inheritance:
