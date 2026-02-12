@@ -3,6 +3,7 @@ import os
 import pathlib
 import platform
 import shutil
+import sys
 
 import pytest
 import uqbar.io
@@ -44,13 +45,26 @@ def test_sphinx_book_html(caplog, app, status, warning, rm_dirs):
     expected_44100_file_names = expected_file_names + [
         "audio-08abe38d842cbaa19789618fe4675f1cf64de0eb6f9ab7ebd2165c078ce31429.mp3",
         "audio-08abe38d842cbaa19789618fe4675f1cf64de0eb6f9ab7ebd2165c078ce31429.wav",
-        "plot-c9a9b59bc48f7ad3441bf0137f78bcf3f92bbf7c5748e2a5dfd137351a3f3da4.svg",
     ]
     expected_48000_file_names = expected_file_names + [
         "audio-4f0fd44621b74146c936fab67a7544438ddb60abe59b506082268778ec2e285f.mp3",
         "audio-4f0fd44621b74146c936fab67a7544438ddb60abe59b506082268778ec2e285f.wav",
-        "plot-02098abc7a5eb5e90123c66fb230725621a255f600a3d501c31b68880cef0aa3.svg",
     ]
+    # the plot hash may be different on non-windows 3.14+
+    if platform.system() != "Windows" and sys.version_info[:2] >= (3, 14):
+        expected_44100_file_names.append(
+            "plot-307536709154b435291f46e3d668390b6f08aa68146144d60529e2742c125acb.svg",
+        )
+        expected_48000_file_names.append(
+            "plot-192e6ed76db649a34a2426fc23875748296b8d8b421f9068ac35ab8f5ca1d8f6.svg",
+        )
+    else:
+        expected_44100_file_names.append(
+            "plot-c9a9b59bc48f7ad3441bf0137f78bcf3f92bbf7c5748e2a5dfd137351a3f3da4.svg",
+        )
+        expected_48000_file_names.append(
+            "plot-02098abc7a5eb5e90123c66fb230725621a255f600a3d501c31b68880cef0aa3.svg",
+        )
     actual_file_names = sorted(path.name for path in image_path.iterdir())
     for file_name in sorted(actual_file_names):
         print(f"actual: {file_name}")

@@ -17,11 +17,11 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
-        python-version: "3.13"
+        python-version: "3.14"
     - name: Get latest version
       run: echo OLD_VERSION=$(gh release list -L 1 --json name | jq -r '.[0].name') >> $GITHUB_ENV
     - name: Bump version file
@@ -38,7 +38,7 @@ jobs:
         git commit -m "Bump version to ${NEW_VERSION}"
         git push
     - name: Create release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         draft: true
         generate_release_notes: true
