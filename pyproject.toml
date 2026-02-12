@@ -18,6 +18,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Artistic Software",
   "Topic :: Multimedia :: Sound/Audio",
   "Topic :: Multimedia :: Sound/Audio :: Analysis",
@@ -78,7 +79,7 @@ documentation = "https://supriya-project.github.io/supriya"
 repository = "https://github.com/supriya-project/supriya"
 
 [tool.cibuildwheel]
-build = "cp3{10,11,12,13}-*"
+build = "cp3{10,11,12,13,14}-*"
 test-command = [
   # Only double-quotes work on Windows.
   'python -c "from supriya.contexts import shm; print(shm.__file__)"',
