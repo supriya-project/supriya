@@ -122,6 +122,8 @@ testpaths = [
 [tool.ruff]
 extend-include = ["*.ipynb"]
 line-length = 88
+# always the oldest python version supriya supports
+target-version = "py310"
 
 [tool.setuptools.package-data]
 supriya = ["*.pxd", "*.pyx"]
