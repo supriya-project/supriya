@@ -1,3 +1,7 @@
+from ..conversions import (
+    midi_note_number_to_frequency,
+    midi_velocity_to_amplitude,
+)
 from ..enums import CalculationRate
 from ..ugens import (
     Compander,
@@ -15,6 +19,7 @@ from . import (
     BoolField,
     DeviceConfig,
     FloatField,
+    NoteConfig,
     ParameterConfig,
     SidechainConfig,
     SynthConfig,
@@ -140,4 +145,16 @@ COMPRESSOR_CONFIG = DeviceConfig(
             synthdef=_build_compressor_compressor_synthdef,
         ),
     ],
+)
+
+
+DEFAULT_SYNTH_CONFIG = DeviceConfig(
+    name="Default Synth",
+    note_config=NoteConfig(
+        note_on=lambda event, options, synthdef: {
+            "amplitude": midi_velocity_to_amplitude(event.velocity),
+            "frequency": midi_note_number_to_frequency(event.note_number),
+        },
+        synthdef=system.default,
+    ),
 )
