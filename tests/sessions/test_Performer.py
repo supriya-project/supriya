@@ -2,7 +2,8 @@ import dataclasses
 
 import pytest
 
-from supriya.sessions.performers import NoteOn, PerformanceEvent, Performer
+from supriya.sessions.device_configs import DEFAULT_SYNTH_CONFIG
+from supriya.sessions.performers import NoteOff, NoteOn, PerformanceEvent, Performer
 
 from .conftest import Scenario
 
@@ -105,6 +106,18 @@ class PerformScenario(Scenario):
             performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
             performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
+            subject="mixers[0]",
+        ),
+        PerformScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_device", {"device_config": DEFAULT_SYNTH_CONFIG}),
+            ],
+            events=[
+                [NoteOn(64, 127)],
+                [NoteOff(0, 127)],
+            ],
+            expected_logs="",
             subject="mixers[0]",
         ),
     ],

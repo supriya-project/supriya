@@ -124,6 +124,9 @@ class Performer:
             if event.note_number not in self._output_note_numbers:
                 self._output_note_numbers.add(event.note_number)
                 events.append(event)
+        print(
+            "note_on", self, self._input_note_numbers, list(self._output_note_numbers)
+        )
         return events
 
     def _on_note_off(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
@@ -137,6 +140,9 @@ class Performer:
             if event.note_number in self._output_note_numbers:
                 self._output_note_numbers.remove(event.note_number)
                 events.append(event)
+        print(
+            "note_off", self, self._input_note_numbers, list(self._output_note_numbers)
+        )
         return events
 
     def _perform_loop(
