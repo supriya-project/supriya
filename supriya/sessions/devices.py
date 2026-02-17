@@ -551,9 +551,9 @@ class Device(DeviceBase):
         # TODO: validate polyphony
         # TODO: should polyphony live on performer?
         self._cached_note_synthdef: SynthDef | None = None
-        self._note_config = note_config
-        self._notes: dict[float, Synth]
+        self._notes: dict[float, Synth] = {}
         # not convinced this should live here
+        self._note_config = note_config
         if note_config is not None:
             self._retrigger = note_config.retrigger
             self._polyphony_mode = note_config.polyphony_mode
@@ -661,6 +661,9 @@ class Device(DeviceBase):
                 self._ensure_session()._global_artifacts_by_context[self.context]
             ]
         )
+        print(
+            "note_on", self, self._input_note_numbers, list(self._output_note_numbers)
+        )
         return [event]
 
     def _on_note_off(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
@@ -669,8 +672,11 @@ class Device(DeviceBase):
         assert isinstance(event, NoteOff)
         if not self.context or event.note_number not in self._input_note_numbers:
             return [event]
-        self._input_note_numbers.append(event.note_number)
+        self._input_note_numbers.remove(event.note_number)
         self._notes[event.note_number].free()
+        print(
+            "note_off", self, self._input_note_numbers, list(self._output_note_numbers)
+        )
         return [event]
 
     def _reconcile_connections(
