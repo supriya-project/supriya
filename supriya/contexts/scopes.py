@@ -72,7 +72,7 @@ class BaseScope:
                     ServerLifecycleEvent.QUITTING,
                 ],
                 once=True,
-                procedure=lambda event: self.stop(),
+                procedure=lambda server, event: self.stop(),
             )
             self.status = "online"
 
