@@ -83,24 +83,25 @@ class Performer:
             ],
         )
 
-    def _perform(
-        self, io: IO, events: list[PerformanceEvent]
-    ) -> Generator[tuple["Performer", IO, list[PerformanceEvent]], None, None]:
-        logger.info("performing: self=%s io=%s events=%s", self, io, events)
-        events_: list[PerformanceEvent] = []
-        for event in events:
-            if callback := self._performance_event_handlers.get(type(event)):
-                events_.extend(callback(event, io))
-            else:  # pass through
-                events_.append(event)
-        if events_:
-            for performer, io in self._next_performers(io):
-                yield performer, io, events_
-
     def _next_performers(self, io: IO) -> Generator[tuple["Performer", IO], None, None]:
         # N.B. This needs to be implemented on a per-performer basis because it
         # depends on the session structure in a type-aware way.
         raise NotImplementedError
+
+    def _on_note_off(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
+        assert isinstance(event, NoteOff)
+        events: list[PerformanceEvent] = []
+        if io == IO.READ:
+            if event.note_number in self._input_note_numbers:
+                self._input_note_numbers.remove(event.note_number)
+            events.append(event)
+            for event in events:
+                self._perform_event(event)
+        else:
+            if event.note_number in self._output_note_numbers:
+                self._output_note_numbers.remove(event.note_number)
+            events.append(event)
+        return events
 
     def _on_note_on(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
         assert isinstance(event, NoteOn)
@@ -120,30 +121,41 @@ class Performer:
                 events.append(event)
             elif self._retrigger:
                 events.extend([NoteOff(note_number=event.note_number), event])
+            else:
+                events.append(event)
+            for event in events:
+                self._perform_event(event)
         else:
             if event.note_number not in self._output_note_numbers:
                 self._output_note_numbers.add(event.note_number)
-                events.append(event)
-        print(
-            "note_on", self, self._input_note_numbers, list(self._output_note_numbers)
-        )
+            events.append(event)
         return events
 
-    def _on_note_off(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
-        assert isinstance(event, NoteOff)
-        events: list[PerformanceEvent] = []
-        if io == IO.READ:
-            if event.note_number in self._input_note_numbers:
-                self._input_note_numbers.remove(event.note_number)
-                events.append(event)
-        else:
-            if event.note_number in self._output_note_numbers:
-                self._output_note_numbers.remove(event.note_number)
-                events.append(event)
-        print(
-            "note_off", self, self._input_note_numbers, list(self._output_note_numbers)
-        )
-        return events
+    def _perform(
+        self, io: IO, events: list[PerformanceEvent]
+    ) -> Generator[tuple["Performer", IO, list[PerformanceEvent]], None, None]:
+        logger.info("    performing: self=%s io=%s events=%s", self, io, events)
+        events_: list[PerformanceEvent] = []
+        for event in events:
+            if callback := self._performance_event_handlers.get(type(event)):
+                events_.extend(callback(event, io))
+            else:  # pass through
+                events_.append(event)
+        if events_:
+            for performer, io in self._next_performers(io):
+                yield performer, io, events_
+
+    def _perform_event(self, event: PerformanceEvent) -> None:
+        if isinstance(event, NoteOn):
+            self._perform_note_on(event)
+        elif isinstance(event, NoteOff):
+            self._perform_note_off(event)
+
+    def _perform_note_off(self, event: NoteOff) -> None:
+        pass
+
+    def _perform_note_on(self, event: NoteOn) -> None:
+        pass
 
     def _perform_loop(
         self, performer: "Performer", io: IO, events: list[PerformanceEvent]

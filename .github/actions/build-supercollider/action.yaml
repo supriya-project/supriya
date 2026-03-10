@@ -1,14 +1,14 @@
 name: Install SuperCollider
 description: Install SuperCollider
 inputs:
-  branch:
-    description: SuperCollider branch
-    required: false
-    default: develop
   origin:
     description: SuperCollider repo origin
     required: false
     default: https://github.com/supercollider/supercollider.git
+  revision:
+    description: SuperCollider branch
+    required: false
+    default: develop
 runs:
   using: "composite"
   steps:
