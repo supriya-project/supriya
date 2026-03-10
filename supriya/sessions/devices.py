@@ -28,7 +28,7 @@ from .constants import (
     PolyphonyMode,
 )
 from .parameters import Field
-from .performers import NoteOff, NoteOn, PerformanceEvent, Performer
+from .performers import NoteOff, NoteOn, Performer
 from .routing import Input
 from .specs import Spec, SpecFactory, SynthSpec
 
@@ -619,22 +619,19 @@ class Device(DeviceBase):
             sidechain._on_connection_deleted(connection)
         return False
 
-    def _on_note_on(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
-        if not self._note_config:
-            return super()._on_note_on(event, io)
-        assert isinstance(event, NoteOn)
-        if event.note_number in self._input_note_numbers:
-            self._notes.pop(event.note_number).free()
-        if not self.context or not self._cached_note_synthdef:
-            return [event]
+    def _perform_note_off(self, event: NoteOff) -> None:
+        if synth := self._notes.pop(event.note_number, None):
+            synth.free()
+
+    def _perform_note_on(self, event: NoteOn) -> None:
+        if not self.context or not self._note_config or not self._cached_note_synthdef:
+            return
         main_bus_address = self._ensure_parent()._get_main_bus_address()
         options: dict[str, float] = {
             parameter.name: parameter.value
             for parameter in self._parameters.values()
             if not parameter.has_bus
         }
-        # TODO: Translate Address into BusGroup eagerly.
-        #       We are not performing reconciliation here.
         self._notes[event.note_number] = SynthSpec(
             add_action=AddAction.ADD_TO_HEAD,
             component=self,
@@ -661,23 +658,6 @@ class Device(DeviceBase):
                 self._ensure_session()._global_artifacts_by_context[self.context]
             ]
         )
-        print(
-            "note_on", self, self._input_note_numbers, list(self._output_note_numbers)
-        )
-        return [event]
-
-    def _on_note_off(self, event: PerformanceEvent, io: IO) -> list[PerformanceEvent]:
-        if not self._note_config:
-            return super()._on_note_off(event, io)
-        assert isinstance(event, NoteOff)
-        if not self.context or event.note_number not in self._input_note_numbers:
-            return [event]
-        self._input_note_numbers.remove(event.note_number)
-        self._notes[event.note_number].free()
-        print(
-            "note_off", self, self._input_note_numbers, list(self._output_note_numbers)
-        )
-        return [event]
 
     def _reconcile_connections(
         self,

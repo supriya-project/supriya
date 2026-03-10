@@ -1,8 +1,10 @@
 import dataclasses
+from typing import cast
 
 import pytest
 
 from supriya.sessions.device_configs import DEFAULT_SYNTH_CONFIG
+from supriya.sessions.devices import NoteConfig
 from supriya.sessions.performers import NoteOff, NoteOn, PerformanceEvent, Performer
 
 from .conftest import Scenario
@@ -21,7 +23,7 @@ class PerformScenario(Scenario):
             events=[[NoteOn(64, 77)]],
             expected_logs="""
             performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
@@ -33,9 +35,9 @@ class PerformScenario(Scenario):
             events=[[NoteOn(64, 77)]],
             expected_logs="""
             performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Device 2 'Device'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Device 2 'Device'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
@@ -48,10 +50,10 @@ class PerformScenario(Scenario):
             events=[[NoteOn(64, 77)]],
             expected_logs="""
             performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Device 2 'Device 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Device 3 'Device 2'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Device 2 'Device 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Device 3 'Device 2'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
@@ -63,11 +65,11 @@ class PerformScenario(Scenario):
             events=[[NoteOn(64, 77)]],
             expected_logs="""
             performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Rack 2 'Rack'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Chain 3 'Chain 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Rack 2 'Rack'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Chain 3 'Chain 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
@@ -80,13 +82,13 @@ class PerformScenario(Scenario):
             events=[[NoteOn(64, 77)]],
             expected_logs="""
             performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Rack 2 'Rack'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Chain 3 'Chain 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Device 4 'Device'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Chain 3 'Chain 1'> io=write events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Rack 2 'Rack'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Chain 3 'Chain 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Device 4 'Device'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Chain 3 'Chain 1'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
@@ -98,13 +100,13 @@ class PerformScenario(Scenario):
             events=[[NoteOn(64, 77)]],
             expected_logs="""
             performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Rack 2 'Rack'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Chain 3 'Chain 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Chain 4 'Chain 2'> io=read events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
-            performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Rack 2 'Rack'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Chain 3 'Chain 1'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Chain 4 'Chain 2'> io=read events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Rack 2 'Rack'> io=write events=[NoteOn(note_number=64, velocity=77)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=77)]
             """,
             subject="mixers[0]",
         ),
@@ -113,11 +115,67 @@ class PerformScenario(Scenario):
                 (None, "add_mixer", {"name": "Mixer"}),
                 ("mixers[0]", "add_device", {"device_config": DEFAULT_SYNTH_CONFIG}),
             ],
-            events=[
-                [NoteOn(64, 127)],
-                [NoteOff(0, 127)],
+            events=[[NoteOn(64, 127)], [NoteOff(64, 0)]],
+            expected_logs="""
+            performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Device 2 'Default Synth'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=127)]
+            performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Device 2 'Default Synth'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOff(note_number=64, velocity=0)]
+            """,
+            subject="mixers[0]",
+        ),
+        PerformScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                ("mixers[0]", "add_device", {"device_config": DEFAULT_SYNTH_CONFIG}),
             ],
-            expected_logs="",
+            events=[[NoteOn(64, 127)], [NoteOn(64, 127)], [NoteOff(64, 0)]],
+            expected_logs="""
+            performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Device 2 'Default Synth'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=127)]
+            performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=127)]
+            performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Device 2 'Default Synth'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOff(note_number=64, velocity=0)]
+            """,
+            subject="mixers[0]",
+        ),
+        PerformScenario(
+            commands=[
+                (None, "add_mixer", {"name": "Mixer"}),
+                (
+                    "mixers[0]",
+                    "add_device",
+                    {
+                        "device_config": dataclasses.replace(
+                            DEFAULT_SYNTH_CONFIG,
+                            note_config=dataclasses.replace(
+                                cast(NoteConfig, DEFAULT_SYNTH_CONFIG.note_config),
+                                retrigger=True,
+                            ),
+                        )
+                    },
+                ),
+            ],
+            events=[[NoteOn(64, 127)], [NoteOn(64, 127)], [NoteOff(64, 0)]],
+            expected_logs="""
+            performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Device 2 'Default Synth'> io=read events=[NoteOn(note_number=64, velocity=127)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOn(note_number=64, velocity=127)]
+            performing loop: self=<Mixer 1 'Mixer'> performer=<Mixer 1 'Mixer'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Mixer 1 'Mixer'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Device 2 'Default Synth'> io=read events=[NoteOff(note_number=64, velocity=0)]
+                performing: self=<Mixer 1 'Mixer'> io=write events=[NoteOff(note_number=64, velocity=0)]
+            """,
             subject="mixers[0]",
         ),
     ],
