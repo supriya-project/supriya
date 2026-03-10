@@ -54,28 +54,12 @@ runs:
       run: vcpkg install libsndfile --triplet="x64-windows-release" --overlay-triplets="/tmp/vcpkg/triplets"
       shell: bash
 
-    - name: Download fftw
-      run: |
-        mkdir -p "C:/Program Files/fftw" && cd "C:/Program Files/fftw"
-        curl -L ftp://ftp.fftw.org/pub/fftw/fftw-3.3.5-dll64.zip -o fftw.zip
-        7z x fftw.zip -y
+    - name: Install fftw
+      run: vcpkg install fftw3 --triplet="x64-windows-release" --overlay-triplets="/tmp/vcpkg/triplets"
       shell: bash
 
-    - name: Create fftw msvc library
-      run: |
-        call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
-        lib.exe /machine:x64 /def:libfftw3f-3.def
-      shell: cmd
-      working-directory: "C:/Program Files/fftw"
-
-    - name: Install asio sdk
-      run: |
-        mkdir -p "/tmp/3rd-party/asio_sdk" && cd "/tmp/3rd-party/asio_sdk"
-        curl -L https://www.steinberg.net/asiosdk -o asio.zip
-        7z x asio.zip -y
-        mkdir -p "/tmp/supercollider/external_libraries/portaudio/asiosdk"
-        shopt -s nocaseglob  # https://github.com/supercollider/supercollider/commit/4707cbcd4a4da330e6d210b87dc853e96fa2af1f
-        mv asiosdk* "/tmp/supercollider/external_libraries/portaudio/asiosdk"
+    - name: Install asiosdk
+      run: vcpkg install asiosdk --triplet="x64-windows-release" --overlay-triplets="/tmp/vcpkg/triplets"
       shell: bash
 
     - name: Install readline
