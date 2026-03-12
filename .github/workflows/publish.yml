@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
+    - name: Tune GitHub Actions
+      uses: ./.github/actions/tune-github-actions
     - name: Set up Python
       uses: actions/setup-python@v6
       with:
@@ -32,10 +34,11 @@ jobs:
       timeout-minutes: 3
       uses: ./.github/actions/setup-audio
     - name: Install SuperCollider
-      uses: ./.github/actions/build-supercollider
+      uses: supriya-project/setup-supercollider@main
       with:
         origin: ${{ env.SC_ORIGIN }}
         ref: ${{ env.SC_BRANCH }}
+
     - name: Install Supriya
       run: pip install -e .[docs]
     - name: Install APT deps

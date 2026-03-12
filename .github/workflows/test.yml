@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
 
-  docs:
+  build-docs:
     name: Build docs
     runs-on: ${{ matrix.os }}
     strategy:
@@ -42,16 +42,6 @@ jobs:
       with:
         key: ${{ runner.os }}
         restore-keys: ${{ runner.os }}
-    - name: Install APT deps
-      shell: bash
-      run: |
-        sudo apt-get update --yes
-        sudo apt-get install --yes \
-          espeak \
-          ffmpeg \
-          graphviz \
-          lame \
-          libasound2-dev
     - name: Setup audio
       timeout-minutes: 3
       uses: ./.github/actions/setup-audio
@@ -62,6 +52,16 @@ jobs:
         ref: ${{ env.SC_BRANCH }}
     - name: Install Supriya
       run: pip install -e .[docs]
+    - name: Install APT deps
+      shell: bash
+      run: |
+        sudo apt-get update --yes
+        sudo apt-get install --yes \
+          espeak \
+          ffmpeg \
+          graphviz \
+          lame \
+          libasound2-dev
     - name: Build docs
       run: make docs
     - name: Check for FailWarning
@@ -145,18 +145,16 @@ jobs:
       with:
         key: ${{ runner.os }}
         restore-keys: ${{ runner.os }}
-    - name: Upgrade pip
-      run: python3 -m pip install -U pip
-    - name: Install Supriya
-      run: pip install -e .
     - name: Setup audio
       timeout-minutes: 3
       uses: ./.github/actions/setup-audio
-    - name: Build SuperCollider
+    - name: Install SuperCollider
       uses: supriya-project/setup-supercollider@main
       with:
         origin: ${{ env.SC_ORIGIN }}
         ref: ${{ env.SC_BRANCH }}
+    - name: Install Supriya
+      run: pip install -e .
     - name: Sanity-check Supriya
       run: |
         python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
