@@ -52,7 +52,7 @@ jobs:
       timeout-minutes: 3
       uses: ./.github/actions/setup-audio
     - name: Install SuperCollider
-      uses: ./.github/actions/build-supercollider
+      uses: supriya-project/setup-supercollider@main
       with:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
@@ -145,7 +145,7 @@ jobs:
       timeout-minutes: 3
       uses: ./.github/actions/setup-audio
     - name: Build SuperCollider
-      uses: ./.github/actions/build-supercollider
+      uses: supriya-project/setup-supercollider@main
       with:
         branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
