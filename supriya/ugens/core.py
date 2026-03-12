@@ -35,6 +35,7 @@ from typing import (
 )
 
 from uqbar.graphs import Edge, Graph, Node, RecordField, RecordGroup
+from uqbar.strings import normalize
 
 from .. import sclang
 from ..enums import (
@@ -6526,42 +6527,31 @@ def decompile_synthdefs(value: bytes) -> list[SynthDef]:
 
 
 class SuperColliderSynthDef:
-    def __init__(self, name: str, body: str, rates: str | None = None):
+    def __init__(
+        self, name: str, body: str, rates: str | None = None, version: int = 2
+    ):
         self.name = name
-        self.body = body
+        self.body = normalize(body)
         self.rates = rates
-
-    def _build_sc_input(self, directory_path: Path) -> str:
-        input_ = [
-            "a = SynthDef(",
-            "    \\{}, {{".format(self.name),
-        ]
-        for line in self.body.splitlines():
-            input_.append("    " + line)
-        if self.rates:
-            input_.append("}}, {});".format(self.rates))
-        else:
-            input_.append("});")
-        input_.extend(
-            [
-                '"Defined SynthDef".postln;',
-                'a.writeDefFile("{}");'.format(directory_path),
-                '"Wrote SynthDef".postln;',
-                "0.exit;",
-            ]
-        )
-        text = "\n".join(input_)
-        print(text)
-        return text
+        self.version = version
 
     def compile(self) -> bytes:
         sclang_path = sclang.find()
         with tempfile.TemporaryDirectory() as directory:
             directory_path = Path(directory)
-            sc_input = self._build_sc_input(directory_path)
-            sc_file_path = directory_path / f"{self.name}.sc"
-            sc_file_path.write_text(sc_input)
-            command = [str(sclang_path), "-D", str(sc_file_path)]
-            subprocess.run(command, timeout=10)
-            result = (directory_path / f"{self.name}.scsyndef").read_bytes()
-        return bytes(result)
+            code = "\n".join(
+                [
+                    f'~file = File("{directory_path / self.name}.scsyndef", "w");',
+                    "~synthdef = SynthDef(",
+                    f"    \\{self.name}, {{",
+                    *(f"    {line}" for line in self.body.splitlines()),
+                    f"}}, {self.rates});" if self.rates else "});",
+                    f"~synthdef.asArray.writeDef(~file, {self.version});",
+                    "~file.close;",
+                    "0.exit;",
+                ]
+            )
+            print(code)
+            (code_path := directory_path / f"{self.name}.sc").write_text(code)
+            subprocess.run([str(sclang_path), "-D", str(code_path)], timeout=10)
+            return (directory_path / f"{self.name}.scsyndef").read_bytes()
