@@ -58,8 +58,8 @@ jobs:
     - name: Install SuperCollider
       uses: supriya-project/setup-supercollider@main
       with:
-        branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
+        ref: ${{ env.SC_BRANCH }}
     - name: Install Supriya
       run: pip install -e .[docs]
     - name: Build docs
@@ -155,8 +155,8 @@ jobs:
     - name: Build SuperCollider
       uses: supriya-project/setup-supercollider@main
       with:
-        branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
+        ref: ${{ env.SC_BRANCH }}
     - name: Sanity-check Supriya
       run: |
         python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"

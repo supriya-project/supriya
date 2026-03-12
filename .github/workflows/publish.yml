@@ -34,8 +34,8 @@ jobs:
     - name: Install SuperCollider
       uses: ./.github/actions/build-supercollider
       with:
-        branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
+        ref: ${{ env.SC_BRANCH }}
     - name: Install Supriya
       run: pip install -e .[docs]
     - name: Install APT deps
