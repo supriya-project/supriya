@@ -38,6 +38,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: pip
         cache-dependency-path: "**/pyproject.toml"
+    - uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}
     - name: Install APT deps
       shell: bash
       run: |
@@ -137,6 +141,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: pip
         cache-dependency-path: "**/pyproject.toml"
+    - uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}
     - name: Upgrade pip
       run: python3 -m pip install -U pip
     - name: Install Supriya

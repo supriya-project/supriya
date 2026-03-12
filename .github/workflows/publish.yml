@@ -24,6 +24,10 @@ jobs:
         cache-dependency-path: "**/pyproject.toml"
         cache: pip
         python-version: "3.14"
+    - uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}
     - name: Setup audio
       timeout-minutes: 3
       uses: ./.github/actions/setup-audio
