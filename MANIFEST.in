@@ -10,10 +10,10 @@ include pyproject.toml
 include setup.py
 
 recursive-include docs *
-recursive-include supriya *.py
-recursive-include supriya *.pxd
-recursive-include supriya *.pyx
-recursive-include supriya/samples *.wav
+recursive-include src *.py
+recursive-include src *.pxd
+recursive-include src *.pyx
+recursive-include src/samples *.wav
 recursive-include tests *
 recursive-include vendor *
 
