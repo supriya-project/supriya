@@ -740,7 +740,7 @@ Because of its use of metaclasses for code generation in UGens, Supriya
 requires a `mypy`_ extension to teach it about the auto-generated methods and
 properties on those classes.
 
-The extension lives in :github-blob:`supriya/ext/mypy.py <supriya/ext/mypy.py>`
+The extension lives in :github-blob:`supriya/ext/mypy.py <src/supriya/ext/mypy.py>`
 and MyPy is already configured to use it via the ``plugins`` field in Supriya's
 :github-blob:`pyproject.toml <pyproject.toml>`.
 

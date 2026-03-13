@@ -15,9 +15,9 @@ I don't use semantic versioning because of the cognitive overhead of
 determining what sorts of changes count as breaking, patches, etc.
 
 The version information is stored in :github-blob:`supriya/_version.py
-<supriya/_version.py>` as a tuple so that it's available by Supriya after
-installation, and by :github-blob:`setup.py <setup.py>` during installation
-(but without needed to import Supriya directly).
+<src/supriya/_version.py>` as a tuple so that it's available by Supriya after
+installation, and by :github-blob:`pyproject.toml <pyproject.toml>` during
+installation (but without needed to import Supriya directly).
 
 Drafting releases
 `````````````````
@@ -26,7 +26,7 @@ To cut a new release run the ``Release`` GitHub Actions pipeline at
 https://github.com/supriya-project/supriya/actions/workflows/release.yml.
 
 This will bump the current version number in :github-blob:`supriya/_version.py
-<supriya/_version.py>` and cut a draft of a new release in GitHub.
+<src/supriya/_version.py>` and cut a draft of a new release in GitHub.
 
 Publishing releases
 ```````````````````
