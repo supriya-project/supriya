@@ -133,5 +133,6 @@ supriya = ["*.pxd", "*.pyx", "py.typed"]
 [[tool.setuptools.ext-modules]]
 include-dirs = ["vendor/", "vendor/supercollider/common/", "vendor/TLSF-2.4.6/src/"]
 language = "c++"
+libraries = ["rt"]
 name = "supriya.contexts.shm"
 sources = ["src/supriya/contexts/shm.pyx"]
