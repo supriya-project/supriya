@@ -32,12 +32,9 @@ jobs:
     - uses: actions/checkout@v6
     - name: Tune GitHub Actions
       uses: ./.github/actions/tune-github-actions
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v6
+    - uses: astral-sh/setup-uv@v7
       with:
-        python-version: ${{ matrix.python-version }}
-        cache: pip
-        cache-dependency-path: "**/pyproject.toml"
+        python-version: "${{ matrix.python-version }}"
     - uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: ${{ runner.os }}
@@ -51,7 +48,7 @@ jobs:
         origin: ${{ env.SC_ORIGIN }}
         ref: ${{ env.SC_BRANCH }}
     - name: Install Supriya
-      run: pip install -e .[docs]
+      run: uv sync --extra docs
     - name: Install APT deps
       shell: bash
       run: |
@@ -63,12 +60,12 @@ jobs:
           lame \
           libasound2-dev
     - name: Build docs
-      run: make docs
+      run: uv run make docs
     - name: Check for FailWarning
       run: "! grep -R ': FailWarning: ' *"
       working-directory: docs/build/html
     - name: Link check
-      run: make linkcheck
+      run: uv run make linkcheck
       working-directory: docs
   
   lint:
@@ -80,22 +77,19 @@ jobs:
         python-version: ["3.14"]
     steps:
     - uses: actions/checkout@v6
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v6
+    - uses: astral-sh/setup-uv@v7
       with:
-        python-version: ${{ matrix.python-version }}
-        cache: pip
-        cache-dependency-path: "**/pyproject.toml"
+        python-version: "${{ matrix.python-version }}"
     - name: Install Supriya
-      run: pip install -e .[test]
+      run: uv sync --extra test
     - name: Run Ruff format checker
-      run: make ruff-format
+      run: uv run make ruff-format
     - name: Run Ruff imports checker
-      run: make ruff-imports
+      run: uv run make ruff-imports
     - name: Run Ruff lint checker
-      run: make ruff-lint
+      run: uv run make ruff-lint
     - name: Run Mypy
-      run: make mypy
+      run: uv run make mypy
 
   package:
     name: Build wheels
@@ -135,12 +129,9 @@ jobs:
     - uses: actions/checkout@v6
     - name: Tune GitHub Actions
       uses: ./.github/actions/tune-github-actions
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v6
+    - uses: astral-sh/setup-uv@v7
       with:
-        python-version: ${{ matrix.python-version }}
-        cache: pip
-        cache-dependency-path: "**/pyproject.toml"
+        python-version: "${{ matrix.python-version }}"
     - uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: ${{ runner.os }}
@@ -154,11 +145,11 @@ jobs:
         origin: ${{ env.SC_ORIGIN }}
         ref: ${{ env.SC_BRANCH }}
     - name: Install Supriya
-      run: pip install -e .
+      run: uv sync
     - name: Sanity-check Supriya
       run: |
-        python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
-        python -c "from supriya.contexts.shm import ServerSHM; print(ServerSHM)"
+        uv run python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
+        uv run python -c "from supriya.contexts.shm import ServerSHM; print(ServerSHM)"
       timeout-minutes: 1
     - name: Check for stray processes (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
@@ -166,32 +157,22 @@ jobs:
         ! ( ps aux | grep scsynth | grep -v grep )
         ! ( ps aux | grep supernova | grep -v grep )
     - name: Install Supriya test dependencies
-      run: pip install -e .[test]
-    - name: Install ffmpeg
-      run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt-get install --yes ffmpeg
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install ffmpeg
-        elif [ "$RUNNER_OS" == "Windows" ]; then
-          choco install ffmpeg
-        fi
-      shell: bash
+      run: uv sync --extra test
     - name: Install additional packages
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           export DEBIAN_FRONTEND=noninteractive
           sudo apt-get update --yes
-          sudo apt-get install --yes espeak graphviz lame libasound2-dev
+          sudo apt-get install --yes espeak ffmpeg graphviz lame libasound2-dev
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew update
-          brew install graphviz
+          brew install ffmpeg graphviz
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          choco install graphviz lame
+          choco install ffmpeg graphviz lame
         fi
     - name: Run Pytest
-      run: pytest --cov supriya --showlocals
+      run: uv run pytest --cov supriya --showlocals
       timeout-minutes: 15
     - name: Check for stray processes (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
