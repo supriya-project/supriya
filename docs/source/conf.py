@@ -6,9 +6,10 @@ from pathlib import Path
 
 import supriya
 
-sys.path.append(str(Path(supriya.__path__[0]).parent))
+repo_root = Path(__file__).parent / ".." / ".."
+sys.path.append(str(repo_root))
 
-import examples
+import examples  # noqa
 
 ### GIT INFO
 
