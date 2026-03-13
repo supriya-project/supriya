@@ -21,4 +21,3 @@ runs:
     - name: Debug Jack
       run: system_profiler -json | jq .SPAudioDataType
       shell: bash
-

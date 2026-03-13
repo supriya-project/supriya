@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
 
-  docs:
+  build-docs:
     name: Build docs
     runs-on: ${{ matrix.os }}
     strategy:
@@ -38,6 +38,20 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: pip
         cache-dependency-path: "**/pyproject.toml"
+    - uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}
+    - name: Setup audio
+      timeout-minutes: 3
+      uses: ./.github/actions/setup-audio
+    - name: Install SuperCollider
+      uses: supriya-project/setup-supercollider@main
+      with:
+        origin: ${{ env.SC_ORIGIN }}
+        ref: ${{ env.SC_BRANCH }}
+    - name: Install Supriya
+      run: pip install -e .[docs]
     - name: Install APT deps
       shell: bash
       run: |
@@ -48,16 +62,6 @@ jobs:
           graphviz \
           lame \
           libasound2-dev
-    - name: Setup audio
-      timeout-minutes: 3
-      uses: ./.github/actions/setup-audio
-    - name: Install SuperCollider
-      uses: ./.github/actions/build-supercollider
-      with:
-        branch: ${{ env.SC_BRANCH }}
-        origin: ${{ env.SC_ORIGIN }}
-    - name: Install Supriya
-      run: pip install -e .[docs]
     - name: Build docs
       run: make docs
     - name: Check for FailWarning
@@ -137,18 +141,20 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: pip
         cache-dependency-path: "**/pyproject.toml"
-    - name: Upgrade pip
-      run: python3 -m pip install -U pip
-    - name: Install Supriya
-      run: pip install -e .
+    - uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ runner.os }}
+        restore-keys: ${{ runner.os }}
     - name: Setup audio
       timeout-minutes: 3
       uses: ./.github/actions/setup-audio
-    - name: Build SuperCollider
-      uses: ./.github/actions/build-supercollider
+    - name: Install SuperCollider
+      uses: supriya-project/setup-supercollider@main
       with:
-        branch: ${{ env.SC_BRANCH }}
         origin: ${{ env.SC_ORIGIN }}
+        ref: ${{ env.SC_BRANCH }}
+    - name: Install Supriya
+      run: pip install -e .
     - name: Sanity-check Supriya
       run: |
         python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
