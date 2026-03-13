@@ -14,8 +14,8 @@ Running tests
 Supriya uses `pytest`_ as its test runner, both for unit tests and for
 doctests, along with a variety of `pytest_` plugins.
 
-Run `pytest`_ against Supriya's default test paths (:github-tree:`supriya/
-<supriya>` and :github-tree:`tests/ <tests>`) with:
+Run `pytest`_ against Supriya's default test paths (:github-tree:`src/supriya/
+<src/supriya>` and :github-tree:`tests/ <tests>`) with:
 
 ..  code-block:: console
 
@@ -62,8 +62,8 @@ Coverage
 `pytest`_ can collect code coverage statistics during its test runs via the
 `pytest-cov`_ plugin, installed when you install Supriya's test dependencies.
 
-Collect coverage against the code in the :github-tree:`supriya/ <supriya>`
-directory during a test run by adding the ``--cov=supriya`` flag:
+Collect coverage against the code in the :github-tree:`src/supriya/ <src/supriya/>`
+directory during a test run by adding the ``--cov=src/supriya/`` flag:
 
 ..  code-block:: console
 
@@ -740,7 +740,7 @@ Because of its use of metaclasses for code generation in UGens, Supriya
 requires a `mypy`_ extension to teach it about the auto-generated methods and
 properties on those classes.
 
-The extension lives in :github-blob:`supriya/ext/mypy.py <supriya/ext/mypy.py>`
+The extension lives in :github-blob:`supriya/ext/mypy.py <src/supriya/ext/mypy.py>`
 and MyPy is already configured to use it via the ``plugins`` field in Supriya's
 :github-blob:`pyproject.toml <pyproject.toml>`.
 
