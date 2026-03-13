@@ -20,11 +20,8 @@ jobs:
     - uses: actions/checkout@v6
     - name: Tune GitHub Actions
       uses: ./.github/actions/tune-github-actions
-    - name: Set up Python
-      uses: actions/setup-python@v6
+    - uses: astral-sh/setup-uv@v7
       with:
-        cache-dependency-path: "**/pyproject.toml"
-        cache: pip
         python-version: "3.14"
     - uses: hendrikmuhs/ccache-action@v1.2
       with:
@@ -38,9 +35,8 @@ jobs:
       with:
         origin: ${{ env.SC_ORIGIN }}
         ref: ${{ env.SC_BRANCH }}
-
     - name: Install Supriya
-      run: pip install -e .[docs]
+      run: uv sync --extra docs
     - name: Install APT deps
       shell: bash
       run: |
@@ -52,7 +48,7 @@ jobs:
           lame \
           libasound2-dev
     - name: Build docs
-      run: make docs
+      run: uv run make docs
     - uses: actions/upload-artifact@v6
       with:
         name: docs
