@@ -36,7 +36,7 @@ jobs:
         origin: ${{ env.SC_ORIGIN }}
         ref: ${{ env.SC_BRANCH }}
     - name: Install Supriya
-      run: uv sync --extra docs
+      run: uv pip install -e .[docs]
     - name: Install APT deps
       shell: bash
       run: |
