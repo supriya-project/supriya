@@ -73,7 +73,7 @@ jobs:
         CIBW_ARCHS: ${{ matrix.arch }}
         CIBW_BUILD: ${{ matrix.build }}
       name: Build wheels
-      uses: pypa/cibuildwheel@v3.3.1
+      uses: pypa/cibuildwheel@v3.4.0
     - name: Upload wheels 
       uses: actions/upload-artifact@v6
       with:
