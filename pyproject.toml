@@ -84,6 +84,10 @@ test-command = [
   'python -c "from supriya.contexts import shm; print(shm.__file__)"',
 ]
 
+[[tool.cibuildwheel.overrides]]
+select = "*-manylinux*"
+environment = { CPPFLAGS="-lrt" }
+
 [tool.coverage.report]
 exclude_lines = [
   "if TYPE_CHECKING:",
@@ -133,6 +137,5 @@ supriya = ["*.pxd", "*.pyx", "py.typed"]
 [[tool.setuptools.ext-modules]]
 include-dirs = ["vendor/", "vendor/supercollider/common/", "vendor/TLSF-2.4.6/src/"]
 language = "c++"
-libraries = ["rt"]
 name = "supriya.contexts.shm"
 sources = ["src/supriya/contexts/shm.pyx"]
