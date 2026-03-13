@@ -9,7 +9,6 @@ authors = [
 classifiers = [
   "Framework :: AsyncIO",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Natural Language :: English",
   "Operating System :: MacOS",
   "Operating System :: POSIX",
@@ -34,7 +33,7 @@ dependencies = [
 description = "A Python API for SuperCollider"
 dynamic = ["version"]
 keywords = ["audio", "dsp", "music composition", "scsynth", "supercollider", "synthesis"]
-license = {text = "MIT"}
+license = "MIT"
 name = "supriya"
 readme = "README.md"
 requires-python = ">= 3.10"
@@ -116,7 +115,7 @@ markers = [
 ]
 testpaths = [
   "tests",
-  "supriya",
+  "src",
 ]
 
 [tool.ruff]
@@ -124,6 +123,9 @@ extend-include = ["*.ipynb"]
 line-length = 88
 # always the oldest python version supriya supports
 target-version = "py310"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
 supriya = ["*.pxd", "*.pyx"]

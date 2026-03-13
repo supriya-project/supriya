@@ -1,11 +1,10 @@
 .PHONY: build docs gh-pages
 .DEFAULT_GOAL := help
 
-project = supriya
 origin := $(shell git config --get remote.origin.url)
-formatPaths = ${project}/ docs/ examples/ tests/ *.py
-mypyPaths = ${project}/ examples/ tests/
-testPaths = ${project}/ tests/
+formatPaths = src/ docs/ examples/ tests/ *.py
+mypyPaths = src/ examples/ tests/
+testPaths = src/ tests/
 
 help: ## This help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -40,7 +39,7 @@ mypy-strict: ## Type-check via mypy strictly
 	mypy --strict ${mypyPaths}
 
 pytest: ## Unit test via pytest
-	pytest ${testPaths} --cov=supriya
+	pytest ${testPaths} --cov=src/
 
 reformat: ruff-imports-fix ruff-format-fix ## Reformat codebase
 

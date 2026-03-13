@@ -8,7 +8,7 @@ from setuptools import Extension, find_packages, setup
 
 def read_version():
     root_path = pathlib.Path(__file__).parent
-    version_path = root_path / "supriya" / "_version.py"
+    version_path = root_path / "src" / "supriya" / "_version.py"
     with version_path.open() as file_pointer:
         file_contents = file_pointer.read()
     local_dict = {}
@@ -26,7 +26,7 @@ extensions = [
         ],
         language="c++",
         libraries=["rt"] if platform.system() == "Linux" else [],
-        sources=["supriya/contexts/shm.pyx"],
+        sources=["src/supriya/contexts/shm.pyx"],
     ),
 ]
 
