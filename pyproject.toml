@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["Cython", "setuptools>=40.6.0", "wheel"]
+requires = ["cython", "setuptools>=40.6.0", "wheel"]
 
 [project]
 authors = [
@@ -128,4 +128,10 @@ target-version = "py310"
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
-supriya = ["*.pxd", "*.pyx"]
+supriya = ["*.pxd", "*.pyx", "py.typed"]
+
+[[tool.setuptools.ext-modules]]
+include-dirs = ["vendor/", "vendor/supercollider/common/", "vendor/TLSF-2.4.6/src/"]
+language = "c++"
+name = "supriya.contexts.shm"
+sources = ["src/supriya/contexts/shm.pyx"]
