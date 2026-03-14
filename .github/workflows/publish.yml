@@ -31,7 +31,7 @@ jobs:
       timeout-minutes: 3
       uses: ./.github/actions/setup-audio
     - name: Install SuperCollider
-      uses: supriya-project/setup-supercollider@main
+      uses: supriya-project/setup-supercollider@v1.1.0
       with:
         origin: ${{ env.SC_ORIGIN }}
         ref: ${{ env.SC_BRANCH }}
