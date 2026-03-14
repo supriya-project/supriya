@@ -3,11 +3,9 @@ description: Setup audio under OSX
 runs:
   using: "composite"
   steps:
-
     - name: Install jack
       run: brew install jack
       shell: bash
-
     - name: Setup Jack
       run: |
         echo "Setting up Jack..."
@@ -17,7 +15,6 @@ runs:
         echo "Waiting for Jack..."
         sleep 5
       shell: bash
-
     - name: Debug Jack
       run: system_profiler -json | jq .SPAudioDataType
       shell: bash
