@@ -1,7 +1,7 @@
 import random
 
 from supriya import Server
-from supriya.contexts.shm import ServerSHM
+from supriya_shm import ServerSHM
 
 
 def test_shared_memory(server: Server) -> None:

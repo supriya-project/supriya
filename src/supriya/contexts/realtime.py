@@ -10,6 +10,7 @@ import threading
 import warnings
 from collections.abc import Sequence as SequenceABC
 from typing import (
+    TYPE_CHECKING,
     Awaitable,
     Callable,
     Iterable,
@@ -94,7 +95,9 @@ from .responses import (
     VersionInfo,
 )
 from .scopes import AmplitudeScope, FrequencyScope
-from .shm import ServerSHM
+
+if TYPE_CHECKING:
+    from supriya_shm import ServerSHM
 
 logger = logging.getLogger(__name__)
 
@@ -349,6 +352,8 @@ class BaseServer(Context):
 
     def _setup_shared_memory(self) -> None:
         try:
+            from supriya_shm import ServerSHM
+
             self._shared_memory = ServerSHM(
                 self._options.port, self._options.control_bus_channel_count
             )
