@@ -40,8 +40,8 @@ jobs:
         key: ${{ runner.os }}
         restore-keys: ${{ runner.os }}
     - name: Setup audio
-      timeout-minutes: 3
-      uses: ./.github/actions/setup-audio
+      timeout-minutes: 1
+      uses: supriya-project/setup-audio@main
     - name: Install SuperCollider
       uses: supriya-project/setup-supercollider@v1.1.0
       with:
@@ -137,8 +137,8 @@ jobs:
         key: ${{ runner.os }}
         restore-keys: ${{ runner.os }}
     - name: Setup audio
-      timeout-minutes: 3
-      uses: ./.github/actions/setup-audio
+      timeout-minutes: 1
+      uses: supriya-project/setup-audio@main
     - name: Install SuperCollider
       uses: supriya-project/setup-supercollider@v1.1.0
       with:
