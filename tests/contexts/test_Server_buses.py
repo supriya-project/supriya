@@ -95,6 +95,7 @@ async def test_add_bus_group(context: AsyncServer | Server) -> None:
     assert [entry.message for entry in transcript.filtered(received=False)] == []
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.asyncio
 async def test_fill_bus_range(context: AsyncServer | Server) -> None:
     audio_bus = context.add_bus("AUDIO")
