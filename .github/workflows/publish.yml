@@ -30,7 +30,7 @@ jobs:
     - name: Setup audio
       uses: supriya-project/setup-audio@main
     - name: Setup SuperCollider
-      uses: supriya-project/setup-supercollider@v1.1.0
+      uses: supriya-project/setup-supercollider@v1.1.1
       with:
         origin: ${{ env.SC_ORIGIN }}
         ref: ${{ env.SC_BRANCH }}
