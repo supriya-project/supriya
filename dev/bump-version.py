@@ -17,7 +17,7 @@ def calculate_new_version_info(old_version_name: str) -> tuple[int, int, int]:
 
 
 def rewrite_version_file(year: int, month: int, beta: int) -> None:
-    path = Path(__file__).parent.parent / "supriya" / "_version.py"
+    path = Path(__file__).parent.parent / "src" / "supriya" / "_version.py"
     text = path.read_text()
     lines = text.splitlines()
     for i, line in enumerate(lines):
