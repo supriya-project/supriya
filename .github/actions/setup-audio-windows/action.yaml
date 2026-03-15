@@ -1,8 +1,0 @@
-name: Setup audio under Windows
-description: Setup audio under Windows
-runs:
-  using: "composite"
-  steps:
-    - name: Install asio4all
-      run: choco install asio4all -y --no-progress
-      shell: bash
