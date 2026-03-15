@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import re
+import subprocess
 from pathlib import Path
 
 
@@ -25,6 +26,11 @@ def rewrite_version_file(year: int, month: int, beta: int) -> None:
     path.write_text("\n".join(lines) + "\n")
 
 
+def update_pyproject_toml(year: int, month: int, beta: int) -> None:
+    version = f"{year}.{month}b{beta}"
+    subprocess.run(["uv", "version", "--no-sync", version])
+
+
 def build_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("release")
@@ -36,6 +42,7 @@ def run():
     parsed_args = parser.parse_args()
     year, month, beta = calculate_new_version_info(parsed_args.release)
     rewrite_version_file(year, month, beta)
+    update_pyproject_toml(year, month, beta)
     print(f"{year}.{month}b{beta}", end="")
 
 
