@@ -16,6 +16,7 @@ from typing import (
     Iterable,
     Literal,
     NamedTuple,
+    Optional,
     Sequence,
     SupportsInt,
     Type,
@@ -162,7 +163,7 @@ class BaseServer(Context):
         self._node_active: dict[int, bool] = {}
         self._node_children: dict[int, list[int]] = {}
         self._node_parents: dict[int, int] = {}
-        self._shared_memory: ServerSHM | None = None
+        self._shared_memory: Optional["ServerSHM"] = None
         self._status: StatusInfo | None = None
 
     ### SPECIAL METHODS ###
@@ -480,7 +481,7 @@ class BaseServer(Context):
         return self._is_owner
 
     @property
-    def shared_memory(self) -> ServerSHM | None:
+    def shared_memory(self) -> Optional["ServerSHM"]:
         """
         Get the server's shared memory interface, if available.
         """
