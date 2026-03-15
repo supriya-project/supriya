@@ -28,9 +28,8 @@ jobs:
         key: ${{ runner.os }}
         restore-keys: ${{ runner.os }}
     - name: Setup audio
-      timeout-minutes: 1
       uses: supriya-project/setup-audio@main
-    - name: Install SuperCollider
+    - name: Setup SuperCollider
       uses: supriya-project/setup-supercollider@v1.1.0
       with:
         origin: ${{ env.SC_ORIGIN }}
