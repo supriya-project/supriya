@@ -91,26 +91,14 @@ jobs:
       run: uv run make mypy
 
   package:
-    name: Build wheels
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-        - {os: macos-15,         arch: "arm64,x86_64", build: "cp3{10,11,12,13,14}-*"}
-        - {os: ubuntu-24.04,     arch: auto,           build: "cp3{10,11,12,13,14}-manylinux*"}
-        - {os: ubuntu-24.04,     arch: auto,           build: "cp3{10,11,12,13,14}-musllinux*"}
-        - {os: ubuntu-24.04-arm, arch: auto,           build: "cp3{10,11,12,13,14}-manylinux*"}
-        - {os: ubuntu-24.04-arm, arch: auto,           build: "cp3{10,11,12,13,14}-musllinux*"}
-        - {os: windows-latest,   arch: AMD64,          build: "cp3{10,11,12,13,14}-*"}
-        - {os: windows-latest,   arch: ARM64,          build: "cp3{10,11,12,13,14}-*"}
+    name: Build wheel(s)
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - name: Build wheels
-      env:
-        CIBW_ARCHS: ${{ matrix.arch }}
-        CIBW_BUILD: ${{ matrix.build }}
-      uses: pypa/cibuildwheel@v3.4.0
+    - uses: astral-sh/setup-uv@v7
+      with:
+        python-version: "3.14"
+    - run: uv build --wheel
 
   test:
     name: Test Supriya
@@ -147,7 +135,6 @@ jobs:
     - name: Sanity-check Supriya
       run: |
         uv run python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
-        uv run python -c "from supriya.contexts.shm import ServerSHM; print(ServerSHM)"
       timeout-minutes: 1
     - name: Check for stray processes (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
