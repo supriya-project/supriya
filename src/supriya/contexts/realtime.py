@@ -10,11 +10,13 @@ import threading
 import warnings
 from collections.abc import Sequence as SequenceABC
 from typing import (
+    TYPE_CHECKING,
     Awaitable,
     Callable,
     Iterable,
     Literal,
     NamedTuple,
+    Optional,
     Sequence,
     SupportsInt,
     Type,
@@ -94,7 +96,9 @@ from .responses import (
     VersionInfo,
 )
 from .scopes import AmplitudeScope, FrequencyScope
-from .shm import ServerSHM
+
+if TYPE_CHECKING:
+    from supriya_shm import ServerSHM
 
 logger = logging.getLogger(__name__)
 
@@ -159,7 +163,7 @@ class BaseServer(Context):
         self._node_active: dict[int, bool] = {}
         self._node_children: dict[int, list[int]] = {}
         self._node_parents: dict[int, int] = {}
-        self._shared_memory: ServerSHM | None = None
+        self._shared_memory: Optional["ServerSHM"] = None
         self._status: StatusInfo | None = None
 
     ### SPECIAL METHODS ###
@@ -349,6 +353,8 @@ class BaseServer(Context):
 
     def _setup_shared_memory(self) -> None:
         try:
+            from supriya_shm import ServerSHM
+
             self._shared_memory = ServerSHM(
                 self._options.port, self._options.control_bus_channel_count
             )
@@ -475,7 +481,7 @@ class BaseServer(Context):
         return self._is_owner
 
     @property
-    def shared_memory(self) -> ServerSHM | None:
+    def shared_memory(self) -> Optional["ServerSHM"]:
         """
         Get the server's shared memory interface, if available.
         """

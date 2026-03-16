@@ -17,16 +17,33 @@ Install Supriya from `PyPI`_ via `pip`_, or from its `GitHub`_ repository via `g
 
 ..  include:: /includes/install.txt
 
-Optional dependencies
----------------------
+Optional Python dependencies
+----------------------------
+
+Documentation
+`````````````
 
 With `Sphinx`_ and `IPython`_ support:
 
 ..  include:: /includes/install-docs.txt
 
+Testing & linting
+`````````````````
+
 With linting and testing dependencies:
 
 ..  include:: /includes/install-test.txt
+
+Shared memory
+`````````````
+
+With scsynth/supernova "shared memory" support (will require a C++ build
+toolchain if your system isn't supported by one of the pre-packaged wheels):
+
+..  include:: /includes/install-shm.txt
+
+Optional binary dependencies
+----------------------------
 
 Graphviz
 ````````

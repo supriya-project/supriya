@@ -54,29 +54,19 @@ jobs:
         path: ./docs/build/html/
 
   build-wheels:
-    name: Build wheels
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-        - {os: macos-15,         arch: "arm64,x86_64", build: "cp3{10,11,12,13,14}-*",          dist: "macos"}
-        - {os: ubuntu-24.04,     arch: auto,           build: "cp3{10,11,12,13,14}-manylinux*", dist: "manylinux-amd"}
-        - {os: ubuntu-24.04,     arch: auto,           build: "cp3{10,11,12,13,14}-musllinux*", dist: "musllinux-amd"}
-        - {os: ubuntu-24.04-arm, arch: auto,           build: "cp3{10,11,12,13,14}-manylinux*", dist: "manylinux-arm"}
-        - {os: ubuntu-24.04-arm, arch: auto,           build: "cp3{10,11,12,13,14}-musllinux*", dist: "musllinux-arm"}
-        - {os: windows-latest,   arch: AMD64,          build: "cp3{10,11,12,13,14}-*",          dist: "windows-amd"}
-        - {os: windows-latest,   arch: ARM64,          build: "cp3{10,11,12,13,14}-*",          dist: "windows-arm"}
+    name: Build wheel(s)
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - env:
-        CIBW_ARCHS: ${{ matrix.arch }}
-        CIBW_BUILD: ${{ matrix.build }}
-      name: Build wheels
-      uses: pypa/cibuildwheel@v3.4.0
+    - uses: astral-sh/setup-uv@v7
+      with:
+        python-version: "3.14"
+    - name: Build wheel
+      run: uv build --wheel
     - name: Upload wheels 
       uses: actions/upload-artifact@v6
       with:
-        name: dist-${{ matrix.dist }}
+        name: dist-wheel
         path: ./wheelhouse/*.whl
 
   build-sdist:
@@ -84,8 +74,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - name: Build sdist
-      run: pipx run build --sdist
+    - uses: astral-sh/setup-uv@v7
+      with:
+        python-version: "3.14"
+    - name: Build wheel
+      run: uv build --sdist
     - uses: actions/upload-artifact@v6
       with:
         name: dist-sdist

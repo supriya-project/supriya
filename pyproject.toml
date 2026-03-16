@@ -49,10 +49,14 @@ docs = [
   "sphinx-toolbox",
   "sphinxext-opengraph",
   "supriya[examples]",
+  "supriya[shm]",
 ]
 examples = [
   "pynput",
   "python-rtmidi",
+]
+shm = [
+  "supriya-shm >= 26.3b0",
 ]
 test = [
   "IPython",
@@ -66,6 +70,7 @@ test = [
   "pytest-mock",
   "pytest-rerunfailures",
   "ruff",
+  "supriya[shm]",
   "types-PyYAML",
   "types-docutils",
   "types-psutil",
@@ -132,10 +137,4 @@ target-version = "py310"
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
-supriya = ["*.pxd", "*.pyx", "py.typed"]
-
-[[tool.setuptools.ext-modules]]
-include-dirs = ["vendor/", "vendor/supercollider/common/", "vendor/TLSF-2.4.6/src/"]
-language = "c++"
-name = "supriya.contexts.shm"
-sources = ["src/supriya/contexts/shm.pyx"]
+supriya = ["py.typed"]
