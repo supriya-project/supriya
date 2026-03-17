@@ -98,7 +98,7 @@ jobs:
     - uses: astral-sh/setup-uv@v7
       with:
         python-version: "3.14"
-    - run: uv build --wheel
+    - run: uv build --clear --sdist --wheel
 
   test:
     name: Test Supriya

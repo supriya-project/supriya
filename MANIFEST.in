@@ -1,5 +1,3 @@
-global-exclude *.pyc
-
 include CODE_OF_CONDUCT.md
 include LICENSE
 include MANIFEST.in
@@ -7,14 +5,11 @@ include Makefile
 include README.md
 include conftest.py
 include pyproject.toml
-include setup.py
 
 recursive-include docs *
 recursive-include src *.py
-recursive-include src *.pxd
-recursive-include src *.pyx
-recursive-include src/samples *.wav
+recursive-include src *.wav
 recursive-include tests *
-recursive-include vendor *
 
 recursive-exclude docs/build *
+global-exclude *.pyc
