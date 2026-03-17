@@ -5,16 +5,15 @@ on:
 
 env:
   PYNPUT_BACKEND: dummy
-  SC_ORIGIN: https://github.com/supercollider/supercollider.git
-  SC_BRANCH: develop
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+
   build-dist:
-    name: Build distribution
+    name: Build distribution archives
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
@@ -33,8 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - name: Tune GitHub Actions
-      uses: ./.github/actions/tune-github-actions
+    - uses: ./.github/actions/tune-github-actions
     - uses: astral-sh/setup-uv@v7
       with:
         python-version: "3.14"
@@ -42,13 +40,8 @@ jobs:
       with:
         key: ${{ runner.os }}
         restore-keys: ${{ runner.os }}
-    - name: Setup audio
-      uses: supriya-project/setup-audio@main
-    - name: Setup SuperCollider
-      uses: supriya-project/setup-supercollider@v1.1.1
-      with:
-        origin: ${{ env.SC_ORIGIN }}
-        ref: ${{ env.SC_BRANCH }}
+    - uses: supriya-project/setup-audio@main
+    - uses: supriya-project/setup-supercollider@v1.1.1
     - name: Install Supriya
       run: uv sync --extra docs
     - name: Install APT deps
@@ -107,8 +100,7 @@ jobs:
       with:
         name: docs
         path: docs
-    - name: Clone gh-pages
-      uses: actions/checkout@v6
+    - uses: actions/checkout@v6
       with:
         path: gh-pages
         ref: gh-pages
@@ -116,8 +108,7 @@ jobs:
       run: rsync -rtv --del --exclude=.git docs/ gh-pages/
     - name: Touch .nojekyll
       run: touch gh-pages/.nojekyll
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v4.0.0
+    - uses: peaceiris/actions-gh-pages@v4.0.0
       with:
         allow_empty_commit: true
         github_token: ${{ secrets.GITHUB_TOKEN }}
