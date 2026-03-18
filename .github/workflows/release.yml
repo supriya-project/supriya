@@ -16,14 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - name: Set up Python
-      uses: actions/setup-python@v6
+    - uses: astral-sh/setup-uv@v7
       with:
         python-version: "3.14"
     - name: Get latest version
       run: echo OLD_VERSION=$(gh release list -L 1 --json name | jq -r '.[0].name') >> $GITHUB_ENV
     - name: Bump version file
-      run: echo NEW_VERSION=$(python dev/bump-version.py ${OLD_VERSION}) >> $GITHUB_ENV
+      run: echo NEW_VERSION=$(uv run dev/bump-version.py ${OLD_VERSION}) >> $GITHUB_ENV
     - name: Debug
       run: |
         echo ${OLD_VERSION}
