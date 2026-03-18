@@ -42,7 +42,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4954ae781f6c361de.min.css?v=07da37e9" />
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.8ec11ad9e2ef433b8.min.css?v=564685ac" />
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -1837,30 +1837,6 @@
   
   <span class="md-ellipsis">
     <span>scopes</span>
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api/supriya/contexts/shm.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    <span>shm</span>
     
   </span>
   
@@ -3888,13 +3864,13 @@ allocate a buffer from the middle of that soundfile, plot it and play it:</p>
 </div>
 <p>Allocating a buffer from this soundfile shows it contains eight channels:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=7, completion=Completion(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=7, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/samples/sine_440hz_44100sr_16bit_octo.wav&#39;), starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=7, completion=Completion(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=7, path=PosixPath(&#39;/home/runner/work/supriya/supriya/src/supriya/samples/sine_440hz_44100sr_16bit_octo.wav&#39;), starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <p>We can allocate a buffer from a subset of those channels by passing the number
 of channels to grab via the <code class="docutils literal notranslate"><span class="pre">channel_count</span></code> parameter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">channel_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
-<span class="go">Buffer(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=8, completion=Completion(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBufferChannel(buffer_id=8, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/samples/sine_440hz_44100sr_16bit_octo.wav&#39;), channel_indices=[0, 1], starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
+<span class="go">Buffer(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=8, completion=Completion(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBufferChannel(buffer_id=8, path=PosixPath(&#39;/home/runner/work/supriya/supriya/src/supriya/samples/sine_440hz_44100sr_16bit_octo.wav&#39;), channel_indices=[0, 1], starting_frame=0, frame_count=0, on_completion=None), ...)]), requests=[]))</span>
 </code></pre></div>
 </div>
 <div class="todo info admonition" id="id1">
@@ -3904,7 +3880,7 @@ of channels to grab via the <code class="docutils literal notranslate"><span cla
 <h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Link to this heading">¶</a></h3>
 <p>Free a buffer with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<span class="go">Completion(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(FreeBuffer(buffer_id=Buffer(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=6, completion=Completion(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=6, path=PosixPath(&#39;/home/runner/work/supriya/supriya/supriya/samples/birds-01.wav&#39;), starting_frame=16545, frame_count=8192, on_completion=None), ...)]), requests=[])), on_completion=None), ...)]), requests=[])</span>
+<span class="go">Completion(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(FreeBuffer(buffer_id=Buffer(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=6, completion=Completion(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, moment=Moment(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, seconds=None, closed=True, requests=[(AllocateReadBuffer(buffer_id=6, path=PosixPath(&#39;/home/runner/work/supriya/supriya/src/supriya/samples/birds-01.wav&#39;), starting_frame=16545, frame_count=8192, on_completion=None), ...)]), requests=[])), on_completion=None), ...)]), requests=[])</span>
 </code></pre></div>
 </div>
 <p>Free a buffer group with:</p>
@@ -4156,7 +4132,7 @@ context when initialized or booting, or just as keyword arguments.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    8.2.3.
+    9.1.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

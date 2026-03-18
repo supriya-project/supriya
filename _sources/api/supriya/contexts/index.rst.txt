@@ -18,4 +18,3 @@ contexts
    requests
    responses
    scopes
-   shm

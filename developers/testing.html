@@ -42,7 +42,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4954ae781f6c361de.min.css?v=07da37e9" />
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.8ec11ad9e2ef433b8.min.css?v=564685ac" />
         <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -1833,30 +1833,6 @@
   
   <span class="md-ellipsis">
     <span>scopes</span>
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api/supriya/contexts/shm.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    <span>shm</span>
     
   </span>
   
@@ -3802,7 +3778,7 @@ From source</label></div>
 </div><h2 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">¶</a></h2>
 <p>Supriya uses <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> as its test runner, both for unit tests and for
 doctests, along with a variety of <cite>pytest_</cite> plugins.</p>
-<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.2b1/supriya">supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.2b1/tests">tests/</a>) with:</p>
+<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/src/supriya">src/supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/tests">tests/</a>) with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest
 </code></pre></div>
 </div>
@@ -3832,8 +3808,8 @@ equivalents.</p>
 <h3 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> can collect code coverage statistics during its test runs via the
 <a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/">pytest-cov</a> plugin, installed when you install Supriya’s test dependencies.</p>
-<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.2b1/supriya">supriya/</a>
-directory during a test run by adding the <code class="docutils literal notranslate"><span class="pre">--cov=supriya</span></code> flag:</p>
+<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/src/supriya/">src/supriya/</a>
+directory during a test run by adding the <code class="docutils literal notranslate"><span class="pre">--cov=src/supriya/</span></code> flag:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>--cov<span class="o">=</span>supriya
 </code></pre></div>
 </div>
@@ -3950,7 +3926,7 @@ the gaps in test coverage.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The test examples here are <span class="md-icon si-icon-inline octicons_mark-github-16"></span>
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.2b1/tests/test_examples.py">in the official test suite</a>, which
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.3b0/tests/test_examples.py">in the official test suite</a>, which
 ensures that they continue to work and are subject to the same formatting,
 linting and static-typing checks as any other code in Supriya.</p>
 </div>
@@ -4801,9 +4777,9 @@ imports, it now just uses <a class="reference external" href="https://docs.astra
 <p>You can auto-format the codebase with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>reformat
 <span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
-<span class="go">ruff check --select I,RUF022 --fix supriya/ docs/ examples/ tests/ *.py</span>
+<span class="go">ruff check --select I,RUF022 --fix src/ docs/ examples/ tests/ *.py</span>
 <span class="go">/bin/sh: 1: ruff: not found</span>
-<span class="go">make[2]: *** [Makefile:57: ruff-imports-fix] Error 127</span>
+<span class="go">make[2]: *** [Makefile:56: ruff-imports-fix] Error 127</span>
 <span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 </code></pre></div>
 </div>
@@ -4813,9 +4789,9 @@ sake of speed and ease of configuration.</p>
 <p>You can lint the codebase with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>ruff-lint
 <span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
-<span class="go">ruff check --diff supriya/ docs/ examples/ tests/ *.py</span>
+<span class="go">ruff check --diff src/ docs/ examples/ tests/ *.py</span>
 <span class="go">/bin/sh: 1: ruff: not found</span>
-<span class="go">make[2]: *** [Makefile:60: ruff-lint] Error 127</span>
+<span class="go">make[2]: *** [Makefile:59: ruff-lint] Error 127</span>
 <span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 </code></pre></div>
 </div>
@@ -4825,13 +4801,13 @@ work-in-progress) and uses <a class="reference external" href="https://mypy-lang
 <p>You can run static type-checking with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>mypy
 <span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
-<span class="go">mypy supriya/ examples/ tests/</span>
-<span class="go">supriya/ext/book.py:10: error: Library stubs not installed for &quot;docutils.nodes&quot;  [import-untyped]</span>
-<span class="go">supriya/ext/book.py:10: note: Hint: &quot;python3 -m pip install types-docutils&quot;</span>
-<span class="go">supriya/ext/book.py:10: note: (or run &quot;mypy --install-types&quot; to install all missing stub packages)</span>
-<span class="go">supriya/ext/book.py:10: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports</span>
-<span class="go">Found 1 error in 1 file (checked 158 source files)</span>
-<span class="go">make[2]: *** [Makefile:34: mypy] Error 1</span>
+<span class="go">mypy src/ examples/ tests/</span>
+<span class="go">src/supriya/ext/book.py:10: error: Library stubs not installed for &quot;docutils.nodes&quot;  [import-untyped]</span>
+<span class="go">src/supriya/ext/book.py:10: note: Hint: &quot;python3 -m pip install types-docutils&quot;</span>
+<span class="go">src/supriya/ext/book.py:10: note: (or run &quot;mypy --install-types&quot; to install all missing stub packages)</span>
+<span class="go">src/supriya/ext/book.py:10: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports</span>
+<span class="go">Found 1 error in 1 file (checked 157 source files)</span>
+<span class="go">make[2]: *** [Makefile:33: mypy] Error 1</span>
 <span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
 </code></pre></div>
 </div>
@@ -4850,9 +4826,9 @@ running the tests.</p>
 <p>Because of its use of metaclasses for code generation in UGens, Supriya
 requires a <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension to teach it about the auto-generated methods and
 properties on those classes.</p>
-<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.2b1/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
+<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.3b0/src/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
 and MyPy is already configured to use it via the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> field in Supriya’s
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.2b1/pyproject.toml">pyproject.toml</a>.</p>
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.3b0/pyproject.toml">pyproject.toml</a>.</p>
 <p>Should you need to type check against Supriya’s UGens in another project, you
 can activate the <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension with the following code:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><code><span class="k">[tool.mypy]</span>
@@ -4970,7 +4946,7 @@ Python (e.g. 3.10, 3.11, 3.12, 3.13)</p></li>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    8.2.3.
+    9.1.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
