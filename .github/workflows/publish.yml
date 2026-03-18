@@ -21,7 +21,7 @@ jobs:
       with:
         python-version: "3.14"
     - name: Build
-      run: uv build --clear --sdit --wheel
+      run: uv build --clear --sdist --wheel
     - uses: actions/upload-artifact@v6
       with:
         name: dist
@@ -71,7 +71,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v7
       with:
-        path: dist
+        path: ./dist
         pattern: dist
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
