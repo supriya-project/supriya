@@ -28,7 +28,7 @@ def rewrite_version_file(year: int, month: int, beta: int) -> None:
 
 def update_pyproject_toml(year: int, month: int, beta: int) -> None:
     version = f"{year}.{month}b{beta}"
-    subprocess.run(["uv", "version", "--no-sync", version])
+    subprocess.run(["uv", "version", "--no-sync", version], capture_output=True, check=True)
 
 
 def build_parser():
@@ -41,8 +41,8 @@ def run():
     parser = build_parser()
     parsed_args = parser.parse_args()
     year, month, beta = calculate_new_version_info(parsed_args.release)
-    rewrite_version_file(year, month, beta)
     update_pyproject_toml(year, month, beta)
+    rewrite_version_file(year, month, beta)
     print(f"{year}.{month}b{beta}", end="")
 
 
