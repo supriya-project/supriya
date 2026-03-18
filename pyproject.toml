@@ -36,7 +36,7 @@ license = "MIT"
 name = "supriya"
 readme = "README.md"
 requires-python = ">= 3.10"
-version = "26.2b1"
+version = "26.3b0"
 
 [project.optional-dependencies]
 docs = [
