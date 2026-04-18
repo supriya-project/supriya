@@ -24,8 +24,7 @@ complete explanation.
 import asyncio
 import signal
 
-import rtmidi
-import rtmidi.midiutil
+import supriya_midi
 
 import supriya
 
@@ -100,7 +99,7 @@ def main(args: list[str] | None = None) -> None:
     parsed_args = parse_args(args)
     if parsed_args.list_midi_inputs:
         # print out available MIDI input ports
-        rtmidi.midiutil.list_input_ports()
+        supriya_midi.list_ports()
     elif parsed_args.use_midi is not None:
         asyncio.run(run(MidiHandler(port=parsed_args.use_midi)))
     elif parsed_args.use_qwerty:
