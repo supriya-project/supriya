@@ -172,12 +172,16 @@ class MidiHandler(InputHandler):
         # the raw MIDI event is a 2-tuple of MIDI data and time delta, so
         # unpack it, keep the data and discard the time delta ...
         data, _ = event
-        if data[0] == supriya_midi.midiconstants.NOTE_ON:  # if we received a note-on ...
+        if (
+            data[0] == supriya_midi.midiconstants.NOTE_ON
+        ):  # if we received a note-on ...
             # grab the note number and velocity
             _, note_number, velocity = data
             # perform a "note on" event
             callback(NoteOn(note_number=note_number, velocity=velocity))
-        elif data[0] == supriya_midi.midiconstants.NOTE_OFF:  # if we received a note-off ...
+        elif (
+            data[0] == supriya_midi.midiconstants.NOTE_OFF
+        ):  # if we received a note-off ...
             # grab the note number
             _, note_number, _ = data
             # perform a "note off" event
