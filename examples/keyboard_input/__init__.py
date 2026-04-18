@@ -30,9 +30,8 @@ import time
 from typing import Callable, Generator
 
 import pynput
-import rtmidi
-import rtmidi.midiconstants
-import rtmidi.midiutil
+import supriya_midi
+import supriya_midi.midiconstants
 
 import supriya
 
@@ -152,7 +151,7 @@ class MidiHandler(InputHandler):
         """
         Context manager for listening to MIDI input events.
         """
-        self.midi_input = rtmidi.MidiIn()  # create the MIDI input
+        self.midi_input = supriya_midi.MidiIn()  # create the MIDI input
         # set the MIDI event callback to this class's __call__
         self.midi_input.set_callback(functools.partial(self.handle, callback))
         self.midi_input.open_port(self.port)  # open the port for listening
@@ -173,12 +172,16 @@ class MidiHandler(InputHandler):
         # the raw MIDI event is a 2-tuple of MIDI data and time delta, so
         # unpack it, keep the data and discard the time delta ...
         data, _ = event
-        if data[0] == rtmidi.midiconstants.NOTE_ON:  # if we received a note-on ...
+        if (
+            data[0] == supriya_midi.midiconstants.NOTE_ON
+        ):  # if we received a note-on ...
             # grab the note number and velocity
             _, note_number, velocity = data
             # perform a "note on" event
             callback(NoteOn(note_number=note_number, velocity=velocity))
-        elif data[0] == rtmidi.midiconstants.NOTE_OFF:  # if we received a note-off ...
+        elif (
+            data[0] == supriya_midi.midiconstants.NOTE_OFF
+        ):  # if we received a note-off ...
             # grab the note number
             _, note_number, _ = data
             # perform a "note off" event
@@ -343,7 +346,7 @@ def main(args: list[str] | None = None) -> None:
     parsed_args = parse_args(args)
     if parsed_args.list_midi_inputs:
         # print out available MIDI input ports
-        rtmidi.midiutil.list_input_ports()
+        supriya_midi.list_ports()
     elif parsed_args.use_midi is not None:
         run(MidiHandler(port=parsed_args.use_midi))
     elif parsed_args.use_qwerty:

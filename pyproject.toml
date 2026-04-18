@@ -53,7 +53,7 @@ docs = [
 ]
 examples = [
   "pynput",
-  "python-rtmidi",
+  "supriya-midi>=26.4b1",
 ]
 shm = [
   "supriya-shm >= 26.3b0",
