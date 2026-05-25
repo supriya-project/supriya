@@ -229,7 +229,7 @@ class OscMessage:
         return result
 
     @staticmethod
-    def _encode_blob(value: bytes) -> bytes:
+    def _encode_blob(value: bytes | bytearray) -> bytes:
         result = bytes(struct.pack(">I", len(value)) + value)
         if len(result) % 4 != 0:
             width = (len(result) // 4 + 1) * 4
