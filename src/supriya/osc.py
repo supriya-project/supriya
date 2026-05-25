@@ -63,7 +63,7 @@ OscArgument: TypeAlias = Union[
 ]
 
 
-def format_datagram(datagram: bytes) -> str:
+def format_datagram(datagram: bytes | bytearray) -> str:
     result: list[str] = ["size {}".format(len(datagram))]
     index = 0
     while index < len(datagram):
@@ -229,7 +229,7 @@ class OscMessage:
         return result
 
     @staticmethod
-    def _encode_blob(value: bytes) -> bytes:
+    def _encode_blob(value: bytes | bytearray) -> bytes:
         result = bytes(struct.pack(">I", len(value)) + value)
         if len(result) % 4 != 0:
             width = (len(result) // 4 + 1) * 4

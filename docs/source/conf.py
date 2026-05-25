@@ -102,7 +102,7 @@ rst_epilog = """
 .. _pytest-lazy-fixtures: https://github.com/dev-petrov/pytest-lazy-fixtures
 .. _pytest: https://docs.pytest.org/en/stable/
 .. _python-prompt-toolkit: https://python-prompt-toolkit.readthedocs.io/en/master/
-.. _python-rtmidi: https://spotlightkid.github.io/python-rtmidi/
+.. _supriya-midi: https://supriya-project.github.io/supriya-midi/
 .. _ruff: https://docs.astral.sh/ruff/
 .. _sphinx-immaterial: https://sphinx-immaterial.readthedocs.io/en/latest/
 .. _uqbar.sphinx.api: https://supriya-project.github.io/uqbar/api/uqbar/sphinx/api.html#module-uqbar.sphinx.api
@@ -125,9 +125,9 @@ graphviz_output_format = "svg"
 ### INTERSPHINX ###
 
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3/", None),
     "pynput": ("https://pynput.readthedocs.io/en/latest/", None),
-    "rtmidi": ("https://spotlightkid.github.io/python-rtmidi/", None),
+    "python": ("https://docs.python.org/3/", None),
+    "supriya_midi": ("https://supriya-project.github.io/supriya-midi/", None),
     "uqbar": ("https://supriya-project.github.io/uqbar/", None),
 }
 
