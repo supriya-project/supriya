@@ -63,7 +63,7 @@ OscArgument: TypeAlias = Union[
 ]
 
 
-def format_datagram(datagram: bytes) -> str:
+def format_datagram(datagram: bytes | bytearray) -> str:
     result: list[str] = ["size {}".format(len(datagram))]
     index = 0
     while index < len(datagram):
