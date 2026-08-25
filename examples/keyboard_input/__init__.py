@@ -27,7 +27,7 @@ import functools
 import random
 import signal
 import time
-from typing import Callable, Generator
+from collections.abc import Callable, Generator
 
 import pynput
 import rtmidi

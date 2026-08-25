@@ -124,7 +124,7 @@ class Say:
         if self.voice is not None:
             md5.update(self.voice.encode())
         md5 = md5.hexdigest()
-        file_path = "{}-{}.aiff".format(to_dash_case(type(self).__name__), md5)
+        file_path = f"{to_dash_case(type(self).__name__)}-{md5}.aiff"
         return Path(file_path)
 
     def _build_output_file_path(

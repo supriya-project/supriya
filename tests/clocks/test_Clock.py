@@ -3,7 +3,7 @@ import platform
 import random
 import statistics
 import time
-from typing import Generator
+from collections.abc import Generator
 
 import pytest
 from pytest_mock import MockerFixture
@@ -36,9 +36,7 @@ def callback(
     if state.event.invocations == blow_up_at:
         raise Exception
     store.append(state)
-    if limit is None:
-        return delta, time_unit
-    elif state.event.invocations < limit:
+    if limit is None or state.event.invocations < limit:
         return delta, time_unit
     return None
 
@@ -142,7 +140,7 @@ def test_realtime_02(
 ) -> None:
     store: list[ClockCallbackState] = []
     clock = Clock()
-    clock.cue(callback, quantization="1/4", args=[store], kwargs=dict(limit=limit))
+    clock.cue(callback, quantization="1/4", args=[store], kwargs={"limit": limit})
     for schedule_at, beats_per_minute in bpm_schedule:
         clock.schedule_change(
             beats_per_minute=beats_per_minute,

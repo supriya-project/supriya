@@ -1,10 +1,10 @@
 import asyncio
 import concurrent.futures
+from collections.abc import Coroutine
 from os import PathLike
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
-    Coroutine,
     Protocol,
     SupportsFloat,
     SupportsInt,

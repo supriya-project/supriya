@@ -3,8 +3,8 @@ import concurrent.futures
 import logging
 import random
 import warnings
+from collections.abc import AsyncGenerator
 from pathlib import Path
-from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -164,15 +164,13 @@ async def test_close_buffer(context: AsyncServer | Server) -> None:
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
         # completion without moment errors, but initial request succeeds
-        with pytest.raises(MomentClosed):
-            with buffer_a.close():
-                ...
+        with pytest.raises(MomentClosed), buffer_a.close():
+            ...
         # completion without moment via on_completion lambda succeeds
         buffer_b.close(on_completion=lambda ctx: buffer_b.free())
         # completion inside moment succeeds
-        with context.at():
-            with buffer_c.close():
-                buffer_c.free()
+        with context.at(), buffer_c.close():
+            buffer_c.free()
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_close", 0),
         OscMessage("/b_close", 1, OscMessage("/b_free", 1)),
@@ -227,15 +225,13 @@ async def test_free_buffer(context: AsyncServer | Server) -> None:
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
         # completion without moment errors, but initial request succeeds
-        with pytest.raises(MomentClosed):
-            with buffer_a.free():
-                ...
+        with pytest.raises(MomentClosed), buffer_a.free():
+            ...
         # completion without moment via on_completion lambda succeeds
         buffer_b.free(on_completion=lambda ctx: ctx.add_group())
         # completion inside moment succeeds
-        with context.at():
-            with buffer_c.free():
-                context.add_group()
+        with context.at(), buffer_c.free():
+            context.add_group()
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_free", 0),
         OscMessage("/b_free", 1, OscMessage("/g_new", 1000, 0, 1)),
@@ -245,31 +241,28 @@ async def test_free_buffer(context: AsyncServer | Server) -> None:
 
 def test_generate_buffer(context: AsyncServer | Server) -> None:
     buffer = context.add_buffer(channel_count=1, frame_count=1024)
-    with context.osc_protocol.capture() as transcript:
-        with context.at(0):
-            buffer.generate(command_name="sine1", amplitudes=[1, 2, 3])
-            buffer.generate(
-                command_name="sine2", amplitudes=[1, 2, 3], frequencies=[4, 5, 6]
-            )
-            buffer.generate(
-                command_name="sine3",
-                amplitudes=[1, 2, 3],
-                frequencies=[4, 5, 6],
-                phases=[0.25, 0.0, 0.5],
-            )
-            buffer.generate(command_name="cheby", amplitudes=[1, 2, 3])
-            buffer.generate(
-                command_name="sine1", amplitudes=[1, 2, 3], as_wavetable=True
-            )
-            buffer.generate(
-                command_name="sine1", amplitudes=[1, 2, 3], should_clear_first=True
-            )
-            buffer.generate(
-                command_name="sine1",
-                amplitudes=[1, 2, 3],
-                should_clear_first=True,
-                should_normalize=True,
-            )
+    with context.osc_protocol.capture() as transcript, context.at(0):
+        buffer.generate(command_name="sine1", amplitudes=[1, 2, 3])
+        buffer.generate(
+            command_name="sine2", amplitudes=[1, 2, 3], frequencies=[4, 5, 6]
+        )
+        buffer.generate(
+            command_name="sine3",
+            amplitudes=[1, 2, 3],
+            frequencies=[4, 5, 6],
+            phases=[0.25, 0.0, 0.5],
+        )
+        buffer.generate(command_name="cheby", amplitudes=[1, 2, 3])
+        buffer.generate(command_name="sine1", amplitudes=[1, 2, 3], as_wavetable=True)
+        buffer.generate(
+            command_name="sine1", amplitudes=[1, 2, 3], should_clear_first=True
+        )
+        buffer.generate(
+            command_name="sine1",
+            amplitudes=[1, 2, 3],
+            should_clear_first=True,
+            should_normalize=True,
+        )
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscBundle(
             contents=(
@@ -402,9 +395,8 @@ async def test_read_buffer(
             file_path=audio_paths[1], on_completion=lambda ctx: ctx.add_group()
         )
         # completion inside moment succeeds
-        with context.at():
-            with buffer_c.read(file_path=audio_paths[2]):
-                context.add_group()
+        with context.at(), buffer_c.read(file_path=audio_paths[2]):
+            context.add_group()
         # parameters
         buffer_a.read(
             buffer_starting_frame=5,
@@ -477,9 +469,8 @@ async def test_write_buffer(context: AsyncServer | Server, tmp_path: Path) -> No
             file_path=tmp_path / "foo-2.aiff", on_completion=lambda ctx: ctx.add_group()
         )
         # completion inside moment succeeds
-        with context.at():
-            with buffer_c.write(file_path=tmp_path / "foo-3.aiff"):
-                context.add_group()
+        with context.at(), buffer_c.write(file_path=tmp_path / "foo-3.aiff"):
+            context.add_group()
         # parameters
         buffer_a.write(
             file_path=tmp_path / "foo-4.wav",
@@ -528,15 +519,13 @@ async def test_zero_buffer(context: AsyncServer | Server) -> None:
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
         # completion without moment errors, but initial request succeeds
-        with pytest.raises(MomentClosed):
-            with buffer_a.zero():
-                ...
+        with pytest.raises(MomentClosed), buffer_a.zero():
+            ...
         # completion without moment via on_completion lambda succeeds
         buffer_b.zero(on_completion=lambda ctx: ctx.add_group())
         # completion inside moment succeeds
-        with context.at():
-            with buffer_c.zero():
-                context.add_group()
+        with context.at(), buffer_c.zero():
+            context.add_group()
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_zero", 0),
         OscMessage("/b_zero", 1, OscMessage("/g_new", 1000, 0, 1)),

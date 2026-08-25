@@ -180,7 +180,8 @@ class TypeVarDocumenter(MemberDocumenter):
     """
 
     def __str__(self) -> str:
-        return ".. autotypevar:: {}".format(getattr(self.client, "__name__"))
+        assert isinstance(self.client, type)
+        return f".. autotypevar:: {self.client.__name__}"
 
     @classmethod
     def validate_client(cls, client: object, module_path: str) -> bool:

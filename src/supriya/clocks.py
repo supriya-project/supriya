@@ -10,15 +10,11 @@ import queue
 import threading
 import time
 import traceback
-from collections.abc import Sequence
+from collections.abc import AsyncGenerator, Awaitable, Generator, Sequence
 from contextlib import asynccontextmanager, contextmanager
 from functools import total_ordering
 from typing import (
     Any,
-    AsyncGenerator,
-    Awaitable,
-    Deque,
-    Generator,
     Generic,
     Literal,
     NamedTuple,
@@ -247,7 +243,7 @@ class BaseClock(Generic[C]):
     def __init__(self) -> None:
         self._name = None
         self._counter = itertools.count()
-        self._command_deque: Deque[Command] = collections.deque()
+        self._command_deque: collections.deque[Command] = collections.deque()
         self._event_queue = _EventQueue()
         self._is_running = False
         self._slop = 0.001

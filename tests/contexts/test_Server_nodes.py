@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -299,11 +299,10 @@ async def test_free_node(context: AsyncServer | Server) -> None:
 
 @pytest.mark.asyncio
 async def test_get_synth_controls(context: AsyncServer | Server) -> None:
-    with context.at():
-        with context.add_synthdefs(default):
-            synth = context.add_synth(
-                default, frequency=432.0, amplitude=0.333, panning=0.1
-            )
+    with context.at(), context.add_synthdefs(default):
+        synth = context.add_synth(
+            default, frequency=432.0, amplitude=0.333, panning=0.1
+        )
     assert await get(context.sync())
     controls = await get(synth.get("frequency", "amplitude"))
     assert {key: round(value, 3) for key, value in controls.items()} == {
@@ -311,9 +310,8 @@ async def test_get_synth_controls(context: AsyncServer | Server) -> None:
         "amplitude": 0.333,
     }
     # unsynced
-    with context.osc_protocol.capture() as transcript:
-        with context.at():
-            assert await get(synth.get("frequency", sync=False)) is None
+    with context.osc_protocol.capture() as transcript, context.at():
+        assert await get(synth.get("frequency", sync=False)) is None
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/s_get", 1000, "frequency")
     ]
@@ -322,17 +320,13 @@ async def test_get_synth_controls(context: AsyncServer | Server) -> None:
 @pytest.mark.asyncio
 async def test_get_synth_control_range(context: AsyncServer | Server) -> None:
     # TBH, not sure what the semantics of this command are supposed to be.
-    with context.at():
-        with context.add_synthdefs(default):
-            synth = context.add_synth(
-                default, frequency=432.0, amplitude=0.25, panning=0.1
-            )
+    with context.at(), context.add_synthdefs(default):
+        synth = context.add_synth(default, frequency=432.0, amplitude=0.25, panning=0.1)
     assert await get(context.sync())
     assert await get(synth.get_range("amplitude", 5)) == (0.25, 0.0, 0.0, 0.0, 0.0)
     # unsynced
-    with context.osc_protocol.capture() as transcript:
-        with context.at():
-            assert await get(synth.get_range("frequency", 3, sync=False)) is None
+    with context.osc_protocol.capture() as transcript, context.at():
+        assert await get(synth.get_range("frequency", 3, sync=False)) is None
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/s_getn", 1000, "frequency", 3)
     ]
@@ -409,9 +403,8 @@ async def test_query_node(context: AsyncServer | Server) -> None:
         tail_id=-1,
     )
     # unsynced
-    with context.osc_protocol.capture() as transcript:
-        with context.at():
-            assert await get(group.query(sync=False)) is None
+    with context.osc_protocol.capture() as transcript, context.at():
+        assert await get(group.query(sync=False)) is None
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_query", 1000)
     ]

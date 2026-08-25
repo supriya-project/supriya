@@ -20,6 +20,6 @@ def test_pattern(
 
 def test_random() -> None:
     choice_pattern = ChoicePattern([1, 2, 3])
-    assert len(set(tuple(choice_pattern) for _ in range(10))) > 1
+    assert len({tuple(choice_pattern) for _ in range(10)}) > 1
     seed_pattern = SeedPattern(choice_pattern)
-    assert len(set(tuple(seed_pattern) for _ in range(10))) == 1
+    assert len({tuple(seed_pattern) for _ in range(10)}) == 1

@@ -1,6 +1,7 @@
 import enum
 import warnings
-from typing import Any, Sequence, SupportsFloat
+from collections.abc import Sequence
+from typing import SupportsFloat
 from uuid import UUID
 
 from uqbar.objects import get_repr, get_vars, new
@@ -74,7 +75,7 @@ class Event:
     def __init__(self, *, delta: float = 0.0, **kwargs) -> None:
         self.delta = delta
 
-    def __eq__(self, expr: Any) -> bool:
+    def __eq__(self, expr: object) -> bool:
         self_values = type(self), get_vars(self)
         try:
             expr_values = type(expr), get_vars(expr)

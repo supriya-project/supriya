@@ -60,9 +60,8 @@ class BaseScope:
                 raise ValueError
             self.scope_buffer = self.context.add_scope_buffer()
             synthdef = self._get_synthdef()
-            with self.context.at():
-                with self.context.add_synthdefs(synthdef):
-                    self.synth = self._add_synth(self.scope_buffer, synthdef)
+            with self.context.at(), self.context.add_synthdefs(synthdef):
+                self.synth = self._add_synth(self.scope_buffer, synthdef)
             self.lifecycle_callback = cast(
                 Server, self.context
             ).register_lifecycle_callback(
@@ -80,11 +79,11 @@ class BaseScope:
         """
         Read latest data from an online scope.
         """
-        if not self.status == "online":
-            raise ValueError
-        elif self.context._shared_memory is None:
-            raise ValueError
-        elif self.scope_buffer is None:
+        if (
+            not self.status == "online"
+            or self.context._shared_memory is None
+            or self.scope_buffer is None
+        ):
             raise ValueError
         self.channel_count, self.max_frames = (
             self.context._shared_memory.describe_scope_buffer(int(self.scope_buffer))

@@ -1,5 +1,6 @@
 import operator
-from typing import Callable, Sequence, TypeAlias
+from collections.abc import Callable, Sequence
+from typing import TypeAlias
 
 import pytest
 

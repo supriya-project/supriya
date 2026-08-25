@@ -9,17 +9,17 @@ import re
 import shlex
 import subprocess
 import threading
+from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from pathlib import Path
 from typing import (
     IO,
-    Callable,
-    Iterator,
     Literal,
     cast,
 )
 
 import psutil
+from typing_extensions import Self
 from uqbar.io import find_executable
 
 from .enums import BootStatus
@@ -283,7 +283,7 @@ class Capture:
         self.start_pattern = re.compile(start_pattern) if start_pattern else None
         self.stop_pattern = re.compile(stop_pattern) if stop_pattern else None
 
-    def __enter__(self) -> "Capture":
+    def __enter__(self) -> Self:
         self.capturing = self.start_pattern is None
         self.process_protocol.captures.add(self)
         return self

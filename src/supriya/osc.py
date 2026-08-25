@@ -11,22 +11,20 @@ import socketserver
 import struct
 import threading
 import time
+from collections.abc import Awaitable, Callable, Generator, Iterator, Sequence
 from collections.abc import Sequence as SequenceABC
 from enum import Enum
 from queue import Empty, Queue
 from typing import (
     Any,
-    Awaitable,
-    Callable,
-    Generator,
-    Iterator,
     Literal,
     NamedTuple,
-    Sequence,
     TypeAlias,
     Union,
     cast,
 )
+
+from typing_extensions import Self
 
 from .enums import BootStatus
 from .typing import FutureLike, SupportsOsc
@@ -64,7 +62,7 @@ OscArgument: TypeAlias = Union[
 
 
 def format_datagram(datagram: bytes) -> str:
-    result: list[str] = ["size {}".format(len(datagram))]
+    result: list[str] = [f"size {len(datagram)}"]
     index = 0
     while index < len(datagram):
         hex_blocks = []
@@ -80,9 +78,9 @@ def format_datagram(datagram: bytes) -> str:
                 hexed = hex(byte)[2:].zfill(2)
                 hex_block.append(hexed)
             hex_blocks.append(" ".join(hex_block))
-        line = "{: >4}   ".format(index)
+        line = f"{index: >4}   "
         line += "{: <53}".format("  ".join(hex_blocks))
-        line += "|{}|".format(ascii_block)
+        line += f"|{ascii_block}|"
         result.append(line)
         index += 16
     return "\n".join(result)
@@ -191,9 +189,7 @@ class OscMessage:
             return False
         if self.address != other.address:
             return False
-        if self.contents != other.contents:
-            return False
-        return True
+        return self.contents == other.contents
 
     def __repr__(self) -> str:
         return "{}({})".format(
@@ -202,7 +198,7 @@ class OscMessage:
         )
 
     def __str__(self) -> str:
-        return format_datagram(bytearray(self.to_datagram()))
+        return format_datagram(self.to_datagram())
 
     ### PRIVATE METHODS ###
 
@@ -251,7 +247,7 @@ class OscMessage:
             encoded_value = cls._encode_blob(value.to_datagram())
         elif isinstance(value, (bytearray, bytes)):
             type_tags += "b"
-            encoded_value = cls._encode_blob(value)
+            encoded_value = cls._encode_blob(bytes(value))
         elif isinstance(value, str):
             type_tags += "s"
             encoded_value = cls._encode_string(value)
@@ -273,7 +269,7 @@ class OscMessage:
                 encoded_value += sub_encoded_value
             type_tags += "]"
         else:
-            message = "Cannot encode {!r}".format(value)
+            message = f"Cannot encode {value!r}"
             raise TypeError(message)
         return type_tags, encoded_value
 
@@ -440,12 +436,10 @@ class OscBundle:
             return False
         if self.timestamp != other.timestamp:
             return False
-        if self.contents != other.contents:
-            return False
-        return True
+        return self.contents == other.contents
 
     def __repr__(self) -> str:
-        parts = ["{}(".format(type(self).__name__)]
+        parts = [f"{type(self).__name__}("]
         if self.timestamp is not None:
             parts.append(f"timestamp={self.timestamp}")
             if self.contents:
@@ -456,7 +450,7 @@ class OscBundle:
         return "".join(parts)
 
     def __str__(self) -> str:
-        return format_datagram(bytearray(self.to_datagram()))
+        return format_datagram(self.to_datagram())
 
     ### PRIVATE METHODS ###
 
@@ -626,7 +620,7 @@ class Capture:
 
     ### SPECIAL METHODS ###
 
-    def __enter__(self) -> "Capture":
+    def __enter__(self) -> Self:
         self.osc_protocol.captures.add(self)
         self.entries[:] = []
         return self
@@ -707,9 +701,7 @@ class OscProtocol:
     ### PRIVATE METHODS ###
 
     def _activate_healthcheck(self) -> bool:
-        if not self.healthcheck:
-            return False
-        elif self.healthcheck.active:
+        if not self.healthcheck or self.healthcheck.active:
             return False
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
@@ -1289,7 +1281,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()
         self.exit_future = loop.create_future()
-        _, protocol = await loop.create_datagram_endpoint(
+        _, _protocol = await loop.create_datagram_endpoint(
             lambda: self, remote_addr=(ip_address, port)
         )
         if self.healthcheck and self.healthcheck.active:

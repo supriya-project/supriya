@@ -5,11 +5,8 @@ Classes for modeling responses from :term:`scsynth`.
 import dataclasses
 import re
 from collections import deque
+from collections.abc import Generator, Sequence
 from typing import (
-    Deque,
-    Generator,
-    Sequence,
-    Type,
     cast,
 )
 
@@ -24,7 +21,7 @@ from ..osc import OscMessage
 class Response:
     @classmethod
     def from_osc(cls, osc_message: OscMessage) -> "Response":
-        mapping: dict[str, Type[Response]] = {
+        mapping: dict[str, type[Response]] = {
             "/b_info": BufferInfo,
             "/b_set": GetBufferInfo,
             "/b_setn": GetBufferRangeInfo,
@@ -302,7 +299,7 @@ class QueryTreeInfo(Response):
         flag = bool(osc_message.contents[0])
         node_id = cast(int, osc_message.contents[1])
         child_count = cast(int, osc_message.contents[2])
-        items: list["QueryTreeInfo.Item"] = []
+        items: list[QueryTreeInfo.Item] = []
         index = 3
         while index < len(osc_message.contents):
             child_id = cast(int, osc_message.contents[index])
@@ -414,7 +411,7 @@ class QueryTreeGroup(QueryTreeNode):
         result.append(string)
         for child in self.children:
             for line in child._get_str_format_pieces(unindexed=unindexed):
-                result.append("    {}".format(line))
+                result.append(f"    {line}")
         return result
 
     ### PUBLIC METHODS ###
@@ -434,7 +431,7 @@ class QueryTreeGroup(QueryTreeNode):
     @classmethod
     def from_query_tree_info(cls, response: QueryTreeInfo) -> "QueryTreeGroup":
         def recurse(
-            item: QueryTreeInfo.Item, items: Deque[QueryTreeInfo.Item]
+            item: QueryTreeInfo.Item, items: deque[QueryTreeInfo.Item]
         ) -> QueryTreeGroup | QueryTreeSynth:
             if item.child_count < 0:
                 return QueryTreeSynth(

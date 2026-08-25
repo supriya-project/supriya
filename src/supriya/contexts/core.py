@@ -11,20 +11,19 @@ import dataclasses
 import itertools
 import re
 import threading
+from collections.abc import Callable, Sequence
 from collections.abc import Sequence as SequenceABC
 from os import PathLike
 from typing import (
     Any,
-    Callable,
     Literal,
     Optional,
-    Sequence,
     SupportsFloat,
     SupportsInt,
-    Type,
     cast,
 )
 
+from typing_extensions import Self
 from uqbar.objects import new
 
 from ..enums import AddAction, BootStatus, CalculationRate
@@ -123,7 +122,7 @@ class Moment:
         default_factory=list, init=False
     )
 
-    def __enter__(self) -> "Moment":
+    def __enter__(self) -> Self:
         """
         set this moment the current "request context".
         """
@@ -182,7 +181,7 @@ class Completion:
             request = new(request, on_completion=requests[0])
         return request
 
-    def __enter__(self) -> "Completion":
+    def __enter__(self) -> Self:
         """
         set this completion as the current "request context".
         """
@@ -279,7 +278,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def _allocate_id(
         self,
-        type_: Type[ContextObject],
+        type_: type[ContextObject],
         calculation_rate: CalculationRate | None = None,
         count: int = 1,
         permanent: bool = False,
@@ -325,7 +324,7 @@ class Context(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def _free_id(
         self,
-        type_: Type[ContextObject],
+        type_: type[ContextObject],
         id_: int,
         calculation_rate: CalculationRate | None = None,
     ) -> None:
@@ -333,7 +332,7 @@ class Context(metaclass=abc.ABCMeta):
 
     def _get_allocator(
         self,
-        type_: Type[ContextObject],
+        type_: type[ContextObject],
         calculation_rate: CalculationRate | None = None,
     ) -> BlockAllocator | NodeIdAllocator:
         if type_ is Node:
@@ -816,7 +815,11 @@ class Context(metaclass=abc.ABCMeta):
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+        if (
+            use_shared_memory
+            and hasattr(self, "_shared_memory")
+            and (shared_memory := self._shared_memory)
+        ):
             shared_memory[int(bus) : int(bus) + count] = [value] * count
             return
         request = FillControlBusRange(items=[(int(bus), count, value)])
@@ -986,15 +989,14 @@ class Context(metaclass=abc.ABCMeta):
         if not amplitudes:
             raise ValueError
         if command_name == "sine2":
-            if not frequencies:
+            if not frequencies or not (len(amplitudes) == len(frequencies)):
                 raise ValueError
-            elif not (len(amplitudes) == len(frequencies)):
-                raise ValueError
-        elif command_name == "sine3":
-            if not frequencies or not phases:
-                raise ValueError
-            elif not (len(amplitudes) == len(frequencies) == len(phases)):
-                raise ValueError
+        elif command_name == "sine3" and (
+            not frequencies
+            or not phases
+            or not (len(amplitudes) == len(frequencies) == len(phases))
+        ):
+            raise ValueError
         request = GenerateBuffer(
             buffer_id=buffer,
             command_name=command_name,
@@ -1273,7 +1275,11 @@ class Context(metaclass=abc.ABCMeta):
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+        if (
+            use_shared_memory
+            and hasattr(self, "_shared_memory")
+            and (shared_memory := self._shared_memory)
+        ):
             shared_memory[int(bus)] = value
             return
         request = SetControlBus(items=[(int(bus), value)])
@@ -1295,7 +1301,11 @@ class Context(metaclass=abc.ABCMeta):
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+        if (
+            use_shared_memory
+            and hasattr(self, "_shared_memory")
+            and (shared_memory := self._shared_memory)
+        ):
             shared_memory[int(bus) : int(bus) + len(values)] = values
             return
         request = SetControlBusRange(items=[(int(bus), values)])

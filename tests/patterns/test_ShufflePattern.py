@@ -40,9 +40,9 @@ def test_pattern(
     if forbid_repetitions:
         for a, b in nwise(actual):
             assert a != b
-    chunks = list(tuple(chunk) for chunk in group_by_count(actual, stride))
+    chunks = [tuple(chunk) for chunk in group_by_count(actual, stride)]
     if is_infinite and len(chunks[-1]) != stride:
         chunks.pop()  # If final group is short due to 1000 iterations, discard
     for chunk in chunks:
         assert len(chunk) == len(set(chunk)), chunk
-    assert len(set(tuple(sorted(chunk)) for chunk in chunks)) == 1
+    assert len({tuple(sorted(chunk)) for chunk in chunks}) == 1

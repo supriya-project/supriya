@@ -44,9 +44,8 @@ def test_add_synthdefs(context: Score, synthdefs: list[SynthDef]) -> None:
         context.add_synthdefs(synthdefs[1], on_completion=lambda ctx: ctx.add_group())
         # completion without moment errors
         completion = context.add_synthdefs(synthdefs[2])
-    with pytest.raises(MomentClosed):
-        with completion:
-            context.add_group()
+    with pytest.raises(MomentClosed), completion:
+        context.add_group()
     with context.at(1.23):
         # completion inside moment succeeds
         with context.add_synthdefs(synthdefs[2]):
@@ -110,9 +109,8 @@ def test_load_synthdefs(context: Score, tmp_path: Path) -> None:
         )
         # completion without moment errors
         completion = context.load_synthdefs(tmp_path / "c.scsyndef")
-    with pytest.raises(MomentClosed):
-        with completion:
-            context.add_group()
+    with pytest.raises(MomentClosed), completion:
+        context.add_group()
     with context.at(1.23):
         # completion inside moment succeeds
         with context.load_synthdefs(tmp_path / "c.scsyndef"):
@@ -152,9 +150,8 @@ def test_load_synthdefs_directory(context: Score, tmp_path: Path) -> None:
         )
         # completion without moment errors
         completion = context.load_synthdefs_directory(tmp_path / "c")
-    with pytest.raises(MomentClosed):
-        with completion:
-            context.add_group()
+    with pytest.raises(MomentClosed), completion:
+        context.add_group()
     with context.at(1.23):
         # completion inside moment succeeds
         with context.load_synthdefs_directory(tmp_path / "c"):

@@ -21,9 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 async def get(x):
-    if asyncio.iscoroutine(x):
-        return await x
-    elif asyncio.isfuture(x):
+    if asyncio.iscoroutine(x) or asyncio.isfuture(x):
         return await x
     elif isinstance(x, concurrent.futures.Future):
         return x.result()

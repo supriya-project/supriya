@@ -6,12 +6,12 @@ import asyncio
 import dataclasses
 import logging
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 from concurrent.futures import Future
 from os import PathLike
 from typing import (
     TYPE_CHECKING,
     Literal,
-    Sequence,
     SupportsInt,
 )
 
@@ -153,7 +153,7 @@ class RequestBundle(Requestable):
         "Requestable",
     ]:
         sync_id = context._get_next_sync_id()
-        request_bundle: "RequestBundle" = new(
+        request_bundle: RequestBundle = new(
             self, contents=list(self.contents) + [Sync(sync_id=sync_id)]
         )
         response_pattern: list[float | str] = ["/synced", sync_id]

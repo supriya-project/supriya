@@ -1,10 +1,7 @@
+from collections.abc import Callable, Generator, Iterable, Sequence
 from queue import Empty, PriorityQueue, Queue
 from threading import RLock
 from typing import (
-    Callable,
-    Generator,
-    Iterable,
-    Sequence,
     cast,
 )
 from uuid import UUID, uuid4
@@ -223,9 +220,7 @@ class PatternPlayer:
         while True:
             try:
                 if index:
-                    should_stop = (
-                        yield (index, iterator.send(should_stop)) or should_stop
-                    )
+                    should_stop = yield (index, iterator.send(should_stop))
                 else:
                     should_stop = yield (index, next(iterator))
             except StopIteration:

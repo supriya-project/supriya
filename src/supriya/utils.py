@@ -6,12 +6,9 @@ import contextlib
 import cProfile
 import itertools
 import pstats
+from collections.abc import Generator, Iterable, Sequence
 from typing import (
-    Generator,
     Generic,
-    Iterable,
-    Sequence,
-    Type,
     TypeVar,
     Union,
     cast,
@@ -25,10 +22,10 @@ LT = list[Union[T, "LT"]]
 class Expander(Generic[T]):
     def __call__(
         self,
-        mapping: dict[str, Union[T, Sequence[T]]],
+        mapping: dict[str, T | Sequence[T]],
         unexpanded: Iterable[str] | None = None,
         only: Iterable[str] | None = None,
-    ) -> list[dict[str, Union[T, Sequence[T]]]]:
+    ) -> list[dict[str, T | Sequence[T]]]:
         only_ = set(only or ())
         unexpanded_ = set(unexpanded or ())
         expanded_mappings = []
@@ -44,7 +41,7 @@ class Expander(Generic[T]):
                 value = [value]
             massaged[key] = value
         for i in range(maximum_length):
-            expanded_mapping: dict[str, Union[T, Sequence[T]]] = {}
+            expanded_mapping: dict[str, T | Sequence[T]] = {}
             for key, value in massaged.items():
                 if key in unexpanded_:
                     expanded_mapping[key] = value
@@ -55,10 +52,10 @@ class Expander(Generic[T]):
 
 
 def expand(
-    mapping: dict[str, Union[T, Sequence[T]]],
+    mapping: dict[str, T | Sequence[T]],
     unexpanded: Iterable[str] | None = None,
     only: Iterable[str] | None = None,
-) -> list[dict[str, Union[T, Sequence[T]]]]:
+) -> list[dict[str, T | Sequence[T]]]:
     return Expander[T]()(mapping, unexpanded, only)
 
 
@@ -92,7 +89,7 @@ def expand_deep(item: list[LT]) -> list[list[LT]]:
 
 
 def flatten(
-    iterable: IT, terminal_types: Type | tuple[Type, ...] | None = None
+    iterable: IT, terminal_types: type | tuple[type, ...] | None = None
 ) -> Generator[T, None, None]:
     for x in iterable:
         if terminal_types and isinstance(x, terminal_types):

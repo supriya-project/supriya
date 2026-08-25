@@ -2,8 +2,6 @@
 Supriya is a Python API for SuperCollider.
 """
 
-# ruff: noqa: E402
-
 from pathlib import Path
 
 import platformdirs
@@ -13,7 +11,7 @@ if not (
 ).exists():
     try:
         output_path.mkdir(parents=True, exist_ok=True)
-    except IOError:
+    except OSError:
         pass
 
 samples_path = Path(__file__).parent / "samples"

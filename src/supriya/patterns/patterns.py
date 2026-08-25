@@ -7,13 +7,10 @@ import inspect
 import itertools
 import operator
 import random
+from collections.abc import Callable, Generator, Iterator, Sequence
 from typing import (
     TYPE_CHECKING,
-    Callable,
-    Generator,
     Generic,
-    Iterator,
-    Sequence,
     TypeVar,
     Union,
     cast,
@@ -311,8 +308,8 @@ class BinaryOpPattern(Pattern[T]):
     def __init__(
         self,
         operator_: Callable,
-        expr_one: Union[Pattern[T], T],
-        expr_two: Union[Pattern[T], T],
+        expr_one: Pattern[T] | T,
+        expr_two: Pattern[T] | T,
     ) -> None:
         self.operator_ = operator_
         self.expr_one = self._freeze_recursive(expr_one)
@@ -350,7 +347,7 @@ class BinaryOpPattern(Pattern[T]):
 class UnaryOpPattern(Pattern[T]):
     ### INITIALIZER ###
 
-    def __init__(self, operator_: Callable, expr: Union[Pattern[T], T]) -> None:
+    def __init__(self, operator_: Callable, expr: Pattern[T] | T) -> None:
         self.operator_ = operator_
         self.expr = expr
 
@@ -409,7 +406,7 @@ class SequencePattern(Pattern[T]):
     ### INITIALIZER ###
 
     def __init__(
-        self, sequence: Sequence[Union[T, Pattern[T]]], iterations: int | None = 1
+        self, sequence: Sequence[T | Pattern[T]], iterations: int | None = 1
     ) -> None:
         if not isinstance(sequence, Sequence):
             raise ValueError(f"Must be sequence: {sequence!r}")
@@ -417,9 +414,7 @@ class SequencePattern(Pattern[T]):
             iterations = int(iterations)
             if iterations < 1:
                 raise ValueError("Iterations must be null or greater than 0")
-        self._sequence: Sequence[Union[T, Pattern[T]]] = self._freeze_recursive(
-            sequence
-        )
+        self._sequence: Sequence[T | Pattern[T]] = self._freeze_recursive(sequence)
         self._iterations = iterations
 
     ### PRIVATE METHODS ###
@@ -449,7 +444,7 @@ class SequencePattern(Pattern[T]):
     def is_infinite(self) -> bool:
         if self._iterations is None:
             return True
-        x: Union[T, Pattern[T]]
+        x: T | Pattern[T]
         for x in self._sequence:
             if isinstance(x, Pattern) and x.is_infinite:
                 return True

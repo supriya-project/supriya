@@ -1,6 +1,6 @@
 import copy
 import types
-from typing import Sequence
+from collections.abc import Sequence
 
 from ..enums import DoneAction
 from . import (
@@ -242,7 +242,7 @@ class SynthDefFactory:
         self._input = {}
         self._output = {}
         self._parameter_blocks = []
-        self._parameters = sorted(tuple(kwargs.items()))
+        self._parameters = sorted(kwargs.items())
         self._rand_id = None
         self._signal_blocks = []
         self._silence_detection = None
@@ -326,7 +326,7 @@ class SynthDefFactory:
         if self._output.get("leveled") and not crossfaded:
             source *= builder["level"]
         out_class = Out
-        kwargs = dict(bus=builder["out"], source=source)
+        kwargs = {"bus": builder["out"], "source": source}
         if replacing:
             out_class = ReplaceOut
         if crossfaded:
@@ -1632,7 +1632,7 @@ class SynthDefFactory:
                 parameters.pop(key)
             else:
                 parameters[key] = value
-        clone._parameters = sorted(tuple(parameters.items()))
+        clone._parameters = sorted(parameters.items())
         return clone
 
     def with_parameter_block(self, block_function):
