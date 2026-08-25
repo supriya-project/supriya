@@ -1,6 +1,6 @@
 import copy
 import types
-from typing import Sequence
+from collections.abc import Sequence
 
 from ..enums import DoneAction
 from . import (

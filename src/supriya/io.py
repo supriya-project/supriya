@@ -4,9 +4,9 @@ import datetime
 import hashlib
 import platform
 import subprocess
+from collections.abc import Coroutine
 from os import PathLike
 from pathlib import Path
-from typing import Coroutine
 
 from uqbar.graphs import Grapher
 from uqbar.io import open_path

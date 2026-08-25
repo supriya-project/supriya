@@ -1,4 +1,5 @@
-from typing import Generator, Iterator, Sequence, Union
+from collections.abc import Generator, Iterator, Sequence
+from typing import Union
 
 from uqbar.enums import IntEnumeration
 
@@ -9,7 +10,7 @@ from .patterns import Pattern, SequencePattern, T
 class ChoicePattern(SequencePattern[T]):
     def __init__(
         self,
-        sequence: Sequence[Union[T, Pattern[T]]],
+        sequence: Sequence[T | Pattern[T]],
         iterations: int | None = 1,
         forbid_repetitions: bool = False,
         weights: Sequence[float] | None = None,
@@ -123,7 +124,7 @@ class RandomPattern(Pattern[float]):
 class ShufflePattern(SequencePattern[T]):
     def __init__(
         self,
-        sequence: Sequence[Union[T, Pattern[T]]],
+        sequence: Sequence[T | Pattern[T]],
         iterations: int | None = 1,
         forbid_repetitions: bool = False,
     ) -> None:

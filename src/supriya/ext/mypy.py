@@ -1,5 +1,4 @@
-from typing import Callable
-from typing import Type as TypingType
+from collections.abc import Callable
 
 from mypy.nodes import ARG_OPT, Argument, AssignmentStmt, CallExpr, RefExpr, Var
 from mypy.plugin import ClassDefContext, Plugin
@@ -55,9 +54,9 @@ class UGenTransformer:
             "supriya.ugens.core.UGenVectorInput"
         )
 
-        UGenRecursiveInputType = getattr(UGenRecursiveInputTypeSym.node, "target")
-        UGenScalarInputType = getattr(UGenScalarInputTypeSym.node, "target")
-        UGenVectorInputType = getattr(UGenVectorInputTypeSym.node, "target")
+        UGenRecursiveInputType = UGenRecursiveInputTypeSym.node.target
+        UGenScalarInputType = UGenScalarInputTypeSym.node.target
+        UGenVectorInputType = UGenVectorInputTypeSym.node.target
 
         decorator_arguments = {
             "ar": _get_decorator_bool_argument(self._ctx, "ar", False),
@@ -159,5 +158,5 @@ class SupriyaPlugin(Plugin):
         return None
 
 
-def plugin(version: str) -> TypingType[SupriyaPlugin]:
+def plugin(version: str) -> type[SupriyaPlugin]:
     return SupriyaPlugin

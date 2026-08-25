@@ -10,23 +10,18 @@ import subprocess
 import tempfile
 import threading
 import uuid
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from enum import Enum
 from itertools import zip_longest
 from pathlib import Path
 from types import MappingProxyType
 from typing import (
-    Callable,
-    Iterable,
-    Iterator,
     Literal,
-    Mapping,
     NamedTuple,
     Optional,
     Protocol,
-    Sequence,
     SupportsFloat,
     SupportsInt,
-    Type,
     TypeAlias,
     Union,
     cast,
@@ -185,7 +180,7 @@ def _create_fn(
     args: list[str],
     body: list[str],
     return_type,
-    globals_: dict[str, Type] | None = None,
+    globals_: dict[str, type] | None = None,
     decorator: Callable | None = None,
     override: bool = False,
 ) -> None:
@@ -242,7 +237,7 @@ def _get_fn_globals():
 
 
 def _process_class(
-    cls: Type["UGen"],
+    cls: type["UGen"],
     *,
     ar: bool = False,
     kr: bool = False,
@@ -258,7 +253,7 @@ def _process_class(
     channel_count: int = 1,
     fixed_channel_count: bool = False,
     signal_range: int | None = None,
-) -> Type["UGen"]:
+) -> type["UGen"]:
     params: dict[str, Param] = {}
     unexpanded_keys = []
     valid_calculation_rates = []
@@ -327,7 +322,7 @@ def ugen(
     channel_count: int = 1,
     fixed_channel_count: bool = False,
     signal_range: int | None = None,
-) -> Callable[[Type["UGen"]], Type["UGen"]]:
+) -> Callable[[type["UGen"]], type["UGen"]]:
     """
     Decorate a UGen class.
 
@@ -336,7 +331,7 @@ def ugen(
     Collects parameter descriptors and generates initializer and rate class methods.
     """
 
-    def wrap(cls: Type[UGen]) -> Type[UGen]:
+    def wrap(cls: type[UGen]) -> type[UGen]:
         return _process_class(
             cls,
             ar=ar,
@@ -437,7 +432,7 @@ def _compute_unary_op(
 
 
 def _compute_ugen_map(
-    source: "UGenRecursiveInput", ugen: Type["UGen"], **kwargs: "UGenRecursiveInput"
+    source: "UGenRecursiveInput", ugen: type["UGen"], **kwargs: "UGenRecursiveInput"
 ) -> "UGenOperable":
     if isinstance(source, UGenSerializable):
         source = source.serialize()
@@ -2197,7 +2192,7 @@ class UGenOperable:
         from . import Clip
 
         return _compute_ugen_map(
-            self, cast(Type[UGen], Clip), minimum=minimum, maximum=maximum
+            self, cast(type[UGen], Clip), minimum=minimum, maximum=maximum
         )
 
     def clip2(self, expr: "UGenRecursiveInput") -> "UGenOperable":
@@ -3030,12 +3025,12 @@ class UGenOperable:
             raise ValueError(factor)
 
         if lag_time_down is None:
-            ugen: Type[UGen] = [Lag, Lag2, Lag3][factor - 1]
-            return _compute_ugen_map(self, cast(Type[UGen], ugen), lag_time=lag_time_up)
+            ugen: type[UGen] = [Lag, Lag2, Lag3][factor - 1]
+            return _compute_ugen_map(self, cast(type[UGen], ugen), lag_time=lag_time_up)
         ugen = [LagUD, Lag2UD, Lag3UD][factor - 1]
         return _compute_ugen_map(
             self,
-            cast(Type[UGen], ugen),
+            cast(type[UGen], ugen),
             lag_time_up=lag_time_up,
             lag_time_down=lag_time_down,
         )
@@ -3784,7 +3779,7 @@ class UGenOperable:
 
         return _compute_ugen_map(
             self,
-            cast(Type[UGen], LinExp if exponential else LinLin),
+            cast(type[UGen], LinExp if exponential else LinLin),
             input_minimum=input_minimum,
             input_maximum=input_maximum,
             output_minimum=output_minimum,
@@ -5608,7 +5603,7 @@ class SynthDef:
         )
 
     def __repr__(self) -> str:
-        return "<{}: {}>".format(type(self).__name__, self.effective_name)
+        return f"<{type(self).__name__}: {self.effective_name}>"
 
     def __str__(self) -> str:
         result = [
@@ -5616,7 +5611,7 @@ class SynthDef:
             f"    name: {self.effective_name}",
             "    ugens:",
         ]
-        grouped_ugens: dict[tuple[Type[UGen], CalculationRate, int], list[UGen]] = {}
+        grouped_ugens: dict[tuple[type[UGen], CalculationRate, int], list[UGen]] = {}
         for ugen in self.ugens:
             key = (type(ugen), ugen.calculation_rate, ugen.special_index)
             grouped_ugens.setdefault(key, []).append(ugen)
@@ -5880,7 +5875,7 @@ class SynthDefBuilder:
             if len(descendant_pairs) < 2:
                 continue
             for descendant, input_index in descendant_pairs[:-1]:
-                fft_size = getattr(antecedent, "fft_size")
+                fft_size = antecedent.fft_size
                 # Create a new LocalBuf and PV_Copy
                 new_buffer = cast(OutputProxy, LocalBuf.ir(frame_count=fft_size))
                 pv_copy = cast(
@@ -5937,7 +5932,7 @@ class SynthDefBuilder:
                 ):
                     input_sort_bundle.descendants.append(ugen)
             sort_bundle.descendants[:] = sorted(
-                sort_bundles[ugen].descendants, key=lambda x: ugens.index(ugen)
+                sort_bundle.descendants, key=lambda x: ugens.index(ugen)
             )
         return sort_bundles
 
@@ -6412,7 +6407,7 @@ def _decompile_control_parameters(
     inputs: Sequence[OutputProxy | float],
     output_count: int,
     special_index: int,
-    ugen_class: Type[UGen],
+    ugen_class: type[UGen],
 ) -> Sequence[Parameter]:
     parameter_rate = ParameterRate.CONTROL
     if issubclass(ugen_class, TrigControl):
@@ -6464,7 +6459,7 @@ def _decompile_synthdef(value: bytes, index: int) -> tuple[SynthDef, int]:
                 inputs.append(output_proxy)
         for _ in range(output_count):
             output_rate, index = _decode_int_8bit(value, index)
-        ugen_class = cast(Type[UGen], getattr(ugens, ugen_name, None))
+        ugen_class = cast(type[UGen], getattr(ugens, ugen_name, None))
         ugen = UGen.__new__(ugen_class)
         if issubclass(ugen_class, Control):
             parameters = _decompile_control_parameters(

@@ -9,12 +9,13 @@ import platform
 import shlex
 import shutil
 import struct
+from collections.abc import Iterator
 from collections.abc import Sequence as SequenceABC
 from contextlib import ExitStack
 from os import PathLike
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Iterator, SupportsInt, Type
+from typing import SupportsInt
 
 from ..enums import BootStatus, CalculationRate, HeaderFormat, SampleFormat
 from ..exceptions import ContextError
@@ -67,7 +68,7 @@ class Score(Context):
 
     def _free_id(
         self,
-        type_: Type[ContextObject],
+        type_: type[ContextObject],
         id_: int,
         calculation_rate: CalculationRate | None = None,
     ) -> None:
@@ -243,9 +244,7 @@ class Score(Context):
 
         :param message: The message to send.
         """
-        if not isinstance(message, RequestBundle):
-            raise ContextError
-        elif message.timestamp is None:
+        if not isinstance(message, RequestBundle) or message.timestamp is None:
             raise ContextError
         self._requests.setdefault(message.timestamp, []).extend(message.contents)
 

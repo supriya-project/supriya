@@ -1,5 +1,4 @@
 import asyncio
-from typing import Type
 from unittest.mock import Mock, call
 
 import pytest
@@ -424,7 +423,7 @@ def test_callback(mocker: MockerFixture) -> None:
             (player, context.desired_moment.offset, type(event), priority)
         )
 
-    callback_calls: list[tuple[PatternPlayer, float, Type[Event], Priority]] = []
+    callback_calls: list[tuple[PatternPlayer, float, type[Event], Priority]] = []
     pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
     context = Server().boot()
     mocker.patch.object(context, "send")
@@ -454,7 +453,7 @@ async def test_callback_async(mocker) -> None:
 
     event_loop = asyncio.get_running_loop()
     stop_future = event_loop.create_future()
-    callback_calls: list[tuple[PatternPlayer, float, Type[Event], Priority]] = []
+    callback_calls: list[tuple[PatternPlayer, float, type[Event], Priority]] = []
     pattern = EventPattern(frequency=SequencePattern([440, 550, 660]))
     context = await AsyncServer().boot()
     mocker.patch.object(context, "send")

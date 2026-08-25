@@ -3,7 +3,7 @@ import logging
 import platform
 import random
 import warnings
-from typing import Literal, Type
+from typing import Literal
 
 import pytest
 from pytest import MonkeyPatch
@@ -34,7 +34,7 @@ supernova = pytest.param(
 
 
 def setup_context(
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     *,
     async_callback: bool = False,
     name: str | None = None,
@@ -92,13 +92,12 @@ def healthcheck_attempts(monkeypatch: MonkeyPatch) -> None:
 )
 async def test_boot_only(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
-    #
     await get(context.boot(executable=executable))
     assert context.boot_status == BootStatus.ONLINE
     assert context.is_owner
@@ -122,13 +121,12 @@ async def test_boot_only(
 )
 async def test_boot_and_quit(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
-    #
     await get(context.boot(executable=executable))
     assert context.boot_status == BootStatus.ONLINE
     assert context.is_owner
@@ -140,7 +138,6 @@ async def test_boot_and_quit(
         ServerLifecycleEvent.CONNECTED,
         ServerLifecycleEvent.BOOTED,
     ]
-    #
     await get(context.quit())
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
@@ -170,13 +167,12 @@ async def test_boot_and_quit(
 )
 async def test_boot_and_boot(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
-    #
     await get(context.boot(executable=executable))
     assert context.boot_status == BootStatus.ONLINE
     assert context.is_owner
@@ -188,7 +184,6 @@ async def test_boot_and_boot(
         ServerLifecycleEvent.CONNECTED,
         ServerLifecycleEvent.BOOTED,
     ]
-    #
     with pytest.raises(ServerOnline):
         await get(context.boot(executable=executable))
     assert context.boot_status == BootStatus.ONLINE
@@ -211,13 +206,12 @@ async def test_boot_and_boot(
 )
 async def test_boot_and_quit_and_quit(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
-    #
     await get(context.boot(executable=executable))
     assert context.boot_status == BootStatus.ONLINE
     assert context.is_owner
@@ -229,7 +223,6 @@ async def test_boot_and_quit_and_quit(
         ServerLifecycleEvent.CONNECTED,
         ServerLifecycleEvent.BOOTED,
     ]
-    #
     await get(context.quit())
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
@@ -247,7 +240,6 @@ async def test_boot_and_quit_and_quit(
         ServerLifecycleEvent.PROCESS_QUIT,
         ServerLifecycleEvent.QUIT,
     ]
-    #
     await get(context.quit())
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
@@ -275,13 +267,12 @@ async def test_boot_and_quit_and_quit(
 )
 async def test_boot_and_connect(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context, events = setup_context(context_class, async_callback=async_callback)
     assert context.boot_status == BootStatus.OFFLINE
     assert not context.is_owner
-    #
     await get(context.boot(executable=executable))
     assert context.boot_status == BootStatus.ONLINE
     assert context.is_owner
@@ -293,7 +284,6 @@ async def test_boot_and_connect(
         ServerLifecycleEvent.CONNECTED,
         ServerLifecycleEvent.BOOTED,
     ]
-    #
     with pytest.raises(ServerOnline):
         await get(context.connect())
     assert context.boot_status == BootStatus.ONLINE
@@ -316,7 +306,7 @@ async def test_boot_and_connect(
 )
 async def test_boot_a_and_boot_b_cannot_boot(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context_a, events_a = setup_context(
@@ -327,7 +317,6 @@ async def test_boot_a_and_boot_b_cannot_boot(
     )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
-    #
     await get(context_a.boot(maximum_logins=4, executable=executable))
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
@@ -340,7 +329,6 @@ async def test_boot_a_and_boot_b_cannot_boot(
         ServerLifecycleEvent.BOOTED,
     ]
     assert events_b == []
-    #
     with pytest.raises(ServerCannotBoot):
         await get(context_b.boot(maximum_logins=4, executable=executable))
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
@@ -368,7 +356,7 @@ async def test_boot_a_and_boot_b_cannot_boot(
 )
 async def test_boot_a_and_connect_b_too_many_clients(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context_a, events_a = setup_context(
@@ -379,7 +367,6 @@ async def test_boot_a_and_connect_b_too_many_clients(
     )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
-    #
     await get(context_a.boot(maximum_logins=1))
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
@@ -392,7 +379,6 @@ async def test_boot_a_and_connect_b_too_many_clients(
         ServerLifecycleEvent.BOOTED,
     ]
     assert events_b == []
-    #
     with warnings.catch_warnings(record=True) as w:
         with pytest.raises(TooManyClients):
             await get(context_b.connect())
@@ -423,7 +409,7 @@ async def test_boot_a_and_connect_b_too_many_clients(
 )
 async def test_boot_a_and_connect_b_and_quit_a(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     logger.warning("START")
@@ -435,7 +421,6 @@ async def test_boot_a_and_connect_b_and_quit_a(
     )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
-    #
     logger.warning("BOOT A")
     await get(context_a.boot(maximum_logins=2, executable=executable))
     assert events_a == [
@@ -447,7 +432,6 @@ async def test_boot_a_and_connect_b_and_quit_a(
         ServerLifecycleEvent.BOOTED,
     ]
     assert events_b == []
-    #
     logger.warning("CONNECT B")
     await get(context_b.connect())
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
@@ -465,7 +449,6 @@ async def test_boot_a_and_connect_b_and_quit_a(
         ServerLifecycleEvent.OSC_CONNECTED,
         ServerLifecycleEvent.CONNECTED,
     ]
-    #
     logger.warning("PROCESS_QUIT A")
     await get(context_a.quit())
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
@@ -488,7 +471,6 @@ async def test_boot_a_and_connect_b_and_quit_a(
         ServerLifecycleEvent.OSC_CONNECTED,
         ServerLifecycleEvent.CONNECTED,
     ]
-    #
     logger.warning("AWAIT B")
     await get_future(context_b.exit_future)
     logger.warning("DONE AWAITING B")
@@ -526,7 +508,7 @@ async def test_boot_a_and_connect_b_and_quit_a(
 )
 async def test_boot_a_and_connect_b_and_disconnect_b(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context_a, events_a = setup_context(
@@ -537,7 +519,6 @@ async def test_boot_a_and_connect_b_and_disconnect_b(
     )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
-    #
     await get(context_a.boot(maximum_logins=2, executable=executable))
     await get(context_b.connect())
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
@@ -555,7 +536,6 @@ async def test_boot_a_and_connect_b_and_disconnect_b(
         ServerLifecycleEvent.OSC_CONNECTED,
         ServerLifecycleEvent.CONNECTED,
     ]
-    #
     await get(context_b.disconnect())
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
@@ -585,7 +565,7 @@ async def test_boot_a_and_connect_b_and_disconnect_b(
 )
 async def test_boot_a_and_connect_b_and_disconnect_a(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     context_a, events_a = setup_context(
@@ -596,7 +576,6 @@ async def test_boot_a_and_connect_b_and_disconnect_a(
     )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
-    #
     await get(context_a.boot(maximum_logins=2, executable=executable))
     await get(context_b.connect())
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
@@ -614,7 +593,6 @@ async def test_boot_a_and_connect_b_and_disconnect_a(
         ServerLifecycleEvent.OSC_CONNECTED,
         ServerLifecycleEvent.CONNECTED,
     ]
-    #
     with pytest.raises(OwnedServerShutdown):
         await get(context_a.disconnect())
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
@@ -651,7 +629,6 @@ async def test_boot_a_and_connect_b_and_quit_b(
     )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
-    #
     await get(context_a.boot(maximum_logins=2, executable=executable))
     await get(context_b.connect())
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
@@ -669,7 +646,6 @@ async def test_boot_a_and_connect_b_and_quit_b(
         ServerLifecycleEvent.OSC_CONNECTED,
         ServerLifecycleEvent.CONNECTED,
     ]
-    #
     with pytest.raises(UnownedServerShutdown):
         await get(context_b.quit())
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
@@ -697,7 +673,7 @@ async def test_boot_a_and_connect_b_and_quit_b(
 )
 async def test_boot_a_and_connect_b_and_force_quit_b(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     logger.warning("START")
@@ -709,7 +685,6 @@ async def test_boot_a_and_connect_b_and_force_quit_b(
     )
     assert context_a.boot_status == BootStatus.OFFLINE and not context_a.is_owner
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
-    #
     logger.warning("BOOT A")
     await get(context_a.boot(maximum_logins=2, executable=executable))
     assert events_a == [
@@ -721,7 +696,6 @@ async def test_boot_a_and_connect_b_and_force_quit_b(
         ServerLifecycleEvent.BOOTED,
     ]
     assert events_b == []
-    #
     logger.warning("CONNECT B")
     await get(context_b.connect())
     assert context_a.boot_status == BootStatus.ONLINE and context_a.is_owner
@@ -739,7 +713,6 @@ async def test_boot_a_and_connect_b_and_force_quit_b(
         ServerLifecycleEvent.OSC_CONNECTED,
         ServerLifecycleEvent.CONNECTED,
     ]
-    #
     logger.warning("FORCE PROCESS_QUIT B")
     await get(context_b.quit(force=True))
     assert context_b.boot_status == BootStatus.OFFLINE and not context_b.is_owner
@@ -776,7 +749,7 @@ async def test_boot_a_and_connect_b_and_force_quit_b(
 @pytest.mark.parametrize("executable", ["scsynth", supernova])
 @pytest.mark.parametrize("context_class", [AsyncServer, Server])
 async def test_boot_reboot_sticky_options(
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     """
@@ -804,7 +777,7 @@ async def test_boot_reboot_sticky_options(
 )
 async def test_boot_a_and_connect_b_and_kill(
     async_callback: bool,
-    context_class: Type[AsyncServer | Server],
+    context_class: type[AsyncServer | Server],
     executable: Literal["scsynth", "supernova"],
 ) -> None:
     logger.warning("START")

@@ -1,7 +1,7 @@
 import asyncio
 import logging
+from collections.abc import AsyncGenerator
 from pathlib import Path
-from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -58,13 +58,11 @@ async def test_add_synthdefs(
         # completion without moment via on_completion lambda succeeds
         context.add_synthdefs(synthdefs[1], on_completion=lambda ctx: ctx.add_group())
         # completion without moment errors
-        with pytest.raises(MomentClosed):
-            with context.add_synthdefs(synthdefs[2]):
-                context.add_group()
+        with pytest.raises(MomentClosed), context.add_synthdefs(synthdefs[2]):
+            context.add_group()
         # completion inside moment succeeds
-        with context.at(1.23):
-            with context.add_synthdefs(synthdefs[2]):
-                context.add_group()
+        with context.at(1.23), context.add_synthdefs(synthdefs[2]):
+            context.add_group()
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/d_recv", compiled(synthdefs[0])),
         OscMessage("/d_recv", compiled(*synthdefs)),
@@ -122,9 +120,8 @@ async def test_load_synthdefs(
             with context.load_synthdefs(tmp_path / "c.scsyndef"):
                 context.add_group()
         # completion inside moment succeeds
-        with context.at(1.23):
-            with context.load_synthdefs(tmp_path / "c.scsyndef"):
-                context.add_group()
+        with context.at(1.23), context.load_synthdefs(tmp_path / "c.scsyndef"):
+            context.add_group()
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/d_load", str(tmp_path / "a.scsyndef")),
         OscMessage(
@@ -159,9 +156,8 @@ async def test_load_synthdefs_directory(
             with context.load_synthdefs_directory(tmp_path):
                 context.add_group()
         # completion inside moment succeeds
-        with context.at(1.23):
-            with context.load_synthdefs_directory(tmp_path):
-                context.add_group()
+        with context.at(1.23), context.load_synthdefs_directory(tmp_path):
+            context.add_group()
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/d_loadDir", str(tmp_path)),
         OscMessage("/d_loadDir", str(tmp_path), OscMessage("/g_new", 1000, 0, 1)),

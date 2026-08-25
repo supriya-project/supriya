@@ -1,4 +1,5 @@
-from typing import Any, Sequence, SupportsInt, Union
+from collections.abc import Sequence
+from typing import Any, SupportsInt, Union
 
 from .. import utils
 from ..enums import CalculationRate

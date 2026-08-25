@@ -10,7 +10,7 @@ def websafe_audio(output_path: Path) -> Path:
         new_output_path = output_path.with_suffix(".mp3")
         if new_output_path.exists():
             return new_output_path
-        command = "lame -V2 {} {}".format(output_path, new_output_path)
+        command = f"lame -V2 {output_path} {new_output_path}"
         exit_code = subprocess.call(
             command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
@@ -19,7 +19,7 @@ def websafe_audio(output_path: Path) -> Path:
     # If MP3-conversion, fails, try to convert to .wav
     if uqbar.io.find_executable("ffmpeg"):
         new_output_path = output_path.with_suffix(".wav")
-        command = "ffmpeg -y -i {} {}".format(output_path, new_output_path)
+        command = f"ffmpeg -y -i {output_path} {new_output_path}"
         exit_code = subprocess.call(
             command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )

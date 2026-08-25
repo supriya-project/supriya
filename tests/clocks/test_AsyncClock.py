@@ -4,7 +4,7 @@ import os
 import platform
 import random
 import statistics
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -59,9 +59,7 @@ def callback(
     if state.event.invocations == blow_up_at:
         raise Exception
     store.append(state)
-    if limit is None:
-        return delta, time_unit
-    elif state.event.invocations < limit:
+    if limit is None or state.event.invocations < limit:
         return delta, time_unit
     return None
 

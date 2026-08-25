@@ -1,5 +1,6 @@
 import math
-from typing import TYPE_CHECKING, Sequence, SupportsFloat, cast
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, SupportsFloat, cast
 
 from .. import utils
 from ..enums import EnvelopeShape
@@ -91,9 +92,7 @@ class Envelope:
 
     @staticmethod
     def _flatten(item: UGenOperable | float) -> UGenOperable | float:
-        if isinstance(item, (float, int)):
-            return item
-        elif isinstance(item, OutputProxy):
+        if isinstance(item, (float, int)) or isinstance(item, OutputProxy):
             return item
         elif isinstance(item, UGen) and len(item) == 1:
             return item[0]
@@ -456,7 +455,7 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
     ):
-        return super(EnvGen, cls)._new_expanded(
+        return super()._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,

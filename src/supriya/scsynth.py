@@ -9,12 +9,11 @@ import re
 import shlex
 import subprocess
 import threading
+from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from pathlib import Path
 from typing import (
     IO,
-    Callable,
-    Iterator,
     Literal,
     cast,
 )

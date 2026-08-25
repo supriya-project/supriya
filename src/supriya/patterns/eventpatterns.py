@@ -1,4 +1,5 @@
-from typing import Any, Generator, Type
+from collections.abc import Generator
+from typing import Any
 from uuid import uuid4
 
 from uqbar.objects import new
@@ -14,7 +15,7 @@ class EventPattern(Pattern[Event]):
     """
 
     def __init__(
-        self, event_type: Type[NoteEvent] = NoteEvent, **patterns: Any | Pattern
+        self, event_type: type[NoteEvent] = NoteEvent, **patterns: Any | Pattern
     ) -> None:
         self._event_type = event_type
         self._patterns = patterns
@@ -41,7 +42,7 @@ class EventPattern(Pattern[Event]):
         return generators
 
     @property
-    def event_type(self) -> Type[NoteEvent]:
+    def event_type(self) -> type[NoteEvent]:
         return self._event_type
 
     @property

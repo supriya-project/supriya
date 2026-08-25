@@ -46,9 +46,8 @@ def test_add_buffer(audio_paths: list[Path], context: Score) -> None:
         )
         # completion without moment errors
         buffer_d = context.add_buffer(channel_count=3, frame_count=31)
-    with pytest.raises(MomentClosed):
-        with buffer_d:
-            ...
+    with pytest.raises(MomentClosed), buffer_d:
+        ...
     # completion without moment via on_completion lambda succeeds
     with context.at(0):
         buffer_e = context.add_buffer(
@@ -118,16 +117,14 @@ def test_close_buffer(context: Score) -> None:
         buffer_c = context.add_buffer(channel_count=1, frame_count=23)
         # completion without moment errors, but initial request succeeds
         completion = buffer_a.close()
-    with pytest.raises(MomentClosed):
-        with completion:
-            ...
+    with pytest.raises(MomentClosed), completion:
+        ...
     # completion via on_completion lambda succeeds
     with context.at(0):
         buffer_b.close(on_completion=lambda ctx: buffer_b.free())
     # completion inside moment succeeds
-    with context.at(0):
-        with buffer_c.close():
-            buffer_c.free()
+    with context.at(0), buffer_c.close():
+        buffer_c.free()
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(
@@ -309,9 +306,8 @@ def test_read_buffer(audio_paths: list[Path], context: Score) -> None:
         buffer_c = context.add_buffer(channel_count=1, frame_count=23)
         # completion without moment errors, but initial request succeeds
         completion = buffer_a.read(file_path=audio_paths[0])
-    with pytest.raises(MomentClosed):
-        with completion:
-            ...
+    with pytest.raises(MomentClosed), completion:
+        ...
     with context.at(1.23):
         # completion via on_completion lambda succeeds
         buffer_b.read(
@@ -405,9 +401,8 @@ def test_write_buffer(context: Score, tmp_path: Path) -> None:
         buffer_c = context.add_buffer(channel_count=1, frame_count=23)
         # completion without moment errors, but initial request succeeds
         completion = buffer_a.write(file_path=tmp_path / "foo-1.aiff")
-    with pytest.raises(MomentClosed):
-        with completion:
-            ...
+    with pytest.raises(MomentClosed), completion:
+        ...
     with context.at(1.23):
         # completion via on_completion lambda succeeds
         buffer_b.write(
@@ -484,9 +479,8 @@ def test_zero_buffer(context: Score) -> None:
         buffer_c = context.add_buffer(channel_count=1, frame_count=23)
         # completion without moment errors
         completion = buffer_a.zero()
-    with pytest.raises(MomentClosed):
-        with completion:
-            ...
+    with pytest.raises(MomentClosed), completion:
+        ...
     with context.at(1.23):
         # completion via on_completion lambda succeeds
         buffer_b.zero(on_completion=lambda ctx: ctx.add_group())

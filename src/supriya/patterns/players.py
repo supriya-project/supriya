@@ -1,10 +1,7 @@
+from collections.abc import Callable, Generator, Iterable, Sequence
 from queue import Empty, PriorityQueue, Queue
 from threading import RLock
 from typing import (
-    Callable,
-    Generator,
-    Iterable,
-    Sequence,
     cast,
 )
 from uuid import UUID, uuid4

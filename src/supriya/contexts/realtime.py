@@ -8,18 +8,14 @@ import logging
 import shlex
 import threading
 import warnings
+from collections.abc import Awaitable, Callable, Iterable, Sequence
 from collections.abc import Sequence as SequenceABC
 from typing import (
     TYPE_CHECKING,
-    Awaitable,
-    Callable,
-    Iterable,
     Literal,
     NamedTuple,
     Optional,
-    Sequence,
     SupportsInt,
-    Type,
     cast,
 )
 
@@ -163,7 +159,7 @@ class BaseServer(Context):
         self._node_active: dict[int, bool] = {}
         self._node_children: dict[int, list[int]] = {}
         self._node_parents: dict[int, int] = {}
-        self._shared_memory: Optional["ServerSHM"] = None
+        self._shared_memory: ServerSHM | None = None
         self._status: StatusInfo | None = None
 
     ### SPECIAL METHODS ###
@@ -180,12 +176,11 @@ class BaseServer(Context):
         if isinstance(object_, Buffer) and object_.id_ in self._buffers:
             return True
         if isinstance(object_, Bus):
-            if object_.calculation_rate == CalculationRate.AUDIO and (
-                object_.id_ < self.options.control_bus_channel_count
-            ):
-                return True
-            elif object_.calculation_rate == CalculationRate.CONTROL and (
-                object_.id_ < self.options.audio_bus_channel_count
+            if (
+                object_.calculation_rate == CalculationRate.AUDIO
+                and (object_.id_ < self.options.control_bus_channel_count)
+                or object_.calculation_rate == CalculationRate.CONTROL
+                and (object_.id_ < self.options.audio_bus_channel_count)
             ):
                 return True
         return False
@@ -211,7 +206,7 @@ class BaseServer(Context):
 
     def _free_id(
         self,
-        type_: Type[ContextObject],
+        type_: type[ContextObject],
         id_: int,
         calculation_rate: CalculationRate | None = None,
     ) -> None:
@@ -382,7 +377,7 @@ class BaseServer(Context):
     def _validate_can_request(self) -> None:
         if self._boot_status not in (BootStatus.BOOTING, BootStatus.ONLINE):
             raise ServerOffline("Server offline!")
-        pass  # Otherwise always OK to request in RT
+        # Otherwise always OK to request in RT
 
     def _validate_moment_timestamp(self, seconds: float | None) -> None:
         pass  # Floats and None are OK in RT
@@ -439,7 +434,7 @@ class BaseServer(Context):
         """
         if self._boot_status == BootStatus.OFFLINE:
             raise ServerOffline("Server offline!")
-        osc_protocol: OscProtocol = getattr(self, "_osc_protocol")
+        osc_protocol: OscProtocol = self._osc_protocol
         osc_protocol.send(message)
 
     def set_latency(self, latency: float) -> None:
@@ -809,7 +804,7 @@ class Server(BaseServer):
             raise InvalidCalculationRate
         request = GetControlBus(bus_ids=[int(bus)])
         if sync:
-            if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+            if use_shared_memory and (shared_memory := self._shared_memory):
                 return shared_memory[int(bus)]
             return cast(GetControlBusInfo, request.communicate(server=self)).items[0][
                 -1
@@ -835,7 +830,7 @@ class Server(BaseServer):
             raise InvalidCalculationRate
         request = GetControlBusRange(items=[(int(bus), count)])
         if sync:
-            if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+            if use_shared_memory and (shared_memory := self._shared_memory):
                 return shared_memory[int(bus) : int(bus) + count]
             return cast(GetControlBusRangeInfo, request.communicate(server=self)).items[
                 0
@@ -1085,7 +1080,6 @@ class Server(BaseServer):
         self._validate_can_request()
         request = TraceNode(node_ids=[int(node)])
         self._add_requests(request)
-        return None
 
     def unregister_osc_callback(self, callback: OscCallback) -> None:
         """
@@ -1443,7 +1437,7 @@ class AsyncServer(BaseServer):
             raise InvalidCalculationRate
         request = GetControlBus(bus_ids=[int(bus)])
         if sync:
-            if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+            if use_shared_memory and (shared_memory := self._shared_memory):
                 return shared_memory[int(bus)]
             return cast(
                 GetControlBusInfo, await request.communicate_async(server=self)
@@ -1469,7 +1463,7 @@ class AsyncServer(BaseServer):
             raise InvalidCalculationRate
         request = GetControlBusRange(items=[(int(bus), count)])
         if sync:
-            if use_shared_memory and (shared_memory := getattr(self, "_shared_memory")):
+            if use_shared_memory and (shared_memory := self._shared_memory):
                 return shared_memory[int(bus) : int(bus) + count]
             return cast(
                 GetControlBusRangeInfo, await request.communicate_async(server=self)
@@ -1725,7 +1719,6 @@ class AsyncServer(BaseServer):
         self._validate_can_request()
         request = TraceNode(node_ids=[int(node)])
         self._add_requests(request)
-        return None
 
     def unregister_osc_callback(self, callback: OscCallback) -> None:
         """

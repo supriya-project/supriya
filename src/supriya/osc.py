@@ -11,18 +11,14 @@ import socketserver
 import struct
 import threading
 import time
+from collections.abc import Awaitable, Callable, Generator, Iterator, Sequence
 from collections.abc import Sequence as SequenceABC
 from enum import Enum
 from queue import Empty, Queue
 from typing import (
     Any,
-    Awaitable,
-    Callable,
-    Generator,
-    Iterator,
     Literal,
     NamedTuple,
-    Sequence,
     TypeAlias,
     Union,
     cast,
@@ -64,7 +60,7 @@ OscArgument: TypeAlias = Union[
 
 
 def format_datagram(datagram: bytes) -> str:
-    result: list[str] = ["size {}".format(len(datagram))]
+    result: list[str] = [f"size {len(datagram)}"]
     index = 0
     while index < len(datagram):
         hex_blocks = []
@@ -80,9 +76,9 @@ def format_datagram(datagram: bytes) -> str:
                 hexed = hex(byte)[2:].zfill(2)
                 hex_block.append(hexed)
             hex_blocks.append(" ".join(hex_block))
-        line = "{: >4}   ".format(index)
+        line = f"{index: >4}   "
         line += "{: <53}".format("  ".join(hex_blocks))
-        line += "|{}|".format(ascii_block)
+        line += f"|{ascii_block}|"
         result.append(line)
         index += 16
     return "\n".join(result)
@@ -273,7 +269,7 @@ class OscMessage:
                 encoded_value += sub_encoded_value
             type_tags += "]"
         else:
-            message = "Cannot encode {!r}".format(value)
+            message = f"Cannot encode {value!r}"
             raise TypeError(message)
         return type_tags, encoded_value
 
@@ -445,7 +441,7 @@ class OscBundle:
         return True
 
     def __repr__(self) -> str:
-        parts = ["{}(".format(type(self).__name__)]
+        parts = [f"{type(self).__name__}("]
         if self.timestamp is not None:
             parts.append(f"timestamp={self.timestamp}")
             if self.contents:
@@ -707,9 +703,7 @@ class OscProtocol:
     ### PRIVATE METHODS ###
 
     def _activate_healthcheck(self) -> bool:
-        if not self.healthcheck:
-            return False
-        elif self.healthcheck.active:
+        if not self.healthcheck or self.healthcheck.active:
             return False
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "

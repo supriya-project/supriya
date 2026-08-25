@@ -9,13 +9,13 @@ import supriya
 repo_root = Path(__file__).parent / ".." / ".."
 sys.path.append(str(repo_root))
 
-import examples  # noqa
+import examples
 
 ### GIT INFO
 
 git_branch = (
     subprocess.run(
-        "git rev-parse --abbrev-ref HEAD".split(),
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
         capture_output=True,
         check=True,
         text=True,

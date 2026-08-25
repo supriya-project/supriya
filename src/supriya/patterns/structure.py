@@ -1,5 +1,6 @@
 import bisect
-from typing import Generator, Sequence, SupportsInt
+from collections.abc import Generator, Sequence
+from typing import SupportsInt
 from uuid import uuid4
 
 from uqbar.objects import get_vars, new
@@ -52,7 +53,7 @@ class BusPattern(Pattern[Event]):
         if hasattr(expr, "target_node") and expr.target_node is None:
             updates["target_node"] = state["group"]
         if hasattr(expr, "synthdef"):
-            synthdef = getattr(expr, "synthdef") or default
+            synthdef = expr.synthdef or default
             parameter_names = synthdef.parameters
             for name in ("in_", "out"):
                 if name in parameter_names and kwargs.get(name) is None:
@@ -282,7 +283,7 @@ class PinPattern(Pattern[Event]):
         if self._target_node is not None and hasattr(expr, "target_node"):
             updates["target_node"] = expr.target_node or self._target_node
         if self._target_bus is not None and hasattr(expr, "synthdef"):
-            synthdef = getattr(expr, "synthdef") or default
+            synthdef = expr.synthdef or default
             parameter_names = synthdef.parameters
             for name in ("in_", "out"):
                 if name in parameter_names and kwargs.get(name) is None:

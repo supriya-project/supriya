@@ -20,9 +20,8 @@ def use_caplog(caplog) -> None:
 @pytest.fixture
 def context() -> Score:
     context = Score()
-    with context.at(0):
-        with context.add_synthdefs(default):
-            context.add_synth(default, frequency=440.0)
+    with context.at(0), context.add_synthdefs(default):
+        context.add_synth(default, frequency=440.0)
     with context.at(1):
         context.add_synth(default, frequency=550.0)
     with context.at(2):

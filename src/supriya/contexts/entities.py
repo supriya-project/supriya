@@ -1,19 +1,14 @@
 import dataclasses
 import tempfile
+from collections.abc import Awaitable, Callable, Container, Iterator, Sequence
 from os import PathLike
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     Any,
-    Awaitable,
-    Callable,
-    Container,
-    Iterator,
     Literal,
     Optional,
-    Sequence,
     SupportsFloat,
-    Union,
     overload,
 )
 
@@ -905,7 +900,7 @@ class Node(ContextObject):
 
         if not isinstance(self.context, BaseServer):
             raise ContextError
-        parentage: list["Node"] = [self]
+        parentage: list[Node] = [self]
         while (
             parent_id := self.context._node_parents.get(parentage[-1].id_)
         ) is not None:
@@ -1054,12 +1049,9 @@ class Synth(Node):
 
     synthdef: SynthDef
 
-    def get(
-        self, *controls: int | str, sync: bool = True
-    ) -> Union[
-        Awaitable[dict[int | str, float] | None],
-        dict[int | str, float] | None,
-    ]:
+    def get(self, *controls: int | str, sync: bool = True) -> Awaitable[
+        dict[int | str, float] | None
+    ] | (dict[int | str, float] | None):
         """
         Get a control.
 
@@ -1075,12 +1067,9 @@ class Synth(Node):
             raise ContextError
         return self.context.get_synth_controls(self, *controls, sync=sync)
 
-    def get_range(
-        self, control: int | str, count: int, sync: bool = True
-    ) -> Union[
-        Awaitable[Sequence[float | str] | None],
-        Sequence[float | str] | None,
-    ]:
+    def get_range(self, control: int | str, count: int, sync: bool = True) -> Awaitable[
+        Sequence[float | str] | None
+    ] | (Sequence[float | str] | None):
         """
         Get a range of controls.
 

@@ -1,5 +1,6 @@
 import time
-from typing import Generator, Literal
+from collections.abc import Generator
+from typing import Literal
 
 import pytest
 from uqbar.strings import normalize
@@ -11,9 +12,8 @@ from supriya.ugens import Out, SinOsc
 @pytest.fixture
 def context(synthdef: SynthDef) -> Generator[Server, None, None]:
     context = Server().boot()
-    with context.at():
-        with context.add_synthdefs(synthdef):
-            context.add_synth(synthdef=synthdef)
+    with context.at(), context.add_synthdefs(synthdef):
+        context.add_synth(synthdef=synthdef)
     context.sync()
     yield context
     context.quit()
