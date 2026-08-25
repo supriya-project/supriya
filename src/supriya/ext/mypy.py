@@ -1,6 +1,14 @@
 from collections.abc import Callable
 
-from mypy.nodes import ARG_OPT, Argument, AssignmentStmt, CallExpr, RefExpr, Var
+from mypy.nodes import (
+    ARG_OPT,
+    Argument,
+    AssignmentStmt,
+    CallExpr,
+    RefExpr,
+    TypeAlias,
+    Var,
+)
 from mypy.plugin import ClassDefContext, Plugin
 from mypy.plugins.common import _get_bool_argument, _get_decorator_bool_argument
 from mypy.types import NoneType
@@ -53,6 +61,10 @@ class UGenTransformer:
         UGenVectorInputTypeSym = api.lookup_fully_qualified(
             "supriya.ugens.core.UGenVectorInput"
         )
+
+        assert isinstance(UGenRecursiveInputTypeSym.node, TypeAlias)
+        assert isinstance(UGenScalarInputTypeSym.node, TypeAlias)
+        assert isinstance(UGenVectorInputTypeSym.node, TypeAlias)
 
         UGenRecursiveInputType = UGenRecursiveInputTypeSym.node.target
         UGenScalarInputType = UGenScalarInputTypeSym.node.target
