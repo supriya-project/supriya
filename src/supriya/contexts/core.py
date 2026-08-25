@@ -815,7 +815,11 @@ class Context(metaclass=abc.ABCMeta):
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        if use_shared_memory and (shared_memory := self._shared_memory):
+        if (
+            use_shared_memory
+            and hasattr(self, "_shared_memory")
+            and (shared_memory := self._shared_memory)
+        ):
             shared_memory[int(bus) : int(bus) + count] = [value] * count
             return
         request = FillControlBusRange(items=[(int(bus), count, value)])
@@ -1271,7 +1275,11 @@ class Context(metaclass=abc.ABCMeta):
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        if use_shared_memory and (shared_memory := self._shared_memory):
+        if (
+            use_shared_memory
+            and hasattr(self, "_shared_memory")
+            and (shared_memory := self._shared_memory)
+        ):
             shared_memory[int(bus)] = value
             return
         request = SetControlBus(items=[(int(bus), value)])
@@ -1293,7 +1301,11 @@ class Context(metaclass=abc.ABCMeta):
         self._validate_can_request()
         if bus.calculation_rate != CalculationRate.CONTROL:
             raise InvalidCalculationRate
-        if use_shared_memory and (shared_memory := self._shared_memory):
+        if (
+            use_shared_memory
+            and hasattr(self, "_shared_memory")
+            and (shared_memory := self._shared_memory)
+        ):
             shared_memory[int(bus) : int(bus) + len(values)] = values
             return
         request = SetControlBusRange(items=[(int(bus), values)])

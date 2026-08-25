@@ -139,6 +139,7 @@ class BaseServer(Context):
     ### CLASS VARIABLES ###
 
     _contexts: set["BaseServer"] = set()
+    _osc_protocol: OscProtocol
 
     ### INITIALIZER ###
 
@@ -175,7 +176,15 @@ class BaseServer(Context):
             return True
         if isinstance(object_, Buffer) and object_.id_ in self._buffers:
             return True
-        return bool(isinstance(object_, Bus) and (object_.calculation_rate == CalculationRate.AUDIO and object_.id_ < self.options.control_bus_channel_count or object_.calculation_rate == CalculationRate.CONTROL and object_.id_ < self.options.audio_bus_channel_count))
+        return bool(
+            isinstance(object_, Bus)
+            and (
+                object_.calculation_rate == CalculationRate.AUDIO
+                and object_.id_ < self.options.control_bus_channel_count
+                or object_.calculation_rate == CalculationRate.CONTROL
+                and object_.id_ < self.options.audio_bus_channel_count
+            )
+        )
 
     def __repr__(self) -> str:
         return f"<{type(self).__name__} {self.boot_status.name} [{shlex.join(self.options)}]>"

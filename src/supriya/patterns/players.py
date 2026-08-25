@@ -220,9 +220,7 @@ class PatternPlayer:
         while True:
             try:
                 if index:
-                    should_stop = (
-                        yield (index, iterator.send(should_stop))
-                    )
+                    should_stop = yield (index, iterator.send(should_stop))
                 else:
                     should_stop = yield (index, next(iterator))
             except StopIteration:
