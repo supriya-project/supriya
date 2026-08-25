@@ -92,7 +92,7 @@ class Envelope:
 
     @staticmethod
     def _flatten(item: UGenOperable | float) -> UGenOperable | float:
-        if isinstance(item, (float, int)) or isinstance(item, OutputProxy):
+        if isinstance(item, (float, int, OutputProxy)):
             return item
         elif isinstance(item, UGen) and len(item) == 1:
             return item[0]

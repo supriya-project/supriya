@@ -73,10 +73,10 @@ def test_sphinx_book_html(caplog, app, status, warning, rm_dirs):
     for file_name in sorted(expected_48000_file_names):
         print(f"48000: {file_name}")
     all_44100_files_exist = all(
-        [file_name in actual_file_names for file_name in expected_44100_file_names]
+        file_name in actual_file_names for file_name in expected_44100_file_names
     )
     all_48000_files_exist = all(
-        [file_name in actual_file_names for file_name in expected_48000_file_names]
+        file_name in actual_file_names for file_name in expected_48000_file_names
     )
     assert all_44100_files_exist or all_48000_files_exist
     # audio and plot names are not stable across platforms

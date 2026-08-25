@@ -80,8 +80,8 @@ def test_amplitude_scope(
             f"{available_frames=} {data[:4]=} {scope.channel_count=} {scope.max_frames=}"
         )
         time.sleep(0.1)
-    assert any([entry[0] for entry in results])
-    assert all([any(entry[1]) for entry in results if entry[0]])
+    assert any(entry[0] for entry in results)
+    assert all(any(entry[1]) for entry in results if entry[0])
     scope.stop()
 
 
@@ -154,6 +154,6 @@ def test_frequency_scope(
             f"{available_frames=} {data[:4]=} {scope.channel_count=} {scope.max_frames=}"
         )
         time.sleep(0.1)
-    assert any([entry[0] for entry in results])
-    assert all([any(entry[1]) for entry in results if entry[0]])
+    assert any(entry[0] for entry in results)
+    assert all(any(entry[1]) for entry in results if entry[0])
     scope.stop()

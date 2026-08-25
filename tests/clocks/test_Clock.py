@@ -140,7 +140,7 @@ def test_realtime_02(
 ) -> None:
     store: list[ClockCallbackState] = []
     clock = Clock()
-    clock.cue(callback, quantization="1/4", args=[store], kwargs=dict(limit=limit))
+    clock.cue(callback, quantization="1/4", args=[store], kwargs={"limit": limit})
     for schedule_at, beats_per_minute in bpm_schedule:
         clock.schedule_change(
             beats_per_minute=beats_per_minute,

@@ -105,7 +105,7 @@ class Plotter:
         from matplotlib import pyplot
 
         array, sample_rate = self.plottable.__plot__()
-        fig, ax = pyplot.subplots(nrows=1)
+        fig, _ax = pyplot.subplots(nrows=1)
 
         # kludgy replacement for librosa.display.waveshow()
         time = numpy.linspace(

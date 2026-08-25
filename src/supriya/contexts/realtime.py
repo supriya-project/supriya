@@ -175,15 +175,7 @@ class BaseServer(Context):
             return True
         if isinstance(object_, Buffer) and object_.id_ in self._buffers:
             return True
-        if isinstance(object_, Bus):
-            if (
-                object_.calculation_rate == CalculationRate.AUDIO
-                and (object_.id_ < self.options.control_bus_channel_count)
-                or object_.calculation_rate == CalculationRate.CONTROL
-                and (object_.id_ < self.options.audio_bus_channel_count)
-            ):
-                return True
-        return False
+        return bool(isinstance(object_, Bus) and (object_.calculation_rate == CalculationRate.AUDIO and object_.id_ < self.options.control_bus_channel_count or object_.calculation_rate == CalculationRate.CONTROL and object_.id_ < self.options.audio_bus_channel_count))
 
     def __repr__(self) -> str:
         return f"<{type(self).__name__} {self.boot_status.name} [{shlex.join(self.options)}]>"
@@ -667,7 +659,7 @@ class Server(BaseServer):
         self._shutdown_future = concurrent.futures.Future()
         self._lifecycle_thread = threading.Thread(
             daemon=True,
-            kwargs=dict(owned=True),
+            kwargs={"owned": True},
             target=self._lifecycle,
         )
         self._lifecycle_thread.start()
@@ -692,7 +684,7 @@ class Server(BaseServer):
         self._shutdown_future = concurrent.futures.Future()
         self._lifecycle_thread = threading.Thread(
             daemon=True,
-            kwargs=dict(owned=False),
+            kwargs={"owned": False},
             target=self._lifecycle,
         )
         self._lifecycle_thread.start()

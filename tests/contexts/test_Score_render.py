@@ -45,73 +45,65 @@ HASHES = [
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    ", ".join(
-        [
-            "render_kwargs",
-            "expected_path",
-            "expected_channel_count",
-            "expected_duration",
-            "expected_sample_rate",
-        ]
-    ),
+    "render_kwargs, expected_path, expected_channel_count, expected_duration, expected_sample_rate",
     [
         (
-            lambda path: dict(),
+            lambda path: {},
             lambda path: output_path / f"score-{HASHES[0]}.aiff",
             8,
             3.0,
             44100,
         ),
         (
-            lambda path: dict(duration=1.5),
+            lambda path: {"duration": 1.5},
             lambda path: output_path / f"score-{HASHES[1]}.aiff",
             8,
             1.5,
             44100,
         ),
         (
-            lambda path: dict(output_bus_channel_count=2, duration=2.5),
+            lambda path: {"output_bus_channel_count": 2, "duration": 2.5},
             lambda path: output_path / f"score-{HASHES[2]}.aiff",
             2,
             2.5,
             44100,
         ),
         (
-            lambda path: dict(output_bus_channel_count=2, duration=3.0),
+            lambda path: {"output_bus_channel_count": 2, "duration": 3.0},
             lambda path: output_path / f"score-{HASHES[3]}.aiff",
             2,
             3.0,
             44100,
         ),
         (
-            lambda path: dict(output_bus_channel_count=2, duration=3.5),
+            lambda path: {"output_bus_channel_count": 2, "duration": 3.5},
             lambda path: output_path / f"score-{HASHES[4]}.aiff",
             2,
             3.5,
             44100,
         ),
         (
-            lambda path: dict(render_directory_path=path),
+            lambda path: {"render_directory_path": path},
             lambda path: output_path / f"score-{HASHES[5]}.aiff",
             8,
             3.0,
             44100,
         ),
         (
-            lambda path: dict(output_file_path=path / "foo.aiff"),
+            lambda path: {"output_file_path": path / "foo.aiff"},
             lambda path: path / "foo.aiff",
             8,
             3.0,
             44100,
         ),
         (
-            lambda path: dict(sample_rate=48000),
+            lambda path: {"sample_rate": 48000},
             lambda path: output_path / f"score-{HASHES[6]}.aiff",
             8,
             3.0,
             48000,
         ),
-        (lambda path: dict(suppress_output=True), lambda path: None, 8, 3.0, 44100),
+        (lambda path: {"suppress_output": True}, lambda path: None, 8, 3.0, 44100),
     ],
 )
 async def test_render(

@@ -221,7 +221,7 @@ class PatternPlayer:
             try:
                 if index:
                     should_stop = (
-                        yield (index, iterator.send(should_stop)) or should_stop
+                        yield (index, iterator.send(should_stop))
                     )
                 else:
                     should_stop = yield (index, next(iterator))

@@ -29,6 +29,7 @@ from typing import (
     runtime_checkable,
 )
 
+from typing_extensions import Self
 from uqbar.graphs import Edge, Graph, Node, RecordField, RecordGroup
 from uqbar.strings import normalize
 
@@ -5758,7 +5759,7 @@ class SynthDefBuilder:
             else:
                 self.add_parameter(name=key, value=value)
 
-    def __enter__(self) -> "SynthDefBuilder":
+    def __enter__(self) -> Self:
         self._active_builders.append(self)
         return self
 
@@ -6458,7 +6459,7 @@ def _decompile_synthdef(value: bytes, index: int) -> tuple[SynthDef, int]:
                 output_proxy = ugen[ugen_output_index]
                 inputs.append(output_proxy)
         for _ in range(output_count):
-            output_rate, index = _decode_int_8bit(value, index)
+            _output_rate, index = _decode_int_8bit(value, index)
         ugen_class = cast(type[UGen], getattr(ugens, ugen_name, None))
         ugen = UGen.__new__(ugen_class)
         if issubclass(ugen_class, Control):
@@ -6495,7 +6496,7 @@ def _decompile_synthdef(value: bytes, index: int) -> tuple[SynthDef, int]:
                 **kwargs,
             )
         decompiled_ugens.append(ugen)
-    variants_count, index = _decode_int_16bit(value, index)
+    _variants_count, index = _decode_int_16bit(value, index)
     synthdef = SynthDef(ugens=decompiled_ugens, name=name)
     if synthdef.name == synthdef.anonymous_name:
         synthdef._name = None
@@ -6513,7 +6514,7 @@ def decompile_synthdefs(value: bytes) -> list[SynthDef]:
     index = 4
     if value[:index] != b"SCgf":
         raise ValueError(value)
-    file_version, index = _decode_int_32bit(value, index)
+    _file_version, index = _decode_int_32bit(value, index)
     synthdef_count, index = _decode_int_16bit(value, index)
     for _ in range(synthdef_count):
         synthdef, index = _decompile_synthdef(value, index)

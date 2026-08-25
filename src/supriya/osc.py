@@ -24,6 +24,8 @@ from typing import (
     cast,
 )
 
+from typing_extensions import Self
+
 from .enums import BootStatus
 from .typing import FutureLike, SupportsOsc
 from .ugens import decompile_synthdefs
@@ -187,9 +189,7 @@ class OscMessage:
             return False
         if self.address != other.address:
             return False
-        if self.contents != other.contents:
-            return False
-        return True
+        return self.contents == other.contents
 
     def __repr__(self) -> str:
         return "{}({})".format(
@@ -436,9 +436,7 @@ class OscBundle:
             return False
         if self.timestamp != other.timestamp:
             return False
-        if self.contents != other.contents:
-            return False
-        return True
+        return self.contents == other.contents
 
     def __repr__(self) -> str:
         parts = [f"{type(self).__name__}("]
@@ -622,7 +620,7 @@ class Capture:
 
     ### SPECIAL METHODS ###
 
-    def __enter__(self) -> "Capture":
+    def __enter__(self) -> Self:
         self.osc_protocol.captures.add(self)
         self.entries[:] = []
         return self
@@ -1283,7 +1281,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()
         self.exit_future = loop.create_future()
-        _, protocol = await loop.create_datagram_endpoint(
+        _, _protocol = await loop.create_datagram_endpoint(
             lambda: self, remote_addr=(ip_address, port)
         )
         if self.healthcheck and self.healthcheck.active:

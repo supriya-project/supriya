@@ -23,6 +23,7 @@ from typing import (
     cast,
 )
 
+from typing_extensions import Self
 from uqbar.objects import new
 
 from ..enums import AddAction, BootStatus, CalculationRate
@@ -121,7 +122,7 @@ class Moment:
         default_factory=list, init=False
     )
 
-    def __enter__(self) -> "Moment":
+    def __enter__(self) -> Self:
         """
         set this moment the current "request context".
         """
@@ -180,7 +181,7 @@ class Completion:
             request = new(request, on_completion=requests[0])
         return request
 
-    def __enter__(self) -> "Completion":
+    def __enter__(self) -> Self:
         """
         set this completion as the current "request context".
         """
@@ -986,13 +987,12 @@ class Context(metaclass=abc.ABCMeta):
         if command_name == "sine2":
             if not frequencies or not (len(amplitudes) == len(frequencies)):
                 raise ValueError
-        elif command_name == "sine3":
-            if (
-                not frequencies
-                or not phases
-                or not (len(amplitudes) == len(frequencies) == len(phases))
-            ):
-                raise ValueError
+        elif command_name == "sine3" and (
+            not frequencies
+            or not phases
+            or not (len(amplitudes) == len(frequencies) == len(phases))
+        ):
+            raise ValueError
         request = GenerateBuffer(
             buffer_id=buffer,
             command_name=command_name,
