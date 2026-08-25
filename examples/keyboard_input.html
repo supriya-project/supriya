@@ -3451,7 +3451,7 @@
 <h1 id="keyboard-input">Keyboard input<a class="headerlink" href="#keyboard-input" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/examples/keyboard_input">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.8b0/examples/keyboard_input">full example
 source code</a> on GitHub.</p>
 </div>
 <div class="important tip admonition">
@@ -3492,9 +3492,9 @@ pitch (or <em>note number</em>) and loudness (or <em>velocity</em>) and stopping
 given pitch. We can do this with a pair of <a class="reference external" href="https://docs.python.org/3/library/dataclasses.html#module-dataclasses" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dataclasses</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">NoteOn</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A note on event.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">note_number</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">velocity</span><span class="p">:</span> <span class="nb">int</span>
@@ -3502,9 +3502,9 @@ given pitch. We can do this with a pair of <a class="reference external" href="h
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">NoteOff</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A note off event.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">note_number</span><span class="p">:</span> <span class="nb">int</span>
 </code></pre></div>
@@ -3528,12 +3528,12 @@ SuperCollider server, and that requires tracking <em>state</em>. We’ll do this
 polyphony manager. Our implementation looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">PolyphonyManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A polyphony manager.</span>
 
 <span class="sd">    Translates :py:class:`NoteOn` or :py:class:`NoteOff` events into actions</span>
 <span class="sd">    against a :py:class:`~supriya.contexts.core.Context`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># the server to act on</span>
     <span class="n">server</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span>
@@ -3547,24 +3547,24 @@ polyphony manager. Our implementation looks like this:</p>
     <span class="n">add_action</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">free_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Free all currently playing :py:class:`~supriya.contexts.entities.Synth`</span>
 <span class="sd">        instances.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">synth</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">perform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Perform a :py:class:`NoteOn` or :py:class:`NoteOff` event.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># if we&#39;re starting a note ...</span>
+<span class="sd">        """</span>
+        <span class="c1"># if we're starting a note ...</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">NoteOn</span><span class="p">):</span>
             <span class="c1"># bail if we already started this note</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">note_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
                 <span class="k">return</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Performing </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Performing </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="c1"># convert MIDI 0-127 to frequency in Hertz</span>
             <span class="n">frequency</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">conversions</span><span class="o">.</span><span class="n">midi_note_number_to_frequency</span><span class="p">(</span>
                 <span class="n">event</span><span class="o">.</span><span class="n">note_number</span>
@@ -3580,12 +3580,12 @@ polyphony manager. Our implementation looks like this:</p>
                 <span class="n">synthdef</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">synthdef</span><span class="p">,</span>
                 <span class="n">target_node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">target_node</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="c1"># if we&#39;re stopping a note ...</span>
+        <span class="c1"># if we're stopping a note ...</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">NoteOff</span><span class="p">):</span>
             <span class="c1"># bail if we already stopped this note:</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">note_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
                 <span class="k">return</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Performing </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Performing </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="c1"># pop the synth out of the dictionary and free it ...</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">note_number</span><span class="p">)</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </code></pre></div>
@@ -3625,18 +3625,18 @@ pattern, a context manager is an obvious choice, so we’ll use Python’s
 <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.InputHandler.listen" title="examples.keyboard_input.InputHandler.listen (Python method)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">listen()</span></code></a> stub method:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">InputHandler</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Base class for input handlers.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">listen</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
         <span class="c1"># subclasses must implement this method!</span>
-        <span class="c1"># 1) start the handler&#39;s listener</span>
+        <span class="c1"># 1) start the handler's listener</span>
         <span class="c1"># 2) yield to the with block body</span>
-        <span class="c1"># 3) stop the handler&#39;s listener</span>
+        <span class="c1"># 3) stop the handler's listener</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 </code></pre></div>
 </div>
@@ -3648,9 +3648,9 @@ use the <a class="reference external" href="https://spotlightkid.github.io/pytho
 hardware. Let’s take a look:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MidiHandler</span><span class="p">(</span><span class="n">InputHandler</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A MIDI input handler.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span>
 
@@ -3658,14 +3658,14 @@ hardware. Let’s take a look:</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">listen</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Context manager for listening to MIDI input events.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">midi_input</span> <span class="o">=</span> <span class="n">rtmidi</span><span class="o">.</span><span class="n">MidiIn</span><span class="p">()</span>  <span class="c1"># create the MIDI input</span>
-        <span class="c1"># set the MIDI event callback to this class&#39;s __call__</span>
+        <span class="c1"># set the MIDI event callback to this class's __call__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">midi_input</span><span class="o">.</span><span class="n">set_callback</span><span class="p">(</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">callback</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">midi_input</span><span class="o">.</span><span class="n">open_port</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>  <span class="c1"># open the port for listening</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening for MIDI keyboard events ...&quot;</span><span class="p">)</span>  <span class="c1"># let the user know</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Listening for MIDI keyboard events ..."</span><span class="p">)</span>  <span class="c1"># let the user know</span>
         <span class="k">yield</span>  <span class="c1"># yield to the with block body</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">midi_input</span><span class="o">.</span><span class="n">close_port</span><span class="p">()</span>  <span class="c1"># close the port</span>
 
@@ -3675,22 +3675,22 @@ hardware. Let’s take a look:</p>
         <span class="n">event</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
         <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Handle a MIDI input event.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MIDI received: </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"MIDI received: </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="c1"># the raw MIDI event is a 2-tuple of MIDI data and time delta, so</span>
         <span class="c1"># unpack it, keep the data and discard the time delta ...</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">event</span>
         <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">rtmidi</span><span class="o">.</span><span class="n">midiconstants</span><span class="o">.</span><span class="n">NOTE_ON</span><span class="p">:</span>  <span class="c1"># if we received a note-on ...</span>
             <span class="c1"># grab the note number and velocity</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">note_number</span><span class="p">,</span> <span class="n">velocity</span> <span class="o">=</span> <span class="n">data</span>
-            <span class="c1"># perform a &quot;note on&quot; event</span>
+            <span class="c1"># perform a "note on" event</span>
             <span class="n">callback</span><span class="p">(</span><span class="n">NoteOn</span><span class="p">(</span><span class="n">note_number</span><span class="o">=</span><span class="n">note_number</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">velocity</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">rtmidi</span><span class="o">.</span><span class="n">midiconstants</span><span class="o">.</span><span class="n">NOTE_OFF</span><span class="p">:</span>  <span class="c1"># if we received a note-off ...</span>
             <span class="c1"># grab the note number</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">note_number</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">data</span>
-            <span class="c1"># perform a &quot;note off&quot; event</span>
+            <span class="c1"># perform a "note off" event</span>
             <span class="n">callback</span><span class="p">(</span><span class="n">NoteOff</span><span class="p">(</span><span class="n">note_number</span><span class="o">=</span><span class="n">note_number</span><span class="p">))</span>
 </code></pre></div>
 </div>
@@ -3728,9 +3728,9 @@ a larger pitch space than we have physical keys available. We’ll use the
 Live</a>’s QWERTY keyboard feature. Take a look and then let’s discuss.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">QwertyHandler</span><span class="p">(</span><span class="n">InputHandler</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A QWERTY input handler.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">octave</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">presses_to_note_numbers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
@@ -3739,27 +3739,27 @@ Live</a>’s QWERTY keyboard feature. Take a look and then let’s discuss.</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">listen</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Context manager for listening to QWERTY input events.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># setup the QWERTY keybord listener</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">Listener</span><span class="p">(</span>
             <span class="n">on_press</span><span class="o">=</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_press</span><span class="p">,</span> <span class="n">callback</span><span class="p">),</span>
             <span class="n">on_release</span><span class="o">=</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_release</span><span class="p">,</span> <span class="n">callback</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># start the listener</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening for QWERTY keyboard events ...&quot;</span><span class="p">)</span>  <span class="c1"># let the user know</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Listening for QWERTY keyboard events ..."</span><span class="p">)</span>  <span class="c1"># let the user know</span>
         <span class="k">yield</span>  <span class="c1"># yield to the with block body</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">listener</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stop the listener</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">qwerty_key_to_pitch_number</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Translate a QWERTY key event into a pitch number.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># dict lookups are faster, but this is soooo much shorter</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;awsedftgyhujkolp;&#39;&quot;</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">"awsedftgyhujkolp;'"</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -3768,18 +3768,18 @@ Live</a>’s QWERTY keyboard feature. Take a look and then let’s discuss.</p>
         <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
         <span class="n">key</span><span class="p">:</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">Key</span> <span class="o">|</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Handle a QWERTY key press.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span><span class="p">):</span>
-            <span class="k">return</span>  <span class="c1"># bail if we didn&#39;t get a keycode object</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;QWERTY pressed: </span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span>  <span class="c1"># bail if we didn't get a keycode object</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"QWERTY pressed: </span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>  <span class="c1"># decrement our octave setting</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="o">==</span> <span class="s2">"z"</span><span class="p">:</span>  <span class="c1"># decrement our octave setting</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>  <span class="c1"># increment our octave setting</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="o">==</span> <span class="s2">"x"</span><span class="p">:</span>  <span class="c1"># increment our octave setting</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presses_to_note_numbers</span><span class="p">:</span>
@@ -3788,13 +3788,13 @@ Live</a>’s QWERTY keyboard feature. Take a look and then let’s discuss.</p>
             <span class="k">return</span>  <span class="c1"># not a valid key, ignore it</span>
         <span class="c1"># calculate the note number from the pitch and octave</span>
         <span class="n">note_number</span> <span class="o">=</span> <span class="n">pitch</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">octave</span> <span class="o">*</span> <span class="mi">12</span>
-        <span class="c1"># QWERTY keyboards aren&#39;t pressure-sensitive, so let&#39;s create a random</span>
+        <span class="c1"># QWERTY keyboards aren't pressure-sensitive, so let's create a random</span>
         <span class="c1"># velocity to simulate expressivity</span>
         <span class="n">velocity</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
         <span class="c1"># stash the note number with the key for releasing later</span>
-        <span class="c1"># so that changing the octave doesn&#39;t prevent releasing</span>
+        <span class="c1"># so that changing the octave doesn't prevent releasing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">presses_to_note_numbers</span><span class="p">[</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">note_number</span>
-        <span class="c1"># perform a &quot;note on&quot; event</span>
+        <span class="c1"># perform a "note on" event</span>
         <span class="n">callback</span><span class="p">(</span><span class="n">NoteOn</span><span class="p">(</span><span class="n">note_number</span><span class="o">=</span><span class="n">note_number</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">velocity</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">on_release</span><span class="p">(</span>
@@ -3802,18 +3802,18 @@ Live</a>’s QWERTY keyboard feature. Take a look and then let’s discuss.</p>
         <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
         <span class="n">key</span><span class="p">:</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">Key</span> <span class="o">|</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Handle a QWERTY key release.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">pynput</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">KeyCode</span><span class="p">):</span>
-            <span class="k">return</span>  <span class="c1"># bail if we didn&#39;t get a keycode object</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;QWERTY released: </span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="c1"># bail if the key isn&#39;t currently held down</span>
+            <span class="k">return</span>  <span class="c1"># bail if we didn't get a keycode object</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"QWERTY released: </span><span class="si">{</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="c1"># bail if the key isn't currently held down</span>
         <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">char</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">presses_to_note_numbers</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="c1"># grab the note number out of the stash</span>
         <span class="n">note_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">presses_to_note_numbers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">char</span><span class="p">)</span>
-        <span class="c1"># perform a &quot;note off&quot; event</span>
+        <span class="c1"># perform a "note off" event</span>
         <span class="n">callback</span><span class="p">(</span><span class="n">NoteOff</span><span class="p">(</span><span class="n">note_number</span><span class="o">=</span><span class="n">note_number</span><span class="p">))</span>
 </code></pre></div>
 </div>
@@ -3846,12 +3846,12 @@ server so we can actually hear something. We’ll write one
 <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.run" title="examples.keyboard_input.run (Python function) — Run the script."><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> function with a number of simple nested
 functions for the various callbacks our application requires:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">input_handler</span><span class="p">:</span> <span class="n">InputHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Run the script.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">on_boot</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># run this during server.boot()</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">polyphony</span><span class="o">.</span><span class="n">synthdef</span><span class="p">)</span>  <span class="c1"># add the polyphony&#39;s synthdef</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">polyphony</span><span class="o">.</span><span class="n">synthdef</span><span class="p">)</span>  <span class="c1"># add the polyphony's synthdef</span>
         <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>  <span class="c1"># wait for the synthdef to load before moving on</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">on_quitting</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># run this during server.quit()</span>
@@ -3871,13 +3871,13 @@ functions for the various callbacks our application requires:</p>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span>
     <span class="n">polyphony</span> <span class="o">=</span> <span class="n">PolyphonyManager</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
     <span class="c1"># setup lifecycle callbacks</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">&quot;BOOTED&quot;</span><span class="p">,</span> <span class="n">on_boot</span><span class="p">)</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">&quot;QUITTING&quot;</span><span class="p">,</span> <span class="n">on_quitting</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">"BOOTED"</span><span class="p">,</span> <span class="n">on_boot</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">"QUITTING"</span><span class="p">,</span> <span class="n">on_quitting</span><span class="p">)</span>
     <span class="c1"># hook up Ctrl-C so we can gracefully shutdown the server</span>
     <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal_handler</span><span class="p">)</span>
-    <span class="c1"># boot the server and let the user know we&#39;re ready to play</span>
+    <span class="c1"># boot the server and let the user know we're ready to play</span>
     <span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Server online. Press Ctrl-C to exit.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Server online. Press Ctrl-C to exit."</span><span class="p">)</span>
     <span class="c1"># turn on the input handler and teach it to callback against the polyphony manager</span>
     <span class="k">with</span> <span class="n">input_handler</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">input_callback</span><span class="p">):</span>
         <span class="n">exit_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>  <span class="c1"># wait for Ctrl-C</span>
@@ -3914,21 +3914,21 @@ progress to its shutdown logic.</p></li>
 with a required <em>mutually exclusive argument group</em> forcing us to pick at least
 one flag:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Parse CLI arguments.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Play notes via your QWERTY or MIDI keyboards&quot;</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Play notes via your QWERTY or MIDI keyboards"</span>
     <span class="p">)</span>
     <span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;--list-midi-inputs&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;list available MIDI inputs&quot;</span>
+        <span class="s2">"--list-midi-inputs"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"list available MIDI inputs"</span>
     <span class="p">)</span>
     <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;--use-midi&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;play via MIDI keyboard&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;PORT_NUMBER&quot;</span>
+        <span class="s2">"--use-midi"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"play via MIDI keyboard"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">"PORT_NUMBER"</span>
     <span class="p">)</span>
     <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;--use-qwerty&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;play via QWERTY keyboard&quot;</span>
+        <span class="s2">"--use-qwerty"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"play via QWERTY keyboard"</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 </code></pre></div>
@@ -3937,9 +3937,9 @@ one flag:</p>
 appropriate <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.InputHandler" title="examples.keyboard_input.InputHandler (Python class) — Bases: object"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputHandler</span></code></a> and then call
 <a class="reference internal" href="../api/examples/keyboard_input/index.html#examples.keyboard_input.run" title="examples.keyboard_input.run (Python function) — Run the script."><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> with it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The example entry-point function.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">parsed_args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">list_midi_inputs</span><span class="p">:</span>
         <span class="c1"># print out available MIDI input ports</span>

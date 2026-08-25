@@ -3778,7 +3778,7 @@ From source</label></div>
 </div><h2 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">¶</a></h2>
 <p>Supriya uses <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> as its test runner, both for unit tests and for
 doctests, along with a variety of <cite>pytest_</cite> plugins.</p>
-<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/src/supriya">src/supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/tests">tests/</a>) with:</p>
+<p>Run <a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> against Supriya’s default test paths (<a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.8b0/src/supriya">src/supriya/</a> and <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.8b0/tests">tests/</a>) with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest
 </code></pre></div>
 </div>
@@ -3808,7 +3808,7 @@ equivalents.</p>
 <h3 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://docs.pytest.org/en/stable/">pytest</a> can collect code coverage statistics during its test runs via the
 <a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/">pytest-cov</a> plugin, installed when you install Supriya’s test dependencies.</p>
-<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/src/supriya/">src/supriya/</a>
+<p>Collect coverage against the code in the <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.8b0/src/supriya/">src/supriya/</a>
 directory during a test run by adding the <code class="docutils literal notranslate"><span class="pre">--cov=src/supriya/</span></code> flag:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>--cov<span class="o">=</span>supriya
 </code></pre></div>
@@ -3926,7 +3926,7 @@ the gaps in test coverage.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The test examples here are <span class="md-icon si-icon-inline octicons_mark-github-16"></span>
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.3b0/tests/test_examples.py">in the official test suite</a>, which
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.8b0/tests/test_examples.py">in the official test suite</a>, which
 ensures that they continue to work and are subject to the same formatting,
 linting and static-typing checks as any other code in Supriya.</p>
 </div>
@@ -3978,10 +3978,10 @@ typically into parametrized tests.</p>
     <span class="n">actual_tree</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
     <span class="c1"># validation</span>
     <span class="n">expected_tree</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">        </span><span class="sd">"""\</span>
 <span class="sd">        NODE TREE 0 group</span>
 <span class="sd">            1 group</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="p">)</span>
     <span class="k">assert</span> <span class="n">actual_tree</span> <span class="o">==</span> <span class="n">expected_tree</span>
     <span class="c1"># teardown (but might not happen if the assert fails)</span>
@@ -4011,10 +4011,10 @@ even if the assertion fails. And it’s true, that will work fine:</p>
         <span class="n">actual_tree</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
         <span class="c1"># validation</span>
         <span class="n">expected_tree</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            NODE TREE 0 group</span>
 <span class="sd">                1 group</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
         <span class="p">)</span>
         <span class="k">assert</span> <span class="n">actual_tree</span> <span class="o">==</span> <span class="n">expected_tree</span>
     <span class="k">finally</span><span class="p">:</span>
@@ -4035,7 +4035,7 @@ completes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">server</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="c1"># setup</span>
-    <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;test-server&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"test-server"</span><span class="p">)</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># yield to test</span>
     <span class="k">yield</span> <span class="n">server</span>
     <span class="c1"># teardown, even if the test fails</span>
@@ -4055,10 +4055,10 @@ same name as the fixture</em> to the test function:</p>
     <span class="n">actual_tree</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
     <span class="c1"># validation</span>
     <span class="n">expected_tree</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">        </span><span class="sd">"""\</span>
 <span class="sd">        NODE TREE 0 group</span>
 <span class="sd">            1 group</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="p">)</span>
     <span class="k">assert</span> <span class="n">actual_tree</span> <span class="o">==</span> <span class="n">expected_tree</span>
 </code></pre></div>
@@ -4088,7 +4088,7 @@ returning an <a class="reference internal" href="../api/supriya/contexts/realtim
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@pytest_asyncio</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">async_server</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">AsyncServer</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="c1"># setup</span>
-    <span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AsyncServer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;test-server&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AsyncServer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"test-server"</span><span class="p">)</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># yield to test</span>
     <span class="k">yield</span> <span class="n">server</span>
     <span class="c1"># teardown, even if the test fails</span>
@@ -4101,10 +4101,10 @@ returning an <a class="reference internal" href="../api/supriya/contexts/realtim
     <span class="n">actual_tree</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="k">await</span> <span class="n">async_server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
     <span class="c1"># validation</span>
     <span class="n">expected_tree</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">        </span><span class="sd">"""\</span>
 <span class="sd">        NODE TREE 0 group</span>
 <span class="sd">            1 group</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="p">)</span>
     <span class="k">assert</span> <span class="n">actual_tree</span> <span class="o">==</span> <span class="n">expected_tree</span>
 </code></pre></div>
@@ -4139,7 +4139,7 @@ function to optionally await as necessary:</p>
     <span class="c1"># the context class is first AsyncServer, then Server</span>
     <span class="n">context_class</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">param</span>
     <span class="c1"># instantiation looks the same</span>
-    <span class="n">context</span> <span class="o">=</span> <span class="n">context_class</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;test-server&quot;</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">context_class</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"test-server"</span><span class="p">)</span>
     <span class="c1"># booting might need to be awaited</span>
     <span class="k">await</span> <span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">boot</span><span class="p">())</span>
     <span class="c1"># yield the context</span>
@@ -4157,12 +4157,12 @@ server handle querying the node tree the same way:</p>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_async_and_sync</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AsyncServer</span> <span class="o">|</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># operation</span>
     <span class="n">actual_tree</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="k">await</span> <span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()))</span>
-    <span class="c1"># validate they&#39;re the same</span>
+    <span class="c1"># validate they're the same</span>
     <span class="n">expected_tree</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">        </span><span class="sd">"""\</span>
 <span class="sd">        NODE TREE 0 group</span>
 <span class="sd">            1 group</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="p">)</span>
     <span class="k">assert</span> <span class="n">actual_tree</span> <span class="o">==</span> <span class="n">expected_tree</span>
 </code></pre></div>
@@ -4196,17 +4196,17 @@ diff against the actual diff.</p>
     <span class="c1"># capture the tree after</span>
     <span class="n">after_tree</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
     <span class="c1"># build a diff of the two trees</span>
-    <span class="n">actual_diff</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">actual_diff</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="n">difflib</span><span class="o">.</span><span class="n">unified_diff</span><span class="p">(</span>
             <span class="n">before_tree</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span>
             <span class="n">after_tree</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span>
-            <span class="n">fromfile</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span>
-            <span class="n">tofile</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">,</span>
+            <span class="n">fromfile</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+            <span class="n">tofile</span><span class="o">=</span><span class="s2">"after"</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="p">)</span>
     <span class="c1"># tidy up the expected diff</span>
     <span class="n">expected_diff</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">        </span><span class="sd">"""\</span>
 <span class="sd">        --- before</span>
 <span class="sd">        +++ after</span>
 <span class="sd">        @@ -1,2 +1,7 @@</span>
@@ -4217,7 +4217,7 @@ diff against the actual diff.</p>
 <span class="sd">        +        1002 group</span>
 <span class="sd">        +        1001 group</span>
 <span class="sd">        +        1000 group</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="p">)</span>
     <span class="c1"># validate</span>
     <span class="k">assert</span> <span class="n">actual_diff</span> <span class="o">==</span> <span class="n">expected_diff</span>
@@ -4247,15 +4247,15 @@ servers:</p>
     <span class="c1"># capture the tree after</span>
     <span class="n">after_tree</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="k">await</span> <span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()))</span>
     <span class="c1"># build a diff of the two trees</span>
-    <span class="n">actual_diff</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">actual_diff</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="n">difflib</span><span class="o">.</span><span class="n">unified_diff</span><span class="p">(</span>
             <span class="n">before_tree</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span>
             <span class="n">after_tree</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span>
-            <span class="n">fromfile</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">,</span>
-            <span class="n">tofile</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">,</span>
+            <span class="n">fromfile</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+            <span class="n">tofile</span><span class="o">=</span><span class="s2">"after"</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="p">)</span>
-    <span class="c1"># tidy up the expected diff so we don&#39;t need to dedent inside our tests</span>
+    <span class="c1"># tidy up the expected diff so we don't need to dedent inside our tests</span>
     <span class="n">expected_diff</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">expected_diff</span><span class="p">)</span>
     <span class="c1"># validate that they match</span>
     <span class="k">assert</span> <span class="n">actual_diff</span> <span class="o">==</span> <span class="n">expected_diff</span>
@@ -4268,7 +4268,7 @@ servers:</p>
     <span class="c1"># the validation happens once we exit this context manager</span>
     <span class="k">async</span> <span class="k">with</span> <span class="n">assert_node_tree_diff</span><span class="p">(</span>
         <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
-        <span class="n">expected_diff</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+        <span class="n">expected_diff</span><span class="o">=</span><span class="s2">"""</span><span class="se">\</span>
 <span class="s2">            --- before</span>
 <span class="s2">            +++ after</span>
 <span class="s2">            @@ -1,2 +1,7 @@</span>
@@ -4279,7 +4279,7 @@ servers:</p>
 <span class="s2">            +        1002 group</span>
 <span class="s2">            +        1001 group</span>
 <span class="s2">            +        1000 group</span>
-<span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="s2">        """</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="c1"># perform an operation</span>
         <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
@@ -4312,7 +4312,7 @@ server:</p>
         <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
     <span class="c1"># validate that sent messages match what we expect</span>
     <span class="k">assert</span> <span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">transcript</span><span class="o">.</span><span class="n">filtered</span><span class="p">(</span><span class="n">received</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> <span class="o">==</span> <span class="p">[</span>
-        <span class="n">supriya</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/g_new&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">supriya</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/g_new"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
     <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -4342,18 +4342,18 @@ available nonetheless:</p>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
         <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">process_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
-        <span class="c1"># tell the server to &quot;trace&quot; the default group</span>
+        <span class="c1"># tell the server to "trace" the default group</span>
         <span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span>
-        <span class="c1"># the trace has no end-delimiter so we don&#39;t know explicitly when to</span>
-        <span class="c1"># stop capturing the output, so we&#39;ll just sleep and hope for the best:</span>
+        <span class="c1"># the trace has no end-delimiter so we don't know explicitly when to</span>
+        <span class="c1"># stop capturing the output, so we'll just sleep and hope for the best:</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">transcript</span><span class="o">.</span><span class="n">lines</span> <span class="o">==</span> <span class="p">[</span>
-        <span class="s2">&quot;TRACE Group 1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;   1004 group&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;   1003 group&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;   1002 group&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;   1001 group&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;   1000 group&quot;</span><span class="p">,</span>
+        <span class="s2">"TRACE Group 1"</span><span class="p">,</span>
+        <span class="s2">"   1004 group"</span><span class="p">,</span>
+        <span class="s2">"   1003 group"</span><span class="p">,</span>
+        <span class="s2">"   1002 group"</span><span class="p">,</span>
+        <span class="s2">"   1001 group"</span><span class="p">,</span>
+        <span class="s2">"   1000 group"</span><span class="p">,</span>
     <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -4372,11 +4372,11 @@ exceptions were raised by a code block:</p>
     <span class="c1"># if the server is already online,</span>
     <span class="c1"># booting again will throw an exception</span>
     <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerOnline</span><span class="p">)</span> <span class="k">as</span> <span class="n">exception_info</span><span class="p">:</span>
-        <span class="c1"># the test fails if the exception doesn&#39;t raise</span>
+        <span class="c1"># the test fails if the exception doesn't raise</span>
         <span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># and we can assert even more about the raised exception</span>
     <span class="c1"># e.g. what the custom message for the exception was</span>
-    <span class="k">assert</span> <span class="s2">&quot;Server already online!&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">exception_info</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s2">"Server already online!"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">exception_info</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_exceptions
@@ -4390,18 +4390,18 @@ raises.</p>
 <code class="docutils literal notranslate"><span class="pre">warnings.catch_warnings(record=True)</span></code> context manager for catching warnings
 we can inspect later:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_warnings</span><span class="p">(</span><span class="n">server</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># let&#39;s create a client-side reference to a group that doesn&#39;t exist on the</span>
+    <span class="c1"># let's create a client-side reference to a group that doesn't exist on the</span>
     <span class="c1"># server</span>
     <span class="n">nonexistent_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="mi">666</span><span class="p">)</span>
     <span class="c1"># capture warnings</span>
     <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">warnings_</span><span class="p">:</span>
-        <span class="c1"># operation: try to free a group that doesn&#39;t exist</span>
+        <span class="c1"># operation: try to free a group that doesn't exist</span>
         <span class="n">nonexistent_group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
         <span class="c1"># wait for the server, because the warning arrives asynchronously</span>
         <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
     <span class="c1"># validation</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">warnings_</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-    <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">warnings_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;/n_free Node 666 not found&quot;</span>
+    <span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">warnings_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"/n_free Node 666 not found"</span>
 </code></pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>pytest<span class="w"> </span>tests/test_examples.py::test_warnings
@@ -4416,16 +4416,16 @@ that lets you set logging levels and capture logs during tests:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_logging</span><span class="p">(</span><span class="n">caplog</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">LogCaptureFixture</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># capture logs from the supriya.osc.out logger</span>
     <span class="c1"># that are at or higher than logging.DEBUG</span>
-    <span class="n">caplog</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="s2">&quot;supriya.osc.out&quot;</span><span class="p">)</span>
+    <span class="n">caplog</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="s2">"supriya.osc.out"</span><span class="p">)</span>
     <span class="c1"># do something that should emit some osc logging</span>
     <span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
     <span class="c1"># validate that the logs are what we expect...</span>
     <span class="c1"># ``caplog.record_tuples`` is a list of triples: logger, level, message</span>
     <span class="k">assert</span> <span class="n">caplog</span><span class="o">.</span><span class="n">record_tuples</span> <span class="o">==</span> <span class="p">[</span>
         <span class="p">(</span>
-            <span class="s2">&quot;supriya.osc.out&quot;</span><span class="p">,</span>
+            <span class="s2">"supriya.osc.out"</span><span class="p">,</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;[127.0.0.1:57110/</span><span class="si">{</span><span class="n">server</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">] OscMessage(&#39;/g_new&#39;, 1000, 0, 1)&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"[127.0.0.1:57110/</span><span class="si">{</span><span class="n">server</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">] OscMessage('/g_new', 1000, 0, 1)"</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">]</span>
 </code></pre></div>
@@ -4465,11 +4465,11 @@ each add action, with a matching expected node tree diff. The test body will
 execute its logic with each different add action, and validate that our
 expected node tree diff matches the actual node tree diff:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
-    <span class="s2">&quot;add_action, expected_diff&quot;</span><span class="p">,</span>
+    <span class="s2">"add_action, expected_diff"</span><span class="p">,</span>
     <span class="p">[</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,5 @@</span>
@@ -4478,11 +4478,11 @@ expected node tree diff matches the actual node tree diff:</p>
 <span class="sd">                     1000 group</span>
 <span class="sd">            +            1002 group</span>
 <span class="sd">                         1001 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -2,3 +2,4 @@</span>
@@ -4490,11 +4490,11 @@ expected node tree diff matches the actual node tree diff:</p>
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
 <span class="sd">            +            1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_BEFORE</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,5 @@</span>
@@ -4503,11 +4503,11 @@ expected node tree diff matches the actual node tree diff:</p>
 <span class="sd">            +        1002 group</span>
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_AFTER</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -2,3 +2,4 @@</span>
@@ -4515,11 +4515,11 @@ expected node tree diff matches the actual node tree diff:</p>
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
 <span class="sd">            +        1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">REPLACE</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,3 @@</span>
@@ -4528,7 +4528,7 @@ expected node tree diff matches the actual node tree diff:</p>
 <span class="sd">            -        1000 group</span>
 <span class="sd">            -            1001 group</span>
 <span class="sd">            +        1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">],</span>
 <span class="p">)</span>
@@ -4561,11 +4561,11 @@ will perform combinatoric expansion. Let’s use the <code class="docutils liter
 earlier that can yield either a sync or async server with our initial
 parametric test cases:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
-    <span class="s2">&quot;add_action, expected_diff&quot;</span><span class="p">,</span>
+    <span class="s2">"add_action, expected_diff"</span><span class="p">,</span>
     <span class="p">[</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,5 @@</span>
@@ -4574,11 +4574,11 @@ parametric test cases:</p>
 <span class="sd">                     1000 group</span>
 <span class="sd">            +            1002 group</span>
 <span class="sd">                         1001 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -2,3 +2,4 @@</span>
@@ -4586,11 +4586,11 @@ parametric test cases:</p>
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
 <span class="sd">            +            1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_BEFORE</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,5 @@</span>
@@ -4599,11 +4599,11 @@ parametric test cases:</p>
 <span class="sd">            +        1002 group</span>
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_AFTER</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -2,3 +2,4 @@</span>
@@ -4611,11 +4611,11 @@ parametric test cases:</p>
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
 <span class="sd">            +        1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">REPLACE</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,3 @@</span>
@@ -4624,7 +4624,7 @@ parametric test cases:</p>
 <span class="sd">            -        1000 group</span>
 <span class="sd">            -            1001 group</span>
 <span class="sd">            +        1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">],</span>
 <span class="p">)</span>
@@ -4671,11 +4671,11 @@ a <a class="reference internal" href="../api/supriya/contexts/realtime.html#supr
 <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.parametrize</span></code> decorator whose arguments are lazily-evaluated
 references to the <code class="docutils literal notranslate"><span class="pre">async_server</span></code> and <code class="docutils literal notranslate"><span class="pre">server</span></code> fixtures.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
-    <span class="s2">&quot;add_action, expected_diff&quot;</span><span class="p">,</span>
+    <span class="s2">"add_action, expected_diff"</span><span class="p">,</span>
     <span class="p">[</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,5 @@</span>
@@ -4684,11 +4684,11 @@ references to the <code class="docutils literal notranslate"><span class="pre">a
 <span class="sd">                     1000 group</span>
 <span class="sd">            +            1002 group</span>
 <span class="sd">                         1001 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -2,3 +2,4 @@</span>
@@ -4696,11 +4696,11 @@ references to the <code class="docutils literal notranslate"><span class="pre">a
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
 <span class="sd">            +            1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_BEFORE</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,5 @@</span>
@@ -4709,11 +4709,11 @@ references to the <code class="docutils literal notranslate"><span class="pre">a
 <span class="sd">            +        1002 group</span>
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_AFTER</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -2,3 +2,4 @@</span>
@@ -4721,11 +4721,11 @@ references to the <code class="docutils literal notranslate"><span class="pre">a
 <span class="sd">                     1000 group</span>
 <span class="sd">                         1001 group</span>
 <span class="sd">            +        1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">REPLACE</span><span class="p">,</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;\</span>
+<span class="w">            </span><span class="sd">"""\</span>
 <span class="sd">            --- before</span>
 <span class="sd">            +++ after</span>
 <span class="sd">            @@ -1,4 +1,3 @@</span>
@@ -4734,11 +4734,11 @@ references to the <code class="docutils literal notranslate"><span class="pre">a
 <span class="sd">            -        1000 group</span>
 <span class="sd">            -            1001 group</span>
 <span class="sd">            +        1002 group</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">],</span>
 <span class="p">)</span>
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;context_&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">lf</span><span class="p">(</span><span class="s2">&quot;async_server&quot;</span><span class="p">),</span> <span class="n">lf</span><span class="p">(</span><span class="s2">&quot;server&quot;</span><span class="p">)])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">"context_"</span><span class="p">,</span> <span class="p">[</span><span class="n">lf</span><span class="p">(</span><span class="s2">"async_server"</span><span class="p">),</span> <span class="n">lf</span><span class="p">(</span><span class="s2">"server"</span><span class="p">)])</span>
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_parametrized_lazy_fixtures</span><span class="p">(</span>
     <span class="n">add_action</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="p">,</span>
@@ -4776,11 +4776,11 @@ combination of <a class="reference external" href="https://black.readthedocs.io/
 imports, it now just uses <a class="reference external" href="https://docs.astral.sh/ruff/">ruff</a>.</p>
 <p>You can auto-format the codebase with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>reformat
-<span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
+<span class="go">make[2]: Entering directory '/home/runner/work/supriya/supriya'</span>
 <span class="go">ruff check --select I,RUF022 --fix src/ docs/ examples/ tests/ *.py</span>
 <span class="go">/bin/sh: 1: ruff: not found</span>
 <span class="go">make[2]: *** [Makefile:56: ruff-imports-fix] Error 127</span>
-<span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
+<span class="go">make[2]: Leaving directory '/home/runner/work/supriya/supriya'</span>
 </code></pre></div>
 </div>
 <h2 id="linting">Linting<a class="headerlink" href="#linting" title="Link to this heading">¶</a></h2>
@@ -4788,11 +4788,11 @@ imports, it now just uses <a class="reference external" href="https://docs.astra
 sake of speed and ease of configuration.</p>
 <p>You can lint the codebase with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>ruff-lint
-<span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
+<span class="go">make[2]: Entering directory '/home/runner/work/supriya/supriya'</span>
 <span class="go">ruff check --diff src/ docs/ examples/ tests/ *.py</span>
 <span class="go">/bin/sh: 1: ruff: not found</span>
 <span class="go">make[2]: *** [Makefile:59: ruff-lint] Error 127</span>
-<span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
+<span class="go">make[2]: Leaving directory '/home/runner/work/supriya/supriya'</span>
 </code></pre></div>
 </div>
 <h2 id="type-checking">Type-checking<a class="headerlink" href="#type-checking" title="Link to this heading">¶</a></h2>
@@ -4800,15 +4800,10 @@ sake of speed and ease of configuration.</p>
 work-in-progress) and uses <a class="reference external" href="https://mypy-lang.org/">mypy</a> to perform the analysis.</p>
 <p>You can run static type-checking with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>make<span class="w"> </span>mypy
-<span class="go">make[2]: Entering directory &#39;/home/runner/work/supriya/supriya&#39;</span>
+<span class="go">make[2]: Entering directory '/home/runner/work/supriya/supriya'</span>
 <span class="go">mypy src/ examples/ tests/</span>
-<span class="go">src/supriya/ext/book.py:10: error: Library stubs not installed for &quot;docutils.nodes&quot;  [import-untyped]</span>
-<span class="go">src/supriya/ext/book.py:10: note: Hint: &quot;python3 -m pip install types-docutils&quot;</span>
-<span class="go">src/supriya/ext/book.py:10: note: (or run &quot;mypy --install-types&quot; to install all missing stub packages)</span>
-<span class="go">src/supriya/ext/book.py:10: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports</span>
-<span class="go">Found 1 error in 1 file (checked 157 source files)</span>
-<span class="go">make[2]: *** [Makefile:33: mypy] Error 1</span>
-<span class="go">make[2]: Leaving directory &#39;/home/runner/work/supriya/supriya&#39;</span>
+<span class="go">Success: no issues found in 157 source files</span>
+<span class="go">make[2]: Leaving directory '/home/runner/work/supriya/supriya'</span>
 </code></pre></div>
 </div>
 <p>When writing (or refactoring) code, make sure to add type hints whenever
@@ -4826,13 +4821,13 @@ running the tests.</p>
 <p>Because of its use of metaclasses for code generation in UGens, Supriya
 requires a <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension to teach it about the auto-generated methods and
 properties on those classes.</p>
-<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.3b0/src/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
+<p>The extension lives in <a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.8b0/src/supriya/ext/mypy.py">supriya/ext/mypy.py</a>
 and MyPy is already configured to use it via the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> field in Supriya’s
-<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.3b0/pyproject.toml">pyproject.toml</a>.</p>
+<a class="extlink-github-blob reference external" href="https://github.com/supriya-project/supriya/blob/v26.8b0/pyproject.toml">pyproject.toml</a>.</p>
 <p>Should you need to type check against Supriya’s UGens in another project, you
 can activate the <a class="reference external" href="https://mypy-lang.org/">mypy</a> extension with the following code:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><code><span class="k">[tool.mypy]</span>
-<span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;supriya.ext.mypy&quot;</span><span class="p">]</span>
+<span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"supriya.ext.mypy"</span><span class="p">]</span>
 </code></pre></div>
 </div>
 <h2 id="ci-cd">CI/CD<a class="headerlink" href="#ci-cd" title="Link to this heading">¶</a></h2>

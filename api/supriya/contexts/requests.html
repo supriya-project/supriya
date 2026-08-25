@@ -8995,7 +8995,7 @@
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NormalizeBuffer</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_alloc&#39;, 1, 512, 1, OscMessage(&#39;/b_gen&#39;, 1, &#39;normalize&#39;, 1.0))</span>
+<span class="go">OscMessage('/b_alloc', 1, 512, 1, OscMessage('/b_gen', 1, 'normalize', 1.0))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9019,13 +9019,13 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">AllocateReadBuffer</span><span class="p">,</span> <span class="n">NormalizeBuffer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">AllocateReadBuffer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;path/to/audio.wav&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">"path/to/audio.wav"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">starting_frame</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NormalizeBuffer</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_allocRead&#39;, 1, &#39;path/to/audio.wav&#39;, 32, 512, OscMessage(&#39;/b_gen&#39;, 1, &#39;normalize&#39;, 1.0))</span>
+<span class="go">OscMessage('/b_allocRead', 1, 'path/to/audio.wav', 32, 512, OscMessage('/b_gen', 1, 'normalize', 1.0))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9049,14 +9049,14 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">AllocateReadBufferChannel</span><span class="p">,</span> <span class="n">NormalizeBuffer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">AllocateReadBufferChannel</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;path/to/audio.wav&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">"path/to/audio.wav"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">channel_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">starting_frame</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NormalizeBuffer</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_allocReadChannel&#39;, 1, &#39;path/to/audio.wav&#39;, 32, 512, 1, 2, OscMessage(&#39;/b_gen&#39;, 1, &#39;normalize&#39;, 1.0))</span>
+<span class="go">OscMessage('/b_allocReadChannel', 1, 'path/to/audio.wav', 32, 512, 1, 2, OscMessage('/b_gen', 1, 'normalize', 1.0))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9080,7 +9080,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoReassignSynthID</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">AutoReassignSynthID</span><span class="p">(</span><span class="n">synth_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/s_noid&#39;, 1, 2, 3)</span>
+<span class="go">OscMessage('/s_noid', 1, 2, 3)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9104,7 +9104,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClearSchedule</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">ClearSchedule</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/clearSched&#39;)</span>
+<span class="go">OscMessage('/clearSched')</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9122,7 +9122,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">CloseBuffer</span><span class="p">,</span> <span class="n">FreeNode</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">CloseBuffer</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">on_completion</span><span class="o">=</span><span class="n">FreeNode</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_close&#39;, 1, OscMessage(&#39;/n_free&#39;, 1))</span>
+<span class="go">OscMessage('/b_close', 1, OscMessage('/n_free', 1))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9152,7 +9152,7 @@
 <span class="gp">... </span>    <span class="n">target_starting_frame</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_gen&#39;, 2, &#39;copy&#39;, 128, 1, 0, 512)</span>
+<span class="go">OscMessage('/b_gen', 2, 'copy', 128, 1, 0, 512)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9194,7 +9194,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">DumpOsc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">DumpOsc</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/dumpOSC&#39;, 1)</span>
+<span class="go">OscMessage('/dumpOSC', 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9218,7 +9218,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">DumpTree</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">DumpTree</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/g_dumpTree&#39;, 0, 1)</span>
+<span class="go">OscMessage('/g_dumpTree', 0, 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9245,7 +9245,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_fill&#39;, 1, 32, 64, 0.5)</span>
+<span class="go">OscMessage('/b_fill', 1, 32, 64, 0.5)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9276,7 +9276,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">440.0</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/c_fill&#39;, 4, 12, 0.25, 32, 4, 440.0)</span>
+<span class="go">OscMessage('/c_fill', 4, 12, 0.25, 32, 4, 440.0)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9303,9 +9303,9 @@
 <dd><p>Bases: <a class="reference internal" href="#supriya.contexts.requests.Request" title="supriya.contexts.requests.Request (Python class) — Bases: Requestable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A <code class="docutils literal notranslate"><span class="pre">/n_fill</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">FillNode</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">FillNode</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mf">432.0</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">FillNode</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mf">432.0</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_fill&#39;, 1000, &#39;frequency&#39;, 7, 432.0)</span>
+<span class="go">OscMessage('/n_fill', 1000, 'frequency', 7, 432.0)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9329,7 +9329,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">FreeAllSynthDefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">FreeAllSynthDefs</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/d_freeAll&#39;)</span>
+<span class="go">OscMessage('/d_freeAll')</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9350,7 +9350,7 @@
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">FreeNode</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">]),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_free&#39;, 1, OscMessage(&#39;/n_free&#39;, 1000))</span>
+<span class="go">OscMessage('/b_free', 1, OscMessage('/n_free', 1000))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9374,7 +9374,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">FreeGroupChildren</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">FreeGroupChildren</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/g_freeAll&#39;, 1)</span>
+<span class="go">OscMessage('/g_freeAll', 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9398,7 +9398,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">FreeGroupDeep</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">FreeGroupDeep</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/g_deepFree&#39;, 1)</span>
+<span class="go">OscMessage('/g_deepFree', 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9422,7 +9422,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">FreeNode</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">FreeNode</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1001</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_free&#39;, 1000, 1001)</span>
+<span class="go">OscMessage('/n_free', 1000, 1001)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9444,9 +9444,9 @@
 <dd><p>Bases: <a class="reference internal" href="#supriya.contexts.requests.Request" title="supriya.contexts.requests.Request (Python class) — Bases: Requestable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A <code class="docutils literal notranslate"><span class="pre">/d_free</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">FreeSynthDef</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">FreeSynthDef</span><span class="p">(</span><span class="n">synthdefs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;supriya:default&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">FreeSynthDef</span><span class="p">(</span><span class="n">synthdefs</span><span class="o">=</span><span class="p">[</span><span class="s2">"supriya:default"</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/d_free&#39;, &#39;supriya:default&#39;)</span>
+<span class="go">OscMessage('/d_free', 'supriya:default')</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9470,14 +9470,14 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">GenerateBuffer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">GenerateBuffer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;sine3&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">command_name</span><span class="o">=</span><span class="s2">"sine3"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">phases</span><span class="o">=</span><span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_gen&#39;, 1, &#39;sine3&#39;, 1, 4.0, 1.0, 0.25, 5.0, 2.0, 0.5, 6.0, 3.0, 0.75)</span>
+<span class="go">OscMessage('/b_gen', 1, 'sine3', 1, 4.0, 1.0, 0.25, 5.0, 2.0, 0.5, 6.0, 3.0, 0.75)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9504,7 +9504,7 @@
 <span class="gp">... </span>    <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_get&#39;, 1, 0, 4, 8)</span>
+<span class="go">OscMessage('/b_get', 1, 0, 4, 8)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9531,7 +9531,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">8</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_getn&#39;, 1, 0, 4, 32, 8)</span>
+<span class="go">OscMessage('/b_getn', 1, 0, 4, 32, 8)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9555,7 +9555,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetControlBus</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">GetControlBus</span><span class="p">(</span><span class="n">bus_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/c_get&#39;, 1, 2, 3)</span>
+<span class="go">OscMessage('/c_get', 1, 2, 3)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9579,7 +9579,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetControlBusRange</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">GetControlBusRange</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/c_getn&#39;, 0, 4, 8, 16)</span>
+<span class="go">OscMessage('/c_getn', 0, 4, 8, 16)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9603,10 +9603,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetSynthControl</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">GetSynthControl</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">synth_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="s2">&quot;amplitude&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">controls</span><span class="o">=</span><span class="p">[</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="s2">"amplitude"</span><span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/s_get&#39;, 1000, &#39;frequency&#39;, &#39;amplitude&#39;)</span>
+<span class="go">OscMessage('/s_get', 1000, 'frequency', 'amplitude')</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9630,10 +9630,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetSynthControlRange</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">GetSynthControlRange</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">synth_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="mi">8</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/s_getn&#39;, 1000, &#39;frequency&#39;, 8)</span>
+<span class="go">OscMessage('/s_getn', 1000, 'frequency', 8)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9656,11 +9656,11 @@
 <p>A <code class="docutils literal notranslate"><span class="pre">/d_loadDir</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoadSynthDefDirectory</span><span class="p">,</span> <span class="n">NewGroup</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">LoadSynthDefDirectory</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;path/to/synthdefs/&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NewGroup</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;add to tail&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]),</span>
+<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">"path/to/synthdefs/"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NewGroup</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">"add to tail"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/d_loadDir&#39;, &#39;path/to/synthdefs/&#39;, OscMessage(&#39;/g_new&#39;, 1000, 1, 1))</span>
+<span class="go">OscMessage('/d_loadDir', 'path/to/synthdefs/', OscMessage('/g_new', 1000, 1, 1))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9683,11 +9683,11 @@
 <p>A <code class="docutils literal notranslate"><span class="pre">/d_load</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoadSynthDefs</span><span class="p">,</span> <span class="n">NewGroup</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">LoadSynthDefs</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;path/to/synthdef-*.scsyndef&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NewGroup</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;add to tail&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]),</span>
+<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">"path/to/synthdef-*.scsyndef"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NewGroup</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">"add to tail"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/d_load&#39;, &#39;path/to/synthdef-*.scsyndef&#39;, OscMessage(&#39;/g_new&#39;, 1000, 1, 1))</span>
+<span class="go">OscMessage('/d_load', 'path/to/synthdef-*.scsyndef', OscMessage('/g_new', 1000, 1, 1))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9709,9 +9709,9 @@
 <dd><p>Bases: <a class="reference internal" href="#supriya.contexts.requests.Request" title="supriya.contexts.requests.Request (Python class) — Bases: Requestable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A <code class="docutils literal notranslate"><span class="pre">/n_mapan</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapAudioBusRangeToNode</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">MapAudioBusRangeToNode</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">MapAudioBusRangeToNode</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_mapan&#39;, 1000, &#39;frequency&#39;, 0, 4)</span>
+<span class="go">OscMessage('/n_mapan', 1000, 'frequency', 0, 4)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9735,10 +9735,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapAudioBusToNode</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">MapAudioBusToNode</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_mapa&#39;, 1000, &#39;frequency&#39;, 0)</span>
+<span class="go">OscMessage('/n_mapa', 1000, 'frequency', 0)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9760,9 +9760,9 @@
 <dd><p>Bases: <a class="reference internal" href="#supriya.contexts.requests.Request" title="supriya.contexts.requests.Request (Python class) — Bases: Requestable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A <code class="docutils literal notranslate"><span class="pre">/n_mapn</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapControlBusRangeToNode</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">MapControlBusRangeToNode</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">MapControlBusRangeToNode</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_mapn&#39;, 1000, &#39;frequency&#39;, 0, 4)</span>
+<span class="go">OscMessage('/n_mapn', 1000, 'frequency', 0, 4)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9786,10 +9786,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapControlBusToNode</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">MapControlBusToNode</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_map&#39;, 1000, &#39;frequency&#39;, 0)</span>
+<span class="go">OscMessage('/n_map', 1000, 'frequency', 0)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9815,7 +9815,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">1001</span><span class="p">),</span> <span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">2001</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_after&#39;, 2000, 1001, 3000, 2001)</span>
+<span class="go">OscMessage('/n_after', 2000, 1001, 3000, 2001)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9841,7 +9841,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">1001</span><span class="p">),</span> <span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">2001</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_before&#39;, 2000, 1001, 3000, 2001)</span>
+<span class="go">OscMessage('/n_before', 2000, 1001, 3000, 2001)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9867,7 +9867,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/g_head&#39;, 1, 1000, 1, 1001)</span>
+<span class="go">OscMessage('/g_head', 1, 1000, 1, 1001)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9893,7 +9893,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/g_tail&#39;, 1, 1000, 1, 1001)</span>
+<span class="go">OscMessage('/g_tail', 1, 1000, 1, 1001)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9916,10 +9916,10 @@
 <p>A <code class="docutils literal notranslate"><span class="pre">/g_new</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewGroup</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">NewGroup</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;ADD_TO_TAIL&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">"ADD_TO_TAIL"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/g_new&#39;, 1000, 1, 1)</span>
+<span class="go">OscMessage('/g_new', 1000, 1, 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9946,9 +9946,9 @@
 <dd><p>Bases: <a class="reference internal" href="#supriya.contexts.requests.Request" title="supriya.contexts.requests.Request (Python class) — Bases: Requestable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code></a></p>
 <p>A <code class="docutils literal notranslate"><span class="pre">/p_new</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewParallelGroup</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">NewParallelGroup</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;ADD_TO_TAIL&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">NewParallelGroup</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="s2">"ADD_TO_TAIL"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/p_new&#39;, 1000, 1, 1)</span>
+<span class="go">OscMessage('/p_new', 1000, 1, 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -9979,16 +9979,16 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">NewSynth</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">synthdef</span><span class="o">=</span><span class="n">default</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">synth_id</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_TO_TAIL&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">add_action</span><span class="o">=</span><span class="s2">"ADD_TO_TAIL"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">controls</span><span class="o">=</span><span class="p">{</span>
-<span class="gp">... </span>        <span class="s2">&quot;frequency&quot;</span><span class="p">:</span> <span class="mf">432.0</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="s2">&quot;amplitude&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="s2">&quot;panning&quot;</span><span class="p">:</span> <span class="s2">&quot;c0&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">"frequency"</span><span class="p">:</span> <span class="mf">432.0</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">"amplitude"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">"panning"</span><span class="p">:</span> <span class="s2">"c0"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">},</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1001, 1, 1000, &#39;amplitude&#39;, 0.5, &#39;frequency&#39;, 432.0, &#39;panning&#39;, &#39;c0&#39;)</span>
+<span class="go">OscMessage('/s_new', 'supriya:default', 1001, 1, 1000, 'amplitude', 0.5, 'frequency', 432.0, 'panning', 'c0')</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10015,7 +10015,7 @@
 <span class="gp">... </span>    <span class="n">new_maximum</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_gen&#39;, 1, &#39;normalize&#39;, 0.999)</span>
+<span class="go">OscMessage('/b_gen', 1, 'normalize', 0.999)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10038,12 +10038,12 @@
 <p>A <code class="docutils literal notranslate"><span class="pre">/n_order</span></code> request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderNodes</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">OrderNodes</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_AFTER&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">add_action</span><span class="o">=</span><span class="s2">"ADD_AFTER"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1003</span><span class="p">,</span> <span class="mi">1002</span><span class="p">,</span> <span class="mi">1001</span><span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_order&#39;, 3, 1000, 1003, 1002, 1001)</span>
+<span class="go">OscMessage('/n_order', 3, 1000, 1003, 1002, 1001)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10067,7 +10067,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">QueryBuffer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">QueryBuffer</span><span class="p">(</span><span class="n">buffer_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_query&#39;, 1, 2, 3)</span>
+<span class="go">OscMessage('/b_query', 1, 2, 3)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10091,7 +10091,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">QueryNode</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">QueryNode</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1001</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_query&#39;, 1000, 1001)</span>
+<span class="go">OscMessage('/n_query', 1000, 1001)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10115,7 +10115,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">QueryStatus</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">QueryStatus</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/status&#39;)</span>
+<span class="go">OscMessage('/status')</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10133,7 +10133,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">QueryTree</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">QueryTree</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/g_queryTree&#39;, 0, 1)</span>
+<span class="go">OscMessage('/g_queryTree', 0, 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10157,7 +10157,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">QueryVersion</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">QueryVersion</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/version&#39;)</span>
+<span class="go">OscMessage('/version')</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10175,7 +10175,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">Quit</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">Quit</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/quit&#39;)</span>
+<span class="go">OscMessage('/quit')</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10193,11 +10193,11 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">NormalizeBuffer</span><span class="p">,</span> <span class="n">ReadBuffer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">ReadBuffer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;path/to/audio.wav&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">"path/to/audio.wav"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NormalizeBuffer</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_read&#39;, 1, &#39;path/to/audio.wav&#39;, 0, -1, 0, 0, OscMessage(&#39;/b_gen&#39;, 1, &#39;normalize&#39;, 1.0))</span>
+<span class="go">OscMessage('/b_read', 1, 'path/to/audio.wav', 0, -1, 0, 0, OscMessage('/b_gen', 1, 'normalize', 1.0))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10221,12 +10221,12 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">NormalizeBuffer</span><span class="p">,</span> <span class="n">ReadBufferChannel</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">ReadBufferChannel</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;path/to/audio.wav&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">"path/to/audio.wav"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">channel_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NormalizeBuffer</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_readChannel&#39;, 1, &#39;path/to/audio.wav&#39;, 0, -1, 0, 0, 2, 4, OscMessage(&#39;/b_gen&#39;, 1, &#39;normalize&#39;, 1.0))</span>
+<span class="go">OscMessage('/b_readChannel', 1, 'path/to/audio.wav', 0, -1, 0, 0, 2, 4, OscMessage('/b_gen', 1, 'normalize', 1.0))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10254,14 +10254,14 @@
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">NewSynth</span><span class="p">(</span>
 <span class="gp">... </span>        <span class="n">synthdef</span><span class="o">=</span><span class="n">default</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">synth_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_TO_TAIL&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">add_action</span><span class="o">=</span><span class="s2">"ADD_TO_TAIL"</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">target_node_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span> <span class="o">==</span> <span class="n">OscMessage</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="s2">&quot;/d_recv&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">"/d_recv"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">default</span><span class="o">.</span><span class="n">compile</span><span class="p">(),</span>
-<span class="gp">... </span>    <span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="s2">&quot;supriya:default&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/s_new"</span><span class="p">,</span> <span class="s2">"supriya:default"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="go">True</span>
 </code></pre></div>
@@ -10356,7 +10356,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunNode</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">RunNode</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">1000</span><span class="p">,</span> <span class="kc">True</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_run&#39;, 1000, 1)</span>
+<span class="go">OscMessage('/n_run', 1000, 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10388,7 +10388,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_set&#39;, 1, 0, 0.5, 8, 0.25)</span>
+<span class="go">OscMessage('/b_set', 1, 0, 0.5, 8, 0.25)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10420,7 +10420,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_setn&#39;, 1, 0, 3, 0.1, 0.2, 0.3, 8, 2, 0.4, 0.5)</span>
+<span class="go">OscMessage('/b_setn', 1, 0, 3, 0.1, 0.2, 0.3, 8, 2, 0.4, 0.5)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10449,7 +10449,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">SetControlBus</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">SetControlBus</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/c_set&#39;, 0, 0.5, 4, 0.75)</span>
+<span class="go">OscMessage('/c_set', 0, 0.5, 4, 0.75)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10480,7 +10480,7 @@
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="mi">8</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">]),</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">[</span><span class="mf">4.4</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">])],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/c_setn&#39;, 8, 3, 1.1, 2.2, 3.3, 16, 2, 4.4, 5.5)</span>
+<span class="go">OscMessage('/c_setn', 8, 3, 1.1, 2.2, 3.3, 16, 2, 4.4, 5.5)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10510,15 +10510,15 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">SetNodeControl</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="mf">440.0</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;amplitude&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="mf">440.0</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"amplitude"</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
 <span class="gp">... </span>        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1.234</span><span class="p">),</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;positions&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"positions"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]),</span>
 <span class="gp">... </span>        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]),</span>
 <span class="gp">... </span>    <span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_set&#39;, 1000, &#39;frequency&#39;, 440.0, &#39;amplitude&#39;, 1.0, 3, 1.234, &#39;positions&#39;, [0.5, 0.25, 0.75], 4, [0.1, 0.2])</span>
+<span class="go">OscMessage('/n_set', 1000, 'frequency', 440.0, 'amplitude', 1.0, 3, 1.234, 'positions', [0.5, 0.25, 0.75], 4, [0.1, 0.2])</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10543,12 +10543,12 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">SetNodeControlRange</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">node_id</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">items</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="p">(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">440.0</span><span class="p">,</span> <span class="mf">441.0</span><span class="p">,</span> <span class="mf">432.0</span><span class="p">)),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="p">(</span><span class="mf">440.0</span><span class="p">,</span> <span class="mf">441.0</span><span class="p">,</span> <span class="mf">432.0</span><span class="p">)),</span>
 <span class="gp">... </span>        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)),</span>
 <span class="gp">... </span>    <span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_setn&#39;, 1000, &#39;frequency&#39;, 3, 440.0, 441.0, 432.0, 3, 3, 0.5, 0.25, 0.75)</span>
+<span class="go">OscMessage('/n_setn', 1000, 'frequency', 3, 440.0, 441.0, 432.0, 3, 3, 0.5, 0.25, 0.75)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10572,7 +10572,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sync</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">Sync</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/sync&#39;, 42)</span>
+<span class="go">OscMessage('/sync', 42)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10596,7 +10596,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToggleErrorReporting</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">ToggleErrorReporting</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/error&#39;, 1)</span>
+<span class="go">OscMessage('/error', 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10620,7 +10620,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToggleNotifications</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">ToggleNotifications</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/notify&#39;, 1)</span>
+<span class="go">OscMessage('/notify', 1)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10644,7 +10644,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">TraceNode</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">TraceNode</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/n_trace&#39;, 1, 2, 3)</span>
+<span class="go">OscMessage('/n_trace', 1, 2, 3)</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10668,13 +10668,13 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.contexts.requests</span><span class="w"> </span><span class="kn">import</span> <span class="n">FreeBuffer</span><span class="p">,</span> <span class="n">WriteBuffer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">WriteBuffer</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;path/to/audio.wav&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">header_format</span><span class="o">=</span><span class="s2">&quot;wav&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">sample_format</span><span class="o">=</span><span class="s2">&quot;int24&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">path</span><span class="o">=</span><span class="s2">"path/to/audio.wav"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">header_format</span><span class="o">=</span><span class="s2">"wav"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sample_format</span><span class="o">=</span><span class="s2">"int24"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">FreeBuffer</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_write&#39;, 1, &#39;path/to/audio.wav&#39;, &#39;wav&#39;, &#39;int24&#39;, -1, 0, 0, OscMessage(&#39;/b_free&#39;, 1))</span>
+<span class="go">OscMessage('/b_write', 1, 'path/to/audio.wav', 'wav', 'int24', -1, 0, 0, OscMessage('/b_free', 1))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">
@@ -10701,7 +10701,7 @@
 <span class="gp">... </span>    <span class="n">on_completion</span><span class="o">=</span><span class="n">FreeNode</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">]),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="go">OscMessage(&#39;/b_zero&#39;, 1, OscMessage(&#39;/n_free&#39;, 1000))</span>
+<span class="go">OscMessage('/b_zero', 1, OscMessage('/n_free', 1000))</span>
 </code></pre></div>
 </div>
 <dl class="py method objdesc">

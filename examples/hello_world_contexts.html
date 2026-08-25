@@ -3431,7 +3431,7 @@
 <h1 id="hello-world-context-agnostic">Hello, world!, context-agnostic<a class="headerlink" href="#hello-world-context-agnostic" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/examples/hello_world_contexts">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.8b0/examples/hello_world_contexts">full example
 source code</a> on GitHub.</p>
 </div>
 <p>Let’s revisit the first <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> <a class="reference internal" href="hello_world.html"><span class="doc">example</span></a> and
@@ -3450,14 +3450,14 @@ example</span></a>.</p>
 the context in as an argument, and returning the list of synths when we’re
 done:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">play_synths</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Play a C-major chord on ``context``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Define a C-major chord in Hertz</span>
     <span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mf">261.63</span><span class="p">,</span> <span class="mf">329.63</span><span class="p">,</span> <span class="mf">392.00</span><span class="p">]</span>
     <span class="c1"># Create an empty list to store synths in:</span>
     <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># Add the default synthdef to the server and open a &quot;completion&quot; context</span>
+    <span class="c1"># Add the default synthdef to the server and open a "completion" context</span>
     <span class="c1"># manager to group further commands for when the synthdef finishes loading:</span>
     <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
         <span class="c1"># Loop over the frequencies:</span>
@@ -3485,9 +3485,9 @@ implementation detail external to this function.</p>
 passing a list of synths in as an argument, and return nothing because there’s
 nothing else to be done:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop_synths</span><span class="p">(</span><span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Stop ``synths``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Loop over the synths and free them</span>
     <span class="k">for</span> <span class="n">synth</span> <span class="ow">in</span> <span class="n">synths</span><span class="p">:</span>
         <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
@@ -3507,10 +3507,10 @@ non-realtime function using a <a class="reference internal" href="../api/supriya
 <p>Performing with a threaded server is simple, and looks very much like an
 abridged version of the <a class="reference internal" href="../api/examples/hello_world/index.html#examples.hello_world.main" title="examples.hello_world.main (Python function) — The example entry-point function."><code class="xref py py-func docutils literal notranslate"><span class="pre">main()</span></code></a> function from the very first example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run_threaded</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Run the example on a realtime threaded</span>
 <span class="sd">    :py:class:`~supriya.contexts.realtime.Server`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Create a server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
@@ -3533,10 +3533,10 @@ threaded server. The only differences are the server’s class name, and a
 sprinkling of <code class="docutils literal notranslate"><span class="pre">async</span></code> and <code class="docutils literal notranslate"><span class="pre">await</span></code> keywords (and yes, <code class="docutils literal notranslate"><span class="pre">await</span>
 <span class="pre">asyncio.sleep()</span></code> instead of <code class="docutils literal notranslate"><span class="pre">time.sleep()</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run_async</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Run the example on an realtime async</span>
 <span class="sd">    :py:class:`~supriya.contexts.realtime.AsyncServer`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Create an async server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AsyncServer</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
@@ -3570,10 +3570,10 @@ open a third moment at <code class="docutils literal notranslate"><span class="p
 operation against the context just signals to non-realtime rendering that we
 should keep processing audio until that timestamp.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run_nonrealtime</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Run the example on a non-realtime</span>
 <span class="sd">    :py:class:`~supriya.contexts.nonrealtime.Score`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Create a score with stereo outputs:</span>
     <span class="n">score</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Score</span><span class="p">(</span><span class="n">output_bus_channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="c1"># Start an OSC bundle to run at 0 seconds:</span>
@@ -3586,7 +3586,7 @@ should keep processing audio until that timestamp.</p>
         <span class="n">stop_synths</span><span class="p">(</span><span class="n">synths</span><span class="p">)</span>
     <span class="c1"># Start an OSC bundle to run at 5 seconds:</span>
     <span class="k">with</span> <span class="n">score</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-        <span class="c1"># A no-op message to tell the score there&#39;s nothing left to do:</span>
+        <span class="c1"># A no-op message to tell the score there's nothing left to do:</span>
         <span class="n">score</span><span class="o">.</span><span class="n">do_nothing</span><span class="p">()</span>
     <span class="c1"># Render the score to disk and open the soundfile:</span>
     <span class="n">supriya</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
@@ -3615,9 +3615,9 @@ context-agnostic performance logic, we need a way to yoke them into a script.</p
 command-line arguments, and then calls the appropriate <code class="docutils literal notranslate"><span class="pre">run_...()</span></code> function
 depending on what we passed to the CLI on invocation:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The example entry-point function.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">parsed_args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">realtime_threaded</span><span class="p">:</span>
         <span class="n">run_threaded</span><span class="p">()</span>
@@ -3632,25 +3632,25 @@ function, using Python’s <a class="reference external" href="https://docs.pyth
 parser, create a mandatory mutually-exclusive group of flags, and then parse
 whatever CLI arguments were passed when we run the script:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Parse CLI arguments.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Play a C-major chord via different kinds of contexts&quot;</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Play a C-major chord via different kinds of contexts"</span>
     <span class="p">)</span>
     <span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;--realtime-threaded&quot;</span><span class="p">,</span>
-        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use a realtime threaded Server&quot;</span><span class="p">,</span>
+        <span class="s2">"--realtime-threaded"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"use a realtime threaded Server"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;--realtime-async&quot;</span><span class="p">,</span>
-        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use a realtime asyncio-enabled AsyncServer&quot;</span><span class="p">,</span>
+        <span class="s2">"--realtime-async"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"use a realtime asyncio-enabled AsyncServer"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;--nonrealtime&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use a non-realtime Score&quot;</span>
+        <span class="s2">"--nonrealtime"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"use a non-realtime Score"</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 </code></pre></div>

@@ -4853,7 +4853,7 @@ When the connection is closed, connection_lost() is called.</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight py" id="supriya.osc.Capture.__enter__">
-<span class="sig-name descname"><span class="pre">__enter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="#supriya.osc.Capture" title="supriya.osc.Capture (Python class) — Bases: object"><span class="pre">Capture</span></a></span></span></span><a class="headerlink" href="#supriya.osc.Capture.__enter__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__enter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Self" title="(in Python v3.14)"><span class="pre">Self</span></a></span></span></span><a class="headerlink" href="#supriya.osc.Capture.__enter__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method objdesc">
@@ -4916,9 +4916,9 @@ When the connection is closed, connection_lost() is called.</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>An OSC bundle.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">supriya.osc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">message_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/one&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">message_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/two&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">message_three</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/three&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">message_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/one"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">message_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/two"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">message_three</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/three"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">inner_bundle</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscBundle</span><span class="p">(</span>
@@ -4926,7 +4926,7 @@ When the connection is closed, connection_lost() is called.</p>
 <span class="gp">... </span>    <span class="n">contents</span><span class="o">=</span><span class="p">(</span><span class="n">message_one</span><span class="p">,</span> <span class="n">message_two</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inner_bundle</span>
-<span class="go">OscBundle(timestamp=1401557034.5, contents=[OscMessage(&#39;/one&#39;, 1), OscMessage(&#39;/two&#39;, 2)])</span>
+<span class="go">OscBundle(timestamp=1401557034.5, contents=[OscMessage('/one', 1), OscMessage('/two', 2)])</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">inner_bundle</span><span class="p">)</span>
@@ -4941,7 +4941,7 @@ When the connection is closed, connection_lost() is called.</p>
 <span class="gp">... </span>    <span class="n">contents</span><span class="o">=</span><span class="p">(</span><span class="n">inner_bundle</span><span class="p">,</span> <span class="n">message_three</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">outer_bundle</span>
-<span class="go">OscBundle(contents=[OscBundle(timestamp=1401557034.5, contents=[OscMessage(&#39;/one&#39;, 1), OscMessage(&#39;/two&#39;, 2)]), OscMessage(&#39;/three&#39;, 3)])</span>
+<span class="go">OscBundle(contents=[OscBundle(timestamp=1401557034.5, contents=[OscMessage('/one', 1), OscMessage('/two', 2)]), OscMessage('/three', 3)])</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">outer_bundle</span><span class="p">)</span>
@@ -4959,7 +4959,7 @@ When the connection is closed, connection_lost() is called.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_bundle</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscBundle</span><span class="o">.</span><span class="n">from_datagram</span><span class="p">(</span><span class="n">datagram</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_bundle</span>
-<span class="go">OscBundle(contents=[OscBundle(timestamp=1401557034.5, contents=[OscMessage(&#39;/one&#39;, 1), OscMessage(&#39;/two&#39;, 2)]), OscMessage(&#39;/three&#39;, 3)])</span>
+<span class="go">OscBundle(contents=[OscBundle(timestamp=1401557034.5, contents=[OscMessage('/one', 1), OscMessage('/two', 2)]), OscMessage('/three', 3)])</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_bundle</span> <span class="o">==</span> <span class="n">outer_bundle</span>
@@ -5016,14 +5016,14 @@ When the connection is closed, connection_lost() is called.</p>
 <p>An OSC message.</p>
 <div class="example docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">supriya.osc</span><span class="w"> </span><span class="kn">import</span> <span class="n">OscMessage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">osc_message</span> <span class="o">=</span> <span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/g_new&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">osc_message</span> <span class="o">=</span> <span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/g_new"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">osc_message</span>
-<span class="go">OscMessage(&#39;/g_new&#39;, 0, 0)</span>
+<span class="go">OscMessage('/g_new', 0, 0)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">datagram</span> <span class="o">=</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">OscMessage</span><span class="o">.</span><span class="n">from_datagram</span><span class="p">(</span><span class="n">datagram</span><span class="p">)</span>
-<span class="go">OscMessage(&#39;/g_new&#39;, 0, 0)</span>
+<span class="go">OscMessage('/g_new', 0, 0)</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">osc_message</span><span class="p">)</span>
@@ -5034,14 +5034,14 @@ When the connection is closed, connection_lost() is called.</p>
 </div>
 </div>
 <div class="example docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">osc_message</span> <span class="o">=</span> <span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/foo&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.25</span><span class="p">]],</span> <span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/bar&quot;</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">osc_message</span> <span class="o">=</span> <span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/foo"</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.25</span><span class="p">]],</span> <span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/bar"</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">osc_message</span>
-<span class="go">OscMessage(&#39;/foo&#39;, True, [None, [3.25]], OscMessage(&#39;/bar&#39;))</span>
+<span class="go">OscMessage('/foo', True, [None, [3.25]], OscMessage('/bar'))</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">datagram</span> <span class="o">=</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">OscMessage</span><span class="o">.</span><span class="n">from_datagram</span><span class="p">(</span><span class="n">datagram</span><span class="p">)</span>
-<span class="go">OscMessage(&#39;/foo&#39;, True, [None, [3.25]], OscMessage(&#39;/bar&#39;))</span>
+<span class="go">OscMessage('/foo', True, [None, [3.25]], OscMessage('/bar'))</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">osc_message</span><span class="p">)</span>
@@ -5054,24 +5054,24 @@ When the connection is closed, connection_lost() is called.</p>
 </div>
 <div class="example docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">osc_message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="s2">&quot;/foo&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">"/foo"</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="mi">1</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="mf">2.5</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscBundle</span><span class="p">(</span>
 <span class="gp">... </span>        <span class="n">contents</span><span class="o">=</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span>
-<span class="gp">... </span>            <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">&quot;/ffff&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/bar"</span><span class="p">,</span> <span class="s2">"baz"</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span>
+<span class="gp">... </span>            <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="s2">"/ffff"</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
 <span class="gp">... </span>        <span class="p">)</span>
 <span class="gp">... </span>    <span class="p">),</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">]],</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">osc_message</span>
-<span class="go">OscMessage(&#39;/foo&#39;, 1, 2.5, OscBundle(contents=[OscMessage(&#39;/bar&#39;, &#39;baz&#39;, 3.0), OscMessage(&#39;/ffff&#39;, False, True, None)]), [&#39;a&#39;, &#39;b&#39;, [&#39;c&#39;, &#39;d&#39;]])</span>
+<span class="go">OscMessage('/foo', 1, 2.5, OscBundle(contents=[OscMessage('/bar', 'baz', 3.0), OscMessage('/ffff', False, True, None)]), ['a', 'b', ['c', 'd']])</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">datagram</span> <span class="o">=</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">OscMessage</span><span class="o">.</span><span class="n">from_datagram</span><span class="p">(</span><span class="n">datagram</span><span class="p">)</span>
-<span class="go">OscMessage(&#39;/foo&#39;, 1, 2.5, OscBundle(contents=[OscMessage(&#39;/bar&#39;, &#39;baz&#39;, 3.0), OscMessage(&#39;/ffff&#39;, False, True, None)]), [&#39;a&#39;, &#39;b&#39;, [&#39;c&#39;, &#39;d&#39;]])</span>
+<span class="go">OscMessage('/foo', 1, 2.5, OscBundle(contents=[OscMessage('/bar', 'baz', 3.0), OscMessage('/ffff', False, True, None)]), ['a', 'b', ['c', 'd']])</span>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">osc_message</span><span class="p">)</span>

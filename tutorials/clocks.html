@@ -3711,7 +3711,7 @@ musical patterns.</p>
 <h2 id="scheduling">Scheduling<a class="headerlink" href="#scheduling" title="Link to this heading">¶</a></h2>
 <p>Let’s consider a simple callback function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The current offset is: </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The current offset is: </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="gp">... </span>
 </code></pre></div>
 </div>
@@ -3727,7 +3727,7 @@ the clock will pass a <code class="xref py py-class docutils literal notranslate
 <h3 id="canceling">Canceling<a class="headerlink" href="#canceling" title="Link to this heading">¶</a></h3>
 <p>We can use the event ID to cancel the callback if it hasn’t already occurred:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">clock</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">CallbackCommand(event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;, args=(), kwargs=None, procedure=&lt;function callback at 0x7eff986d5640&gt;)</span>
+<span class="go">CallbackCommand(event_id=0, event_type=&lt;EventType.SCHEDULE: 1&gt;, quantization=None, schedule_at=0.0, time_unit=&lt;TimeUnit.BEATS: 0&gt;, args=(), kwargs=None, procedure=&lt;function callback at 0x7f883c63c300&gt;)</span>
 </code></pre></div>
 </div>
 <h3 id="cueing">Cueing<a class="headerlink" href="#cueing" title="Link to this heading">¶</a></h3>
@@ -3746,12 +3746,12 @@ in the future, e.g. on the next beat or downbeat:</p>
 <span class="gp">... </span>    <span class="n">max_repeats</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">time_unit</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">clocks</span><span class="o">.</span><span class="n">TimeUnit</span><span class="o">.</span><span class="n">SECONDS</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">):</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">salutation</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">salutation</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">max_repeats</span> <span class="ow">and</span> <span class="n">context</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">invocations</span> <span class="o">&lt;</span> <span class="n">max_repeats</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Re-scheduling&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Re-scheduling"</span><span class="p">)</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">delta</span><span class="p">,</span> <span class="n">time_unit</span>
 <span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bailing!&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Bailing!"</span><span class="p">)</span>
 <span class="gp">... </span>
 </code></pre></div>
 </div>

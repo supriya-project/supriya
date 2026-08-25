@@ -3359,7 +3359,7 @@
 <h1 id="keyboard-input-async">Keyboard input, async<a class="headerlink" href="#keyboard-input-async" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/examples/keyboard_input_async">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.8b0/examples/keyboard_input_async">full example
 source code</a> on GitHub.</p>
 </div>
 <div class="important tip admonition">
@@ -3416,12 +3416,12 @@ sprinkles the <code class="docutils literal notranslate"><span class="pre">async
 syncing, quitting, waiting on futures, etc. But it also has some deeper logical
 differences. Take a look, and then we’ll discuss:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">input_handler</span><span class="p">:</span> <span class="n">InputHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Run the script.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_boot</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># run this during server.boot()</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">polyphony</span><span class="o">.</span><span class="n">synthdef</span><span class="p">)</span>  <span class="c1"># add the polyphony&#39;s synthdef</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">polyphony</span><span class="o">.</span><span class="n">synthdef</span><span class="p">)</span>  <span class="c1"># add the polyphony's synthdef</span>
         <span class="k">await</span> <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>  <span class="c1"># wait for the synthdef to load before moving on</span>
 
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_quitting</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># run this during server.quit()</span>
@@ -3448,13 +3448,13 @@ differences. Take a look, and then we’ll discuss:</p>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AsyncServer</span><span class="p">()</span>
     <span class="n">polyphony</span> <span class="o">=</span> <span class="n">PolyphonyManager</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
     <span class="c1"># setup lifecycle callbacks</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">&quot;BOOTED&quot;</span><span class="p">,</span> <span class="n">on_boot</span><span class="p">)</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">&quot;QUITTING&quot;</span><span class="p">,</span> <span class="n">on_quitting</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">"BOOTED"</span><span class="p">,</span> <span class="n">on_boot</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">register_lifecycle_callback</span><span class="p">(</span><span class="s2">"QUITTING"</span><span class="p">,</span> <span class="n">on_quitting</span><span class="p">)</span>
     <span class="c1"># hook up Ctrl-C so we can gracefully shutdown the server</span>
     <span class="n">loop</span><span class="o">.</span><span class="n">add_signal_handler</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal_handler</span><span class="p">)</span>
-    <span class="c1"># boot the server and let the user know we&#39;re ready to play</span>
+    <span class="c1"># boot the server and let the user know we're ready to play</span>
     <span class="k">await</span> <span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Server online. Press Ctrl-C to exit.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Server online. Press Ctrl-C to exit."</span><span class="p">)</span>
     <span class="c1"># setup an event queue, turn on the input handler, and teach the input</span>
     <span class="c1"># handler to callback against the queue</span>
     <span class="n">queue</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">[</span><span class="n">NoteOn</span> <span class="o">|</span> <span class="n">NoteOff</span><span class="p">]</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
@@ -3499,9 +3499,9 @@ the previous version. We’re merely wrapping the calls to
 <a class="reference internal" href="../api/examples/keyboard_input_async/index.html#examples.keyboard_input_async.run" title="examples.keyboard_input_async.run (Python function) — Run the script."><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> in <a class="reference external" href="https://docs.python.org/3/library/asyncio-runner.html#asyncio.run" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">asyncio.run()</span></code></a> to
 ensure the resulting coroutines are executed (and completed) in an event loop.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The example entry-point function.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">parsed_args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">list_midi_inputs</span><span class="p">:</span>
         <span class="c1"># print out available MIDI input ports</span>

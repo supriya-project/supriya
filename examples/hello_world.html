@@ -3299,7 +3299,7 @@
 <h1 id="hello-world">Hello, world!<a class="headerlink" href="#hello-world" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/examples/hello_world">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.8b0/examples/hello_world">full example
 source code</a> on GitHub.</p>
 </div>
 <p>Supriya’s <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> is a little longer than most traditional “hello,
@@ -3319,9 +3319,9 @@ for them to fade out, then quit the running server</p></li>
 </ul>
 <p>All of this logic is outlined in the example’s <code class="docutils literal notranslate"><span class="pre">main</span></code> function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The example entry-point function.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Create a server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
     <span class="c1"># Define a C-major chord in Hertz</span>
@@ -3330,7 +3330,7 @@ for them to fade out, then quit the running server</p></li>
     <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
     <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
-        <span class="c1"># Add the default synthdef to the server and open a &quot;completion&quot;</span>
+        <span class="c1"># Add the default synthdef to the server and open a "completion"</span>
         <span class="c1"># context manager to group further commands for when the synthdef</span>
         <span class="c1"># finishes loading:</span>
         <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>

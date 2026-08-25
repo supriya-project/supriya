@@ -3359,7 +3359,7 @@
 <h1 id="hello-world-debugged">Hello, world!, debugged<a class="headerlink" href="#hello-world-debugged" title="Link to this heading">¶</a></h1>
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.3b0/examples/hello_world_debugged">full example
+<p>See the <span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="extlink-github-tree reference external" href="https://github.com/supriya-project/supriya/tree/v26.8b0/examples/hello_world_debugged">full example
 source code</a> on GitHub.</p>
 </div>
 <p>Let’s revisit aspects of the <a class="reference internal" href="hello_world.html"><span class="doc">previous</span></a> <a class="reference internal" href="hello_world_contexts.html"><span class="doc">two</span></a> <a class="reference external" href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">“hello, world!”</a> examples and introduce a variety of
@@ -3380,16 +3380,16 @@ the message I should have received?</p></li>
 <p>The performance logic is almost exactly the same as in the
 <a class="reference internal" href="hello_world_contexts.html"><span class="doc">Hello, world!, context-agnostic</span></a> example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">play_synths</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Play a C-major chord on ``context``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
     <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
         <span class="c1"># A C-major chord</span>
         <span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="mf">261.63</span><span class="p">,</span> <span class="mf">329.63</span><span class="p">,</span> <span class="mf">392.00</span><span class="p">]</span>
         <span class="c1"># Create an empty list to store synths in:</span>
         <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="c1"># Add the default synthdef to the server and open a &quot;completion&quot; context</span>
+        <span class="c1"># Add the default synthdef to the server and open a "completion" context</span>
         <span class="c1"># manager to group further commands for when the synthdef finishes loading:</span>
         <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
             <span class="c1"># Loop over the frequencies:</span>
@@ -3403,9 +3403,9 @@ the message I should have received?</p></li>
 </code></pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop_synths</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">synths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Stop ``synths``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Start an OSC bundle to run immediately:</span>
     <span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
         <span class="c1"># Loop over the synths and free them</span>
@@ -3428,9 +3428,9 @@ server and (optionally!) any operations we performed against it:</p>
     <span class="n">header</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">server</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A context manager for printing debugging information.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Capture any OSC messages sent or received</span>
     <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">capture</span><span class="p">()</span> <span class="k">as</span> <span class="n">transcript</span><span class="p">:</span>
         <span class="c1"># Yield to the with block body</span>
@@ -3438,21 +3438,21 @@ server and (optionally!) any operations we performed against it:</p>
     <span class="c1"># Print a header</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
     <span class="c1"># Print the server status</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Status: </span><span class="si">{</span><span class="n">server</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    Status: </span><span class="si">{</span><span class="n">server</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="c1"># Filter out any /status or /status.reply messages from the transcript</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span> <span class="o">:=</span> <span class="n">transcript</span><span class="o">.</span><span class="n">filtered</span><span class="p">()):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    Transcript:&quot;</span><span class="p">)</span>
-    <span class="c1"># Print the OSC transcript&#39;s filtered, captured messages</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"    Transcript:"</span><span class="p">)</span>
+    <span class="c1"># Print the OSC transcript's filtered, captured messages</span>
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
         <span class="c1"># A received message</span>
-        <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;        Received: </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">"R"</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"        Received: </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
         <span class="c1"># A sent message</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;        Sent:     </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"        Sent:     </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">message</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
     <span class="c1"># Print the node tree</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Tree: </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    Tree: </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>The context manager will let us start capturing OSC messages sent and received
@@ -3473,52 +3473,52 @@ during standard operations,</p></li>
 don’t see too much) and then dial in the <a class="reference internal" href="../api/supriya/scsynth.html#module-supriya.scsynth" title="supriya.scsynth (Python module)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">supriya.scsynth</span></code></a> logger to
 <code class="docutils literal notranslate"><span class="pre">INFO</span></code> so we can see info about the server during booting and quitting.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The example entry-point function.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># Turn on basic logging output interpreter-wide.</span>
     <span class="c1"># Explicitly set the stream to stdout so that the output looks the same in</span>
-    <span class="c1"># your terminal as it does in the documentation! Normally you don&#39;t need to</span>
+    <span class="c1"># your terminal as it does in the documentation! Normally you don't need to</span>
     <span class="c1"># worry about this.</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
 
-    <span class="c1"># Set Supriya&#39;s supriya.scsynth logger level to INFO</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;supriya.scsynth&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="c1"># Set Supriya's supriya.scsynth logger level to INFO</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"supriya.scsynth"</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 
     <span class="c1"># Create a server and boot it:</span>
     <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 
     <span class="c1"># Print debug info before we play anything ...</span>
     <span class="c1"># Should be just an empty server with the default groups.</span>
-    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;BEFORE PLAYING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">"BEFORE PLAYING:"</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="c1"># Print debug info immediately after we play the synths ...</span>
-    <span class="c1"># No synths should be allocated yet because their SynthDef hasn&#39;t finished</span>
+    <span class="c1"># No synths should be allocated yet because their SynthDef hasn't finished</span>
     <span class="c1"># allocation.</span>
-    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;IMMEDIATELY AFTER PLAYING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">"IMMEDIATELY AFTER PLAYING:"</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
         <span class="n">synths</span> <span class="o">=</span> <span class="n">play_synths</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
 
     <span class="c1"># Print debug info after syncing with the server ...</span>
     <span class="c1"># The synths should now be present.</span>
-    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;PLAYING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">"PLAYING:"</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
         <span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
 
     <span class="c1"># Print debug info after 4 seconds of waiting ...</span>
     <span class="c1"># Nothing should have changed since the synths allocated.</span>
-    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;JUST BEFORE STOPPING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">"JUST BEFORE STOPPING:"</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 
     <span class="c1"># Print debug info immediately after stopping the synths</span>
-    <span class="c1"># The synths are still present, but their &quot;gate&quot; parameters have flipped to</span>
+    <span class="c1"># The synths are still present, but their "gate" parameters have flipped to</span>
     <span class="c1"># zero.</span>
-    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;IMMEDIATELY AFTER STOPPING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">"IMMEDIATELY AFTER STOPPING:"</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
         <span class="n">stop_synths</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">synths</span><span class="o">=</span><span class="n">synths</span><span class="p">)</span>
 
     <span class="c1"># Print debug info after 1 second of waiting ...</span>
     <span class="c1"># The synths should now be gone.</span>
-    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;AFTER RELEASING:&quot;</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">debug</span><span class="p">(</span><span class="s2">"AFTER RELEASING:"</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># Quit the server</span>
@@ -3537,32 +3537,32 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <h2 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Link to this heading">¶</a></h2>
 <p>You can invoke the script and see its (very verbose) output with …</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><code><span class="gp">josephine@laptop:~/supriya$ </span>python<span class="w"> </span>-m<span class="w"> </span>examples.hello_world_debugged
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] booting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] command: scsynth -R 0 -l 1 -u 57110</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] received: JackDriver: client name is &#39;SuperCollider&#39;</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] received: SC_AudioDriver: sample rate = 44100.000000, driver&#39;s block size = 1024</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] received: SuperCollider 3 server ready.</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] ... booted!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] booting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] command: scsynth -R 0 -l 1 -u 57110</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] received: Cannot lock down 107341340 byte memory area (Cannot allocate memory)</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] received: JackDriver: client name is 'SuperCollider'</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] received: SC_AudioDriver: sample rate = 44100.000000, driver's block size = 1024</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] received: SuperCollider 3 server ready.</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] ... booted!</span>
 <span class="go">BEFORE PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44106.475547419956, average_cpu_usage=0.09720169752836227, group_count=2, peak_cpu_usage=0.35867786407470703, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.24907640606, average_cpu_usage=0.09333201497793198, group_count=2, peak_cpu_usage=0.3443985879421234, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">IMMEDIATELY AFTER PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44106.475547419956, average_cpu_usage=0.09720169752836227, group_count=2, peak_cpu_usage=0.35867786407470703, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.24907640606, average_cpu_usage=0.09333201497793198, group_count=2, peak_cpu_usage=0.3443985879421234, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
-<span class="go">        Sent:     OscMessage(&#39;/d_recv&#39;, b&#39;SCgf\x00\x00\x00\x02\x00\x01\x0fsupriya:default\x00\x00\x00\x0c\x00\x00\x00\x00&gt;\x99\x99\x9a&lt;#\xd7\n?333@\x00\x00\x00\xbe\xcc\xcc\xcd&gt;\xcc\xcc\xcdEz\x00\x00E\x9c@\x00E\x1c@\x00EH\x00\x00?\x80\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00=\xcc\xcc\xcdC\xdc\x00\x00?\x80\x00\x00?\x00\x00\x00\x00\x00\x00\x05\x03out\x00\x00\x00\x00\tamplitude\x00\x00\x00\x01\tfrequency\x00\x00\x00\x02\x04gate\x00\x00\x00\x03\x03pan\x00\x00\x00\x04\x00\x00\x00\x14\x07Control\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x04\x00\x01\x01\x01\x01\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x05Linen\x01\x00\x00\x00\x05\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x04\x01\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x00\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x04\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x06\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x08\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Sum3\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\t\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\n\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x07\xff\xff\xff\xff\x00\x00\x00\x08\x00\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\t\xff\xff\xff\xff\x00\x00\x00\n\x00\x05XLine\x01\x00\x00\x00\x04\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0c\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x0b\xff\xff\xff\xff\x00\x00\x00\x00\x01\x03LPF\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0b\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x0f\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x10\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x04Pan2\x02\x00\x00\x00\x03\x00\x00\x00\x02\x00\x00\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x0b\x02\x02\tOffsetOut\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x01\x00\x00&#39;, OscBundle(contents=[OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1000, 0, 1, &#39;frequency&#39;, 261.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1001, 0, 1, &#39;frequency&#39;, 329.63), OscMessage(&#39;/s_new&#39;, &#39;supriya:default&#39;, 1002, 0, 1, &#39;frequency&#39;, 392.0)]))</span>
+<span class="go">        Sent:     OscMessage('/d_recv', b'SCgf\x00\x00\x00\x02\x00\x01\x0fsupriya:default\x00\x00\x00\x0c\x00\x00\x00\x00&gt;\x99\x99\x9a&lt;#\xd7\n?333@\x00\x00\x00\xbe\xcc\xcc\xcd&gt;\xcc\xcc\xcdEz\x00\x00E\x9c@\x00E\x1c@\x00EH\x00\x00?\x80\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00=\xcc\xcc\xcdC\xdc\x00\x00?\x80\x00\x00?\x00\x00\x00\x00\x00\x00\x05\x03out\x00\x00\x00\x00\tamplitude\x00\x00\x00\x01\tfrequency\x00\x00\x00\x02\x04gate\x00\x00\x00\x03\x03pan\x00\x00\x00\x04\x00\x00\x00\x14\x07Control\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x04\x00\x01\x01\x01\x01\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x05Linen\x01\x00\x00\x00\x05\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x04\x01\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x00\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x04\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x06\x00\x0cBinaryOpUGen\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00\x00\x01\x06VarSaw\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x08\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Sum3\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\t\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\n\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x07\xff\xff\xff\xff\x00\x00\x00\x08\x00\x04Rand\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\t\xff\xff\xff\xff\x00\x00\x00\n\x00\x05XLine\x01\x00\x00\x00\x04\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0c\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x0b\xff\xff\xff\xff\x00\x00\x00\x00\x01\x03LPF\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x0b\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x0f\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x10\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x04Pan2\x02\x00\x00\x00\x03\x00\x00\x00\x02\x00\x00\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x0b\x02\x02\tOffsetOut\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00\x01\x00\x00', OscBundle(contents=[OscMessage('/s_new', 'supriya:default', 1000, 0, 1, 'frequency', 261.63), OscMessage('/s_new', 'supriya:default', 1001, 0, 1, 'frequency', 329.63), OscMessage('/s_new', 'supriya:default', 1002, 0, 1, 'frequency', 392.0)]))</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">PLAYING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44106.475547419956, average_cpu_usage=0.09720169752836227, group_count=2, peak_cpu_usage=0.35867786407470703, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44106.24907640606, average_cpu_usage=0.09333201497793198, group_count=2, peak_cpu_usage=0.3443985879421234, synth_count=0, synthdef_count=32, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
-<span class="go">        Sent:     OscMessage(&#39;/sync&#39;, 1)</span>
-<span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 0)</span>
-<span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1001, 1, -1, 1000, 0)</span>
-<span class="go">        Received: OscMessage(&#39;/n_go&#39;, 1002, 1, -1, 1001, 0)</span>
-<span class="go">        Received: OscMessage(&#39;/done&#39;, &#39;/d_recv&#39;)</span>
-<span class="go">        Received: OscMessage(&#39;/synced&#39;, 1)</span>
+<span class="go">        Sent:     OscMessage('/sync', 1)</span>
+<span class="go">        Received: OscMessage('/n_go', 1000, 1, -1, -1, 0)</span>
+<span class="go">        Received: OscMessage('/n_go', 1001, 1, -1, 1000, 0)</span>
+<span class="go">        Received: OscMessage('/n_go', 1002, 1, -1, 1001, 0)</span>
+<span class="go">        Received: OscMessage('/done', '/d_recv')</span>
+<span class="go">        Received: OscMessage('/synced', 1)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">    Tree:         1002 supriya:default</span>
@@ -3572,7 +3572,7 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
 <span class="go">JUST BEFORE STOPPING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.56967731832, average_cpu_usage=0.46277207136154175, group_count=2, peak_cpu_usage=0.4633285701274872, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.34321560694, average_cpu_usage=0.4546505808830261, group_count=2, peak_cpu_usage=0.45489948987960815, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">    Tree:         1002 supriya:default</span>
@@ -3582,9 +3582,9 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 1.0, pan: 0.5</span>
 <span class="go">IMMEDIATELY AFTER STOPPING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.56967731832, average_cpu_usage=0.46277207136154175, group_count=2, peak_cpu_usage=0.4633285701274872, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.34321560694, average_cpu_usage=0.4546505808830261, group_count=2, peak_cpu_usage=0.45489948987960815, synth_count=3, synthdef_count=33, target_sample_rate=44100.0, ugen_count=60)</span>
 <span class="go">    Transcript:</span>
-<span class="go">        Sent:     OscBundle(contents=[OscMessage(&#39;/n_set&#39;, 1000, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1001, &#39;gate&#39;, 0.0), OscMessage(&#39;/n_set&#39;, 1002, &#39;gate&#39;, 0.0)])</span>
+<span class="go">        Sent:     OscBundle(contents=[OscMessage('/n_set', 1000, 'gate', 0.0), OscMessage('/n_set', 1001, 'gate', 0.0), OscMessage('/n_set', 1002, 'gate', 0.0)])</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
 <span class="go">    Tree:         1002 supriya:default</span>
@@ -3594,17 +3594,17 @@ that <code class="docutils literal notranslate"><span class="pre">with</span></c
 <span class="go">    Tree:         1000 supriya:default</span>
 <span class="go">    Tree:             out: 0.0, amplitude: 0.1, frequency: 261.630005, gate: 0.0, pan: 0.5</span>
 <span class="go">AFTER RELEASING:</span>
-<span class="go">    Status: StatusInfo(actual_sample_rate=44105.22998562333, average_cpu_usage=0.47651058435440063, group_count=2, peak_cpu_usage=0.47868138551712036, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
+<span class="go">    Status: StatusInfo(actual_sample_rate=44105.00352740025, average_cpu_usage=0.49636512994766235, group_count=2, peak_cpu_usage=0.5024142265319824, synth_count=0, synthdef_count=33, target_sample_rate=44100.0, ugen_count=0)</span>
 <span class="go">    Transcript:</span>
-<span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1002, 1, -1, 1001, 0)</span>
-<span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1001, 1, -1, 1000, 0)</span>
-<span class="go">        Received: OscMessage(&#39;/n_end&#39;, 1000, 1, -1, -1, 0)</span>
+<span class="go">        Received: OscMessage('/n_end', 1002, 1, -1, 1001, 0)</span>
+<span class="go">        Received: OscMessage('/n_end', 1001, 1, -1, 1000, 0)</span>
+<span class="go">        Received: OscMessage('/n_end', 1000, 1, -1, -1, 0)</span>
 <span class="go">    Tree: NODE TREE 0 group</span>
 <span class="go">    Tree:     1 group</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] quitting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] ... quit!</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] quitting ...</span>
-<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7f2eb79986e0] ... already quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] ... quit!</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] quitting ...</span>
+<span class="go">INFO:supriya.scsynth:[127.0.0.1:57110/0x7fb1b5240590] ... already quit!</span>
 </code></pre></div>
 </div>
 <p>That’s a lot of output! Depending on your application, you may need to dial it

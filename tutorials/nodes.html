@@ -3737,7 +3737,7 @@ first:</p>
 <p class="admonition-title">Note</p>
 <p>Supriya will attempt to coerce a variety of inputs into a valid
 <a class="reference internal" href="../api/supriya/enums.html#supriya.enums.AddAction" title="supriya.enums.AddAction (Python class) — Bases: IntEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddAction</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ADD_TO_HEAD&quot;</span><span class="p">,</span> <span class="s2">&quot;add_to_head&quot;</span><span class="p">,</span> <span class="s2">&quot;add to head&quot;</span><span class="p">]:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"ADD_TO_HEAD"</span><span class="p">,</span> <span class="s2">"add_to_head"</span><span class="p">,</span> <span class="s2">"add to head"</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">... </span>
 <span class="go">&lt;AddAction.ADD_TO_HEAD: 0&gt;</span>
@@ -3749,7 +3749,7 @@ first:</p>
 </div>
 <p>This allows you to specify the <a class="reference internal" href="../appendices/glossary.html#term-add-action" title="add action (glossary term)"><span class="xref std std-term">add action</span></a> via a string, saving a
 few keystrokes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add to head&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="s2">"add to head"</span><span class="p">)</span>
 <span class="go">Group(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=1008, parallel=False)</span>
 </code></pre></div>
 </div>
@@ -3793,15 +3793,15 @@ sawtooth wave. Let’s create two more.</p>
 <p>This SynthDef generates a continuous train of clicks:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">impulse</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Impulse</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">"frequency"</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="p">)</span>
-<span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">impulse</span> <span class="o">*</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;amplitude&quot;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">impulse</span> <span class="o">*</span> <span class="n">builder</span><span class="p">[</span><span class="s2">"amplitude"</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">"out"</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">,</span> <span class="n">source</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ticker&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ticker_synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"ticker"</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>This SynthDef reads audio from a bus, reverberates it, then writes back the
@@ -3810,28 +3810,28 @@ wet audio mixed with the dry:</p>
 <span class="gp">... </span>    <span class="n">damping</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">mix</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">room_size</span><span class="o">=</span><span class="mf">0.5</span>
 <span class="gp">... </span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">in_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">"out"</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">reverb</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">FreeVerb</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">damping</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;damping&quot;</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="n">mix</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;mix&quot;</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="n">room_size</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;room_size&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">damping</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">"damping"</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">mix</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">"mix"</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">room_size</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">"room_size"</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">in_</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ReplaceOut</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">"out"</span><span class="p">],</span>
 <span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">reverb</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;reverb&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"reverb"</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Create a synth using the “ticker” SynthDef, replacing the “default” synth we
 just created:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">ticker_synthdef</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="n">synth</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">ticker_synthdef</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">synth</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">ticker_synthdef</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">"replace"</span><span class="p">)</span>
 <span class="gp">... </span>
 <span class="go">Synth(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=1001, synthdef=&lt;SynthDef: ticker&gt;)</span>
 </code></pre></div>
@@ -3840,7 +3840,7 @@ just created:</p>
 the previous synth with an <code class="docutils literal notranslate"><span class="pre">ADD_TO_TAIL</span></code> <a class="reference internal" href="../appendices/glossary.html#term-add-action" title="add action (glossary term)"><span class="xref std std-term">add action</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">at</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">reverb_synthdef</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">reverb_synthdef</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add_to_tail&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">server</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">reverb_synthdef</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">"add_to_tail"</span><span class="p">)</span>
 <span class="gp">... </span>
 <span class="go">Synth(context=&lt;Server ONLINE [scsynth -R 0 -l 1 -u 57110]&gt;, id_=1002, synthdef=&lt;SynthDef: reverb&gt;)</span>
 </code></pre></div>
@@ -3850,6 +3850,10 @@ how the reverberation kicks in when you instantiate the second synth:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
+<span class="go">        1001 ticker</span>
+<span class="go">            amplitude: 0.5, frequency: 4.0, out: 0.0</span>
+<span class="go">        1002 reverb</span>
+<span class="go">            damping: 0.5, mix: 0.5, out: 0.0, room_size: 0.5</span>
 
 </code></pre></div>
 </div>
@@ -3987,16 +3991,16 @@ upon it.</p>
 </div>
 <h3 id="querying-controls">Querying controls<a class="headerlink" href="#querying-controls" title="Link to this heading">¶</a></h3>
 <p>We can query each synth’s <code class="docutils literal notranslate"><span class="pre">frequency</span></code> and <code class="docutils literal notranslate"><span class="pre">amplitude</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="s2">&quot;amplitude&quot;</span><span class="p">)</span>
-<span class="go">{&#39;frequency&#39;: 333.0, &#39;amplitude&#39;: 0.10000000149011612}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="s2">"amplitude"</span><span class="p">)</span>
+<span class="go">{'frequency': 333.0, 'amplitude': 0.10000000149011612}</span>
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="s2">&quot;amplitude&quot;</span><span class="p">)</span>
-<span class="go">{&#39;frequency&#39;: 444.0, &#39;amplitude&#39;: 0.10000000149011612}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="s2">"amplitude"</span><span class="p">)</span>
+<span class="go">{'frequency': 444.0, 'amplitude': 0.10000000149011612}</span>
 </code></pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span> <span class="s2">&quot;amplitude&quot;</span><span class="p">)</span>
-<span class="go">{&#39;frequency&#39;: 555.0, &#39;amplitude&#39;: 0.10000000149011612}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">synth_c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"frequency"</span><span class="p">,</span> <span class="s2">"amplitude"</span><span class="p">)</span>
+<span class="go">{'frequency': 555.0, 'amplitude': 0.10000000149011612}</span>
 </code></pre></div>
 </div>
 <h2 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Link to this heading">¶</a></h2>
@@ -4012,7 +4016,7 @@ upon it.</p>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">add_synthdefs</span><span class="p">(</span><span class="n">ticker_synthdef</span><span class="p">,</span> <span class="n">reverb_synthdef</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="n">ticker_synth</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">ticker_synthdef</span><span class="p">)</span>
 <span class="gp">... </span>        <span class="n">reverb_synth</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">reverb_synthdef</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;add_to_tail&quot;</span>
+<span class="gp">... </span>            <span class="n">reverb_synthdef</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">"add_to_tail"</span>
 <span class="gp">... </span>        <span class="p">)</span>
 <span class="gp">... </span>
 </code></pre></div>
@@ -4024,7 +4028,7 @@ by the <em>reverb</em> synth.</p>
 <p>Nodes can be moved relative to other nodes, using the same <a class="reference internal" href="../appendices/glossary.html#term-add-action" title="add action (glossary term)"><span class="xref std std-term">add actions</span></a> used when allocating nodes.</p>
 <p>Move the <em>reverb</em> synth to the <a class="reference internal" href="../appendices/glossary.html#term-head" title="head (glossary term)"><span class="xref std std-term">head</span></a> of its parent group - <em>before</em> the
 <em>ticker</em> synth - and notice how the click train’s reverberation dies out:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synth</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="s2">&quot;add_to_head&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synth</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="s2">"add_to_head"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
@@ -4038,7 +4042,7 @@ by the <em>reverb</em> synth.</p>
 </div>
 <p>Now move the <em>reverb</em> synth <em>after</em> the <em>ticker</em> synth, and listen to the
 reverberation return:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synth</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">ticker_synth</span><span class="p">,</span> <span class="s2">&quot;add_after&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">reverb_synth</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">ticker_synth</span><span class="p">,</span> <span class="s2">"add_after"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">())</span>
 <span class="go">NODE TREE 0 group</span>
 <span class="go">    1 group</span>
