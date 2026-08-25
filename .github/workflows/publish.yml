@@ -41,7 +41,7 @@ jobs:
         key: ${{ runner.os }}
         restore-keys: ${{ runner.os }}
     - uses: supriya-project/setup-audio@main
-    - uses: supriya-project/setup-supercollider@v1.1.1
+    - uses: supriya-project/setup-supercollider@v1.1.2
     - name: Install Supriya
       run: uv sync --extra docs
     - name: Install APT deps
