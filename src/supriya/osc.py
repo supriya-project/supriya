@@ -198,7 +198,7 @@ class OscMessage:
         )
 
     def __str__(self) -> str:
-        return format_datagram(bytearray(self.to_datagram()))
+        return format_datagram(self.to_datagram())
 
     ### PRIVATE METHODS ###
 
@@ -247,7 +247,7 @@ class OscMessage:
             encoded_value = cls._encode_blob(value.to_datagram())
         elif isinstance(value, (bytearray, bytes)):
             type_tags += "b"
-            encoded_value = cls._encode_blob(value)
+            encoded_value = cls._encode_blob(bytes(value))
         elif isinstance(value, str):
             type_tags += "s"
             encoded_value = cls._encode_string(value)
@@ -450,7 +450,7 @@ class OscBundle:
         return "".join(parts)
 
     def __str__(self) -> str:
-        return format_datagram(bytearray(self.to_datagram()))
+        return format_datagram(self.to_datagram())
 
     ### PRIVATE METHODS ###
 

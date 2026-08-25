@@ -5861,7 +5861,7 @@ class SynthDefBuilder:
     def _cleanup_pv_chains(self, ugens: list[UGen]) -> list[UGen]:
         from . import LocalBuf, PV_ChainUGen, PV_Copy
 
-        mapping: dict[UGen, list[tuple[UGen, int]]] = {}
+        mapping: dict[PV_ChainUGen, list[tuple[PV_ChainUGen, int]]] = {}
         for ugen in ugens:
             if isinstance(ugen, PV_Copy) or not isinstance(ugen, PV_ChainUGen):
                 continue

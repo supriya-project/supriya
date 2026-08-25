@@ -180,6 +180,7 @@ class TypeVarDocumenter(MemberDocumenter):
     """
 
     def __str__(self) -> str:
+        assert isinstance(self.client, type)
         return f".. autotypevar:: {self.client.__name__}"
 
     @classmethod
