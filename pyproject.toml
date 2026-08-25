@@ -133,6 +133,9 @@ line-length = 88
 # always the oldest python version supriya supports
 target-version = "py310"
 
+[tool.ruff.lint.pep8-naming]
+ignore-names = ["test_*"]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 
