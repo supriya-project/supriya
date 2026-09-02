@@ -1159,24 +1159,22 @@ async def test_query_version(context: AsyncServer | Server) -> None:
     stdout = completed_subprocess.stdout
     line = completed_subprocess.stdout.splitlines()[0]
     print(stdout, line)
-    if (
-        match := re.match(
-            r"(\w+) (\d+)\.(\d+)(\.[\w-]+) \(Built from (?:branch|tag) '([\W\w]+)' \[([\W\w]+)\]\)",
-            line,
-        )
-        is None
+    if match := re.match(
+        r"(\w+) (\d+)\.(\d+)(\.[\w-]+) \(Built from (?:branch|tag) '([\W\w]+)' \[([\W\w]+)\]\)",
+        line,
     ):
+        program_name, major, minor, patch, ref, commit = match.groups()
+        expected_info = VersionInfo(
+            program_name=program_name,
+            major=int(major),
+            minor=int(minor),
+            patch=patch,
+            branch=ref,
+            commit=commit,
+        )
+        assert await get(context.query_version()) == expected_info
+    else:
         raise RuntimeError
-    program_name, major, minor, patch, ref, commit = match.groups()
-    expected_info = VersionInfo(
-        program_name=program_name,
-        major=int(major),
-        minor=int(minor),
-        patch=patch,
-        branch=ref,
-        commit=commit,
-    )
-    assert await get(context.query_version()) == expected_info
     # unsync
     with context.osc_protocol.capture() as transcript:
         assert await get(context.query_version(sync=False)) is None
