@@ -61,7 +61,7 @@ def test_pattern(stop_at, sequence, iterations, expected, is_infinite) -> None:
         ([1, 2, 3], 10, None),
         ([1, 2, 3], None, None),
         ([1, 2, 3], 0, ValueError),
-        (23, 1, ValueError),
+        (23, 1, TypeError),
     ],
 )
 def test___init__(sequence, iterations, raises) -> None:
