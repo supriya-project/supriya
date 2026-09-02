@@ -123,3 +123,12 @@ Jupyter notebooks, make sure to install them:
        ..  code-block:: console
 
            josephine@laptop:~$ choco install ffmpeg lame
+
+.. _FFmpeg: https://ffmpeg.org/
+.. _GitHub: https://github.com/supriya-project/supriya
+.. _IPython: https://ipython.org/
+.. _LAME: https://lame.sourceforge.io/
+.. _PyPI: https://pypi.org/
+.. _Sphinx: https://www.sphinx-doc.org/en/master/
+.. _SuperCollider: https://supercollider.github.io/
+.. _pip: https://pip.pypa.io/en/stable/

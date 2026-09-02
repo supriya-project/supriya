@@ -445,3 +445,7 @@ Get access to the server's underlying OSC subsystem via
     :py:class:`~supriya.contexts.realtime.AsyncServer` discussed later uses
     :py:class:`~supriya.scsynth.AsyncProcessProtocol` and
     :py:class:`~supriya.osc.AsyncOscProtocol` objects.
+
+.. _aiohttp: https://docs.aiohttp.org/en/stable/
+.. _python-prompt-toolkit: https://python-prompt-toolkit.readthedocs.io/en/master/
+.. _pymonome: https://github.com/artfwo/pymonome

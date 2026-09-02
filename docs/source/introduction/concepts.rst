@@ -204,3 +204,6 @@ makes them ideal for doing audio analysis (e.g. find the maximum amplitude in a
 soundfile) or for generating compositions too computationally complex to run in
 realtime without causing *buffer under-runs* (i.e. the server cannot process
 audio quickly enough to deliver to the soundcard for playback).
+
+.. _SuperCollider: https://supercollider.github.io/
+.. _Python: https://www.python.org/

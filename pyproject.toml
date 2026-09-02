@@ -73,6 +73,7 @@ test = [
   "pytest-rerunfailures",
   "ruff",
   "supriya[shm]",
+  "rstcheck",
   "types-PyYAML",
   "types-docutils",
   "types-psutil",
@@ -127,6 +128,26 @@ markers = [
 testpaths = [
   "tests",
   "src",
+]
+
+[tool.rstcheck]
+ignore_directives = [
+  "book",
+  "editorial",
+  "info",
+  "inheritance-diagram",
+  "md-tab-set",
+  "rst-example",
+  "self-criticism",
+  "shell",
+  "todo",
+]
+ignore_roles = [
+  "github-blob",
+  "github-tree",
+]
+ignore_substitutions = [
+  "release",
 ]
 
 [tool.ruff]
