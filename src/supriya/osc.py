@@ -178,7 +178,7 @@ class OscMessage:
         if isinstance(address, Enum):
             address = address.value
         if not isinstance(address, (str, int)):
-            raise ValueError(f"address must be int or str, got {address}")
+            raise TypeError(f"address must be int or str, got {address}")
         self.address = address
         self.contents = tuple(contents)
 
@@ -314,11 +314,8 @@ class OscMessage:
             elif type_tag == "b":
                 value, remainder = cls._decode_blob(remainder)
                 for class_ in (OscBundle, OscMessage):
-                    try:
-                        value = class_.from_datagram(value)
-                        break
-                    except Exception:
-                        pass
+                    value = class_.from_datagram(value)
+                    break
                 array_stack[-1].append(value)
             elif type_tag == "T":
                 array_stack[-1].append(True)
@@ -426,7 +423,7 @@ class OscBundle:
         contents = contents or ()
         for x in contents or ():
             if not isinstance(x, prototype):
-                raise ValueError(contents)
+                raise TypeError(contents)
         self.contents = tuple(contents)
 
     ### SPECIAL METHODS ###
@@ -544,11 +541,8 @@ def format_messages(messages: Sequence[OscBundle | OscMessage]) -> str:
     def sanitize(list_):
         for i, x in enumerate(list_):
             if isinstance(x, bytes):
-                try:
-                    decompiled = decompile_synthdefs(x)
-                    list_[i] = decompiled[0] if len(decompiled) == 1 else decompiled
-                except Exception:
-                    pass
+                decompiled = decompile_synthdefs(x)
+                list_[i] = decompiled[0] if len(decompiled) == 1 else decompiled
             elif isinstance(x, list):
                 sanitize(x)
         return list_
@@ -818,7 +812,7 @@ class OscProtocol:
         if isinstance(failure_pattern, (str, int, float)):
             failure_pattern = [failure_pattern]
         if not callable(procedure):
-            raise ValueError(procedure)
+            raise TypeError(procedure)
         osc_protocol_logger.info(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] "
             f"registering pattern: {pattern!r}"
@@ -837,7 +831,7 @@ class OscProtocol:
         if self.status not in (BootStatus.BOOTING, BootStatus.ONLINE):
             raise OscProtocolOffline
         if not isinstance(raw_message, (str, SequenceABC, SupportsOsc)):
-            raise ValueError(raw_message)
+            raise TypeError(raw_message)
         message: OscBundle | OscMessage
         if isinstance(raw_message, str):
             message = OscMessage(raw_message)
@@ -880,10 +874,7 @@ class OscProtocol:
         udp_in_logger.debug(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] {datagram}"
         )
-        try:
-            message = OscMessage.from_datagram(datagram)
-        except Exception:
-            raise
+        message = OscMessage.from_datagram(datagram)
         osc_in_logger.debug(
             f"[{self.ip_address}:{self.port}/{self.name or hex(id(self))}] {message!r}"
         )
@@ -1125,14 +1116,10 @@ class ThreadedOscProtocol(OscProtocol):
         return callback
 
     def send(self, message: SequenceABC | SupportsOsc | str) -> None:
-        try:
-            self.osc_server.socket.sendto(
-                self._send(message),
-                (self.ip_address, self.port),
-            )
-        except OSError:
-            # print(message)
-            raise
+        self.osc_server.socket.sendto(
+            self._send(message),
+            (self.ip_address, self.port),
+        )
 
     def unregister(self, callback: OscCallback) -> None:
         """

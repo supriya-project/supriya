@@ -80,7 +80,7 @@ class SupportsRenderMemo(Protocol):
 
 E = TypeVar("E")
 
-_EnumLike = Union[E, SupportsInt, str] | None
+_EnumLike = E | SupportsInt | str | None
 
 AddActionLike: TypeAlias = _EnumLike[AddAction]
 DoneActionLike: TypeAlias = _EnumLike[DoneAction]

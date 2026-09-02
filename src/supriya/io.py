@@ -116,7 +116,10 @@ class Plotter:
         pyplot.plot(time, array.transpose())
 
         timestamp = (
-            datetime.datetime.now().isoformat().replace(".", "-").replace(":", "-")
+            datetime.datetime.now(tz=datetime.timezone.UTC)
+            .isoformat()
+            .replace(".", "-")
+            .replace(":", "-")
         )
         extension = self.plot_kwargs.get("format_", "png")
         output_path = supriya.output_path / f"{timestamp}.{extension}"
