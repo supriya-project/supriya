@@ -314,8 +314,13 @@ class OscMessage:
             elif type_tag == "b":
                 value, remainder = cls._decode_blob(remainder)
                 for class_ in (OscBundle, OscMessage):
-                    value = class_.from_datagram(value)
-                    break
+                    try:
+                        value = class_.from_datagram(value)
+                        break
+                    except ValueError:
+                        continue
+                else:
+                    raise ValueError(value)
                 array_stack[-1].append(value)
             elif type_tag == "T":
                 array_stack[-1].append(True)
