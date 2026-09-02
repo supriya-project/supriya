@@ -15,10 +15,13 @@ jobs:
     name: Bump version
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
-    - uses: astral-sh/setup-uv@v7
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       with:
         python-version: "3.14"
+        enable-cache: false
     - name: Get latest version
       run: echo OLD_VERSION=$(gh release list -L 1 --json name | jq -r '.[0].name') >> $GITHUB_ENV
     - name: Bump version file
@@ -35,7 +38,7 @@ jobs:
         git commit -m "Bump version to ${NEW_VERSION}"
         git push
     - name: Create release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
       with:
         draft: true
         generate_release_notes: true
