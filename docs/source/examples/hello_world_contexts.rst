@@ -172,3 +172,5 @@ For example:
     :host: laptop
 
     python -m examples.hello_world_contexts --realtime-threaded
+
+.. _"hello, world!": https://en.wikipedia.org/wiki/%22Hello,_World!%22_program

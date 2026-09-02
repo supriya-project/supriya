@@ -77,7 +77,7 @@ Supriya provides a ``Makefile`` target to simplify this call:
 
 The coverage report appear at the end of the test output in your terminal:
 
-..  code-block::
+..  code-block:: console
 
     Name                                Stmts   Miss Branch BrPart  Cover
     ---------------------------------------------------------------------
@@ -783,3 +783,15 @@ This workflow does *a lot* of different validations:
 - It runs `pytest`_ against both the unit tests and doctests under all
   operating systems and all major, non-end-of-life, non-alpha versions of
   Python (e.g. 3.10, 3.11, 3.12, 3.13)
+
+.. _GitHub: https://github.com/supriya-project/supriya
+.. _Python: https://www.python.org/
+.. _black: https://black.readthedocs.io/en/stable/
+.. _flake8: https://flake8.pycqa.org/en/latest/
+.. _isort: https://pycqa.github.io/isort/
+.. _mypy: https://mypy-lang.org/
+.. _pytest-asyncio: https://pytest-asyncio.readthedocs.io/en/stable/
+.. _pytest-cov: https://pytest-cov.readthedocs.io/en/latest/
+.. _pytest-lazy-fixtures: https://github.com/dev-petrov/pytest-lazy-fixtures
+.. _pytest: https://docs.pytest.org/en/stable/
+.. _ruff: https://docs.astral.sh/ruff/

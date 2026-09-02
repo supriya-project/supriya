@@ -259,3 +259,7 @@ You can invoke the script with ...
     python -m examples.keyboard_input --help
 
 ... and you'll see the options necessary to properly run it.
+
+.. _Ableton Live: https://www.ableton.com/en/live/
+.. _pynput: https://github.com/moses-palmer/pynput
+.. _python-rtmidi: https://spotlightkid.github.io/python-rtmidi/

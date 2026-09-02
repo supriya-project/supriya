@@ -178,3 +178,9 @@ Quit the server::
     :caption: Appendices
 
     appendices/glossary
+
+.. _Graphviz: https://graphviz.org/
+.. _IPython: https://ipython.org/
+.. _Joséphine: https://josephine-wolf-oberholtzer.com/
+.. _Sphinx: https://www.sphinx-doc.org/en/master/
+.. _SuperCollider: https://supercollider.github.io/
