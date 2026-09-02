@@ -26,17 +26,18 @@ jobs:
         enable-cache: false
     - name: Get old version
       id: old-version
-      run: echo version=$(gh release list -L 1 --json name | jq -r '.[0].name') >> $GITHUB_OUTPUT
+      run: |
+        VERSION=$(gh release list -L 1 --json name | jq -r '.[0].name')
+        echo version=${VERSION} >> "${GITHUB_OUTPUT}"
+        echo "${VERSION}"
     - name: Bump version file
-      id: new-version
-      run: echo version=$(uv run dev/bump-version.py ${OLD_VERSION}) >> $GITHUB_OUTPUT
-    - name: Debug
       env:
         OLD_VERSION: ${{ steps.old-version.outputs.version }}
-        NEW_VERSION: ${{ steps.new-version.outputs.version }}
+      id: new-version
       run: |
-        echo ${OLD_VERSION}
-        echo ${NEW_VERSION}
+        VERSION=$(uv run dev/bump-version.py "${OLD_VERSION}")
+        echo version=${VERSION} >> "${GITHUB_OUTPUT}"
+        echo "${VERSION}"
     - name: Push changes
       env:
         NEW_VERSION: ${{ steps.new-version.outputs.version }}
