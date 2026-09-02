@@ -1153,7 +1153,7 @@ async def test_query_tree(context: AsyncServer | Server) -> None:
 
 @pytest.mark.asyncio
 async def test_query_version(context: AsyncServer | Server) -> None:
-    completed_subprocess = subprocess.run(
+    completed_subprocess = subprocess.run(  # noqa: ASYNC221
         [scsynth.find("scsynth"), "-v"], capture_output=True, text=True, check=True
     )
     stdout = completed_subprocess.stdout
