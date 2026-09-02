@@ -195,7 +195,7 @@ def _create_fn(
     local_vars = ", ".join(locals_.keys())
     text = f"def __create_fn__({local_vars}):\n{text}\n    return {name}"
     namespace: dict[str, Callable] = {}
-    exec(text, globals_, namespace)
+    exec(text, globals_, namespace)  # noqa: S102
     value = namespace["__create_fn__"](**locals_)
     value.__qualname__ = f"{cls.__qualname__}.{value.__name__}"
     if decorator:
@@ -4606,7 +4606,7 @@ class UGenVector(UGenOperable, Sequence[UGenOperable]):
             elif isinstance(x, SupportsFloat):
                 values_.append(ConstantProxy(float(x)))
             else:
-                raise ValueError(x)
+                raise TypeError(x)
         self._values = tuple(values_)
 
     @overload
@@ -4927,7 +4927,7 @@ class UGen(UGenOperable, Sequence):
                 elif isinstance(x, OutputProxy):
                     inputs.append(x)
                 else:
-                    raise ValueError(key, x)
+                    raise TypeError(key, x)
                 input_keys.append((key, i) if i is not None else key)
         if kwargs:
             raise ValueError(type(self).__name__, kwargs)
@@ -5260,9 +5260,9 @@ class BinaryOpUGen(UGen):
         left = kwargs["left"]
         right = kwargs["right"]
         if not isinstance(left, (SupportsFloat, UGenScalar)):
-            raise ValueError(left)
+            raise TypeError(left)
         if not isinstance(right, (SupportsFloat, UGenScalar)):
-            raise ValueError(right)
+            raise TypeError(right)
         if isinstance(
             result := process(
                 float(left) if isinstance(left, SupportsFloat) else left,
@@ -5652,7 +5652,7 @@ class SynthDef:
                 elif isinstance(input_key, tuple):
                     input_name = f"{input_key[0]}[{input_key[1]}]"
                 else:
-                    raise ValueError(input_key)
+                    raise TypeError(input_key)
                 if isinstance(input_, float):
                     input_value = str(input_)
                 else:
@@ -6549,5 +6549,7 @@ class SuperColliderSynthDef:
             )
             print(code)
             (code_path := directory_path / f"{self.name}.sc").write_text(code)
-            subprocess.run([str(sclang_path), "-D", str(code_path)], timeout=10)
+            subprocess.run(
+                [str(sclang_path), "-D", str(code_path)], timeout=10, check=True
+            )
             return (directory_path / f"{self.name}.scsyndef").read_bytes()

@@ -126,7 +126,7 @@ class PatternPlayer:
                         )
                     self._next_delta = None
                     return
-                except Exception:
+                except Exception:  # noqa: BLE001
                     self._next_delta = None
                     return
                 if offset == float("-inf"):
@@ -234,7 +234,7 @@ class PatternPlayer:
             while self._notes_by_uuid:
                 uuid, _ = self._notes_by_uuid.popitem()
                 if not isinstance(node := self._proxies_by_uuid.pop(uuid), Node):
-                    raise RuntimeError
+                    raise TypeError
                 self._context.free_node(node)
 
     def _reschedule_queue(self, current_offset: float) -> None:

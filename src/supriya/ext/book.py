@@ -83,7 +83,7 @@ class PlayExtension(Extension):
         return websafe_audio(path)
 
     @staticmethod
-    def visit_block_html(self, node):
+    def visit_block_html(self, node):  # noqa: PLW0211
         absolute_file_path = PlayExtension.render(
             node, pathlib.Path(self.builder.outdir) / "_images"
         )
@@ -162,7 +162,7 @@ class PlotExtension(Extension):
         return file_path
 
     @staticmethod
-    def visit_block_html(self, node):
+    def visit_block_html(self, node):  # noqa: PLW0211
         absolute_file_path = PlotExtension.render(
             node, pathlib.Path(self.builder.outdir) / "_images"
         )

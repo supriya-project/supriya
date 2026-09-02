@@ -68,7 +68,7 @@ synths on the SuperCollider server. When creating synths, we need to translate
 the MIDI ``0-127`` range into Hertz frequency and linear amplitude. We'll use
 some conversion helpers to do this. The manager stores state about the notes
 and synths in a dictionary, mapping note numbers to synth instances so the
-synths can be freed later, when it handles note "off" events. 
+synths can be freed later, when it handles note "off" events.
 
 The manager also implements a
 :py:meth:`~examples.keyboard_input.PolyphonyManager.free_all` method to free
@@ -259,4 +259,3 @@ You can invoke the script with ...
     python -m examples.keyboard_input --help
 
 ... and you'll see the options necessary to properly run it.
-

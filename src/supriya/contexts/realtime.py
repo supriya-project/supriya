@@ -12,6 +12,7 @@ from collections.abc import Awaitable, Callable, Iterable, Sequence
 from collections.abc import Sequence as SequenceABC
 from typing import (
     TYPE_CHECKING,
+    ClassVar,
     Literal,
     NamedTuple,
     Optional,
@@ -138,7 +139,7 @@ class BaseServer(Context):
 
     ### CLASS VARIABLES ###
 
-    _contexts: set["BaseServer"] = set()
+    _contexts: ClassVar[set["BaseServer"]] = set()
     _osc_protocol: OscProtocol
 
     ### INITIALIZER ###
@@ -672,9 +673,11 @@ class Server(BaseServer):
             target=self._lifecycle,
         )
         self._lifecycle_thread.start()
-        if not (self._boot_future.result()):
-            if (self._shutdown_future.result()) == ServerShutdownEvent.PROCESS_PANIC:
-                raise ServerCannotBoot(self.process_protocol.error_text)
+        if (
+            not (self._boot_future.result())
+            and (self._shutdown_future.result()) == ServerShutdownEvent.PROCESS_PANIC
+        ):
+            raise ServerCannotBoot(self.process_protocol.error_text)
         return self
 
     def connect(self, *, options: Options | None = None, **kwargs) -> "Server":
@@ -697,9 +700,11 @@ class Server(BaseServer):
             target=self._lifecycle,
         )
         self._lifecycle_thread.start()
-        if not (self._boot_future.result()):
-            if self._shutdown_future.result() == ServerShutdownEvent.TOO_MANY_CLIENTS:
-                raise TooManyClients("Too many clients connected already")
+        if (
+            not (self._boot_future.result())
+            and self._shutdown_future.result() == ServerShutdownEvent.TOO_MANY_CLIENTS
+        ):
+            raise TooManyClients("Too many clients connected already")
         return self
 
     def disconnect(self) -> "Server":
@@ -1306,9 +1311,11 @@ class AsyncServer(BaseServer):
         self._exit_future = loop.create_future()
         self._shutdown_future = loop.create_future()
         self._lifecycle_task = loop.create_task(self._lifecycle(owned=True))
-        if not (await self._boot_future):
-            if (await self._shutdown_future) == ServerShutdownEvent.PROCESS_PANIC:
-                raise ServerCannotBoot(self.process_protocol.error_text)
+        if (
+            not (await self._boot_future)
+            and (await self._shutdown_future) == ServerShutdownEvent.PROCESS_PANIC
+        ):
+            raise ServerCannotBoot(self.process_protocol.error_text)
         return self
 
     async def connect(
@@ -1329,9 +1336,11 @@ class AsyncServer(BaseServer):
         self._exit_future = loop.create_future()
         self._shutdown_future = loop.create_future()
         self._lifecycle_task = loop.create_task(self._lifecycle(owned=False))
-        if not (await self._boot_future):
-            if await self._shutdown_future == ServerShutdownEvent.TOO_MANY_CLIENTS:
-                raise TooManyClients("Too many clients connected already")
+        if (
+            not (await self._boot_future)
+            and await self._shutdown_future == ServerShutdownEvent.TOO_MANY_CLIENTS
+        ):
+            raise TooManyClients("Too many clients connected already")
         return self
 
     async def disconnect(self) -> "AsyncServer":

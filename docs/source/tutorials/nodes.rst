@@ -142,7 +142,7 @@ sawtooth wave. Let's create two more.
 This SynthDef generates a continuous train of clicks::
 
     >>> with supriya.SynthDefBuilder(amplitude=0.5, frequency=1.0, out=0) as builder:
-    ...     impulse = supriya.ugens.Impulse.ar( 
+    ...     impulse = supriya.ugens.Impulse.ar(
     ...         frequency=builder["frequency"],
     ...     )
     ...     source = impulse * builder["amplitude"]
@@ -166,14 +166,14 @@ wet audio mixed with the dry::
     ...         mix=builder["mix"],
     ...         room_size=builder["room_size"],
     ...         source=in_,
-    ...     ) 
+    ...     )
     ...     out = supriya.ugens.ReplaceOut.ar(
     ...         bus=builder["out"],
     ...         source=reverb,
     ...     )
     ...
     >>> reverb_synthdef = builder.build(name="reverb")
-  
+
 Create a synth using the "ticker" SynthDef, replacing the "default" synth we
 just created::
 
@@ -188,7 +188,7 @@ the previous synth with an ``ADD_TO_TAIL`` :term:`add action`::
     >>> with server.at():
     ...     with server.add_synthdefs(reverb_synthdef):
     ...         server.add_synth(reverb_synthdef, add_action="add_to_tail")
-    ... 
+    ...
 
 Note the order of the two synths (you can tell by their SynthDef names), and
 how the reverberation kicks in when you instantiate the second synth::
@@ -215,7 +215,7 @@ Reset the server for a clean slate, then add a synth::
     >>> with server.at():
     ...     with server.add_synthdefs(supriya.default):
     ...         synth = server.add_synth(supriya.default)
-    ...= 
+    ...=
 
 ..  book::
     :hide:
@@ -369,7 +369,7 @@ Reset the server for a clean slate::
     >>> server.sync()  # wait for synthdefs to load
 
 Note the click train emitted by the *ticker* synth and the reverberation added
-by the *reverb* synth. 
+by the *reverb* synth.
 
 Now we'll interact with these three nodes to modify their sound ...
 

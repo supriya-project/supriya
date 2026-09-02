@@ -1153,28 +1153,28 @@ async def test_query_tree(context: AsyncServer | Server) -> None:
 
 @pytest.mark.asyncio
 async def test_query_version(context: AsyncServer | Server) -> None:
-    completed_subprocess = subprocess.run(
-        [scsynth.find("scsynth"), "-v"], capture_output=True, text=True
+    completed_subprocess = subprocess.run(  # noqa: ASYNC221
+        [scsynth.find("scsynth"), "-v"], capture_output=True, text=True, check=True
     )
     stdout = completed_subprocess.stdout
     line = completed_subprocess.stdout.splitlines()[0]
     print(stdout, line)
-    assert (
-        match := re.match(
-            r"(\w+) (\d+)\.(\d+)(\.[\w-]+) \(Built from (?:branch|tag) '([\W\w]+)' \[([\W\w]+)\]\)",
-            line,
+    if match := re.match(
+        r"(\w+) (\d+)\.(\d+)(\.[\w-]+) \(Built from (?:branch|tag) '([\W\w]+)' \[([\W\w]+)\]\)",
+        line,
+    ):
+        program_name, major, minor, patch, ref, commit = match.groups()
+        expected_info = VersionInfo(
+            program_name=program_name,
+            major=int(major),
+            minor=int(minor),
+            patch=patch,
+            branch=ref,
+            commit=commit,
         )
-    ) is not None
-    program_name, major, minor, patch, ref, commit = match.groups()
-    expected_info = VersionInfo(
-        program_name=program_name,
-        major=int(major),
-        minor=int(minor),
-        patch=patch,
-        branch=ref,
-        commit=commit,
-    )
-    assert await get(context.query_version()) == expected_info
+        assert await get(context.query_version()) == expected_info
+    else:
+        raise RuntimeError
     # unsync
     with context.osc_protocol.capture() as transcript:
         assert await get(context.query_version(sync=False)) is None

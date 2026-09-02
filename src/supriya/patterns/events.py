@@ -166,7 +166,7 @@ class BusFreeEvent(Event):
         **kwargs,
     ) -> None:
         if not isinstance(bus_group := proxy_mapping.pop(self.id_), BusGroup):
-            raise RuntimeError(bus_group)
+            raise TypeError(bus_group)
         context.free_bus_group(bus_group)
 
 
@@ -208,7 +208,7 @@ class NodeEvent(Event):
             if not isinstance(
                 target_node_ := proxy_mapping.get(self.target_node), Node
             ):
-                raise RuntimeError(target_node_)
+                raise TypeError(target_node_)
             return target_node_
         return self.target_node
 
@@ -250,7 +250,7 @@ class NodeFreeEvent(Event):
         **kwargs,
     ) -> None:
         if not isinstance(node := proxy_mapping.pop(self.id_), Node):
-            raise RuntimeError(node)
+            raise TypeError(node)
         context.free_node(node)
 
 
@@ -284,7 +284,7 @@ class NoteEvent(NodeEvent):
         starts, stops = [], []
         for i, proxy_mapping in enumerate(expand(self.kwargs)):
             if not isinstance(self.id_, UUID):
-                raise RuntimeError("How did we get here?")
+                raise TypeError("How did we get here?")
             event: Event = type(self)(
                 id_=(self.id_, i),
                 add_action=self.add_action,

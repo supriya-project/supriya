@@ -353,7 +353,7 @@ Glossary
     random number generator
         A process which generates a sequence of numbers or symbols that cannot
         be reasonably predicted better than by a random chance.
-      
+
         See :term:`pseudorandom number generator`
 
     random seed
@@ -419,7 +419,7 @@ Glossary
     signal
         A representation of sound, typically using either a changing level of
         electrical voltage for analog signals, or a series of binary numbers
-        for digital signals. 
+        for digital signals.
 
     state machine
         TBD

@@ -81,7 +81,7 @@ Make a synthesizer definition:
     ...
 
 Visualize the SynthDef (requires [Graphviz](http://graphviz.org/)):
-    
+
     >>> supriya.graph(simple_sine)
 
 <img src="./graph.svg">

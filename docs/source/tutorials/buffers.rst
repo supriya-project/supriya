@@ -79,7 +79,7 @@ been allocated (``+``).
     contiguous. Some :term:`UGens <UGen>` that operator on buffers, like the
     wavetable oscillator :py:class:`~supriya.ugens.osc.VOsc`, expect that the
     buffers they operate over are contiguously allocated.
-    
+
     The buffer group's :py:meth:`~supriya.contexts.entities.BufferGroup.free`
     method also guarantees that those IDs are released back to the allocator
     pool simultaneously.

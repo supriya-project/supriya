@@ -387,9 +387,8 @@ async def test_read_buffer(
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
         # completion without moment errors, but initial request succeeds
-        with pytest.raises(MomentClosed):
-            with buffer_a.read(file_path=audio_paths[0]):
-                ...
+        with pytest.raises(MomentClosed), buffer_a.read(file_path=audio_paths[0]):
+            ...
         # completion without moment via on_completion lambda succeeds
         buffer_b.read(
             file_path=audio_paths[1], on_completion=lambda ctx: ctx.add_group()
@@ -461,9 +460,11 @@ async def test_write_buffer(context: AsyncServer | Server, tmp_path: Path) -> No
     buffer_c = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
         # completion without moment errors, but initial request succeeds
-        with pytest.raises(MomentClosed):
-            with buffer_a.write(file_path=tmp_path / "foo-1.aiff"):
-                ...
+        with (
+            pytest.raises(MomentClosed),
+            buffer_a.write(file_path=tmp_path / "foo-1.aiff"),
+        ):
+            ...
         # completion without moment via on_completion lambda succeeds
         buffer_b.write(
             file_path=tmp_path / "foo-2.aiff", on_completion=lambda ctx: ctx.add_group()

@@ -10,6 +10,7 @@ import random
 from collections.abc import Callable, Generator, Iterator, Sequence
 from typing import (
     TYPE_CHECKING,
+    ClassVar,
     Generic,
     TypeVar,
     Union,
@@ -33,7 +34,7 @@ T = TypeVar("T")
 class Pattern(Generic[T], metaclass=abc.ABCMeta):
     ### CLASSMETHODS ###
 
-    _rngs: dict[int, Iterator[float]] = {}
+    _rngs: ClassVar[dict[int, Iterator[float]]] = {}
 
     ### SPECIAL METHODS ###
 
@@ -372,7 +373,7 @@ class SeedPattern(Pattern[T]):
 
     def __init__(self, pattern: Pattern[T], seed: int = 0) -> None:
         if not isinstance(pattern, Pattern):
-            raise ValueError(f"Must be pattern: {pattern!r}")
+            raise TypeError(f"Must be pattern: {pattern!r}")
         self._pattern = pattern
         self._seed = int(seed)
 
@@ -409,7 +410,7 @@ class SequencePattern(Pattern[T]):
         self, sequence: Sequence[T | Pattern[T]], iterations: int | None = 1
     ) -> None:
         if not isinstance(sequence, Sequence):
-            raise ValueError(f"Must be sequence: {sequence!r}")
+            raise TypeError(f"Must be sequence: {sequence!r}")
         if iterations is not None:
             iterations = int(iterations)
             if iterations < 1:

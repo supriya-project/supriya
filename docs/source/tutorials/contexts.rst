@@ -64,10 +64,10 @@ with no timestamp - simply means "do this as soon as possible". Use
 -   Scores count time from zero:
 
     ::
-        
+
         >>> with score.at(0):
         ...     score_group = score.add_group()
-        ... 
+        ...
 
 -   Servers use real timestamps:
 

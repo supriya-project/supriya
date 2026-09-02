@@ -57,7 +57,7 @@ To install Graphviz:
 
 ..  md-tab-set::
 
-    ..  md-tab-item:: OSX 
+    ..  md-tab-item:: OSX
 
         Via `Homebrew`_:
 
@@ -100,7 +100,7 @@ Jupyter notebooks, make sure to install them:
 
 ..  md-tab-set::
 
-    ..  md-tab-item:: OSX 
+    ..  md-tab-item:: OSX
 
         Via `Homebrew`_:
 

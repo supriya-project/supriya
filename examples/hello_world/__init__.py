@@ -33,7 +33,7 @@ def main() -> None:
     # Create an empty list to store synths in:
     synths: list[supriya.Synth] = []
     # Start an OSC bundle to run immediately:
-    with server.at():
+    with server.at():  # noqa: SIM117
         # Add the default synthdef to the server and open a "completion"
         # context manager to group further commands for when the synthdef
         # finishes loading:

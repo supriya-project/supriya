@@ -86,7 +86,7 @@ class Envelope:
 
         duration = sum(self.durations)
         if not isinstance(duration, float):
-            raise ValueError(duration)
+            raise TypeError(duration)
         array = self.to_array(length=int(44100 * duration))
         return numpy.array([array, [0.0] * len(array)]), 44100.0
 
@@ -141,16 +141,16 @@ class Envelope:
         start_time = 0.0
         start_amplitude = self._initial_amplitude
         if not isinstance(start_amplitude, float):
-            raise ValueError(start_amplitude)
+            raise TypeError(start_amplitude)
         if time < start_time:
             return start_amplitude
         for stop_amplitude, duration, curve in self._envelope_segments:
             if not isinstance(stop_amplitude, float):
-                raise ValueError(stop_amplitude)
+                raise TypeError(stop_amplitude)
             if not isinstance(duration, float):
-                raise ValueError
+                raise TypeError
             if not isinstance(curve, (EnvelopeShape, float)):
-                raise ValueError(curve)
+                raise TypeError(curve)
             stop_time = start_time + duration
             if time < stop_time:
                 position = (time - start_time) / duration
@@ -343,10 +343,10 @@ class Envelope:
             raise ValueError(length)
         length = max(length, len(self._amplitudes))
         if not isinstance(length, int):
-            raise ValueError("Envelope may not include UGenOperables")
+            raise TypeError("Envelope may not include UGenOperables")
         total_duration = sum(self._durations)
         if not isinstance(total_duration, float):
-            raise ValueError("Envelope may not include UGenOperables")
+            raise TypeError("Envelope may not include UGenOperables")
         ratio = total_duration / (length - 1)
         return [self.at(i * ratio) for i in range(length)]
 
