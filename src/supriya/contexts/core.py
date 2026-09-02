@@ -602,9 +602,11 @@ class Context(metaclass=abc.ABCMeta):
         """
         self._validate_can_request()
         add_action_ = AddAction.from_expr(add_action)
-        if isinstance(target_node, Node):
-            if add_action_ not in target_node._valid_add_actions:
-                raise ValueError(add_action_)
+        if (
+            isinstance(target_node, Node)
+            and add_action_ not in target_node._valid_add_actions
+        ):
+            raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
         id_ = self._allocate_id(Node, permanent=permanent)
         items = [(id_, add_action_, target_node_id)]
@@ -645,9 +647,11 @@ class Context(metaclass=abc.ABCMeta):
         """
         self._validate_can_request()
         add_action_ = AddAction.from_expr(add_action)
-        if isinstance(target_node, Node):
-            if add_action_ not in target_node._valid_add_actions:
-                raise ValueError(add_action_)
+        if (
+            isinstance(target_node, Node)
+            and add_action_ not in target_node._valid_add_actions
+        ):
+            raise ValueError(add_action_)
         target_node_id = self._resolve_node(target_node)
         synthdef_kwargs: dict[int | str, float | str | tuple[float | str, ...]] = {}
         for _, parameter in synthdef.indexed_parameters:

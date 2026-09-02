@@ -464,7 +464,7 @@ class BaseClock(Generic[C]):
         kwargs = event.kwargs or {}
         try:
             result = event.procedure(state, *args, **kwargs)
-        except Exception:
+        except Exception:  # noqa: BLE001
             traceback.print_exc()
             return
         assert not isinstance(result, Awaitable)
@@ -592,7 +592,7 @@ class BaseClock(Generic[C]):
                 self._perform_callback_event(event, current_moment, desired_moment)
                 self._process_command_deque()
             else:
-                raise ValueError(event)
+                raise TypeError(event)
         return current_moment
 
     def _process_command_deque(self, first_run: bool = False) -> None:
@@ -645,7 +645,7 @@ class BaseClock(Generic[C]):
                     time_signature=command.time_signature,
                 )
             else:
-                raise ValueError(command)
+                raise TypeError(command)
             self._enqueue_event(event)
             logger.debug(
                 f"[{self.name}] ... ... Enqueued {type(event).__name__} "
@@ -832,7 +832,7 @@ class BaseClock(Generic[C]):
                 time_unit=time_unit,
             )
         else:
-            raise ValueError(event_or_command)
+            raise TypeError(event_or_command)
         self._enqueue_command(command)
         return event_id
 
@@ -1052,7 +1052,7 @@ class AsyncClock(BaseClock[AsyncClockCallback]):
         try:
             if asyncio.iscoroutine(result := event.procedure(state, *args, **kwargs)):
                 result = await result
-        except Exception:
+        except Exception:  # noqa: BLE001
             traceback.print_exc()
             return
         assert not isinstance(result, Awaitable)
@@ -1093,7 +1093,7 @@ class AsyncClock(BaseClock[AsyncClockCallback]):
                 )
                 self._process_command_deque()
             else:
-                raise ValueError(event)
+                raise TypeError(event)
         return current_moment
 
     async def _run_async(self, offline: bool = False) -> None:
