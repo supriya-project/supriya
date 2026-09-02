@@ -66,9 +66,8 @@ jobs:
           libasound2-dev
     - name: Build docs
       run: uv run make docs
-    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+    - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
       with:
-        name: docs
         path: ./docs/build/html/
 
   upload-to-testpypi:
@@ -103,28 +102,12 @@ jobs:
 
   update-gh-pages:
     name: Update gh-pages
+    environment:
+      name: github-pages
     needs: [upload-to-pypi]
     permissions:
-      contents: read
+      id-token: write
+      pages: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-      with:
-        name: docs
-        path: docs
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      with:
-        path: gh-pages
-        ref: gh-pages
-        persist-credentials: false
-    - name: Rsync docs
-      run: rsync -rtv --del --exclude=.git docs/ gh-pages/
-    - name: Touch .nojekyll
-      run: touch gh-pages/.nojekyll
-    - uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
-      with:
-        allow_empty_commit: true
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: gh-pages
-        user_name: github-actions[bot]
-        user_email: github-actions[bot]@users.noreply.github.com
+    - uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
