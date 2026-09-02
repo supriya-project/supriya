@@ -10,7 +10,7 @@ Supriya lets you:
 - Boot and communicate with SuperCollider's synthesis engine in
   realtime.
 
-- Explore :py:mod:`~supriya.contexts.nonrealtime` composition with 
+- Explore :py:mod:`~supriya.contexts.nonrealtime` composition with
   :py:class:`scores <supriya.contexts.nonrealtime.Score>`.
 
 - Compile SuperCollider :py:class:`SynthDefs
@@ -77,7 +77,7 @@ Make a synthesizer definition::
     ...
 
 Visualize the SynthDef (requires `Graphviz`_)::
-    
+
     >>> supriya.graph(simple_sine)
 
 Allocate it on the server::
@@ -122,7 +122,7 @@ Quit the server::
 
 ..  toctree::
     :caption: Introduction
-    :hidden: 
+    :hidden:
 
     introduction/installation
     introduction/history.rst
@@ -130,7 +130,7 @@ Quit the server::
 
 ..  toctree::
     :caption: Tutorials
-    :hidden: 
+    :hidden:
 
     tutorials/index
     tutorials/contexts
@@ -146,7 +146,7 @@ Quit the server::
 
 ..  toctree::
     :caption: Examples
-    :hidden: 
+    :hidden:
 
     examples/index
     examples/hello_world
@@ -157,7 +157,7 @@ Quit the server::
 
 ..  toctree::
     :caption: For developers
-    :hidden: 
+    :hidden:
 
     developers/index
     developers/testing
@@ -167,14 +167,14 @@ Quit the server::
 
 ..  toctree::
     :caption: API Reference
-    :hidden: 
+    :hidden:
     :maxdepth: 2
 
     api/supriya/index
     api/examples/index
 
 ..  toctree::
-    :hidden: 
+    :hidden:
     :caption: Appendices
 
     appendices/glossary

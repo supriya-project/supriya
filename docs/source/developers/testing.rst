@@ -261,7 +261,7 @@ You can run this test with:
 Our first test has a problem: if the ``assert`` fails (it won't, but *if it
 did*), the server won't quit. Philosophically, booting and quitting the server
 aren't even part of what we want to test. Let's solve this, and simplify the
-test at the same time. 
+test at the same time.
 
 Testing with fixtures
 `````````````````````
@@ -388,7 +388,7 @@ server handle querying the node tree the same way:
     pytest tests/test_examples.py::test_async_and_sync
 
 ..  note::
-   
+
     Note the bracketed arguments in the `pytest`_ output. These show (if
     possible) a representation of the parametrized argument(s) to each
     individual run of the test.
@@ -576,7 +576,7 @@ that series of similar tests into a single test with varying inputs. This is a
 inputs.
 
 ..  note::
-   
+
     The `pytest`_ folks use the British "parametrize" spelling rather than the
     American "parameterized" spelling. We'll use the same spelling they do for
     the sake of consistency.

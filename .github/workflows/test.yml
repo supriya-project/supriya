@@ -74,7 +74,7 @@ jobs:
     - name: Link check
       run: uv run make linkcheck
       working-directory: docs
-  
+
   lint:
     name: Lint Supriya
     permissions:
