@@ -31,7 +31,7 @@ def callback(
 ) -> ClockDelta:
     assert isinstance(state.event, CallbackEvent)
     if state.event.invocations == blow_up_at:
-        raise Exception
+        raise RuntimeError
     store.append(state)
     if limit is None or state.event.invocations < limit:
         return delta, time_unit

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -24,13 +24,13 @@ class Stepper(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'trigger',
-        'reset',
-        'minimum',
-        'maximum',
-        'step',
-        'resetval',
-        )
+        "trigger",
+        "reset",
+        "minimum",
+        "maximum",
+        "step",
+        "resetval",
+    )
 
     _valid_calculation_rates = None
 
@@ -45,7 +45,7 @@ class Stepper(UGen):
         resetval=None,
         step=1,
         trigger=0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -55,7 +55,7 @@ class Stepper(UGen):
             resetval=resetval,
             step=step,
             trigger=trigger,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -68,7 +68,7 @@ class Stepper(UGen):
         resetval=None,
         step=1,
         trigger=0,
-        ):
+    ):
         """
         Constructs an audio-rate Stepper.
 
@@ -88,6 +88,7 @@ class Stepper(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -97,7 +98,7 @@ class Stepper(UGen):
             resetval=resetval,
             step=step,
             trigger=trigger,
-            )
+        )
         return ugen
 
     @classmethod
@@ -109,7 +110,7 @@ class Stepper(UGen):
         resetval=None,
         step=1,
         trigger=0,
-        ):
+    ):
         """
         Constructs a control-rate Stepper.
 
@@ -129,6 +130,7 @@ class Stepper(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -138,7 +140,7 @@ class Stepper(UGen):
             resetval=resetval,
             step=step,
             trigger=trigger,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -163,7 +165,7 @@ class Stepper(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('maximum')
+        index = self._ordered_input_names.index("maximum")
         return self._inputs[index]
 
     @property
@@ -186,7 +188,7 @@ class Stepper(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('minimum')
+        index = self._ordered_input_names.index("minimum")
         return self._inputs[index]
 
     @property
@@ -209,7 +211,7 @@ class Stepper(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('reset')
+        index = self._ordered_input_names.index("reset")
         return self._inputs[index]
 
     @property
@@ -231,7 +233,7 @@ class Stepper(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('resetval')
+        index = self._ordered_input_names.index("resetval")
         return self._inputs[index]
 
     @property
@@ -254,7 +256,7 @@ class Stepper(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('step')
+        index = self._ordered_input_names.index("step")
         return self._inputs[index]
 
     @property
@@ -277,5 +279,5 @@ class Stepper(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index("trigger")
         return self._inputs[index]

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import MultiOutUGen
 
 
@@ -26,16 +26,14 @@ class Splay(MultiOutUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'spread',
-        'level',
-        'center',
-        'level_comp',
-        'source',
-        )
+        "spread",
+        "level",
+        "center",
+        "level_comp",
+        "source",
+    )
 
-    _unexpanded_input_names = (
-        'source',
-        )
+    _unexpanded_input_names = ("source",)
 
     _valid_calculation_rates = None
 
@@ -49,7 +47,7 @@ class Splay(MultiOutUGen):
         level=1,
         level_comp=True,
         spread=1,
-        ):
+    ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -59,7 +57,7 @@ class Splay(MultiOutUGen):
             level=level,
             level_comp=level_comp,
             spread=spread,
-            )
+        )
 
     ### PRIVATE METHODS ###
 
@@ -72,10 +70,8 @@ class Splay(MultiOutUGen):
         level=1,
         level_comp=True,
         spread=1,
-        ):
-        ugen = cls(
-            **kwargs
-            )
+    ):
+        ugen = cls(**kwargs)
         return ugen
 
     ### PUBLIC METHODS ###
@@ -88,7 +84,7 @@ class Splay(MultiOutUGen):
         level=1,
         level_comp=True,
         spread=1,
-        ):
+    ):
         """
         Constructs an audio-rate Splay.
 
@@ -108,6 +104,7 @@ class Splay(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -116,7 +113,7 @@ class Splay(MultiOutUGen):
             level=level,
             level_comp=level_comp,
             spread=spread,
-            )
+        )
         return ugen
 
     @classmethod
@@ -127,7 +124,7 @@ class Splay(MultiOutUGen):
         level=1,
         level_comp=True,
         spread=1,
-        ):
+    ):
         """
         Constructs a control-rate Splay.
 
@@ -147,6 +144,7 @@ class Splay(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -155,7 +153,7 @@ class Splay(MultiOutUGen):
             level=level,
             level_comp=level_comp,
             spread=spread,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -180,7 +178,7 @@ class Splay(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('center')
+        index = self._ordered_input_names.index("center")
         return self._inputs[index]
 
     @property
@@ -202,7 +200,7 @@ class Splay(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]
 
     @property
@@ -225,7 +223,7 @@ class Splay(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index("level")
         return self._inputs[index]
 
     @property
@@ -248,7 +246,7 @@ class Splay(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('level_comp')
+        index = self._ordered_input_names.index("level_comp")
         return self._inputs[index]
 
     @property
@@ -271,5 +269,5 @@ class Splay(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('spread')
+        index = self._ordered_input_names.index("spread")
         return self._inputs[index]

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.Duty import Duty
 
 
@@ -23,12 +23,12 @@ class TDuty(Duty):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'duration',
-        'reset',
-        'level',
-        'done_action',
-        'gap_first',
-        )
+        "duration",
+        "reset",
+        "level",
+        "done_action",
+        "gap_first",
+    )
 
     _valid_calculation_rates = None
 
@@ -42,7 +42,7 @@ class TDuty(Duty):
         gap_first=0,
         level=1,
         reset=0,
-        ):
+    ):
         Duty.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -51,7 +51,7 @@ class TDuty(Duty):
             gap_first=gap_first,
             level=level,
             reset=reset,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -63,7 +63,7 @@ class TDuty(Duty):
         gap_first=0,
         level=1,
         reset=0,
-        ):
+    ):
         """
         Constructs an audio-rate TDuty.
 
@@ -82,6 +82,7 @@ class TDuty(Duty):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -90,7 +91,7 @@ class TDuty(Duty):
             gap_first=gap_first,
             level=level,
             reset=reset,
-            )
+        )
         return ugen
 
     @classmethod
@@ -101,7 +102,7 @@ class TDuty(Duty):
         gap_first=0,
         level=1,
         reset=0,
-        ):
+    ):
         """
         Constructs a control-rate TDuty.
 
@@ -120,6 +121,7 @@ class TDuty(Duty):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -128,7 +130,7 @@ class TDuty(Duty):
             gap_first=gap_first,
             level=level,
             reset=reset,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -152,7 +154,7 @@ class TDuty(Duty):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('done_action')
+        index = self._ordered_input_names.index("done_action")
         return self._inputs[index]
 
     @property
@@ -174,7 +176,7 @@ class TDuty(Duty):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('duration')
+        index = self._ordered_input_names.index("duration")
         return self._inputs[index]
 
     @property
@@ -196,7 +198,7 @@ class TDuty(Duty):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('gap_first')
+        index = self._ordered_input_names.index("gap_first")
         return self._inputs[index]
 
     @property
@@ -218,7 +220,7 @@ class TDuty(Duty):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index("level")
         return self._inputs[index]
 
     @property
@@ -240,5 +242,5 @@ class TDuty(Duty):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('reset')
+        index = self._ordered_input_names.index("reset")
         return self._inputs[index]

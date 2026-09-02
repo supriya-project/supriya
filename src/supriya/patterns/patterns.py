@@ -409,7 +409,7 @@ class SequencePattern(Pattern[T]):
         self, sequence: Sequence[T | Pattern[T]], iterations: int | None = 1
     ) -> None:
         if not isinstance(sequence, Sequence):
-            raise ValueError(f"Must be sequence: {sequence!r}")
+            raise TypeError(f"Must be sequence: {sequence!r}")
         if iterations is not None:
             iterations = int(iterations)
             if iterations < 1:

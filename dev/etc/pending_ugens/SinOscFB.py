@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import PureUGen
 
 
@@ -20,9 +20,9 @@ class SinOscFB(PureUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'frequency',
-        'feedback',
-        )
+        "frequency",
+        "feedback",
+    )
 
     _valid_calculation_rates = None
 
@@ -33,13 +33,13 @@ class SinOscFB(PureUGen):
         calculation_rate=None,
         feedback=0,
         frequency=440,
-        ):
+    ):
         PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             feedback=feedback,
             frequency=frequency,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -48,7 +48,7 @@ class SinOscFB(PureUGen):
         cls,
         feedback=0,
         frequency=440,
-        ):
+    ):
         """
         Constructs an audio-rate SinOscFB.
 
@@ -64,12 +64,13 @@ class SinOscFB(PureUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             feedback=feedback,
             frequency=frequency,
-            )
+        )
         return ugen
 
     @classmethod
@@ -77,7 +78,7 @@ class SinOscFB(PureUGen):
         cls,
         feedback=0,
         frequency=440,
-        ):
+    ):
         """
         Constructs a control-rate SinOscFB.
 
@@ -93,12 +94,13 @@ class SinOscFB(PureUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             feedback=feedback,
             frequency=frequency,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -119,7 +121,7 @@ class SinOscFB(PureUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('feedback')
+        index = self._ordered_input_names.index("feedback")
         return self._inputs[index]
 
     @property
@@ -138,5 +140,5 @@ class SinOscFB(PureUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('frequency')
+        index = self._ordered_input_names.index("frequency")
         return self._inputs[index]

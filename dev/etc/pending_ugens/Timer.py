@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -19,8 +19,8 @@ class Timer(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'trigger',
-        )
+        "trigger",
+    )
 
     _valid_calculation_rates = None
 
@@ -30,12 +30,12 @@ class Timer(UGen):
         self,
         calculation_rate=None,
         trigger=0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             trigger=trigger,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -43,7 +43,7 @@ class Timer(UGen):
     def ar(
         cls,
         trigger=0,
-        ):
+    ):
         """
         Constructs an audio-rate Timer.
 
@@ -58,18 +58,19 @@ class Timer(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             trigger=trigger,
-            )
+        )
         return ugen
 
     @classmethod
     def kr(
         cls,
         trigger=0,
-        ):
+    ):
         """
         Constructs a control-rate Timer.
 
@@ -84,11 +85,12 @@ class Timer(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             trigger=trigger,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -108,5 +110,5 @@ class Timer(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index("trigger")
         return self._inputs[index]

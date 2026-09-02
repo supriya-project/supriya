@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -21,10 +21,10 @@ class PulseDivider(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'trigger',
-        'div',
-        'start',
-        )
+        "trigger",
+        "div",
+        "start",
+    )
 
     _valid_calculation_rates = None
 
@@ -36,14 +36,14 @@ class PulseDivider(UGen):
         div=2,
         start=0,
         trigger=0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             div=div,
             start=start,
             trigger=trigger,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -53,7 +53,7 @@ class PulseDivider(UGen):
         div=2,
         start=0,
         trigger=0,
-        ):
+    ):
         """
         Constructs an audio-rate PulseDivider.
 
@@ -70,13 +70,14 @@ class PulseDivider(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             div=div,
             start=start,
             trigger=trigger,
-            )
+        )
         return ugen
 
     @classmethod
@@ -85,7 +86,7 @@ class PulseDivider(UGen):
         div=2,
         start=0,
         trigger=0,
-        ):
+    ):
         """
         Constructs a control-rate PulseDivider.
 
@@ -102,13 +103,14 @@ class PulseDivider(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             div=div,
             start=start,
             trigger=trigger,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -130,7 +132,7 @@ class PulseDivider(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('div')
+        index = self._ordered_input_names.index("div")
         return self._inputs[index]
 
     @property
@@ -150,7 +152,7 @@ class PulseDivider(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('start')
+        index = self._ordered_input_names.index("start")
         return self._inputs[index]
 
     @property
@@ -170,5 +172,5 @@ class PulseDivider(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index("trigger")
         return self._inputs[index]

@@ -22,9 +22,9 @@ class PV_ChainUGen(UGen):
         """
         input_ = self.inputs[0]
         if not isinstance(input_, OutputProxy):
-            raise ValueError(input_)
+            raise TypeError(input_)
         if not isinstance(input_.ugen, PV_ChainUGen):
-            raise ValueError(input_.ugen)
+            raise TypeError(input_.ugen)
         return input_.ugen.fft_size
 
 

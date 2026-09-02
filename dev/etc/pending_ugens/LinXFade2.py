@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -22,11 +22,11 @@ class LinXFade2(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'in_a',
-        'in_b',
-        'pan',
-        'level',
-        )
+        "in_a",
+        "in_b",
+        "pan",
+        "level",
+    )
 
     _valid_calculation_rates = None
 
@@ -39,7 +39,7 @@ class LinXFade2(UGen):
         in_b=0,
         level=1,
         pan=0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -47,7 +47,7 @@ class LinXFade2(UGen):
             in_b=in_b,
             level=level,
             pan=pan,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -58,7 +58,7 @@ class LinXFade2(UGen):
         in_b=0,
         level=1,
         pan=0,
-        ):
+    ):
         """
         Constructs an audio-rate LinXFade2.
 
@@ -76,6 +76,7 @@ class LinXFade2(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -83,7 +84,7 @@ class LinXFade2(UGen):
             in_b=in_b,
             level=level,
             pan=pan,
-            )
+        )
         return ugen
 
     @classmethod
@@ -93,7 +94,7 @@ class LinXFade2(UGen):
         in_b=0,
         level=1,
         pan=0,
-        ):
+    ):
         """
         Constructs a control-rate LinXFade2.
 
@@ -111,6 +112,7 @@ class LinXFade2(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -118,7 +120,7 @@ class LinXFade2(UGen):
             in_b=in_b,
             level=level,
             pan=pan,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -140,7 +142,7 @@ class LinXFade2(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('in_a')
+        index = self._ordered_input_names.index("in_a")
         return self._inputs[index]
 
     @property
@@ -161,7 +163,7 @@ class LinXFade2(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('in_b')
+        index = self._ordered_input_names.index("in_b")
         return self._inputs[index]
 
     @property
@@ -182,7 +184,7 @@ class LinXFade2(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index("level")
         return self._inputs[index]
 
     @property
@@ -203,5 +205,5 @@ class LinXFade2(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('pan')
+        index = self._ordered_input_names.index("pan")
         return self._inputs[index]

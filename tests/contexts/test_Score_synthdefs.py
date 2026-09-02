@@ -46,10 +46,9 @@ def test_add_synthdefs(context: Score, synthdefs: list[SynthDef]) -> None:
         completion = context.add_synthdefs(synthdefs[2])
     with pytest.raises(MomentClosed), completion:
         context.add_group()
-    with context.at(1.23):
-        # completion inside moment succeeds
-        with context.add_synthdefs(synthdefs[2]):
-            context.add_group()
+    # completion inside moment succeeds
+    with context.at(1.23), context.add_synthdefs(synthdefs[2]):
+        context.add_group()
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(
@@ -111,10 +110,9 @@ def test_load_synthdefs(context: Score, tmp_path: Path) -> None:
         completion = context.load_synthdefs(tmp_path / "c.scsyndef")
     with pytest.raises(MomentClosed), completion:
         context.add_group()
-    with context.at(1.23):
-        # completion inside moment succeeds
-        with context.load_synthdefs(tmp_path / "c.scsyndef"):
-            context.add_group()
+    # completion inside moment succeeds
+    with context.at(1.23), context.load_synthdefs(tmp_path / "c.scsyndef"):
+        context.add_group()
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(
@@ -152,10 +150,9 @@ def test_load_synthdefs_directory(context: Score, tmp_path: Path) -> None:
         completion = context.load_synthdefs_directory(tmp_path / "c")
     with pytest.raises(MomentClosed), completion:
         context.add_group()
-    with context.at(1.23):
-        # completion inside moment succeeds
-        with context.load_synthdefs_directory(tmp_path / "c"):
-            context.add_group()
+    # completion inside moment succeeds
+    with context.at(1.23), context.load_synthdefs_directory(tmp_path / "c"):
+        context.add_group()
     assert list(context.iterate_osc_bundles()) == [
         OscBundle(
             contents=(

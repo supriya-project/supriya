@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -22,11 +22,11 @@ class Unpack1FFT(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'chain',
-        'bufsize',
-        'binindex',
-        'whichmeasure',
-        )
+        "chain",
+        "bufsize",
+        "binindex",
+        "whichmeasure",
+    )
 
     _valid_calculation_rates = None
 
@@ -39,7 +39,7 @@ class Unpack1FFT(UGen):
         bufsize=None,
         chain=None,
         whichmeasure=0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -47,7 +47,7 @@ class Unpack1FFT(UGen):
             bufsize=bufsize,
             chain=chain,
             whichmeasure=whichmeasure,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -58,7 +58,7 @@ class Unpack1FFT(UGen):
         bufsize=None,
         chain=None,
         whichmeasure=0,
-        ):
+    ):
         """
         Constructs a Unpack1FFT.
 
@@ -75,7 +75,6 @@ class Unpack1FFT(UGen):
 
         Returns ugen graph.
         """
-        import supriya.synthdefs
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -83,7 +82,7 @@ class Unpack1FFT(UGen):
             bufsize=bufsize,
             chain=chain,
             whichmeasure=whichmeasure,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -105,7 +104,7 @@ class Unpack1FFT(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('binindex')
+        index = self._ordered_input_names.index("binindex")
         return self._inputs[index]
 
     @property
@@ -125,7 +124,7 @@ class Unpack1FFT(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bufsize')
+        index = self._ordered_input_names.index("bufsize")
         return self._inputs[index]
 
     @property
@@ -145,7 +144,7 @@ class Unpack1FFT(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('chain')
+        index = self._ordered_input_names.index("chain")
         return self._inputs[index]
 
     @property
@@ -166,5 +165,5 @@ class Unpack1FFT(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('whichmeasure')
+        index = self._ordered_input_names.index("whichmeasure")
         return self._inputs[index]

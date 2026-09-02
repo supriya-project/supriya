@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import MultiOutUGen
 
 
@@ -24,12 +24,12 @@ class FreeVerb2(MultiOutUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'in_2',
-        'mix',
-        'room',
-        'damping',
-        )
+        "source",
+        "in_2",
+        "mix",
+        "room",
+        "damping",
+    )
 
     _valid_calculation_rates = None
 
@@ -43,7 +43,7 @@ class FreeVerb2(MultiOutUGen):
         mix=0.33,
         room=0.5,
         source=None,
-        ):
+    ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -52,7 +52,7 @@ class FreeVerb2(MultiOutUGen):
             mix=mix,
             room=room,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -64,7 +64,7 @@ class FreeVerb2(MultiOutUGen):
         mix=0.33,
         room=0.5,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate FreeVerb2.
 
@@ -84,6 +84,7 @@ class FreeVerb2(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -92,7 +93,7 @@ class FreeVerb2(MultiOutUGen):
             mix=mix,
             room=room,
             source=source,
-            )
+        )
         return ugen
 
     # def newFromDesc(): ...
@@ -119,7 +120,7 @@ class FreeVerb2(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('damping')
+        index = self._ordered_input_names.index("damping")
         return self._inputs[index]
 
     @property
@@ -141,7 +142,7 @@ class FreeVerb2(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('in_2')
+        index = self._ordered_input_names.index("in_2")
         return self._inputs[index]
 
     @property
@@ -164,7 +165,7 @@ class FreeVerb2(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('mix')
+        index = self._ordered_input_names.index("mix")
         return self._inputs[index]
 
     @property
@@ -187,7 +188,7 @@ class FreeVerb2(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('room')
+        index = self._ordered_input_names.index("room")
         return self._inputs[index]
 
     @property
@@ -217,5 +218,5 @@ class FreeVerb2(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

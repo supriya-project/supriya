@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -21,10 +21,10 @@ class InRect(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'x',
-        'y',
-        'rect',
-        )
+        "x",
+        "y",
+        "rect",
+    )
 
     _valid_calculation_rates = None
 
@@ -36,14 +36,14 @@ class InRect(UGen):
         rect=None,
         x=0,
         y=0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             rect=rect,
             x=x,
             y=y,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -53,7 +53,7 @@ class InRect(UGen):
         rect=None,
         x=0,
         y=0,
-        ):
+    ):
         """
         Constructs an audio-rate InRect.
 
@@ -70,13 +70,14 @@ class InRect(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             rect=rect,
             x=x,
             y=y,
-            )
+        )
         return ugen
 
     @classmethod
@@ -85,7 +86,7 @@ class InRect(UGen):
         rect=None,
         x=0,
         y=0,
-        ):
+    ):
         """
         Constructs a control-rate InRect.
 
@@ -102,13 +103,14 @@ class InRect(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             rect=rect,
             x=x,
             y=y,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -129,7 +131,7 @@ class InRect(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('rect')
+        index = self._ordered_input_names.index("rect")
         return self._inputs[index]
 
     @property
@@ -149,7 +151,7 @@ class InRect(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('x')
+        index = self._ordered_input_names.index("x")
         return self._inputs[index]
 
     @property
@@ -169,5 +171,5 @@ class InRect(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('y')
+        index = self._ordered_input_names.index("y")
         return self._inputs[index]

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.DUGen import DUGen
 
 
@@ -23,11 +23,11 @@ class Dpoll(DUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'label',
-        'run',
-        'trigid',
-        )
+        "source",
+        "label",
+        "run",
+        "trigid",
+    )
 
     _valid_calculation_rates = None
 
@@ -40,7 +40,7 @@ class Dpoll(DUGen):
         run=1,
         source=None,
         trigid=-1,
-        ):
+    ):
         DUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -48,7 +48,7 @@ class Dpoll(DUGen):
             run=run,
             source=source,
             trigid=trigid,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -59,7 +59,7 @@ class Dpoll(DUGen):
         run=1,
         source=None,
         trigid=-1,
-        ):
+    ):
         """
         Constructs a Dpoll.
 
@@ -77,7 +77,6 @@ class Dpoll(DUGen):
 
         Returns ugen graph.
         """
-        import supriya.synthdefs
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -85,7 +84,7 @@ class Dpoll(DUGen):
             run=run,
             source=source,
             trigid=trigid,
-            )
+        )
         return ugen
 
     # def new1(): ...
@@ -110,7 +109,7 @@ class Dpoll(DUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('label')
+        index = self._ordered_input_names.index("label")
         return self._inputs[index]
 
     @property
@@ -132,7 +131,7 @@ class Dpoll(DUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('run')
+        index = self._ordered_input_names.index("run")
         return self._inputs[index]
 
     @property
@@ -161,7 +160,7 @@ class Dpoll(DUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]
 
     @property
@@ -183,5 +182,5 @@ class Dpoll(DUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigid')
+        index = self._ordered_input_names.index("trigid")
         return self._inputs[index]

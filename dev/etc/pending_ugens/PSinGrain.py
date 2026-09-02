@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -21,10 +21,10 @@ class PSinGrain(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'frequency',
-        'duration',
-        'amp',
-        )
+        "frequency",
+        "duration",
+        "amp",
+    )
 
     _valid_calculation_rates = None
 
@@ -36,14 +36,14 @@ class PSinGrain(UGen):
         amp=1,
         duration=0.2,
         frequency=440,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             amp=amp,
             duration=duration,
             frequency=frequency,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -53,7 +53,7 @@ class PSinGrain(UGen):
         amp=1,
         duration=0.2,
         frequency=440,
-        ):
+    ):
         """
         Constructs an audio-rate PSinGrain.
 
@@ -70,13 +70,14 @@ class PSinGrain(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             amp=amp,
             duration=duration,
             frequency=frequency,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -98,7 +99,7 @@ class PSinGrain(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('amp')
+        index = self._ordered_input_names.index("amp")
         return self._inputs[index]
 
     @property
@@ -118,7 +119,7 @@ class PSinGrain(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('duration')
+        index = self._ordered_input_names.index("duration")
         return self._inputs[index]
 
     @property
@@ -138,5 +139,5 @@ class PSinGrain(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('frequency')
+        index = self._ordered_input_names.index("frequency")
         return self._inputs[index]

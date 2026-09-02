@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.PulseCount import PulseCount
 
 
@@ -20,9 +20,9 @@ class SetResetFF(PulseCount):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'trigger',
-        'reset',
-        )
+        "trigger",
+        "reset",
+    )
 
     _valid_calculation_rates = None
 
@@ -33,13 +33,13 @@ class SetResetFF(PulseCount):
         calculation_rate=None,
         reset=0,
         trigger=0,
-        ):
+    ):
         PulseCount.__init__(
             self,
             calculation_rate=calculation_rate,
             reset=reset,
             trigger=trigger,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -48,7 +48,7 @@ class SetResetFF(PulseCount):
         cls,
         reset=0,
         trigger=0,
-        ):
+    ):
         """
         Constructs an audio-rate SetResetFF.
 
@@ -64,12 +64,13 @@ class SetResetFF(PulseCount):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             reset=reset,
             trigger=trigger,
-            )
+        )
         return ugen
 
     @classmethod
@@ -77,7 +78,7 @@ class SetResetFF(PulseCount):
         cls,
         reset=0,
         trigger=0,
-        ):
+    ):
         """
         Constructs a control-rate SetResetFF.
 
@@ -93,12 +94,13 @@ class SetResetFF(PulseCount):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             reset=reset,
             trigger=trigger,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -119,7 +121,7 @@ class SetResetFF(PulseCount):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('reset')
+        index = self._ordered_input_names.index("reset")
         return self._inputs[index]
 
     @property
@@ -138,5 +140,5 @@ class SetResetFF(PulseCount):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index("trigger")
         return self._inputs[index]

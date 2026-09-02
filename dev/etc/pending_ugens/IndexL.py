@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.Index import Index
 
 
@@ -21,9 +21,9 @@ class IndexL(Index):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'buffer_id',
-        'source',
-        )
+        "buffer_id",
+        "source",
+    )
 
     _valid_calculation_rates = None
 
@@ -34,13 +34,13 @@ class IndexL(Index):
         calculation_rate=None,
         buffer_id=None,
         source=None,
-        ):
+    ):
         Index.__init__(
             self,
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -49,7 +49,7 @@ class IndexL(Index):
         cls,
         buffer_id=None,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate IndexL.
 
@@ -66,12 +66,13 @@ class IndexL(Index):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             source=source,
-            )
+        )
         return ugen
 
     @classmethod
@@ -79,7 +80,7 @@ class IndexL(Index):
         cls,
         buffer_id=None,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate IndexL.
 
@@ -96,12 +97,13 @@ class IndexL(Index):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             source=source,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -122,7 +124,7 @@ class IndexL(Index):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index("buffer_id")
         return self._inputs[index]
 
     @property
@@ -149,5 +151,5 @@ class IndexL(Index):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

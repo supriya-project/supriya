@@ -1,23 +1,20 @@
 #! /usr/bin/env python
 
 import argparse
-import black
 import pathlib
+
+import black
 
 
 def black_format(lines):
-    mode = black.FileMode(
-        line_length=80, target_versions=[black.TargetVersion.PY36]
-    )
+    mode = black.FileMode(line_length=80, target_versions=[black.TargetVersion.PY36])
     return black.format_str("\n".join(lines), mode=mode).splitlines()
 
 
 def process_chunk(input_lines):
     whitespace, _, _ = input_lines[0].partition(">>> ")
     indent = len(whitespace)
-    output_lines = black_format([
-        line[indent + 4:] for line in input_lines
-    ])
+    output_lines = black_format([line[indent + 4 :] for line in input_lines])
     for i, line in enumerate(output_lines):
         prefix = ">>> " if i == 0 else "... "
         output_lines[i] = whitespace + prefix + line

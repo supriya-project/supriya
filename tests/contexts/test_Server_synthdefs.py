@@ -116,9 +116,11 @@ async def test_load_synthdefs(
             tmp_path / "b.scsyndef", on_completion=lambda ctx: ctx.add_group()
         )
         # completion without moment errors
-        with pytest.raises(MomentClosed):
-            with context.load_synthdefs(tmp_path / "c.scsyndef"):
-                context.add_group()
+        with (
+            pytest.raises(MomentClosed),
+            context.load_synthdefs(tmp_path / "c.scsyndef"),
+        ):
+            context.add_group()
         # completion inside moment succeeds
         with context.at(1.23), context.load_synthdefs(tmp_path / "c.scsyndef"):
             context.add_group()
@@ -152,9 +154,8 @@ async def test_load_synthdefs_directory(
             tmp_path, on_completion=lambda ctx: ctx.add_group()
         )
         # completion without moment errors
-        with pytest.raises(MomentClosed):
-            with context.load_synthdefs_directory(tmp_path):
-                context.add_group()
+        with pytest.raises(MomentClosed), context.load_synthdefs_directory(tmp_path):
+            context.add_group()
         # completion inside moment succeeds
         with context.at(1.23), context.load_synthdefs_directory(tmp_path):
             context.add_group()

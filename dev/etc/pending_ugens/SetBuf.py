@@ -1,4 +1,5 @@
 import collections
+
 from supriya.synthdefs import WidthFirstUGen
 
 
@@ -20,10 +21,10 @@ class SetBuf(WidthFirstUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'buffer_id',
-        'values',
-        'offset',
-        )
+        "buffer_id",
+        "values",
+        "offset",
+    )
 
     _valid_calculation_rates = None
 
@@ -35,14 +36,14 @@ class SetBuf(WidthFirstUGen):
         buffer_id=None,
         offset=0,
         values=None,
-        ):
+    ):
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             offset=offset,
             values=values,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -52,7 +53,7 @@ class SetBuf(WidthFirstUGen):
         buffer_id=None,
         offset=0,
         values=None,
-        ):
+    ):
         """
         Constructs a SetBuf.
 
@@ -68,14 +69,13 @@ class SetBuf(WidthFirstUGen):
 
         Returns ugen graph.
         """
-        import supriya.synthdefs
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             offset=offset,
             values=values,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -96,7 +96,7 @@ class SetBuf(WidthFirstUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index("buffer_id")
         return self._inputs[index]
 
     @property
@@ -116,7 +116,7 @@ class SetBuf(WidthFirstUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('offset')
+        index = self._ordered_input_names.index("offset")
         return self._inputs[index]
 
     @property
@@ -135,5 +135,5 @@ class SetBuf(WidthFirstUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('values')
+        index = self._ordered_input_names.index("values")
         return self._inputs[index]

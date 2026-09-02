@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -21,10 +21,10 @@ class Tap(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'buffer_id',
-        'channel_count',
-        'delay_time',
-        )
+        "buffer_id",
+        "channel_count",
+        "delay_time",
+    )
 
     _valid_calculation_rates = None
 
@@ -36,14 +36,14 @@ class Tap(UGen):
         buffer_id=0,
         channel_count=1,
         delay_time=0.2,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             channel_count=channel_count,
             delay_time=delay_time,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -53,7 +53,7 @@ class Tap(UGen):
         buffer_id=0,
         channel_count=1,
         delay_time=0.2,
-        ):
+    ):
         """
         Constructs an audio-rate Tap.
 
@@ -70,13 +70,14 @@ class Tap(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             channel_count=channel_count,
             delay_time=delay_time,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -98,7 +99,7 @@ class Tap(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index("buffer_id")
         return self._inputs[index]
 
     @property
@@ -118,7 +119,7 @@ class Tap(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('channel_count')
+        index = self._ordered_input_names.index("channel_count")
         return self._inputs[index]
 
     @property
@@ -138,5 +139,5 @@ class Tap(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('delay_time')
+        index = self._ordered_input_names.index("delay_time")
         return self._inputs[index]

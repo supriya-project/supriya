@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.Filter import Filter
 
 
@@ -26,12 +26,12 @@ class VarLag(Filter):
     __slots__ = ()
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'time',
-        'curvature',
-        'warp',
-        'start',
-        )
+        "source",
+        "time",
+        "curvature",
+        "warp",
+        "start",
+    )
 
     _valid_calculation_rates = None
 
@@ -45,7 +45,7 @@ class VarLag(Filter):
         start=None,
         time=0.1,
         warp=5,
-        ):
+    ):
         Filter.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -54,7 +54,7 @@ class VarLag(Filter):
             start=start,
             time=time,
             warp=warp,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -66,7 +66,7 @@ class VarLag(Filter):
         start=None,
         time=0.1,
         warp=5,
-        ):
+    ):
         """
         Constructs an audio-rate VarLag.
 
@@ -86,6 +86,7 @@ class VarLag(Filter):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -94,7 +95,7 @@ class VarLag(Filter):
             start=start,
             time=time,
             warp=warp,
-            )
+        )
         return ugen
 
     # def coeffs(): ...
@@ -107,7 +108,7 @@ class VarLag(Filter):
         start=None,
         time=0.1,
         warp=5,
-        ):
+    ):
         """
         Constructs a control-rate VarLag.
 
@@ -127,6 +128,7 @@ class VarLag(Filter):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -135,7 +137,7 @@ class VarLag(Filter):
             start=start,
             time=time,
             warp=warp,
-            )
+        )
         return ugen
 
     # def magResponse(): ...
@@ -172,7 +174,7 @@ class VarLag(Filter):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('curvature')
+        index = self._ordered_input_names.index("curvature")
         return self._inputs[index]
 
     @property
@@ -202,7 +204,7 @@ class VarLag(Filter):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]
 
     @property
@@ -224,7 +226,7 @@ class VarLag(Filter):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('start')
+        index = self._ordered_input_names.index("start")
         return self._inputs[index]
 
     @property
@@ -247,7 +249,7 @@ class VarLag(Filter):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('time')
+        index = self._ordered_input_names.index("time")
         return self._inputs[index]
 
     @property
@@ -270,5 +272,5 @@ class VarLag(Filter):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('warp')
+        index = self._ordered_input_names.index("warp")
         return self._inputs[index]

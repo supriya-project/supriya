@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import MultiOutUGen
 
 
@@ -23,9 +23,9 @@ class XFadeRotate(MultiOutUGen):
     __slots__ = ()
 
     _ordered_input_names = collections.OrderedDict(
-        'n',
-        'source',
-        )
+        "n",
+        "source",
+    )
 
     _valid_calculation_rates = None
 
@@ -36,13 +36,13 @@ class XFadeRotate(MultiOutUGen):
         calculation_rate=None,
         n=0,
         source=None,
-        ):
+    ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             n=n,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -51,7 +51,7 @@ class XFadeRotate(MultiOutUGen):
         cls,
         n=0,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate XFadeRotate.
 
@@ -68,12 +68,13 @@ class XFadeRotate(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             n=n,
             source=source,
-            )
+        )
         return ugen
 
     @classmethod
@@ -81,7 +82,7 @@ class XFadeRotate(MultiOutUGen):
         cls,
         n=0,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate XFadeRotate.
 
@@ -98,12 +99,13 @@ class XFadeRotate(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             n=n,
             source=source,
-            )
+        )
         return ugen
 
     # def newFromDesc(): ...
@@ -127,7 +129,7 @@ class XFadeRotate(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('n')
+        index = self._ordered_input_names.index("n")
         return self._inputs[index]
 
     @property
@@ -154,5 +156,5 @@ class XFadeRotate(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import MultiOutUGen
 
 
@@ -24,11 +24,11 @@ class UnpackFFT(MultiOutUGen):
     __slots__ = ()
 
     _ordered_input_names = collections.OrderedDict(
-        'chain',
-        'bufsize',
-        'frombin',
-        'tobin',
-        )
+        "chain",
+        "bufsize",
+        "frombin",
+        "tobin",
+    )
 
     _valid_calculation_rates = None
 
@@ -41,7 +41,7 @@ class UnpackFFT(MultiOutUGen):
         chain=None,
         frombin=0,
         tobin=None,
-        ):
+    ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -49,7 +49,7 @@ class UnpackFFT(MultiOutUGen):
             chain=chain,
             frombin=frombin,
             tobin=tobin,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -60,7 +60,7 @@ class UnpackFFT(MultiOutUGen):
         chain=None,
         frombin=0,
         tobin=None,
-        ):
+    ):
         """
         Constructs a UnpackFFT.
 
@@ -77,7 +77,6 @@ class UnpackFFT(MultiOutUGen):
 
         Returns ugen graph.
         """
-        import supriya.synthdefs
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -85,7 +84,7 @@ class UnpackFFT(MultiOutUGen):
             chain=chain,
             frombin=frombin,
             tobin=tobin,
-            )
+        )
         return ugen
 
     # def newFromDesc(): ...
@@ -109,7 +108,7 @@ class UnpackFFT(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bufsize')
+        index = self._ordered_input_names.index("bufsize")
         return self._inputs[index]
 
     @property
@@ -129,7 +128,7 @@ class UnpackFFT(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('chain')
+        index = self._ordered_input_names.index("chain")
         return self._inputs[index]
 
     @property
@@ -150,7 +149,7 @@ class UnpackFFT(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('frombin')
+        index = self._ordered_input_names.index("frombin")
         return self._inputs[index]
 
     @property
@@ -170,5 +169,5 @@ class UnpackFFT(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('tobin')
+        index = self._ordered_input_names.index("tobin")
         return self._inputs[index]

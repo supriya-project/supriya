@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -22,11 +22,11 @@ class ScopeOut2(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'input_array',
-        'scope_num',
-        'max_frames',
-        'scope_frames',
-        )
+        "input_array",
+        "scope_num",
+        "max_frames",
+        "scope_frames",
+    )
 
     _valid_calculation_rates = None
 
@@ -39,7 +39,7 @@ class ScopeOut2(UGen):
         max_frames=4096,
         scope_frames=None,
         scope_num=0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -47,7 +47,7 @@ class ScopeOut2(UGen):
             max_frames=max_frames,
             scope_frames=scope_frames,
             scope_num=scope_num,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -58,7 +58,7 @@ class ScopeOut2(UGen):
         max_frames=4096,
         scope_frames=None,
         scope_num=0,
-        ):
+    ):
         """
         Constructs an audio-rate ScopeOut2.
 
@@ -76,6 +76,7 @@ class ScopeOut2(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -83,7 +84,7 @@ class ScopeOut2(UGen):
             max_frames=max_frames,
             scope_frames=scope_frames,
             scope_num=scope_num,
-            )
+        )
         return ugen
 
     @classmethod
@@ -93,7 +94,7 @@ class ScopeOut2(UGen):
         max_frames=4096,
         scope_frames=None,
         scope_num=0,
-        ):
+    ):
         """
         Constructs a control-rate ScopeOut2.
 
@@ -111,6 +112,7 @@ class ScopeOut2(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -118,7 +120,7 @@ class ScopeOut2(UGen):
             max_frames=max_frames,
             scope_frames=scope_frames,
             scope_num=scope_num,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -140,7 +142,7 @@ class ScopeOut2(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('input_array')
+        index = self._ordered_input_names.index("input_array")
         return self._inputs[index]
 
     @property
@@ -161,7 +163,7 @@ class ScopeOut2(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('max_frames')
+        index = self._ordered_input_names.index("max_frames")
         return self._inputs[index]
 
     @property
@@ -181,7 +183,7 @@ class ScopeOut2(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('scope_frames')
+        index = self._ordered_input_names.index("scope_frames")
         return self._inputs[index]
 
     @property
@@ -202,5 +204,5 @@ class ScopeOut2(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('scope_num')
+        index = self._ordered_input_names.index("scope_num")
         return self._inputs[index]

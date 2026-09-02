@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -21,10 +21,10 @@ class FFTTrigger(PV_ChainUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'buffer_id',
-        'hop',
-        'polar',
-        )
+        "buffer_id",
+        "hop",
+        "polar",
+    )
 
     _valid_calculation_rates = None
 
@@ -36,14 +36,14 @@ class FFTTrigger(PV_ChainUGen):
         buffer_id=None,
         hop=0.5,
         polar=0,
-        ):
+    ):
         PV_ChainUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             hop=hop,
             polar=polar,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -53,7 +53,7 @@ class FFTTrigger(PV_ChainUGen):
         buffer_id=None,
         hop=0.5,
         polar=0,
-        ):
+    ):
         """
         Constructs a FFTTrigger.
 
@@ -75,7 +75,7 @@ class FFTTrigger(PV_ChainUGen):
             buffer_id=buffer_id,
             hop=hop,
             polar=polar,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -96,7 +96,7 @@ class FFTTrigger(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index("buffer_id")
         return self._inputs[index]
 
     @property
@@ -116,7 +116,7 @@ class FFTTrigger(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('hop')
+        index = self._ordered_input_names.index("hop")
         return self._inputs[index]
 
     @property
@@ -136,5 +136,5 @@ class FFTTrigger(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('polar')
+        index = self._ordered_input_names.index("polar")
         return self._inputs[index]

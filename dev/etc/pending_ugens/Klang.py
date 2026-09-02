@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -21,10 +21,10 @@ class Klang(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'specifications_array_ref',
-        'freqscale',
-        'freqoffset',
-        )
+        "specifications_array_ref",
+        "freqscale",
+        "freqoffset",
+    )
 
     _valid_calculation_rates = None
 
@@ -36,14 +36,14 @@ class Klang(UGen):
         freqoffset=0,
         freqscale=1,
         specifications_array_ref=None,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             freqoffset=freqoffset,
             freqscale=freqscale,
             specifications_array_ref=specifications_array_ref,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -53,7 +53,7 @@ class Klang(UGen):
         freqoffset=0,
         freqscale=1,
         specifications_array_ref=None,
-        ):
+    ):
         """
         Constructs an audio-rate Klang.
 
@@ -70,13 +70,14 @@ class Klang(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             freqoffset=freqoffset,
             freqscale=freqscale,
             specifications_array_ref=specifications_array_ref,
-            )
+        )
         return ugen
 
     # def new1(): ...
@@ -100,7 +101,7 @@ class Klang(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('freqoffset')
+        index = self._ordered_input_names.index("freqoffset")
         return self._inputs[index]
 
     @property
@@ -120,7 +121,7 @@ class Klang(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('freqscale')
+        index = self._ordered_input_names.index("freqscale")
         return self._inputs[index]
 
     @property
@@ -139,5 +140,5 @@ class Klang(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('specifications_array_ref')
+        index = self._ordered_input_names.index("specifications_array_ref")
         return self._inputs[index]

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.A2K import A2K
 
 
@@ -20,8 +20,8 @@ class T2K(A2K):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        )
+        "source",
+    )
 
     _valid_calculation_rates = None
 
@@ -31,12 +31,12 @@ class T2K(A2K):
         self,
         calculation_rate=None,
         source=None,
-        ):
+    ):
         A2K.__init__(
             self,
             calculation_rate=calculation_rate,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -44,7 +44,7 @@ class T2K(A2K):
     def kr(
         cls,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate T2K.
 
@@ -60,11 +60,12 @@ class T2K(A2K):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             source=source,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -92,5 +93,5 @@ class T2K(A2K):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

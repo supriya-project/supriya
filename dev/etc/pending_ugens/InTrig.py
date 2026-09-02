@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.AbstractIn import AbstractIn
 
 
@@ -20,9 +20,9 @@ class InTrig(AbstractIn):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'bus',
-        'channel_count',
-        )
+        "bus",
+        "channel_count",
+    )
 
     _valid_calculation_rates = None
 
@@ -33,13 +33,13 @@ class InTrig(AbstractIn):
         calculation_rate=None,
         bus=0,
         channel_count=1,
-        ):
+    ):
         AbstractIn.__init__(
             self,
             calculation_rate=calculation_rate,
             bus=bus,
             channel_count=channel_count,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -50,7 +50,7 @@ class InTrig(AbstractIn):
         cls,
         bus=0,
         channel_count=1,
-        ):
+    ):
         """
         Constructs a control-rate InTrig.
 
@@ -66,12 +66,13 @@ class InTrig(AbstractIn):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bus=bus,
             channel_count=channel_count,
-            )
+        )
         return ugen
 
     # def newFromDesc(): ...
@@ -94,7 +95,7 @@ class InTrig(AbstractIn):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bus')
+        index = self._ordered_input_names.index("bus")
         return self._inputs[index]
 
     @property
@@ -113,5 +114,5 @@ class InTrig(AbstractIn):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('channel_count')
+        index = self._ordered_input_names.index("channel_count")
         return self._inputs[index]

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -22,10 +22,10 @@ class PartConv(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'fftsize',
-        'irbufnum',
-        )
+        "source",
+        "fftsize",
+        "irbufnum",
+    )
 
     _valid_calculation_rates = None
 
@@ -37,14 +37,14 @@ class PartConv(UGen):
         fftsize=None,
         irbufnum=None,
         source=None,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             fftsize=fftsize,
             irbufnum=irbufnum,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -54,7 +54,7 @@ class PartConv(UGen):
         fftsize=None,
         irbufnum=None,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate PartConv.
 
@@ -72,13 +72,14 @@ class PartConv(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             fftsize=fftsize,
             irbufnum=irbufnum,
             source=source,
-            )
+        )
         return ugen
 
     # def calcBufSize(): ...
@@ -104,7 +105,7 @@ class PartConv(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('fftsize')
+        index = self._ordered_input_names.index("fftsize")
         return self._inputs[index]
 
     @property
@@ -124,7 +125,7 @@ class PartConv(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('irbufnum')
+        index = self._ordered_input_names.index("irbufnum")
         return self._inputs[index]
 
     @property
@@ -152,5 +153,5 @@ class PartConv(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

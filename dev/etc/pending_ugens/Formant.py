@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import PureUGen
 
 
@@ -21,10 +21,10 @@ class Formant(PureUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'fundfrequency',
-        'formfrequency',
-        'bwfrequency',
-        )
+        "fundfrequency",
+        "formfrequency",
+        "bwfrequency",
+    )
 
     _valid_calculation_rates = None
 
@@ -36,14 +36,14 @@ class Formant(PureUGen):
         bwfrequency=880,
         formfrequency=1760,
         fundfrequency=440,
-        ):
+    ):
         PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             bwfrequency=bwfrequency,
             formfrequency=formfrequency,
             fundfrequency=fundfrequency,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -53,7 +53,7 @@ class Formant(PureUGen):
         bwfrequency=880,
         formfrequency=1760,
         fundfrequency=440,
-        ):
+    ):
         """
         Constructs an audio-rate Formant.
 
@@ -70,13 +70,14 @@ class Formant(PureUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bwfrequency=bwfrequency,
             formfrequency=formfrequency,
             fundfrequency=fundfrequency,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -98,7 +99,7 @@ class Formant(PureUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bwfrequency')
+        index = self._ordered_input_names.index("bwfrequency")
         return self._inputs[index]
 
     @property
@@ -118,7 +119,7 @@ class Formant(PureUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('formfrequency')
+        index = self._ordered_input_names.index("formfrequency")
         return self._inputs[index]
 
     @property
@@ -138,5 +139,5 @@ class Formant(PureUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('fundfrequency')
+        index = self._ordered_input_names.index("fundfrequency")
         return self._inputs[index]

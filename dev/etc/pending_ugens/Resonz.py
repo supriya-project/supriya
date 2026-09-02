@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.Filter import Filter
 
 
@@ -22,10 +22,10 @@ class Resonz(Filter):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'frequency',
-        'bwr',
-        )
+        "source",
+        "frequency",
+        "bwr",
+    )
 
     _valid_calculation_rates = None
 
@@ -37,14 +37,14 @@ class Resonz(Filter):
         bwr=1,
         frequency=440,
         source=None,
-        ):
+    ):
         Filter.__init__(
             self,
             calculation_rate=calculation_rate,
             bwr=bwr,
             frequency=frequency,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -54,7 +54,7 @@ class Resonz(Filter):
         bwr=1,
         frequency=440,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate Resonz.
 
@@ -72,13 +72,14 @@ class Resonz(Filter):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bwr=bwr,
             frequency=frequency,
             source=source,
-            )
+        )
         return ugen
 
     # def coeffs(): ...
@@ -89,7 +90,7 @@ class Resonz(Filter):
         bwr=1,
         frequency=440,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate Resonz.
 
@@ -107,13 +108,14 @@ class Resonz(Filter):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bwr=bwr,
             frequency=frequency,
             source=source,
-            )
+        )
         return ugen
 
     # def magResponse(): ...
@@ -146,7 +148,7 @@ class Resonz(Filter):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bwr')
+        index = self._ordered_input_names.index("bwr")
         return self._inputs[index]
 
     @property
@@ -167,7 +169,7 @@ class Resonz(Filter):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('frequency')
+        index = self._ordered_input_names.index("frequency")
         return self._inputs[index]
 
     @property
@@ -195,5 +197,5 @@ class Resonz(Filter):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

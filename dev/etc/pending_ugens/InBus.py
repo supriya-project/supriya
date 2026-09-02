@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -22,11 +22,11 @@ class InBus(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'bus',
-        'channel_count',
-        'offset',
-        'clip',
-        )
+        "bus",
+        "channel_count",
+        "offset",
+        "clip",
+    )
 
     _valid_calculation_rates = None
 
@@ -39,7 +39,7 @@ class InBus(UGen):
         channel_count=None,
         clip=None,
         offset=0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -47,7 +47,7 @@ class InBus(UGen):
             channel_count=channel_count,
             clip=clip,
             offset=offset,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -58,7 +58,7 @@ class InBus(UGen):
         channel_count=None,
         clip=None,
         offset=0,
-        ):
+    ):
         """
         Constructs an audio-rate InBus.
 
@@ -76,6 +76,7 @@ class InBus(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -83,7 +84,7 @@ class InBus(UGen):
             channel_count=channel_count,
             clip=clip,
             offset=offset,
-            )
+        )
         return ugen
 
     @classmethod
@@ -93,7 +94,7 @@ class InBus(UGen):
         channel_count=None,
         clip=None,
         offset=0,
-        ):
+    ):
         """
         Constructs a control-rate InBus.
 
@@ -111,6 +112,7 @@ class InBus(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -118,7 +120,7 @@ class InBus(UGen):
             channel_count=channel_count,
             clip=clip,
             offset=offset,
-            )
+        )
         return ugen
 
     # def new1(): ...
@@ -142,7 +144,7 @@ class InBus(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bus')
+        index = self._ordered_input_names.index("bus")
         return self._inputs[index]
 
     @property
@@ -162,7 +164,7 @@ class InBus(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('channel_count')
+        index = self._ordered_input_names.index("channel_count")
         return self._inputs[index]
 
     @property
@@ -182,7 +184,7 @@ class InBus(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('clip')
+        index = self._ordered_input_names.index("clip")
         return self._inputs[index]
 
     @property
@@ -203,5 +205,5 @@ class InBus(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('offset')
+        index = self._ordered_input_names.index("offset")
         return self._inputs[index]

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.Pan2 import Pan2
 
 
@@ -22,10 +22,10 @@ class LinPan2(Pan2):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'pos',
-        'level',
-        )
+        "source",
+        "pos",
+        "level",
+    )
 
     _valid_calculation_rates = None
 
@@ -37,14 +37,14 @@ class LinPan2(Pan2):
         level=1,
         pos=0,
         source=None,
-        ):
+    ):
         Pan2.__init__(
             self,
             calculation_rate=calculation_rate,
             level=level,
             pos=pos,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -54,7 +54,7 @@ class LinPan2(Pan2):
         level=1,
         pos=0,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate LinPan2.
 
@@ -72,13 +72,14 @@ class LinPan2(Pan2):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             level=level,
             pos=pos,
             source=source,
-            )
+        )
         return ugen
 
     @classmethod
@@ -87,7 +88,7 @@ class LinPan2(Pan2):
         level=1,
         pos=0,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate LinPan2.
 
@@ -105,13 +106,14 @@ class LinPan2(Pan2):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             level=level,
             pos=pos,
             source=source,
-            )
+        )
         return ugen
 
     # def newFromDesc(): ...
@@ -136,7 +138,7 @@ class LinPan2(Pan2):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index("level")
         return self._inputs[index]
 
     @property
@@ -157,7 +159,7 @@ class LinPan2(Pan2):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('pos')
+        index = self._ordered_input_names.index("pos")
         return self._inputs[index]
 
     @property
@@ -185,5 +187,5 @@ class LinPan2(Pan2):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

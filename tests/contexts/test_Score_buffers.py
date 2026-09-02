@@ -199,10 +199,9 @@ def test_free_buffer(context: Score) -> None:
         buffer_b = context.add_buffer(channel_count=1, frame_count=23)
         buffer_c = context.add_buffer(channel_count=1, frame_count=23)
         completion = buffer_a.free()
-    with pytest.raises(MomentClosed):
-        # completion without moment errors, but initial request succeeds
-        with completion:
-            ...
+    # completion without moment errors, but initial request succeeds
+    with pytest.raises(MomentClosed), completion:
+        ...
     with context.at(1.23):
         # completion via on_completion lambda succeeds
         buffer_b.free(on_completion=lambda ctx: ctx.add_group())

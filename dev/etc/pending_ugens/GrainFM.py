@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import MultiOutUGen
 
 
@@ -27,16 +27,16 @@ class GrainFM(MultiOutUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'channel_count',
-        'trigger',
-        'duration',
-        'carfrequency',
-        'modfrequency',
-        'index',
-        'pan',
-        'envbufnum',
-        'max_grains',
-        )
+        "channel_count",
+        "trigger",
+        "duration",
+        "carfrequency",
+        "modfrequency",
+        "index",
+        "pan",
+        "envbufnum",
+        "max_grains",
+    )
 
     _valid_calculation_rates = None
 
@@ -54,7 +54,7 @@ class GrainFM(MultiOutUGen):
         modfrequency=200,
         pan=0,
         trigger=0,
-        ):
+    ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -67,7 +67,7 @@ class GrainFM(MultiOutUGen):
             modfrequency=modfrequency,
             pan=pan,
             trigger=trigger,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -83,7 +83,7 @@ class GrainFM(MultiOutUGen):
         modfrequency=200,
         pan=0,
         trigger=0,
-        ):
+    ):
         """
         Constructs an audio-rate GrainFM.
 
@@ -106,6 +106,7 @@ class GrainFM(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -118,7 +119,7 @@ class GrainFM(MultiOutUGen):
             modfrequency=modfrequency,
             pan=pan,
             trigger=trigger,
-            )
+        )
         return ugen
 
     # def newFromDesc(): ...
@@ -148,7 +149,7 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('carfrequency')
+        index = self._ordered_input_names.index("carfrequency")
         return self._inputs[index]
 
     @property
@@ -174,7 +175,7 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('channel_count')
+        index = self._ordered_input_names.index("channel_count")
         return self._inputs[index]
 
     @property
@@ -200,7 +201,7 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('duration')
+        index = self._ordered_input_names.index("duration")
         return self._inputs[index]
 
     @property
@@ -226,7 +227,7 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('envbufnum')
+        index = self._ordered_input_names.index("envbufnum")
         return self._inputs[index]
 
     @property
@@ -252,7 +253,7 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('index')
+        index = self._ordered_input_names.index("index")
         return self._inputs[index]
 
     @property
@@ -278,7 +279,7 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('max_grains')
+        index = self._ordered_input_names.index("max_grains")
         return self._inputs[index]
 
     @property
@@ -304,7 +305,7 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('modfrequency')
+        index = self._ordered_input_names.index("modfrequency")
         return self._inputs[index]
 
     @property
@@ -330,7 +331,7 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('pan')
+        index = self._ordered_input_names.index("pan")
         return self._inputs[index]
 
     @property
@@ -356,5 +357,5 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index("trigger")
         return self._inputs[index]

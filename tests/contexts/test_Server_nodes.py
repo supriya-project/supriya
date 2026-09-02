@@ -447,10 +447,12 @@ async def test_set_node_range(context: AsyncServer | Server) -> None:
 async def test_trace_node(context: AsyncServer | Server) -> None:
     for _ in range(5):
         context.default_group.add_group()
-    with context.osc_protocol.capture() as transcript:
-        with context.process_protocol.capture() as process_transcript:
-            await get(context.default_group.trace())
-            await asyncio.sleep(0.1)
+    with (
+        context.osc_protocol.capture() as transcript,
+        context.process_protocol.capture() as process_transcript,
+    ):
+        await get(context.default_group.trace())
+        await asyncio.sleep(0.1)
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/n_trace", 1),
     ]

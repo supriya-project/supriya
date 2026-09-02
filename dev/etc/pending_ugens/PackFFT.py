@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -24,13 +24,13 @@ class PackFFT(PV_ChainUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'chain',
-        'bufsize',
-        'magsphases',
-        'frombin',
-        'tobin',
-        'zeroothers',
-        )
+        "chain",
+        "bufsize",
+        "magsphases",
+        "frombin",
+        "tobin",
+        "zeroothers",
+    )
 
     _valid_calculation_rates = None
 
@@ -45,7 +45,7 @@ class PackFFT(PV_ChainUGen):
         magsphases=None,
         tobin=None,
         zeroothers=0,
-        ):
+    ):
         PV_ChainUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -55,7 +55,7 @@ class PackFFT(PV_ChainUGen):
             magsphases=magsphases,
             tobin=tobin,
             zeroothers=zeroothers,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -68,7 +68,7 @@ class PackFFT(PV_ChainUGen):
         magsphases=None,
         tobin=None,
         zeroothers=0,
-        ):
+    ):
         """
         Constructs a PackFFT.
 
@@ -87,7 +87,6 @@ class PackFFT(PV_ChainUGen):
 
         Returns ugen graph.
         """
-        import supriya.synthdefs
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -97,7 +96,7 @@ class PackFFT(PV_ChainUGen):
             magsphases=magsphases,
             tobin=tobin,
             zeroothers=zeroothers,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -121,7 +120,7 @@ class PackFFT(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bufsize')
+        index = self._ordered_input_names.index("bufsize")
         return self._inputs[index]
 
     @property
@@ -143,7 +142,7 @@ class PackFFT(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('chain')
+        index = self._ordered_input_names.index("chain")
         return self._inputs[index]
 
     @property
@@ -166,7 +165,7 @@ class PackFFT(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('frombin')
+        index = self._ordered_input_names.index("frombin")
         return self._inputs[index]
 
     @property
@@ -188,7 +187,7 @@ class PackFFT(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('magsphases')
+        index = self._ordered_input_names.index("magsphases")
         return self._inputs[index]
 
     @property
@@ -210,7 +209,7 @@ class PackFFT(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('tobin')
+        index = self._ordered_input_names.index("tobin")
         return self._inputs[index]
 
     @property
@@ -233,5 +232,5 @@ class PackFFT(PV_ChainUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('zeroothers')
+        index = self._ordered_input_names.index("zeroothers")
         return self._inputs[index]

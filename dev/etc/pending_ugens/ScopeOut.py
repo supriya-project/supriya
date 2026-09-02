@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -20,9 +20,9 @@ class ScopeOut(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'input_array',
-        'buffer_id',
-        )
+        "input_array",
+        "buffer_id",
+    )
 
     _valid_calculation_rates = None
 
@@ -33,13 +33,13 @@ class ScopeOut(UGen):
         calculation_rate=None,
         buffer_id=0,
         input_array=None,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             input_array=input_array,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -48,7 +48,7 @@ class ScopeOut(UGen):
         cls,
         buffer_id=0,
         input_array=None,
-        ):
+    ):
         """
         Constructs an audio-rate ScopeOut.
 
@@ -64,12 +64,13 @@ class ScopeOut(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             input_array=input_array,
-            )
+        )
         return ugen
 
     @classmethod
@@ -77,7 +78,7 @@ class ScopeOut(UGen):
         cls,
         buffer_id=0,
         input_array=None,
-        ):
+    ):
         """
         Constructs a control-rate ScopeOut.
 
@@ -93,12 +94,13 @@ class ScopeOut(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             input_array=input_array,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -119,7 +121,7 @@ class ScopeOut(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index("buffer_id")
         return self._inputs[index]
 
     @property
@@ -137,5 +139,5 @@ class ScopeOut(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('input_array')
+        index = self._ordered_input_names.index("input_array")
         return self._inputs[index]

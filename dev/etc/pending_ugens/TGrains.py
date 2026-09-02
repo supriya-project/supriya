@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import MultiOutUGen
 
 
@@ -27,16 +27,16 @@ class TGrains(MultiOutUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'channel_count',
-        'trigger',
-        'buffer_id',
-        'rate',
-        'center_pos',
-        'duration',
-        'pan',
-        'amp',
-        'interpolate',
-        )
+        "channel_count",
+        "trigger",
+        "buffer_id",
+        "rate",
+        "center_pos",
+        "duration",
+        "pan",
+        "amp",
+        "interpolate",
+    )
 
     _valid_calculation_rates = None
 
@@ -54,7 +54,7 @@ class TGrains(MultiOutUGen):
         pan=0,
         rate=1,
         trigger=0,
-        ):
+    ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -67,7 +67,7 @@ class TGrains(MultiOutUGen):
             pan=pan,
             rate=rate,
             trigger=trigger,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -83,7 +83,7 @@ class TGrains(MultiOutUGen):
         pan=0,
         rate=1,
         trigger=0,
-        ):
+    ):
         """
         Constructs an audio-rate TGrains.
 
@@ -106,6 +106,7 @@ class TGrains(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -118,7 +119,7 @@ class TGrains(MultiOutUGen):
             pan=pan,
             rate=rate,
             trigger=trigger,
-            )
+        )
         return ugen
 
     # def newFromDesc(): ...
@@ -148,7 +149,7 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('amp')
+        index = self._ordered_input_names.index("amp")
         return self._inputs[index]
 
     @property
@@ -174,7 +175,7 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index("buffer_id")
         return self._inputs[index]
 
     @property
@@ -200,7 +201,7 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('center_pos')
+        index = self._ordered_input_names.index("center_pos")
         return self._inputs[index]
 
     @property
@@ -225,7 +226,7 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('channel_count')
+        index = self._ordered_input_names.index("channel_count")
         return self._inputs[index]
 
     @property
@@ -251,7 +252,7 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('duration')
+        index = self._ordered_input_names.index("duration")
         return self._inputs[index]
 
     @property
@@ -277,7 +278,7 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('interpolate')
+        index = self._ordered_input_names.index("interpolate")
         return self._inputs[index]
 
     @property
@@ -303,7 +304,7 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('pan')
+        index = self._ordered_input_names.index("pan")
         return self._inputs[index]
 
     @property
@@ -329,7 +330,7 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('rate')
+        index = self._ordered_input_names.index("rate")
         return self._inputs[index]
 
     @property
@@ -355,5 +356,5 @@ class TGrains(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index("trigger")
         return self._inputs[index]

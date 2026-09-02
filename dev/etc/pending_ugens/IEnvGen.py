@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -20,9 +20,9 @@ class IEnvGen(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'envelope',
-        'index',
-        )
+        "envelope",
+        "index",
+    )
 
     _valid_calculation_rates = None
 
@@ -33,13 +33,13 @@ class IEnvGen(UGen):
         calculation_rate=None,
         envelope=None,
         index=None,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             envelope=envelope,
             index=index,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -48,7 +48,7 @@ class IEnvGen(UGen):
         cls,
         envelope=None,
         index=None,
-        ):
+    ):
         """
         Constructs an audio-rate IEnvGen.
 
@@ -64,12 +64,13 @@ class IEnvGen(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             envelope=envelope,
             index=index,
-            )
+        )
         return ugen
 
     # def convertEnv(): ...
@@ -79,7 +80,7 @@ class IEnvGen(UGen):
         cls,
         envelope=None,
         index=None,
-        ):
+    ):
         """
         Constructs a control-rate IEnvGen.
 
@@ -95,12 +96,13 @@ class IEnvGen(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             envelope=envelope,
             index=index,
-            )
+        )
         return ugen
 
     # def new1(): ...
@@ -122,7 +124,7 @@ class IEnvGen(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('envelope')
+        index = self._ordered_input_names.index("envelope")
         return self._inputs[index]
 
     @property
@@ -140,5 +142,5 @@ class IEnvGen(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('index')
+        index = self._ordered_input_names.index("index")
         return self._inputs[index]

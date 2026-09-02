@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.ugens.K2A import K2A
 
 
@@ -21,9 +21,9 @@ class T2A(K2A):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'offset',
-        )
+        "source",
+        "offset",
+    )
 
     _valid_calculation_rates = None
 
@@ -34,13 +34,13 @@ class T2A(K2A):
         calculation_rate=None,
         offset=0,
         source=None,
-        ):
+    ):
         K2A.__init__(
             self,
             calculation_rate=calculation_rate,
             offset=offset,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -49,7 +49,7 @@ class T2A(K2A):
         cls,
         offset=0,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate T2A.
 
@@ -66,12 +66,13 @@ class T2A(K2A):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             offset=offset,
             source=source,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -93,7 +94,7 @@ class T2A(K2A):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('offset')
+        index = self._ordered_input_names.index("offset")
         return self._inputs[index]
 
     @property
@@ -120,5 +121,5 @@ class T2A(K2A):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

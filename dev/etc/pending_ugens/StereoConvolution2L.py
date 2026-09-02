@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import MultiOutUGen
 
 
@@ -25,13 +25,13 @@ class StereoConvolution2L(MultiOutUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'kernel_l',
-        'kernel_r',
-        'trigger',
-        'framesize',
-        'crossfade',
-        )
+        "source",
+        "kernel_l",
+        "kernel_r",
+        "trigger",
+        "framesize",
+        "crossfade",
+    )
 
     _valid_calculation_rates = None
 
@@ -46,7 +46,7 @@ class StereoConvolution2L(MultiOutUGen):
         kernel_r=None,
         source=None,
         trigger=0,
-        ):
+    ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -56,7 +56,7 @@ class StereoConvolution2L(MultiOutUGen):
             kernel_r=kernel_r,
             source=source,
             trigger=trigger,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -69,7 +69,7 @@ class StereoConvolution2L(MultiOutUGen):
         kernel_r=None,
         source=None,
         trigger=0,
-        ):
+    ):
         """
         Constructs an audio-rate StereoConvolution2L.
 
@@ -90,6 +90,7 @@ class StereoConvolution2L(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -99,7 +100,7 @@ class StereoConvolution2L(MultiOutUGen):
             kernel_r=kernel_r,
             source=source,
             trigger=trigger,
-            )
+        )
         return ugen
 
     # def newFromDesc(): ...
@@ -127,7 +128,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('crossfade')
+        index = self._ordered_input_names.index("crossfade")
         return self._inputs[index]
 
     @property
@@ -151,7 +152,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('framesize')
+        index = self._ordered_input_names.index("framesize")
         return self._inputs[index]
 
     @property
@@ -174,7 +175,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('kernel_l')
+        index = self._ordered_input_names.index("kernel_l")
         return self._inputs[index]
 
     @property
@@ -197,7 +198,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('kernel_r')
+        index = self._ordered_input_names.index("kernel_r")
         return self._inputs[index]
 
     @property
@@ -228,7 +229,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]
 
     @property
@@ -252,5 +253,5 @@ class StereoConvolution2L(MultiOutUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index("trigger")
         return self._inputs[index]

@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -21,9 +21,9 @@ class LastValue(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'source',
-        'diff',
-        )
+        "source",
+        "diff",
+    )
 
     _valid_calculation_rates = None
 
@@ -34,13 +34,13 @@ class LastValue(UGen):
         calculation_rate=None,
         diff=0.01,
         source=None,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             diff=diff,
             source=source,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -49,7 +49,7 @@ class LastValue(UGen):
         cls,
         diff=0.01,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate LastValue.
 
@@ -66,12 +66,13 @@ class LastValue(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             diff=diff,
             source=source,
-            )
+        )
         return ugen
 
     @classmethod
@@ -79,7 +80,7 @@ class LastValue(UGen):
         cls,
         diff=0.01,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate LastValue.
 
@@ -96,12 +97,13 @@ class LastValue(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             diff=diff,
             source=source,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -123,7 +125,7 @@ class LastValue(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('diff')
+        index = self._ordered_input_names.index("diff")
         return self._inputs[index]
 
     @property
@@ -150,5 +152,5 @@ class LastValue(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index("source")
         return self._inputs[index]

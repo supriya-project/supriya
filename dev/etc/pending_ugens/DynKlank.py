@@ -1,5 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
+
 from supriya.synthdefs import UGen
 
 
@@ -23,12 +23,12 @@ class DynKlank(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        'specifications_array_ref',
-        'input',
-        'freqscale',
-        'freqoffset',
-        'decayscale',
-        )
+        "specifications_array_ref",
+        "input",
+        "freqscale",
+        "freqoffset",
+        "decayscale",
+    )
 
     _valid_calculation_rates = None
 
@@ -42,7 +42,7 @@ class DynKlank(UGen):
         freqscale=1,
         input=None,
         specifications_array_ref=None,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -51,7 +51,7 @@ class DynKlank(UGen):
             freqscale=freqscale,
             input=input,
             specifications_array_ref=specifications_array_ref,
-            )
+        )
 
     ### PUBLIC METHODS ###
 
@@ -63,7 +63,7 @@ class DynKlank(UGen):
         freqscale=1,
         input=None,
         specifications_array_ref=None,
-        ):
+    ):
         """
         Constructs an audio-rate DynKlank.
 
@@ -82,6 +82,7 @@ class DynKlank(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -90,7 +91,7 @@ class DynKlank(UGen):
             freqscale=freqscale,
             input=input,
             specifications_array_ref=specifications_array_ref,
-            )
+        )
         return ugen
 
     @classmethod
@@ -101,7 +102,7 @@ class DynKlank(UGen):
         freqscale=1,
         input=None,
         specifications_array_ref=None,
-        ):
+    ):
         """
         Constructs a control-rate DynKlank.
 
@@ -120,6 +121,7 @@ class DynKlank(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -128,7 +130,7 @@ class DynKlank(UGen):
             freqscale=freqscale,
             input=input,
             specifications_array_ref=specifications_array_ref,
-            )
+        )
         return ugen
 
     # def new1(): ...
@@ -154,7 +156,7 @@ class DynKlank(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('decayscale')
+        index = self._ordered_input_names.index("decayscale")
         return self._inputs[index]
 
     @property
@@ -176,7 +178,7 @@ class DynKlank(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('freqoffset')
+        index = self._ordered_input_names.index("freqoffset")
         return self._inputs[index]
 
     @property
@@ -198,7 +200,7 @@ class DynKlank(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('freqscale')
+        index = self._ordered_input_names.index("freqscale")
         return self._inputs[index]
 
     @property
@@ -219,7 +221,7 @@ class DynKlank(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('input')
+        index = self._ordered_input_names.index("input")
         return self._inputs[index]
 
     @property
@@ -240,5 +242,5 @@ class DynKlank(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('specifications_array_ref')
+        index = self._ordered_input_names.index("specifications_array_ref")
         return self._inputs[index]
