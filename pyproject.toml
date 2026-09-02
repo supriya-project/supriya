@@ -64,6 +64,7 @@ test = [
   "lxml",
   "matplotlib",
   "mypy",
+  "pre-commit",
   "pytest",
   "pytest-asyncio",
   "pytest-cov",
