@@ -37,3 +37,7 @@ Supriya provides a ``Makefile`` with targets for common local development tasks:
     :host: laptop
 
     make
+
+.. _GitHub: https://github.com/supriya-project/supriya
+.. _I: https://josephine-wolf-oberholtzer.com/
+.. _PyPI: https://pypi.org/
