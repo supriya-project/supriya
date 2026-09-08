@@ -31,7 +31,6 @@ from collections.abc import Callable, Generator
 
 import pynput
 import supriya_midi
-import supriya_midi.midiconstants
 
 import supriya
 
@@ -173,14 +172,14 @@ class MidiHandler(InputHandler):
         # unpack it, keep the data and discard the time delta ...
         data, _ = event
         if (
-            data[0] == supriya_midi.midiconstants.NOTE_ON
+            data[0] == supriya_midi.MidiMessageType.NOTE_ON
         ):  # if we received a note-on ...
             # grab the note number and velocity
             _, note_number, velocity = data
             # perform a "note on" event
             callback(NoteOn(note_number=note_number, velocity=velocity))
         elif (
-            data[0] == supriya_midi.midiconstants.NOTE_OFF
+            data[0] == supriya_midi.MidiMessageType.NOTE_OFF
         ):  # if we received a note-off ...
             # grab the note number
             _, note_number, _ = data
