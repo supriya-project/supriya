@@ -162,17 +162,16 @@ class MidiHandler(InputHandler):
     def handle(
         self,
         callback: Callable[[NoteOn | NoteOff], None],
-        event: tuple[tuple[int, int, int], float],
+        message: tuple[int, int, int],
         delta: float,
         user_data: Any,
     ) -> None:
         """
         Handle a MIDI input event.
         """
-        print(f"MIDI received: {callback=} {event=} {delta=} {user_data=}")
+        print(f"MIDI received: {callback=} {message=} {delta=} {user_data=}")
         # the raw MIDI event is a 2-tuple of MIDI data and time delta, so
         # unpack it, keep the data and discard the time delta ...
-        message = event
         if (
             message[0] == supriya_midi.MidiMessageType.NOTE_ON
         ):  # if we received a note-on ...
