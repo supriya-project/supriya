@@ -87,6 +87,7 @@ async def run(input_handler: InputHandler) -> None:
     # turn on the input handler and teach it to callback against the queue
     with input_handler.listen(callback=input_callback):
         await exit_future  # wait for Ctrl-C
+    print("Quitting...")
     queue_consumer_task.cancel()  # cancel the queue consumer task
     # stop the input handler and quit the server
     await server.quit()
@@ -99,7 +100,7 @@ def main(args: list[str] | None = None) -> None:
     parsed_args = parse_args(args)
     if parsed_args.list_midi_inputs:
         # print out available MIDI input ports
-        supriya_midi.list_ports()
+        print(supriya_midi.list_ports())
     elif parsed_args.use_midi is not None:
         asyncio.run(run(MidiHandler(port=parsed_args.use_midi)))
     elif parsed_args.use_qwerty:

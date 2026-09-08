@@ -28,6 +28,7 @@ import random
 import signal
 import time
 from collections.abc import Callable, Generator
+from typing import Any
 
 import pynput
 import supriya_midi
@@ -141,7 +142,7 @@ class MidiHandler(InputHandler):
     A MIDI input handler.
     """
 
-    port: int | str
+    port: int
 
     @contextlib.contextmanager
     def listen(
@@ -162,27 +163,28 @@ class MidiHandler(InputHandler):
         self,
         callback: Callable[[NoteOn | NoteOff], None],
         event: tuple[tuple[int, int, int], float],
-        *args,
+        delta: float,
+        user_data: Any,
     ) -> None:
         """
         Handle a MIDI input event.
         """
-        print(f"MIDI received: {event}")
+        print(f"MIDI received: {callback=} {event=} {delta=} {user_data=}")
         # the raw MIDI event is a 2-tuple of MIDI data and time delta, so
         # unpack it, keep the data and discard the time delta ...
-        data, _ = event
+        message = event
         if (
-            data[0] == supriya_midi.MidiMessageType.NOTE_ON
+            message[0] == supriya_midi.MidiMessageType.NOTE_ON
         ):  # if we received a note-on ...
             # grab the note number and velocity
-            _, note_number, velocity = data
+            _, note_number, velocity = message
             # perform a "note on" event
             callback(NoteOn(note_number=note_number, velocity=velocity))
         elif (
-            data[0] == supriya_midi.MidiMessageType.NOTE_OFF
+            message[0] == supriya_midi.MidiMessageType.NOTE_OFF
         ):  # if we received a note-off ...
             # grab the note number
-            _, note_number, _ = data
+            _, note_number, _ = message
             # perform a "note off" event
             callback(NoteOff(note_number=note_number))
 
@@ -314,6 +316,7 @@ def run(input_handler: InputHandler) -> None:
     # turn on the input handler and teach it to callback against the polyphony manager
     with input_handler.listen(callback=input_callback):
         exit_future.result()  # wait for Ctrl-C
+    print("Quitting...")
     # stop the input handler and quit the server
     server.quit()
 
@@ -345,7 +348,7 @@ def main(args: list[str] | None = None) -> None:
     parsed_args = parse_args(args)
     if parsed_args.list_midi_inputs:
         # print out available MIDI input ports
-        supriya_midi.list_ports()
+        print(supriya_midi.list_ports())
     elif parsed_args.use_midi is not None:
         run(MidiHandler(port=parsed_args.use_midi))
     elif parsed_args.use_qwerty:
