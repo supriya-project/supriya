@@ -33,3 +33,13 @@ I think her core functionality is pretty solid now. I hope you do too!
 
 | xoxo,
 | `joséphine`_
+
+.. _Abjad: https://abjad.github.io/
+.. _I: https://josephine-wolf-oberholtzer.com/
+.. _James McCartney: https://github.com/lfnoise
+.. _Joséphine: https://josephine-wolf-oberholtzer.com/
+.. _Max/MSP: https://cycling74.com/products/max
+.. _Max: https://cycling74.com/products/max
+.. _Python: https://www.python.org/
+.. _SuperCollider: https://supercollider.github.io/
+.. _Trevor Bača: https://www.trevorbaca.com/

@@ -60,8 +60,8 @@ Familiarize yourself with reStructuredText's basics, and with its `Python
 domain <https://www.sphinx-doc.org/en/master/usage/domains/python.html>`_
 before attempting to write any documentation.
 
-sphinx-immaterial
-`````````````````
+sphinx-immaterial theme
+```````````````````````
 
 Supriya uses the `sphinx-immaterial`_ theme, based on the storied
 `mkdocs-material`_ theme written for `mkdocs`_ and Markdown, because it's
@@ -264,3 +264,9 @@ except via line numbers, and line numbers are not a semantic.
 
 Using an alternating series of prose blocks and ``.. literalinclude::`` blocks,
 describe the entire example module in the accompanying reStructuredText.
+
+.. _GitHub: https://github.com/supriya-project/supriya
+.. _Jupyter: https://jupyter.org/
+.. _mkdocs-material: https://github.com/squidfunk/mkdocs-material/
+.. _mkdocs: https://www.mkdocs.org/
+.. _sphinx-immaterial: https://sphinx-immaterial.readthedocs.io/en/latest/

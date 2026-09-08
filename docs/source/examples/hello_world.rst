@@ -48,3 +48,5 @@ You should hear a C-major chord play for a few seconds, then fade out quickly
 before the script exits.
 
 Hello, world!
+
+.. _"hello, world!": https://en.wikipedia.org/wiki/%22Hello,_World!%22_program

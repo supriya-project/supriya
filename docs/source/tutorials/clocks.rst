@@ -60,9 +60,6 @@ Let's consider a simple callback function::
 All clock callbacks need to accept *at least* a ``context`` argument, to which
 the clock will pass a :py:class:`~supriya.clocks.ephemera.ClockContext` object.
 
-Scheduling
-``````````
-
 We can schedule that procedure with::
 
     >>> clock.schedule(callback)
@@ -155,3 +152,7 @@ Offline clocks
 
 Debugging
 ---------
+
+.. _aiohttp: https://docs.aiohttp.org/en/stable/
+.. _pymonome: https://github.com/artfwo/pymonome
+.. _python-prompt-toolkit: https://python-prompt-toolkit.readthedocs.io/en/master/
