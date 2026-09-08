@@ -112,7 +112,7 @@ Handling MIDI
 `````````````
 
 MIDI input is *relatively* simple to setup, at least compared to QWERTY. We'll
-use the `python-rtmidi`_ library to listen to MIDI messages from attached
+use the `supriya-midi`_ library to listen to MIDI messages from attached
 hardware. Let's take a look:
 
 ..  literalinclude:: ../../../examples/keyboard_input/__init__.py

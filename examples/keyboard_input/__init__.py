@@ -28,11 +28,10 @@ import random
 import signal
 import time
 from collections.abc import Callable, Generator
+from typing import Any
 
 import pynput
-import rtmidi
-import rtmidi.midiconstants
-import rtmidi.midiutil
+import supriya_midi
 
 import supriya
 
@@ -143,7 +142,7 @@ class MidiHandler(InputHandler):
     A MIDI input handler.
     """
 
-    port: int | str
+    port: int
 
     @contextlib.contextmanager
     def listen(
@@ -152,7 +151,7 @@ class MidiHandler(InputHandler):
         """
         Context manager for listening to MIDI input events.
         """
-        self.midi_input = rtmidi.MidiIn()  # create the MIDI input
+        self.midi_input = supriya_midi.MidiIn()  # create the MIDI input
         # set the MIDI event callback to this class's __call__
         self.midi_input.set_callback(functools.partial(self.handle, callback))
         self.midi_input.open_port(self.port)  # open the port for listening
@@ -163,24 +162,28 @@ class MidiHandler(InputHandler):
     def handle(
         self,
         callback: Callable[[NoteOn | NoteOff], None],
-        event: tuple[tuple[int, int, int], float],
-        *args,
+        message: tuple[int, int, int],
+        delta: float,
+        user_data: Any,
     ) -> None:
         """
         Handle a MIDI input event.
         """
-        print(f"MIDI received: {event}")
+        print(f"MIDI received: {callback=} {message=} {delta=} {user_data=}")
         # the raw MIDI event is a 2-tuple of MIDI data and time delta, so
         # unpack it, keep the data and discard the time delta ...
-        data, _ = event
-        if data[0] == rtmidi.midiconstants.NOTE_ON:  # if we received a note-on ...
+        if (
+            message[0] == supriya_midi.MidiMessageType.NOTE_ON
+        ):  # if we received a note-on ...
             # grab the note number and velocity
-            _, note_number, velocity = data
+            _, note_number, velocity = message
             # perform a "note on" event
             callback(NoteOn(note_number=note_number, velocity=velocity))
-        elif data[0] == rtmidi.midiconstants.NOTE_OFF:  # if we received a note-off ...
+        elif (
+            message[0] == supriya_midi.MidiMessageType.NOTE_OFF
+        ):  # if we received a note-off ...
             # grab the note number
-            _, note_number, _ = data
+            _, note_number, _ = message
             # perform a "note off" event
             callback(NoteOff(note_number=note_number))
 
@@ -312,6 +315,7 @@ def run(input_handler: InputHandler) -> None:
     # turn on the input handler and teach it to callback against the polyphony manager
     with input_handler.listen(callback=input_callback):
         exit_future.result()  # wait for Ctrl-C
+    print("Quitting...")
     # stop the input handler and quit the server
     server.quit()
 
@@ -343,7 +347,7 @@ def main(args: list[str] | None = None) -> None:
     parsed_args = parse_args(args)
     if parsed_args.list_midi_inputs:
         # print out available MIDI input ports
-        rtmidi.midiutil.list_input_ports()
+        print(supriya_midi.list_ports())
     elif parsed_args.use_midi is not None:
         run(MidiHandler(port=parsed_args.use_midi))
     elif parsed_args.use_qwerty:

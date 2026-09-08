@@ -61,18 +61,6 @@ language = "en"
 master_doc = "index"
 project = "Supriya"
 pygments_style = "sphinx"
-rst_epilog = """
-.. _Chocolatey: https://docs.chocolatey.org/
-.. _Cython: https://cython.org/
-.. _Homebrew: https://brew.sh/
-.. _Jupyter: https://jupyter.org/
-.. _Python: https://www.python.org/
-.. _joséphine: https://josephine-wolf-oberholtzer.com/
-.. _my: https://josephine-wolf-oberholtzer.com/
-.. _uqbar.sphinx.api: https://supriya-project.github.io/uqbar/api/uqbar/sphinx/api.html#module-uqbar.sphinx.api
-.. _uqbar.sphinx.book: https://supriya-project.github.io/uqbar/api/uqbar/sphinx/book.html#module-uqbar.sphinx.book
-.. _uqbar: https://supriya-project.github.io/uqbar/index.html
-"""
 rst_epilog = ""
 source_suffix = ".rst"
 suppress_warnings = ["ref.param"]
@@ -88,9 +76,9 @@ graphviz_output_format = "svg"
 ### INTERSPHINX ###
 
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3/", None),
     "pynput": ("https://pynput.readthedocs.io/en/latest/", None),
-    "rtmidi": ("https://spotlightkid.github.io/python-rtmidi/", None),
+    "python": ("https://docs.python.org/3/", None),
+    "supriya_midi": ("https://supriya-project.github.io/supriya-midi/", None),
     "uqbar": ("https://supriya-project.github.io/uqbar/", None),
 }
 
