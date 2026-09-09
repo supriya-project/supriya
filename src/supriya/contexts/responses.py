@@ -5,7 +5,7 @@ Classes for modeling responses from :term:`scsynth`.
 import dataclasses
 import re
 from collections import deque
-from collections.abc import Generator, Sequence
+from collections.abc import Generator, Mapping, Sequence
 from typing import cast
 
 from ..enums import NodeAction
