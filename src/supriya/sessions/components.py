@@ -1,17 +1,12 @@
 import dataclasses
 from collections import ChainMap
+from collections.abc import Awaitable, Generator, Iterator, Mapping, Sequence
 from types import MappingProxyType
 from typing import (
     TYPE_CHECKING,
-    Awaitable,
-    Generator,
     Generic,
-    Iterator,
     Literal,
-    Mapping,
     Optional,
-    Sequence,
-    Type,
     TypeAlias,
     TypeVar,
     cast,
@@ -99,7 +94,7 @@ class Component(Generic[C]):
         return parameter
 
     def _disconnect_connections(
-        self, roots: Optional[list["Component"]] = None
+        self, roots: list["Component"] | None = None
     ) -> tuple[set["Component"], set["Component"]]:
         related: set[Component] = set()
         deleted: set[Component] = set()
@@ -366,7 +361,7 @@ class Component(Generic[C]):
         self,
         *,
         deleting: bool = False,
-        roots: Optional[list["Component"]] = None,
+        roots: list["Component"] | None = None,
     ) -> tuple[set["Component"], set["Component"]]:
         if deleting:
             return self._disconnect_connections(roots=roots)
@@ -465,11 +460,11 @@ class Component(Generic[C]):
         pass
 
     @overload
-    def walk(self, component_class: Type[T]) -> Generator[T, None, None]:
+    def walk(self, component_class: type[T]) -> Generator[T, None, None]:
         pass
 
     def walk(
-        self, component_class: Type["Component"] | None = None
+        self, component_class: type["Component"] | None = None
     ) -> Generator["Component", None, None]:
         """
         Walk the subtree of components rooted at this component.

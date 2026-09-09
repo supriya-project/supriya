@@ -1,14 +1,11 @@
 import dataclasses
+from collections.abc import Callable, Generator, Mapping
 from types import MappingProxyType
 from typing import (
     TYPE_CHECKING,
-    Callable,
-    Generator,
     Literal,
-    Mapping,
     Optional,
     Protocol,
-    Type,
     cast,
 )
 
@@ -133,7 +130,7 @@ class NoteConfig:
 @dataclasses.dataclass
 class DeviceConfig:
     name: str | None = None
-    device_class: Type["Device"] | None = None
+    device_class: type["Device"] | None = None
     note_config: NoteConfig | None = None
     parameter_configs: dict[str, Field | ParameterConfig] | None = None
     sidechain_configs: dict[str, ChannelCount | Inherit | SidechainConfig] | None = None
@@ -155,7 +152,7 @@ class DeviceContainer(Component[C], Performer):
         self,
         *,
         device_config: DeviceConfig | None = None,
-        device_class: Type["Device"] | None = None,
+        device_class: type["Device"] | None = None,
         name: str | None = None,
         note_config: NoteConfig | None = None,
         parameter_configs: dict[str, Field | ParameterConfig] | None = None,
@@ -241,7 +238,7 @@ class DeviceContainer(Component[C], Performer):
         self,
         device_config: DeviceConfig | None = None,
         *,
-        device_class: Type["Device"] | None = None,
+        device_class: type["Device"] | None = None,
         name: str | None = None,
         note_config: NoteConfig | None = None,
         parameter_configs: dict[str, Field | ParameterConfig] | None = None,
@@ -373,13 +370,13 @@ class DeviceBase(
         #       any) because per-device meters are position-dependent.
         #       Maybe this can be done on a connection level?
         # Validate if moving is possible
-        if self.mixer is not new_parent.mixer:
-            raise RuntimeError
-        elif self in new_parent.parentage:
-            raise RuntimeError
-        elif index < 0:
-            raise RuntimeError
-        elif index and index >= len(new_parent.devices):
+        if (
+            self.mixer is not new_parent.mixer
+            or self in new_parent.parentage
+            or index < 0
+            or index
+            and index >= len(new_parent.devices)
+        ):
             raise RuntimeError
         # Reconfigure parentage and bail if this is a no-op
         old_parent = self._ensure_parent()
