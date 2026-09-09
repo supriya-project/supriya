@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING, Iterable, Optional, Union
+from collections.abc import Iterable
+from typing import TYPE_CHECKING, Optional, Union
 
 from ..contexts import BusGroup
 from ..enums import AddAction, DoneAction
@@ -341,13 +342,13 @@ class Track(
 
     def _move(self, *, new_parent: TrackContainer, index: int) -> None:
         # Validate if moving is possible
-        if self.mixer is not new_parent.mixer:
-            raise RuntimeError
-        elif self in new_parent.parentage:
-            raise RuntimeError
-        elif index < 0:
-            raise RuntimeError
-        elif index and index >= len(new_parent.tracks):
+        if (
+            self.mixer is not new_parent.mixer
+            or self in new_parent.parentage
+            or index < 0
+            or index
+            and index >= len(new_parent.tracks)
+        ):
             raise RuntimeError
         # Reconfigure parentage and bail if this is a no-op
         old_parent = self._ensure_parent()
@@ -580,9 +581,11 @@ class Track(
         Set the track's audio input source.
         """
         async with (session := self._ensure_session())._lock:
-            if input_ is self:
-                raise RuntimeError
-            elif isinstance(input_, Track) and input_.mixer is not self.mixer:
+            if (
+                input_ is self
+                or isinstance(input_, Track)
+                and input_.mixer is not self.mixer
+            ):
                 raise RuntimeError
             self._input.set(input_)
             await Component._reconcile(
@@ -602,15 +605,17 @@ class Track(
                 self._apply_activation()
 
     async def set_output(
-        self, output: Union[BusGroup, Inherit, TrackContainer] | None
+        self, output: BusGroup | Inherit | TrackContainer | None
     ) -> None:
         """
         Set the track's audio output destination.
         """
         async with (session := self._ensure_session())._lock:
-            if output is self:
-                raise RuntimeError
-            elif isinstance(output, TrackContainer) and output.mixer is not self.mixer:
+            if (
+                output is self
+                or isinstance(output, TrackContainer)
+                and output.mixer is not self.mixer
+            ):
                 raise RuntimeError
             self._output.set(output)
             await Component._reconcile(
@@ -682,7 +687,7 @@ class Track(
         return self._is_soloed
 
     @property
-    def output(self) -> Union[BusGroup, Inherit, TrackContainer] | None:
+    def output(self) -> BusGroup | Inherit | TrackContainer | None:
         """
         Get the track's audio output destination.
         """

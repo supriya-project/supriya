@@ -2,7 +2,8 @@ import contextlib
 import dataclasses
 import itertools
 from collections import ChainMap, deque
-from typing import TYPE_CHECKING, Iterator, Optional, Sequence
+from collections.abc import Iterator, Sequence
+from typing import TYPE_CHECKING, Optional
 
 from ..contexts import AsyncServer, Buffer, BusGroup, Node, Synth
 from ..enums import AddAction, CalculationRate, DoneAction
@@ -665,9 +666,7 @@ class SynthSpec(NodeSpec):
     def requires_recreation(self, old_spec: "Spec") -> bool:
         if not isinstance(old_spec, SynthSpec):
             raise ValueError(old_spec)
-        if self.synthdef != old_spec.synthdef:
-            return True
-        elif any(
+        if self.synthdef != old_spec.synthdef or any(
             self.kwargs.get(key) != old_spec.kwargs.get(key) for key in ["in_", "out"]
         ):
             return True

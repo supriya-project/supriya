@@ -1,12 +1,7 @@
 import dataclasses
 import logging
 from collections import deque
-from typing import (
-    Callable,
-    Deque,
-    Generator,
-    Type,
-)
+from collections.abc import Callable, Generator
 
 from .constants import IO, PolyphonyMode
 
@@ -35,7 +30,7 @@ class Performer:
         self._input_note_numbers: list[float] = []
         self._output_note_numbers: set[float] = set()
         self._performance_event_handlers: dict[
-            Type[PerformanceEvent],
+            type[PerformanceEvent],
             Callable[[PerformanceEvent, IO], list[PerformanceEvent]],
         ] = {
             NoteOn: self._on_note_on,
@@ -167,7 +162,7 @@ class Performer:
             io,
             events,
         )
-        stack: Deque[tuple[Performer, IO, list[PerformanceEvent]]] = deque()
+        stack: deque[tuple[Performer, IO, list[PerformanceEvent]]] = deque()
         stack.append((performer, io, events))
         while stack:
             performer, io, events = stack.popleft()

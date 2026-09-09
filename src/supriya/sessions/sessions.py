@@ -2,7 +2,8 @@ import asyncio
 import itertools
 import logging
 import re
-from typing import TYPE_CHECKING, Iterable, Literal, Sequence
+from collections.abc import Iterable, Sequence
+from typing import TYPE_CHECKING, Literal
 
 from ..contexts import AsyncServer
 from ..enums import BootStatus
@@ -53,12 +54,10 @@ class Session(Component):
         self._mixers: dict[Mixer, AsyncServer] = {}
         self._next_id = 1
         self._quit_future: asyncio.Future | None = None
-        self._soloed_tracks: set["Track"] = set()
+        self._soloed_tracks: set[Track] = set()
 
     def __getitem__(self, key: str) -> "Component":
-        if not isinstance(key, str):
-            raise ValueError(key)
-        elif not self._PATH_REGEX.match(key):
+        if not isinstance(key, str) or not self._PATH_REGEX.match(key):
             raise ValueError(key)
         item: Component | Sequence[Component] = self
         for part in key.split("."):

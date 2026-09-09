@@ -1,4 +1,5 @@
-from typing import Generator, Literal
+from collections.abc import Generator
+from typing import Literal
 
 from ..contexts import BusGroup
 from ..enums import AddAction, DoneAction
@@ -342,13 +343,13 @@ class Chain(DeviceContainer[Rack], Deletable, LevelsCheckable, Movable, NameSett
 
     def _move(self, *, new_parent: Rack, index: int) -> None:
         # Validate if moving is possible
-        if self.mixer is not new_parent.mixer:
-            raise RuntimeError
-        elif self in new_parent.parentage:
-            raise RuntimeError
-        elif index < 0:
-            raise RuntimeError
-        elif index and index >= len(new_parent.chains):
+        if (
+            self.mixer is not new_parent.mixer
+            or self in new_parent.parentage
+            or index < 0
+            or index
+            and index >= len(new_parent.chains)
+        ):
             raise RuntimeError
         # Reconfigure parentage and bail if this is a no-op
         old_parent = self._ensure_parent()
