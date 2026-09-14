@@ -1316,5 +1316,10 @@ def test_patch_cable_routing(
     server.sync()
     time.sleep(system.LAG_TIME * 2)
     assert server._shared_memory
-    actual_output_levels = [round(x, 3) for x in server._shared_memory[levels_bus]]
+    actual_output_levels = [
+        round(x, 3)
+        for x in server._shared_memory[
+            int(levels_bus) : int(levels_bus) + len(levels_bus)
+        ]
+    ]
     assert actual_output_levels == expected_output_levels
