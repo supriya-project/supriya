@@ -99,7 +99,7 @@ class Component(Generic[C]):
         related: set[Component] = set()
         deleted: set[Component] = set()
         for component, _ in self._connections:
-            if roots and any([root in component.parentage for root in roots]):
+            if roots and any(root in component.parentage for root in roots):
                 continue
             related.add(component)
             if component._on_connection_deleted(self):
@@ -246,7 +246,7 @@ class Component(Generic[C]):
         session: "Session",
     ) -> None:
         # treat offline contexts as null
-        if context and not context.boot_status == BootStatus.ONLINE:
+        if context and context.boot_status != BootStatus.ONLINE:
             context = None
         # setup context artifacts
         old_global_artifacts_by_context = session._global_artifacts_by_context
@@ -365,7 +365,7 @@ class Component(Generic[C]):
     ) -> tuple[set["Component"], set["Component"]]:
         if deleting:
             return self._disconnect_connections(roots=roots)
-        return set([component for component, _ in self._connections]), set()
+        return {component for component, _ in self._connections}, set()
 
     def _resolve_container_spec(
         self,
@@ -430,12 +430,8 @@ class Component(Generic[C]):
             if not deleted_components.get(spec.target_node.partition(":")[0]):
                 continue
             # copy the old target spec's targets: we "borrow" their positioning
-            assert isinstance(
-                old_target_spec := global_specs_by_context[spec.context][
-                    spec.target_node
-                ],
-                NodeSpec,
-            )
+            old_target_spec = global_specs_by_context[spec.context][spec.target_node]
+            assert isinstance(old_target_spec, NodeSpec)
             old_local_specs[address] = dataclasses.replace(
                 spec,
                 add_action=old_target_spec.add_action,
@@ -682,7 +678,8 @@ class LevelsCheckable(Component[C]):
         """
         if not (shared_memory := self._ensure_context()._shared_memory):
             raise RuntimeError
-        return shared_memory[self._get_input_levels_bus_group()]
+        bus_group = self._get_input_levels_bus_group()
+        return shared_memory[int(bus_group) : int(bus_group) + len(bus_group)]
 
     @property
     def output_levels(self) -> list[float]:
@@ -693,4 +690,5 @@ class LevelsCheckable(Component[C]):
         """
         if not (shared_memory := self._ensure_context()._shared_memory):
             raise RuntimeError
-        return shared_memory[self._get_output_levels_bus_group()]
+        bus_group = self._get_output_levels_bus_group()
+        return shared_memory[int(bus_group) : int(bus_group) + len(bus_group)]
