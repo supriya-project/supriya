@@ -1,6 +1,6 @@
 import asyncio
 import difflib
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -75,10 +75,9 @@ async def test_free_channel_strip(
     """
     Done actions should be modulable.
     """
-    with server.at():
-        with server.add_synthdefs(build_channel_strip_synthdef(2)):
-            group = server.add_group()
-            synth = group.add_synth(synthdef=build_channel_strip_synthdef(2))
+    with server.at(), server.add_synthdefs(build_channel_strip_synthdef(2)):
+        group = server.add_group()
+        synth = group.add_synth(synthdef=build_channel_strip_synthdef(2))
     await server.sync()
     initial_tree = normalize(str(await server.query_tree()))
     with server.at():
@@ -137,10 +136,9 @@ async def test_free_patch_cable(
     """
     Done actions should be modulable.
     """
-    with server.at():
-        with server.add_synthdefs(build_patch_cable_synthdef(2, 2)):
-            group = server.add_group()
-            synth = group.add_synth(synthdef=build_patch_cable_synthdef(2, 2))
+    with server.at(), server.add_synthdefs(build_patch_cable_synthdef(2, 2)):
+        group = server.add_group()
+        synth = group.add_synth(synthdef=build_patch_cable_synthdef(2, 2))
     await server.sync()
     initial_tree = normalize(str(await server.query_tree()))
     with server.at():

@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Sequence
+from collections.abc import Sequence
 
 import pytest
 
@@ -3373,7 +3373,7 @@ class SetSoloedScenario(Scenario):
                 ("AC", False, False, False),
                 ("B", True, False, True),
             ],
-            expected_messages=""" 
+            expected_messages="""
             - ['/c_set', 35, 0.0]
             - ['/c_set', 5, 0.0, 11, 0.0, 17, 0.0, 23, 0.0, 29, 0.0, 35, 1.0]
             """,

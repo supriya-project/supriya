@@ -1,7 +1,7 @@
 import os
 import platform
 import time
-from typing import Callable
+from collections.abc import Callable
 
 import pytest
 from uqbar.strings import normalize
@@ -1291,26 +1291,28 @@ def test_patch_cable_routing(
     levels_bus = server.add_bus_group(
         count=output_count, calculation_rate=CalculationRate.CONTROL
     )
-    with server.at():
-        with server.add_synthdefs(dc_synthdef, patch_cable_synthdef, meters_synthdef):
-            server.add_synth(
-                add_action=AddAction.ADD_TO_TAIL,
-                dc=input_levels,
-                out=audio_input_bus,
-                synthdef=dc_synthdef,
-            )
-            server.add_synth(
-                add_action=AddAction.ADD_TO_TAIL,
-                in_=audio_input_bus,
-                out=audio_output_bus,
-                synthdef=patch_cable_synthdef,
-            )
-            server.add_synth(
-                add_action=AddAction.ADD_TO_TAIL,
-                in_=audio_output_bus,
-                out=levels_bus,
-                synthdef=meters_synthdef,
-            )
+    with (
+        server.at(),
+        server.add_synthdefs(dc_synthdef, patch_cable_synthdef, meters_synthdef),
+    ):
+        server.add_synth(
+            add_action=AddAction.ADD_TO_TAIL,
+            dc=input_levels,
+            out=audio_input_bus,
+            synthdef=dc_synthdef,
+        )
+        server.add_synth(
+            add_action=AddAction.ADD_TO_TAIL,
+            in_=audio_input_bus,
+            out=audio_output_bus,
+            synthdef=patch_cable_synthdef,
+        )
+        server.add_synth(
+            add_action=AddAction.ADD_TO_TAIL,
+            in_=audio_output_bus,
+            out=levels_bus,
+            synthdef=meters_synthdef,
+        )
     server.sync()
     time.sleep(system.LAG_TIME * 2)
     assert server._shared_memory

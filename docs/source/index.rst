@@ -146,7 +146,7 @@ Quit the server::
 
 ..  toctree::
     :caption: Session tutorials
-    :hidden: 
+    :hidden:
 
     sessions/index
     sessions/sessions
@@ -156,7 +156,7 @@ Quit the server::
     sessions/racks
     sessions/parameters
     sessions/transport
-    
+
 ..  toctree::
     :caption: Examples
     :hidden:

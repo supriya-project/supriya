@@ -5,7 +5,8 @@ import difflib
 import inspect
 import logging
 import pprint
-from typing import AsyncGenerator, Callable, Generator, Literal, Type
+from collections.abc import AsyncGenerator, Callable, Generator
+from typing import Literal
 
 import pytest
 from uqbar.strings import normalize
@@ -25,7 +26,7 @@ class Scenario:
     commands: list[tuple[str | None, str, dict | None]] | None = dataclasses.field(
         default=None, kw_only=True
     )
-    expected_exception: Type[Exception] | None = dataclasses.field(
+    expected_exception: type[Exception] | None = dataclasses.field(
         default=None, kw_only=True
     )
     expected_components_diff: Callable[[Session], str] | str | None = dataclasses.field(
@@ -155,7 +156,7 @@ def format_messages(messages: list[OscBundle | OscMessage]) -> str:
                 try:
                     decompiled = decompile_synthdefs(x)
                     list_[i] = decompiled[0] if len(decompiled) == 1 else decompiled
-                except Exception:
+                except Exception:  # noqa
                     pass
             elif isinstance(x, list):
                 sanitize(x)
