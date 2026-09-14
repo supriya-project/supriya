@@ -5,10 +5,8 @@ Classes for modeling responses from :term:`scsynth`.
 import dataclasses
 import re
 from collections import deque
-from collections.abc import Generator, Sequence
-from typing import (
-    cast,
-)
+from collections.abc import Generator, Mapping, Sequence
+from typing import cast
 
 from ..enums import NodeAction
 from ..osc import OscMessage
@@ -416,7 +414,7 @@ class QueryTreeGroup(QueryTreeNode):
 
     ### PUBLIC METHODS ###
 
-    def annotate(self, annotations: dict[int, str]) -> "QueryTreeGroup":
+    def annotate(self, annotations: Mapping[int, str]) -> "QueryTreeGroup":
         root = self
         if root.node_id in annotations:
             root = dataclasses.replace(root, annotation=annotations[root.node_id])
