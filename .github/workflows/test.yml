@@ -89,12 +89,8 @@ jobs:
         python-version: "3.14"
     - name: Install Supriya
       run: uv sync --extra test
-    - name: Run Ruff format checker
-      run: uv run make ruff-format
-    - name: Run Ruff imports checker
-      run: uv run make ruff-imports
-    - name: Run Ruff lint checker
-      run: uv run make ruff-lint
+    - name: Run pre-commit
+      uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
     - name: Run Mypy
       run: uv run make mypy
 
@@ -123,8 +119,8 @@ jobs:
         python-version: "${{ matrix.python-version }}"
     - uses: hendrikmuhs/ccache-action@f09c25b45002a07be2955cbe52e8cee55643f89d # v1.2.24
       with:
-        key: ${{ runner.os }}
-        restore-keys: ${{ runner.os }}
+        key: ${{ matrix.os }}-supercollider
+        restore-keys: ${{ matrix.os }}-supercollider
     - uses: supriya-project/setup-audio@4bdbed1b96a1ff0c3346e74c746fa0d9a8fb387c # v1.0.0
     - uses: supriya-project/setup-supercollider@c30b38cc8fe88b5aa1e58b8da86b588d53af9d7d # v1.1.2
     - name: Install Supriya
