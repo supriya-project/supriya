@@ -125,11 +125,10 @@ jobs:
     - uses: supriya-project/setup-supercollider@c30b38cc8fe88b5aa1e58b8da86b588d53af9d7d # v1.1.2
     - name: Install Supriya
       run: uv sync
-    - name: Unquarantine
+    - name: Force code signing
       if: runner.os == 'macOS'
       run: |
-        xattr -rd com.apple.quarantine /tmp/supercollider/build/Install/SuperCollider/SuperCollider.app
-        xattr -rd com.apple.quarantine /tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources/plugins/GendynUGens_supernova.scx
+        codesign --deep --force --verify --verbose --sign - /tmp/supercollider/build/Install/SuperCollider/SuperCollider.app
     - name: Sanity-check Supriya
       run: |
         uv run python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
