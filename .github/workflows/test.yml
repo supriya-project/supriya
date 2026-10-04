@@ -129,6 +129,7 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         xattr -rd com.apple.quarantine /tmp/supercollider/build/Install/SuperCollider/SuperCollider.app
+        xattr -rd com.apple.quarantine /tmp/supercollider/build/Install/SuperCollider/SuperCollider.app/Contents/Resources/plugins/GendynUGens_supernova.scx
     - name: Sanity-check Supriya
       run: |
         uv run python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
