@@ -68,6 +68,10 @@ suppress_warnings = ["ref.param"]
 templates_path = ["_templates"]
 version = release = supriya.__version__
 
+### COPYBUTTON
+
+copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
+copybutton_prompt_is_regexp = True
 
 ### GRAPHVIZ ###
 
@@ -217,3 +221,9 @@ sphinx_immaterial_custom_admonitions = [
         "icon": "fontawesome/regular/face-grin-beam-sweat",
     },
 ]
+
+
+def setup(app):
+    # Ensure a dummy DOCUMENTATION_OPTIONS variable is present so that
+    # sphinx-copybutton's copybutton.js doesn't crash.
+    app.add_js_file(None, body="window.DOCUMENTATION_OPTIONS = {}", priority=0)
