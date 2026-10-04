@@ -128,7 +128,7 @@ jobs:
     - name: Force code signing
       if: runner.os == 'macOS'
       run: |
-        codesign --deep --force --verify --verbose --sign - /tmp/supercollider/build/Install/SuperCollider/SuperCollider.app
+        codesign --deep --force --verify --verbose=4 --sign - /tmp/supercollider/build/Install/SuperCollider/SuperCollider.app
     - name: Sanity-check Supriya
       run: |
         uv run python -c "import logging, supriya; logging.getLogger('supriya').setLevel(logging.INFO); logging.basicConfig(); server = supriya.Server().boot(); exit()"
