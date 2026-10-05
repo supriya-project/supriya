@@ -85,7 +85,7 @@ class Convolution2L(UGen):
     crossfade = param(1.0)
 
 
-@ugen(ar=True)
+@ugen(ar=True, kr=True)
 class Convolution3(UGen):
     """
     Strict convolution with fixed kernel which can be updated using a trigger signal.

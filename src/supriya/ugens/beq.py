@@ -68,30 +68,6 @@ class BBandStop(UGen):
 
 
 @ugen(ar=True, is_pure=True)
-class BHiCut(UGen):
-    """
-    A high-cut filter.
-
-    ::
-
-        >>> source = supriya.ugens.In.ar(bus=0)
-        >>> bhi_cut = supriya.ugens.BHiCut.ar(
-        ...     frequency=1200,
-        ...     max_order=5,
-        ...     order=2,
-        ...     source=source,
-        ... )
-        >>> bhi_cut
-        <BHiCut.ar()[0]>
-    """
-
-    source = param()
-    frequency = param(1200.0)
-    order = param(2.0)
-    max_order = param(5.0)
-
-
-@ugen(ar=True, is_pure=True)
 class BHiPass(UGen):
     """
     A high-pass filter.
@@ -135,30 +111,6 @@ class BHiShelf(UGen):
     frequency = param(1200.0)
     reciprocal_of_s = param(1.0)
     gain = param(0.0)
-
-
-@ugen(ar=True, is_pure=True)
-class BLowCut(UGen):
-    """
-    A low-cut filter.
-
-    ::
-
-        >>> source = supriya.ugens.In.ar(bus=0)
-        >>> blow_cut = supriya.ugens.BLowCut.ar(
-        ...     frequency=1200,
-        ...     max_order=5,
-        ...     order=2,
-        ...     source=source,
-        ... )
-        >>> blow_cut
-        <BLowCut.ar()[0]>
-    """
-
-    source = param()
-    frequency = param(1200.0)
-    order = param(2.0)
-    max_order = param(5.0)
 
 
 @ugen(ar=True, is_pure=True)

@@ -20,7 +20,7 @@ class In(UGen):
     bus = param(0.0)
 
 
-@ugen(ar=True, kr=True, is_input=True, is_multichannel=True)
+@ugen(ar=True, is_input=True, is_multichannel=True)
 class InFeedback(UGen):
     """
     A bus input unit generator.
@@ -85,7 +85,7 @@ class LocalOut(UGen):
     source = param(unexpanded=True)
 
 
-@ugen(ar=True, kr=True, is_output=True, channel_count=0, fixed_channel_count=True)
+@ugen(ar=True, is_output=True, channel_count=0, fixed_channel_count=True)
 class OffsetOut(UGen):
     """
     A bus output unit generator with sample-accurate timing.

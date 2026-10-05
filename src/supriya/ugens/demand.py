@@ -22,10 +22,10 @@ class Dbrown(UGen):
         <Dbrown.dr()[0]>
     """
 
+    length = param(float("inf"))
     minimum = param(0.0)
     maximum = param(1.0)
     step = param(0.01)
-    length = param(float("inf"))
 
 
 @ugen(dr=True)
@@ -66,9 +66,9 @@ class Dbufwr(UGen):
         <Dbufwr.dr()[0]>
     """
 
-    source = param(0.0)
     buffer_id = param(0.0)
     phase = param(0.0)
+    source = param(0.0)
     loop = param(1.0)
 
 
@@ -160,9 +160,9 @@ class Dgeom(UGen):
         <Dgeom.dr()[0]>
     """
 
+    length = param(float("inf"))
     start = param(1)
     grow = param(2)
-    length = param(float("inf"))
 
 
 @ugen(dr=True)
@@ -182,10 +182,10 @@ class Dibrown(UGen):
         <Dibrown.dr()[0]>
     """
 
+    length = param(float("inf"))
     minimum = param(0)
     maximum = param(12)
     step = param(1)
-    length = param(float("inf"))
 
 
 @ugen(dr=True)
@@ -204,9 +204,9 @@ class Diwhite(UGen):
         <Diwhite.dr()[0]>
     """
 
+    length = param(float("inf"))
     minimum = param(0)
     maximum = param(1)
-    length = param(float("inf"))
 
 
 @ugen(dr=True)
@@ -439,8 +439,8 @@ class Duty(UGen):
 
     duration = param(1.0)
     reset = param(0.0)
-    level = param(1.0)
     done_action = param(0.0)
+    level = param(1.0)
 
 
 @ugen(dr=True)
@@ -459,9 +459,9 @@ class Dwhite(UGen):
         <Dwhite.dr()[0]>
     """
 
+    length = param(float("inf"))
     minimum = param(0.0)
     maximum = param(0.0)
-    length = param(float("inf"))
 
 
 @ugen(dr=True)
