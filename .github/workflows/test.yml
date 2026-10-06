@@ -90,7 +90,7 @@ jobs:
     - name: Install Supriya
       run: uv sync --extra test
     - name: Run pre-commit
-      uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+      uses: j178/prek-action@1382ad72dea72f9d53832f2bcb65b3e87a947204 # v3.0.1
     - name: Run Mypy
       run: uv run make mypy
 
