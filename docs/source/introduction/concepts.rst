@@ -21,7 +21,7 @@ clients, takes actions based on those messages, and potentially sends messages
 back to the *client* (or *clients*).
 
 The *client* orchestrates what messages are sent to the *server* towards some
-(usually musical) end. IT controls what commands are sent, and
+(usually musical) end. It controls what commands are sent, and
 - *importantly* - when they are sent. The client may take action based on
 messages sent back by the server, but is not responsible for generating the
 audio itself.
@@ -35,11 +35,11 @@ packaging, documentation tooling, testing, scientific computing, UIs, etc.).
 
 There are many non-``sclang`` clients beyond Supriya for a wide variety of
 languages, but all follow the very broad pattern of orchestrating
-communications with a running ``scsynth`` or ``supernova`` server. Most client,
+communications with a running ``scsynth`` or ``supernova`` server. Most clients,
 including Supriya and ``sclang``, provide a class (or the equivalent in that
 language) to model the concept of a server. In both Supriya and ``sclang`` this
-class is called, unsurprisingly, :py:class:`~supriya.contexts.realtime.Server`
-! However, this isn't actually the server, just a *proxy* to it as a
+class is called, unsurprisingly, :py:class:`~supriya.contexts.realtime.Server`!
+However, this isn't actually the server, just a *proxy* to it as a
 convenience for communications and process management.
 
 Because of the communication and memory boundaries between the client and the

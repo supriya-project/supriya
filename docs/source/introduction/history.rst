@@ -7,7 +7,7 @@ History and background
 `I`_ started Supriya in 2014, over a decade later, at the end of my doctoral
 research at Harvard.
 
-I had grown frustrated with the alack of stability and dynamism in `Max/MSP`_
+I had grown frustrated with the lack of stability and dynamism in `Max/MSP`_
 (now just `Max`_). While I love how easy it is to start and connect just about
 anything in Max, very complex projects are a pain, and there's no notion of
 unit testing (maybe that's changed in the years since I left behind, but
