@@ -7,14 +7,26 @@ Buses
 
     These docs are still under construction.
 
-- what is a bus?
-- buses vs bus groups
-- calculation rates
+:term:`Buses <bus>` are how signals travel through :term:`scsynth`. If
+:doc:`nodes <nodes>` make and shape sound, buses are the patch cables running
+between them: one synth writes its output to a bus, and another - possibly
+much later in the :term:`node tree` - reads from it. Buses also carry
+microphone signals in and speaker signals out.
+
+Like :doc:`buffers <buffers>`, :term:`scsynth` boots with a fixed number of
+buses. *Audio* buses carry a whole block of samples every control block, while
+*control* buses carry just a single value. That distinction is a bus's
+:term:`calculation rate`.
+
+The :py:class:`~supriya.contexts.entities.Bus` class provides a :term:`proxy`
+to one of those buses inside a running :term:`scsynth` process, and the
+:py:class:`~supriya.contexts.entities.BusGroup` class models a contiguous
+block of them. Let's start patching things together...
 
 Lifecycle
 ---------
 
-Buses can only be added to running servers, so let’s create one and boot it:
+Buses can only be added to running servers, so let’s create a server and boot it:
 
     >>> server = supriya.Server().boot()
 
@@ -26,7 +38,16 @@ Buses can only be added to running servers, so let’s create one and boot it:
 Creation
 ````````
 
-- what is allocation? leasing, block allocation
+Remember that :term:`scsynth` creates all of its buses at boot. Nothing we do
+here will make a new one.
+
+When we talk about *allocating* a bus, we're really talking about *leasing*
+its ID from the server's bus ID space. The bus already exists; we're just
+laying claim to its ID so nobody else is handed the same one.
+
+Allocating a bus group works the same way, except Supriya leases a contiguous
+block of IDs in a single operation. Freeing a bus or bus group releases its
+IDs back to the pool.
 
 Allocate a bus with::
 
@@ -38,6 +59,10 @@ Allocate a bus group of 8 buses with::
 
 Deletion
 ````````
+
+Unlike nodes, freeing a bus doesn't destroy it. The bus still exists inside
+:term:`scsynth`; we're simply giving up our lease on its ID so it can be
+handed out again.
 
 Free a bus with::
 
