@@ -72,16 +72,16 @@ jobs:
           libasound2-dev
     - name: Build docs
       run: uv run make docs
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: docs
+        path: ./docs/build/html
     - name: Check for FailWarning
       run: "! grep -R ': FailWarning: ' *"
       working-directory: docs/build/html
     - name: Link check
       run: uv run make linkcheck
       working-directory: docs
-    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-      with:
-        name: docs
-        path: ./docs/build/html
 
   lint:
     name: Lint Supriya
