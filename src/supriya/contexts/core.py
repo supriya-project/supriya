@@ -73,7 +73,9 @@ from .requests import (
     GenerateBuffer,
     LoadSynthDefDirectory,
     LoadSynthDefs,
+    MapAudioBusRangeToNode,
     MapAudioBusToNode,
+    MapControlBusRangeToNode,
     MapControlBusToNode,
     MoveNodeAfter,
     MoveNodeBefore,
@@ -1067,23 +1069,21 @@ class Context(metaclass=abc.ABCMeta):
             the control).
         """
         self._validate_can_request()
-        control, audio = {}, {}
+        control: dict[str, int] = {}
+        audio: dict[str, int] = {}
         for key, value in settings.items():
+            if value is None:
+                control[key] = -1
+                continue
             if isinstance(value, Bus):
-                if value.calculation_rate is CalculationRate.AUDIO:
-                    audio[key] = int(value)
-                else:
-                    control[key] = int(value)
+                is_audio = value.calculation_rate is CalculationRate.AUDIO
+                index: int | str = int(value)
             elif isinstance(value, str):
                 if (match := BUS_PATTERN.match(value)) is None:
                     raise ValueError(value)
                 rate, index = match.groups()
-                if rate == "a":
-                    audio[key] = int(index)
-                else:
-                    control[key] = int(index)
-            elif value is None:
-                control[key] = -1
+                is_audio = rate == "a"
+            (audio if is_audio else control)[key] = int(index)
         requests: list[Request] = []
         if control:
             requests.append(
@@ -1095,7 +1095,57 @@ class Context(metaclass=abc.ABCMeta):
             )
         self._add_requests(*requests)
 
-    # TODO: map_node_range
+    def map_node_range(
+        self,
+        node: Node,
+        **settings: BusGroup | tuple[Bus | str, int] | None,
+    ) -> None:
+        """
+        Map a node's controls to buses.
+
+        Emit ``/n_mapn`` and ``/n_mapan`` requests.
+
+        :param node: The node whose controls will be mapped.
+        :param settings: A mapping of control names to bus groups or tuples of
+            (bus/bus-id, count) (or to ``None`` to unmap the control).
+        """
+        self._validate_can_request()
+        control: dict[str, tuple[int, int]] = {}
+        audio: dict[str, tuple[int, int]] = {}
+        for key, value in settings.items():
+            if value is None:
+                control[key] = (-1, 1)
+                continue
+            if isinstance(value, BusGroup):
+                bus: Bus | str = value[0]
+                count = len(value)
+            else:
+                bus, count = value
+            if isinstance(bus, Bus):
+                is_audio = bus.calculation_rate is CalculationRate.AUDIO
+                index: int | str = int(bus)
+            else:
+                if (match := BUS_PATTERN.match(bus)) is None:
+                    raise ValueError(bus)
+                rate, index = match.groups()
+                is_audio = rate == "a"
+            (audio if is_audio else control)[key] = (int(index), count)
+        requests: list[Request] = []
+        if control:
+            requests.append(
+                MapControlBusRangeToNode(
+                    node_id=node,
+                    items=[(key, *pair) for key, pair in sorted(control.items())],
+                )
+            )
+        if audio:
+            requests.append(
+                MapAudioBusRangeToNode(
+                    node_id=node,
+                    items=[(key, *pair) for key, pair in sorted(audio.items())],
+                )
+            )
+        self._add_requests(*requests)
 
     def move_node(
         self, node: Node, add_action: AddActionLike, target_node: Node
