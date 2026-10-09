@@ -28,7 +28,7 @@ dependencies = [
   "platformdirs >= 4.0.0",
   "psutil",
   "typing_extensions",
-  "uqbar >= 0.10.0",
+  "uqbar >= 0.10.1",
 ]
 description = "A Python API for SuperCollider"
 keywords = ["audio", "dsp", "music composition", "scsynth", "supercollider", "synthesis"]
@@ -54,10 +54,10 @@ docs = [
 ]
 examples = [
   "pynput",
-  "supriya-midi>=26.9b0",
+  "supriya-midi>=26.10b2",
 ]
 shm = [
-  "supriya-shm >= 26.9b0",
+  "supriya-shm >= 26.10b1",
 ]
 test = [
   "IPython",
