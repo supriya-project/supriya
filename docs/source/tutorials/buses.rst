@@ -240,6 +240,27 @@ only ever modifies the buses the group governs.
     accept ``use_shared_memory=True`` for local servers with the ``shm`` extra
     installed.
 
+Latching and summing
+````````````````````
+
+Control buses *latch*. A value you write stays on the bus, block after block,
+until something else writes a new one. That's why the values we set above were
+still there when we read them back, and why a synth mapped to a control bus
+keeps hearing the last value it was given.
+
+When a synth writes to a control bus, say with :py:class:`~supriya.ugens.Out`,
+the first write in a control block replaces whatever was latched. Any further
+writes to that bus *in the same block* are summed with it. Once the synths
+stop writing, the final result latches, and stays put.
+
+Audio buses don't latch. They're cleared out each block, so a signal only
+exists on an audio bus for as long as something keeps writing it. Multiple
+synths writing to the same audio bus in a block are summed, just like control
+buses, but when the writers stop, the next block is silence.
+
+To *sustain* a signal on an audio bus, you need a synth that writes to it every
+block. We'll meet the UGens that do this under "Inputs and outputs", below.
+
 Integration
 -----------
 
