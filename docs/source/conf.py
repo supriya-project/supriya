@@ -45,7 +45,7 @@ extensions = [
 ]
 
 add_module_names = False
-copyright = f"2014-{datetime.datetime.now(tz=datetime.timezone.utc).date().year}, Joséphine Wolf Oberholtzer"
+copyright = f"2014-{datetime.datetime.now(tz=datetime.UTC).date().year}, Joséphine Wolf Oberholtzer"
 exclude_patterns = []
 extlinks = {
     "github-blob": (

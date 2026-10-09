@@ -15,11 +15,11 @@ from pathlib import Path
 from typing import (
     IO,
     Literal,
+    Self,
     cast,
 )
 
 import psutil
-from typing_extensions import Self
 from uqbar.io import find_executable
 
 from .enums import BootStatus

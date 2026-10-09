@@ -20,6 +20,7 @@ from typing import (
     NamedTuple,
     Optional,
     Protocol,
+    Self,
     SupportsFloat,
     SupportsInt,
     TypeAlias,
@@ -29,7 +30,6 @@ from typing import (
     runtime_checkable,
 )
 
-from typing_extensions import Self
 from uqbar.graphs import Edge, Graph, Node, RecordField, RecordGroup
 from uqbar.strings import normalize
 

@@ -18,12 +18,12 @@ from typing import (
     Any,
     Literal,
     Optional,
+    Self,
     SupportsFloat,
     SupportsInt,
     cast,
 )
 
-from typing_extensions import Self
 from uqbar.objects import new
 
 from ..enums import AddAction, BootStatus, CalculationRate

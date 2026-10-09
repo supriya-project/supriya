@@ -583,7 +583,7 @@ class Server(BaseServer):
             self._boot_status = BootStatus.QUITTING
             try:
                 Quit().communicate(server=self, timeout=1)
-            except (OscProtocolOffline, asyncio.TimeoutError):
+            except (TimeoutError, OscProtocolOffline):
                 pass
         elif shutdown == ServerShutdownEvent.DISCONNECT:
             pass
@@ -1219,7 +1219,7 @@ class AsyncServer(BaseServer):
             self._boot_status = BootStatus.QUITTING
             try:
                 await Quit().communicate_async(server=self, timeout=1)
-            except (OscProtocolOffline, asyncio.TimeoutError):
+            except (TimeoutError, OscProtocolOffline):
                 pass
         elif shutdown == ServerShutdownEvent.DISCONNECT:
             pass
