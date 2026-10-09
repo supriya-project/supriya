@@ -67,7 +67,9 @@ jobs:
           lame \
           libasound2-dev
     - name: Build docs
-      run: uv run make docs
+      run: |
+        source .venv/bin/activate
+        make docs
     - name: Check for FailWarning
       run: "! grep -R ': FailWarning: ' *"
       working-directory: docs/build/html
