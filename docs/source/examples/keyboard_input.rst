@@ -263,4 +263,4 @@ You can invoke the script with ...
 .. _Ableton Live: https://www.ableton.com/en/live/
 .. _my: https://josephine-wolf-oberholtzer.com/
 .. _pynput: https://github.com/moses-palmer/pynput
-.. _python-rtmidi: https://spotlightkid.github.io/python-rtmidi/
+.. _supriya-midi: https://supriya-project.github.io/supriya-midi/

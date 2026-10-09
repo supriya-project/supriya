@@ -274,6 +274,9 @@ output similar to :term:`SuperCollider`'s ``s.queryAllNodes`` server method::
     >>> server.query_tree()
     >>> print(_)
 
+You can see the :term:`root node`, the :term:`default group`, and the synth we
+previously allocated, nested together into a tree representation.
+
 Querying default entities
 `````````````````````````
 
@@ -316,7 +319,7 @@ explicit :py:class:`~supriya.osc.OscMessage` or
 :py:class:`~supriya.contexts.requests.Requestable` objects::
 
     >>> from supriya.osc import OscMessage
-    >>> server.send(OscMessage("/g_new", 1000, 0, 1))
+    >>> server.send(OscMessage("/g_new", 1666, 0, 1))
 
 Syncing servers
 ```````````````

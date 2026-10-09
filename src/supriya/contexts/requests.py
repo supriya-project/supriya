@@ -93,7 +93,7 @@ class Requestable(ABC):
         server.send(requestable)
         try:
             await asyncio.wait_for(future, timeout=timeout)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             # No response received, so make sure to cleanup
             server._osc_protocol.unregister(osc_callback)
             raise

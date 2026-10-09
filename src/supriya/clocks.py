@@ -1119,7 +1119,7 @@ class AsyncClock(BaseClock[AsyncClockCallback]):
     async def _wait_for_event_async(self, sleep_time: float) -> None:
         try:
             await asyncio.wait_for(self._event.wait(), sleep_time)
-        except (asyncio.TimeoutError, RuntimeError):
+        except (TimeoutError, RuntimeError):
             pass
 
     async def _wait_for_moment_async(self, offline: bool = False) -> Moment | None:

@@ -19,12 +19,11 @@ from typing import (
     Any,
     Literal,
     NamedTuple,
+    Self,
     TypeAlias,
     Union,
     cast,
 )
-
-from typing_extensions import Self
 
 from .enums import BootStatus
 from .typing import FutureLike, SupportsOsc

@@ -13,7 +13,6 @@ classifiers = [
   "Operating System :: MacOS",
   "Operating System :: POSIX",
   "Operating System :: Microsoft :: Windows",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
@@ -29,14 +28,14 @@ dependencies = [
   "platformdirs >= 4.0.0",
   "psutil",
   "typing_extensions",
-  "uqbar >= 0.9.6",
+  "uqbar >= 0.10.1",
 ]
 description = "A Python API for SuperCollider"
 keywords = ["audio", "dsp", "music composition", "scsynth", "supercollider", "synthesis"]
 license = "MIT"
 name = "supriya"
 readme = "README.md"
-requires-python = ">= 3.10"
+requires-python = ">= 3.11"
 version = "26.9b1"
 
 [project.optional-dependencies]
@@ -55,10 +54,10 @@ docs = [
 ]
 examples = [
   "pynput",
-  "supriya-midi>=26.9b0",
+  "supriya-midi>=26.10b2",
 ]
 shm = [
-  "supriya-shm >= 26.9b0",
+  "supriya-shm >= 26.10b1",
 ]
 test = [
   "IPython",
@@ -85,7 +84,7 @@ documentation = "https://supriya-project.github.io/supriya"
 repository = "https://github.com/supriya-project/supriya"
 
 [tool.cibuildwheel]
-build = "cp3{10,11,12,13,14}-*"
+build = "cp3{11,12,13,14}-*"
 test-command = [
   # Only double-quotes work on Windows.
   'python -c "from supriya.contexts import shm; print(shm.__file__)"',
@@ -133,7 +132,7 @@ testpaths = [
 extend-include = ["*.ipynb"]
 line-length = 88
 # always the oldest python version supriya supports
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.lint.pep8-naming]
 ignore-names = ["test_*"]
