@@ -182,6 +182,43 @@ def test_map_node(context: Score) -> None:
     ]
 
 
+def test_map_node_range(context: Score) -> None:
+    with context.at(0):
+        bus_group_a = context.add_bus_group(count=2, calculation_rate="AUDIO")
+        bus_group_c = context.add_bus_group(count=4, calculation_rate="CONTROL")
+        bus_c = context.add_bus("CONTROL")
+        synth = context.add_synth(default)
+        synth.map_range(
+            frequency=bus_group_a,
+            amplitude=bus_group_c,
+            pan=(bus_c, 3),
+            out=("a20", 2),
+            gate=None,
+        )
+    assert list(context.iterate_osc_bundles()) == [
+        OscBundle(
+            contents=(
+                OscMessage("/s_new", "supriya:default", 1000, 0, 0),
+                OscMessage(
+                    "/n_mapn",
+                    1000,
+                    "amplitude",
+                    0,
+                    4,
+                    "gate",
+                    -1,
+                    1,
+                    "pan",
+                    4,
+                    3,
+                ),
+                OscMessage("/n_mapan", 1000, "frequency", 16, 2, "out", 20, 2),
+            ),
+            timestamp=0.0,
+        )
+    ]
+
+
 def test_move_node(context: Score) -> None:
     with context.at(0):
         group = context.add_group()

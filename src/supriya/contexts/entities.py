@@ -758,6 +758,17 @@ class Node(ContextObject):
         """
         self.context.map_node(self, **settings)
 
+    def map_range(self, **settings: BusGroup | tuple[Bus | str, int] | None) -> None:
+        """
+        Map the node's controls to contiguous ranges of buses.
+
+        Emit ``/n_mapn`` and ``/n_mapan`` requests.
+
+        :param settings: A mapping of control names to bus groups or tuples of
+            (bus/bus-id, count) (or to ``None`` to unmap the control).
+        """
+        self.context.map_node_range(self, **settings)
+
     def move(self, target_node: "Node", add_action: AddActionLike = None) -> None:
         """
         Move the node.
