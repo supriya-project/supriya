@@ -125,7 +125,7 @@ jobs:
       with:
         key: ${{ matrix.os }}-supercollider
         restore-keys: ${{ matrix.os }}-supercollider
-    - uses: supriya-project/setup-audio@4bdbed1b96a1ff0c3346e74c746fa0d9a8fb387c # v1.0.0
+    - uses: supriya-project/setup-audio@cba59dcc00be5946cd6b59d72cf86342c954a2a1 # v1.0.1
     - uses: supriya-project/setup-supercollider@c30b38cc8fe88b5aa1e58b8da86b588d53af9d7d # v1.1.2
     - name: Install Supriya
       run: uv sync
