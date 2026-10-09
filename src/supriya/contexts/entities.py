@@ -672,6 +672,8 @@ class BusGroup(ContextObject):
                     use_shared_memory=use_shared_memory,
                 )
         else:
+            if len(values) != len(self):
+                raise ValueError(values)
             self.context.set_bus_range(
                 bus=self[0], values=values, use_shared_memory=use_shared_memory
             )
