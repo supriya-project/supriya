@@ -126,7 +126,7 @@ jobs:
         key: ${{ matrix.os }}-supercollider
         restore-keys: ${{ matrix.os }}-supercollider
     - uses: supriya-project/setup-audio@4bdbed1b96a1ff0c3346e74c746fa0d9a8fb387c # v1.0.0
-    - uses: supriya-project/setup-supercollider@c30b38cc8fe88b5aa1e58b8da86b588d53af9d7d # v1.1.2
+    - uses: supriya-project/setup-supercollider@85a9b85efce9af26b32d30ed8ee293fa65ca675f # v1.1.3
     - name: Install Supriya
       run: uv sync
     - name: Sanity-check Supriya
