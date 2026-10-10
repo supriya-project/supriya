@@ -20,19 +20,13 @@ Install Supriya from `PyPI`_ via `pip`_, or from its `GitHub`_ repository via `g
 Optional Python dependencies
 ----------------------------
 
-Documentation
-`````````````
+Development
+```````````
 
-With `Sphinx`_ and `IPython`_ support:
+With documentation, linting and testing dependencies (these live in the
+``dev`` dependency group, so they're only available from a source checkout):
 
-..  include:: /includes/install-docs.txt
-
-Testing & linting
-`````````````````
-
-With linting and testing dependencies:
-
-..  include:: /includes/install-test.txt
+..  include:: /includes/install-dev.txt
 
 Shared memory
 `````````````
