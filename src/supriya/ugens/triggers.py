@@ -385,7 +385,7 @@ class RunningMin(UGen):
     trigger = param(0)
 
 
-@ugen(ar=True, kr=True)
+@ugen(ar=True, kr=True, ir=True)
 class Schmidt(UGen):
     """
     A Schmidt trigger.

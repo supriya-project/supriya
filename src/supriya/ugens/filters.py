@@ -1,5 +1,8 @@
-from ..enums import DoneAction
-from .core import PseudoUGen, UGen, UGenOperable, param, ugen
+from typing import Any
+
+from ..enums import CalculationRate, DoneAction
+from ..typing import Default
+from .core import PseudoUGen, UGen, UGenOperable, UGenRecursiveInput, param, ugen
 
 
 @ugen(ar=True, kr=True, is_pure=True)
@@ -531,7 +534,18 @@ class LeakDC(UGen):
     """
 
     source = param()
-    coefficient = param(0.995)
+    coefficient = param(Default())
+
+    def _postprocess_kwargs(
+        self,
+        *,
+        calculation_rate: CalculationRate,
+        **kwargs: UGenRecursiveInput | None,
+    ) -> tuple[CalculationRate, dict[str, Any]]:
+        if isinstance(kwargs.get("coefficient"), Default):
+            audio = calculation_rate == CalculationRate.AUDIO
+            kwargs["coefficient"] = 0.995 if audio else 0.9
+        return calculation_rate, kwargs
 
 
 @ugen(ar=True, kr=True, is_pure=True)

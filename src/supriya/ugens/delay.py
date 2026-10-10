@@ -58,7 +58,7 @@ class AllpassN(UGen):
     decay_time = param(1.0)
 
 
-@ugen(ar=True, kr=True, is_pure=True)
+@ugen(ar=True, is_pure=True)
 class BufAllpassC(UGen):
     """
     A buffer-based cubic-interpolating allpass delay line unit generator.
@@ -76,12 +76,11 @@ class BufAllpassC(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
 
 
-@ugen(ar=True, kr=True, is_pure=True)
+@ugen(ar=True, is_pure=True)
 class BufAllpassL(UGen):
     """
     A buffer-based linear-interpolating allpass delay line unit generator.
@@ -99,12 +98,11 @@ class BufAllpassL(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
 
 
-@ugen(ar=True, kr=True, is_pure=True)
+@ugen(ar=True, is_pure=True)
 class BufAllpassN(UGen):
     """
     A buffer-based non-interpolating allpass delay line unit generator.
@@ -122,12 +120,11 @@ class BufAllpassN(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
 
 
-@ugen(ar=True, kr=True, is_pure=True)
+@ugen(ar=True, is_pure=True)
 class BufCombC(UGen):
     """
     A buffer-based cubic-interpolating comb delay line unit generator.
@@ -145,12 +142,11 @@ class BufCombC(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
 
 
-@ugen(ar=True, kr=True, is_pure=True)
+@ugen(ar=True, is_pure=True)
 class BufCombL(UGen):
     """
     A buffer-based linear-interpolating comb delay line unit generator.
@@ -168,12 +164,11 @@ class BufCombL(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
 
 
-@ugen(ar=True, kr=True, is_pure=True)
+@ugen(ar=True, is_pure=True)
 class BufCombN(UGen):
     """
     A buffer-based non-interpolating comb delay line unit generator.
@@ -191,7 +186,6 @@ class BufCombN(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
     decay_time = param(1.0)
 
@@ -214,7 +208,6 @@ class BufDelayC(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
 
@@ -236,7 +229,6 @@ class BufDelayL(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
 
@@ -258,7 +250,6 @@ class BufDelayN(UGen):
 
     buffer_id = param()
     source = param()
-    maximum_delay_time = param(0.2)
     delay_time = param(0.2)
 
 

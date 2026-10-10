@@ -3,7 +3,7 @@ from typing import Any
 from ..enums import CalculationRate
 from ..typing import Default
 from .bufio import LocalBuf
-from .core import OutputProxy, UGen, UGenOperable, param, ugen
+from .core import OutputProxy, UGen, UGenOperable, UGenRecursiveInput, param, ugen
 from .info import BufFrames
 
 
@@ -61,7 +61,9 @@ class FFT(PV_ChainUGen):
     ### PRIVATE METHODS ###
 
     def _postprocess_kwargs(
-        self, calculation_rate: CalculationRate, **kwargs
+        self,
+        calculation_rate: CalculationRate,
+        **kwargs: UGenRecursiveInput | None,
     ) -> tuple[CalculationRate, dict[str, Any]]:
         if isinstance(kwargs["buffer_id"], Default):
             kwargs["buffer_id"] = LocalBuf.ir(frame_count=kwargs["window_size"] or 2048)
@@ -373,7 +375,7 @@ class PV_Div(PV_ChainUGen):
     pv_chain_b = param()
 
 
-@ugen(kr=True, is_width_first=True)
+@ugen(ar=True, kr=True, is_width_first=True)
 class PV_HainsworthFoote(PV_ChainUGen):
     """
     A FFT onset detector.
@@ -401,7 +403,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     waittime = param(0.04)
 
 
-@ugen(kr=True, is_width_first=True)
+@ugen(ar=True, kr=True, is_width_first=True)
 class PV_JensenAndersen(PV_ChainUGen):
     """
     A FFT feature detector for onset detection.

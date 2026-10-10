@@ -1,4 +1,15 @@
-from .core import UGen, param, ugen
+from .core import (
+    PseudoUGen,
+    UGen,
+    UGenOperable,
+    UGenRecursiveInput,
+    UGenVector,
+    param,
+    ugen,
+)
+from .delay import DelayN
+from .info import BufDur
+from .pv import FFT, IFFT, PV_PhaseShift90
 
 
 @ugen(ar=True)
@@ -39,8 +50,7 @@ class Hilbert(UGen):
     source = param()
 
 
-@ugen(ar=True)
-class HilbertFIR(UGen):
+class HilbertFIR(PseudoUGen):
     """
     Applies the Hilbert transform.
 
@@ -52,8 +62,21 @@ class HilbertFIR(UGen):
         ...     source=source,
         ... )
         >>> hilbert_fir
-        <HilbertFIR.ar()[0]>
+        <UGenVector([<DelayN.ar()[0]>, <IFFT.ar()[0]>])>
     """
 
     source = param()
     buffer_id = param()
+
+    @classmethod
+    def ar(
+        cls, *, source: UGenRecursiveInput, buffer_id: UGenRecursiveInput
+    ) -> UGenOperable:
+        chain = PV_PhaseShift90.kr(pv_chain=FFT.kr(buffer_id=buffer_id, source=source))
+        delay_time = BufDur.kr(buffer_id=buffer_id)  # type: ignore[attr-defined]
+        return UGenVector(
+            DelayN.ar(
+                source=source, maximum_delay_time=delay_time, delay_time=delay_time
+            ),
+            IFFT.ar(pv_chain=chain),
+        )

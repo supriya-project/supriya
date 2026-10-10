@@ -1907,13 +1907,13 @@ class UGenOperable:
                         frequency: 440.0
                         phase: 0.0
                 -   WhiteNoise.kr: null
-                -   BinaryOpUGen(AMCLIP).ar/0:
+                -   BinaryOpUGen(AMPLITUDE_CLIPPING).ar/0:
                         left: SinOsc.ar/0[0]
                         right: WhiteNoise.kr[0]
                 -   SinOsc.ar/1:
                         frequency: 443.0
                         phase: 0.0
-                -   BinaryOpUGen(AMCLIP).ar/1:
+                -   BinaryOpUGen(AMPLITUDE_CLIPPING).ar/1:
                         left: SinOsc.ar/1[0]
                         right: WhiteNoise.kr[0]
 
@@ -1921,7 +1921,7 @@ class UGenOperable:
         return _compute_binary_op(
             left=self,
             right=expr,
-            special_index=BinaryOperator.AMCLIP,
+            special_index=BinaryOperator.AMPLITUDE_CLIPPING,
         )
 
     def amplitude_to_db(self) -> "UGenOperable":
@@ -2616,6 +2616,13 @@ class UGenOperable:
             special_index=BinaryOperator.FILL,
         )
 
+    def first_arg(self, expr: "UGenRecursiveInput") -> "UGenOperable":
+        return _compute_binary_op(
+            left=self,
+            right=expr,
+            special_index=BinaryOperator.FIRST_ARG,
+        )
+
     def fold2(self, expr: "UGenRecursiveInput") -> "UGenOperable":
         """
         Compute bilateral folding of UGen graph by ``expr``.
@@ -2705,13 +2712,13 @@ class UGenOperable:
                         frequency: 440.0
                         phase: 0.0
                 -   WhiteNoise.kr: null
-                -   BinaryOpUGen(GREATEST_COMMON_DIVISOR).ar/0:
+                -   BinaryOpUGen(GCD).ar/0:
                         left: SinOsc.ar/0[0]
                         right: WhiteNoise.kr[0]
                 -   SinOsc.ar/1:
                         frequency: 443.0
                         phase: 0.0
-                -   BinaryOpUGen(GREATEST_COMMON_DIVISOR).ar/1:
+                -   BinaryOpUGen(GCD).ar/1:
                         left: SinOsc.ar/1[0]
                         right: WhiteNoise.kr[0]
 
@@ -2719,7 +2726,7 @@ class UGenOperable:
         return _compute_binary_op(
             left=self,
             right=expr,
-            special_index=BinaryOperator.GREATEST_COMMON_DIVISOR,
+            special_index=BinaryOperator.GCD,
             float_operator=lambda a, b: math.gcd(a, b),
         )
 
@@ -3086,13 +3093,13 @@ class UGenOperable:
                         frequency: 440.0
                         phase: 0.0
                 -   WhiteNoise.kr: null
-                -   BinaryOpUGen(LEAST_COMMON_MULTIPLE).ar/0:
+                -   BinaryOpUGen(LCM).ar/0:
                         left: SinOsc.ar/0[0]
                         right: WhiteNoise.kr[0]
                 -   SinOsc.ar/1:
                         frequency: 443.0
                         phase: 0.0
-                -   BinaryOpUGen(LEAST_COMMON_MULTIPLE).ar/1:
+                -   BinaryOpUGen(LCM).ar/1:
                         left: SinOsc.ar/1[0]
                         right: WhiteNoise.kr[0]
 
@@ -3100,7 +3107,7 @@ class UGenOperable:
         return _compute_binary_op(
             left=self,
             right=expr,
-            special_index=BinaryOperator.LEAST_COMMON_MULTIPLE,
+            special_index=BinaryOperator.LCM,
             float_operator=lambda a, b: math.lcm(a, b),
         )
 
@@ -3809,13 +3816,13 @@ class UGenOperable:
                         frequency: 440.0
                         phase: 0.0
                 -   WhiteNoise.kr: null
-                -   BinaryOpUGen(SCALE_NEG).ar/0:
+                -   BinaryOpUGen(SCALE_NEGATIVE).ar/0:
                         left: SinOsc.ar/0[0]
                         right: WhiteNoise.kr[0]
                 -   SinOsc.ar/1:
                         frequency: 443.0
                         phase: 0.0
-                -   BinaryOpUGen(SCALE_NEG).ar/1:
+                -   BinaryOpUGen(SCALE_NEGATIVE).ar/1:
                         left: SinOsc.ar/1[0]
                         right: WhiteNoise.kr[0]
 
@@ -3823,7 +3830,7 @@ class UGenOperable:
         return _compute_binary_op(
             left=self,
             right=expr,
-            special_index=BinaryOperator.SCALE_NEG,
+            special_index=BinaryOperator.SCALE_NEGATIVE,
         )
 
     def semitones_to_ratio(self) -> "UGenOperable":

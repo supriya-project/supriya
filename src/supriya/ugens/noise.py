@@ -111,7 +111,7 @@ class ExpRand(UGen):
         <ExpRand.ir()[0]>
     """
 
-    minimum = param(0.0)
+    minimum = param(0.01)
     maximum = param(1.0)
 
     def _postprocess_kwargs(
@@ -366,7 +366,7 @@ class NRand(UGen):
 
     minimum = param(0.0)
     maximum = param(1.0)
-    n = param(1)
+    n = param(0)
 
 
 @ugen(ar=True, kr=True)
@@ -410,7 +410,7 @@ class RandID(UGen):
         <RandID.ir()[0]>
     """
 
-    rand_id = param(1)
+    rand_id = param(0)
 
 
 @ugen(ar=True, kr=True, ir=True, is_width_first=True)
