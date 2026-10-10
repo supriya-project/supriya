@@ -1,6 +1,6 @@
 ..  md-tab-set::
 
-    ..  md-tab-item:: pip
+    ..  md-tab-item:: Via pip
 
         ..  code-block:: console
 
@@ -8,7 +8,7 @@
             josephine@laptop:~$ cd supriya
             josephine@laptop:~/supriya$ pip install -e . --group dev
 
-    ..  md-tab-item:: uv
+    ..  md-tab-item:: Via uv
 
         ..  code-block:: console
 
