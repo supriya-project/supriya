@@ -55,7 +55,7 @@ jobs:
     - uses: supriya-project/setup-audio@cba59dcc00be5946cd6b59d72cf86342c954a2a1 # v1.0.1
     - uses: supriya-project/setup-supercollider@85a9b85efce9af26b32d30ed8ee293fa65ca675f # v1.1.3
     - name: Install Supriya
-      run: uv sync --extra docs
+      run: uv sync
     - name: Install APT deps
       shell: bash
       run: |
@@ -92,7 +92,7 @@ jobs:
       with:
         python-version: "3.14"
     - name: Install Supriya
-      run: uv sync --extra test
+      run: uv sync
     - name: Run pre-commit
       uses: j178/prek-action@1382ad72dea72f9d53832f2bcb65b3e87a947204 # v3.0.1
     - name: Run Mypy
@@ -139,7 +139,7 @@ jobs:
         ! ( ps aux | grep scsynth | grep -v grep )
         ! ( ps aux | grep supernova | grep -v grep )
     - name: Install Supriya test dependencies
-      run: uv sync --extra test
+      run: uv sync
     - name: Install additional packages
       shell: bash
       run: |

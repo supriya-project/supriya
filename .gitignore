@@ -6,7 +6,6 @@
 # Packages
 *.egg
 *.egg-info
-*.lock
 dist
 build
 eggs

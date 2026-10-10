@@ -39,43 +39,12 @@ requires-python = ">= 3.11"
 version = "26.9b1"
 
 [project.optional-dependencies]
-docs = [
-  "jupyterlab",
-  "jupyterlab-rise",
-  "matplotlib",
-  "mypy",
-  "sphinx",
-  "sphinx-copybutton",
-  "sphinx-immaterial",
-  "sphinx-toolbox",
-  "sphinxext-opengraph",
-  "supriya[examples]",
-  "supriya[shm]",
-]
 examples = [
   "pynput",
   "supriya-midi>=26.10b2",
 ]
 shm = [
   "supriya-shm >= 26.10b1",
-]
-test = [
-  "IPython",
-  "lxml",
-  "matplotlib",
-  "mypy",
-  "pytest",
-  "pytest-asyncio",
-  "pytest-cov",
-  "pytest-lazy-fixtures",
-  "pytest-mock",
-  "pytest-rerunfailures",
-  "ruff",
-  "supriya[shm]",
-  "types-PyYAML",
-  "types-docutils",
-  "types-psutil",
-  "types-pynput",
 ]
 
 [project.urls]
@@ -146,4 +115,28 @@ supriya = ["py.typed"]
 [dependency-groups]
 dev = [
     "prek>=0.5.5",
+    "IPython",
+    "jupyterlab",
+    "jupyterlab-rise",
+    "lxml",
+    "matplotlib",
+    "mypy",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-lazy-fixtures",
+    "pytest-mock",
+    "pytest-rerunfailures",
+    "ruff",
+    "sphinx",
+    "sphinx-copybutton",
+    "sphinx-immaterial",
+    "sphinx-toolbox",
+    "sphinxext-opengraph",
+    "supriya[examples]",
+    "supriya[shm]",
+    "types-docutils",
+    "types-psutil",
+    "types-pynput",
+    "types-PyYAML",
 ]

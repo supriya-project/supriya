@@ -1,9 +1,9 @@
 Documentating
 =============
 
-Install Supriya's documentation dependencies with:
+Install Supriya's development dependencies, including documentation tooling, with:
 
-..  include:: /includes/install-docs.txt
+..  include:: /includes/install-dev.txt
 
 Building documentation
 ----------------------

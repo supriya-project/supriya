@@ -1,0 +1,17 @@
+..  md-tab-set::
+
+    ..  md-tab-item:: pip
+
+        ..  code-block:: console
+
+            josephine@laptop:~$ git clone https://github.com/supriya-project/supriya.git
+            josephine@laptop:~$ cd supriya
+            josephine@laptop:~/supriya$ pip install -e . --group dev
+
+    ..  md-tab-item:: uv
+
+        ..  code-block:: console
+
+            josephine@laptop:~$ git clone https://github.com/supriya-project/supriya.git
+            josephine@laptop:~$ cd supriya
+            josephine@laptop:~/supriya$ uv sync

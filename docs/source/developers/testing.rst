@@ -4,9 +4,9 @@ Testing
 Supriya uses an extensive test suite to guarantee stability during the
 development process.
 
-Install Supriya's test dependencies with:
+Install Supriya's development dependencies, including test tooling, with:
 
-..  include:: /includes/install-test.txt
+..  include:: /includes/install-dev.txt
 
 Running tests
 -------------
