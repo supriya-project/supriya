@@ -3,10 +3,6 @@
 Glossary
 ========
 
-..  self-criticism::
-
-    These docs are still under construction.
-
 ..  glossary::
     :sorted:
 
@@ -102,6 +98,12 @@ Glossary
         See: :term:`audio rate`, :term:`control rate`, :term:`demand rate`,
         :term:`scalar rate`
 
+    callback
+        A function handed to something else, such as a :term:`clock`, a
+        :term:`server` or an :term:`OSC` listener, to be called later when a
+        particular time arrives or a particular thing happens, rather than
+        immediately.
+
     cent
         A logarithmic unit of measure used for musical intervals, which divides
         the :term:`octave` into 12 :term:`semitones <semitone>` of 100 cents
@@ -140,13 +142,19 @@ Glossary
         More broadly, the gradual fading of a sound.
 
     decibels
+    dB
         A unit used to measure the intensity of a sound by comparing it with a
         given level on a logarithmic scale; a degree of loudness.
 
         See: :term:`amplitude`
 
     default group
-        A :term:`group`.
+        A :term:`group` created for each :term:`client` that logs in to a
+        :term:`server`, and the place where that client's new :term:`nodes
+        <node>` go unless told otherwise. It sits inside the :term:`root node`,
+        and its :term:`ID <ID, node>` is the client's :term:`ID <ID, client>`:
+        the first client to log in, typically the one which launched the server
+        process, gets a default group with ID 1, the second gets 2, and so on.
 
     demand rate
         A :term:`calculation rate` where one value is generated each time the
@@ -166,6 +174,13 @@ Glossary
     directed graph
     digraph
         A :term:`graph` in which edges have orientations.
+
+    done action
+        An instruction, given to a :term:`UGen` such as an :term:`envelope
+        generator`, which tells the :term:`server` what to do with the
+        enclosing :term:`node` when the UGen finishes, e.g. do nothing, pause
+        the node, or :term:`free` it. Freeing the :term:`synth` once its
+        :term:`envelope` has ended is the most common.
 
     envelope
         A description of how a sound changes over time, typically
@@ -190,6 +205,12 @@ Glossary
         A single musical occurrence, such as a note or a rest, represented as a
         collection of named values (e.g. :term:`frequency`, duration,
         :term:`amplitude`) produced by a :term:`pattern`.
+
+    event loop
+        The loop at the heart of an :term:`async` program, which runs
+        :term:`callbacks <callback>` and resumes suspended coroutines as the
+        things they were waiting on, e.g. a timer or an incoming network
+        message, become ready.
 
     FFT
         A fast Fourier transform
@@ -233,6 +254,11 @@ Glossary
         (the modulator). At audio rates it generates complex, harmonic or
         inharmonic spectra from just two oscillators.
 
+    gate
+        A :term:`control` which holds an :term:`envelope` open while it is
+        positive, and starts the envelope's :term:`release` stage when it
+        drops to zero or below, like a key being pressed and let go.
+
     grain
         A very short snippet of sound, typically between 1 and 100 milliseconds
         long and shaped by a :term:`window`, used as the building block of
@@ -247,9 +273,9 @@ Glossary
         In mathematics, and more specifically in graph theory, a graph is a
         structure amounting to a set of objects in which some pairs of the
         objects are in some sense "related"; the objects correspond to
-        mathematical abstractions called vertices (also called :term:`nodes
-        <node>` or points) and each of the related pairs of vertices is called
-        an edge (also called link or line).
+        mathematical abstractions called :term:`vertices <vertex>` (also called
+        nodes or points) and each of the related pairs of vertices is called an
+        edge (also called link or line).
 
     GraphViz
         An open source graph visualization software package, which renders
@@ -299,6 +325,13 @@ Glossary
         The integer which identifies a :term:`bus` inside a :term:`server`.
         Audio and control buses have separate ID spaces.
 
+    ID, client
+        The integer which identifies a :term:`client` among those logged in to
+        a :term:`server`, assigned in order of login: the first client,
+        typically the one which launched the server process, gets 1, the second
+        gets 2, and so on. It determines which :term:`default group` a client's
+        new :term:`nodes <node>` are placed in.
+
     ID, node
         The integer which identifies a :term:`node` inside a :term:`server`,
         used by :term:`requests <request>` to address it.
@@ -333,6 +366,11 @@ Glossary
 
         See: https://en.wikipedia.org/wiki/MIDI
 
+    mono
+        Having a single :term:`channel`.
+
+        See: :term:`stereo`
+
     multi-channel expansion
         In :term:`SuperCollider`, the behavior by which a :term:`UGen` given an
         array of values for an input will automatically be duplicated, one copy
@@ -345,8 +383,14 @@ Glossary
         digital audio waveforms through direct synthesis.
 
     node
-    vertex
-        In graph theory, the fundamental unit of which graphs are formed.
+        An addressable object in a :term:`server`'s :term:`node tree`: either
+        a :term:`synth`, which makes sound, or a :term:`group`, which contains
+        other nodes. Every node has an :term:`ID <ID, node>` by which
+        :term:`requests <request>` refer to it, and a position in the tree
+        relative to its :term:`parent` and siblings which determines when it
+        executes.
+
+        See: :term:`add action`
 
     node tree
         The tree of :term:`nodes <node>` that make up a :term:`server`'s
@@ -355,6 +399,7 @@ Glossary
         the order in which synths execute.
 
     non-realtime
+    NRT
         Relating to a mode of operation where audio is rendered to a file as
         fast as the computer can manage, rather than as it is played back, so
         that processing is not limited by the demands of :term:`realtime`
@@ -440,6 +485,11 @@ Glossary
 
         See: https://www.python.org/
 
+    quantization
+        Aligning an event to a grid of allowed times, e.g. the next beat or the
+        start of the next bar of a :term:`clock`, rather than letting it happen
+        at whatever moment it was requested.
+
     random number generator
         A process which generates a sequence of numbers or symbols that cannot
         be reasonably predicted better than by a random chance.
@@ -450,6 +500,7 @@ Glossary
         A value used to initialize a pseudorandom number generator.
 
     realtime
+    RT
         Relating to a system in which input data is processed within
         milliseconds so that it is available virtually immediately as feedback,
         e.g., in a missile guidance or airline booking system.
@@ -514,6 +565,14 @@ Glossary
         The interval between two adjacent notes in a 12-tone scale, equal to
         100 :term:`cents <cent>` in twelve-tone equal temperament.
 
+    shared memory
+    SHM
+        A region of memory which more than one process can read and write. On
+        a local machine, :term:`scsynth` can expose its control :term:`bus`
+        values this way, letting a :term:`client` read them directly rather
+        than requesting them as :term:`OSC` :term:`messages <message, OSC>`
+        and waiting for a :term:`response`.
+
     SI
         The international system of units of measurement, from the French
         `Système International`.
@@ -553,6 +612,11 @@ Glossary
     Sphinx
         A documentation generator which converts reStructuredText into HTML and
         other formats, and which is used to build these docs.
+
+    stereo
+        Having two :term:`channels <channel>`, conventionally left and right.
+
+        See: :term:`mono`
 
     subtree
         A :term:`node` of a :term:`tree`, together with all of its descendants.
@@ -603,9 +667,15 @@ Glossary
 
         See: :term:`frequency domain`
 
+    timestamp
+        A time attached to an :term:`OSC` :term:`bundle <bundle, OSC>`, at
+        which the :term:`server` should carry out its contents. Clients
+        typically set it slightly in the future, by an amount of
+        :term:`latency`, so the server can schedule the bundle accurately.
+
     tree
         In graph theory, a tree is an undirected :term:`graph` in which any two
-        :term:`vertices <node>` are connected by exactly one path, or
+        :term:`vertices <vertex>` are connected by exactly one path, or
         equivalently a connected acyclic undirected graph; the various kinds of
         data structures referred to as trees in computer science have
         underlying graphs that are trees in graph theory, although such data
@@ -629,6 +699,9 @@ Glossary
         <MUSIC-N>` computer music programming languages, which form the
         building blocks for designing synthesis and signal processing
         algorithms.
+
+    vertex
+        In graph theory, the fundamental unit of which graphs are formed.
 
     wavetable synthesis
         A synthesis technique in which an :term:`oscillator` reads repeatedly
