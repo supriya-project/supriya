@@ -1,5 +1,3 @@
-:status: under-construction
-
 Glossary
 ========
 

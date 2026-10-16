@@ -1,11 +1,5 @@
-:status: under-construction
-
 Buses
 =====
-
-..  self-criticism::
-
-    These docs are still under construction.
 
 :term:`Buses <bus>` are how signals travel through :term:`scsynth`. If
 :doc:`nodes <nodes>` make and shape sound, buses are the patch cables running
@@ -310,6 +304,8 @@ Synths read from and write to buses with a family of :term:`UGens <UGen>`.
   later.
 - :py:class:`~supriya.ugens.OffsetOut` writes with sub-block timing, for
   sample-accurate scheduling.
+
+We'll look into these more in the :doc:`synthdefs <synthdefs>` tutorial.
 
 Configuration
 -------------
