@@ -42,10 +42,10 @@ version = "26.10b0"
 [project.optional-dependencies]
 examples = [
   "pynput",
-  "supriya-midi>=26.10b2",
+  "supriya-midi>=26.10b4",
 ]
 shm = [
-  "supriya-shm >= 26.10b1",
+  "supriya-shm>=26.10b2",
 ]
 
 [project.urls]
