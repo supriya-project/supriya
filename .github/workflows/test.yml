@@ -21,7 +21,7 @@ permissions: {}
 jobs:
 
   build-dist:
-    name: Build distribution archives
+    name: Build source distribution
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -31,8 +31,12 @@ jobs:
         persist-credentials: false
     - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
       with:
-        python-version: "3.14"
+        python-version: "3.15"
     - run: uv build --clear --sdist --wheel
+    - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: dist
+        path: ./dist
 
   build-docs:
     name: Build docs
@@ -47,7 +51,7 @@ jobs:
     - uses: $/.github/actions/tune-github-actions
     - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
       with:
-        python-version: "3.14"
+        python-version: "3.15"
     - uses: hendrikmuhs/ccache-action@f09c25b45002a07be2955cbe52e8cee55643f89d # v1.2.24
       with:
         key: ${{ runner.os }}
@@ -90,7 +94,7 @@ jobs:
         persist-credentials: false
     - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
       with:
-        python-version: "3.14"
+        python-version: "3.15"
     - name: Install Supriya
       run: uv sync
     - name: Run pre-commit
@@ -107,10 +111,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.11", "3.12", "3.13", "3.14", "3.15"]
         include:
-        - {os: macos-15,       python-version: "3.14"}
-        - {os: windows-latest, python-version: "3.14"}
+        - {os: macos-15,       python-version: "3.15"}
+        - {os: windows-latest, python-version: "3.15"}
     timeout-minutes: 45
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
