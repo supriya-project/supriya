@@ -4048,7 +4048,7 @@ wheels = [
 
 [[package]]
 name = "supriya"
-version = "26.10b0"
+version = "26.10b1"
 source = { editable = "." }
 dependencies = [
     { name = "audioread" },
