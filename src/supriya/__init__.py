@@ -57,6 +57,7 @@ from .io import graph, play, plot, render
 from .osc import OscBundle, OscCallback, OscMessage, find_free_port
 from .patterns import Pattern
 from .scsynth import Options
+from .sessions import Device, Session
 from .ugens import (
     Envelope,
     SynthDef,
@@ -84,6 +85,7 @@ __all__ = [
     "Clock",
     "ClockCallbackState",
     "Context",
+    "Device",
     "DoneAction",
     "Envelope",
     "Group",
@@ -102,6 +104,7 @@ __all__ = [
     "ServerLifecycleCallback",
     "ServerLifecycleEvent",
     "ServerShutdownEvent",
+    "Session",
     "Synth",
     "SynthDef",
     "SynthDefBuilder",
