@@ -41,18 +41,18 @@ Creation
 Buffers can be allocated empty or immediately filled with all or part of a
 soundfile read from disk.
 
-..  note::
-
-    You must specify the number of channels and frames when allocating a buffer.
-
-    These properties cannot be changed during the lifetime of the buffer.
-
-Allocate an empty buffer with
+Let's allocate an empty buffer with
 :py:meth:`~supriya.contexts.realtime.Server.add_buffer` and print its
 :term:`repr` to the terminal::
 
     >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
     >>> buffer_
+
+..  note::
+
+    You must specify the number of channels and frames when allocating a buffer.
+
+    These properties cannot be changed during the lifetime of the buffer.
 
 The :term:`repr` shows the buffer's type (``Buffer``), its :term:`ID <ID,
 buffer>` (``0``) and indicates it has been allocated (``+``).
@@ -144,14 +144,16 @@ Free a buffer group with::
 Disk IO
 ```````
 
-- .read()
-- .write()
+- Buffer.read()
+- Buffer.write()
 
 Inspection
 ----------
 
-- .buffer_id
-- .__int__()
+Identity
+````````
+
+- Buffer.id_
 
 ::
 
@@ -162,7 +164,7 @@ Inspection
 Querying
 ````````
 
-- .query()
+- Buffer.query()
 
 ::
 
@@ -172,15 +174,139 @@ Querying
 Getting
 ```````
 
-- .get()
-- .get_range()
+- Buffer.get()
+- Buffer.get_range()
 
 ::
 
     >>> buffer_.get(0, 2, 4)
 
-Buffer UGens
-````````````
+::
+
+    >>> buffer_.get_range(0, 4)
+
+Interaction
+-----------
+
+::
+
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=128)
+
+Setting
+```````
+
+- Buffer.set()
+- Buffer.set_range()
+
+::
+
+    >>> buffer_.set(64, 1.0)
+    >>> supriya.plot(buffer_)
+
+::
+
+    >>> buffer._set_range(96, [1.0, -1.0, 1.0, -1.0])
+    >>> supriya.plot(buffer_)
+
+Filling
+```````
+- Buffer.fill()
+
+::
+
+    >>> buffer_.fill(32, 16, -0.5)
+    >>> supriya.plot(buffer_)
+
+Generating
+``````````
+
+- Buffer.generate()
+
+::
+
+    >>> buffer_.generate(
+    ...     command_name="cheby",
+    ...     amplitudes=[1.0, 0.5, 0.25],
+    ... )
+    >>> supriya.plot(buffer_)
+
+::
+
+    >>> buffer_.generate(
+    ...     command_name="sine1",
+    ...     amplitudes=[1.0, 0.5, 0.25],
+    ... )
+    >>> supriya.plot(buffer_)
+
+::
+
+    >>> buffer_.generate(
+    ...     command_name="sine2",
+    ...     amplitudes=[1.0, 0.5, 0.25],
+    ...     frequencies=[1, 3, 5],
+    ... )
+    >>> supriya.plot(buffer_)
+
+
+::
+
+    >>> buffer_.generate(
+    ...     command_name="sine3",
+    ...     amplitudes=[1.0, 0.5, 0.25],
+    ...     frequencies=[1, 3, 5],
+    ...     phases=[0.0, 0.333, 0.666],
+    ... )
+    >>> supriya.plot(buffer_)
+
+Copying
+```````
+
+- Buffer.copy()
+
+::
+
+    >>> other_buffer = server.add_buffer(channel_count=1, frame_count=128)
+    >>> buffer_.copy(
+    ...     target_buffer=other_buffer,
+    ...     starting_frame=32,
+    ...     target_starting_frame=0,
+    ...     frame_count=64
+    ... )
+    >>> supriya.plot(other_buffer)
+
+Normalizing
+```````````
+
+- Buffer.normalize()
+
+::
+
+    >>> buffer_.normalize()
+
+Zeroing
+```````
+
+- Buffer.zero()
+
+::
+
+    >>> buffer_.zero()
+    >>> supriya.plot(buffer_)
+
+Integration
+-----------
+
+Referencing
+```````````
+
+Buffers and buffer groups fulfil ``SupportsInt``, so you can pass them anywhere an
+integer ID is expected.
+
+- Buffer.__int__()
+- BufferGroup.__int__()
+
+Info UGens
+``````````
 
 - BufChannels
 - BufDur
@@ -189,59 +315,22 @@ Buffer UGens
 - BufSampleRate
 - BufSamples
 
-Interaction
------------
+IO UGens
+````````
 
-Setting
-```````
+- BufRd
+- BufWr
+- PlayBuf
+- RecordBuf
 
-- .set()
-- .set_range()
+Disk IO UGens
+`````````````
 
-Filling
-```````
-
-Given a single-channel buffer with 1024 samples::
-
-    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=128)
-
-- .fill()
-- .generate()
-
-Copying
-```````
-
-- .copy()
-
-Zeroing
-```````
-
-- .zero()
-
-Normalizing
-```````````
-
-- .normalize()
-
-Integration
------------
-
-Referencing
-```````````
-
-Buffer IO
-`````````
-
-- BufRd and BufWr
-- PlayBuf and RecordBuf
-
-Continuous Disk IO
-``````````````````
-
-- DiskIn and DiskOut
+- DiskIn
+- DiskOut
 - VDiskIn
 - ``leaving_open``
-- .close()
+- Buffer.close()
 
 Wavetable synthesis
 ```````````````````
