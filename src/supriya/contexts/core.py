@@ -974,8 +974,8 @@ class Context(metaclass=abc.ABCMeta):
         frequencies: Sequence[float] | None = None,
         phases: Sequence[float] | None = None,
         as_wavetable: bool = False,
-        should_clear_first: bool = False,
-        should_normalize: bool = False,
+        clear_first: bool = True,
+        normalize: bool = True,
     ) -> None:
         """
         Generate a buffer.
@@ -988,8 +988,8 @@ class Context(metaclass=abc.ABCMeta):
         :param frequencies: A sequence of partial frequencies.
         :param phases: A sequence of partial phases.
         :param as_wavetable: Flag for generating the output in wavetable format.
-        :param should_clear_first: Flag for clearing the buffer before generating.
-        :param should_normalize: Flag for normalizing the generated output.
+        :param clear_first: Flag for clearing the buffer before generating.
+        :param normalize: Flag for normalizing the generated output.
         """
         self._validate_can_request()
         if not amplitudes:
@@ -1010,8 +1010,8 @@ class Context(metaclass=abc.ABCMeta):
             frequencies=frequencies,
             phases=phases,
             as_wavetable=as_wavetable,
-            should_clear_first=should_clear_first,
-            should_normalize=should_normalize,
+            clear_first=clear_first,
+            normalize=normalize,
         )
         self._add_requests(request)
 

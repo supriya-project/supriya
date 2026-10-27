@@ -297,6 +297,9 @@ Reset the server for a clean slate::
 
     >>> server.sync()  # wait for synthdefs to load
 
+Identity and context
+````````````````````
+
 Every node has a ``id_`` and a reference to its context::
 
     >>> group.id_, group.context

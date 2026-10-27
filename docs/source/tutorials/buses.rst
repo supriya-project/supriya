@@ -85,15 +85,19 @@ Inspection
 Buses and bus groups know a few things about themselves, and can ask the
 server about the values they carry.
 
-We freed our buses at the end of the last section, so let's allocate a fresh
-control bus, a fresh audio bus, and a bus group of four control buses::
+Let's reset the server for a clean slate::
+
+    >>> _ = server.reset()
+
+... and then allocate a fresh control bus, a fresh audio bus, and a bus group
+of four control buses::
 
     >>> control_bus = server.add_bus()
     >>> audio_bus = server.add_bus(calculation_rate="audio")
     >>> bus_group = server.add_bus_group(count=4)
 
-Identity and rate
-`````````````````
+Identity, context and rate
+``````````````````````````
 
 Like :doc:`nodes <nodes>`, every bus has an ``id_`` and a reference to its
 context. Control and audio buses have separate ID spaces, so don't be
@@ -112,8 +116,8 @@ shares its calculation rate with all of its buses::
 
     >>> bus_group.id_, bus_group.calculation_rate
 
-Bus group contents
-``````````````````
+Bus group members
+`````````````````
 
 Bus groups know how many buses they contain, and can hand them back to you as
 :py:class:`~supriya.contexts.entities.Bus` instances::
@@ -125,8 +129,8 @@ Bus groups can be indexed, sliced and iterated over, just like a sequence::
 
     >>> bus_group[0]
     >>> bus_group[1:3]
-    >>> for bus in bus_group:
-    ...     bus.id_
+    >>> for child in bus_group:
+    ...     child.id_
     ...
 
 Note that the ``id_`` of each bus is one greater than the last. That's what we
@@ -221,10 +225,12 @@ Setting bus groups
 
 :py:meth:`BusGroup.set() <supriya.contexts.entities.BusGroup.set>` covers both
 cases. Pass it a sequence and it sets each bus in turn, or pass it a single
-number and it fills the whole group::
+number and it fills the whole group:
 
     >>> bus_group.set([1.0, 2.0, 3.0, 4.0])
     >>> bus_group.get()
+
+::
 
     >>> bus_group.set(0.0)
     >>> bus_group.get()

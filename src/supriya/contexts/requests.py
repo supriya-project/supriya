@@ -713,7 +713,7 @@ class GenerateBuffer(Request):
         ...     amplitudes=[1, 2, 3],
         ...     frequencies=[4, 5, 6],
         ...     phases=[0.25, 0.5, 0.75],
-        ...     should_normalize=True,
+        ...     normalize=True,
         ... )
         >>> request.to_osc()
         OscMessage('/b_gen', 1, 'sine3', 1, 4.0, 1.0, 0.25, 5.0, 2.0, 0.5, 6.0, 3.0, 0.75)
@@ -725,8 +725,8 @@ class GenerateBuffer(Request):
     frequencies: Sequence[float] | None
     phases: Sequence[float] | None
     as_wavetable: bool = False
-    should_clear_first: bool = False
-    should_normalize: bool = False
+    clear_first: bool = True
+    normalize: bool = True
 
     def _get_response_patterns(
         self,
@@ -737,11 +737,7 @@ class GenerateBuffer(Request):
         contents: list[OscArgument] = [
             int(self.buffer_id),
             self.command_name,
-            (
-                self.should_normalize
-                | (self.as_wavetable * 2)
-                | (self.should_clear_first * 4)
-            ),
+            (self.normalize | (self.as_wavetable * 2) | (self.clear_first * 4)),
         ]
         sequences = []
         if self.frequencies:
