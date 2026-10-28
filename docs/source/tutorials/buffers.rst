@@ -145,58 +145,6 @@ Free a buffer group with::
 
     >>> buffer_group.free()
 
-Disk IO
-```````
-
-Buffers can be read into or written back to disk *after* they've been
-allocated, via their :py:meth:`~supriya.contexts.entities.Buffer.read` and
-:py:meth:`~supriya.contexts.entities.Buffer.write` methods.
-
-Reading a file into a buffer takes nearly the same arguments as allocating a
-buffer from a file, including frame start and count, channel indices, completion messages, etc.::
-
-    >>> buffer_ = server.add_buffer(frame_count=1024)
-    >>> _ = buffer_.read(file_path, frame_count=512, starting_frame=256, channel_indices=[1])
-    >>> _ = server.sync()
-    >>> supriya.plot(buffer_)
-
-Writing a buffer to a file also accepts frame start and count, and a completion
-message, but always writes out all channels in the buffer. You can also select
-what file format and sample format you'd like in the resulting audio file:
-
-::
-
-    >>> import pathlib, tempfile
-    >>> with tempfile.TemporaryDirectory() as tmpdirname:
-    ...     path = pathlib.Path(tmpdirname) / "audio.aiff"
-    ...     _ = buffer_.write(
-    ...         path,
-    ...         frame_count=768,
-    ...         header_format="aiff",
-    ...         sample_format="int16",
-    ...         starting_frame=128,
-    ...     )
-    ...     # wait for writing to complete before deleting the tempdir
-    ...     _ = server.sync()
-    ...
-
-SuperCollider supports a relatively small set of header and sample formats::
-
-    >>> for x in supriya.HeaderFormat:
-    ...     print(repr(x))
-    ...
-
-::
-
-    >>> for x in supriya.SampleFormat:
-    ...     print(repr(x))
-    ...
-
-Both reading into buffers and writing out of buffers also support a `leave_open`
-boolean keyword, allowing more audio to be read into or out of the buffer
-during its lifetime. We'll demonstrate this when discussing :ref:`disk IO UGens
-<Disk IO UGens>` further on.
-
 Inspection
 ----------
 
@@ -209,8 +157,9 @@ Let's reset the server for a clean slate::
 
 ... and then allocate a fresh buffer and buffer group::
 
-    >>> buffer_ = server.add_buffer(channel_count=2, frame_count=512)
-    >>> buffer_group = server.add_buffer_group(channel_count=1, count=4, frame_count=1024)
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=512)
+    >>> buffer_group = server.add_buffer_group(channel_count=2, count=4, frame_count=1024)
+    >>> server.sync()
 
 Identity and context
 ````````````````````
@@ -242,40 +191,54 @@ Buffer groups can be indexed, sliced and iterated over, just like a sequence::
     ...     child.id_
     ...
 
-Note that the ``id_`` of each buffer is one greater than the last. That's what we
-mean by a *contiguous* block.
+Just like with bus groups, the ``id_`` of each buffer is one greater than the
+last, making a contiguous block.
 
 Querying
 ````````
 
-- Buffer.query()
+The channel count, frame count and sample rate of a buffer aren't properties on
+the buffer. We have to fetch them directly from the server via its
+:py:meth:`~supriya.contexts.entities.Buffer.query` method::
 
-::
-
-    >>> buffer_ = server.add_buffer(channel_count=2, frame_count=512)
     >>> buffer_.query()
+
+Querying a buffer returns a :py:class:`~supriya.contexts.responses.BufferInfo`
+response with one item. Under the hood, it's possible to query multiple buffers
+simultaneously and receive a single response with each buffer's information.
+This just leaks that underlying implementation.
 
 Getting
 ```````
 
-- Buffer.get()
-- Buffer.get_range()
+We can ask for individual samples or ranges of samples from a buffer via its
+:py:meth:`~supriya.contexts.entities.Buffer.get` and
+:py:meth:`~supriya.contexts.entities.Buffer.get_range` methods.
 
-::
+Let's get three discontiguous samples, `0`, `2` and `4`::
 
     >>> buffer_.get(0, 2, 4)
 
-::
+Let's get a range of four samples starting from index `0`::
 
     >>> buffer_.get_range(0, 4)
 
+..  important::
+
+    Multichannel buffers are ultimately still 1-dimensional arrays of floating
+    point values. All channels are interleaved together. That means for a
+    stereo buffer, the first four samples of the left channel are at indices 0,
+    2, 4 and 6, while the first four samples of the right channel are at 1, 3,
+    5 and 7. To read a range of samples across all channels, make sure to
+    multiply the number of *frames* you want to read by the number of
+    *channels* in the buffer. You'll need to deinterleave the resulting flat
+    array of samples into a two dimensional array yourself.
+
+All the queried samples are `0.0` because nothing's been read into this buffer
+yet. Let's change that in the next section.
+
 Interaction
 -----------
-
-::
-
-    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=128)
-    >>> server.sync()
 
 Setting
 ```````
@@ -382,6 +345,60 @@ We can *zero* a buffer, setting all of its samples to `0.0`:
 Note that zeroing a buffer returns a
 :py:class:`~supriya.contexts.core.Completion` context manager, allowing you to
 chain additional commands after the zero operation completes.
+
+Disk IO
+```````
+
+Buffers can be read into or written back to disk *after* they've been
+allocated, via their :py:meth:`~supriya.contexts.entities.Buffer.read` and
+:py:meth:`~supriya.contexts.entities.Buffer.write` methods.
+
+Reading a file into a buffer takes nearly the same arguments as allocating a
+buffer from a file, including frame start and count, channel indices, completion messages, etc.::
+
+    >>> buffer_ = server.add_buffer(frame_count=1024)
+    >>> _ = buffer_.read(file_path, frame_count=512, starting_frame=256, channel_indices=[1])
+    >>> _ = server.sync()
+    >>> supriya.plot(buffer_)
+
+Writing a buffer to a file also accepts frame start and count, and a completion
+message, but always writes out all channels in the buffer. You can also select
+what file format and sample format you'd like in the resulting audio file:
+
+::
+
+    >>> import pathlib, tempfile
+    >>> with tempfile.TemporaryDirectory() as tmpdirname:
+    ...     path = pathlib.Path(tmpdirname) / "audio.aiff"
+    ...     _ = buffer_.write(
+    ...         path,
+    ...         frame_count=768,
+    ...         header_format="aiff",
+    ...         sample_format="int16",
+    ...         starting_frame=128,
+    ...     )
+    ...     # wait for writing to complete before deleting the tempdir
+    ...     _ = server.sync()
+    ...
+
+SuperCollider supports a relatively small set of header and sample formats::
+
+    >>> for x in supriya.HeaderFormat:
+    ...     print(repr(x))
+    ...
+
+::
+
+    >>> for x in supriya.SampleFormat:
+    ...     print(repr(x))
+    ...
+
+Both reading into buffers and writing out of buffers also support a `leave_open`
+boolean keyword, allowing more audio to be read into or out of the buffer
+during its lifetime. We'll demonstrate this when discussing :ref:`disk IO UGens
+<Disk IO UGens>` further on.
+
+.. todo:: Buffer.close()
 
 Integration
 -----------
