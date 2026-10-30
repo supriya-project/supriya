@@ -92,6 +92,9 @@ Glossary
     channel
         TBD
 
+    Chebyshev polynomial
+        TBD
+
     client
         TBD
 

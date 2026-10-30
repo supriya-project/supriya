@@ -370,9 +370,9 @@ class CopyBuffer(Request):
         >>> request = CopyBuffer(
         ...     source_buffer_id=1,
         ...     target_buffer_id=2,
-        ...     frame_count=512,
-        ...     source_starting_frame=0,
-        ...     target_starting_frame=128,
+        ...     count=512,
+        ...     source_index=0,
+        ...     target_index=128,
         ... )
         >>> request.to_osc()
         OscMessage('/b_gen', 2, 'copy', 128, 1, 0, 512)
@@ -380,9 +380,9 @@ class CopyBuffer(Request):
 
     source_buffer_id: SupportsInt
     target_buffer_id: SupportsInt
-    frame_count: int = -1
-    source_starting_frame: int = 0
-    target_starting_frame: int = 0
+    count: int = -1
+    source_index: int = 0
+    target_index: int = 0
 
     def _get_response_patterns(
         self,
@@ -394,10 +394,10 @@ class CopyBuffer(Request):
             RequestName.BUFFER_GENERATE,
             int(self.target_buffer_id),
             "copy",
-            int(self.target_starting_frame),
+            int(self.target_index),
             int(self.source_buffer_id),
-            int(self.source_starting_frame),
-            int(self.frame_count),
+            int(self.source_index),
+            int(self.count),
         )
 
 

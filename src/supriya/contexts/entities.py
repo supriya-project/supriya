@@ -140,40 +140,39 @@ class Buffer(ContextObject):
         self,
         *,
         target_buffer: "Buffer",
-        starting_frame: int,
-        target_starting_frame: int,
-        frame_count: int,
+        source_index: int,
+        target_index: int,
+        count: int,
     ) -> None:
         """
         Copy the buffer.
 
         Emit ``/b_gen <buffer.id_> copy ...`` requests.
 
+        :param count: The number of samples to copy.
+        :param source_index: The sample index in the this (the source) buffer to start reading from.
         :param target_buffer: The buffer to copy to.
-        :param starting_frame: The frame index in the this buffer to start reading from.
-        :param target_starting_frame: The frame index in the target buffer to start
-            writing at.
-        :param frame_count: The number of frames to copy.
+        :param target_indx: The sample index in the target buffer to start writing at.
         """
         self.context.copy_buffer(
-            frame_count=frame_count,
+            count=count,
             source_buffer=self,
-            source_starting_frame=starting_frame,
+            source_index=source_index,
             target_buffer=target_buffer,
-            target_starting_frame=target_starting_frame,
+            target_index=target_index,
         )
 
-    def fill(self, starting_frame: int, frame_count: int, value: float) -> None:
+    def fill(self, index: int, count: int, value: float) -> None:
         """
         Fill the buffer with a single value.
 
         Emit ``/b_fill`` requests.
 
-        :param starting_frame: The frame index to start filling at.
-        :param frame_count: The number of frames to fill.
+        :param index: The sample index to start filling at.
+        :param count: The number of samples to fill.
         :param value: The value to fill with.
         """
-        self.context.fill_buffer(self, starting_frame, frame_count, value)
+        self.context.fill_buffer(self, index, count, value)
 
     def free(
         self, on_completion: Callable[["Context"], Any] | None = None

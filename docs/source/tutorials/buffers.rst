@@ -240,37 +240,49 @@ yet. Let's change that in the next section.
 Interaction
 -----------
 
-Setting
-```````
+Buffers provide a wide variety of mutation techniques, from changing single
+samples, to generating full waveforms from partials, to reading in files from
+disk.
 
-- Buffer.set()
-- Buffer.set_range()
+Let's create a mono ``128``-sample buffer to play with::
 
-::
+    >>> buffer_ = server.add_buffer(channel_count=1, frame_count=128)
+
+Setting and filling
+```````````````````
+
+We can set a single sample by index and value with
+:py:meth:`~supriya.contexts.entities.Buffer.set`. Let's set the 65th (index 64)
+sample to ``0.5``::
 
     >>> buffer_.set(64, 0.5)
     >>> supriya.plot(buffer_)
 
-::
+We can also set a contiguous range of samples to a sequence of different values
+with :py:meth:`~supriya.contexts.entities.Buffer.set_range`. Let's set four
+samples to four different values starting at index ``96``::
 
     >>> buffer_.set_range(96, [1.0, -1.0, 1.0, -1.0])
     >>> supriya.plot(buffer_)
 
-Filling
-```````
-- Buffer.fill()
-
-::
+We can also set a contiguous range of samples to the *same* value with
+:py:meth:`~supriya.contexts.entities.Buffer.fill`. Let's set ``16`` samples
+starting at index ``32`` to ``-0.5``::
 
     >>> buffer_.fill(32, 16, -0.5)
     >>> supriya.plot(buffer_)
 
+Since we're modifying the same buffer, the changes from setting single samples,
+ranges of samples, and filling all stack together.
+
 Generating
 ``````````
 
-- Buffer.generate()
+We can also generate waveforms via a small handful of algorithms, taking some
+combination of amplitudes, frequencies and phases.
 
-::
+We can fill the buffer via ``cheby`` with a series of :term:`Chebyshev
+polynomials <Chebyshev polynomial>`::
 
     >>> buffer_.generate(
     ...     command_name="cheby",
@@ -278,7 +290,8 @@ Generating
     ... )
     >>> supriya.plot(buffer_)
 
-::
+We can also fill the buffer via ``sine1`` with a series of sine partials of
+different amplitudes::
 
     >>> buffer_.generate(
     ...     command_name="sine1",
@@ -286,7 +299,8 @@ Generating
     ... )
     >>> supriya.plot(buffer_)
 
-::
+With ``sine2`` we can specify frequencies for each of the partials in addition
+to their amplitudes::
 
     >>> buffer_.generate(
     ...     command_name="sine2",
@@ -295,8 +309,7 @@ Generating
     ... )
     >>> supriya.plot(buffer_)
 
-
-::
+And with ``sine3`` we can pass in phases too::
 
     >>> buffer_.generate(
     ...     command_name="sine3",
@@ -306,19 +319,28 @@ Generating
     ... )
     >>> supriya.plot(buffer_)
 
+By default, each of these generation commands both *clears* the buffer before
+writing to it, and then *normalizes* it to a maximum absolute value of ``1.0``
+after generating its contents. You can toggle those options on and off via the
+``clear_first`` and ``normalize`` keywords.
+
 Copying
 ```````
 
-- Buffer.copy()
+We can copy all or part of one buffer to another with
+:py:meth:`~supriya.contexts.entities.Buffer.copy`. Let's allocate a new buffer
+and then copy ``64`` samples from the buffer we previously filled with sine
+partials into the new buffer, reading starting from sample ``32`` in the source
+buffer, and writing starting from sample ``0`` in the target buffer.
 
 ::
 
     >>> other_buffer = server.add_buffer(channel_count=1, frame_count=128)
     >>> buffer_.copy(
     ...     target_buffer=other_buffer,
-    ...     starting_frame=32,
-    ...     target_starting_frame=0,
-    ...     frame_count=64
+    ...     source_index=32,
+    ...     target_index=0,
+    ...     count=64
     ... )
     >>> supriya.plot(other_buffer)
 

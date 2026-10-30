@@ -184,10 +184,10 @@ async def test_copy_buffer(context: AsyncServer | Server) -> None:
     buffer_b = context.add_buffer(channel_count=1, frame_count=23)
     with context.osc_protocol.capture() as transcript:
         buffer_a.copy(
+            count=3,
+            source_index=5,
             target_buffer=buffer_b,
-            starting_frame=5,
-            target_starting_frame=7,
-            frame_count=3,
+            target_index=7,
         )
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscMessage("/b_gen", 1, "copy", 7, 0, 5, 3)

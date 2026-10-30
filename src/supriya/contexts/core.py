@@ -750,11 +750,11 @@ class Context(metaclass=abc.ABCMeta):
     def copy_buffer(
         self,
         *,
+        count: int,
         source_buffer: Buffer,
+        source_index: int,
         target_buffer: Buffer,
-        source_starting_frame: int,
-        target_starting_frame: int,
-        frame_count: int,
+        target_index: int,
     ) -> None:
         """
         Copy a buffer.
@@ -763,19 +763,17 @@ class Context(metaclass=abc.ABCMeta):
 
         :param source_buffer: The buffer to copy from.
         :param target_buffer: The buffer to copy to.
-        :param source_starting_frame: The frame index in the source buffer to start
-            reading from.
-        :param target_starting_frame: The frame index in the target buffer to start
-            writing at.
-        :param frame_count: The number of frames to copy.
+        :param source_index: The sample index in the source buffer to start reading from.
+        :param target_index: The sample index in the target buffer to start writing at.
+        :param count: The number of frames to copy.
         """
         self._validate_can_request()
         request = CopyBuffer(
-            frame_count=frame_count,
+            count=count,
             source_buffer_id=source_buffer,
-            source_starting_frame=source_starting_frame,
+            source_index=source_index,
             target_buffer_id=target_buffer,
-            target_starting_frame=target_starting_frame,
+            target_index=target_index,
         )
         self._add_requests(request)
 
@@ -786,23 +784,19 @@ class Context(metaclass=abc.ABCMeta):
         self._validate_can_request()
         self._add_requests(DoNothing())
 
-    def fill_buffer(
-        self, buffer: Buffer, starting_frame: int, frame_count: int, value: float
-    ) -> None:
+    def fill_buffer(self, buffer: Buffer, index: int, count: int, value: float) -> None:
         """
         Fill a buffer with a single value.
 
         Emit ``/b_fill`` requests.
 
         :param buffer: The buffer to fill.
-        :param starting_frame: The frame index to start filling at.
-        :param frame_count: The number of frames to fill.
+        :param index: The frame index to start filling at.
+        :param count: The number of frames to fill.
         :param value: The value to fill with.
         """
         self._validate_can_request()
-        request = FillBuffer(
-            buffer_id=buffer, items=[(starting_frame, frame_count, value)]
-        )
+        request = FillBuffer(buffer_id=buffer, items=[(index, count, value)])
         self._add_requests(request)
 
     def fill_bus_range(
