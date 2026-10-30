@@ -254,14 +254,12 @@ def test_generate_buffer(context: AsyncServer | Server) -> None:
         )
         buffer.generate(command_name="cheby", amplitudes=[1, 2, 3])
         buffer.generate(command_name="sine1", amplitudes=[1, 2, 3], as_wavetable=True)
-        buffer.generate(
-            command_name="sine1", amplitudes=[1, 2, 3], should_clear_first=True
-        )
+        buffer.generate(command_name="sine1", amplitudes=[1, 2, 3], clear_first=True)
         buffer.generate(
             command_name="sine1",
             amplitudes=[1, 2, 3],
-            should_clear_first=True,
-            should_normalize=True,
+            clear_first=True,
+            normalize=True,
         )
     assert [entry.message for entry in transcript.filtered(received=False)] == [
         OscBundle(
