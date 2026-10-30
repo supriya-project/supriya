@@ -11,7 +11,7 @@ repos:
   - id: zizmor
     args: [--no-progress, --fix]
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.17.1 # Ruff version.
+  rev: v0.17.2 # Ruff version.
   hooks:
   - id: ruff-check
     args: [--fix]
