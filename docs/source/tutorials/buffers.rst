@@ -35,7 +35,7 @@ Buffers can only be added to running servers, so let’s create one and boot it:
     :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
     nor offline, so you can add buffers to them whenever you like.
 
-Creation
+Creating
 ````````
 
 Buffers can be allocated empty or immediately filled with all or part of a
@@ -84,7 +84,7 @@ been allocated (``+``).
     method also guarantees that those IDs are released back to the allocator
     pool simultaneously.
 
-Creation from files
+Creating from files
 ```````````````````
 
 Let's locate a soundfile::
@@ -130,7 +130,12 @@ of channels to grab via the ``channel_count`` parameter::
 
 ..  todo:: Implement ``server.add_buffer_group(file_paths=[..., ..., ...])``
 
-Deletion
+Creating with completions
+`````````````````````````
+
+..  todo:: Document this
+
+Deleting
 ````````
 
 Free a buffer with::
@@ -328,18 +333,15 @@ Copying
 ```````
 
 We can copy all or part of one buffer to another with
-:py:meth:`~supriya.contexts.entities.Buffer.copy`. Let's allocate a new buffer
-and then copy ``64`` samples from the buffer we previously filled with sine
-partials into the new buffer, reading starting from sample ``32`` in the source
-buffer, and writing starting from sample ``0`` in the target buffer.
-
-::
+:py:meth:`~supriya.contexts.entities.Buffer.copy`. Let's allocate a new buffer,
+and then copy the *first* half of the buffer we previously filled with sine
+partials into the *second* half of the new buffer::
 
     >>> other_buffer = server.add_buffer(channel_count=1, frame_count=128)
     >>> buffer_.copy(
     ...     target_buffer=other_buffer,
-    ...     source_index=32,
-    ...     target_index=0,
+    ...     source_index=0,
+    ...     target_index=64,
     ...     count=64
     ... )
     >>> supriya.plot(other_buffer)
@@ -347,17 +349,20 @@ buffer, and writing starting from sample ``0`` in the target buffer.
 Normalizing
 ```````````
 We can *normalize* a buffer, scaling its samples such that their maximum
-absolute value matches our desired maximum, typically `1.0`:
+absolute value matches our desired maximum, typically `1.0`. We can normalize
+the buffer currently filled with sine partials to an absolute maximum of
+``0.5``::
 
-::
-
-    >>> buffer_.normalize()
+    >>> buffer_.normalize(0.5)
     >>> supriya.plot(buffer_)
+
+Note that this doesn't change the general shape of the waveform, just the range
+on the Y axis. Before it was ``1.0`` to ``-1.0``. Now it's ``0.5`` to ``-0.5``.
 
 Zeroing
 ```````
 
-We can *zero* a buffer, setting all of its samples to `0.0`:
+We can also *zero* a buffer, setting all of its samples to `0.0`:
 
 ::
 
@@ -420,14 +425,23 @@ boolean keyword, allowing more audio to be read into or out of the buffer
 during its lifetime. We'll demonstrate this when discussing :ref:`disk IO UGens
 <Disk IO UGens>` further on.
 
-.. todo:: Buffer.close()
+When writing continously to a file left open, you'll have to manually close it
+when you want to stop recording. Closing the buffer writes out the audio header
+with crucial information like the total duration, without which the audio file
+is effectively corrupt.
+
+You can close a buffer via its
+:py:meth:`~supriya.contexts.entities.Buffer.close` method::
+
+    >>> buffer_.close()
 
 Integration
 -----------
 
 Supriya's :py:class:`~supriya.contexts.entities.Buffer` and
 :py:class:`~supriya.contexts.entities.BufferGroup` classes provide affordances for
-interacting with other parts of the system.
+interacting with other parts of the system, and there are a wide variety of
+:term:`UGens <UGen>` for inspecting and manipulating buffers during synthesis.
 
 Referencing
 ```````````
@@ -438,8 +452,14 @@ integer ID is expected::
     >>> int(buffer_)
     >>> int(buffer_group)
 
-Info UGens
+Inspecting
 ``````````
+
+Synths can inspect information about buffers at control or scalar rates. This
+is useful because a synth probably refers to a buffer by ID, and the buffer
+associated with that buffer can be re-allocated during the lifetime of the
+synth *or* the synth may be pointed at a different buffer. Inspecting the
+buffer inside the synth allows it to adapt to a changing exterior environment.
 
 - BufChannels
 - BufDur
@@ -448,8 +468,49 @@ Info UGens
 - BufSampleRate
 - BufSamples
 
-IO UGens
-````````
+::
+
+    >>> from supriya.ugens import BufChannels, BufDur, BufFrames, BufRateScale, BufSampleRate, BufSamples, Out
+    >>> with supriya.SynthDefBuilder(buffer_id=0, out=0) as builder:
+    ...     channels = BufChannels.kr(buffer_id=builder["buffer_id"])
+    ...     duration = BufDur.kr(buffer_id=builder["buffer_id"])
+    ...     frames = BufFrames.kr(buffer_id=builder["buffer_id"])
+    ...     rate_scale = BufRateScale.kr(buffer_id=builder["buffer_id"])
+    ...     sample_rate = BufSampleRate.kr(buffer_id=builder["buffer_id"])
+    ...     sample_count = BufSamples.kr(buffer_id=builder["buffer_id"])
+    ...     _ = Out.kr(bus=builder["out"], source=[channels, duration, frames, rate_scale, sample_rate, sample_count])
+    ...
+    >>> buffer_info_synthdef = builder.build(name="buffer-info")
+
+::
+
+    >>> buffer_one = server.add_buffer(channel_count=2, frame_count=33333)
+    >>> buffer_two = server.add_buffer(channel_count=1, frame_count=1024)
+
+::
+
+    >>> bus_group = server.add_bus_group(count=6)
+    >>> with server.at():
+    ...     with server.add_synthdefs(buffer_info_synthdef):
+    ...         buffer_info_synth = server.add_synth(synthdef=buffer_info_synthdef, out=bus_group, buffer_id=buffer_one)
+    ...
+    >>> _ = server.sync()
+
+::
+
+    >>> bus_group.get()
+
+::
+
+    >>> buffer_info_synth.set(buffer_id=buffer_two)
+    >>> _ = server.sync()
+
+::
+
+    >>> bus_group.get()
+
+Reading and writing
+```````````````````
 
 - BufRd
 - BufWr
@@ -458,14 +519,27 @@ IO UGens
 
 .. _Disk IO UGens:
 
-Disk IO UGens
-`````````````
+Continous Disk IO
+`````````````````
 
 - DiskIn
 - DiskOut
 - VDiskIn
 - ``leaving_open``
 - Buffer.close()
+
+Delay lines
+```````````
+
+- BufAllpassC
+- BufCombC
+- BufDelayC
+- DelTapRd, DelTapWr
+
+Convolution reverb
+``````````````````
+
+- TODO: PartConv
 
 Wavetable synthesis
 ```````````````````
@@ -497,12 +571,16 @@ demonstrated earlier::
     ... )
     >>> supriya.plot(buffer_)
 
+::
+
     >>> buffer_.generate(
     ...     command_name="sine1",
     ...     amplitudes=[1.0, 0.5, 0.25],
     ...     as_wavetable=True,
     ... )
     >>> supriya.plot(buffer_)
+
+::
 
     >>> buffer_.generate(
     ...     command_name="sine2",
@@ -511,6 +589,8 @@ demonstrated earlier::
     ...     as_wavetable=True,
     ... )
     >>> supriya.plot(buffer_)
+
+::
 
     >>> buffer_.generate(
     ...     command_name="sine3",

@@ -36,7 +36,7 @@ Buses can only be added to running servers, so let’s create a server and boot 
     :py:class:`Scores <supriya.contexts.nonrealtime.Score>` are neither online
     nor offline, so you can add buses to them whenever you like.
 
-Creation
+Creating
 ````````
 
 Remember that :term:`scsynth` creates all of its buses at boot. Nothing we do
@@ -63,7 +63,7 @@ Allocate a bus group of 8 buses with::
 
     >>> bus_group = server.add_bus_group(count=8)
 
-Deletion
+Deleting
 ````````
 
 Unlike nodes, freeing a bus doesn't destroy it. The bus still exists inside

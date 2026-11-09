@@ -42,8 +42,8 @@ Create a group, and print its :term:`repr` to the terminal::
 The :term:`repr` shows the group's type (``Group``), its :term:`ID <ID, node>`
 (``1000``), and indicates it has been allocated (``+``).
 
-Positioning nodes
-`````````````````
+Positioning
+```````````
 
 Let's add another group. Groups can be added relative to other groups::
 
@@ -203,8 +203,8 @@ how the reverberation kicks in when you instantiate the second synth::
 
     See :doc:`synthdefs` and :doc:`osc` for more details.
 
-Deleting nodes
-``````````````
+Deleting
+````````
 
 Reset the server for a clean slate, then add a synth::
 
@@ -245,8 +245,8 @@ Groups can also be freed::
     >>> group = server.add_group()
     >>> group.free()
 
-Permanent vs impermanent nodes
-``````````````````````````````
+Permanency
+``````````
 
 By convention, SuperCollider clients support a notion of *permanent* vs
 *user-space* (or *impermanent*) node IDs.
@@ -376,8 +376,8 @@ by the *reverb* synth.
 
 Now we'll interact with these three nodes to modify their sound ...
 
-Moving nodes
-````````````
+Moving
+``````
 
 Nodes can be moved relative to other nodes, using the same :term:`add actions
 <add action>` used when allocating nodes.
@@ -429,8 +429,8 @@ Query the node tree to see the control settings::
 
     >>> print(server.query_tree())
 
-Pausing and unpausing nodes
-```````````````````````````
+Pausing and unpausing
+`````````````````````
 
 Nodes can be paused and unpaused. Paused synths perform no audio processing,
 and all children of paused groups are considered paused.
