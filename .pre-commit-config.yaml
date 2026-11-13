@@ -6,12 +6,12 @@ repos:
   - id: trailing-whitespace
   - id: check-yaml
 - repo: https://github.com/zizmorcore/zizmor-pre-commit
-  rev: v1.31.1 # Zizmor version.
+  rev: v1.32.0 # Zizmor version.
   hooks:
   - id: zizmor
     args: [--no-progress, --fix]
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.17.3 # Ruff version.
+  rev: v0.17.4 # Ruff version.
   hooks:
   - id: ruff-check
     args: [--fix]
@@ -19,6 +19,6 @@ repos:
   - id: ruff-format
     types_or: [python, pyi]
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.13.6
+  rev: 0.13.7
   hooks:
   - id: uv-lock
